@@ -1,8 +1,8 @@
-empty-project-2/.gradle/.
-empty-project-2/.idea/.
-empty-project-2/classes/
-empty-project-2/build/
-empty-project-2/derby.log
+.gradle/
+.idea/
+classes/
+build/
+derby.log
 *.class
 *.jar
 *.lock
