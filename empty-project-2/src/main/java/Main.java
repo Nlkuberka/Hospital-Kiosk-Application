@@ -1,6 +1,6 @@
 public class Main {
     public static void main(String[] args) {
         System.out.println("Collaborator is " + "Jonathan");
-        System.out.println("Collaborator is " + "Henry");
+        System.out.println("Henry");
     }
 }
