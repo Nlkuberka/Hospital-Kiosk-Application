@@ -26,7 +26,14 @@ public class WeightedGraph {
         }
     }
 
-    private ArrayList<Integer> shortestPathSub(int current, int target, int previous, ArrayList<Integer> nodes) {
+    public ArrayList<Integer> shortestPath(int start, int target) {
+        ArrayList<Integer> nodes = new ArrayList<Integer>();
+        nodes.add(0);
+        nodes.add(start);
+        return shortestPathSub(start, target, nodes);
+    }
+
+    private ArrayList<Integer> shortestPathSub(int current, int target, ArrayList<Integer> nodes) {
         if(current == target) {
             return nodes;
         }
@@ -34,7 +41,7 @@ public class WeightedGraph {
         ArrayList<ArrayList<Integer>> possiblePaths = new ArrayList<ArrayList<Integer>>();
         ArrayList<Integer> nodeEdges = adj.get(current);
         for(int i = 0; i < nodeEdges.size(); i++) {
-            if(nodeEdges.get(i) != previous) {
+            if(nodes.indexOf((nodeEdges.get(i))) == -1) {
                 passedOn = true;
                 possiblePaths.add(deepCopy(nodes));
                 possiblePaths.get(i).get(0) += adjWeights.get(current).get(i);
@@ -64,6 +71,13 @@ public class WeightedGraph {
         }
         return copy;
     }
+
+    public void addNode() {
+        nodeNum++;
+        adj.add(new ArrayList<Integer>());
+        adjWeights.add(new ArrayList<Integer>());
+    }
+
     public void addEdge(int n1, int n2, int weight) {
         edgeNum++;
         adj.get(n1).add(n2);
