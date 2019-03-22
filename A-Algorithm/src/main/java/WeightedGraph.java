@@ -37,18 +37,23 @@ public class WeightedGraph {
         if(current == target) {
             return nodes;
         }
+
         boolean passedOn = false;
+        int currentPath = 0;
         ArrayList<ArrayList<Integer>> possiblePaths = new ArrayList<ArrayList<Integer>>();
         ArrayList<Integer> nodeEdges = adj.get(current);
         for(int i = 0; i < nodeEdges.size(); i++) {
             if(nodes.indexOf((nodeEdges.get(i))) == -1) {
                 passedOn = true;
                 possiblePaths.add(deepCopy(nodes));
-                possiblePaths.get(i).get(0) += adjWeights.get(current).get(i);
-                possiblePaths.get(i).add(nodeEdges.get(i));
-                shortestPathSub(nodeEdges.get(i), target, current, possiblePaths.get(i));
+                possiblePaths.get(currentPath).set(0, possiblePaths.get(currentPath).get(0) + adjWeights.get(current).get(i));
+                possiblePaths.get(currentPath).add(nodeEdges.get(i));
+                possiblePaths.set(currentPath, shortestPathSub(nodeEdges.get(i), target, possiblePaths.get(currentPath)));
+                currentPath++;
             }
         }
+
+        System.out.println(current + " - " + possiblePaths);
 
         if(!passedOn) {
             nodes.set(0, Integer.MAX_VALUE);
@@ -61,6 +66,7 @@ public class WeightedGraph {
                 shortestPath = i;
             }
         }
+
         return possiblePaths.get(shortestPath);
     }
 
@@ -73,9 +79,15 @@ public class WeightedGraph {
     }
 
     public void addNode() {
-        nodeNum++;
-        adj.add(new ArrayList<Integer>());
-        adjWeights.add(new ArrayList<Integer>());
+        addNodes(1);
+    }
+
+    public void addNodes(int num) {
+        for(int i = 0; i < num; i++) {
+            nodeNum++;
+            adj.add(new ArrayList<Integer>());
+            adjWeights.add(new ArrayList<Integer>());
+        }
     }
 
     public void addEdge(int n1, int n2, int weight) {
@@ -83,6 +95,16 @@ public class WeightedGraph {
         adj.get(n1).add(n2);
         adjWeights.get(n1).add(weight);
     }
+
+    public void addBiEdge(int n1, int n2, int weight) {
+        edgeNum++;
+        edgeNum++;
+        adj.get(n1).add(n2);
+        adj.get(n2).add(n1);
+        adjWeights.get(n1).add(weight);
+        adjWeights.get(n2).add(weight);
+    }
+
 
     public ArrayList<Integer> getEdges(int n) {
         return adj.get(n);
