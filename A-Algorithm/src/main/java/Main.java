@@ -16,7 +16,7 @@ public class Main {
         wg.addBiEdge(3,8,3);
         wg.addBiEdge(4,8,1);
         wg.addBiEdge(5,9,3);
-        wg.addBiEdge(6,7,3);
+        wg.addBiEdge(6,7,9);
         wg.addBiEdge(7,8,5);
         wg.addBiEdge(8,9,2);
         ArrayList<Integer> path = wg.shortestPath(9, 6);
