@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.Queue;
 
@@ -58,7 +59,8 @@ public class WeightedGraph {
                     marked[nextNode] = true;
                 }
             }
-            System.out.println(paths);
+            System.out.println("P - " + paths);
+            System.out.println("D - " + Arrays.toString(distance));
         }
         paths.get(target).add(0, distance[target]);
         return paths.get(target);
