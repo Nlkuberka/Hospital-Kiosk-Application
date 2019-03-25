@@ -41,7 +41,7 @@ public class readInController {
         values[1] = "" + node.getXcoord();
         values[2] = "" + node.getYcoord();
         values[3] = "" + node.getFloor();
-        values[4] = node.getBuidling();
+        values[4] = node.getBuilding();
         values[5] = node.getNodeType();
         values[6] = node.getLongName();
         values[7] = node.getShortName();

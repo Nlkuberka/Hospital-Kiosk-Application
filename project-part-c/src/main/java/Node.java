@@ -3,7 +3,7 @@ public class Node {
     private int xcoord;
     private int ycoord;
     private int floor;
-    private String buidling;
+    private String building;
     private String nodeType;
     private String longName;
     private String shortName;
@@ -11,12 +11,12 @@ public class Node {
     public Node() {
     }
 
-    public Node(String nodeID, int xcoord, int ycoord, int floor, String buidling, String nodeType, String longName, String shortName) {
+    public Node(String nodeID, int xcoord, int ycoord, int floor, String building, String nodeType, String longName, String shortName) {
         this.nodeID = nodeID;
         this.xcoord = xcoord;
         this.ycoord = ycoord;
         this.floor = floor;
-        this.buidling = buidling;
+        this.building = building;
         this.nodeType = nodeType;
         this.longName = longName;
         this.shortName = shortName;
@@ -54,12 +54,12 @@ public class Node {
         this.floor = floor;
     }
 
-    public String getBuidling() {
-        return buidling;
+    public String getBuilding() {
+        return building;
     }
 
-    public void setBuidling(String buidling) {
-        this.buidling = buidling;
+    public void setBuilding(String building) {
+        this.building = building;
     }
 
     public String getNodeType() {
@@ -84,5 +84,18 @@ public class Node {
 
     public void setShortName(String shortName) {
         this.shortName = shortName;
+    }
+
+    public String toString() {
+        String returnValue = "Node(";
+        returnValue += getNodeID() + ", ";
+        returnValue += getXcoord() + ", ";
+        returnValue += getYcoord() + ", ";
+        returnValue += getFloor() + ", ";
+        returnValue += getBuilding() + ", ";
+        returnValue += getNodeType() + ", ";
+        returnValue += getLongName() + ", ";
+        returnValue += getShortName() + ")";
+        return  returnValue;
     }
 }
