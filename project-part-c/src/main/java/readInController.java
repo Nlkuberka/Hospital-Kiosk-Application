@@ -1,17 +1,17 @@
 import javafx.fxml.FXML;
-import javafx.event.Event;
-import javafx.event.EventHandler;
+
+import javafx.event.ActionEvent;
+import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.Control;
 import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.Stage;
 
-import javax.annotation.Resources;
-import java.awt.event.MouseEvent;
-import java.net.URL;
+import java.io.IOException;
 
 public class readInController {
     private int rowNum = 1;
@@ -27,14 +27,14 @@ public class readInController {
     private Button toDownloadButton;
 
     @FXML
-    public void initialize()  {
+    public void initialize(){
         for(int i = 0; i < 100; i++) {
             Node node1 = new Node("" + i, i * 7, i * 8, i + 2, "Building " + i, "Room", "Room 1", "RM!");
             addRow(node1);
         }
     }
 
-    private void addRow(Node node) {
+    private void addRow(Node node){
         Label[] labels = new Label[colNum];
         String[] values = new String[colNum];
         Button editButton = new Button("Edit");
@@ -57,7 +57,7 @@ public class readInController {
 
         editButton.setAlignment(Pos.CENTER);
         editButton.setId("" + values[0]);
-        editButton.setOnAction(e -> goToEdit(editButton.getId()));
+        editButton.setOnAction(e -> goToEdit(e, editButton.getId()));
         databaseGrid.add(editButton, 8, rowNum);
 
         rowNum++;
@@ -66,7 +66,20 @@ public class readInController {
     }
 
     @FXML
-    private void goToEdit(String nodeID) {
-        System.out.println(nodeID);
+    private void goToEdit(ActionEvent e, String nodeID){
+        try {
+            Stage stage = (Stage) databaseGrid.getScene().getWindow();
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("editNode.fxml"));
+            Parent root = fxmlLoader.load();
+            editNodeController controller = fxmlLoader.getController();
+
+            controller.setNodeID(nodeID);
+
+            stage.setTitle("Database Editor");
+            stage.setScene(new Scene(root, 800, 600));
+            stage.show();
+        } catch(Exception ex) {
+            System.out.println(ex.toString());
+        }
     }
 }
