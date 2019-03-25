@@ -21,11 +21,21 @@ public class readInController extends Controller{
     private Button toDownloadButton;
 
     @FXML
+    private Label nodeIDLabel;
+
+    @FXML
     public void initialize(){
         for(int i = 0; i < 100; i++) {
             Node node1 = new Node("" + i, i * 7, i * 8, i + 2, "Building " + i, "Room", "Room 1", "RM!");
             addRow(node1);
         }
+    }
+
+    public void clearGrid() {
+        rowNum = 1;
+        databaseGrid.getChildren().removeIf(node -> GridPane.getRowIndex(node) != GridPane.getRowIndex(nodeIDLabel));
+        databaseGrid.setPrefHeight(rowNum * 30.0);
+        databaseAnchor.setPrefHeight(rowNum * 30.0);
     }
 
     private void addRow(Node node){

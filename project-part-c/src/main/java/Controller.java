@@ -5,48 +5,70 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 public class Controller {
-    private final int WIDTH = 1200;
-    private final int HEIGHT = 800;
+    private static final int WIDTH = 1200;
+    private static final int HEIGHT = 800;
+
+    private static Scene viewScene;
+    private static readInController viewController;
+    private static Scene editScene;
+    private static editNodeController editController;
+    private static Scene downloadScene;
+    private static downloadController downloadController;
+
+    public Controller() {
+    }
+
     @FXML
     protected void goToView(Stage stage) {
-        try {
-            Parent root = FXMLLoader.load(getClass().getResource("readIn.fxml"));
-            stage.setTitle("Database Viewer");
-            stage.setScene(new Scene(root, WIDTH, HEIGHT));
-            stage.show();
-        } catch(Exception e) {
-            e.printStackTrace();
+        if(viewScene == null) {
+            try {
+                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("readIn.fxml"));
+                Parent root = fxmlLoader.load();
+                viewController = fxmlLoader.getController();
+                viewScene = new Scene(root, WIDTH, HEIGHT);
+            } catch(Exception e) {
+                e.printStackTrace();
+            }
         }
 
+        stage.setTitle("Database Viewer");
+        stage.setScene(viewScene);
+        stage.show();
     }
 
     @FXML
     protected void goToEdit(Stage stage, String nodeID) {
-        try {
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("editNode.fxml"));
-            Parent root = fxmlLoader.load();
-            editNodeController controller = fxmlLoader.getController();
-
-            controller.setNodeID(nodeID);
-
-            stage.setTitle("Database Editor");
-            stage.setScene(new Scene(root, WIDTH, HEIGHT));
-            stage.show();
-        } catch(Exception ex) {
-            System.out.println(ex.toString());
+        if(editScene == null) {
+            try {
+                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("editNode.fxml"));
+                Parent root = fxmlLoader.load();
+                editController = fxmlLoader.getController();
+                editScene = new Scene(root, WIDTH, HEIGHT);
+            } catch(Exception e) {
+                e.printStackTrace();
+            }
         }
+        editController.setNodeID(nodeID);
+
+        stage.setTitle("Database Editor");
+        stage.setScene(editScene);
+        stage.show();
     }
 
     @FXML
     protected void goToDownload(Stage stage) {
-        try {
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("download.fxml"));
-            Parent root = fxmlLoader.load();
-            stage.setTitle("Database Download");
-            stage.setScene(new Scene(root, WIDTH, HEIGHT));
-            stage.show();
-        } catch(Exception e) {
-            e.printStackTrace();
+        if(downloadScene == null) {
+            try {
+                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("download.fxml"));
+                Parent root = fxmlLoader.load();
+                downloadController = fxmlLoader.getController();
+                downloadScene = new Scene(root, WIDTH, HEIGHT);
+            } catch(Exception e) {
+                e.printStackTrace();
+            }
         }
+        stage.setTitle("Database Download");
+        stage.setScene(downloadScene);
+        stage.show();
     }
 }
