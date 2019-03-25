@@ -1,6 +1,8 @@
 import javafx.application.Application;
 import javafx.stage.Stage;
 import java.sql.*;
+import java.util.LinkedList;
+import java.util.List;
 
 public class Main extends Application {
 
