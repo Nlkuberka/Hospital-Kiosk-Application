@@ -14,6 +14,9 @@ public class editNodeController extends Controller{
     private Button saveButton;
 
     @FXML
+    private Button removeButton;
+
+    @FXML
     private TextField nodeIDTextfield;
 
     @FXML
@@ -38,7 +41,13 @@ public class editNodeController extends Controller{
     private TextField shortNameTextfield;
 
     public void setNodeID(String nodeID) {
+        oldNode = null;
+        if(nodeID == null) {
+            nodeIDTextfield.setDisable(false);
+            oldNode = new Node();
+        }
         System.out.println(nodeID);
+
         //Get Node Data
         //setFields(oldNode);
     }
@@ -71,7 +80,6 @@ public class editNodeController extends Controller{
         }
     }
 
-
     @FXML
     private void setCancelButton() {
         goToView((Stage) cancelButton.getScene().getWindow());
@@ -79,7 +87,13 @@ public class editNodeController extends Controller{
 
     @FXML
     private void setSaveButton() {
+        nodeIDTextfield.setDisable(true);
         goToView((Stage) saveButton.getScene().getWindow());
+    }
+
+    @FXML
+    private void setRemoveButton() {
+
     }
 
 }

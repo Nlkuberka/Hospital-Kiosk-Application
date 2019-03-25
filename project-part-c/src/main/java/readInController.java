@@ -24,6 +24,9 @@ public class readInController extends Controller{
     private Label nodeIDLabel;
 
     @FXML
+    private Button addNodeButton;
+
+    @FXML
     public void initialize(){
         for(int i = 0; i < 100; i++) {
             Node node1 = new Node("" + i, i * 7, i * 8, i + 2, "Building " + i, "Room", "Room 1", "RM!");
@@ -38,7 +41,7 @@ public class readInController extends Controller{
         databaseAnchor.setPrefHeight(rowNum * 30.0);
     }
 
-    private void addRow(Node node){
+    public void addRow(Node node){
         Label[] labels = new Label[colNum];
         String[] values = new String[colNum];
         Button editButton = new Button("Edit");
@@ -77,5 +80,10 @@ public class readInController extends Controller{
     @FXML
     private void goToDownloadViewer() {
         goToDownload((Stage) databaseGrid.getScene().getWindow());
+    }
+
+    @FXML
+    private void setAddNodeButton() {
+        goToEdit((Stage) databaseGrid.getScene().getWindow(), null);
     }
 }
