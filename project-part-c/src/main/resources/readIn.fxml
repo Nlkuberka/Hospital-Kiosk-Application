@@ -82,7 +82,7 @@
             </AnchorPane>
         </content>
       </ScrollPane>
-      <Button fx:id="toDownloadButton" layoutX="1100.0" layoutY="755.0" mnemonicParsing="false" text="Download CSV" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" />
+      <Button fx:id="toDownloadButton" layoutX="1100.0" layoutY="755.0" mnemonicParsing="false" onAction="#goToDownload" text="Download CSV" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" />
       <Label alignment="CENTER" contentDisplay="CENTER" layoutX="545.0" layoutY="37.0" text="Prototype Node Data" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="20.0">
          <font>
             <Font size="36.0" />

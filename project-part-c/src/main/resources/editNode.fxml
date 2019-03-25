@@ -9,8 +9,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-
-<AnchorPane prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="editNodeController">
+<AnchorPane prefHeight="800.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="editNodeController">
    <children>
       <GridPane layoutX="300.0" layoutY="151.0" AnchorPane.bottomAnchor="80.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="80.0">
         <columnConstraints>
@@ -28,14 +27,38 @@
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Label text="NodeID" />
-            <Label text="xcoord" GridPane.rowIndex="1" />
-            <Label text="ycoord" GridPane.rowIndex="2" />
-            <Label text="floor" GridPane.rowIndex="3" />
-            <Label text="buidling" GridPane.rowIndex="4" />
-            <Label text="nodeType" GridPane.rowIndex="5" />
-            <Label text="longName" GridPane.rowIndex="6" />
-            <Label text="shortName" GridPane.rowIndex="7" />
+            <Label alignment="CENTER" contentDisplay="CENTER" text="nodeID" GridPane.halignment="CENTER">
+               <font>
+                  <Font size="16.0" />
+               </font></Label>
+            <Label text="xcoord" GridPane.halignment="CENTER" GridPane.rowIndex="1">
+               <font>
+                  <Font size="16.0" />
+               </font></Label>
+            <Label text="ycoord" GridPane.halignment="CENTER" GridPane.rowIndex="2">
+               <font>
+                  <Font size="16.0" />
+               </font></Label>
+            <Label text="floor" GridPane.halignment="CENTER" GridPane.rowIndex="3">
+               <font>
+                  <Font size="16.0" />
+               </font></Label>
+            <Label text="buidling" GridPane.halignment="CENTER" GridPane.rowIndex="4">
+               <font>
+                  <Font size="16.0" />
+               </font></Label>
+            <Label text="nodeType" GridPane.halignment="CENTER" GridPane.rowIndex="5">
+               <font>
+                  <Font size="16.0" />
+               </font></Label>
+            <Label text="longName" GridPane.halignment="CENTER" GridPane.rowIndex="6">
+               <font>
+                  <Font size="16.0" />
+               </font></Label>
+            <Label text="shortName" GridPane.halignment="CENTER" GridPane.rowIndex="7">
+               <font>
+                  <Font size="16.0" />
+               </font></Label>
             <TextField fx:id="nodeIDTextfield" onKeyTyped="#validateEdits" promptText="The Node ID" GridPane.columnIndex="1" />
             <TextField onKeyTyped="#validateEdits" promptText="The Xcoord of the Node" GridPane.columnIndex="1" GridPane.rowIndex="1" fx:id="xcoordTextfield" />
             <TextField fx:id="ycoordTextfield" onKeyTyped="#validateEdits" promptText="The Ycoord of the Node" GridPane.columnIndex="1" GridPane.rowIndex="2" />
@@ -48,10 +71,10 @@
       </GridPane>
       <Label alignment="CENTER" contentDisplay="CENTER" layoutX="385.0" layoutY="26.0" text="Edit Node" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
          <font>
-            <Font size="24.0" />
+            <Font size="36.0" />
          </font>
       </Label>
-      <Button fx:id="cancelButton" layoutX="200.0" layoutY="550.0" mnemonicParsing="false" onAction="#setCancelButton" prefWidth="100.0" text="Cancel" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="100.0" AnchorPane.rightAnchor="500.0" />
-      <Button fx:id="saveButton" defaultButton="true" disable="true" layoutX="563.0" layoutY="550.0" mnemonicParsing="false" onAction="#setSaveButton" prefWidth="100.0" text="Save" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="500.0" AnchorPane.rightAnchor="100.0" />
+      <Button fx:id="cancelButton" layoutX="200.0" layoutY="550.0" mnemonicParsing="false" onAction="#setCancelButton" prefWidth="100.0" text="Cancel" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="100.0" AnchorPane.rightAnchor="800.0" />
+      <Button fx:id="saveButton" defaultButton="true" disable="true" layoutX="563.0" layoutY="550.0" mnemonicParsing="false" onAction="#setSaveButton" prefWidth="100.0" text="Save" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="800.0" AnchorPane.rightAnchor="100.0" />
    </children>
 </AnchorPane>

@@ -11,8 +11,6 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
-import java.io.IOException;
-
 public class readInController {
     private int rowNum = 1;
     private int colNum = 8;
@@ -76,7 +74,23 @@ public class readInController {
             controller.setNodeID(nodeID);
 
             stage.setTitle("Database Editor");
-            stage.setScene(new Scene(root, 800, 600));
+            stage.setScene(new Scene(root, 1200, 800));
+            stage.show();
+        } catch(Exception ex) {
+            System.out.println(ex.toString());
+        }
+    }
+
+    @FXML
+    private void goToDownload() {
+        try {
+            Stage stage = (Stage) databaseGrid.getScene().getWindow();
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("download.fxml"));
+            Parent root = fxmlLoader.load();
+            //downloadController controller = fxmlLoader.getController();
+
+            stage.setTitle("Database Download");
+            stage.setScene(new Scene(root, 1200, 800));
             stage.show();
         } catch(Exception ex) {
             System.out.println(ex.toString());
