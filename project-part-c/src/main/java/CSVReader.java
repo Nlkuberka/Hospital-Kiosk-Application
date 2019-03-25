@@ -2,6 +2,8 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
 
+
+
 public class CSVReader {
     /**
      * Reads a CSV file containing data about the hostpital.
@@ -13,6 +15,7 @@ public class CSVReader {
     public static void readFile(String fileName) {
         File file = new File(fileName);
         try {
+
             Scanner scanner = new Scanner(file);
             scanner.useDelimiter(",|\\r\\n");
             for(int i = 0; i < 8; i++) {    // Ignore the column headers.
