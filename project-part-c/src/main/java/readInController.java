@@ -1,5 +1,6 @@
 import javafx.fxml.FXML;
 
+import javafx.geometry.HPos;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -59,12 +60,14 @@ public class readInController extends Controller{
             labels[i] = new Label(values[i]);
             labels[i].setAlignment(Pos.CENTER);
             labels[i].setPrefHeight(30.0);
+            GridPane.setHalignment(labels[i], HPos.CENTER);
             databaseGrid.add(labels[i], i, rowNum);
         }
 
         editButton.setAlignment(Pos.CENTER);
         editButton.setId("" + values[0]);
         editButton.setOnAction(e -> goToEditViewer(editButton.getId()));
+        GridPane.setHalignment(editButton, HPos.CENTER);
         databaseGrid.add(editButton, 8, rowNum);
 
         rowNum++;
