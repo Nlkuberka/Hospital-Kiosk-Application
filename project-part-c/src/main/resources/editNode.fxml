@@ -59,7 +59,7 @@
                <font>
                   <Font size="16.0" />
                </font></Label>
-            <TextField fx:id="nodeIDTextfield" onKeyTyped="#validateEdits" promptText="The Node ID" GridPane.columnIndex="1" />
+            <TextField fx:id="nodeIDTextfield" disable="true" onKeyTyped="#validateEdits" promptText="The Node ID" GridPane.columnIndex="1" />
             <TextField onKeyTyped="#validateEdits" promptText="The Xcoord of the Node" GridPane.columnIndex="1" GridPane.rowIndex="1" fx:id="xcoordTextfield" />
             <TextField fx:id="ycoordTextfield" onKeyTyped="#validateEdits" promptText="The Ycoord of the Node" GridPane.columnIndex="1" GridPane.rowIndex="2" />
             <TextField fx:id="floorTextfield" onKeyTyped="#validateEdits" promptText="The floor of the node" GridPane.columnIndex="1" GridPane.rowIndex="3" />
