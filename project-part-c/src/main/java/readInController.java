@@ -1,17 +1,13 @@
 import javafx.fxml.FXML;
 
-import javafx.event.ActionEvent;
-import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
-public class readInController {
+public class readInController extends Controller{
     private int rowNum = 1;
     private int colNum = 8;
 
@@ -55,7 +51,7 @@ public class readInController {
 
         editButton.setAlignment(Pos.CENTER);
         editButton.setId("" + values[0]);
-        editButton.setOnAction(e -> goToEdit(e, editButton.getId()));
+        editButton.setOnAction(e -> goToEditViewer(editButton.getId()));
         databaseGrid.add(editButton, 8, rowNum);
 
         rowNum++;
@@ -64,36 +60,12 @@ public class readInController {
     }
 
     @FXML
-    private void goToEdit(ActionEvent e, String nodeID){
-        try {
-            Stage stage = (Stage) databaseGrid.getScene().getWindow();
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("editNode.fxml"));
-            Parent root = fxmlLoader.load();
-            editNodeController controller = fxmlLoader.getController();
-
-            controller.setNodeID(nodeID);
-
-            stage.setTitle("Database Editor");
-            stage.setScene(new Scene(root, 1200, 800));
-            stage.show();
-        } catch(Exception ex) {
-            System.out.println(ex.toString());
-        }
+    private void goToEditViewer(String nodeID){
+        goToEdit((Stage) databaseGrid.getScene().getWindow(), nodeID);
     }
 
     @FXML
-    private void goToDownload() {
-        try {
-            Stage stage = (Stage) databaseGrid.getScene().getWindow();
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("download.fxml"));
-            Parent root = fxmlLoader.load();
-            //downloadController controller = fxmlLoader.getController();
-
-            stage.setTitle("Database Download");
-            stage.setScene(new Scene(root, 1200, 800));
-            stage.show();
-        } catch(Exception ex) {
-            System.out.println(ex.toString());
-        }
+    private void goToDownloadViewer() {
+        goToDownload((Stage) databaseGrid.getScene().getWindow());
     }
 }

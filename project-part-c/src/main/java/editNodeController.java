@@ -1,16 +1,10 @@
 import javafx.fxml.FXML;
 
-import javafx.event.ActionEvent;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
-import java.io.IOException;
-
-public class editNodeController {
+public class editNodeController extends Controller{
     private Node oldNode;
 
     @FXML
@@ -55,7 +49,7 @@ public class editNodeController {
         xcoordTextfield.setText("" + node.getXcoord());
         ycoordTextfield.setText("" + node.getYcoord());
         floorTextfield.setText("" + node.getFloor());
-        buildingTextfield.setText(node.getBuidling());
+        buildingTextfield.setText(node.getBuilding());
         nodeTypeTextfield.setText(node.getNodeType());
         longNameTextfield.setText(node.getLongName());
         shortNameTextfield.setText(node.getShortName());
@@ -67,7 +61,7 @@ public class editNodeController {
            oldNode.getXcoord() != Integer.parseInt(xcoordTextfield.getText()) ||
            oldNode.getYcoord() != Integer.parseInt(ycoordTextfield.getText()) ||
            oldNode.getFloor() != Integer.parseInt(floorTextfield.getText()) ||
-           !oldNode.getBuidling().equals(buildingTextfield.getText()) ||
+           !oldNode.getBuilding().equals(buildingTextfield.getText()) ||
            !oldNode.getNodeType().equals(nodeTypeTextfield.getText()) ||
            !oldNode.getLongName().equals(longNameTextfield.getText()) ||
            !oldNode.getShortName().equals(shortNameTextfield.getText())) {
@@ -79,17 +73,13 @@ public class editNodeController {
 
 
     @FXML
-    private void setCancelButton(ActionEvent e) throws IOException {
-        Stage stage = (Stage) cancelButton.getScene().getWindow();
-        Parent root = FXMLLoader.load(getClass().getResource("readIn.fxml"));
-        stage.setTitle("Database Viewer");
-        stage.setScene(new Scene(root, 1200, 800));
-        stage.show();
+    private void setCancelButton() {
+        goToView((Stage) cancelButton.getScene().getWindow());
     }
 
     @FXML
     private void setSaveButton() {
-
+        goToView((Stage) saveButton.getScene().getWindow());
     }
 
 }
