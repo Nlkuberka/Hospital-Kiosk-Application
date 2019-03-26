@@ -120,6 +120,11 @@ public class WeightedGraph {
         for(int i = 0; i < nodeNum; i++) {
             removeBiEdge(node, i);
         }
+
+        adj.remove(node);
+        adjWeights.remove(node);
+        nodeNum--;
+
         for(int i = 0; i < nodeNum; i++) {
             List<Integer> adjList = adj.get(i);
             for(int j = 0; j < adjList.size(); j++) {
@@ -128,9 +133,6 @@ public class WeightedGraph {
                 }
             }
         }
-        adj.remove(node);
-        adjWeights.remove(node);
-        nodeNum--;
     }
 
     /**
