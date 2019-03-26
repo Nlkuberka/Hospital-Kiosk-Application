@@ -1,9 +1,11 @@
 
 import org.apache.derby.client.am.SqlException;
 
+import javax.swing.plaf.nimbus.State;
 import java.io.FileWriter;
 import java.sql.*;
 import java.util.LinkedList;
+import java.util.List;
 
 
 public class DBController {
@@ -106,6 +108,32 @@ public class DBController {
        }catch(SQLException e){
            e.printStackTrace();
        }
+    }
+    
+    /**
+     * generateListofNodes
+     *
+     * creates and returns a list of node objects
+     * @return
+     */
+    public LinkedList<Node> generateListofNodes(){
+        try{
+            Connection conn = DriverManager.getConnection("jdbc:derby:myDB");
+            Statement s = conn.createStatement();
+            ResultSet rs = s.executeQuery("SELECT * from NODES");
+            LinkedList<Node> listOfNodes = new LinkedList<Node>();
+            while(rs.next()){
+                Node node = new Node(rs.getString(1),rs.getInt(2),rs.getInt(3),
+                                        rs.getInt(4),rs.getString(5),rs.getString(6),
+                                        rs.getString(7),rs.getString(8));
+                listOfNodes.add(node);
+            }
+            conn.close();
+            return listOfNodes;
+        }catch(SQLException e){
+            e.printStackTrace();
+        }
+        return null;
     }
 
     /**
