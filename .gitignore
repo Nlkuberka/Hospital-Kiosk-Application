@@ -7,3 +7,4 @@ derby.log
 *.jar
 *.lock
 *.iml
+project-part-c/myDB/seg0/
