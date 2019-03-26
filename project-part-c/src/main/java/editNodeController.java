@@ -86,9 +86,9 @@ public class editNodeController extends Controller{
             Integer.parseInt(ycoordTextfield.getText());
             Integer.parseInt(floorTextfield.getText());
         } catch(Exception e) {
-            e.printStackTrace();
             return;
         }
+        // Validate that edits have been made
         if((!oldNode.getNodeID().equals(nodeIDTextfield.getText()) ||
             oldNode.getXcoord() != Integer.parseInt(xcoordTextfield.getText()) ||
             oldNode.getYcoord() != Integer.parseInt(ycoordTextfield.getText()) ||
@@ -98,6 +98,7 @@ public class editNodeController extends Controller{
             !oldNode.getLongName().equals(longNameTextfield.getText()) ||
             !oldNode.getShortName().equals(shortNameTextfield.getText())) &&
 
+            // Validate lengths of the database columns
             nodeIDTextfield.getText().length() <= 10 &&
             Integer.parseInt(xcoordTextfield.getText()) >= 0 &&
             Integer.parseInt(ycoordTextfield.getText()) >= 0 &&

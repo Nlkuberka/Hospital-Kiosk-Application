@@ -9,10 +9,13 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 import java.util.List;
+import java.util.Map;
+import java.util.TreeMap;
 
 public class readInController extends Controller{
     private int rowNum = 1;
     private int colNum = 8;
+    private Map<String, Integer> nodeRowNum;
 
     @FXML
     private GridPane databaseGrid;
@@ -34,10 +37,12 @@ public class readInController extends Controller{
      */
     @FXML
     public void initialize(){
+        nodeRowNum = new TreeMap<String, Integer>();
         for(int i = 0; i < 100; i++) {
             Node node1 = new Node("" + i, i * 7, i * 8, i + 2, "Building " + i, "Room", "Room 1", "RM!");
             addRow(node1);
         }
+        removeNode("3");
     }
 
     /**
@@ -94,7 +99,20 @@ public class readInController extends Controller{
         GridPane.setHalignment(editButton, HPos.CENTER);
         databaseGrid.add(editButton, 8, rowNum);
 
+        nodeRowNum.put(node.getNodeID(), rowNum);
+
         rowNum++;
+        databaseGrid.setPrefHeight(rowNum * 30.0);
+        databaseAnchor.setPrefHeight(rowNum * 30.0);
+    }
+
+    /**
+     * Removes the row with the given nodeID
+     * @param nodeID The nodeID to remove
+     */
+    private void removeNode(String nodeID) {
+        rowNum--;
+        databaseGrid.getChildren().removeIf(node -> GridPane.getRowIndex(node) == nodeRowNum.get(nodeID));
         databaseGrid.setPrefHeight(rowNum * 30.0);
         databaseAnchor.setPrefHeight(rowNum * 30.0);
     }
