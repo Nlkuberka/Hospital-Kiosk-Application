@@ -6,6 +6,7 @@ import javafx.stage.Stage;
 
 public class editNodeController extends Controller{
     private Node oldNode;
+    private Node newNode;
 
     @FXML
     private Button cancelButton;
@@ -40,18 +41,28 @@ public class editNodeController extends Controller{
     @FXML
     private TextField shortNameTextfield;
 
+    /**
+     * Sets the node that is to be edited
+     * and adds the node fields to the UI
+     * @param nodeID The ID of the node to add, null for new node
+     */
     public void setNodeID(String nodeID) {
         oldNode = null;
+        System.out.println(nodeID);
         if(nodeID == null) {
             nodeIDTextfield.setDisable(false);
-            oldNode = new Node();
+            oldNode = new Node("z", -1, -1, -1, "z", "z" , "z" ,"z");
         }
-        System.out.println(nodeID);
+        System.out.println(oldNode);
 
         //Get Node Data
         //setFields(oldNode);
     }
 
+    /**
+     * Sets the UI textfields to the initial node values
+     * @param node The node to put in
+     */
     @FXML
     public void setFields(Node node)  {
         nodeIDTextfield.setText(node.getNodeID());
@@ -64,36 +75,78 @@ public class editNodeController extends Controller{
         shortNameTextfield.setText(node.getShortName());
     }
 
+    /**
+     * Validates that the user has actually made edits to the node fields
+     * Enables the save button if so, disable otherwise
+     */
     @FXML
     private void validateEdits() {
-        if(!oldNode.getNodeID().equals(nodeIDTextfield.getText()) ||
-           oldNode.getXcoord() != Integer.parseInt(xcoordTextfield.getText()) ||
-           oldNode.getYcoord() != Integer.parseInt(ycoordTextfield.getText()) ||
-           oldNode.getFloor() != Integer.parseInt(floorTextfield.getText()) ||
-           !oldNode.getBuilding().equals(buildingTextfield.getText()) ||
-           !oldNode.getNodeType().equals(nodeTypeTextfield.getText()) ||
-           !oldNode.getLongName().equals(longNameTextfield.getText()) ||
-           !oldNode.getShortName().equals(shortNameTextfield.getText())) {
+        try{
+            Integer.parseInt(xcoordTextfield.getText());
+            Integer.parseInt(ycoordTextfield.getText());
+            Integer.parseInt(floorTextfield.getText());
+        } catch(Exception e) {
+            e.printStackTrace();
+            return;
+        }
+        if((!oldNode.getNodeID().equals(nodeIDTextfield.getText()) ||
+            oldNode.getXcoord() != Integer.parseInt(xcoordTextfield.getText()) ||
+            oldNode.getYcoord() != Integer.parseInt(ycoordTextfield.getText()) ||
+            oldNode.getFloor() != Integer.parseInt(floorTextfield.getText()) ||
+            !oldNode.getBuilding().equals(buildingTextfield.getText()) ||
+            !oldNode.getNodeType().equals(nodeTypeTextfield.getText()) ||
+            !oldNode.getLongName().equals(longNameTextfield.getText()) ||
+            !oldNode.getShortName().equals(shortNameTextfield.getText())) &&
+
+            nodeIDTextfield.getText().length() <= 10 &&
+            Integer.parseInt(xcoordTextfield.getText()) >= 0 &&
+            Integer.parseInt(ycoordTextfield.getText()) >= 0 &&
+            Integer.parseInt(floorTextfield.getText()) >= 1 &&
+            buildingTextfield.getText().length() <= 15 &&
+            nodeTypeTextfield.getText().length() <= 4 &&
+            longNameTextfield.getText().length() <= 50 &&
+            shortNameTextfield.getText().length() <= 25
+        ) {
             saveButton.setDisable(false);
         } else {
             saveButton.setDisable(true);
         }
     }
 
+    /**
+     * Cancels the current changes and sets the scene back to the view scene
+     */
     @FXML
     private void setCancelButton() {
         goToView((Stage) cancelButton.getScene().getWindow());
     }
 
+    /**
+     * Saves the current node and its changes
+     * Sets the scene back to the view nodes scene
+     */
     @FXML
     private void setSaveButton() {
+        newNode = new Node();
+        newNode.setNodeID(nodeIDTextfield.getText());
+        newNode.setXcoord(Integer.parseInt(xcoordTextfield.getText()));
+        newNode.setYcoord(Integer.parseInt(ycoordTextfield.getText()));
+        newNode.setFloor(Integer.parseInt(floorTextfield.getText()));
+        newNode.setBuilding(buildingTextfield.getText());
+        newNode.setNodeType(nodeTypeTextfield.getText());
+        newNode.setLongName(longNameTextfield.getText());
+        newNode.setShortName(shortNameTextfield.getText());
+
         nodeIDTextfield.setDisable(true);
         goToView((Stage) saveButton.getScene().getWindow());
     }
 
+    /**
+     * Removes the current node and sets the scene back to the view nodes scene
+     */
     @FXML
     private void setRemoveButton() {
-
+        goToView((Stage) removeButton.getScene().getWindow());
     }
 
 }

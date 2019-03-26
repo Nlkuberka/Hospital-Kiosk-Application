@@ -8,6 +8,8 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
+import java.util.List;
+
 public class readInController extends Controller{
     private int rowNum = 1;
     private int colNum = 8;
@@ -27,6 +29,9 @@ public class readInController extends Controller{
     @FXML
     private Button addNodeButton;
 
+    /**
+     * Initializes the view list on scene creation
+     */
     @FXML
     public void initialize(){
         for(int i = 0; i < 100; i++) {
@@ -35,6 +40,9 @@ public class readInController extends Controller{
         }
     }
 
+    /**
+     * Clears all of the current node rows in the grid
+     */
     public void clearGrid() {
         rowNum = 1;
         databaseGrid.getChildren().removeIf(node -> GridPane.getRowIndex(node) != GridPane.getRowIndex(nodeIDLabel));
@@ -42,6 +50,20 @@ public class readInController extends Controller{
         databaseAnchor.setPrefHeight(rowNum * 30.0);
     }
 
+    /**
+     * Adds all of the nodes in the list to the grid
+     * @param nodes The list of nodes to add
+     */
+    public void addNodes(List<Node> nodes) {
+        for(int i = 0; i < nodes.size(); i++) {
+            addRow(nodes.get(i));
+        }
+    }
+
+    /**
+     * Adds a single node row to the grid along with an edit button
+     * @param node The node to add
+     */
     public void addRow(Node node){
         Label[] labels = new Label[colNum];
         String[] values = new String[colNum];
@@ -56,6 +78,7 @@ public class readInController extends Controller{
         values[6] = node.getLongName();
         values[7] = node.getShortName();
 
+        // Add labels to grid
         for(int i = 0; i < colNum; i++) {
             labels[i] = new Label(values[i]);
             labels[i].setAlignment(Pos.CENTER);
@@ -64,6 +87,7 @@ public class readInController extends Controller{
             databaseGrid.add(labels[i], i, rowNum);
         }
 
+        // Add button to grid
         editButton.setAlignment(Pos.CENTER);
         editButton.setId("" + values[0]);
         editButton.setOnAction(e -> goToEditViewer(editButton.getId()));
@@ -75,16 +99,26 @@ public class readInController extends Controller{
         databaseAnchor.setPrefHeight(rowNum * 30.0);
     }
 
+    /**
+     * To the the edit scene
+     * @param nodeID The ID of the node to edit
+     */
     @FXML
     private void goToEditViewer(String nodeID){
         goToEdit((Stage) databaseGrid.getScene().getWindow(), nodeID);
     }
 
+    /**
+     * Go to the download scene
+     */
     @FXML
     private void goToDownloadViewer() {
         goToDownload((Stage) databaseGrid.getScene().getWindow());
     }
 
+    /**
+     * Goes to the edit scene but passes in a null nodeID for a new node
+     */
     @FXML
     private void setAddNodeButton() {
         goToEdit((Stage) databaseGrid.getScene().getWindow(), null);
