@@ -1,6 +1,7 @@
 
 import org.apache.derby.client.am.SqlException;
 
+import java.io.FileWriter;
 import java.sql.*;
 import java.util.LinkedList;
 
@@ -47,33 +48,58 @@ public class DBController {
             e.printStackTrace();
         }
     }
-//    public void updateNode(Node node){
-//        try{
-//            Connection connection = DriverManager.getConnection("jdbc:derby:myDB");
-//            Statement s = connection.createStatement();
-//            s.executeQuery("UPDATE NODES WHERE NODEID =" + node.getNodeID()" +
-//                    " ");
-//        }catch(SQLException e){
-//
-//        }
-//    }
+    public void updateNode(Node node){
+        try{
+            Connection connection = DriverManager.getConnection("jdbc:derby:myDB");
+            Statement s = connection.createStatement();
+            s.executeQuery("UPDATE NODES" +
+                    "Set xcoord ="+ node.getXcoord() +","+
+                    "ycoord ="+ node.getYcoord() + ","+
+                    "floor ="+ node.getFloor() + ","+
+                    "building ="+ node.getBuilding() + ","+
+                    "nodetype ="+ node.getNodeType() + ","+
+                    "longname ="+ node.getLongName() + ","+
+                    "shortname ="+ node.getShortName() +
+                    "where nodeid=" + node.getNodeID()
+            );
+        }catch(SQLException e){
+
+        }
+    }
 
     public void exportData(String filename) {
         Connection connection = null;
         Statement stmt;
-        String query;
+        String query = "Select * from nodes";
         try {
-            stmt = connection.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE,
-                    ResultSet.CONCUR_UPDATABLE);
-
-            //For comma separated file
-            query = "SELECT id,text,price into OUTFILE  '"+filename+
-                    "' FIELDS TERMINATED BY ',' FROM testtable t";
-            stmt.executeQuery(query);
+            connection = DriverManager.getConnection("jdbc:derby:myDB");
+            stmt = connection.createStatement();
+            ResultSet rs = stmt.executeQuery(query);
+            FileWriter fw = new FileWriter(filename);
+            while(rs.next()) {
+                fw.append(rs.getString(1));
+                fw.append(',');
+                fw.append(rs.getString(2));
+                fw.append(',');
+                fw.append(rs.getString(3));
+                fw.append(',');
+                fw.append(rs.getString(4));
+                fw.append(',');
+                fw.append(rs.getString(5));
+                fw.append(',');
+                fw.append(rs.getString(6));
+                fw.append(',');
+                fw.append(rs.getString(7));
+                fw.append(',');
+                fw.append(rs.getString(8));
+            }
+            fw.flush();
+            fw.close();
             connection.close();
         } catch(Exception e) {
             e.printStackTrace();
             stmt = null;
+
         }
     }
 }
