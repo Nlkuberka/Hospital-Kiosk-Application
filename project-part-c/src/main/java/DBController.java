@@ -75,11 +75,8 @@ public class DBController {
      */
     public void deleteNode(String ID){
         try {
-            //connection = DriverManager.getConnection("jdbc:derby:myDB");
             Statement s = connection.createStatement();
             s.execute("Delete from NODES where NODEID = '"+ ID +"'");
-            //connection.close();
-
 
         }catch(SQLException e){
             e.printStackTrace();
@@ -195,4 +192,19 @@ public class DBController {
 
         }
     }
+
+
+    /**
+     * ClearData
+     * Drops all data stored in Nodes
+     */
+    public void clearData(){
+        try {
+            Statement s = connection.createStatement();
+            s.execute("DELETE from nodes");
+        }catch(SQLException e){
+            e.printStackTrace();
+        }
+    }
+
 }
