@@ -2,7 +2,7 @@
 import org.apache.derby.client.am.SqlException;
 
 import javax.swing.plaf.nimbus.State;
-import java.io.FileWriter;
+import java.io.*;
 import java.sql.*;
 import java.util.LinkedList;
 import java.util.List;
@@ -13,28 +13,14 @@ public class DBController {
 
     Connection connection;
 
-    public DBController()
-    {
+    public DBController() {
+        try {
+            connection = DriverManager.getConnection("jdbc:derby:myDB");
 
+        }catch(SQLException e){
+            e.printStackTrace();
+        }
     }
-
-//    /**
-//     * DBConnect
-//     *
-//     * generates connection and table if non-existent
-//     */
-//    public void DBConnect(){
-//        Connection connection = null;
-//        try {
-//            connection = DriverManager.getConnection("jdbc:derby:myDB;create=true");
-//            connection.setSchema("APP");
-//            connection.close();
-//        } catch (SQLException e) {
-//            System.out.println("Connection failed. Check output console.");
-//            e.printStackTrace();
-//            return;
-//        }
-//    }
 
     /**
      * enterData
@@ -44,12 +30,12 @@ public class DBController {
      */
     public void enterData(List<Node> nodes){
         try {
-            connection = DriverManager.getConnection("jdbc:derby:myDB");
+            //connection = DriverManager.getConnection("jdbc:derby:myDB");
             Statement s = connection.createStatement();
             for (Node node : nodes) {
                 nodeInsert(s,node);
             }
-            connection.close();
+            //connection.close();
         }catch(SQLException e) {
             e.printStackTrace();
         }
@@ -63,18 +49,19 @@ public class DBController {
      */
     public void updateNode(Node node){
         try{
-            //Connection connection = DriverManager.getConnection("jdbc:derby:myDB");
+            connection = DriverManager.getConnection("jdbc:derby:myDB");
             Statement s = connection.createStatement();
-            s.executeQuery("UPDATE NODES" +
+            s.execute("UPDATE NODES" +
                     "Set xcoord ="+ node.getXcoord() +","+
                     "ycoord ="+ node.getYcoord() + ","+
                     "floor ="+ node.getFloor() + ","+
-                    "building ="+ node.getBuilding() + ","+
-                    "nodetype ="+ node.getNodeType() + ","+
-                    "longname ="+ node.getLongName() + ","+
-                    "shortname ="+ node.getShortName() +
-                    "where nodeid=" + node.getNodeID()
+                    "building ='"+ node.getBuilding() + "',"+
+                    "nodetype ='"+ node.getNodeType() + "',"+
+                    "longname ='"+ node.getLongName() + "',"+
+                    "shortname ='"+ node.getShortName() +"',"+
+                    "where nodeid= '" + node.getNodeID() +"'"
             );
+            connection.close();
         }catch(SQLException e){
             e.printStackTrace();
         }
@@ -88,9 +75,10 @@ public class DBController {
      */
     public void deleteNode(String ID){
         try {
-            //Connection conn = DriverManager.getConnection("jdbc:derby:myDB");
+            connection = DriverManager.getConnection("jdbc:derby:myDB");
             Statement s = connection.createStatement();
-            s.executeQuery("Delete from NODES where NODEID ="+ ID);
+            s.execute("Delete from NODES where NODEID ="+ ID);
+            connection.close();
         }catch(SQLException e){
             e.printStackTrace();
         }
@@ -104,7 +92,7 @@ public class DBController {
      */
     public void addNode(Node node){
        try{
-           // Connection connection = DriverManager.getConnection("jdbc:derby:myDB");
+           connection = DriverManager.getConnection("jdbc:derby:myDB");
            Statement s = connection.createStatement();
            nodeInsert(s,node);
            connection.close();
@@ -121,7 +109,7 @@ public class DBController {
      */
     public LinkedList<Node> generateListofNodes(){
         try{
-           // Connection conn = DriverManager.getConnection("jdbc:derby:myDB");
+            connection = DriverManager.getConnection("jdbc:derby:myDB");
             Statement s = connection.createStatement();
             ResultSet rs = s.executeQuery("SELECT * from NODES");
             LinkedList<Node> listOfNodes = new LinkedList<Node>();
@@ -131,7 +119,7 @@ public class DBController {
                                         rs.getString(7),rs.getString(8));
                 listOfNodes.add(node);
             }
-            //conn.close();
+            connection.close();
             return listOfNodes;
         }catch(SQLException e){
             e.printStackTrace();
@@ -175,7 +163,9 @@ public class DBController {
             connection = DriverManager.getConnection("jdbc:derby:myDB");
             stmt = connection.createStatement();
             ResultSet rs = stmt.executeQuery(query);
+            File file = new File(filename);
             FileWriter fw = new FileWriter(filename);
+            fw.write("nodeID, xcoord, ycoord, floor, building, nodeType, longName, shortName \r\n");
             while(rs.next()) {
                 fw.append(rs.getString(1));
                 fw.append(',');
@@ -192,6 +182,7 @@ public class DBController {
                 fw.append(rs.getString(7));
                 fw.append(',');
                 fw.append(rs.getString(8));
+                fw.write("\r\n");
             }
             fw.flush();
             fw.close();
