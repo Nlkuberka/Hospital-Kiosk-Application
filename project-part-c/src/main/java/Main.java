@@ -14,8 +14,8 @@ public class Main extends Application {
         Controller controller = new Controller(primaryStage);
         DBController dbController = new DBController();
 
-        List<Node> list = CSVHandler.readFile("PrototypeNodes.csv");
-        dbController.enterData(list);
+//        List<Node> list = CSVHandler.readFile("PrototypeNodes.csv");
+//        dbController.enterData(list);
         controller.setDBController(dbController);
 
         primaryStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
