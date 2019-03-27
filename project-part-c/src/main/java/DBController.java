@@ -15,7 +15,7 @@ public class DBController {
 
     public DBController() {
         try {
-            connection = DriverManager.getConnection("jdbc:derby:myDB");
+            connection = DriverManager.getConnection("jdbc:derby:myDB;create=true");
 
         }catch(SQLException e){
             e.printStackTrace();
@@ -52,14 +52,14 @@ public class DBController {
             connection = DriverManager.getConnection("jdbc:derby:myDB");
             Statement s = connection.createStatement();
             s.execute("UPDATE NODES" +
-                    "Set xcoord ="+ node.getXcoord() +","+
-                    "ycoord ="+ node.getYcoord() + ","+
-                    "floor ="+ node.getFloor() + ","+
-                    "building ='"+ node.getBuilding() + "',"+
-                    "nodetype ='"+ node.getNodeType() + "',"+
-                    "longname ='"+ node.getLongName() + "',"+
-                    "shortname ='"+ node.getShortName() +"',"+
-                    "where nodeid= '" + node.getNodeID() +"'"
+                    "SET XCOORD ="+ node.getXcoord() +","+
+                    "YCOORD ="+ node.getYcoord() + ","+
+                    "FLOOR ="+ node.getFloor() + ","+
+                    "BUILDING ='"+ node.getBuilding() + "',"+
+                    "NODETYPE ='"+ node.getNodeType() + "',"+
+                    "LONGNAME ='"+ node.getLongName() + "',"+
+                    "SHORTNAME ='"+ node.getShortName() +"'"+
+                    "where NODEID = '" + node.getNodeID() +"'"
             );
             connection.close();
         }catch(SQLException e){
