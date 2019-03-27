@@ -32,6 +32,7 @@ public class CSVHandler {
         }
         catch(FileNotFoundException e) {
             System.err.println("Cannot read file: " + fileName);
+            e.printStackTrace();
             return null;
         }
     }
@@ -101,6 +102,7 @@ public class CSVHandler {
         }
         catch(IOException e) {
             System.err.println("Cannot create file: " + fileName);
+            e.printStackTrace();
         }
     }
 

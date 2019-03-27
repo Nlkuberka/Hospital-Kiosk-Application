@@ -1,6 +1,8 @@
 import javafx.application.Application;
 import javafx.stage.Stage;
 
+import java.util.List;
+
 
 public class Main extends Application {
 
@@ -9,7 +11,8 @@ public class Main extends Application {
         Controller controller = new Controller(primaryStage);
         controller.goToScene(controller.VIEW_STRING);
         DBController dbController = new DBController();
-        dbController.DBConnect();
+        List<Node> list = CSVHandler.readFile("PrototypeNodes.csv");
+        dbController.enterData(list);
     }
 
     public static void main(String[] args) {
