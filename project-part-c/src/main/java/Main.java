@@ -9,10 +9,15 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception{
         Controller controller = new Controller(primaryStage);
-        controller.goToScene(controller.VIEW_STRING);
         DBController dbController = new DBController();
+
         List<Node> list = CSVHandler.readFile("PrototypeNodes.csv");
         dbController.enterData(list);
+        System.out.println(dbController);
+        System.out.println(dbController.connection);
+        controller.setDBController(dbController);
+
+        controller.goToScene(controller.VIEW_STRING);
     }
 
     public static void main(String[] args) {

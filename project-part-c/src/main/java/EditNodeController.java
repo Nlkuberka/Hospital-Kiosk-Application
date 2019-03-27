@@ -44,19 +44,18 @@ public class EditNodeController extends Controller{
     /**
      * Sets the node that is to be edited
      * and adds the node fields to the UI
-     * @param nodeID The ID of the node to add, null for new node
+     * @param node The node to add, null for new node
      */
-    public void setNodeID(String nodeID) {
+    public void setNode(Node givenNode) {
         oldNode = null;
-        System.out.println(nodeID);
-        if(nodeID == null) {
+        if(givenNode == null) {
             nodeIDTextfield.setDisable(false);
             oldNode = new Node("z", -1, -1, -1, "z", "z" , "z" ,"z");
+        } else {
+            oldNode = givenNode;
         }
-        System.out.println(oldNode);
-
-        //Get Node Data
-        //setFields(oldNode);
+        
+        setFields(oldNode);
     }
 
     /**

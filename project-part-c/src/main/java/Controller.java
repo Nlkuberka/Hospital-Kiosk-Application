@@ -21,6 +21,8 @@ public class Controller {
     private static Map<String, String> sceneFiles;
     private static Map<String, String> sceneTitles;
 
+    protected static DBController dbController;
+
     public Controller() {
 
     }
@@ -67,5 +69,9 @@ public class Controller {
         primaryStage.show();
 
         return sceneControllers.get(sceneString);
+    }
+
+    public void setDBController(DBController dbController) {
+        this.dbController = dbController;
     }
 }

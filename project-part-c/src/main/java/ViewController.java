@@ -16,6 +16,7 @@ public class ViewController extends Controller {
     private int rowNum = 1;
     private int colNum = 8;
     private Map<String, Integer> nodeRowNum;
+    private List<Node> nodes;
 
     @FXML
     private GridPane databaseGrid;
@@ -38,11 +39,8 @@ public class ViewController extends Controller {
     @FXML
     public void initialize(){
         nodeRowNum = new TreeMap<String, Integer>();
-        for(int i = 0; i < 100; i++) {
-            Node node1 = new Node("" + i, i * 7, i * 8, i + 2, "Building " + i, "Room", "Room 1", "RM!");
-            addRow(node1);
-        }
-        removeNode("3");
+        nodes = dbController.generateListofNodes()
+        addNodes(nodes);
     }
 
     /**
@@ -124,7 +122,7 @@ public class ViewController extends Controller {
     @FXML
     private void goToEditViewer(String nodeID){
         EditNodeController ec = (EditNodeController) this.goToScene(this.EDIT_STRING);
-        ec.setNodeID(nodeID);
+        ec.setNode(nodes.filter(n -> n.getNodeID() == nodeID).get(0));
     }
 
     /**
