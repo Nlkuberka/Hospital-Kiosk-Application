@@ -1,6 +1,9 @@
 import javafx.application.Application;
+import javafx.event.EventHandler;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 
+import java.sql.SQLException;
 import java.util.List;
 
 
@@ -13,10 +16,20 @@ public class Main extends Application {
 
         List<Node> list = CSVHandler.readFile("PrototypeNodes.csv");
         dbController.enterData(list);
-        System.out.println(dbController);
-        System.out.println(dbController.connection);
         controller.setDBController(dbController);
 
+        primaryStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
+            @Override
+            public void handle(WindowEvent event) {
+
+                try {
+                    dbController.connection.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+
+            }
+        });
         controller.goToScene(controller.VIEW_STRING);
     }
 
