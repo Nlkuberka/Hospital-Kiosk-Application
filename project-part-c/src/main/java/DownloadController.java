@@ -17,7 +17,7 @@ public class DownloadController extends Controller{
      */
     @FXML
     private void setDownloadButton() {
-
+        dbController.exportData("newNodes.csv");
     }
 
     /**

@@ -39,7 +39,7 @@ public class ViewController extends Controller {
     @FXML
     public void initialize(){
         nodeRowNum = new TreeMap<String, Integer>();
-        nodes = dbController.generateListofNodes()
+        nodes = dbController.generateListofNodes();
         addNodes(nodes);
     }
 
@@ -122,7 +122,7 @@ public class ViewController extends Controller {
     @FXML
     private void goToEditViewer(String nodeID){
         EditNodeController ec = (EditNodeController) this.goToScene(this.EDIT_STRING);
-        ec.setNode(nodes.filter(n -> n.getNodeID() == nodeID).get(0));
+        ec.setNode(getNodeData(nodeID));
     }
 
     /**
@@ -139,5 +139,19 @@ public class ViewController extends Controller {
     @FXML
     private void setAddNodeButton() {
         this.goToScene(this.EDIT_STRING);
+    }
+
+    /**
+     * Gets the node data for the given nodeID
+     * @param nodeID The node ID to get
+     * @return The node data
+     */
+    private Node getNodeData(String nodeID) {
+        for(int i = 0; i < nodes.size(); i++) {
+            if(nodes.get(i).getNodeID().equals(nodeID)) {
+                return nodes.get(i);
+            }
+        }
+        return null;
     }
 }

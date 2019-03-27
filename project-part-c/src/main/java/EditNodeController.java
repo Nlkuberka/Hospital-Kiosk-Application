@@ -7,6 +7,7 @@ import javafx.stage.Stage;
 public class EditNodeController extends Controller{
     private Node oldNode;
     private Node newNode;
+    private boolean newNodeCreated;
 
     @FXML
     private Button cancelButton;
@@ -49,12 +50,14 @@ public class EditNodeController extends Controller{
     public void setNode(Node givenNode) {
         oldNode = null;
         if(givenNode == null) {
+            newNodeCreated = true;
             nodeIDTextfield.setDisable(false);
-            oldNode = new Node("z", -1, -1, -1, "z", "z" , "z" ,"z");
+            oldNode = new Node("", 0, 0, 1, "", "" , "" ,"");
         } else {
+            newNodeCreated = false;
             oldNode = givenNode;
         }
-        
+
         setFields(oldNode);
     }
 
@@ -139,6 +142,11 @@ public class EditNodeController extends Controller{
 
         nodeIDTextfield.setDisable(true);
 
+        if(newNodeCreated) {
+            dbController.addNode(newNode);
+        } else {
+            dbController.updateNode(newNode);
+        }
         this.goToScene(this.VIEW_STRING);
     }
 
@@ -147,6 +155,7 @@ public class EditNodeController extends Controller{
      */
     @FXML
     private void setRemoveButton() {
+        dbController.deleteNode(nodeIDTextfield.getText());
         this.goToScene(this.VIEW_STRING);
     }
 
