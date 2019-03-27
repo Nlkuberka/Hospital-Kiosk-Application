@@ -15,8 +15,20 @@ public class DBController {
 
     public DBController() {
         try {
+            DriverManager.registerDriver(new org.apache.derby.jdbc.EmbeddedDriver());
             connection = DriverManager.getConnection("jdbc:derby:myDB;create=true");
-
+            Statement s = connection.createStatement();
+            s.execute("CREATE TABLE NODES(\n" +
+                    "NODEID VARCHAR(10),\n" +
+                    "XCOORD INTEGER,\n" +
+                    "YCOORD INTEGER,\n" +
+                    "FLOOR INTEGER,\n" +
+                    "BUILDING VARCHAR(15),\n" +
+                    "NODETYPE VARCHAR(4),\n" +
+                    "LONGNAME VARCHAR(50),\n" +
+                    "SHORTNAME VARCHAR(25),\n" +
+                    "CONSTRAINT NODE_PK PRIMARY KEY(NODEID)\n" +
+                    ")");
         }catch(SQLException e){
             e.printStackTrace();
         }
