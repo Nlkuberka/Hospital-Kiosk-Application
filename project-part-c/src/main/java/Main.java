@@ -6,8 +6,8 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception{
-        Controller controller = new Controller();
-        controller.goToView(primaryStage);
+        Controller controller = new Controller(primaryStage);
+        controller.goToScene(controller.VIEW_STRING);
         DBController dbController = new DBController();
         dbController.DBConnect();
     }

@@ -4,7 +4,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
-public class editNodeController extends Controller{
+public class EditNodeController extends Controller{
     private Node oldNode;
     private Node newNode;
 
@@ -119,7 +119,7 @@ public class editNodeController extends Controller{
      */
     @FXML
     private void setCancelButton() {
-        goToView((Stage) cancelButton.getScene().getWindow());
+        this.goToScene(this.VIEW_STRING);
     }
 
     /**
@@ -139,7 +139,8 @@ public class editNodeController extends Controller{
         newNode.setShortName(shortNameTextfield.getText());
 
         nodeIDTextfield.setDisable(true);
-        goToView((Stage) saveButton.getScene().getWindow());
+
+        this.goToScene(this.VIEW_STRING);
     }
 
     /**
@@ -147,7 +148,7 @@ public class editNodeController extends Controller{
      */
     @FXML
     private void setRemoveButton() {
-        goToView((Stage) removeButton.getScene().getWindow());
+        this.goToScene(this.VIEW_STRING);
     }
 
 }

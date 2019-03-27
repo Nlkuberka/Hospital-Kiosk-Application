@@ -4,71 +4,68 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
+import java.util.Map;
+import java.util.HashMap;
+
 public class Controller {
+    public static final String VIEW_STRING = "VIEW";
+    public static final String EDIT_STRING= "EDIT";
+    public static final String DOWNLOAD_STRING = "DOWNLOAD";
+
     private static final int WIDTH = 700;
     private static final int HEIGHT = 700;
 
-    private static Scene viewScene;
-    private static readInController viewController;
-    private static Scene editScene;
-    private static editNodeController editController;
-    private static Scene downloadScene;
-    private static downloadController downloadController;
+    private static Stage primaryStage;
+    private static Map<String, Scene> scenes;
+    private static Map<String, Controller> sceneControllers;
+    private static Map<String, String> sceneFiles;
+    private static Map<String, String> sceneTitles;
 
     public Controller() {
+
+    }
+
+    public Controller(Stage stage) {
+        primaryStage = stage;
+        setLists();
+    }
+
+    private void setLists() {
+        scenes = new HashMap<String, Scene>();
+        sceneControllers = new HashMap<String, Controller>();
+        sceneFiles = new HashMap<String, String>();
+        sceneTitles = new HashMap<String, String>();
+
+        sceneFiles.put(this.VIEW_STRING, "view.fxml");
+        sceneTitles.put(this.VIEW_STRING, "Database Viewer");
+
+        sceneFiles.put(this.EDIT_STRING, "editNode.fxml");
+        sceneTitles.put(this.EDIT_STRING, "Database Node Editor");
+
+        sceneFiles.put(this.DOWNLOAD_STRING, "download.fxml");
+        sceneTitles.put(this.DOWNLOAD_STRING, "Database Download");
     }
 
     @FXML
-    protected void goToView(Stage stage) {
-        if(viewScene == null) {
+    protected Controller goToScene(String sceneString) {
+        Scene scene = scenes.get(sceneString);
+
+        if(scene == null) {
             try {
-                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("readIn.fxml"));
+                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(sceneFiles.get(sceneString)));
                 Parent root = fxmlLoader.load();
-                viewController = fxmlLoader.getController();
-                viewScene = new Scene(root, WIDTH, HEIGHT);
+                sceneControllers.put(sceneString, fxmlLoader.getController());
+                scenes.put(sceneString, new Scene(root, WIDTH, HEIGHT));
+                scene = scenes.get(sceneString);
             } catch(Exception e) {
                 e.printStackTrace();
             }
         }
 
-        stage.setTitle("Database Viewer");
-        stage.setScene(viewScene);
-        stage.show();
-    }
+        primaryStage.setTitle(sceneTitles.get(sceneString));
+        primaryStage.setScene(scene);
+        primaryStage.show();
 
-    @FXML
-    protected void goToEdit(Stage stage, String nodeID) {
-        if(editScene == null) {
-            try {
-                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("editNode.fxml"));
-                Parent root = fxmlLoader.load();
-                editController = fxmlLoader.getController();
-                editScene = new Scene(root, WIDTH, HEIGHT);
-            } catch(Exception e) {
-                e.printStackTrace();
-            }
-        }
-        editController.setNodeID(nodeID);
-
-        stage.setTitle("Database Editor");
-        stage.setScene(editScene);
-        stage.show();
-    }
-
-    @FXML
-    protected void goToDownload(Stage stage) {
-        if(downloadScene == null) {
-            try {
-                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("download.fxml"));
-                Parent root = fxmlLoader.load();
-                downloadController = fxmlLoader.getController();
-                downloadScene = new Scene(root, WIDTH, HEIGHT);
-            } catch(Exception e) {
-                e.printStackTrace();
-            }
-        }
-        stage.setTitle("Database Download");
-        stage.setScene(downloadScene);
-        stage.show();
+        return sceneControllers.get(sceneString);
     }
 }

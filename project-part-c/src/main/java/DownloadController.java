@@ -3,7 +3,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.stage.Stage;
 
-public class downloadController extends Controller{
+public class DownloadController extends Controller{
 
     @FXML
     private Button downloadButton;
@@ -25,6 +25,6 @@ public class downloadController extends Controller{
      */
     @FXML
     private void setBackButton() {
-        goToView((Stage) backButton.getScene().getWindow());
+        this.goToScene(this.VIEW_STRING);
     }
 }

@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
-public class readInController extends Controller{
+public class ViewController extends Controller {
     private int rowNum = 1;
     private int colNum = 8;
     private Map<String, Integer> nodeRowNum;
@@ -123,7 +123,8 @@ public class readInController extends Controller{
      */
     @FXML
     private void goToEditViewer(String nodeID){
-        goToEdit((Stage) databaseGrid.getScene().getWindow(), nodeID);
+        EditNodeController ec = (EditNodeController) this.goToScene(this.EDIT_STRING);
+        ec.setNodeID(nodeID);
     }
 
     /**
@@ -131,7 +132,7 @@ public class readInController extends Controller{
      */
     @FXML
     private void goToDownloadViewer() {
-        goToDownload((Stage) databaseGrid.getScene().getWindow());
+        this.goToScene(this.DOWNLOAD_STRING);
     }
 
     /**
@@ -139,6 +140,6 @@ public class readInController extends Controller{
      */
     @FXML
     private void setAddNodeButton() {
-        goToEdit((Stage) databaseGrid.getScene().getWindow(), null);
+        this.goToScene(this.EDIT_STRING);
     }
 }
