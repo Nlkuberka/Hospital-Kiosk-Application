@@ -9,6 +9,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 import java.util.List;
+import java.util.LinkedList;
 import java.util.Map;
 import java.util.TreeMap;
 
@@ -39,8 +40,8 @@ public class ViewController extends Controller {
     @FXML
     public void initialize(){
         nodeRowNum = new TreeMap<String, Integer>();
-        nodes = dbController.generateListofNodes();
-        addNodes(nodes);
+        nodes = new LinkedList<Node>();
+        addNodes(dbController.generateListofNodes());
     }
 
     /**
@@ -68,6 +69,7 @@ public class ViewController extends Controller {
      * @param node The node to add
      */
     public void addRow(Node node){
+        nodes.add(node);
         Label[] labels = new Label[colNum];
         String[] values = new String[colNum];
         Button editButton = new Button("Edit");
@@ -108,11 +110,18 @@ public class ViewController extends Controller {
      * Removes the row with the given nodeID
      * @param nodeID The nodeID to remove
      */
-    private void removeNode(String nodeID) {
+    public void removeNode(String nodeID) {
         rowNum--;
         databaseGrid.getChildren().removeIf(node -> GridPane.getRowIndex(node) == nodeRowNum.get(nodeID));
         databaseGrid.setPrefHeight(rowNum * 30.0);
         databaseAnchor.setPrefHeight(rowNum * 30.0);
+
+        for(int i = 0; i < nodes.size(); i++) {
+            if(nodes.get(i).getNodeID().equals(nodeID)) {
+                nodes.remove(i);
+                break;
+            }
+        }
     }
 
     /**
@@ -138,7 +147,8 @@ public class ViewController extends Controller {
      */
     @FXML
     private void setAddNodeButton() {
-        this.goToScene(this.EDIT_STRING);
+        EditNodeController ec = (EditNodeController) this.goToScene(this.EDIT_STRING);
+        ec.setNode(null);
     }
 
     /**

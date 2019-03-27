@@ -147,7 +147,13 @@ public class EditNodeController extends Controller{
         } else {
             dbController.updateNode(newNode);
         }
-        this.goToScene(this.VIEW_STRING);
+        ViewController controller = (ViewController) this.goToScene(this.VIEW_STRING);
+        if(newNodeCreated) {
+            controller.addRow(newNode);
+        } else {
+            controller.removeNode(newNode.getNodeID());
+            controller.addRow(newNode);
+        }
     }
 
     /**
@@ -156,7 +162,8 @@ public class EditNodeController extends Controller{
     @FXML
     private void setRemoveButton() {
         dbController.deleteNode(nodeIDTextfield.getText());
-        this.goToScene(this.VIEW_STRING);
+        ViewController controller = (ViewController) this.goToScene(this.VIEW_STRING);
+        controller.removeNode(nodeIDTextfield.getText());
     }
 
 }
