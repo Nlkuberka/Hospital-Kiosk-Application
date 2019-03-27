@@ -10,28 +10,31 @@ import java.util.List;
 
 public class DBController {
 
-    public DBController(){
+
+    Connection connection;
+
+    public DBController()
+    {
 
     }
 
-    /**
-     * DBConnect
-     *
-     * generates connection and table if non-existent
-     */
-    public void DBConnect(){
-        Connection connection = null;
-        try {
-            // substitute your database name for myDB
-            connection = DriverManager.getConnection("jdbc:derby:myDB;create=true");
-            connection.setSchema("APP");
-            connection.close();
-        } catch (SQLException e) {
-            System.out.println("Connection failed. Check output console.");
-            e.printStackTrace();
-            return;
-        }
-    }
+//    /**
+//     * DBConnect
+//     *
+//     * generates connection and table if non-existent
+//     */
+//    public void DBConnect(){
+//        Connection connection = null;
+//        try {
+//            connection = DriverManager.getConnection("jdbc:derby:myDB;create=true");
+//            connection.setSchema("APP");
+//            connection.close();
+//        } catch (SQLException e) {
+//            System.out.println("Connection failed. Check output console.");
+//            e.printStackTrace();
+//            return;
+//        }
+//    }
 
     /**
      * enterData
@@ -39,12 +42,12 @@ public class DBController {
      * enters node values to existing node table
      * @param nodes list of nodes read from a CSV file
      */
-    public void enterData(LinkedList<Node> nodes){
+    public void enterData(List<Node> nodes){
         try {
-            Connection connection = DriverManager.getConnection("jdbc:derby:myDB");
+            connection = DriverManager.getConnection("jdbc:derby:myDB");
             Statement s = connection.createStatement();
             for (Node node : nodes) {
-            nodeInsert(s,node);
+                nodeInsert(s,node);
             }
             connection.close();
         }catch(SQLException e) {
@@ -60,7 +63,7 @@ public class DBController {
      */
     public void updateNode(Node node){
         try{
-            Connection connection = DriverManager.getConnection("jdbc:derby:myDB");
+            //Connection connection = DriverManager.getConnection("jdbc:derby:myDB");
             Statement s = connection.createStatement();
             s.executeQuery("UPDATE NODES" +
                     "Set xcoord ="+ node.getXcoord() +","+
@@ -85,8 +88,8 @@ public class DBController {
      */
     public void deleteNode(String ID){
         try {
-            Connection conn = DriverManager.getConnection("jdbc:derby:myDB");
-            Statement s = conn.createStatement();
+            //Connection conn = DriverManager.getConnection("jdbc:derby:myDB");
+            Statement s = connection.createStatement();
             s.executeQuery("Delete from NODES where NODEID ="+ ID);
         }catch(SQLException e){
             e.printStackTrace();
@@ -101,7 +104,7 @@ public class DBController {
      */
     public void addNode(Node node){
        try{
-           Connection connection = DriverManager.getConnection("jdbc:derby:myDB");
+           // Connection connection = DriverManager.getConnection("jdbc:derby:myDB");
            Statement s = connection.createStatement();
            nodeInsert(s,node);
            connection.close();
@@ -109,7 +112,7 @@ public class DBController {
            e.printStackTrace();
        }
     }
-    
+
     /**
      * generateListofNodes
      *
@@ -118,8 +121,8 @@ public class DBController {
      */
     public LinkedList<Node> generateListofNodes(){
         try{
-            Connection conn = DriverManager.getConnection("jdbc:derby:myDB");
-            Statement s = conn.createStatement();
+           // Connection conn = DriverManager.getConnection("jdbc:derby:myDB");
+            Statement s = connection.createStatement();
             ResultSet rs = s.executeQuery("SELECT * from NODES");
             LinkedList<Node> listOfNodes = new LinkedList<Node>();
             while(rs.next()){
@@ -128,7 +131,7 @@ public class DBController {
                                         rs.getString(7),rs.getString(8));
                 listOfNodes.add(node);
             }
-            conn.close();
+            //conn.close();
             return listOfNodes;
         }catch(SQLException e){
             e.printStackTrace();
@@ -145,15 +148,14 @@ public class DBController {
      */
     public void nodeInsert(Statement s, Node node){
         try {
-            s.executeQuery("insert into NODES " +
-                    "values (" + node.getNodeID() + "," +
-                    " " + node.getXcoord() + "," +
-                    " " + node.getYcoord() + "," +
-                    " " + node.getFloor() + "," +
-                    " " + node.getBuilding() + "," +
-                    " " + node.getNodeType() + "," +
-                    " " + node.getLongName() + "," +
-                    " " + node.getShortName() + ")");
+            s.execute("insert into NODES values ('"+node.getNodeID()+"',"+
+                    node.getXcoord()+","
+                    +node.getYcoord()+","+
+                    node.getFloor() + "," +
+                    " '" + node.getBuilding() + "'," +
+                    " '" + node.getNodeType() + "'," +
+                    " '" + node.getLongName() + "'," +
+                    " '" + node.getShortName() + "')");
         }catch(SQLException e){
             e.printStackTrace();
         }
