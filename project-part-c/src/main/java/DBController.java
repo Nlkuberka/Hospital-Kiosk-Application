@@ -77,7 +77,7 @@ public class DBController {
         try {
             //connection = DriverManager.getConnection("jdbc:derby:myDB");
             Statement s = connection.createStatement();
-            s.execute("Delete from NODES where NODEID ="+ ID);
+            s.execute("Delete from NODES where NODEID = '"+ ID +"'");
             //connection.close();
 
 
