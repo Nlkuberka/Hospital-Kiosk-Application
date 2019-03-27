@@ -16,6 +16,7 @@ import java.util.TreeMap;
 public class ViewController extends Controller {
     private int rowNum = 1;
     private int colNum = 8;
+    private int removedNodes = 0;
     private Map<String, Integer> nodeRowNum;
     private List<Node> nodes;
 
@@ -48,10 +49,10 @@ public class ViewController extends Controller {
      * Clears all of the current node rows in the grid
      */
     public void clearGrid() {
-        rowNum = 1;
+        removedNodes += rowNum - 1;
         databaseGrid.getChildren().removeIf(node -> GridPane.getRowIndex(node) != GridPane.getRowIndex(nodeIDLabel));
-        databaseGrid.setPrefHeight(rowNum * 30.0);
-        databaseAnchor.setPrefHeight(rowNum * 30.0);
+        databaseGrid.setPrefHeight((rowNum - removedNodes) * 30.0);
+        databaseAnchor.setPrefHeight((rowNum - removedNodes) * 30.0);
     }
 
     /**
@@ -102,8 +103,8 @@ public class ViewController extends Controller {
         nodeRowNum.put(node.getNodeID(), rowNum);
 
         rowNum++;
-        databaseGrid.setPrefHeight(rowNum * 30.0);
-        databaseAnchor.setPrefHeight(rowNum * 30.0);
+        databaseGrid.setPrefHeight((rowNum - removedNodes) * 30.0);
+        databaseAnchor.setPrefHeight((rowNum - removedNodes) * 30.0);
     }
 
     /**
@@ -111,10 +112,10 @@ public class ViewController extends Controller {
      * @param nodeID The nodeID to remove
      */
     public void removeNode(String nodeID) {
-        rowNum--;
+        removedNodes++;
         databaseGrid.getChildren().removeIf(node -> GridPane.getRowIndex(node) == nodeRowNum.get(nodeID));
-        databaseGrid.setPrefHeight(rowNum * 30.0);
-        databaseAnchor.setPrefHeight(rowNum * 30.0);
+        databaseGrid.setPrefHeight((rowNum - removedNodes) * 30.0);
+        databaseAnchor.setPrefHeight((rowNum - removedNodes) * 30.0);
 
         for(int i = 0; i < nodes.size(); i++) {
             if(nodes.get(i).getNodeID().equals(nodeID)) {
