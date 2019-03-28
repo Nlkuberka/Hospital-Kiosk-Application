@@ -1,8 +1,8 @@
 import javafx.fxml.FXML;
 
-public class UIControllerLoginMain extends UIController {
+public class UIControllerLM extends UIController {
 
-    public UIControllerLoginMain() {
+    public UIControllerLM() {
 
     }
 
