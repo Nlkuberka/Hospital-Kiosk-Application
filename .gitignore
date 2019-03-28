@@ -2,8 +2,10 @@
 .idea/
 classes/
 build/
+myDB/
 derby.log
 *.class
+*.csv
 *.jar
 *.lock
 *.iml
