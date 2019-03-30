@@ -14,8 +14,7 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.text.Font?>
 
-
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="UIControllerATVN">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="UIControllerATVE">
    <children>
       <AnchorPane prefHeight="400.0" prefWidth="600.0" styleClass="body-background" stylesheets="/backgroud.css">
          <children>
@@ -29,7 +28,7 @@
             </ImageView>
             <BorderPane>
                <top>
-                  <MenuBar blendMode="MULTIPLY" nodeOrientation="LEFT_TO_RIGHT" prefWidth="600.0" style="-fx-background-color: #F6B6E2;" BorderPane.alignment="CENTER">
+                  <MenuBar blendMode="MULTIPLY" nodeOrientation="LEFT_TO_RIGHT" prefWidth="600.0" style="-fx-background-color: #F6B6E2;" styleClass="menu" stylesheets="@backgroud.css" BorderPane.alignment="CENTER">
                     <menus>
                       <Menu mnemonicParsing="false" text="Back">
                         <items>
@@ -50,16 +49,10 @@
                <center>
                   <JFXTreeTableView maxWidth="570.0" opacity="0.9" prefHeight="320.0" prefWidth="400.0" BorderPane.alignment="CENTER">
                      <columns>
-                        <TreeTableColumn prefWidth="53.0" text="NodeID" />
-                        <TreeTableColumn prefWidth="47.0" text="xcoord" />
-                        <TreeTableColumn prefWidth="47.0" text="ycoord" />
-                        <TreeTableColumn prefWidth="35.0" text="floor" />
-                        <TreeTableColumn prefWidth="54.0" text="building" />
-                        <TreeTableColumn prefWidth="70.0" text="nodeType" />
-                        <TreeTableColumn prefWidth="82.0" text="longName" />
-                        <TreeTableColumn prefWidth="69.0" text="shortName" />
-                        <TreeTableColumn prefWidth="50.0" text="TeamID" />
-                        <TreeTableColumn prefWidth="63.0" text="Remove" />
+                        <TreeTableColumn prefWidth="53.0" text="EdgeID" />
+                        <TreeTableColumn prefWidth="193.4000244140625" text="StartNode" />
+                        <TreeTableColumn prefWidth="162.5999755859375" text="EndNode" />
+                        <TreeTableColumn prefWidth="160.0" text="Remove" />
                      </columns>
                   </JFXTreeTableView>
                </center>

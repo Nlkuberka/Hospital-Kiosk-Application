@@ -12,7 +12,7 @@
 <?import javafx.scene.text.Text?>
 
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="UIControllerGMMM">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="BasicMainMenuMain">
    <children>
       <AnchorPane prefHeight="400.0" prefWidth="600.0" styleClass="body-background" stylesheets="/backgroud.css">
          <children>
@@ -34,19 +34,29 @@
                   </MenuBar>
                </top>
             </BorderPane>
-            <JFXButton buttonType="RAISED" layoutX="176.0" layoutY="143.0" stylesheets="@backgroud.css" text="Find Your Path">
+            <JFXButton buttonType="RAISED" layoutX="148.0" layoutY="242.0" maxHeight="40.0" prefHeight="40.0" prefWidth="305.0" stylesheets="@backgroud.css" text="View Reservation" textFill="WHITE">
                <font>
-                  <Font name="System Bold Italic" size="30.0" />
+                  <Font name="System Bold" size="20.0" />
                </font>
             </JFXButton>
-            <JFXButton buttonType="RAISED" layoutX="173.0" layoutY="240.0" stylesheets="@backgroud.css" text="Service Request">
+            <JFXButton buttonType="RAISED" layoutX="148.0" layoutY="305.0" maxHeight="40.0" prefHeight="40.0" prefWidth="305.0" stylesheets="@backgroud.css" text="Service Request" textFill="WHITE">
                <font>
-                  <Font name="System Bold Italic" size="30.0" />
+                  <Font name="System Bold" size="20.0" />
                </font>
             </JFXButton>
-            <Text fill="WHITE" layoutX="223.0" layoutY="103.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Hi, Guest">
+            <JFXButton buttonType="RAISED" layoutX="148.0" layoutY="177.0" maxHeight="40.0" prefHeight="40.0" prefWidth="305.0" stylesheets="@backgroud.css" text="Reserve a Room" textFill="WHITE">
                <font>
-                  <Font name="System Bold" size="36.0" />
+                  <Font name="System Bold" size="20.0" />
+               </font>
+            </JFXButton>
+            <JFXButton buttonType="RAISED" layoutX="148.0" layoutY="114.0" maxHeight="40.0" prefHeight="40.0" prefWidth="305.0" stylesheets="@backgroud.css" text="Find Your Path" textFill="WHITE">
+               <font>
+                  <Font name="System Bold" size="20.0" />
+               </font>
+            </JFXButton>
+            <Text fill="WHITE" layoutX="181.0" layoutY="88.0" strokeType="OUTSIDE" strokeWidth="0.0" text="User's Home">
+               <font>
+                  <Font name="System Bold" size="40.0" />
                </font>
             </Text>
          </children>

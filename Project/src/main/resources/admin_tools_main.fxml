@@ -12,6 +12,7 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
 <AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="UIControllerATM">
    <children>
@@ -24,7 +25,7 @@
             </ImageView>
             <BorderPane>
                <top>
-                  <MenuBar blendMode="ADD" prefWidth="600.0" style="-fx-background-color: white;" BorderPane.alignment="CENTER">
+                  <MenuBar blendMode="ADD" prefWidth="600.0" style="-fx-background-color: white;" stylesheets="@backgroud.css" BorderPane.alignment="CENTER">
                     <menus>
                       <Menu mnemonicParsing="false" text="Back">
                         <items>
@@ -44,16 +45,21 @@
                </top>
             </BorderPane>
             <VBox layoutX="214.0" layoutY="140.0" />
-            <JFXButton fx:id="ViewNodesButton" buttonType="RAISED" layoutX="206.0" layoutY="239.0" ripplerFill="#ffd2d2" text="Edit Nodes" textAlignment="CENTER" textFill="WHITE" wrapText="true">
+            <JFXButton fx:id="viewNodesButton" buttonType="RAISED" layoutX="206.0" layoutY="253.0" ripplerFill="#ffd2d2" text="Edit Nodes" textAlignment="CENTER" textFill="WHITE" wrapText="true">
                <font>
                   <Font size="28.0" />
                </font>
             </JFXButton>
-            <JFXButton fx:id="ViewEdgesEdges" buttonType="RAISED" layoutX="209.0" layoutY="111.0" text="Edit Edges" textAlignment="CENTER" textFill="WHITE" wrapText="true">
+            <JFXButton fx:id="viewEdgesEdges" buttonType="RAISED" layoutX="209.0" layoutY="162.0" text="Edit Edges" textAlignment="CENTER" textFill="WHITE" wrapText="true">
                <font>
                   <Font size="28.0" />
                </font>
             </JFXButton>
+            <Text fill="WHITE" layoutX="128.0" layoutY="115.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Administrator Tools">
+               <font>
+                  <Font name="System Bold" size="35.0" />
+               </font>
+            </Text>
          </children>
       </AnchorPane>
    </children>
