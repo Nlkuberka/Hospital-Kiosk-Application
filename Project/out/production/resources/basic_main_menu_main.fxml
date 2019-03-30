@@ -11,9 +11,10 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
+
 <AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="UIControllerMMM">
    <children>
-      <AnchorPane prefHeight="400.0" prefWidth="600.0" styleClass="body-background" stylesheets="/backgroud.css">
+      <AnchorPane prefHeight="400.0" prefWidth="600.0">
          <children>
             <ImageView pickOnBounds="true" preserveRatio="true">
                <image>
@@ -33,27 +34,28 @@
                   </MenuBar>
                </top>
             </BorderPane>
-            <JFXButton buttonType="RAISED" layoutX="148.0" layoutY="242.0" maxHeight="40.0" prefHeight="40.0" prefWidth="305.0" styleClass="jfx-button2" stylesheets="@backgroud.css" text="View Reservation" textFill="WHITE">
+            <Text fill="WHITE" layoutX="196.0" layoutY="76.0" strokeType="OUTSIDE" strokeWidth="0.0" text="User's Home">
                <font>
-                  <Font name="System Bold" size="20.0" />
-               </font>
-            </JFXButton>
-            <JFXButton buttonType="RAISED" layoutX="148.0" layoutY="305.0" maxHeight="40.0" prefHeight="40.0" prefWidth="305.0" styleClass="jfx-button2" stylesheets="@backgroud.css" text="Service Request" textFill="WHITE">
-               <font>
-                  <Font name="System Bold" size="20.0" />
-               </font>
-            </JFXButton>
-            <JFXButton buttonType="RAISED" layoutX="148.0" layoutY="177.0" maxHeight="40.0" prefHeight="40.0" prefWidth="305.0" styleClass="jfx-button2" stylesheets="@backgroud.css" text="Reserve a Room" textFill="WHITE">
-               <font>
-                  <Font name="System Bold" size="20.0" />
-               </font>
-            </JFXButton>
-            <JFXButton buttonType="RAISED" layoutX="148.0" layoutY="114.0" maxHeight="40.0" prefHeight="40.0" prefWidth="305.0" style="-fx-background-color: #ebaecd;" styleClass="jfx-button2" stylesheets="@backgroud.css" text="Find Your Path" />
-            <Text fill="WHITE" layoutX="181.0" layoutY="88.0" strokeType="OUTSIDE" strokeWidth="0.0" text="User's Home">
-               <font>
-                  <Font name="System Bold" size="40.0" />
+                  <Font name="System Bold" size="35.0" />
                </font>
             </Text>
+            <JFXButton buttonType="RAISED" layoutX="148.0" layoutY="212.0" maxHeight="40.0" prefHeight="40.0" prefWidth="305.0" style="-fx-background-color: #ebaecd;" text="View Reservation" />
+            <JFXButton buttonType="RAISED" layoutX="148.0" layoutY="268.0" maxHeight="40.0" prefHeight="40.0" prefWidth="305.0" style="-fx-background-color: #ebaecd;" />
+               <font>
+                  <Font name="System Bold" size="20.0" />
+               </font>
+            </JFXButton>
+            <JFXButton buttonType="RAISED" layoutX="148.0" layoutY="155.0" maxHeight="40.0" prefHeight="40.0" prefWidth="305.0" style="-fx-background-color: #ebaecd;" text="Reserve a Room" />
+            <JFXButton buttonType="RAISED" layoutX="148.0" layoutY="323.0" maxHeight="40.0" prefHeight="40.0" prefWidth="305.0" style="-fx-background-color: #ebaecd;" text="Administrator Tools" textFill="WHITE">
+               <font>
+                  <Font name="System Bold" size="20.0" />
+               </font>
+            </JFXButton>
+            <JFXButton buttonType="RAISED" layoutX="148.0" layoutY="99.0" maxHeight="40.0" prefHeight="40.0" prefWidth="305.0" style="-fx-background-color: #ebaecd;" text="Find Your Path" textFill="WHITE">
+               <font>
+                  <Font name="System Bold" size="20.0" />
+               </font>
+            </JFXButton>
          </children>
       </AnchorPane>
    </children>
