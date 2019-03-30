@@ -53,6 +53,9 @@ public class UIController {
 
         sceneFiles.put(UIController.LOGIN_MAIN, "login_main.fxml");
         sceneTitles.put(UIController.LOGIN_MAIN, "Login Screen");
+
+        sceneFiles.put(UIController.ADMIN_TOOLS_VIEW_NODES, "test_ATVN.fxml");
+        sceneTitles.put(UIController.ADMIN_TOOLS_VIEW_NODES, "TEST NODES");
     }
 
     /**
