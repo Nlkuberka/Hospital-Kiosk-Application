@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXButton?>
-<?import com.jfoenix.controls.JFXTreeTableView?>
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
-<?import javafx.scene.control.TreeTableColumn?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
 <?import javafx.scene.effect.ColorAdjust?>
 <?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.image.Image?>
@@ -13,7 +13,6 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.text.Font?>
-
 
 <AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="UIControllerATVN">
    <children>
@@ -48,20 +47,20 @@
                   </MenuBar>
                </top>
                <center>
-                  <JFXTreeTableView maxWidth="570.0" opacity="0.9" prefHeight="320.0" prefWidth="400.0" BorderPane.alignment="CENTER">
-                     <columns>
-                        <TreeTableColumn prefWidth="53.0" text="NodeID" />
-                        <TreeTableColumn prefWidth="47.0" text="xcoord" />
-                        <TreeTableColumn prefWidth="47.0" text="ycoord" />
-                        <TreeTableColumn prefWidth="35.0" text="floor" />
-                        <TreeTableColumn prefWidth="54.0" text="building" />
-                        <TreeTableColumn prefWidth="70.0" text="nodeType" />
-                        <TreeTableColumn prefWidth="82.0" text="longName" />
-                        <TreeTableColumn prefWidth="69.0" text="shortName" />
-                        <TreeTableColumn prefWidth="50.0" text="TeamID" />
-                        <TreeTableColumn prefWidth="63.0" text="Remove" />
-                     </columns>
-                  </JFXTreeTableView>
+                  <TableView maxWidth="570.0" prefHeight="320.0" prefWidth="570.0" BorderPane.alignment="CENTER">
+                    <columns>
+                      <TableColumn prefWidth="52.4000244140625" text="NodeID" />
+                      <TableColumn prefWidth="45.79998779296875" text="xcrood" />
+                        <TableColumn prefWidth="45.5999755859375" text="ycrood" />
+                        <TableColumn prefWidth="32.5999755859375" text="floor" />
+                        <TableColumn prefWidth="54.20001220703125" text="building" />
+                        <TableColumn prefWidth="59.4000244140625" text="nodeType" />
+                        <TableColumn prefWidth="83.5999755859375" text="longName" />
+                        <TableColumn prefWidth="74.60003662109375" text="shortName" />
+                        <TableColumn prefWidth="48.60003662109375" text="TeamID" />
+                        <TableColumn prefWidth="68.0" text="Remove" />
+                    </columns>
+                  </TableView>
                </center>
             </BorderPane>
             <JFXButton buttonType="RAISED" layoutX="506.0" layoutY="357.0" stylesheets="@backgroud.css" text="Add Node">
