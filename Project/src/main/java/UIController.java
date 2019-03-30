@@ -2,7 +2,6 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.stage.Stage;
 
 import java.util.Map;
@@ -10,7 +9,9 @@ import java.util.HashMap;
 
 public class UIController {
     public static final String LOGIN_MAIN = "LM";
-    public static final String MAIN_MENU_MAIN = "MMM";
+    public static final String GUEST_MAIN_MENU_MAIN = "GMMM";
+    public static final String BASIC_MAIN_MENU_MAIN = "BMMM";
+    public static final String ADMIN_MAIN_MENU_MAIN = "AMMM";
     public static final String PATHFINDING_MAIN = "PFM";
     public static final String RESERVATIONS_MAIN = "RVM";
     public static final String SERVICE_REQUEST_MAIN = "SRM";
@@ -89,6 +90,12 @@ public class UIController {
      */
     @FXML
     private void setHomeButton() {
-        this.goToScene(UIController.MAIN_MENU_MAIN);
+        if(User.permissions == User.GUEST_PERMISSIONS) {
+            this.goToScene(UIController.GUEST_MAIN_MENU_MAIN);
+        } else if(User.permissions == User.BASIC_PERMISSIONS) {
+            this.goToScene(UIController.BASIC_MAIN_MENU_MAIN);
+        } else if(User.permissions == User.ADMIN_PERMISSIONS) {
+            this.goToScene(UIController.ADMIN_MAIN_MENU_MAIN);
+        }
     }
 }

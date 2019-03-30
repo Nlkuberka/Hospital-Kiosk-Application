@@ -4,10 +4,7 @@ import javafx.scene.control.Button;
 public class UIControllerATM extends UIController {
 
     @FXML
-    private Button homeButton;
-
-    @FXML
-    private Button powerButton;
+    private Button homeButton; /**< The Home Button*/
 
     public UIControllerATM() {
 
@@ -21,11 +18,17 @@ public class UIControllerATM extends UIController {
 
     }
 
+    /**
+     * Goes to the View Node Scene
+     */
     @FXML
     private void setViewNodesButton() {
         this.goToScene(UIController.ADMIN_TOOLS_VIEW_NODES);
     }
 
+    /**
+     * Goes to the View Edges Scene
+     */
     @FXML
     private void setViewEdgesButton() {
         this.goToScene(UIController.ADMIN_TOOLS_VIEW_EDGES);

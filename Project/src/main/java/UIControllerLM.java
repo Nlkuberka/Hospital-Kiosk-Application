@@ -1,6 +1,17 @@
 import javafx.fxml.FXML;
 
+import javafx.scene.control.Button;
+
 public class UIControllerLM extends UIController {
+
+    @FXML
+    private Button loginAsGuestButton; /**< The Login As Guest Button*/
+
+    @FXML
+    private Button loginAsUserButton; /**< The Login As User Button*/
+
+    @FXML
+    private Button loginAsAdminButton; /**< The Login As Admin Button*/
 
     public UIControllerLM() {
 
@@ -14,8 +25,30 @@ public class UIControllerLM extends UIController {
 
     }
 
+    /**
+     * Goes to the Guest Main Menu
+     */
     @FXML
     private void setLoginAsGuestButton() {
-        this.goToScene(UIController.MAIN_MENU_MAIN);
+        User.permissions = User.GUEST_PERMISSIONS;
+        this.goToScene(UIController.GUEST_MAIN_MENU_MAIN);
+    }
+
+    /**
+     * Goes to the User Main Menu
+     */
+    @FXML
+    private void setLoginAsUserButton() {
+        User.permissions = User.BASIC_PERMISSIONS;
+        this.goToScene(UIController.BASIC_MAIN_MENU_MAIN);
+    }
+
+    /**
+     * Goes to the Admin Main Menu
+     */
+    @FXML
+    private void setLoginAsAdminButton() {
+        User.permissions = User.ADMIN_PERMISSIONS;
+        this.goToScene(UIController.ADMIN_MAIN_MENU_MAIN);
     }
 }
