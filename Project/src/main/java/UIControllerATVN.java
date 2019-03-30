@@ -1,8 +1,8 @@
 import com.jfoenix.controls.JFXButton;
-import com.jfoenix.controls.JFXTreeTableView;
 import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.MenuItem;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -14,14 +14,19 @@ public class UIControllerATVN extends  UIController {
     private static final String[] nodeValues  = {"nodeID", "xcoord", "ycoord", "floor",
                                                 "building", "longName", "shortName"};
                                                 /**< The Various Node Columns used for cell factories */
+
+    @FXML
+    private JFXButton backButton; /**< The Back Button */
+
     @FXML
     private JFXButton homeButton; /**< The Home Button */
 
     @FXML
-    private TableView nodeTable; /**< The table that holds all of the nodes */
+    private JFXButton addButton; /**< The Add Button */
 
     @FXML
-    private JFXTreeTableView<?> nodeTable2; /**< The table that holds all of the nodes */
+    private TableView<Node> nodeTable; /**< The table that holds all of the nodes */
+
     public UIControllerATVN() {
 
     }
@@ -32,7 +37,7 @@ public class UIControllerATVN extends  UIController {
      */
     @FXML
     public void initialize() {
-        List<TableColumn> tableColumns = nodeTable.getColumns();
+        List<TableColumn<Node, ?>> tableColumns = nodeTable.getColumns();
 
         // Initialize Node ID Column cell factories
         TableColumn nodeIDColumn = tableColumns.get(0);
@@ -82,5 +87,13 @@ public class UIControllerATVN extends  UIController {
     private void setAddButton() {
         Node node = new Node("", 0, 0, 0, "", "", "" ,"");
         nodeTable.getItems().add(node);
+    }
+
+    /**
+     * Goes back to the admin tools main menu
+     */
+    @FXML
+    private void setBackButton() {
+        this.goToScene(UIController.ADMIN_TOOLS_MAIN);
     }
 }

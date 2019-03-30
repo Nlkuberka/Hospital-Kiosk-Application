@@ -9,10 +9,10 @@ public class UIControllerATM extends UIController {
     private Menu homeButton; /**< The Home Button*/
 
     @FXML
-    private JFXButton ViewNodesButton; /**< The View Node Button*/
+    private JFXButton viewNodesButton; /**< The View Node Button*/
 
     @FXML
-    private JFXButton ViewEdgesEdges; /**< The View Edges Button*/
+    private JFXButton viewEdgesEdges; /**< The View Edges Button*/
 
     public UIControllerATM() {
 
