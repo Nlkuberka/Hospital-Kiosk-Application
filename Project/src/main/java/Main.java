@@ -13,7 +13,7 @@ public class Main extends Application {
         User.userID = "Guest";
         User.permissions = User.GUEST_PERMISSIONS;
         UIController controller = new UIController(primaryStage);
-        controller.goToScene(UIController.ADMIN_TOOLS_VIEW_NODES);
+        controller.goToScene(UIController.ADMIN_TOOLS_MAIN);
 
         System.out.println("Collaborator is " + "X");
     }
