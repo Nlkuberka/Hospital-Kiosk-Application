@@ -1,0 +1,47 @@
+
+ .body-background {
+//   background-image: linear-gradient(56deg, #1200c3, #8441b5, #bc77a5, #eaae90)
+}
+.jfx-button {
+    -jfx-button-type: FLAT;
+    -fx-background-color: white;
+    -fx-text-fill: black;
+}
+
+/*Raised button example */
+.jfx-button {
+    -jfx-button-type: RAISED;
+    -fx-background-color:#ebaecd;
+    -fx-text-fill: white;
+}
+
+/* Tab pane styling*/
+.tab-pane{
+    -fx-background-color: #bc77a5;
+    -fx-pref-width: 600;
+    -webkit-fx-pref-height:50;
+}
+
+ .tab-header-background{
+     -fx-background-color: #bc77a5;
+ }
+/* Menu bar*/
+
+ .menu-bar{
+     -fx-pref-width: 600;
+     -webkit-fx-pref-height:30;
+     -fx-font-size: 12;
+     -fx-font-weight: bold;
+     -fx-text-fill: white;
+
+    /* -fx-background-image: url("\purple-orange-gradient.jpg");*/
+ }
+ .menu{
+     -fx-text-fill: white;
+ }
+
+
+
+
+
+

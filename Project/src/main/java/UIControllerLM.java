@@ -1,3 +1,4 @@
+import com.jfoenix.controls.JFXButton;
 import javafx.fxml.FXML;
 
 import javafx.scene.control.Button;
@@ -5,13 +6,13 @@ import javafx.scene.control.Button;
 public class UIControllerLM extends UIController {
 
     @FXML
-    private Button loginAsGuestButton; /**< The Login As Guest Button*/
+    private JFXButton loginAsGuestButton; /**< The Login As Guest Button*/
 
     @FXML
-    private Button loginAsUserButton; /**< The Login As User Button*/
+    private JFXButton loginAsUserButton; /**< The Login As User Button*/
 
     @FXML
-    private Button loginAsAdminButton; /**< The Login As Admin Button*/
+    private JFXButton loginAsAdminButton; /**< The Login As Admin Button*/
 
     public UIControllerLM() {
 

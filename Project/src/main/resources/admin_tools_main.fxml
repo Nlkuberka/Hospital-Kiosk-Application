@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.effect.ColorAdjust?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="UIControllerATM">
+   <children>
+      <AnchorPane prefHeight="400.0" prefWidth="600.0" styleClass="bodybackground" stylesheets="@backgroud.css">
+         <children>
+            <ImageView pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@purple-orange-gradient.jpg" />
+               </image>
+            </ImageView>
+            <BorderPane>
+               <top>
+                  <MenuBar blendMode="ADD" prefWidth="600.0" style="-fx-background-color: white;" BorderPane.alignment="CENTER">
+                    <menus>
+                      <Menu mnemonicParsing="false" text="Back">
+                        <items>
+                          <MenuItem mnemonicParsing="false" text="Go back to previouse page" />
+                        </items>
+                      </Menu>
+                      <Menu fx:id="homeButton" mnemonicParsing="false" text="Home" />
+                    </menus>
+                     <effect>
+                        <ColorAdjust brightness="0.19" contrast="0.1" hue="0.1" saturation="-0.44">
+                           <input>
+                              <DropShadow />
+                           </input>
+                        </ColorAdjust>
+                     </effect>
+                  </MenuBar>
+               </top>
+            </BorderPane>
+            <VBox layoutX="214.0" layoutY="140.0" />
+            <JFXButton fx:id="ViewNodesButton" buttonType="RAISED" layoutX="206.0" layoutY="239.0" ripplerFill="#ffd2d2" text="Edit Nodes" textAlignment="CENTER" textFill="WHITE" wrapText="true">
+               <font>
+                  <Font size="28.0" />
+               </font>
+            </JFXButton>
+            <JFXButton fx:id="ViewEdgesEdges" buttonType="RAISED" layoutX="209.0" layoutY="111.0" text="Edit Edges" textAlignment="CENTER" textFill="WHITE" wrapText="true">
+               <font>
+                  <Font size="28.0" />
+               </font>
+            </JFXButton>
+         </children>
+      </AnchorPane>
+   </children>
+</AnchorPane>

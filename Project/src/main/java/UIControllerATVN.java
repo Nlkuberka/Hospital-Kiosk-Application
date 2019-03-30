@@ -1,3 +1,5 @@
+import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXTreeTableView;
 import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -13,11 +15,13 @@ public class UIControllerATVN extends  UIController {
                                                 "building", "longName", "shortName"};
                                                 /**< The Various Node Columns used for cell factories */
     @FXML
-    private Button homeButton; /**< The Home Button */
+    private JFXButton homeButton; /**< The Home Button */
 
     @FXML
     private TableView nodeTable; /**< The table that holds all of the nodes */
 
+    @FXML
+    private JFXTreeTableView<?> nodeTable2; /**< The table that holds all of the nodes */
     public UIControllerATVN() {
 
     }

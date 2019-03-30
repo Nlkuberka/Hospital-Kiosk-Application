@@ -1,10 +1,18 @@
+import com.jfoenix.controls.JFXButton;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.Menu;
 
 public class UIControllerATM extends UIController {
 
     @FXML
-    private Button homeButton; /**< The Home Button*/
+    private Menu homeButton; /**< The Home Button*/
+
+    @FXML
+    private JFXButton ViewNodesButton; /**< The View Node Button*/
+
+    @FXML
+    private JFXButton ViewEdgesEdges; /**< The View Edges Button*/
 
     public UIControllerATM() {
 
@@ -17,6 +25,7 @@ public class UIControllerATM extends UIController {
     public void initialize() {
 
     }
+
 
     /**
      * Goes to the View Node Scene
