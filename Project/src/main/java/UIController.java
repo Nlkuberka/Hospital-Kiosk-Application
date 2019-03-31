@@ -19,8 +19,8 @@ public class UIController {
     public static final String ADMIN_TOOLS_VIEW_NODES = "ATVN";
     public static final String ADMIN_TOOLS_VIEW_EDGES = "ATVE";
 
-    private static final int WIDTH = 600;
-    private static final int HEIGHT = 400;
+    private static final int WIDTH = 900;
+    private static final int HEIGHT = 600;
 
     private static Stage primaryStage;
     private static Map<String, Scene> scenes;
@@ -62,6 +62,9 @@ public class UIController {
 
         sceneFiles.put(UIController.ADMIN_TOOLS_VIEW_NODES, "admin_tools_view_nodes.fxml");
         sceneTitles.put(UIController.ADMIN_TOOLS_VIEW_NODES, "Admin Tools - View Nodes");
+
+        sceneFiles.put(UIController.PATHFINDING_MAIN, "path_find_main.fxml");
+        sceneTitles.put(UIController.PATHFINDING_MAIN, "Path Finding Main");
     }
 
     /**

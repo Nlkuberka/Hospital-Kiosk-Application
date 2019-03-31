@@ -49,7 +49,7 @@
                                     <Insets left="25.0" top="30.0" />
                                  </VBox.margin>
                               </Text>
-                              <ChoiceBox prefWidth="150.0">
+                              <ChoiceBox fx:id="initialLocationSelect" onAction="#initLocChanged" prefWidth="150.0">
                                  <VBox.margin>
                                     <Insets left="25.0" />
                                  </VBox.margin>

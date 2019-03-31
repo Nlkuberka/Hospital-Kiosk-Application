@@ -8,9 +8,10 @@ public class Main extends Application {
         CurrentUser.userID = "Guest";
         CurrentUser.permissions = User.GUEST_PERMISSIONS;
         UIController controller = new UIController(primaryStage);
-        controller.goToScene(UIController.ADMIN_TOOLS_MAIN);
+        controller.goToScene(UIController.PATHFINDING_MAIN);
 
         System.out.println("Collaborator is " + "X");
+    }
 
 
     public static void main(String[] args) {
