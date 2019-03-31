@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="UIControllerMMM">
+   <children>
+      <AnchorPane prefHeight="400.0" prefWidth="600.0">
+         <children>
+            <AnchorPane prefHeight="400.0" prefWidth="600.0">
+               <children>
+                  <AnchorPane prefHeight="400.0" prefWidth="600.0" styleClass="body-background" stylesheets="/backgroud.css">
+                     <children>
+                        <ImageView pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@purple-orange-gradient.jpg" />
+                           </image>
+                        </ImageView>
+                        <BorderPane>
+                           <top>
+                              <MenuBar blendMode="ADD" prefWidth="600.0" style="-fx-background-color: white;" stylesheets="@backgroud.css" BorderPane.alignment="CENTER">
+                                <menus>
+                                  <Menu mnemonicParsing="false" text="Back">
+                                    <items>
+                                      <MenuItem mnemonicParsing="false" text="Go back to previouse page" />
+                                    </items>
+                                  </Menu>
+                                </menus>
+                              </MenuBar>
+                           </top>
+                        </BorderPane>
+                        <JFXButton buttonType="RAISED" layoutX="148.0" layoutY="235.0" maxHeight="40.0" prefHeight="40.0" prefWidth="305.0" style="-fx-background-color: #ebaecd;" text="View Reservation" textFill="WHITE">
+                           <font>
+                              <Font name="System Bold" size="20.0" />
+                           </font>
+                        </JFXButton>
+                        <JFXButton buttonType="RAISED" layoutX="148.0" layoutY="297.0" maxHeight="40.0" prefHeight="40.0" prefWidth="305.0" style="-fx-background-color: #ebaecd;" text="Service Request" textFill="WHITE">
+                           <font>
+                              <Font name="System Bold" size="20.0" />
+                           </font>
+                        </JFXButton>
+                        <JFXButton buttonType="RAISED" layoutX="148.0" layoutY="172.0" maxHeight="40.0" prefHeight="40.0" prefWidth="305.0" style="-fx-background-color: #ebaecd;" text="Reserve a Room" textFill="WHITE">
+                           <font>
+                              <Font name="System Bold" size="20.0" />
+                           </font>
+                        </JFXButton>
+                        <Text fill="WHITE" layoutX="196.0" layoutY="78.0" strokeType="OUTSIDE" strokeWidth="0.0" text="User's Home">
+                           <font>
+                              <Font name="System Bold" size="35.0" />
+                           </font>
+                        </Text>
+                        <JFXButton buttonType="RAISED" layoutX="148.0" layoutY="109.0" maxHeight="40.0" prefHeight="40.0" prefWidth="305.0" style="-fx-background-color: #ebaecd;" text="Find Your Path" textFill="WHITE">
+                           <font>
+                              <Font name="System Bold" size="20.0" />
+                           </font>
+                        </JFXButton>
+                     </children>
+                  </AnchorPane>
+               </children>
+            </AnchorPane>
+         </children>
+      </AnchorPane>
+   </children>
+</AnchorPane>
