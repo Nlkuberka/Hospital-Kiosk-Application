@@ -6,7 +6,6 @@ import javafx.stage.WindowEvent;
 import java.sql.SQLException;
 import java.util.List;
 
-
 public class Main extends Application {
 
     @Override
