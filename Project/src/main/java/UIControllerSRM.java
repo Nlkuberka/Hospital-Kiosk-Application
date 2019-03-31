@@ -1,3 +1,4 @@
+import com.jfoenix.controls.JFXButton;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 
@@ -26,7 +27,7 @@ class UIControllerSRM extends UIController {
     private TextArea serviceMessage;
 
     @FXML
-    private Button sendServiceRequestButton;
+    private JFXButton confirmButton;
 
     @FXML
     public void initialize() {
@@ -43,7 +44,7 @@ class UIControllerSRM extends UIController {
     }
 
     @FXML
-    private void setSendServiceRequestButton() {
+    private void setConfirmButton() {
         String serviceType = (String) serviceSelect.getValue();
         String roomShortName = (String) nodeIDs.get((String) roomSelect.getValue());
         String nodeID = nodeIDs.get(roomShortName);
