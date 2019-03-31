@@ -2,7 +2,6 @@ import com.jfoenix.controls.JFXButton;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 
-import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextArea;
 
@@ -18,10 +17,10 @@ public class UIControllerSRM extends UIController {
     List<String> serviceTypes;
 
     @FXML
-    private ChoiceBox roomSelect;
+    private ChoiceBox<String> roomSelect;
 
     @FXML
-    private ChoiceBox serviceSelect;
+    private ChoiceBox<String> serviceSelect;
 
     @FXML
     private TextArea serviceMessage;
@@ -39,8 +38,8 @@ public class UIControllerSRM extends UIController {
 
         // DB Get all Nodes
 
-        roomSelect.setItems(FXCollections.observableArrayList(nodeShortNames.toArray()));
-        serviceSelect.setItems(FXCollections.observableArrayList(serviceTypes.toArray()));
+        roomSelect.setItems(FXCollections.observableList(nodeShortNames));
+        serviceSelect.setItems(FXCollections.observableList(nodeShortNames));
     }
 
     @FXML
