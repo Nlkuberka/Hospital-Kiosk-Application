@@ -5,6 +5,7 @@
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -38,7 +39,7 @@
                <children>
                   <StackPane prefHeight="150.0" prefWidth="200.0">
                      <children>
-                        <Rectangle fx:id="rectangleLeft" arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="200.0" opacity="0.3" stroke="TRANSPARENT" strokeType="INSIDE" width="200.0" StackPane.alignment="TOP_CENTER" />
+                        <Rectangle fx:id="rectangleLeft" arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="575.0" opacity="0.3" stroke="TRANSPARENT" strokeType="INSIDE" width="900.0" StackPane.alignment="TOP_CENTER" />
                         <VBox fx:id="leftVBox" prefHeight="375.0" prefWidth="200.0" stylesheets="@background.css">
                            <children>
                               <Text fill="WHITE" smooth="false" strokeType="OUTSIDE" strokeWidth="0.0" text="Initial Location" textAlignment="CENTER">
@@ -49,20 +50,20 @@
                                     <Insets left="25.0" top="30.0" />
                                  </VBox.margin>
                               </Text>
-                              <ChoiceBox fx:id="initialLocationSelect" onAction="#initLocChanged" prefWidth="150.0">
+                              <ChoiceBox fx:id="initialLocationSelect" onAction="#initLocChanged" prefWidth="150.0" style="-fx-background-color: #ffffff;">
                                  <VBox.margin>
                                     <Insets left="25.0" />
                                  </VBox.margin>
                               </ChoiceBox>
                               <Text fill="WHITE" smooth="false" strokeType="OUTSIDE" strokeWidth="0.0" text="Destination">
                                  <font>
-                                    <Font size="16.0" />
+                                    <Font name="System Bold Italic" size="16.0" />
                                  </font>
                                  <VBox.margin>
                                     <Insets left="25.0" top="30.0" />
                                  </VBox.margin>
                               </Text>
-                              <ChoiceBox fx:id="destinationSelect" onAction="#destLocChanged" prefWidth="150.0">
+                              <ChoiceBox fx:id="destinationSelect" onAction="#destLocChanged" prefWidth="150.0" style="-fx-background-color: #ffffff;">
                                  <VBox.margin>
                                     <Insets left="25.0" />
                                  </VBox.margin>
@@ -71,10 +72,22 @@
                         </VBox>
                      </children>
                   </StackPane>
-                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="575.0" stroke="#ffffff00" strokeType="INSIDE" width="700.0" />
                </children>
             </HBox>
          </children>
       </VBox>
+      <ScrollPane prefHeight="575.0" prefWidth="700.0" AnchorPane.leftAnchor="200.0" AnchorPane.topAnchor="25.0">
+        <content>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="575.0" prefWidth="700.0">
+               <children>
+                  <ImageView fitHeight="575.0" fitWidth="690.0" preserveRatio="true">
+                     <image>
+                        <Image url="@02_thesecondfloor.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </AnchorPane>
+        </content>
+      </ScrollPane>
    </children>
 </AnchorPane>
