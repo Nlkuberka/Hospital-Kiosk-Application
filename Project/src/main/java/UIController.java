@@ -53,15 +53,6 @@ public class UIController {
 
         sceneFiles.put(UIController.LOGIN_MAIN, "login_main.fxml");
         sceneTitles.put(UIController.LOGIN_MAIN, "Login Screen");
-
-        sceneFiles.put(UIController.ADMIN_TOOLS_MAIN, "admin_tools_main.fxml");
-        sceneTitles.put(UIController.ADMIN_TOOLS_MAIN, "Admin Tools - Main");
-
-        sceneFiles.put(UIController.ADMIN_TOOLS_VIEW_EDGES, "admin_tools_view_edges.fxml");
-        sceneTitles.put(UIController.ADMIN_TOOLS_VIEW_EDGES, "Admin Tools - View Edges");
-
-        sceneFiles.put(UIController.ADMIN_TOOLS_VIEW_NODES, "admin_tools_view_nodes.fxml");
-        sceneTitles.put(UIController.ADMIN_TOOLS_VIEW_NODES, "Admin Tools - View Nodes");
     }
 
     /**
