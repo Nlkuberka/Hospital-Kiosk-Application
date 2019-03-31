@@ -15,7 +15,7 @@
    <children>
       <AnchorPane prefHeight="400.0" prefWidth="600.0">
          <children>
-            <AnchorPane prefHeight="400.0" prefWidth="600.0" styleClass="body-background" stylesheets="/backgroud.css">
+            <AnchorPane prefHeight="400.0" prefWidth="600.0" styleClass="body-background" stylesheets="/background.css">
                <children>
                   <ImageView pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -24,7 +24,7 @@
                   </ImageView>
                   <BorderPane>
                      <top>
-                        <MenuBar blendMode="ADD" prefWidth="600.0" style="-fx-background-color: white;" stylesheets="@backgroud.css" BorderPane.alignment="CENTER">
+                        <MenuBar blendMode="ADD" prefWidth="600.0" style="-fx-background-color: white;" stylesheets="@background.css" BorderPane.alignment="CENTER">
                           <menus>
                             <Menu mnemonicParsing="false" text="Back">
                               <items>
@@ -35,28 +35,28 @@
                         </MenuBar>
                      </top>
                   </BorderPane>
-                  <JFXButton buttonType="RAISED" layoutX="148.0" layoutY="207.0" maxHeight="40.0" prefHeight="40.0" prefWidth="305.0" styleClass="jfx-button2" stylesheets="@backgroud.css" text="View Reservation" textFill="WHITE">
+                  <JFXButton buttonType="RAISED" layoutX="148.0" layoutY="207.0" maxHeight="40.0" prefHeight="40.0" prefWidth="305.0" styleClass="jfx-button2" stylesheets="@background.css" text="View Reservation" textFill="WHITE">
                      <font>
                         <Font name="System Bold" size="20.0" />
                      </font>
                   </JFXButton>
-                  <JFXButton buttonType="RAISED" layoutX="148.0" layoutY="265.0" maxHeight="40.0" prefHeight="40.0" prefWidth="305.0" styleClass="jfx-button2" stylesheets="@backgroud.css" text="Service Request" textFill="WHITE">
+                  <JFXButton buttonType="RAISED" layoutX="148.0" layoutY="265.0" maxHeight="40.0" prefHeight="40.0" prefWidth="305.0" styleClass="jfx-button2" stylesheets="@background.css" text="Service Request" textFill="WHITE">
                      <font>
                         <Font name="System Bold" size="20.0" />
                      </font>
                   </JFXButton>
-                  <JFXButton buttonType="RAISED" layoutX="148.0" layoutY="151.0" maxHeight="40.0" prefHeight="40.0" prefWidth="305.0" styleClass="jfx-button2" stylesheets="@backgroud.css" text="Reserve a Room" textFill="WHITE">
+                  <JFXButton buttonType="RAISED" layoutX="148.0" layoutY="151.0" maxHeight="40.0" prefHeight="40.0" prefWidth="305.0" styleClass="jfx-button2" stylesheets="@background.css" text="Reserve a Room" textFill="WHITE">
                      <font>
                         <Font name="System Bold" size="20.0" />
                      </font>
                   </JFXButton>
-                  <JFXButton buttonType="RAISED" layoutX="148.0" layoutY="93.0" maxHeight="40.0" prefHeight="40.0" prefWidth="305.0" style="-fx-background-color: #ebaecd;" styleClass="jfx-button2" stylesheets="@backgroud.css" text="Find Your Path" />
+                  <JFXButton buttonType="RAISED" layoutX="148.0" layoutY="93.0" maxHeight="40.0" prefHeight="40.0" prefWidth="305.0" style="-fx-background-color: #ebaecd;" styleClass="jfx-button2" stylesheets="@background.css" text="Find Your Path" />
                   <Text fill="WHITE" layoutX="118.0" layoutY="77.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Administrator's Home">
                      <font>
                         <Font name="System Bold" size="35.0" />
                      </font>
                   </Text>
-                  <JFXButton buttonType="RAISED" layoutX="148.0" layoutY="323.0" maxHeight="40.0" prefHeight="40.0" prefWidth="305.0" styleClass="jfx-button2" stylesheets="@backgroud.css" text="Administrator Tools" textFill="WHITE">
+                  <JFXButton buttonType="RAISED" layoutX="148.0" layoutY="323.0" maxHeight="40.0" prefHeight="40.0" prefWidth="305.0" styleClass="jfx-button2" stylesheets="@background.css" text="Administrator Tools" textFill="WHITE">
                      <font>
                         <Font name="System Bold" size="20.0" />
                      </font>

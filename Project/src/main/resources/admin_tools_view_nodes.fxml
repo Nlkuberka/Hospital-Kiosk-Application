@@ -16,7 +16,7 @@
 
 <AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="UIControllerATVN">
    <children>
-      <AnchorPane prefHeight="400.0" prefWidth="600.0" styleClass="body-background" stylesheets="/backgroud.css">
+      <AnchorPane prefHeight="400.0" prefWidth="600.0" styleClass="body-background" stylesheets="/background.css">
          <children>
             <ImageView opacity="0.6" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -28,7 +28,7 @@
             </ImageView>
             <BorderPane>
                <top>
-                  <MenuBar blendMode="MULTIPLY" nodeOrientation="LEFT_TO_RIGHT" prefWidth="600.0" style="-fx-background-color: #F6B6E2;" styleClass="menu" stylesheets="@backgroud.css" BorderPane.alignment="CENTER">
+                  <MenuBar blendMode="MULTIPLY" nodeOrientation="LEFT_TO_RIGHT" prefWidth="600.0" style="-fx-background-color: #F6B6E2;" styleClass="menu" stylesheets="@background.css" BorderPane.alignment="CENTER">
                     <menus>
                       <Menu mnemonicParsing="false" text="Back">
                         <items>
@@ -63,7 +63,7 @@
                   </TableView>
                </center>
             </BorderPane>
-            <JFXButton buttonType="RAISED" layoutX="506.0" layoutY="357.0" stylesheets="@backgroud.css" text="Add Node">
+            <JFXButton buttonType="RAISED" layoutX="506.0" layoutY="357.0" stylesheets="@background.css" text="Add Node">
                <font>
                   <Font name="System Bold" size="13.0" />
                </font>

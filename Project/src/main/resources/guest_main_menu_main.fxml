@@ -13,7 +13,7 @@
 
 <AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="UIControllerMMM">
    <children>
-      <AnchorPane prefHeight="400.0" prefWidth="600.0" styleClass="body-background" stylesheets="/backgroud.css">
+      <AnchorPane prefHeight="400.0" prefWidth="600.0" styleClass="body-background" stylesheets="/background.css">
          <children>
             <ImageView pickOnBounds="true" preserveRatio="true">
                <image>
@@ -22,7 +22,7 @@
             </ImageView>
             <BorderPane>
                <top>
-                  <MenuBar blendMode="ADD" prefWidth="600.0" style="-fx-background-color: white;" stylesheets="@backgroud.css" BorderPane.alignment="CENTER">
+                  <MenuBar blendMode="ADD" prefWidth="600.0" style="-fx-background-color: white;" stylesheets="@background.css" BorderPane.alignment="CENTER">
                     <menus>
                       <Menu mnemonicParsing="false" text="Back">
                         <items>
@@ -33,12 +33,12 @@
                   </MenuBar>
                </top>
             </BorderPane>
-            <JFXButton buttonType="RAISED" layoutX="176.0" layoutY="143.0" stylesheets="@backgroud.css" text="Find Your Path">
+            <JFXButton buttonType="RAISED" layoutX="176.0" layoutY="143.0" stylesheets="@background.css" text="Find Your Path">
                <font>
                   <Font name="System Bold Italic" size="30.0" />
                </font>
             </JFXButton>
-            <JFXButton buttonType="RAISED" layoutX="173.0" layoutY="240.0" stylesheets="@backgroud.css" text="Service Request">
+            <JFXButton buttonType="RAISED" layoutX="173.0" layoutY="240.0" stylesheets="@background.css" text="Service Request">
                <font>
                   <Font name="System Bold Italic" size="30.0" />
                </font>
