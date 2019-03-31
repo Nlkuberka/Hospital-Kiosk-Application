@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.HashMap;
 import java.util.Map;
 
-class UIControllerSRM extends UIController {
+public class UIControllerSRM extends UIController {
     List<String> nodeShortNames;
     Map<String, String> nodeIDs;
 

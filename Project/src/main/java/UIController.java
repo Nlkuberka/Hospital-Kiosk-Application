@@ -19,8 +19,8 @@ public class UIController {
     public static final String ADMIN_TOOLS_VIEW_NODES = "ATVN";
     public static final String ADMIN_TOOLS_VIEW_EDGES = "ATVE";
 
-    private static final int WIDTH = 600;
-    private static final int HEIGHT = 400;
+    private static final int WIDTH = 900;
+    private static final int HEIGHT = 600;
 
     private static Stage primaryStage;
     private static Map<String, Scene> scenes;
