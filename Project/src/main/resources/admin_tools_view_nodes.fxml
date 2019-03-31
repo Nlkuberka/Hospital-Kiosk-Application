@@ -32,10 +32,10 @@
                     <menus>
                       <Menu mnemonicParsing="false" text="Back">
                         <items>
-                          <MenuItem mnemonicParsing="false" text="Go back to previouse page" />
+                          <MenuItem fx:id="backButton" mnemonicParsing="false" text="Go back to previouse page" />
                         </items>
                       </Menu>
-                      <Menu mnemonicParsing="false" text="Home" />
+                      <Menu fx:id="homeButton" mnemonicParsing="false" text="Home" />
                     </menus>
                      <effect>
                         <ColorAdjust brightness="0.19" contrast="0.01" hue="0.01" saturation="-0.44">
@@ -47,7 +47,7 @@
                   </MenuBar>
                </top>
                <center>
-                  <TableView maxWidth="570.0" prefHeight="320.0" prefWidth="570.0" BorderPane.alignment="CENTER">
+                  <TableView fx:id="nodeTable" maxWidth="570.0" prefHeight="320.0" prefWidth="570.0" BorderPane.alignment="CENTER">
                     <columns>
                       <TableColumn prefWidth="52.4000244140625" text="NodeID" />
                       <TableColumn prefWidth="45.79998779296875" text="xcrood" />
@@ -63,7 +63,7 @@
                   </TableView>
                </center>
             </BorderPane>
-            <JFXButton buttonType="RAISED" layoutX="506.0" layoutY="357.0" stylesheets="@backgroud.css" text="Add Node">
+            <JFXButton fx:id="addButton" buttonType="RAISED" layoutX="506.0" layoutY="357.0" stylesheets="@backgroud.css" text="Add Node">
                <font>
                   <Font name="System Bold" size="13.0" />
                </font>
