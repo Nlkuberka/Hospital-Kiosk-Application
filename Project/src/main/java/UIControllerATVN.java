@@ -3,14 +3,10 @@ import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.Menu;
-import javafx.scene.control.MenuItem;
-import javafx.scene.control.TableCell;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 
+import java.lang.reflect.Method;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -19,8 +15,8 @@ import java.util.List;
 import java.util.Observable;
 
 public class UIControllerATVN extends  UIController {
-    private static final String[] nodeValues  = {"nodeID", "xcoord", "ycoord", "floor",
-                                                "building", "longName", "shortName"};
+    private static final String[] nodeGetters  = {"getNodeID", "getXcoord", "getYcoord", "getFloor",
+                                                "getBuilding", "getLongName", "getShortName"};
                                                 /**< The Various Node Columns used for cell factories */
 
     @FXML
@@ -47,25 +43,42 @@ public class UIControllerATVN extends  UIController {
     public void initialize() {
         List<TableColumn<Node, ?>> tableColumns = nodeTable.getColumns();
 
-        // Initialize Node ID Column cell factories
-        TableColumn nodeIDColumn = tableColumns.get(0);
-        nodeIDColumn.setCellValueFactory(new PropertyValueFactory<>(nodeValues[0]));
-        nodeIDColumn.setCellFactory(new PropertyValueFactory<>(nodeValues[0]));
-
         // Initialize the cell factories of the node field columns
         System.out.println(tableColumns.size());
-        for(int i = 1; i < tableColumns.size() - 2; i++) {
-            TableColumn column = tableColumns.get(i);
-            column.setCellValueFactory(new PropertyValueFactory<>(nodeValues[i]));
-            column.setCellFactory(new PropertyValueFactory<>(nodeValues[i]));
-            column.setEditable(true);
-            column.setOnEditCommit(e -> {
-                //DB Update or DB add
+        for(int i = 0; i < tableColumns.size() - 2; i++) {
+            int indexOut = i;
+            TableColumn<Node, Node> column = (TableColumn<Node, Node>) tableColumns.get(i);
+            column.setCellValueFactory(param -> new ReadOnlyObjectWrapper<>(param.getValue()));
+            column.setCellFactory(param -> new TableCell<Node, Node>() {
+                private TextField textField = new TextField("TEST");
+                private int index = indexOut;
+
+                @Override
+                protected void updateItem(Node node, boolean empty) {
+                    super.updateItem(node, empty);
+
+                    try {
+                        Method method = node.getClass().getMethod(nodeGetters[index]);
+                        textField.setText((String) method.invoke(node));
+                    } catch (Exception e) {
+                        //e.printStackTrace();
+                    }
+
+                    setGraphic(textField);
+                    textField.setOnAction( e -> {
+                            System.out.println(node.getNodeID());
+                            if(index == 0) {
+                                //DB Remove
+                            }
+                            //DB Add or Update
+                        }
+                    );
+                }
             });
         }
         // Initialize cell factories of the remove node column
-        TableColumn removeColumn = tableColumns.get(tableColumns.size() - 1);
-        removeColumn.setCellValueFactory(param -> new ReadOnlyObjectWrapper<>("Remove"));
+        TableColumn<Node, Node> removeColumn = (TableColumn<Node, Node>) tableColumns.get(tableColumns.size() - 1);
+        removeColumn.setCellValueFactory(param -> new ReadOnlyObjectWrapper<>(param.getValue()));
         removeColumn.setCellFactory(param -> new TableCell<Node, Node>() {
             private Button removeButton = new Button("Remove");
 
