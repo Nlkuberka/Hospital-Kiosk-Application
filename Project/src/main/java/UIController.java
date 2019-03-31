@@ -99,12 +99,13 @@ public class UIController {
      */
     @FXML
     private void setHomeButton() {
-        if(User.permissions == User.GUEST_PERMISSIONS) {
+        if(CurrentUser.permissions == User.GUEST_PERMISSIONS) {
             this.goToScene(UIController.GUEST_MAIN_MENU_MAIN);
-        } else if(User.permissions == User.BASIC_PERMISSIONS) {
+        } else if(CurrentUser.permissions == User.BASIC_PERMISSIONS) {
             this.goToScene(UIController.BASIC_MAIN_MENU_MAIN);
-        } else if(User.permissions == User.ADMIN_PERMISSIONS) {
+        } else if(CurrentUser.permissions == User.ADMIN_PERMISSIONS) {
             this.goToScene(UIController.ADMIN_MAIN_MENU_MAIN);
         }
+        this.goToScene(UIController.GUEST_MAIN_MENU_MAIN);
     }
 }

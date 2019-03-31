@@ -31,7 +31,7 @@ public class UIControllerLM extends UIController {
      */
     @FXML
     private void setLoginAsGuestButton() {
-        User.permissions = User.GUEST_PERMISSIONS;
+        CurrentUser.permissions = User.GUEST_PERMISSIONS;
         this.goToScene(UIController.GUEST_MAIN_MENU_MAIN);
     }
 
@@ -40,7 +40,7 @@ public class UIControllerLM extends UIController {
      */
     @FXML
     private void setLoginAsUserButton() {
-        User.permissions = User.BASIC_PERMISSIONS;
+        CurrentUser.permissions = User.BASIC_PERMISSIONS;
         this.goToScene(UIController.BASIC_MAIN_MENU_MAIN);
     }
 
@@ -49,7 +49,7 @@ public class UIControllerLM extends UIController {
      */
     @FXML
     private void setLoginAsAdminButton() {
-        User.permissions = User.ADMIN_PERMISSIONS;
+        CurrentUser.permissions = User.ADMIN_PERMISSIONS;
         this.goToScene(UIController.ADMIN_MAIN_MENU_MAIN);
     }
 }
