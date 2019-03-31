@@ -49,20 +49,20 @@
                                     <Insets left="25.0" top="30.0" />
                                  </VBox.margin>
                               </Text>
-                              <ChoiceBox fx:id="initialLocationSelect" onAction="#initLocChanged" prefWidth="150.0">
+                              <ChoiceBox fx:id="initialLocationSelect" onAction="#initLocChanged" prefWidth="150.0" style="-fx-background-color: #ffffff;">
                                  <VBox.margin>
                                     <Insets left="25.0" />
                                  </VBox.margin>
                               </ChoiceBox>
                               <Text fill="WHITE" smooth="false" strokeType="OUTSIDE" strokeWidth="0.0" text="Destination">
                                  <font>
-                                    <Font size="16.0" />
+                                    <Font name="System Bold Italic" size="16.0" />
                                  </font>
                                  <VBox.margin>
                                     <Insets left="25.0" top="30.0" />
                                  </VBox.margin>
                               </Text>
-                              <ChoiceBox fx:id="destinationSelect" onAction="#destLocChanged" prefWidth="150.0">
+                              <ChoiceBox fx:id="destinationSelect" onAction="#destLocChanged" prefWidth="150.0" style="-fx-background-color: #ffffff;">
                                  <VBox.margin>
                                     <Insets left="25.0" />
                                  </VBox.margin>
