@@ -12,11 +12,12 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
 
+import java.lang.reflect.Method;
 import java.util.List;
 import java.util.Observable;
 
 public class UIControllerATVE extends UIController {
-    private static final String[] edgeValues  = {"edgeID", "node1ID", "node2ID"};
+    private static final String[] edgeGetters  = {"getEdgeID", "getNode1ID", "getNode2ID"};
                                                 /**< The Various Edge Columns used for cell factories */
 
     @FXML
@@ -43,27 +44,33 @@ public class UIControllerATVE extends UIController {
     public void initialize() {
         ObservableList<TableColumn<Edge, ?>> tableColumns = edgeTable.getColumns();
 
-        // Initialize Node ID Column cell factories
-        TableColumn<Edge, String> nodeIDColumn = (TableColumn<Edge, String>) tableColumns.get(0);
-        nodeIDColumn.setCellValueFactory(new PropertyValueFactory<>(edgeValues[0]));
-        nodeIDColumn.setCellFactory(TextFieldTableCell.forTableColumn());
-
         // Initialize the cell factories of the node field columns
-        for(int i = 1; i < tableColumns.size() - 1; i++) {
+        for(int i = 0; i < tableColumns.size() - 1; i++) {
+            int indexOut = i;
             TableColumn<Edge, Edge> column = (TableColumn<Edge, Edge>) tableColumns.get(i);
             column.setCellValueFactory(param -> new ReadOnlyObjectWrapper<>(param.getValue()));
             column.setCellFactory(param -> new TableCell<Edge, Edge>() {
                 private TextField textField = new TextField("TEST");
+                private int index = indexOut;
 
                 @Override
                 protected void updateItem(Edge edge, boolean empty) {
                     super.updateItem(edge, empty);
 
-                    textField.setText("TEST");
+                    try {
+                        Method method = edge.getClass().getMethod(edgeGetters[index]);
+                        textField.setText((String) method.invoke(edge));
+                    } catch (Exception e) {
+                        //e.printStackTrace();
+                    }
+
                     setGraphic(textField);
-                    textField.setOnInputMethodTextChanged( e -> {
+                    textField.setOnAction( e -> {
+                            System.out.println(edge.getEdgeID());
+                            if(index == 0) {
+                                //DB Remove
+                            }
                             //DB Add or Update
-                            getTableView().getItems().remove(edge);
                         }
                     );
                 }
@@ -89,7 +96,7 @@ public class UIControllerATVE extends UIController {
         });
         //DB get Edges
         for(int i = 0; i < 100; i++) {
-            Edge edge  = new Edge(i + "", i * 2 + "", 2 * 3 + "");
+            Edge edge  = new Edge(i + "", i * 2 + "", i * 3 + "");
             edgeTable.getItems().add(edge);
         }
     }
