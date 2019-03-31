@@ -1,17 +1,17 @@
-import java.util.Date;
-
 public class Reservation {
     private String nodeID;
     private String userID;
-    private Date startTime;
-    private Date endTime;
+    private String date;
+    private String startTime;
+    private String endTime;
 
     public Reservation() {
     }
 
-    public Reservation(String nodeID, String userID, Date startTime, Date endTime) {
+    public Reservation(String nodeID, String userID, String date, String startTime, String endTime) {
         this.nodeID = nodeID;
         this.userID = userID;
+        this.date = date;
         this.startTime = startTime;
         this.endTime = endTime;
     }
@@ -32,19 +32,27 @@ public class Reservation {
         this.userID = userID;
     }
 
-    public Date getStartTime() {
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
+    }
+
+    public String getStartTime() {
         return startTime;
     }
 
-    public void setStartTime(Date startTime) {
+    public void setStartTime(String startTime) {
         this.startTime = startTime;
     }
 
-    public Date getEndTime() {
+    public String getEndTime() {
         return endTime;
     }
 
-    public void setEndTime(Date endTime) {
+    public void setEndTime(String endTime) {
         this.endTime = endTime;
     }
 }
