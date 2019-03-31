@@ -11,7 +11,7 @@ public class Main extends Application {
         controller.goToScene(UIController.ADMIN_TOOLS_VIEW_NODES);
 
         System.out.println("Collaborator is " + "X");
-    }
+
 
     public static void main(String[] args) {
         launch(args);
