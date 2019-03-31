@@ -55,7 +55,7 @@
                   <Font name="System Bold" size="35.0" />
                </font>
             </Text>
-            <JFXButton fx:id="viewEdgesButton1" buttonType="RAISED" layoutX="200.0" layoutY="254.0" onAction="#setViewEdgesButton" prefHeight="40.0" prefWidth="200.0" style="-fx-background-color: #ebaecd;" text="Edit Nodes" textAlignment="CENTER" textFill="WHITE" wrapText="true">
+            <JFXButton fx:id="viewEdgesButton1" buttonType="RAISED" layoutX="200.0" layoutY="254.0" onAction="#setViewNodesButton" prefHeight="40.0" prefWidth="200.0" style="-fx-background-color: #ebaecd;" text="Edit Nodes" textAlignment="CENTER" textFill="WHITE" wrapText="true">
                <font>
                   <Font name="System Bold" size="28.0" />
                </font>
