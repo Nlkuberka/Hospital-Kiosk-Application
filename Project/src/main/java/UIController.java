@@ -9,18 +9,18 @@ import java.util.HashMap;
 
 public class UIController {
     public static final String LOGIN_MAIN = "LM";
-    public static final String MAIN_MENU_MAIN = "MMM";
+    public static final String GUEST_MAIN_MENU_MAIN = "GMMM";
+    public static final String BASIC_MAIN_MENU_MAIN = "BMMM";
+    public static final String ADMIN_MAIN_MENU_MAIN = "AMMM";
     public static final String PATHFINDING_MAIN = "PFM";
     public static final String RESERVATIONS_MAIN = "RVM";
     public static final String SERVICE_REQUEST_MAIN = "SRM";
     public static final String ADMIN_TOOLS_MAIN = "ATM";
     public static final String ADMIN_TOOLS_VIEW_NODES = "ATVN";
     public static final String ADMIN_TOOLS_VIEW_EDGES = "ATVE";
-    public static final String ADMIN_TOOLS_EDIT_NODE = "ATEN";
-    public static final String ADMIN_TOOLS_EDIT_EDGE = "ATEE";
 
-    private static final int WIDTH = 700;
-    private static final int HEIGHT = 700;
+    private static final int WIDTH = 600;
+    private static final int HEIGHT = 400;
 
     private static Stage primaryStage;
     private static Map<String, Scene> scenes;
@@ -32,11 +32,19 @@ public class UIController {
 
     }
 
+    /**
+     * Constructor
+     * Sets the primary stage to the given stage and initializes the file lists
+     * @param stage
+     */
     public UIController(Stage stage) {
         primaryStage = stage;
         setLists();
     }
 
+    /**
+     * Initializes the lists of titles and fxml files for each scene
+     */
     private void setLists() {
         scenes = new HashMap<String, Scene>();
         sceneControllers = new HashMap<String, UIController>();
@@ -45,8 +53,26 @@ public class UIController {
 
         sceneFiles.put(UIController.LOGIN_MAIN, "login_main.fxml");
         sceneTitles.put(UIController.LOGIN_MAIN, "Login Screen");
+
+        sceneFiles.put(UIController.ADMIN_TOOLS_MAIN, "admin_tools_main.fxml");
+        sceneTitles.put(UIController.ADMIN_TOOLS_MAIN, "Admin Tools - Main");
+
+        sceneFiles.put(UIController.ADMIN_TOOLS_VIEW_EDGES, "admin_tools_view_edges.fxml");
+        sceneTitles.put(UIController.ADMIN_TOOLS_VIEW_EDGES, "Admin Tools - View Edges");
+
+        sceneFiles.put(UIController.ADMIN_TOOLS_VIEW_NODES, "admin_tools_view_nodes.fxml");
+        sceneTitles.put(UIController.ADMIN_TOOLS_VIEW_NODES, "Admin Tools - View Nodes");
+
+        sceneFiles.put(UIController.RESERVATIONS_MAIN, "reservations_main.fxml");
+        sceneTitles.put(UIController.RESERVATIONS_MAIN, "Reservations - Main");
     }
 
+    /**
+     * Switches the primary stage to the given scene
+     * If the scene has not yet been created, creates that scene
+     * @param sceneString String representation of the scene to swtich to
+     * @return The UIController for that particular new scene
+     */
     @FXML
     protected UIController goToScene(String sceneString) {
         Scene scene = scenes.get(sceneString);
@@ -68,5 +94,21 @@ public class UIController {
         primaryStage.show();
 
         return sceneControllers.get(sceneString);
+    }
+
+    /**
+     * Switches the scene to the main menu
+     * Used across all UIControllers
+     */
+    @FXML
+    private void setHomeButton() {
+        if(CurrentUser.permissions == User.GUEST_PERMISSIONS) {
+            this.goToScene(UIController.GUEST_MAIN_MENU_MAIN);
+        } else if(CurrentUser.permissions == User.BASIC_PERMISSIONS) {
+            this.goToScene(UIController.BASIC_MAIN_MENU_MAIN);
+        } else if(CurrentUser.permissions == User.ADMIN_PERMISSIONS) {
+            this.goToScene(UIController.ADMIN_MAIN_MENU_MAIN);
+        }
+        this.goToScene(UIController.GUEST_MAIN_MENU_MAIN);
     }
 }
