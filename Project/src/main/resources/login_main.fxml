@@ -29,6 +29,23 @@
                <top>
                   <JFXTabPane prefHeight="400.0" prefWidth="600.0" stylesheets="@background.css" BorderPane.alignment="CENTER">
                      <tabs>
+                        <Tab text="Guest">
+                          <content>
+                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                 <children>
+                                    <Text fill="WHITE" layoutX="55.0" layoutY="174.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Welcome to Brigham &amp; Women’s Hospital! " textAlignment="CENTER" AnchorPane.leftAnchor="55.0" AnchorPane.topAnchor="148.1015625">
+                                       <font>
+                                          <Font name="System Bold Italic" size="24.0" />
+                                       </font>
+                                    </Text>
+                                    <JFXButton fx:id="loginAsGuestButton" layoutX="231.0" layoutY="212.0" text="Continue As A Guest">
+                                       <font>
+                                          <Font name="System Bold Italic" size="14.0" />
+                                       </font>
+                                    </JFXButton>
+                                 </children></AnchorPane>
+                          </content>
+                        </Tab>
                         <Tab text="User">
                            <content>
                               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
@@ -60,7 +77,7 @@
                                  <children>
                                     <JFXTextField layoutX="200.0" layoutY="107.0" opacity="0.8" prefHeight="35.0" prefWidth="200.0" promptText="Username" style="-fx-background-color: #ffffff;" />
                                     <JFXPasswordField layoutX="200.0" layoutY="188.0" opacity="0.8" prefHeight="35.0" prefWidth="200.0" promptText="Password" style="-fx-background-color: #ffffff;" />
-                                    <JFXButton fx:id="loginAsAdminButton" layoutX="270.0" layoutY="249.0" text="Login" textAlignment="CENTER">
+                                    <JFXButton fx:id="loginAsAdminButton" layoutX="270.0" layoutY="249.0" stylesheets="@background.css" text="Login" textAlignment="CENTER">
                                        <font>
                                           <Font name="System Bold" size="15.0" />
                                        </font>
@@ -77,23 +94,6 @@
                                     </Text>
                                  </children>
                               </AnchorPane>
-                          </content>
-                        </Tab>
-                        <Tab text="Guest">
-                          <content>
-                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                                 <children>
-                                    <Text fill="WHITE" layoutX="55.0" layoutY="174.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Welcome to Brigham &amp; Women’s Hospital! " textAlignment="CENTER" AnchorPane.leftAnchor="55.0" AnchorPane.topAnchor="148.1015625">
-                                       <font>
-                                          <Font name="System Bold Italic" size="24.0" />
-                                       </font>
-                                    </Text>
-                                    <JFXButton fx:id="loginAsGuestButton" layoutX="231.0" layoutY="212.0" text="Continue As A Guest">
-                                       <font>
-                                          <Font name="System Bold Italic" size="14.0" />
-                                       </font>
-                                    </JFXButton>
-                                 </children></AnchorPane>
                           </content>
                         </Tab>
                      </tabs>
