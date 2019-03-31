@@ -46,8 +46,7 @@ public class UIControllerRVM extends UIController {
         Date date = Date.from(instant);
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 
-        Reservation r = new Reservation((String) nodeSelect.getValue())
-
-        System.out.println(startTimePicker.getValue());
+        Reservation r = new Reservation((String) nodeSelect.getValue(), CurrentUser.userID, format.format(date), startTimePicker.getValue() + ":00", endTimePicker.getValue() + ":00");
+        // DB Send
     }
 }
