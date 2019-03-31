@@ -51,5 +51,6 @@ class UIControllerSRM extends UIController {
         String message = serviceMessage.getText();
         ServiceRequest sr = new ServiceRequest(nodeID, serviceType, message, CurrentUser.userID, false);
         //DB Add Service Request
+        System.out.println(message);
     }
 }
