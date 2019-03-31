@@ -64,7 +64,7 @@
                   <Font name="System Bold Italic" size="16.0" />
                </font>
             </Text>
-            <DatePicker fx:id="datePicker" blendMode="LIGHTEN" style="-fx-background-color: &lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;?import com.jfoenix.controls.JFXTimePicker?&gt;&lt;?import javafx.scene.paint.RadialGradient?&gt;&lt;?import javafx.scene.paint.Stop?&gt;&lt;JFXTimePicker xmlns=&quot;http://javafx.com/javafx/8.0.171&quot; xmlns:fx=&quot;http://javafx.com/fxml/1&quot;&gt;   &lt;defaultColor&gt;      &lt;RadialGradient centerX=&quot;0.5&quot; centerY=&quot;0.5&quot; radius=&quot;0.5&quot;&gt;         &lt;stops&gt;            &lt;Stop color=&quot;#8f0088&quot; /&gt;            &lt;Stop color=&quot;WHITE&quot; offset=&quot;1.0&quot; /&gt;         &lt;/stops&gt;      &lt;/RadialGradient&gt;   &lt;/defaultColor&gt;&lt;/JFXTimePicker&gt;;" AnchorPane.leftAnchor="12.0" AnchorPane.topAnchor="65.0">
+            <DatePicker fx:id="datePicker" blendMode="LIGHTEN" AnchorPane.leftAnchor="12.0" AnchorPane.topAnchor="65.0">
                <effect>
                   <ColorAdjust brightness="0.05" />
                </effect>
