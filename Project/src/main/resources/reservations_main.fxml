@@ -17,7 +17,6 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-
 <AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="UIControllerRVM">
    <children>
       <AnchorPane prefHeight="400.0" prefWidth="600.0">
@@ -55,7 +54,7 @@
                   </BorderPane>
                </children>
             </AnchorPane>
-            <ChoiceBox fx:id="roomSelect" prefWidth="170.0" style="-fx-background-color: #ffffff;" AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="270.0">
+            <ChoiceBox fx:id="nodeSelect" prefWidth="170.0" style="-fx-background-color: #ffffff;" AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="270.0">
                <effect>
                   <Blend mode="MULTIPLY" opacity="0.34" />
                </effect>
@@ -65,7 +64,7 @@
                   <Font name="System Bold Italic" size="16.0" />
                </font>
             </Text>
-            <DatePicker blendMode="LIGHTEN" style="-fx-background-color: &lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;?import com.jfoenix.controls.JFXTimePicker?&gt;&lt;?import javafx.scene.paint.RadialGradient?&gt;&lt;?import javafx.scene.paint.Stop?&gt;&lt;JFXTimePicker xmlns=&quot;http://javafx.com/javafx/8.0.171&quot; xmlns:fx=&quot;http://javafx.com/fxml/1&quot;&gt;   &lt;defaultColor&gt;      &lt;RadialGradient centerX=&quot;0.5&quot; centerY=&quot;0.5&quot; radius=&quot;0.5&quot;&gt;         &lt;stops&gt;            &lt;Stop color=&quot;#8f0088&quot; /&gt;            &lt;Stop color=&quot;WHITE&quot; offset=&quot;1.0&quot; /&gt;         &lt;/stops&gt;      &lt;/RadialGradient&gt;   &lt;/defaultColor&gt;&lt;/JFXTimePicker&gt;;" AnchorPane.leftAnchor="12.0" AnchorPane.topAnchor="65.0">
+            <DatePicker fx:id="datePicker" blendMode="LIGHTEN" style="-fx-background-color: &lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;?import com.jfoenix.controls.JFXTimePicker?&gt;&lt;?import javafx.scene.paint.RadialGradient?&gt;&lt;?import javafx.scene.paint.Stop?&gt;&lt;JFXTimePicker xmlns=&quot;http://javafx.com/javafx/8.0.171&quot; xmlns:fx=&quot;http://javafx.com/fxml/1&quot;&gt;   &lt;defaultColor&gt;      &lt;RadialGradient centerX=&quot;0.5&quot; centerY=&quot;0.5&quot; radius=&quot;0.5&quot;&gt;         &lt;stops&gt;            &lt;Stop color=&quot;#8f0088&quot; /&gt;            &lt;Stop color=&quot;WHITE&quot; offset=&quot;1.0&quot; /&gt;         &lt;/stops&gt;      &lt;/RadialGradient&gt;   &lt;/defaultColor&gt;&lt;/JFXTimePicker&gt;;" AnchorPane.leftAnchor="12.0" AnchorPane.topAnchor="65.0">
                <effect>
                   <ColorAdjust brightness="0.05" />
                </effect>
@@ -75,13 +74,13 @@
                   <Font name="System Bold Italic" size="16.0" />
                </font>
             </Text>
-            <JFXTimePicker defaultColor="#c756c5" style="-fx-background-color: white;" AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="130.0" />
+            <JFXTimePicker fx:id="startTimePicker" defaultColor="#c756c5" style="-fx-background-color: white;" AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="130.0" />
             <Text fill="WHITE" layoutX="48.0" layoutY="66.0" smooth="false" strokeType="OUTSIDE" strokeWidth="0.0" text="End Time" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="170.0">
                <font>
                   <Font name="System Bold Italic" size="16.0" />
                </font>
             </Text>
-            <JFXButton fx:id="sendServiceRequestButton" buttonType="RAISED" style="-fx-background-color: #ebaecd;" text="Confirm" textFill="WHITE" AnchorPane.leftAnchor="130.0" AnchorPane.topAnchor="365.0">
+            <JFXButton fx:id="confirmButton" buttonType="RAISED" onAction="#setConfirmButton" style="-fx-background-color: #ebaecd;" text="Confirm" textFill="WHITE" AnchorPane.leftAnchor="130.0" AnchorPane.topAnchor="365.0">
                <font>
                   <Font name="System Bold" size="12.0" />
                </font>
@@ -91,7 +90,7 @@
                   <Font name="System Bold Italic" size="16.0" />
                </font>
             </Text>
-            <JFXTimePicker defaultColor="#c758c5" layoutX="10.0" layoutY="10.0" style="-fx-background-color: white;" AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="195.0" />
+            <JFXTimePicker fx:id="endTimePicker" defaultColor="#c758c5" layoutX="10.0" layoutY="10.0" style="-fx-background-color: white;" AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="195.0" />
          </children>
       </AnchorPane>
    </children>

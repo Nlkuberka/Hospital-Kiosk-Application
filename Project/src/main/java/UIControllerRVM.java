@@ -1,13 +1,18 @@
+import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTimePicker;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.DatePicker;
+
+import java.time.Instant;
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.util.Date;
 
 public class UIControllerRVM extends UIController {
 
     @FXML
-    private Button confirmButton;
+    private JFXButton confirmButton;
 
     @FXML
     private ChoiceBox nodeSelect;
@@ -28,6 +33,11 @@ public class UIControllerRVM extends UIController {
 
     @FXML
     private void setConfirmButton() {
+        LocalDate ld = datePicker.getValue();
+        Instant instant = Instant.from(ld.atStartOfDay(ZoneId.systemDefault()));
+        Date startDate = Date.from(instant);
+        Date endDate = Date.from(instant);
 
+        System.out.println(startTimePicker.getValue());
     }
 }
