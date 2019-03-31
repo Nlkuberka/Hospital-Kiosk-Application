@@ -2,17 +2,17 @@ public class ServiceRequest {
     private String nodeID;
     private String serviceType;
     private String message;
-    private String requesterID;
+    private String userID;
     private boolean resolved;
 
     public ServiceRequest() {
     }
 
-    public ServiceRequest(String nodeID, String serviceType, String message, String requesterID, boolean resolved) {
+    public ServiceRequest(String nodeID, String serviceType, String message, String userID, boolean resolved) {
         this.nodeID = nodeID;
         this.serviceType = serviceType;
         this.message = message;
-        this.requesterID = requesterID;
+        this.userID = userID;
         this.resolved = resolved;
     }
 
@@ -40,12 +40,12 @@ public class ServiceRequest {
         this.message = message;
     }
 
-    public String getRequesterID() {
-        return requesterID;
+    public String getUserID() {
+        return userID;
     }
 
-    public void setRequesterID(String requesterID) {
-        this.requesterID = requesterID;
+    public void setUserID(String userID) {
+        this.userID = userID;
     }
 
     public boolean isResolved() {
