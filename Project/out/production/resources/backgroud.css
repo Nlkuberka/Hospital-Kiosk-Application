@@ -31,7 +31,7 @@
 /* Menu bar*/
 
  .menu-bar{
-     -fx-pref-width: 600;
+     width: 100%; overflow: hidden;
      -webkit-fx-pref-height:30;
      -fx-font-size: 12;
      -fx-font-weight: bold;
@@ -42,7 +42,7 @@
  .menu{
      -fx-text-fill: white;
  }
-
+ .container {width: 100%; overflow: hidden; }
 
 
 
