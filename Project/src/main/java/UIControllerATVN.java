@@ -45,7 +45,7 @@ public class UIControllerATVN extends  UIController {
 
         // Initialize the cell factories of the node field columns
         System.out.println(tableColumns.size());
-        for(int i = 0; i < tableColumns.size() - 2; i++) {
+        for(int i = 0; i < tableColumns.size() - 1; i++) {
             int indexOut = i;
             TableColumn<Node, Node> column = (TableColumn<Node, Node>) tableColumns.get(i);
             column.setCellValueFactory(param -> new ReadOnlyObjectWrapper<>(param.getValue()));
