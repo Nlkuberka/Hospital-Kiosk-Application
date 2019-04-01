@@ -9,37 +9,27 @@ import static java.lang.Math.sqrt;
 
 
 public class Graph {
-    private int nodeNum;
-    private int edgeNum;
+    
     private ArrayList<ArrayList<Integer>> adj;
     private ArrayList<ArrayList<Integer>> adjWeights;
     private ArrayList<Boolean> marked;
     private ArrayList<Node> storedNodes; //can produce the index
     //store map of short name to userid
 
-    /**
-     * Constructor
-     * Initializes the graph with zero nodes
-     */
-    public Graph() {
-        this(0);
-    }
 
     /**
      * Constructor
      * Initalizes the graph with the given number of nodes
-     * @param nodeNum The number of nodes in the graph
      */
-    public Graph(int nodeNum) {
-        if(nodeNum < 0) {
+    public Graph() {
+        if(storedNodes.size() < 0) {
             throw new IllegalArgumentException("Number of nodes must be greater than or equal to 0");
         }
-        this.nodeNum = nodeNum;
-        this.edgeNum = 0;
-        this.marked = new ArrayList<Boolean>(nodeNum);
+        //this.storedNodes.size() = storedNodes.size();
+        this.marked = new ArrayList<Boolean>(storedNodes.size());
         this.adj = new ArrayList<ArrayList<Integer>>();
         this.adjWeights = new ArrayList<ArrayList<Integer>>();
-        for(int i = 0; i < nodeNum; i++) {
+        for(int i = 0; i < storedNodes.size(); i++) {
             this.adj.add(new ArrayList<Integer>());
             this.adjWeights.add(new ArrayList<Integer>());
         }
@@ -78,25 +68,21 @@ public class Graph {
     }
 
 
-    /**
-     * Gets the shortest path between the two given nodes
-     * @param start The node to start at
-     * @param target The node to end at
-     * @return A List of Integers that represent the node path to get to the target,
-     *          the first number is the distance of the path
-     */
-    public List<Integer> shortestPath(int start, int target) {
-        int current = start;
-        int[] distance = new int[nodeNum];
-        boolean[] marked = new boolean[nodeNum];
-        Queue<Integer> queue = new LinkedList<Integer>();
-        ArrayList<List<Integer>> paths = new ArrayList<List<Integer>>();
-        for(int i = 0; i < nodeNum; i++) {
-            paths.add(new ArrayList<Integer>());
-            distance[i] = Integer.MAX_VALUE;
+
+    public List<String> shortestPath(String startID, String targetID) {
+        int startIndex = mapNodeIDToIndex(startID);
+        int targetIndex = mapNodeIDToIndex(targetID);
+        int current = startIndex;
+        double[] distance = new double[storedNodes.size()]; //stored distance from start node to node at index
+        boolean[] marked = new boolean[storedNodes.size()]; //lets know if have taken look at node/queued nodes it is connected to
+        Queue<Integer> queue = new LinkedList<Integer>(); //nodes that will be checked
+        ArrayList<List<String>> paths = new ArrayList<List<String>>(); //list of paths from the start node to the particular node
+        for(int i = 0; i < storedNodes.size(); i++) {
+            paths.add(new ArrayList<String>());
+            distance[i] = Double.MAX_VALUE;
         }
-        distance[start] = 0;
-        paths.get(start).add(start);
+        distance[startIndex] = 0;
+        paths.get(startIndex).add(startID);
         queue.add(current);
 
         // BFS of nodes and get the distances of each node
@@ -104,11 +90,13 @@ public class Graph {
             current = queue.remove();
             for(int i = 0; i < adj.get(current).size(); i++) {
                 int nextNode = adj.get(current).get(i);
-                int currentDistance = distance[current] + adjWeights.get(current).get(i);
+                double currentDistance = distance[current] + adjWeights.get(current).get(i);
                 if(currentDistance < distance[nextNode]) {
                     distance[nextNode] = currentDistance;
-                    List<Integer> newPath = deepCopy(paths.get(current));
-                    newPath.add(nextNode);
+                    List<String> newPath = deepCopy(paths.get(current));
+
+                    // TODO: 4/1/2019 I have no clue how to fix this error, as im not totally sure what this is supposed to do
+                    //newPath.add(nextNode);
                     paths.set(nextNode, newPath);
                 }
                 if(!marked[nextNode]) {
@@ -116,11 +104,11 @@ public class Graph {
                     marked[nextNode] = true;
                 }
             }
-            System.out.println("P - " + paths);
-            System.out.println("D - " + Arrays.toString(distance));
+            //System.out.println("P - " + paths);
+            //System.out.println("D - " + Arrays.toString(distance));
         }
-        paths.get(target).add(0, distance[target]);
-        return paths.get(target);
+        //paths.get(targetIndex).add(0, distance[targetIndex]);
+        return paths.get(targetIndex);
     }
 
     /**
@@ -128,8 +116,8 @@ public class Graph {
      * @param original The original list to copy
      * @return The deep copy of the list
      */
-    private List<Integer> deepCopy(List<Integer> original) {
-        List<Integer> copy = new ArrayList<Integer>();
+    private List<String> deepCopy(List<String> original) {
+        List<String> copy = new ArrayList<String>();
         for(int i = 0 ; i < original.size(); i++) {
             copy.add(original.get(i));
         }
@@ -145,30 +133,17 @@ public class Graph {
         adjWeights.add(new ArrayList<Integer>());
     }
 
-    /*/**
-     * Adds a number of nodes to the graph
-     * @param num The number of nodes to add
-
-    public void addNodes(int num) {
-        for(int i = 0; i < num; i++) {
-            addNode();
-        }
-    }*/ //removed since not necessary - Niski
-
-    /**
-     * Removes the node at from the graph
-     * @param node The node to remove
-     */
-    public void removeNode(int node) {
-        for(int i = 0; i < nodeNum; i++) {
+    // TODO: 4/1/2019 adapt to work with node ID
+    /*public void removeNode(int node) {
+        for(int i = 0; i < storedNodes.size(); i++) {
             removeBiEdge(node, i);
         }
 
         adj.remove(node);
         adjWeights.remove(node);
-        nodeNum--;
+        storedNodes.size()--;
 
-        for(int i = 0; i < nodeNum; i++) {
+        for(int i = 0; i < storedNodes.size(); i++) {
             List<Integer> adjList = adj.get(i);
             for(int j = 0; j < adjList.size(); j++) {
                 if(adjList.get(j) > node) {
@@ -176,7 +151,7 @@ public class Graph {
                 }
             }
         }
-    }
+    }*/
 
 
     public void addEdge(String nodeID1, String nodeID2) {
@@ -200,23 +175,14 @@ public class Graph {
         adjWeights.get(node1Index).add(weight);
     }
 
-    /**
-     * Adds a bidirectional edge to the graph
-     * @param n1 The first node that is connected
-     * @param n2 The second node that is connected
-     * @param weight The weight of the edge
-     */
+
    /* public void addBiEdge(int n1, int n2, int weight) {
         addEdge(n1, n2, weight);
         addEdge(n2, n1, weight);
     }*/
 
-    /**
-     * Removes an edge between the two given nodes
-     * @param n1 The first node to disconnect
-     * @param n2 The second node to disconnect
-     */
-    public void removeEdge(int n1, int n2) {
+    // TODO: 4/1/2019 convert remove edge
+    /*public void removeEdge(int n1, int n2) {
         if(n1 == n2) {
             return;
         }
@@ -226,17 +192,13 @@ public class Graph {
             adj.get(n1).remove(edgeIndex);
             adjWeights.get(n1).remove(edgeIndex);
         }
-    }
+    }*/
 
-    /**
-     * Removes the any edges between the two given nodes
-     * @param n1 The first node to disconnect
-     * @param n2 The second node to disconnect
-     */
-    public void removeBiEdge(int n1, int n2) {
+    // TODO: 4/1/2019 re-implement removeBiEdge
+    /*public void removeBiEdge(int n1, int n2) {
         removeEdge(n1, n2);
         removeEdge(n2, n1);
-    }
+    }*/
 
     public ArrayList<Integer> getEdges(int n) {
         return adj.get(n);
@@ -246,11 +208,5 @@ public class Graph {
         return adj.get(n).size();
     }
 
-    public int getNodeNum() {
-        return nodeNum;
-    }
 
-    public int getEdgeNum() {
-        return edgeNum;
-    }
 }
