@@ -26,7 +26,7 @@
                     <menus>
                       <Menu mnemonicParsing="false" text="Back">
                         <items>
-                          <MenuItem mnemonicParsing="false" text="Go back to previouse page" />
+                          <MenuItem fx:id="backMenuItem" mnemonicParsing="false" onAction="#setBackMenuItem" text="Go back to previouse page" />
                         </items>
                       </Menu>
                     </menus>
@@ -38,12 +38,12 @@
                   <Font name="System Bold" size="20.0" />
                </font>
             </JFXButton>
-            <JFXButton buttonType="RAISED" layoutX="250.0" layoutY="475.0" maxHeight="50.0" prefHeight="50.0" prefWidth="400.0" style="-fx-background-color: #ebaecd;" text="Service Request" textFill="WHITE">
+            <JFXButton fx:id="serviceRequestButton" buttonType="RAISED" layoutX="250.0" layoutY="475.0" maxHeight="50.0" onAction="#setServiceRequestButton" prefHeight="50.0" prefWidth="400.0" style="-fx-background-color: #ebaecd;" text="Service Request" textFill="WHITE">
                <font>
                   <Font name="System Bold" size="20.0" />
                </font>
             </JFXButton>
-            <JFXButton buttonType="RAISED" layoutX="250.0" layoutY="290.0" maxHeight="50.0" prefHeight="50.0" prefWidth="400.0" style="-fx-background-color: #ebaecd;" text="Reserve a Room" textFill="WHITE">
+            <JFXButton fx:id="reservationsButton" buttonType="RAISED" layoutX="250.0" layoutY="290.0" maxHeight="50.0" onAction="#setReservationsButton" prefHeight="50.0" prefWidth="400.0" style="-fx-background-color: #ebaecd;" text="Reserve a Room" textFill="WHITE">
                <font>
                   <Font name="System Bold" size="20.0" />
                </font>
@@ -53,7 +53,7 @@
                   <Font name="System Bold" size="40.0" />
                </font>
             </Text>
-            <JFXButton buttonType="RAISED" layoutX="250.0" layoutY="202.0" maxHeight="50.0" prefHeight="50.0" prefWidth="400.0" style="-fx-background-color: #ebaecd;" text="Find Your Path" textFill="WHITE">
+            <JFXButton fx:id="pathfindingButton" buttonType="RAISED" layoutX="250.0" layoutY="202.0" maxHeight="50.0" onAction="#setPathfindingButton" prefHeight="50.0" prefWidth="400.0" style="-fx-background-color: #ebaecd;" text="Find Your Path" textFill="WHITE">
                <font>
                   <Font name="System Bold" size="20.0" />
                </font>

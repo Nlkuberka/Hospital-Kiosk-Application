@@ -35,7 +35,7 @@
                           <MenuItem fx:id="backButton" mnemonicParsing="false" onAction="#setBackButton" text="Go back to previouse page" />
                         </items>
                       </Menu>
-                      <Menu mnemonicParsing="false" text="Home" />
+                      <Menu fx:id="homeButton" mnemonicParsing="false" onAction="#setHomeButton" text="Home" />
                     </menus>
                      <effect>
                         <ColorAdjust brightness="0.19" contrast="0.01" hue="0.01" saturation="-0.44">
@@ -57,7 +57,7 @@
                   </TableView>
                </center>
             </BorderPane>
-            <JFXButton fx:id="addButton" buttonType="RAISED" layoutX="774.0" layoutY="535.0" style="-fx-background-color: #ebaecd;" stylesheets="@backgroud.css" text="Add Node" textFill="WHITE">
+            <JFXButton fx:id="addButton" buttonType="RAISED" layoutX="774.0" layoutY="535.0" onAction="#setAddButton" style="-fx-background-color: #ebaecd;" stylesheets="@backgroud.css" text="Add Node" textFill="WHITE">
                <font>
                   <Font name="System Bold" size="14.0" />
                </font>

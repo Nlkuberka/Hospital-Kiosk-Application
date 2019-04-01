@@ -1,5 +1,6 @@
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.MenuItem;
 
 public class UIControllerMMM extends  UIController {
 
@@ -10,10 +11,13 @@ public class UIControllerMMM extends  UIController {
     private Button reservationsButton; /**< The Reservations Button*/
 
     @FXML
-    private Button reserveRequestButton; /**< The Reserve Request Button*/
+    private Button serviceRequestButton; /**< The Reserve Request Button*/
 
     @FXML
     private Button adminToolsButton; /**< The Admin Tools Button*/
+
+    @FXML
+    private MenuItem backMenuItem;
 
     @FXML
     public void initialize() {
@@ -40,7 +44,7 @@ public class UIControllerMMM extends  UIController {
      * Goes to the Service Request scene
      */
     @FXML
-    private void setReserveRequestButton() {
+    private void setServiceRequestButton() {
         this.goToScene(UIController.SERVICE_REQUEST_MAIN);
     }
 
@@ -50,5 +54,13 @@ public class UIControllerMMM extends  UIController {
     @FXML
     private void setAdminToolsButton() {
         this.goToScene(UIController.ADMIN_TOOLS_MAIN);
+    }
+
+    /**
+     * Goest back to the login scene
+     */
+    @FXML
+    private void setBackMenuItem() {
+        this.goToScene(UIController.LOGIN_MAIN);
     }
 }

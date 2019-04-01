@@ -4,6 +4,7 @@ import javafx.beans.value.ObservableValue;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.Menu;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
@@ -24,7 +25,7 @@ public class UIControllerATVE extends UIController {
     private MenuItem backButton; /**< The Back Button */
 
     @FXML
-    private JFXButton homeButton; /**< The Home Button */
+    private Menu homeButton; /**< The Home Button */
 
     @FXML
     private JFXButton addButton; /**< The Add Button */

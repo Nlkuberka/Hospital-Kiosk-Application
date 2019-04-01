@@ -12,7 +12,7 @@ public class UIControllerATM extends UIController {
     private JFXButton viewNodesButton; /**< The View Node Button*/
 
     @FXML
-    private JFXButton viewEdgesEdges; /**< The View Edges Button*/
+    private JFXButton viewEdgesButton; /**< The View Edges Button*/
 
     public UIControllerATM() {
 

@@ -26,19 +26,19 @@
                     <menus>
                       <Menu mnemonicParsing="false" text="Back">
                         <items>
-                          <MenuItem mnemonicParsing="false" text="Go back to previouse page" />
+                          <MenuItem fx:id="backMenuItem" mnemonicParsing="false" onAction="#setBackMenuItem" text="Go back to previouse page" />
                         </items>
                       </Menu>
                     </menus>
                   </MenuBar>
                </top>
             </BorderPane>
-            <JFXButton buttonType="RAISED" layoutX="301.0" layoutY="235.0" prefWidth="300.0" style="-fx-background-color: #ebaecd;" text="Find Your Path" textFill="WHITE">
+            <JFXButton fx:id="pathfindingButton" buttonType="RAISED" layoutX="301.0" layoutY="235.0" onAction="#setPathfindingButton" prefWidth="300.0" style="-fx-background-color: #ebaecd;" text="Find Your Path" textFill="WHITE">
                <font>
                   <Font name="System Bold Italic" size="30.0" />
                </font>
             </JFXButton>
-            <JFXButton buttonType="RAISED" layoutX="301.0" layoutY="353.0" prefWidth="300.0" style="-fx-background-color: #ebaecd;" stylesheets="@backgroud.css" text="Service Request" textFill="WHITE">
+            <JFXButton fx:id="serviceRequestButton" buttonType="RAISED" layoutX="301.0" layoutY="353.0" onAction="#setServiceRequestButton" prefWidth="300.0" style="-fx-background-color: #ebaecd;" stylesheets="@backgroud.css" text="Service Request" textFill="WHITE">
                <font>
                   <Font name="System Bold Italic" size="30.0" />
                </font>
