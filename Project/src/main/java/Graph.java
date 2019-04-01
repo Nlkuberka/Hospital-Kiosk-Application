@@ -94,8 +94,7 @@ public class Graph {
                     distance[nextNode] = currentDistance;
                     List<String> newPath = deepCopy(paths.get(current));
 
-                    // TODO: 4/1/2019 I have no clue how to fix this error, as im not totally sure what this is supposed to do
-                    //newPath.add(nextNode);
+                    newPath.add(mapIndexToNode(nextNode).getNodeID());
                     paths.set(nextNode, newPath);
                 }
                 if(!marked[nextNode]) {
@@ -132,15 +131,15 @@ public class Graph {
         adjWeights.add(new ArrayList<Integer>());
     }
 
-    // TODO: 4/1/2019 adapt to work with node ID
     public void removeNode(String desiredNodeID) {
+        int storedNodesLength = storedNodes.size();
         for(int i = 0; i < storedNodes.size(); i++) {
-            //removeBiEdge(desiredNodeID, i); TODO change i to a nodeID
+            removeBiEdge(desiredNodeID, mapIndexToNode(i).getNodeID());
         }
         int nodeIndex = mapNodeIDToIndex(desiredNodeID);
         adj.remove(nodeIndex);
         adjWeights.remove(nodeIndex);
-        //storedNodes.size()--; TODO: fix error
+        storedNodesLength--;
 
         for(int i = 0; i < storedNodes.size(); i++) {
             List<Integer> adjList = adj.get(i);
@@ -180,14 +179,13 @@ public class Graph {
         addEdge(n2, n1, weight);
     }*/
 
-    // TODO: 4/1/2019 convert remove edge (I believe I did it right)
     public void removeEdge(String nodeID1, String nodeID2) {
         if(mapNodeIDToIndex(nodeID1) == mapNodeIDToIndex(nodeID2)) {
             return;
         }
         int edgeIndex = adj.get(mapNodeIDToIndex(nodeID1)).indexOf(mapNodeIDToIndex(nodeID2));
         if(edgeIndex >= 0) {
-            //edgeNum--;  TODO: Fix error
+            //edgeNum--;  //TODO: Fix error I do not know what this does or where it comes from
             adj.get(mapNodeIDToIndex(nodeID1)).remove(edgeIndex);
             adjWeights.get(mapNodeIDToIndex(nodeID1)).remove(edgeIndex);
         }
