@@ -4,9 +4,11 @@ import javafx.scene.control.ChoiceBox;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
-import javafx.scene.shape.Rectangle;
+import javafx.scene.shape.*;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.LinkedList;
 
 public class UIControllerPFM extends UIController {
 
@@ -17,6 +19,7 @@ public class UIControllerPFM extends UIController {
     public ChoiceBox destinationSelect;
     public ImageView leftImage;
     public AnchorPane parentAnchorPane;
+    public Path path;
 
     @FXML
     public void initialize() {
@@ -42,6 +45,8 @@ public class UIControllerPFM extends UIController {
         initialLocationSelect.getItems().addAll("choice1", "choice2", "hi");
         // update choices for destination location
         destinationSelect.getItems().addAll("dest1", "dest2");
+
+//        path.getElements().add(new LineTo(50, 50));
     }
 
     @FXML
@@ -58,5 +63,20 @@ public class UIControllerPFM extends UIController {
 
     private void getPath() {
         System.out.println("getPath called");
+    }
+
+    // NEED: list of all nodes that have: names, XY coords
+    private void drawPath(ArrayList<Node> nodes) {
+        path.getElements().removeAll();
+        path.getElements().add(new MoveTo(nodes.get(0).getXcoord(), nodes.get(0).getYcoord())); // move path to origin
+
+        // get all XY pairs and turn them into lines
+        for (int i = 1; i < nodes.size()-1; i++) {
+            Node node = nodes.get(i);
+            path.getElements().add(new LineTo(node.getXcoord(), node.getYcoord()));
+        }
+
+        // draw lines
+        // NEED: stack pane
     }
 }
