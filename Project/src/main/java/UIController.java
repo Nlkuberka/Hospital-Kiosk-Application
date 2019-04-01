@@ -10,7 +10,7 @@ import java.util.HashMap;
 public class UIController {
     public static final String LOGIN_MAIN = "LM";
     public static final String GUEST_MAIN_MENU_MAIN = "GMMM";
-    public static final String BASIC_MAIN_MENU_MAIN = "BMMM";
+    public static final String USER_MAIN_MENU_MAIN = "UMMM";
     public static final String ADMIN_MAIN_MENU_MAIN = "AMMM";
     public static final String PATHFINDING_MAIN = "PFM";
     public static final String RESERVATIONS_MAIN = "RVM";
@@ -53,6 +53,15 @@ public class UIController {
 
         sceneFiles.put(UIController.LOGIN_MAIN, "login_main.fxml");
         sceneTitles.put(UIController.LOGIN_MAIN, "Login Screen");
+
+        sceneFiles.put(UIController.GUEST_MAIN_MENU_MAIN, "guest_main_menu_main.fxml");
+        sceneTitles.put(UIController.GUEST_MAIN_MENU_MAIN, "Main Menu");
+
+        sceneFiles.put(UIController.USER_MAIN_MENU_MAIN, "user_main_menu_main.fxml");
+        sceneTitles.put(UIController.USER_MAIN_MENU_MAIN, "Main Menu");
+
+        sceneFiles.put(UIController.ADMIN_MAIN_MENU_MAIN, "admin_main_menu_main.fxml");
+        sceneTitles.put(UIController.ADMIN_MAIN_MENU_MAIN, "Main Menu");
 
         sceneFiles.put(UIController.ADMIN_TOOLS_MAIN, "admin_tools_main.fxml");
         sceneTitles.put(UIController.ADMIN_TOOLS_MAIN, "Admin Tools - Main");
@@ -98,11 +107,11 @@ public class UIController {
      * Used across all UIControllers
      */
     @FXML
-    private void setHomeButton() {
+    public void setHomeButton() {
         if(CurrentUser.permissions == User.GUEST_PERMISSIONS) {
             this.goToScene(UIController.GUEST_MAIN_MENU_MAIN);
         } else if(CurrentUser.permissions == User.BASIC_PERMISSIONS) {
-            this.goToScene(UIController.BASIC_MAIN_MENU_MAIN);
+            this.goToScene(UIController.USER_MAIN_MENU_MAIN);
         } else if(CurrentUser.permissions == User.ADMIN_PERMISSIONS) {
             this.goToScene(UIController.ADMIN_MAIN_MENU_MAIN);
         }

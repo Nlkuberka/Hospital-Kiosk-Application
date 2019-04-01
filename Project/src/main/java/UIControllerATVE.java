@@ -18,6 +18,7 @@ import java.util.List;
 import java.util.Observable;
 
 public class UIControllerATVE extends UIController {
+    private static final String[] edgeSetters  = {"setEdgeID", "setNode1ID", "setNode2ID"};
     private static final String[] edgeGetters  = {"getEdgeID", "getNode1ID", "getNode2ID"};
                                                 /**< The Various Edge Columns used for cell factories */
 
@@ -66,14 +67,19 @@ public class UIControllerATVE extends UIController {
                     }
 
                     setGraphic(textField);
-                    textField.setOnAction( e -> {
-                            System.out.println(edge.getEdgeID());
-                            if(index == 0) {
-                                //DB Remove
-                            }
-                            //DB Add or Update
+                    textField.setOnAction(et -> {
+                        try {
+                            Method method2 = edge.getClass().getMethod(edgeSetters[index], String.class);
+                            method2.invoke(edge, textField.getText());
+                        } catch (Exception e) {
+                            e.printStackTrace();
                         }
-                    );
+                        System.out.println(edge);
+                        if(index == 0) {
+                            //DB Remove
+                        }
+                        //DB Add or Update
+                    });
                 }
             });
         }
@@ -81,7 +87,7 @@ public class UIControllerATVE extends UIController {
         TableColumn<Edge, Edge> removeColumn = (TableColumn<Edge, Edge>) tableColumns.get(tableColumns.size() - 1);
         removeColumn.setCellValueFactory(param -> new ReadOnlyObjectWrapper<>(param.getValue()));
         removeColumn.setCellFactory(param -> new TableCell<Edge, Edge>() {
-            private Button removeButton = new Button("Remove");
+            private JFXButton removeButton = new JFXButton("Remove");
 
             @Override
             protected void updateItem(Edge edge, boolean empty) {

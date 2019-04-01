@@ -15,6 +15,8 @@ import java.util.List;
 import java.util.Observable;
 
 public class UIControllerATVN extends  UIController {
+    private static final String[] nodeSetters  = {"setNodeID", "setXcoord", "setYcoord", "setFloor",
+                                                    "setBuilding", "setLongName", "setShortName"};
     private static final String[] nodeGetters  = {"getNodeID", "getXcoord", "getYcoord", "getFloor",
                                                 "getBuilding", "getLongName", "getShortName"};
                                                 /**< The Various Node Columns used for cell factories */
@@ -65,14 +67,27 @@ public class UIControllerATVN extends  UIController {
                     }
 
                     setGraphic(textField);
-                    textField.setOnAction( e -> {
-                            System.out.println(node.getNodeID());
-                            if(index == 0) {
-                                //DB Remove
-                            }
-                            //DB Add or Update
+                    textField.setOnAction(et -> {
+                        Class paramClass = String.class;
+                        if(indexOut == 1 || indexOut == 2) {
+                            paramClass = int.class;
                         }
-                    );
+                        try {
+                            Method method2 = node.getClass().getMethod(nodeSetters[index], paramClass);
+                            if(indexOut == 1 || indexOut == 2) {
+                                method2.invoke(node, Integer.parseInt(textField.getText()));
+                            } else {
+                                method2.invoke(node, textField.getText());
+                            }
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                        System.out.println(node);
+                        if(index == 0) {
+                            //DB Remove
+                        }
+                        //DB Add or Update
+                    });
                 }
             });
         }
@@ -80,7 +95,7 @@ public class UIControllerATVN extends  UIController {
         TableColumn<Node, Node> removeColumn = (TableColumn<Node, Node>) tableColumns.get(tableColumns.size() - 1);
         removeColumn.setCellValueFactory(param -> new ReadOnlyObjectWrapper<>(param.getValue()));
         removeColumn.setCellFactory(param -> new TableCell<Node, Node>() {
-            private Button removeButton = new Button("Remove");
+            private JFXButton removeButton = new JFXButton("Remove");
 
             @Override
             protected void updateItem(Node node, boolean empty) {
