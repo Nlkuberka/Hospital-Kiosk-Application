@@ -2,7 +2,7 @@ public class Node {
     private String nodeID;
     private int xcoord;
     private int ycoord;
-    private int floor;
+    private String floor;
     private String building;
     private String nodeType;
     private String longName;
@@ -11,7 +11,7 @@ public class Node {
     public Node() {
     }
 
-    public Node(String nodeID, int xcoord, int ycoord, int floor, String building, String nodeType, String longName, String shortName) {
+    public Node(String nodeID, int xcoord, int ycoord, String floor, String building, String nodeType, String longName, String shortName) {
         this.nodeID = nodeID;
         this.xcoord = xcoord;
         this.ycoord = ycoord;
@@ -46,11 +46,11 @@ public class Node {
         this.ycoord = ycoord;
     }
 
-    public int getFloor() {
+    public String getFloor() {
         return floor;
     }
 
-    public void setFloor(int floor) {
+    public void setFloor(String floor) {
         this.floor = floor;
     }
 

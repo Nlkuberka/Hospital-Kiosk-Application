@@ -149,7 +149,7 @@ public class DBController {
             LinkedList<Node> listOfNodes = new LinkedList<>();
             while(rs.next()){
                 Node node = new Node(rs.getString(1),rs.getInt(2),rs.getInt(3),
-                        rs.getInt(4),rs.getString(5),rs.getString(6),
+                        rs.getString(4),rs.getString(5),rs.getString(6),
                         rs.getString(7),rs.getString(8));
                 listOfNodes.add(node);
             }

@@ -61,7 +61,7 @@ public class CSVHandler {
         if(!scanner.hasNext()) {
             return null;
         }
-        int floor = scanner.nextInt();
+        String floor = scanner.next();
         if(!scanner.hasNext()) {
             return null;
         }

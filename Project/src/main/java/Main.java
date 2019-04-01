@@ -2,6 +2,9 @@ import javafx.application.Application;
 import javafx.stage.Stage;
 import java.io.File;
 import java.sql.Connection;
+import java.util.LinkedList;
+
+import static jdk.nashorn.internal.objects.Global.print;
 
 
 public class Main extends Application {
@@ -18,12 +21,16 @@ public class Main extends Application {
         DBController dbController = new DBController();
         Connection conn = DBController.dbConnect();
 
-        File nodeCSV = new File("nodesv3.csv");
-        File edgeCSV = new File("edgesv3.csv");
-       // DBController.loadNodeData(nodeCSV, conn);
-        DBController.loadEdgeData(edgeCSV, conn);
+        // Only needed if DB have not been populated yet
+//        File nodeCSV = new File("nodesv3.csv");
+//        File edgeCSV = new File("edgesv3.csv");
+//        DBController.loadNodeData(nodeCSV, conn);
+//        DBController.loadEdgeData(edgeCSV, conn);
+
         //List<Node> list = CSVHandler.readFile("PrototypeNodes.csv");
         //dbController.enterData(list, connection);
+
+        LinkedList<Node> allNodes= dbController.generateListofNodes(conn);
 
         // IF YOU DO NOT HAVE THE TABLES SET UP RUN THIS CODE TO GENERATE
         // LEAVE COMMENTED OUT OTHERWISE
