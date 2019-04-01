@@ -1,10 +1,6 @@
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
-
-import org.apache.derby.client.am.SqlException;
-
-import javax.swing.plaf.nimbus.State;
 import java.io.*;
 import java.sql.*;
 import java.util.LinkedList;
@@ -23,6 +19,48 @@ public class DBController {
             e.printStackTrace();
         }
         return null;
+    }
+
+    public static void loadNodeData(File file, Connection connection){
+        BufferedReader br = null;
+        String line = "";
+        String[] arr;
+        try{
+            br = new BufferedReader(new FileReader(file));
+            br.readLine(); // skip header
+            while((line = br.readLine()) != null){
+                arr = line.split(",");
+                connection.createStatement().execute("insert into NODES " +
+                        "values ('"+ arr[0] +"',"+ arr[1]+","+ arr[2]+",'"+ arr[3]+"','"+ arr[4]+"','"+ arr[5]+"','"+ arr[6]+"','"+ arr[7]+"')");
+            }
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    public static void loadEdgeData(File file, Connection connection){
+        BufferedReader br = null;
+        String line = "";
+        String[] arr;
+        try{
+            br = new BufferedReader(new FileReader(file));
+            br.readLine(); // skip header
+            while((line = br.readLine()) != null){
+                arr = line.split(",");
+                connection.createStatement().execute("insert into EDGES " +
+                        "values ('"+ arr[0] + "','"+ arr[1]+"','"+ arr[2]+"')");
+            }
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    public static void createTable(String createStatement, Connection conn){
+        try {
+            conn.createStatement().execute(createStatement);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     public void enterData(List<Node> nodes, Connection connection){
