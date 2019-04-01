@@ -10,11 +10,10 @@ import static java.lang.Math.sqrt;
 
 public class Graph {
     
-    private ArrayList<ArrayList<Integer>> adj;
-    private ArrayList<ArrayList<Integer>> adjWeights;
+    private ArrayList<ArrayList<Integer>> adj; //
+    private ArrayList<ArrayList<Integer>> adjWeights; //weights of the edges
     private ArrayList<Boolean> marked;
-    private ArrayList<Node> storedNodes; //can produce the index
-    //store map of short name to userid
+    private ArrayList<Node> storedNodes; //nodes that have been stored
 
 
     /**
@@ -36,7 +35,7 @@ public class Graph {
     }
 
     /**
-     *
+     * Maps a node to its index
      * @param desiredNode the node the user is looking to find the index of
      * @return the index of the desired node or -1 for failure
      */
@@ -49,6 +48,11 @@ public class Graph {
         return -1;
     }
 
+    /**
+     * Maps the ID of a node to its index
+     * @param desiredNodeID the ID of the node the user is looking to find
+     * @return the index of the node in the ArrayList or -1 for failure
+     */
     public int mapNodeIDToIndex(String desiredNodeID){
         for(Node n: storedNodes){
             if(n.getNodeID().equals(desiredNodeID)) {
@@ -59,7 +63,7 @@ public class Graph {
     }
 
     /**
-     *
+     * Maps the index of a node to the actual node
      * @param desiredIndex the location of the desired node
      * @return the node at the desired index
      */
@@ -67,7 +71,12 @@ public class Graph {
         return storedNodes.get(desiredIndex);
     }
 
-
+    /**
+     * Finds the shortest path between two nodes
+     * @param startID the String ID of the starting node
+     * @param targetID the String ID of the desired finish node
+     * @return returns an ArrayList<List<String>> of the shortest path between those two points
+     */
     public List<String> shortestPath(String startID, String targetID) {
         int startIndex = mapNodeIDToIndex(startID);
         int targetIndex = mapNodeIDToIndex(targetID);
@@ -131,6 +140,10 @@ public class Graph {
         adjWeights.add(new ArrayList<Integer>());
     }
 
+    /**
+     * Removes a node from the existing set of nodes
+     * @param desiredNodeID is the ID of the desired ID to remove
+     */
     public void removeNode(String desiredNodeID) {
         int storedNodesLength = storedNodes.size();
         for(int i = 0; i < storedNodes.size(); i++) {
@@ -152,6 +165,11 @@ public class Graph {
     }
 
 
+    /**
+     * Adds an edge between two nodes and calculates wreight of edge
+     * @param nodeID1 is the first node
+     * @param nodeID2 is the second node to find the weight between
+     */
     public void addEdge(String nodeID1, String nodeID2) {
         //check if nodes exist
         int node1Index = mapNodeIDToIndex(nodeID1);
@@ -173,33 +191,57 @@ public class Graph {
         adjWeights.get(node1Index).add(weight);
     }
 
+    /**
+     * Add a bidirectional edge between two nodes
+     * @param ID1 Node ID 1
+     * @param ID2 Node ID 2
+     */
+    public void addBiEdge(String ID1, String ID2) {
+        addEdge(ID1, ID2);
+        addEdge(ID2, ID1);
+    }
 
-   /* public void addBiEdge(int n1, int n2, int weight) {
-        addEdge(n1, n2, weight);
-        addEdge(n2, n1, weight);
-    }*/
-
+    /**
+     * Removed an edge between two nodes
+     * @param nodeID1 is the first node to be checked
+     * @param nodeID2 is the second node to be checked for an edge
+     */
     public void removeEdge(String nodeID1, String nodeID2) {
         if(mapNodeIDToIndex(nodeID1) == mapNodeIDToIndex(nodeID2)) {
             return;
         }
         int edgeIndex = adj.get(mapNodeIDToIndex(nodeID1)).indexOf(mapNodeIDToIndex(nodeID2));
         if(edgeIndex >= 0) {
-            //edgeNum--;  //TODO: Fix error I do not know what this does or where it comes from
+            //edgeNum--;  TODO: Fix error I do not know what this does or where it comes from
             adj.get(mapNodeIDToIndex(nodeID1)).remove(edgeIndex);
             adjWeights.get(mapNodeIDToIndex(nodeID1)).remove(edgeIndex);
         }
     }
 
+    /**
+     * Removes an edge that goes in two directions
+     * @param nodeID1 is a node with a bidirectional edge
+     * @param nodeID2 is the second node with that same bidirectional edge
+     */
     public void removeBiEdge(String nodeID1, String nodeID2) {
         removeEdge(nodeID1, nodeID2);
         removeEdge(nodeID2, nodeID1);
     }
 
+    /**
+     * The getter for the edged
+     * @param n a node index
+     * @return the edged off that node
+     */
     public ArrayList<Integer> getEdges(int n) {
         return adj.get(n);
     }
 
+    /**
+     * Finds the amount of edged off of a node
+     * @param n a node index
+     * @return the amount of edged off of a single node
+     */
     public int degreeOf(int n) {
         return adj.get(n).size();
     }
