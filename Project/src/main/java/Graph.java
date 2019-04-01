@@ -68,7 +68,6 @@ public class Graph {
     }
 
 
-
     public List<String> shortestPath(String startID, String targetID) {
         int startIndex = mapNodeIDToIndex(startID);
         int targetIndex = mapNodeIDToIndex(targetID);
@@ -134,24 +133,24 @@ public class Graph {
     }
 
     // TODO: 4/1/2019 adapt to work with node ID
-    /*public void removeNode(int node) {
+    public void removeNode(String desiredNodeID) {
         for(int i = 0; i < storedNodes.size(); i++) {
-            removeBiEdge(node, i);
+            //removeBiEdge(desiredNodeID, i); TODO change i to a nodeID
         }
-
-        adj.remove(node);
-        adjWeights.remove(node);
-        storedNodes.size()--;
+        int nodeIndex = mapNodeIDToIndex(desiredNodeID);
+        adj.remove(nodeIndex);
+        adjWeights.remove(nodeIndex);
+        //storedNodes.size()--; TODO: fix error
 
         for(int i = 0; i < storedNodes.size(); i++) {
             List<Integer> adjList = adj.get(i);
             for(int j = 0; j < adjList.size(); j++) {
-                if(adjList.get(j) > node) {
+                if(adjList.get(j) > nodeIndex) {
                     adjList.set(j, adjList.get(j) - 1);
                 }
             }
         }
-    }*/
+    }
 
 
     public void addEdge(String nodeID1, String nodeID2) {
@@ -181,24 +180,23 @@ public class Graph {
         addEdge(n2, n1, weight);
     }*/
 
-    // TODO: 4/1/2019 convert remove edge
-    /*public void removeEdge(int n1, int n2) {
-        if(n1 == n2) {
+    // TODO: 4/1/2019 convert remove edge (I believe I did it right)
+    public void removeEdge(String nodeID1, String nodeID2) {
+        if(mapNodeIDToIndex(nodeID1) == mapNodeIDToIndex(nodeID2)) {
             return;
         }
-        int edgeIndex = adj.get(n1).indexOf(n2);
+        int edgeIndex = adj.get(mapNodeIDToIndex(nodeID1)).indexOf(mapNodeIDToIndex(nodeID2));
         if(edgeIndex >= 0) {
-            edgeNum--;
-            adj.get(n1).remove(edgeIndex);
-            adjWeights.get(n1).remove(edgeIndex);
+            //edgeNum--;  TODO: Fix error
+            adj.get(mapNodeIDToIndex(nodeID1)).remove(edgeIndex);
+            adjWeights.get(mapNodeIDToIndex(nodeID1)).remove(edgeIndex);
         }
-    }*/
+    }
 
-    // TODO: 4/1/2019 re-implement removeBiEdge
-    /*public void removeBiEdge(int n1, int n2) {
-        removeEdge(n1, n2);
-        removeEdge(n2, n1);
-    }*/
+    public void removeBiEdge(String nodeID1, String nodeID2) {
+        removeEdge(nodeID1, nodeID2);
+        removeEdge(nodeID2, nodeID1);
+    }
 
     public ArrayList<Integer> getEdges(int n) {
         return adj.get(n);

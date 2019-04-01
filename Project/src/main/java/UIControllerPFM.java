@@ -39,7 +39,7 @@ public class UIControllerPFM extends UIController {
         initialLocationSelect.getSelectionModel().selectFirst();
 
         // update choices for initial location
-        initialLocationSelect.getItems().addAll("choice1", "choice2");
+        initialLocationSelect.getItems().addAll("choice1", "choice2", "hi");
         // update choices for destination location
         destinationSelect.getItems().addAll("dest1", "dest2");
     }
