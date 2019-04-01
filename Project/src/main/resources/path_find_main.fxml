@@ -42,7 +42,7 @@
                   <StackPane prefHeight="150.0" prefWidth="200.0">
                      <children>
                         <Rectangle fx:id="rectangleLeft" arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="575.0" opacity="0.3" stroke="TRANSPARENT" strokeType="INSIDE" width="900.0" StackPane.alignment="TOP_CENTER" />
-                        <VBox fx:id="leftVBox" prefHeight="375.0" prefWidth="200.0" stylesheets="@background.css">
+                        <VBox fx:id="leftVBox" fillWidth="false" maxWidth="200.0" prefHeight="575.0" prefWidth="200.0" stylesheets="@background.css" StackPane.alignment="CENTER_LEFT">
                            <children>
                               <Text fill="WHITE" smooth="false" strokeType="OUTSIDE" strokeWidth="0.0" text="Initial Location" textAlignment="CENTER">
                                  <font>
@@ -70,12 +70,15 @@
                                     <Insets left="25.0" />
                                  </VBox.margin>
                               </ChoiceBox>
-                              <JFXButton fx:id="cancel_button" />
-                              <JFXToggleButton prefHeight="58.0" prefWidth="200.0" styleClass="all-text" stylesheets="@background.css" text="NO STAIRS" textAlignment="CENTER" wrapText="true">
+                              <JFXButton fx:id="cancel_button" prefWidth="100.0" text="Cancel">
                                  <VBox.margin>
-                                    <Insets />
-                                 </VBox.margin>
-                              </JFXToggleButton>
+                                    <Insets left="50.0" top="25.0" />
+                                 </VBox.margin></JFXButton>
+                              <AnchorPane prefHeight="382.0" prefWidth="200.0">
+                                 <children>
+                                    <JFXToggleButton prefHeight="58.0" prefWidth="200.0" styleClass="all-text" stylesheets="@background.css" text="NO STAIRS" textAlignment="CENTER" wrapText="true" AnchorPane.bottomAnchor="0.0" />
+                                 </children>
+                              </AnchorPane>
                            </children>
                         </VBox>
                      </children>
