@@ -48,7 +48,7 @@ public class UIControllerSRM extends UIController {
         String roomShortName = (String) nodeIDs.get((String) roomSelect.getValue());
         String nodeID = nodeIDs.get(roomShortName);
         String message = serviceMessage.getText();
-        ServiceRequest sr = new ServiceRequest(nodeID, serviceType, message, CurrentUser.userID, false);
+        ServiceRequest sr = new ServiceRequest(nodeID, serviceType, message, CurrentUser.userID, false, "");
         //DB Add Service Request
         System.out.println(message);
     }
