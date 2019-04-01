@@ -55,4 +55,14 @@ public class Reservation {
     public void setEndTime(String endTime) {
         this.endTime = endTime;
     }
+
+    public String toString() {
+        String returnValue = "Node(";
+        returnValue += getNodeID() + ", ";
+        returnValue += getUserID() + ", ";
+        returnValue += getDate() + ", ";
+        returnValue += getStartTime() + ", ";
+        returnValue += getEndTime() + ")";
+        return  returnValue;
+    }
 }

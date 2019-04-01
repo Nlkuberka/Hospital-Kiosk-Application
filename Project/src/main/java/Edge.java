@@ -41,7 +41,7 @@ public class Edge {
         String returnValue = "Edge(";
         returnValue += edgeID + ", ";
         returnValue += node1ID + ", ";
-        returnValue += node2ID + ", ";
+        returnValue += node2ID + "";
         returnValue += ")";
         return returnValue;
     }

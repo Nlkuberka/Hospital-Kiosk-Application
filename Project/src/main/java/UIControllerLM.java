@@ -41,7 +41,7 @@ public class UIControllerLM extends UIController {
     @FXML
     private void setLoginAsUserButton() {
         CurrentUser.permissions = User.BASIC_PERMISSIONS;
-        this.goToScene(UIController.BASIC_MAIN_MENU_MAIN);
+        this.goToScene(UIController.USER_MAIN_MENU_MAIN);
     }
 
     /**
