@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXToggleButton?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.Menu?>
@@ -68,6 +70,12 @@
                                     <Insets left="25.0" />
                                  </VBox.margin>
                               </ChoiceBox>
+                              <JFXButton fx:id="cancel_button" />
+                              <JFXToggleButton prefHeight="58.0" prefWidth="200.0" styleClass="all-text" stylesheets="@background.css" text="NO STAIRS" textAlignment="CENTER" wrapText="true">
+                                 <VBox.margin>
+                                    <Insets />
+                                 </VBox.margin>
+                              </JFXToggleButton>
                            </children>
                         </VBox>
                      </children>
