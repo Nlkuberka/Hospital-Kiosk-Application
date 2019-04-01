@@ -22,6 +22,7 @@ public class UIController {
     private static final int WIDTH = 900;
     private static final int HEIGHT = 600;
 
+    private static Parent root;
     private static Stage primaryStage;
     private static Map<String, Scene> scenes;
     private static Map<String, UIController> sceneControllers;
@@ -114,7 +115,8 @@ public class UIController {
             this.goToScene(UIController.USER_MAIN_MENU_MAIN);
         } else if(CurrentUser.permissions == User.ADMIN_PERMISSIONS) {
             this.goToScene(UIController.ADMIN_MAIN_MENU_MAIN);
+        } else {
+            this.goToScene(UIController.LOGIN_MAIN);
         }
-        this.goToScene(UIController.GUEST_MAIN_MENU_MAIN);
     }
 }

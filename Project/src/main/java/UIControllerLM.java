@@ -1,8 +1,6 @@
 import com.jfoenix.controls.JFXButton;
 import javafx.fxml.FXML;
 
-import javafx.scene.control.Button;
-
 public class UIControllerLM extends UIController {
 
     @FXML

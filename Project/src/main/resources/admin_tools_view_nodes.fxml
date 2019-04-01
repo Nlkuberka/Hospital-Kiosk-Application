@@ -35,7 +35,10 @@
                           <MenuItem fx:id="backButton" mnemonicParsing="false" onAction="#setBackButton" text="Go back to previouse page" />
                         </items>
                       </Menu>
-                      <Menu fx:id="homeButton" mnemonicParsing="false" onAction="#setHomeButton" text="Home" />
+                      <Menu fx:id="homeButton" mnemonicParsing="false" onAction="#setHomeButton" onShowing="#setHomeButton" text="Home">
+                           <items>
+                              <MenuItem mnemonicParsing="false" text="HOME" />
+                           </items></Menu>
                     </menus>
                      <effect>
                         <ColorAdjust brightness="0.19" contrast="0.01" hue="0.01" saturation="-0.44">
