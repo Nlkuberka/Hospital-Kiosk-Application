@@ -10,7 +10,7 @@ import java.util.HashMap;
 public class UIController {
     public static final String LOGIN_MAIN = "LM";
     public static final String GUEST_MAIN_MENU_MAIN = "GMMM";
-    public static final String BASIC_MAIN_MENU_MAIN = "BMMM";
+    public static final String USER_MAIN_MENU_MAIN = "BMMM";
     public static final String ADMIN_MAIN_MENU_MAIN = "AMMM";
     public static final String PATHFINDING_MAIN = "PFM";
     public static final String RESERVATIONS_MAIN = "RVM";
@@ -19,8 +19,8 @@ public class UIController {
     public static final String ADMIN_TOOLS_VIEW_NODES = "ATVN";
     public static final String ADMIN_TOOLS_VIEW_EDGES = "ATVE";
 
-    private static final int WIDTH = 600;
-    private static final int HEIGHT = 400;
+    private static final int WIDTH = 800;
+    private static final int HEIGHT = 600;
 
     private static Stage primaryStage;
     private static Map<String, Scene> scenes;
@@ -105,10 +105,11 @@ public class UIController {
         if(CurrentUser.permissions == User.GUEST_PERMISSIONS) {
             this.goToScene(UIController.GUEST_MAIN_MENU_MAIN);
         } else if(CurrentUser.permissions == User.BASIC_PERMISSIONS) {
-            this.goToScene(UIController.BASIC_MAIN_MENU_MAIN);
+            this.goToScene(UIController.USER_MAIN_MENU_MAIN);
         } else if(CurrentUser.permissions == User.ADMIN_PERMISSIONS) {
             this.goToScene(UIController.ADMIN_MAIN_MENU_MAIN);
+        } else {
+            this.goToScene(UIController.LOGIN_MAIN);
         }
-        this.goToScene(UIController.GUEST_MAIN_MENU_MAIN);
     }
 }
