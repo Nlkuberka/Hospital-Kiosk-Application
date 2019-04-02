@@ -1,6 +1,7 @@
 import com.jfoenix.controls.JFXButton;
 
 import javafx.beans.property.ReadOnlyObjectWrapper;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Menu;
@@ -11,6 +12,7 @@ import javafx.scene.control.TableView;
 
 import java.net.ConnectException;
 import java.sql.Connection;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 /**
@@ -117,11 +119,17 @@ public class UIControllerATVE extends UIController {
      */
     @Override
     public void onShow() {
-        //DB get Edges
-        for(int i = 0; i < 100; i++) {
-            Edge edge  = new Edge(i + "", i * 2 + "", i * 3 + "");
-            edgeTable.getItems().add(edge);
+        Connection conn = DBController.dbConnect();
+        ObservableList<Edge> edgeData = FXCollections.observableArrayList();
+        try{
+            ResultSet rs = conn.createStatement().executeQuery("Select * from EDGES");
+            while (rs.next()){
+                edgeData.add(new Edge(rs.getString(1),rs.getString(2),rs.getString(3)));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
+        edgeTable.setItems(edgeData);
     }
 
     /**
