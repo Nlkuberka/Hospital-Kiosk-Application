@@ -41,6 +41,7 @@ public class UIControllerSRM extends UIController {
         serviceTypes.add("Maintenance Request");
         serviceTypes.add("Tech Support Request");
         serviceSelect.setItems(FXCollections.observableList(serviceTypes));
+        serviceSelect.getSelectionModel().selectFirst();
 
         serviceMessage.setTextFormatter(new TextFormatter<String>(e ->
             e.getControlNewText().length() <= 100 ? e : null
@@ -58,6 +59,7 @@ public class UIControllerSRM extends UIController {
         // DB Get all Nodes
 
         roomSelect.setItems(FXCollections.observableList(nodeShortNames));
+        roomSelect.getSelectionModel().selectFirst();
     }
 
     /**
