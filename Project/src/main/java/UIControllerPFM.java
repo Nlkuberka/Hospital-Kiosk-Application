@@ -57,15 +57,22 @@ public class UIControllerPFM extends UIController {
 
     @FXML
     public void destLocChanged(ActionEvent actionEvent) {
-        System.out.println("Destination selected: " + destinationSelect.getValue());
+        String value = destinationSelect.getValue();
+
         System.out.println("Initial location: " + initialLocationSelect.getValue());
-        getPath();
+        System.out.println("Destination selected: " + value);
+
+        // call getPath if not null
+        if (!(value == null || value.length() == 0)) {
+            getPath();
+        }
     }
 
     @FXML
     private void clearPath(ActionEvent actionEvent) {
         initialLocationSelect.getSelectionModel().selectFirst();
         destinationSelect.getSelectionModel().clearSelection();
+        clearPathOnMap();
     }
 
     private void getPath() {
@@ -74,8 +81,8 @@ public class UIControllerPFM extends UIController {
 
     // NEED: list of all nodes that have: names, XY coords
     private void drawPath(ArrayList<Node> nodes) {
-        path.getElements().removeAll();
-        path.getElements().add(new MoveTo(nodes.get(0).getXcoord(), nodes.get(0).getYcoord())); // move path to origin
+        clearPathOnMap();
+        path.getElements().add(new MoveTo(nodes.get(0).getXcoord(), nodes.get(0).getYcoord())); // move path to initLocation
 
         // get all XY pairs and turn them into lines
         for (int i = 1; i < nodes.size() - 1; i++) {
@@ -84,6 +91,9 @@ public class UIControllerPFM extends UIController {
         }
 
         // draw lines
-        // NEED: stack pane
+    }
+
+    private void clearPathOnMap() {
+        path.getElements().removeAll();
     }
 }
