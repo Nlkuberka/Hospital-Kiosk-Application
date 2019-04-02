@@ -6,9 +6,7 @@ import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.DatePicker;
 
 import java.text.SimpleDateFormat;
-import java.time.Instant;
-import java.time.LocalDate;
-import java.time.ZoneId;
+import java.time.*;
 
 import java.util.Date;
 import java.util.List;
@@ -60,6 +58,11 @@ public class UIControllerRVM extends UIController {
             nodeIDs.put(nodes.get(i).getShortName(), nodes.get(i).getNodeID());
             nodeSelect.getItems().add(nodes.get(i).getShortName());
         }*/
+
+        datePicker.setValue(LocalDate.now());
+        startTimePicker.setValue(LocalTime.now());
+        endTimePicker.setValue(LocalTime.now());
+        nodeSelect.getSelectionModel().selectFirst();
     }
 
     /**
@@ -70,10 +73,24 @@ public class UIControllerRVM extends UIController {
         LocalDate ld = datePicker.getValue();
         Instant instant = Instant.from(ld.atStartOfDay(ZoneId.systemDefault()));
         Date date = Date.from(instant);
-        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 
-        Reservation r = new Reservation(nodeIDs.get((String) nodeSelect.getValue()), CurrentUser.userID, format.format(date), startTimePicker.getValue() + ":00", endTimePicker.getValue() + ":00");
+        // If date selected is before today
+        Date today = new Date();
+        if(date.compareTo(today) <= 0) {
+            return;
+        }
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+        SimpleDateFormat formatTime = new SimpleDateFormat("HH:mm:ss");
+
+        // If endTime before startTime return
+        LocalTime startTime = startTimePicker.getValue();
+        LocalTime endTime = endTimePicker.getValue();
+        if(endTime.compareTo(startTime) <= 0) {
+            return;
+        }
+
+        Reservation r = new Reservation(nodeIDs.get((String) nodeSelect.getValue()), CurrentUser.userID, format.format(date), startTime.toString().substring(0, 8), endTime.toString().substring(0, 8));
         // DB Send
-        System.out.println(date);
+        System.out.println(r);
     }
 }
