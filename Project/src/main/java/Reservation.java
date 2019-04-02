@@ -1,3 +1,7 @@
+/**
+ * The Object that holds data about a particular reservation
+ * @version iteration1
+ */
 public class Reservation {
     private String nodeID;
     private String userID;
