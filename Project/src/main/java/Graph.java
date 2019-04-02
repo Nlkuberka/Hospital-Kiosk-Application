@@ -1,4 +1,4 @@
-import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
@@ -10,26 +10,26 @@ import static java.lang.Math.sqrt;
 
 public class Graph {
     
-    private ArrayList<ArrayList<Integer>> adj; //
-    private ArrayList<ArrayList<Double>> adjWeights; //weights of the edges
-    private ArrayList<Node> storedNodes; //nodes that have been stored
+    private LinkedList<LinkedList<Integer>> adj; //
+    private LinkedList<LinkedList<Double>> adjWeights; //weights of the edges
+    private LinkedList<Node> storedNodes; //nodes that have been stored
 
 
     /**
      * Constructor
      * Initalizes the graph with the given number of nodes
      */
-    public Graph(ArrayList<Node> storedNodes) {
+    public Graph(LinkedList<Node> storedNodes) {
         this.storedNodes = storedNodes;
         if(storedNodes.size() < 0) {
             throw new IllegalArgumentException("Number of nodes must be greater than or equal to 0");
         }
         //this.storedNodes.size() = storedNodes.size();
-        this.adj = new ArrayList<ArrayList<Integer>>();
-        this.adjWeights = new ArrayList<>();
+        this.adj = new LinkedList<LinkedList<Integer>>();
+        this.adjWeights = new LinkedList<>();
         for(int i = 0; i < storedNodes.size(); i++) {
-            this.adj.add(new ArrayList<Integer>());
-            this.adjWeights.add(new ArrayList<>());
+            this.adj.add(new LinkedList<Integer>());
+            this.adjWeights.add(new LinkedList<>());
         }
     }
 
@@ -61,7 +61,7 @@ public class Graph {
     /**
      * Maps the ID of a node to its index
      * @param desiredNodeID the ID of the node the user is looking to find
-     * @return the index of the node in the ArrayList or -1 for failure
+     * @return the index of the node in the LinkedList or -1 for failure
      */
     public int mapNodeIDToIndex(String desiredNodeID){
         for(Node n: storedNodes){
@@ -85,7 +85,7 @@ public class Graph {
      * Finds the shortest path between two nodes
      * @param startID the String ID of the starting node
      * @param targetID the String ID of the desired finish node
-     * @return returns an ArrayList<List<String>> of the shortest path between those two points
+     * @return returns an LinkedList<List<String>> of the shortest path between those two points
      */
     public List<String> shortestPath(String startID, String targetID) {
         int startIndex = mapNodeIDToIndex(startID);
@@ -133,7 +133,7 @@ public class Graph {
      * @return The deep copy of the list
      */
     private List<String> deepCopy(List<String> original) {
-        List<String> copy = new ArrayList<String>();
+        List<String> copy = new LinkedList<String>();
         for(int i = 0 ; i < original.size(); i++) {
             copy.add(original.get(i));
         }
@@ -145,8 +145,8 @@ public class Graph {
      */
     public void addNode(Node newNode) {
         storedNodes.add(newNode);
-        adj.add(new ArrayList<Integer>());
-        adjWeights.add(new ArrayList<>());
+        adj.add(new LinkedList<Integer>());
+        adjWeights.add(new LinkedList<>());
     }
 
     /**
@@ -242,7 +242,7 @@ public class Graph {
      * @param n a node index
      * @return the edged off that node
      */
-    public ArrayList<Integer> getEdges(int n) {
+    public LinkedList<Integer> getEdges(int n) {
         return adj.get(n);
     }
 

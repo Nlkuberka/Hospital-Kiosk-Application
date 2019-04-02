@@ -46,6 +46,7 @@ public class UIControllerPFM extends UIController {
 
         Connection conn = DBController.dbConnect();
         LinkedList<Node> allNodes = DBController.generateListofNodes(conn);
+
         try {
             conn.close();
         } catch (SQLException e) {
@@ -61,6 +62,8 @@ public class UIControllerPFM extends UIController {
                 destinationSelect.getItems().addAll(node.getLongName());
             }
         }
+
+        Graph graph = new Graph(allNodes);
 
         // path demo code
 //        path.getElements().add(new MoveTo(0.0f, 0.0f));
@@ -95,6 +98,7 @@ public class UIControllerPFM extends UIController {
 
     private void getPath() {
         System.out.println("getPath called");
+        //graph.shortestPath(initialLocationSelect, destinationSelect);
     }
 
     // NEED: list of all nodes that have: names, XY coords
