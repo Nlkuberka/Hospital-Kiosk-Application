@@ -63,7 +63,7 @@ public class UIControllerPFM extends UIController {
         scrollPane_pathfind.setVbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
 
         // set value to "true" to use zoom functionality
-        setZoomOn(false);
+        setZoomOn(true);
 
         Connection conn = DBController.dbConnect();
         LinkedList<Node> allNodes = DBController.generateListofNodes(conn);
@@ -148,13 +148,13 @@ public class UIControllerPFM extends UIController {
     }
 
     // The multiplication factor at which the map changes size
-    public double zoomFactor = 1.2;
+    private double zoomFactor = 1.2;
 
     /**
      *
      * @param bool Set in initialize() to turn on/off zoom functionality
      */
-    public void setZoomOn(boolean bool) {
+    private void setZoomOn(boolean bool) {
         zoom_button.setVisible(bool);
         unzoom_button.setVisible(bool);
     }
