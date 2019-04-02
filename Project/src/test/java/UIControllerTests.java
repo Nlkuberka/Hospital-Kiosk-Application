@@ -5,6 +5,11 @@ import org.junit.Test;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 
+/**
+ * Contains just the positive tests for the UIController
+ * No negative or exception tests
+ * No UI tests
+ */
 public class UIControllerTests {
     UIController controller;
     Node node;
@@ -12,6 +17,10 @@ public class UIControllerTests {
     Label label;
     TextField textField;
 
+    /**
+     * Runs before each test
+     * Creates new test classes
+     */
     @Before
     public void beforeActions() {
         new JFXPanel();
@@ -22,12 +31,18 @@ public class UIControllerTests {
         textField = new TextField("TEXTTEXTFIELD");
     }
 
+    /**
+     * Runs the tests for the UIController.stringGetter function
+     */
     @Test
     public void stringGetterTests() {
         controller.runStringGetter(node, "getNodeID", label);
         Assert.assertEquals("testNodeID", label.getText());
     }
 
+    /**
+     * Runs the tests for the UIController.stringGetterEditable function
+     */
     @Test
     public void stringGetterEditableTests() {
         controller.runStringGetterEditable(node, "getNodeID", label, textField);
@@ -35,6 +50,9 @@ public class UIControllerTests {
         Assert.assertEquals("testNodeID", textField.getText());
     }
 
+    /**
+     * Runs the tests for the UIController.stringSetter function
+     */
     @Test
     public void runSetterTests() {
         controller.runSetter(node, "setNodeID", String.class, "TESTNID");
