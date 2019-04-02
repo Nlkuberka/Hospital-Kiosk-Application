@@ -73,13 +73,15 @@ public class UIControllerATVSR extends UIController {
             @Override
             protected void updateItem(ServiceRequest serviceRequest, boolean empty) {
                 super.updateItem(serviceRequest, empty);
-
+                if(serviceRequest == null) {
+                    return;
+                }
                 // Get the initial value of the checkbox
                 try {
                     Method method = serviceRequest.getClass().getMethod(serviceRequestGetters[index]);
                     checkBox.setSelected((boolean) method.invoke(serviceRequest));
                 } catch (Exception e) {
-                    e.printStackTrace();
+                    //e.printStackTrace();
                 }
                 setGraphic(checkBox);
                 checkBox.setOnAction(et -> {
@@ -87,7 +89,6 @@ public class UIControllerATVSR extends UIController {
                     Connection conn = DBController.dbConnect();
                     DBController.updateServiceRequest(serviceRequest,conn);
                     DBController.closeConnection(conn);
-
                 });
             }
 

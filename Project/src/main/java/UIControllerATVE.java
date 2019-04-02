@@ -51,7 +51,7 @@ public class UIControllerATVE extends UIController {
         TableColumn<Edge, Edge> edgeIDColumn = (TableColumn<Edge, Edge>) tableColumns.get(0);
         edgeIDColumn.setCellValueFactory(param -> new ReadOnlyObjectWrapper<>(param.getValue()));
         edgeIDColumn.setCellFactory(param -> new TableCell<Edge, Edge>() {
-            private Label label = new Label("TEST");
+            private Label label = new Label();
             private int index = 0;
 
 

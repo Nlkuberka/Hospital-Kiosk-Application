@@ -211,8 +211,8 @@ public class UIController {
      * @param <S> The object that is being displayed in the TableView
      */
     protected class EditableTextCell<T, S> extends TableCell<T, S> {
-        protected TextField textField = new TextField("TEST"); /**< The Textfield to edit*/
-        protected Label label = new Label("TEST"); /**< The Label to display*/
+        protected TextField textField = new TextField(); /**< The Textfield to edit*/
+        protected Label label = new Label(); /**< The Label to display*/
         protected TableColumn column; /**< The column that the cell is in, used for width properties*/
         protected int index; /**< The Column index, used for per column commands*/
 
@@ -235,7 +235,9 @@ public class UIController {
         @Override
         protected void updateItem(S s, boolean empty) {
             super.updateItem(s, empty);
-
+            if (s == null) {
+                return;
+            }
             // Expand elements to the entire cell width
             textField.prefWidthProperty().bind(column.prefWidthProperty());
             label.prefWidthProperty().bind(column.prefWidthProperty());
