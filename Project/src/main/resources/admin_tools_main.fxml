@@ -48,7 +48,7 @@
                </top>
             </BorderPane>
             <VBox layoutX="214.0" layoutY="140.0" />
-            <JFXButton fx:id="viewEdgesButton" buttonType="RAISED" layoutX="300.0" layoutY="222.0" onAction="#setViewEdgesButton" prefHeight="40.0" prefWidth="300.0" style="-fx-background-color: #ebaecd;" text="Edit Edges" textAlignment="CENTER" textFill="WHITE" wrapText="true">
+            <JFXButton fx:id="viewEdgesButton" buttonType="RAISED" layoutX="275.0" layoutY="222.0" onAction="#setViewEdgesButton" prefHeight="40.0" prefWidth="350.0" style="-fx-background-color: #ebaecd;" text="Edit Edges" textAlignment="CENTER" textFill="WHITE" wrapText="true">
                <font>
                   <Font name="System Bold" size="28.0" />
                </font>
@@ -58,7 +58,12 @@
                   <Font name="System Bold" size="40.0" />
                </font>
             </Text>
-            <JFXButton fx:id="viewEdgesButton1" buttonType="RAISED" layoutX="300.0" layoutY="350.0" onAction="#setViewNodesButton" prefHeight="40.0" prefWidth="300.0" style="-fx-background-color: #ebaecd;" text="Edit Nodes" textAlignment="CENTER" textFill="WHITE" wrapText="true">
+            <JFXButton fx:id="viewEdgesButton1" buttonType="RAISED" layoutX="275.0" layoutY="326.0" onAction="#setViewNodesButton" prefHeight="40.0" prefWidth="350.0" style="-fx-background-color: #ebaecd;" text="Edit Nodes" textAlignment="CENTER" textFill="WHITE" wrapText="true">
+               <font>
+                  <Font name="System Bold" size="28.0" />
+               </font>
+            </JFXButton>
+            <JFXButton fx:id="viewServiceRequestsButton" buttonType="RAISED" layoutX="275.0" layoutY="428.0" onAction="#setViewServiceRequestsButton" prefHeight="40.0" prefWidth="350.0" style="-fx-background-color: #ebaecd;" text="View Service Requests" textAlignment="CENTER" textFill="WHITE" wrapText="true">
                <font>
                   <Font name="System Bold" size="28.0" />
                </font>

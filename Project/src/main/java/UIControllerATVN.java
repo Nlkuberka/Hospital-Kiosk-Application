@@ -1,5 +1,7 @@
 import com.jfoenix.controls.JFXButton;
 import javafx.beans.property.ReadOnlyObjectWrapper;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -51,42 +53,41 @@ public class UIControllerATVN extends  UIController {
             int indexOut = i;
             TableColumn<Node, Node> column = (TableColumn<Node, Node>) tableColumns.get(i);
             column.setCellValueFactory(param -> new ReadOnlyObjectWrapper<>(param.getValue()));
-            column.setCellFactory(param -> new TableCell<Node, Node>() {
-                private TextField textField = new TextField("TEST");
-                private int index = indexOut;
+            column.setCellFactory(param -> new EditableTextCell<Node, Node>(column, indexOut) {
 
+                // When the Node is updated on the textfield
                 @Override
                 protected void updateItem(Node node, boolean empty) {
                     super.updateItem(node, empty);
 
-                    try {
-                        Method method = node.getClass().getMethod(nodeGetters[index]);
-                        textField.setText((String) method.invoke(node));
-                    } catch (Exception e) {
-                        //e.printStackTrace();
-                    }
+                    // Get the starting text of the label and textField
+                    runStringGetterEditable(node, nodeGetters[index], label, textField);
 
-                    setGraphic(textField);
+                    // When an edit is committed with enter
                     textField.setOnAction(et -> {
-                        Class paramClass = String.class;
-                        if(indexOut == 1 || indexOut == 2) {
-                            paramClass = int.class;
-                        }
-                        try {
-                            Method method2 = node.getClass().getMethod(nodeSetters[index], paramClass);
-                            if(indexOut == 1 || indexOut == 2) {
-                                method2.invoke(node, Integer.parseInt(textField.getText()));
-                            } else {
-                                method2.invoke(node, textField.getText());
+                        // Catch if int is not able to be parsed
+                        if(index == 1 || index == 2) {
+                            try {
+                                Integer.parseInt(textField.getText());
+                            } catch(Exception e) {
+                                setGraphic(label);
+                                textField.setText(label.getText());
+                                return;
                             }
-                        } catch (Exception e) {
-                            e.printStackTrace();
+                        }
+                        // Update the object with the new value
+                        if(index == 1 || index == 2) {
+                            runSetter(node, nodeSetters[index], int.class, Integer.parseInt(textField.getText()));
+                        } else {
+                            runSetter(node, nodeSetters[index], String.class, Integer.parseInt(textField.getText()));
                         }
                         System.out.println(node);
                         if(index == 0) {
                             //DB Remove
                         }
                         //DB Add or Update
+                        setGraphic(label);
+                        label.setText(textField.getText());
                     });
                 }
             });
@@ -110,6 +111,15 @@ public class UIControllerATVN extends  UIController {
             }
 
         });
+
+    }
+
+    /**
+     * Run when the scene is shown
+     * Gets the nodes from the database and puts them into the table
+     */
+    @Override
+    public void onShow() {
         //DB get Nodes
         Connection conn = DBController.dbConnect();
         ObservableList<Node> nodeData = FXCollections.observableArrayList();
@@ -124,7 +134,6 @@ public class UIControllerATVN extends  UIController {
             e.printStackTrace();
         }
         nodeTable.setItems(nodeData);
-
     }
 
     /**
