@@ -50,34 +50,18 @@ public class UIControllerATVE extends UIController {
             int indexOut = i;
             TableColumn<Edge, Edge> column = (TableColumn<Edge, Edge>) tableColumns.get(i);
             column.setCellValueFactory(param -> new ReadOnlyObjectWrapper<>(param.getValue()));
-            column.setCellFactory(param -> new TableCell<Edge, Edge>() {
-                private TextField textField = new TextField("TEST");
-                private Label label = new Label("TEST");
-                private int index = indexOut;
+            column.setCellFactory(param -> new EditableTextCell<Edge, Edge>(column, indexOut) {
 
                 @Override
                 protected void updateItem(Edge edge, boolean empty) {
                     super.updateItem(edge, empty);
 
-                    try {
-                        Method method = edge.getClass().getMethod(edgeGetters[index]);
-                        textField.setText((String) method.invoke(edge));
-                        label.setText((String) method.invoke(edge));
-                    } catch (Exception e) {
-                        //e.printStackTrace();
-                    }
+                    // Get initial value
+                    runStringGetterEditable(edge, edgeGetters[index], label, textField);
 
-                    textField.prefWidthProperty().bind(column.prefWidthProperty());
-                    label.prefWidthProperty().bind(column.prefWidthProperty());
-
-                    setGraphic(label);
+                    // When the user commits changes with enter
                     textField.setOnAction(et -> {
-                        try {
-                            Method method2 = edge.getClass().getMethod(edgeSetters[index], String.class);
-                            method2.invoke(edge, textField.getText());
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
+                        runSetter(edge, edgeSetters[index], String.class, textField.getText());
                         System.out.println(edge);
                         if(index == 0) {
                             //DB Remove
@@ -85,22 +69,6 @@ public class UIControllerATVE extends UIController {
                         //DB Add or Update
                         setGraphic(label);
                         label.setText(textField.getText());
-                    });
-
-                    textField.focusedProperty().addListener(new ChangeListener<Boolean>() {
-                        @Override
-                        public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
-                            if(!newValue) {
-                                setGraphic(label);
-                                textField.setText(label.getText());
-                            }
-                        }
-                    });
-
-                    label.setOnMouseClicked(et -> {
-                        setGraphic(textField);
-                        textField.setText(label.getText());
-                        textField.positionCaret(label.getText().length() - 1);
                     });
                 }
             });
