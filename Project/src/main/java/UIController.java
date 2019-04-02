@@ -43,6 +43,11 @@ public class UIController {
     }
 
     /**
+     * Function that is run on scene show
+     */
+    public void onShow() {}
+
+    /**
      * Initializes the lists of titles and fxml files for each scene
      */
     private void setLists() {
@@ -90,6 +95,7 @@ public class UIController {
         primaryStage.setScene(scene);
         primaryStage.show();
 
+        sceneControllers.get(sceneString).onShow();
         return sceneControllers.get(sceneString);
     }
 
