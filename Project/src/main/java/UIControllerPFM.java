@@ -91,7 +91,7 @@ public class UIControllerPFM extends UIController {
 
 
     @FXML
-    private void clearPath(ActionEvent actionEvent) {
+    private void clearSelection(ActionEvent actionEvent) {
         initialLocationSelect.getSelectionModel().selectFirst();
         destinationSelect.getSelectionModel().clearSelection();
         clearPathOnMap();
@@ -114,10 +114,12 @@ public class UIControllerPFM extends UIController {
         }
 
         // draw lines
+        path.setVisible(true); //must be the very last thing done once lines are drawn
     }
 
     private void clearPathOnMap() {
         path.getElements().removeAll();
+        path.setVisible(false);
     }
 
     public void goBack(ActionEvent actionEvent) {

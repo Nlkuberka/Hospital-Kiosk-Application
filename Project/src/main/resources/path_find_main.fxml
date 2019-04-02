@@ -59,7 +59,7 @@
                             <Insets left="25.0" />
                         </VBox.margin>
                     </ChoiceBox>
-                    <JFXButton onAction="#clearPath" prefWidth="100.0" text="Cancel">
+                    <JFXButton onAction="#clearSelection" prefWidth="100.0" text="Cancel">
                         <VBox.margin>
                             <Insets left="50.0" top="25.0" />
                         </VBox.margin>
