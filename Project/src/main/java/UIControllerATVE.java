@@ -9,6 +9,10 @@ import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 
+import java.net.ConnectException;
+import java.sql.Connection;
+import java.sql.SQLException;
+
 /**
  * The UIController for viewing, adding, editing, and removing the edges
  * Allows an admin to edit and modify the edges to conform to the new changes
@@ -69,10 +73,13 @@ public class UIControllerATVE extends UIController {
                         }
                         runSetter(edge, edgeSetters[index], String.class, textField.getText());
                         System.out.println(edge);
-                        if(index == 0) {
+                            Connection conn = DBController.dbConnect();
+                            if (index == 0) {
+                                DBController.deleteEdge(label.getText(), conn);
+                            }
+                            DBController.addEdge(edge,conn);
+                            DBController.closeConnection(conn);
 
-                        }
-                        //DB Add or Update
                         setGraphic(label);
                         label.setText(textField.getText());
                     });
@@ -94,7 +101,9 @@ public class UIControllerATVE extends UIController {
 
                 setGraphic(removeButton);
                 removeButton.setOnAction( e -> {
-                        //DB Remove Edge
+                        Connection conn = DBController.dbConnect();
+                        DBController.deleteEdge(edge.getEdgeID(),conn);
+                        DBController.closeConnection(conn);
                         getTableView().getItems().remove(edge);
                     }
                 );

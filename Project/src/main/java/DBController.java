@@ -187,7 +187,6 @@ public class DBController {
         }
     }
 
-
     public static void addEdge(Edge edge, Connection connection){
         try{
             //connection = DriverManager.getConnection("jdbc:derby:myDB");
