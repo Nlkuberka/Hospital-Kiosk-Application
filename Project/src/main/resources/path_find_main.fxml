@@ -25,8 +25,8 @@
     </ImageView>
     <VBox prefHeight="600.0" prefWidth="900.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <MenuBar blendMode="ADD" opacity="0.9" prefWidth="600.0" style="-fx-background-color: white;" stylesheets="@background.css">
-            <Menu mnemonicParsing="false" text="Home">
-                <MenuItem mnemonicParsing="false" text="Go back to previouse page" />
+            <Menu mnemonicParsing="false" onAction="#goBack" text="Home">
+                <MenuItem fx:id="backButton" mnemonicParsing="false" onAction="#goBack" text="Go back to previouse page" />
             </Menu>
         </MenuBar>
         <HBox prefHeight="575.0" prefWidth="900.0">

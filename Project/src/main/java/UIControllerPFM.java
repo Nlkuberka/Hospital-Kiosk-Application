@@ -1,6 +1,7 @@
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.MenuItem;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
@@ -18,6 +19,7 @@ public class UIControllerPFM extends UIController {
     public ImageView leftImage;
     public AnchorPane parentAnchorPane;
     public Path path;
+    public MenuItem backButton;
 
     @FXML
     public void initialize() {
@@ -95,5 +97,9 @@ public class UIControllerPFM extends UIController {
 
     private void clearPathOnMap() {
         path.getElements().removeAll();
+    }
+
+    public void goBack(ActionEvent actionEvent) {
+        this.goToScene(UIController.LOGIN_MAIN);
     }
 }
