@@ -63,7 +63,7 @@
                   <Font name="System Bold" size="28.0" />
                </font>
             </JFXButton>
-            <JFXButton fx:id="viewEdgesButton11" buttonType="RAISED" layoutX="275.0" layoutY="428.0" onAction="#setViewNodesButton" prefHeight="40.0" prefWidth="350.0" style="-fx-background-color: #ebaecd;" text="View Service Requests" textAlignment="CENTER" textFill="WHITE" wrapText="true">
+            <JFXButton fx:id="viewServiceRequestsButton" buttonType="RAISED" layoutX="275.0" layoutY="428.0" onAction="#setViewServiceRequestsButton" prefHeight="40.0" prefWidth="350.0" style="-fx-background-color: #ebaecd;" text="View Service Requests" textAlignment="CENTER" textFill="WHITE" wrapText="true">
                <font>
                   <Font name="System Bold" size="28.0" />
                </font>

@@ -17,6 +17,9 @@ public class UIControllerATM extends UIController {
     @FXML
     private JFXButton viewEdgesButton; /**< The View Edges Button*/
 
+    @FXML
+    private JFXButton viewServiceRequestsButton; /**< The View Service Request Button */
+
     public UIControllerATM() {
 
     }
@@ -44,6 +47,14 @@ public class UIControllerATM extends UIController {
     @FXML
     private void setViewEdgesButton() {
         this.goToScene(UIController.ADMIN_TOOLS_VIEW_EDGES);
+    }
+
+    /**
+     * Goes to the
+     */
+    @FXML
+    private void setViewServiceRequestsButton() {
+        this.goToScene(UIController.ADMIN_TOOLS_VIEW_SERVICE_REQUESTS);
     }
 
     /**

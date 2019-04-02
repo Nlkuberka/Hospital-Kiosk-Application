@@ -53,11 +53,9 @@ public class UIControllerATVN extends  UIController {
             int indexOut = i;
             TableColumn<Node, Node> column = (TableColumn<Node, Node>) tableColumns.get(i);
             column.setCellValueFactory(param -> new ReadOnlyObjectWrapper<>(param.getValue()));
-            column.setCellFactory(param -> new TableCell<Node, Node>() {
-                private TextField textField = new TextField("TEST");
-                private Label label = new Label("TEST");
-                private int index = indexOut;
+            column.setCellFactory(param -> new EditableTextCell<Node, Node>(column, indexOut) {
 
+                // When the Node is updated on the textfield
                 @Override
                 protected void updateItem(Node node, boolean empty) {
                     super.updateItem(node, empty);
@@ -70,48 +68,36 @@ public class UIControllerATVN extends  UIController {
                         e.printStackTrace();
                     }
 
-                    textField.prefWidthProperty().bind(column.prefWidthProperty());
-                    label.prefWidthProperty().bind(column.prefWidthProperty());
+                    // Get the starting text of the label and textField
+                    runStringGetterEditable(node, nodeGetters[index], label, textField);
 
-                    setGraphic(label);
+
+                    // When an edit is committed with enter
                     textField.setOnAction(et -> {
-                        Class paramClass = String.class;
-                        if(indexOut == 1 || indexOut == 2) {
-                            paramClass = int.class;
-                        }
-                        try {
-                            Method method2 = node.getClass().getMethod(nodeSetters[index], paramClass);
-                            if(indexOut == 1 || indexOut == 2) {
-                                method2.invoke(node, Integer.parseInt(textField.getText()));
-                            } else {
-                                method2.invoke(node, textField.getText());
+                        // Catch if int is not able to be parsed
+                        if(index == 1 || index == 2) {
+                            try {
+                                Integer.parseInt(textField.getText());
+                            } catch(Exception e) {
+                                setGraphic(label);
+                                textField.setText(label.getText());
+                                return;
                             }
-                        } catch (Exception e) {
-                            e.printStackTrace();
+                        }
+                        // Update the object with the new value
+                        if(index == 1 || index == 2) {
+                            runSetter(node, nodeSetters[index], int.class, Integer.parseInt(textField.getText()));
+                        } else {
+                            runSetter(node, nodeSetters[index], String.class, Integer.parseInt(textField.getText()));
                         }
                         System.out.println(node);
                         if(index == 0) {
                             //DB Remove
                         }
                         //DB Add or Update
+                        // Switch back to label
                         setGraphic(label);
                         label.setText(textField.getText());
-                    });
-
-                    textField.focusedProperty().addListener(new ChangeListener<Boolean>() {
-                        @Override
-                        public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
-                            if(!newValue) {
-                                setGraphic(label);
-                                textField.setText(label.getText());
-                            }
-                        }
-                    });
-
-                    label.setOnMouseClicked(et -> {
-                        setGraphic(textField);
-                        textField.setText(label.getText());
-                        textField.positionCaret(label.getText().length() - 1);
                     });
                 }
             });
@@ -149,7 +135,6 @@ public class UIControllerATVN extends  UIController {
             e.printStackTrace();
         }
         nodeTable.setItems(nodeData);
-
     }
 
     /**
