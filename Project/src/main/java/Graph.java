@@ -11,7 +11,7 @@ import static java.lang.Math.sqrt;
 public class Graph {
     
     private ArrayList<ArrayList<Integer>> adj; //
-    private ArrayList<ArrayList<Integer>> adjWeights; //weights of the edges
+    private ArrayList<ArrayList<Double>> adjWeights; //weights of the edges
     private ArrayList<Node> storedNodes; //nodes that have been stored
 
 
@@ -26,10 +26,21 @@ public class Graph {
         }
         //this.storedNodes.size() = storedNodes.size();
         this.adj = new ArrayList<ArrayList<Integer>>();
-        this.adjWeights = new ArrayList<ArrayList<Integer>>();
+        this.adjWeights = new ArrayList<>();
         for(int i = 0; i < storedNodes.size(); i++) {
             this.adj.add(new ArrayList<Integer>());
-            this.adjWeights.add(new ArrayList<Integer>());
+            this.adjWeights.add(new ArrayList<>());
+        }
+    }
+
+    /**
+     * Check the formatting and contecnt of adj and adjWeights
+     */
+    public void checkEdges() {
+        for(int i = 0; i < adj.size(); i++) {
+            System.out.println("Node " + (i ));
+            System.out.println("adj " + adj.get(i));
+            System.out.println("adjWeights" + adjWeights.get(i));
         }
     }
 
@@ -80,10 +91,10 @@ public class Graph {
         int startIndex = mapNodeIDToIndex(startID);
         int targetIndex = mapNodeIDToIndex(targetID);
         int current = startIndex;
-        double[] distance = new double[storedNodes.size()]; //stored distance from start node to node at index
+        double [] distance = new double [storedNodes.size()]; //stored distance from start node to node at index
         Queue<Integer> queue = new LinkedList<Integer>(); //nodes that will be checked
         for(int i = 0; i < storedNodes.size(); i++) {
-            distance[i] = Double.MAX_VALUE;
+            distance[i] = Integer.MAX_VALUE;
         }
         distance[startIndex] = 0;
         queue.add(current);
@@ -104,15 +115,15 @@ public class Graph {
         path.add(targetID);
         current = targetIndex;
         while(current != startIndex) {
-            for(int i = 0; i < adj.get(current).size(); i++) {
+            for (int i = 0; i < adj.get(current).size(); i++) {
                 int previousNode = adj.get(current).get(i);
-                if(adjWeights.get(current).get(previousNode) + distance[previousNode] == distance[current]) {
+                if (adjWeights.get(current).get(i) + distance[previousNode] == distance[current]) {
                     path.add(0, mapIndexToNode(previousNode).getNodeID());
+                    current = previousNode;
                     break;
                 }
             }
         }
-        path.add(0, startID);
         return path;
     }
 
@@ -135,7 +146,7 @@ public class Graph {
     public void addNode(Node newNode) {
         storedNodes.add(newNode);
         adj.add(new ArrayList<Integer>());
-        adjWeights.add(new ArrayList<Integer>());
+        adjWeights.add(new ArrayList<>());
     }
 
     /**
@@ -183,7 +194,7 @@ public class Graph {
         double xWeight = abs(node1.getXcoord() - node2.getXcoord());
         double yWeight = abs(node1.getYcoord() - node2.getYcoord());
 
-        int weight = (int) sqrt(Math.pow(xWeight, 2) + Math.pow(yWeight, 2));
+        double weight = sqrt((xWeight*xWeight) + (yWeight*yWeight));
 
         adj.get(node1Index).add(node2Index);
         adjWeights.get(node1Index).add(weight);
