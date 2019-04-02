@@ -10,38 +10,54 @@ import java.util.List;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * The UIController for the making and sending of service requests
+ * @author Jonathan Chang
+ * @verion iteration1
+ */
 public class UIControllerSRM extends UIController {
-    List<String> nodeShortNames;
-    Map<String, String> nodeIDs;
-
-    List<String> serviceTypes;
+    Map<String, String> nodeIDs; /**< Holds reference between node short name and nodeID*/
+    List<String> serviceTypes; /**< Hold the list of services*/
 
     @FXML
-    private ChoiceBox<String> roomSelect;
+    private ChoiceBox<String> roomSelect; /**< The choicebox for node selection*/
 
     @FXML
-    private ChoiceBox<String> serviceSelect;
+    private ChoiceBox<String> serviceSelect; /**< The choicebox for service selection*/
 
     @FXML
-    private TextArea serviceMessage;
+    private TextArea serviceMessage; /**< The area for addition messages*/
 
     @FXML
-    private JFXButton confirmButton;
+    private JFXButton confirmButton; /**< The confirm button*/
 
+    /**
+     * Runs on the scene creation and adds the various service request types
+     */
     @FXML
     public void initialize() {
-        nodeShortNames = new ArrayList<String>();
-        nodeIDs = new HashMap<String, String>();
         serviceTypes = new ArrayList<String>();
         serviceTypes.add("Maintenance Request");
         serviceTypes.add("Tech Support Request");
+        serviceSelect.setItems(FXCollections.observableList(serviceTypes));
+    }
+
+    /**
+     * Runs whenever the scene is show and gets the node names for the choicebox
+     */
+    @Override
+    public void onShow() {
+        List<String> nodeShortNames = new ArrayList<String>();
+        nodeIDs = new HashMap<String, String>();
 
         // DB Get all Nodes
 
         roomSelect.setItems(FXCollections.observableList(nodeShortNames));
-        serviceSelect.setItems(FXCollections.observableList(nodeShortNames));
     }
 
+    /**
+     * Creates a new serviceRequest and sends it to the database
+     */
     @FXML
     private void setConfirmButton() {
         String serviceType = (String) serviceSelect.getValue();
