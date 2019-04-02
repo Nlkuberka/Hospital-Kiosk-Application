@@ -135,6 +135,34 @@ public class DBController {
         }
     }
 
+    public static Edge fetchEdge(String ID, Connection connection){
+        try{
+            Statement s = connection.createStatement();
+            ResultSet rs = s.executeQuery("Select from EDGES where EDGEID= '" + ID + "'");
+            rs.next();
+            Edge edge = new Edge(rs.getString(1), rs.getString(2), rs.getString(3));
+            return edge;
+        }catch(SQLException e){
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public static void multiFetchEdge(List<String> IDList, Connection connection) {
+        try{
+            Statement s = connection.createStatement();
+            LinkedList<Edge> listOfEdges = new LinkedList<>();
+            for(int x = 0; x < IDList.size(); x++) {
+                ResultSet rs = s.executeQuery("Select from EDGES where EDGEID = '" + IDList.get(x) + "'");
+                rs.next();
+                Edge edge = new Edge(rs.getString(1), rs.getString(2), rs.getString(3));
+                listOfEdges.add(edge);
+            }
+        }catch(SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
     public static Node fetchNode(String ID, Connection connection) {
         try{
             Statement s = connection.createStatement();
@@ -149,6 +177,27 @@ public class DBController {
         }
         return null;
     }
+
+    public static LinkedList<Node> multiNodeFetch(List<String> IDList, Connection connection) {
+        try{
+            Statement s = connection.createStatement();
+            LinkedList<Node> listOfNodes = new LinkedList<>();
+            for(int x = 0; x < IDList.size(); x++) {
+                ResultSet rs = s.executeQuery("SELECT * FROM NODES WHERE NODEID='" + IDList.get(x) + "'");
+                rs.next();
+                Node node = new Node(rs.getString(1), rs.getInt(2), rs.getInt(3),
+                        rs.getString(4), rs.getString(5), rs.getString(6),
+                        rs.getString(7), rs.getString(8));
+                listOfNodes.add(node);
+            }
+            return listOfNodes;
+        }catch(SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+//    public static
 
     /**
      * generateListofNodes
