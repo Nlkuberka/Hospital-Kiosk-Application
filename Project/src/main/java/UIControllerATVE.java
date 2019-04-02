@@ -4,11 +4,7 @@ import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.scene.control.Menu;
-import javafx.scene.control.MenuItem;
-import javafx.scene.control.TableCell;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 
 import java.net.ConnectException;
 import java.sql.Connection;
@@ -52,7 +48,22 @@ public class UIControllerATVE extends UIController {
         ObservableList<TableColumn<Edge, ?>> tableColumns = edgeTable.getColumns();
 
         // Initialize the cell factories of the node field columns
-        for(int i = 0; i < tableColumns.size() - 1; i++) {
+        TableColumn<Edge, Edge> edgeIDColumn = (TableColumn<Edge, Edge>) tableColumns.get(0);
+        edgeIDColumn.setCellValueFactory(param -> new ReadOnlyObjectWrapper<>(param.getValue()));
+        edgeIDColumn.setCellFactory(param -> new TableCell<Edge, Edge>() {
+            private Label label = new Label("TEST");
+            private int index = 0;
+
+
+            @Override
+            protected void updateItem(Edge edge, boolean empty) {
+                super.updateItem(edge, empty);
+
+                runStringGetter(edge, edgeGetters[index], label);
+                setGraphic(label);
+            }
+        });
+        for(int i = 1; i < tableColumns.size() - 1; i++) {
             int indexOut = i;
             TableColumn<Edge, Edge> column = (TableColumn<Edge, Edge>) tableColumns.get(i);
             column.setCellValueFactory(param -> new ReadOnlyObjectWrapper<>(param.getValue()));
