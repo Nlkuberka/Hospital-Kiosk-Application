@@ -101,8 +101,10 @@ public class UIControllerATVN extends  UIController {
                             Connection conn = DBController.dbConnect();
                             if(index == 0) {
                                 DBController.deleteNode(label.getText(),conn);
+                                DBController.addNode(node,conn);
+                            } else {
+                                DBController.updateNode(node, conn);
                             }
-                            DBController.addNode(node,conn);
                             conn.close();
                         }catch(SQLException e){
                             e.printStackTrace();
