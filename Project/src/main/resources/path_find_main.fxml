@@ -19,92 +19,80 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane fx:id="parentAnchorPane" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0" scaleShape="false" styleClass="body-background" stylesheets="/background.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="UIControllerPFM">
-   <children>
-      <ImageView fx:id="leftImage" fitHeight="600.0" fitWidth="900.0" pickOnBounds="true">
-         <image>
-            <Image url="@purple-orange-gradient.jpg" />
-         </image>
-      </ImageView>
-      <VBox prefHeight="600.0" prefWidth="900.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-         <children>
-            <MenuBar blendMode="ADD" opacity="0.9" prefWidth="600.0" style="-fx-background-color: white;" stylesheets="@background.css">
-              <menus>
-                <Menu mnemonicParsing="false" text="Back">
-                  <items>
-                    <MenuItem mnemonicParsing="false" text="Go back to previouse page" />
-                  </items>
-                </Menu>
-                <Menu mnemonicParsing="false" text="Home" />
-              </menus>
-            </MenuBar>
-            <HBox prefHeight="575.0" prefWidth="900.0">
-               <children>
-                  <StackPane prefHeight="150.0" prefWidth="200.0">
-                     <children>
-                        <Rectangle fx:id="rectangleLeft" arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="575.0" opacity="0.3" stroke="TRANSPARENT" strokeType="INSIDE" width="900.0" StackPane.alignment="TOP_CENTER" />
-                        <VBox fx:id="leftVBox" fillWidth="false" maxWidth="200.0" prefHeight="575.0" prefWidth="200.0" stylesheets="@background.css" StackPane.alignment="CENTER_LEFT">
-                           <children>
-                              <Text fill="WHITE" smooth="false" strokeType="OUTSIDE" strokeWidth="0.0" text="Initial Location" textAlignment="CENTER">
-                                 <font>
-                                    <Font name="System Bold Italic" size="16.0" />
-                                 </font>
-                                 <VBox.margin>
-                                    <Insets left="25.0" top="30.0" />
-                                 </VBox.margin>
-                              </Text>
-                              <ChoiceBox fx:id="initialLocationSelect" onAction="#initLocChanged" prefWidth="150.0" style="-fx-background-color: #ffffff;">
-                                 <VBox.margin>
-                                    <Insets left="25.0" />
-                                 </VBox.margin>
-                              </ChoiceBox>
-                              <Text fill="WHITE" smooth="false" strokeType="OUTSIDE" strokeWidth="0.0" text="Destination">
-                                 <font>
-                                    <Font name="System Bold Italic" size="16.0" />
-                                 </font>
-                                 <VBox.margin>
-                                    <Insets left="25.0" top="30.0" />
-                                 </VBox.margin>
-                              </Text>
-                              <ChoiceBox fx:id="destinationSelect" onAction="#destLocChanged" prefWidth="150.0" style="-fx-background-color: #ffffff;">
-                                 <VBox.margin>
-                                    <Insets left="25.0" />
-                                 </VBox.margin>
-                              </ChoiceBox>
-                              <JFXButton fx:id="cancel_button" onAction="#clearPath" prefWidth="100.0" text="Cancel">
-                                 <VBox.margin>
-                                    <Insets left="50.0" top="25.0" />
-                                 </VBox.margin></JFXButton>
-                              <AnchorPane prefHeight="382.0" prefWidth="200.0">
-                                 <children>
-                                    <JFXToggleButton prefHeight="58.0" prefWidth="200.0" styleClass="all-text" stylesheets="@background.css" text="NO STAIRS" textAlignment="CENTER" wrapText="true" AnchorPane.bottomAnchor="0.0" />
-                                 </children>
-                              </AnchorPane>
-                           </children>
-                        </VBox>
-                     </children>
-                  </StackPane>
-               </children>
-            </HBox>
-         </children>
-      </VBox>
-      <ScrollPane prefHeight="575.0" prefWidth="700.0" AnchorPane.leftAnchor="200.0" AnchorPane.topAnchor="25.0">
-        <content>
-          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="575.0" prefWidth="700.0">
-               <children>
-                  <StackPane prefHeight="150.0" prefWidth="200.0">
-                     <children>
-                        <ImageView fitHeight="575.0" fitWidth="690.0" preserveRatio="true">
-                           <image>
-                              <Image url="@02_thesecondfloor.png" />
-                           </image>
-                        </ImageView>
-                        <Path fx:id="path" strokeWidth="10" fill="DODGERBLUE" stroke="BLACK" strokeType="INSIDE" />
-                     </children>
-                  </StackPane>
-               </children>
-            </AnchorPane>
-        </content>
-      </ScrollPane>
-   </children>
+<AnchorPane fx:id="parentAnchorPane" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0"
+            scaleShape="false" styleClass="body-background" stylesheets="/background.css"
+            xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="UIControllerPFM">
+    <ImageView fx:id="leftImage" fitHeight="600.0" fitWidth="900.0" pickOnBounds="true">
+        <Image url="@purple-orange-gradient.jpg"/>
+    </ImageView>
+    <VBox prefHeight="600.0" prefWidth="900.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
+          AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <MenuBar blendMode="ADD" opacity="0.9" prefWidth="600.0" style="-fx-background-color: white;"
+                 stylesheets="@background.css">
+            <Menu mnemonicParsing="false" text="Back">
+                <MenuItem mnemonicParsing="false" text="Go back to previouse page"/>
+            </Menu>
+            <Menu mnemonicParsing="false" text="Home"/>
+        </MenuBar>
+        <HBox prefHeight="575.0" prefWidth="900.0">
+            <StackPane prefHeight="150.0" prefWidth="200.0">
+                <Rectangle fx:id="rectangleLeft" arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="575.0"
+                           opacity="0.3" stroke="TRANSPARENT" strokeType="INSIDE" width="900.0"
+                           StackPane.alignment="TOP_CENTER"/>
+                <VBox fx:id="leftVBox" fillWidth="false" maxWidth="200.0" prefHeight="575.0" prefWidth="200.0"
+                      stylesheets="@background.css" StackPane.alignment="CENTER_LEFT">
+                    <Text fill="WHITE" smooth="false" strokeType="OUTSIDE" strokeWidth="0.0"
+                          text="Initial Location" textAlignment="CENTER">
+                        <font>
+                            <Font name="System Bold Italic" size="16.0"/>
+                        </font>
+                        <VBox.margin>
+                            <Insets left="25.0" top="30.0"/>
+                        </VBox.margin>
+                    </Text>
+                    <ChoiceBox fx:id="initialLocationSelect" onAction="#initLocChanged" prefWidth="150.0"
+                               style="-fx-background-color: #ffffff;">
+                        <VBox.margin>
+                            <Insets left="25.0"/>
+                        </VBox.margin>
+                    </ChoiceBox>
+                    <Text fill="WHITE" smooth="false" strokeType="OUTSIDE" strokeWidth="0.0" text="Destination">
+                        <font>
+                            <Font name="System Bold Italic" size="16.0"/>
+                        </font>
+                        <VBox.margin>
+                            <Insets left="25.0" top="30.0"/>
+                        </VBox.margin>
+                    </Text>
+                    <ChoiceBox fx:id="destinationSelect" onAction="#destLocChanged" prefWidth="150.0"
+                               style="-fx-background-color: #ffffff;">
+                        <VBox.margin>
+                            <Insets left="25.0"/>
+                        </VBox.margin>
+                    </ChoiceBox>
+                    <JFXButton onAction="#clearPath" prefWidth="100.0" text="Cancel">
+                        <VBox.margin>
+                            <Insets left="50.0" top="25.0"/>
+                        </VBox.margin>
+                    </JFXButton>
+                    <AnchorPane prefHeight="382.0" prefWidth="200.0">
+                        <JFXToggleButton prefHeight="58.0" prefWidth="200.0" styleClass="all-text"
+                                         stylesheets="@background.css" text="NO STAIRS" textAlignment="CENTER"
+                                         wrapText="true" AnchorPane.bottomAnchor="0.0"/>
+                    </AnchorPane>
+                </VBox>
+            </StackPane>
+        </HBox>
+    </VBox>
+    <ScrollPane prefHeight="575.0" prefWidth="700.0" AnchorPane.leftAnchor="200.0" AnchorPane.topAnchor="25.0">
+        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="575.0" prefWidth="700.0">
+            <StackPane prefHeight="150.0" prefWidth="200.0">
+                <ImageView fitHeight="575.0" fitWidth="690.0" preserveRatio="true">
+                    <Image url="@02_thesecondfloor.png"/>
+                </ImageView>
+                <Path fx:id="path" fill="DODGERBLUE" stroke="BLACK" strokeType="INSIDE" strokeWidth="10"/>
+            </StackPane>
+        </AnchorPane>
+    </ScrollPane>
 </AnchorPane>

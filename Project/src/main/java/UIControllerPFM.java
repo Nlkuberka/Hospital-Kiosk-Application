@@ -1,4 +1,3 @@
-import com.jfoenix.controls.JFXButton;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.ChoiceBox;
@@ -12,10 +11,10 @@ import java.util.ArrayList;
 public class UIControllerPFM extends UIController {
 
     @FXML
-    public ChoiceBox initialLocationSelect;
+    public ChoiceBox<String> initialLocationSelect;
     public VBox leftVBox;
     public Rectangle rectangleLeft;
-    public ChoiceBox destinationSelect;
+    public ChoiceBox<String> destinationSelect;
     public ImageView leftImage;
     public AnchorPane parentAnchorPane;
     public Path path;
