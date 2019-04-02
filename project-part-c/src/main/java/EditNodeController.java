@@ -165,5 +165,4 @@ public class EditNodeController extends Controller{
         ViewController controller = (ViewController) this.goToScene(this.VIEW_STRING);
         controller.removeNode(nodeIDTextfield.getText());
     }
-
 }
