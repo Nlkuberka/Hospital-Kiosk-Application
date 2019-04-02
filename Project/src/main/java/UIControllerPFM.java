@@ -18,6 +18,7 @@ public class UIControllerPFM extends UIController {
     public ChoiceBox destinationSelect;
     public ImageView leftImage;
     public AnchorPane parentAnchorPane;
+    public Path path;
 
     @FXML
     public void initialize() {
@@ -44,7 +45,8 @@ public class UIControllerPFM extends UIController {
         // update choices for destination location
         destinationSelect.getItems().addAll("dest1", "dest2");
 
-//        path.getElements().add(new LineTo(50, 50));
+        path.getElements().add(new MoveTo(0.0f, 0.0f));
+        path.getElements().add(new LineTo(100.0f, 100.0f));
     }
 
     @FXML

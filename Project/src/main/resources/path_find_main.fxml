@@ -99,7 +99,7 @@
                               <Image url="@02_thesecondfloor.png" />
                            </image>
                         </ImageView>
-                        <Path fx:id="path" fill="DODGERBLUE" stroke="BLACK" strokeType="INSIDE" />
+                        <Path fx:id="path" strokeWidth="10" fill="DODGERBLUE" stroke="BLACK" strokeType="INSIDE" />
                      </children>
                   </StackPane>
                </children>
