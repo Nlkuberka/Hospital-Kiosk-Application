@@ -6,6 +6,9 @@ import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextFormatter;
 
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.HashMap;
@@ -57,6 +60,16 @@ public class UIControllerSRM extends UIController {
         nodeIDs = new HashMap<String, String>();
 
         // DB Get all Nodes
+        try {
+            Connection conn = DBController.dbConnect();
+            ResultSet rs = conn.createStatement().executeQuery("Select * From NODES where FLOOR = '2' AND BUILDING = 'TOWER'");
+            while(rs.next()){
+                nodeIDs.put(rs.getString("SHORTNAME"),rs.getString("NODEID"));
+                nodeShortNames.add(rs.getString("SHORTNAME"));
+            }
+        }catch(SQLException e){
+            e.printStackTrace();
+        }
 
         roomSelect.setItems(FXCollections.observableList(nodeShortNames));
         roomSelect.getSelectionModel().selectFirst();
@@ -72,7 +85,9 @@ public class UIControllerSRM extends UIController {
         String nodeID = nodeIDs.get(roomShortName);
         String message = serviceMessage.getText();
         ServiceRequest sr = new ServiceRequest(nodeID, serviceType, message, CurrentUser.userID, false, "");
-        //DB Add Service Request
+        Connection conn = DBController.dbConnect();
+        DBController.addServiceRequest(sr,conn);
+        DBController.closeConnection(conn);
         System.out.println(message);
     }
 }
