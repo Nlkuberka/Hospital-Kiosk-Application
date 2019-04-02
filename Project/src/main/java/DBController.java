@@ -21,6 +21,14 @@ public class DBController {
         return null;
     }
 
+    public static void closeConnection(Connection connection){
+        try{
+            connection.close();
+        }catch(SQLException e){
+            e.printStackTrace();
+        }
+    }
+
     public static void loadNodeData(File file, Connection connection){
         BufferedReader br = null;
         String line = "";
@@ -84,10 +92,9 @@ public class DBController {
      */
     public static void updateNode(Node node, Connection connection){
         try{
-            //connection = DriverManager.getConnection("jdbc:derby:myDB");
             Statement s = connection.createStatement();
-            s.execute("UPDATE NODES where NODEID = '" + node.getNodeID() +
-                    "' SET XCOORD ="+ node.getXcoord() +","+
+            s.execute("UPDATE NODES" +
+                    " SET XCOORD ="+ node.getXcoord() +","+
                     "YCOORD ="+ node.getYcoord() + ","+
                     "FLOOR ="+ node.getFloor() + ","+
                     "BUILDING ='"+ node.getBuilding() + "',"+
@@ -95,31 +102,58 @@ public class DBController {
                     "LONGNAME = '"+ node.getLongName() + "',"+
                     "SHORTNAME = '"+ node.getShortName() +"'"+
                     "where NODEID = '" + node.getNodeID() +"'");
-
-            //connection.close();
         }catch(SQLException e){
             e.printStackTrace();
         }
     }
-
 
     public static void updateEdge(Edge edge, Connection connection){
         try{
-            //connection = DriverManager.getConnection("jdbc:derby:myDB");
             Statement s = connection.createStatement();
-            s.execute("UPDATE EDGES where EDGEID = '" + edge.getEdgeID() +
-                    "' SET  STARTNODE ='"+ edge.getNode1ID() +"',"+
-                    "ENDNODE = '"+ edge.getNode2ID() + "'");
+            s.execute("UPDATE EDGES" +
+                    " SET  STARTNODE ='"+ edge.getNode1ID() +"',"+
+                    "ENDNODE = '"+ edge.getNode2ID() + "'" +
+                    "where EDGEID = '" + edge.getEdgeID()+"'");
 
-            //connection.close();
         }catch(SQLException e){
             e.printStackTrace();
         }
     }
 
+    public static void updateServiceRequest(ServiceRequest serviceRequest, Connection connection){
+        try{
+            Statement s = connection.createStatement();
+            s.execute("UPDATE SERVICEREQUEST SET  SERVICETYPE ='"+ serviceRequest.getServiceType() +"',"+
+                    "MESSAGE = '"+ serviceRequest.getMessage() + "'," +
+                    "RESOLVED = '" + serviceRequest.isResolved() + "'," +
+                    "RESOLVERID = '"+serviceRequest.getResolverID()+"' " +
+                    "where  NODEID = '" + serviceRequest.getNodeID() + "' and " +
+                    "USERID = '" + serviceRequest.getUserID() + "'");
 
+        }catch(SQLException e){
+            e.printStackTrace();
+        }
+    }
 
+    public static void fetchNode(String ID,Connection connection ){
+        try{
+            Statement s = connection.createStatement();
+            s.execute("Select from NODES where NODEID = '" + ID + "'");
+        }catch(SQLException e){
+            e.printStackTrace();
+        }
 
+    }
+
+    public static void fetchEdge(String ID,Connection connection ){
+        try{
+            Statement s = connection.createStatement();
+            s.execute("Select from EDGES where EDGEID= '" + ID + "'");
+        }catch(SQLException e){
+            e.printStackTrace();
+        }
+
+    }
 
     /**
      * delete node
@@ -136,6 +170,26 @@ public class DBController {
         }catch(SQLException e){
             e.printStackTrace();
         } }
+
+    public static void deleteEdge(String ID, Connection connection){
+        try {
+            Statement s = connection.createStatement();
+            s.execute("DELETE from EDGES where EDGEID = '"+ ID +"'");
+
+        }catch(SQLException e){
+            e.printStackTrace();
+        }
+    }
+
+    public static void deleteServiceRequest(String NODEID,String USERID, Connection connection){
+        try {
+            Statement s = connection.createStatement();
+            s.execute("delete  from SERVICEREQUEST where NODEID ='"+ NODEID +"' and USERID ='" + USERID + "'");
+        }catch(SQLException e){
+            e.printStackTrace();
+        }
+    }
+
 
     /**
      * addNode
@@ -154,7 +208,6 @@ public class DBController {
         }
     }
 
-
     public static void addEdge(Edge edge, Connection connection){
         try{
             //connection = DriverManager.getConnection("jdbc:derby:myDB");
@@ -166,6 +219,18 @@ public class DBController {
             e.printStackTrace();
         }
     }
+
+    public static void addServiceRequest(ServiceRequest serviceRequest, Connection connection){
+        try{
+            Statement s = connection.createStatement();
+            s.execute("INSERT into SERVICEREQUEST  values ('" + serviceRequest.getNodeID() +
+                    "','"+ serviceRequest.getServiceType() +"','"+ serviceRequest.getMessage() + "','"+
+                    serviceRequest.getUserID()+"',"+serviceRequest.isResolved()+")");
+        }catch(SQLException e){
+            e.printStackTrace();
+        }
+    }
+
 
     /**
      * generateListofNodes
@@ -265,12 +330,12 @@ public class DBController {
      * ClearData
      * Drops all data stored in Nodes and Edges
      */
-    public void clearData(Connection connection){
+    public void clearData(Connection connection) {
         try {
             Statement s = connection.createStatement();
             s.execute("DELETE from NODES where 1=1");
             s.execute("DELETE from EDGES where 1=1");
-        }catch(SQLException e){
+        } catch (SQLException e) {
             e.printStackTrace();
         }
     }
