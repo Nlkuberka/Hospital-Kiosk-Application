@@ -123,7 +123,7 @@ public class UIControllerPFM extends UIController {
         //graph.shortestPath(initialLocationSelect, destinationSelect);
     }
 
-    // NEED: list of all nodes that have: names, XY coords
+    // TODO: list of all nodes that have: names, XY coords
     private void drawPath(ArrayList<Node> nodes) {
         clearPathOnMap();
         path.getElements().add(new MoveTo(nodes.get(0).getXcoord(), nodes.get(0).getYcoord())); // move path to initLocation
@@ -147,13 +147,22 @@ public class UIControllerPFM extends UIController {
         this.goToScene(UIController.LOGIN_MAIN);
     }
 
+    // The multiplication factor at which the map changes size
     public double zoomFactor = 1.2;
 
+    /**
+     *
+     * @param bool Set in initialize() to turn on/off zoom functionality
+     */
     public void setZoomOn(boolean bool) {
         zoom_button.setVisible(bool);
         unzoom_button.setVisible(bool);
     }
 
+    /**
+     * Allows the map to increase in size, up to scroll_AnchorPane.getMaxWidth
+     * @param actionEvent Triggered when zoom_button is pressed
+     */
     public void zoom(ActionEvent actionEvent) {
 
         if (scroll_AnchorPane.getPrefWidth() < scroll_AnchorPane.getMaxWidth()) {
@@ -161,6 +170,10 @@ public class UIControllerPFM extends UIController {
         }
     }
 
+    /**
+     * Allows the map to decrease in size, down to scroll_AnchorPane.getMinWidth
+     * @param actionEvent Triggered when zoom_button is pressed
+     */
     public void unZoom(ActionEvent actionEvent) {
 
         if (scroll_AnchorPane.getPrefWidth() > scroll_AnchorPane.getMinWidth()) {
