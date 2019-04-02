@@ -51,4 +51,20 @@ public class GraphJUnit extends TestCase {
         expected.add("N3");
         assertEquals(expected, path);
     }
+    public void checkRealNodes() {
+        Node n0 = new Node("N0", 1580, 2538, "", "", "", "", "");
+        Node n1 = new Node("N1", 1395, 2674, "", "", "", "", "");
+        Node n2 = new Node("N2", 1532, 2777, "", "", "", "", "");
+        Node n3 = new Node("N3", 1591, 2560, "", "", "", "", "");
+        Node n4 = new Node("N4", 1590, 2604, "", "", "", "", "");
+        Node n5 = new Node("N5", 1590, 2745, "", "", "", "", "");
+        ArrayList<Node> nodes = new ArrayList<>();
+        nodes.add(n0);
+        nodes.add(n1);
+        nodes.add(n2);
+        nodes.add(n3);
+        nodes.add(n4);
+        nodes.add(n5);
+        Graph g = new Graph(nodes);
+    }
 }
