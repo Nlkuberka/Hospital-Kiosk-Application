@@ -92,10 +92,9 @@ public class DBController {
      */
     public static void updateNode(Node node, Connection connection){
         try{
-            //connection = DriverManager.getConnection("jdbc:derby:myDB");
             Statement s = connection.createStatement();
-            s.execute("UPDATE NODES where NODEID = '" + node.getNodeID() +
-                    "' SET XCOORD ="+ node.getXcoord() +","+
+            s.execute("UPDATE NODES" +
+                    " SET XCOORD ="+ node.getXcoord() +","+
                     "YCOORD ="+ node.getYcoord() + ","+
                     "FLOOR ="+ node.getFloor() + ","+
                     "BUILDING ='"+ node.getBuilding() + "',"+
@@ -103,8 +102,6 @@ public class DBController {
                     "LONGNAME = '"+ node.getLongName() + "',"+
                     "SHORTNAME = '"+ node.getShortName() +"'"+
                     "where NODEID = '" + node.getNodeID() +"'");
-
-            //connection.close();
         }catch(SQLException e){
             e.printStackTrace();
         }
@@ -112,13 +109,12 @@ public class DBController {
 
     public static void updateEdge(Edge edge, Connection connection){
         try{
-            //connection = DriverManager.getConnection("jdbc:derby:myDB");
             Statement s = connection.createStatement();
-            s.execute("UPDATE EDGES where EDGEID = '" + edge.getEdgeID() +
-                    "' SET  STARTNODE ='"+ edge.getNode1ID() +"',"+
-                    "ENDNODE = '"+ edge.getNode2ID() + "'");
+            s.execute("UPDATE EDGES" +
+                    " SET  STARTNODE ='"+ edge.getNode1ID() +"',"+
+                    "ENDNODE = '"+ edge.getNode2ID() + "'" +
+                    "where EDGEID = '" + edge.getEdgeID()+"'");
 
-            //connection.close();
         }catch(SQLException e){
             e.printStackTrace();
         }
@@ -127,12 +123,12 @@ public class DBController {
     public static void updateServiceRequest(ServiceRequest serviceRequest, Connection connection){
         try{
             Statement s = connection.createStatement();
-            s.execute("UPDATE SERVICEREQUEST where  NODEID = '" + serviceRequest.getNodeID() + "' and " +
-                    "USERID = '" + serviceRequest.getUserID() +
-                    "' SET  SERVICETYPE ='"+ serviceRequest.getServiceType() +"',"+
+            s.execute("UPDATE SERVICEREQUEST SET  SERVICETYPE ='"+ serviceRequest.getServiceType() +"',"+
                     "MESSAGE = '"+ serviceRequest.getMessage() + "'," +
                     "RESOLVED = '" + serviceRequest.isResolved() + "'," +
-                    "RESOLVERID = '"+serviceRequest.getResolverID()+"'");
+                    "RESOLVERID = '"+serviceRequest.getResolverID()+"' " +
+                    "where  NODEID = '" + serviceRequest.getNodeID() + "' and " +
+                    "USERID = '" + serviceRequest.getUserID() + "'");
 
         }catch(SQLException e){
             e.printStackTrace();
