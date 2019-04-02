@@ -61,6 +61,12 @@ public class UIControllerPFM extends UIController {
         getPath();
     }
 
+    @FXML
+    private void clearPath(ActionEvent actionEvent) {
+        initialLocationSelect.getSelectionModel().selectFirst();
+        destinationSelect.getSelectionModel().clearSelection();
+    }
+
     private void getPath() {
         System.out.println("getPath called");
     }
@@ -71,7 +77,7 @@ public class UIControllerPFM extends UIController {
         path.getElements().add(new MoveTo(nodes.get(0).getXcoord(), nodes.get(0).getYcoord())); // move path to origin
 
         // get all XY pairs and turn them into lines
-        for (int i = 1; i < nodes.size()-1; i++) {
+        for (int i = 1; i < nodes.size() - 1; i++) {
             Node node = nodes.get(i);
             path.getElements().add(new LineTo(node.getXcoord(), node.getYcoord()));
         }
