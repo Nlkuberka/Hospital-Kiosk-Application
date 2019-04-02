@@ -62,6 +62,7 @@ public class UIControllerPFM extends UIController {
         scrollPane_pathfind.setHbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
         scrollPane_pathfind.setVbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
 
+        // set value to "true" to use zoom functionality
         setZoomOn(false);
 
         Connection conn = DBController.dbConnect();
