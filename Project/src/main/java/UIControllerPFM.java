@@ -86,6 +86,7 @@ public class UIControllerPFM extends UIController {
         }
     }
 
+
     @FXML
     private void clearPath(ActionEvent actionEvent) {
         initialLocationSelect.getSelectionModel().selectFirst();
