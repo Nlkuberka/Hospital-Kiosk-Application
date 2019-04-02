@@ -82,10 +82,17 @@ public class UIControllerATVN extends  UIController {
                             runSetter(node, nodeSetters[index], String.class, Integer.parseInt(textField.getText()));
                         }
                         System.out.println(node);
-                        if(index == 0) {
-                            //DB Remove
+
+                        try{
+                            Connection conn = DBController.dbConnect();
+                            if(index == 0) {
+                                DBController.deleteNode(label.getText(),conn);
+                            }
+                            DBController.addNode(node,conn);
+                            conn.close();
+                        }catch(SQLException e){
+                            e.printStackTrace();
                         }
-                        //DB Add or Update
                         setGraphic(label);
                         label.setText(textField.getText());
                     });
@@ -104,7 +111,13 @@ public class UIControllerATVN extends  UIController {
 
                 setGraphic(removeButton);
                 removeButton.setOnAction( e -> {
-                            //DB Remove Node
+                        try {
+                            Connection conn = DBController.dbConnect();
+                            DBController.deleteNode(node.getNodeID(), conn);
+                            conn.close();
+                        }catch(SQLException e1){
+                            e1.printStackTrace();
+                        }
                             getTableView().getItems().remove(node);
                         }
                 );

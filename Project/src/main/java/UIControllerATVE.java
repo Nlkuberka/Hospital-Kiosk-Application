@@ -64,7 +64,7 @@ public class UIControllerATVE extends UIController {
                         runSetter(edge, edgeSetters[index], String.class, textField.getText());
                         System.out.println(edge);
                         if(index == 0) {
-                            //DB Remove
+
                         }
                         //DB Add or Update
                         setGraphic(label);
@@ -73,6 +73,9 @@ public class UIControllerATVE extends UIController {
                 }
             });
         }
+
+
+
         // Initialize cell factories of the remove node column
         TableColumn<Edge, Edge> removeColumn = (TableColumn<Edge, Edge>) tableColumns.get(tableColumns.size() - 1);
         removeColumn.setCellValueFactory(param -> new ReadOnlyObjectWrapper<>(param.getValue()));

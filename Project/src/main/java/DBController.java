@@ -21,6 +21,14 @@ public class DBController {
         return null;
     }
 
+    public static void closeConnection(Connection connection){
+        try{
+            connection.close();
+        }catch(SQLException e){
+            e.printStackTrace();
+        }
+    }
+
     public static void loadNodeData(File file, Connection connection){
         BufferedReader br = null;
         String line = "";
@@ -102,7 +110,6 @@ public class DBController {
         }
     }
 
-
     public static void updateEdge(Edge edge, Connection connection){
         try{
             //connection = DriverManager.getConnection("jdbc:derby:myDB");
@@ -116,7 +123,6 @@ public class DBController {
             e.printStackTrace();
         }
     }
-
 
     public static void fetchNode(String ID,Connection connection ){
         try{
@@ -153,6 +159,16 @@ public class DBController {
         }catch(SQLException e){
             e.printStackTrace();
         } }
+
+    public static void deleteEdge(String ID, Connection connection){
+        try {
+            Statement s = connection.createStatement();
+            s.execute("DELETE from EDGES where EDGEID = '"+ ID +"'");
+
+        }catch(SQLException e){
+            e.printStackTrace();
+        }
+    }
 
     /**
      * addNode
@@ -282,12 +298,12 @@ public class DBController {
      * ClearData
      * Drops all data stored in Nodes and Edges
      */
-    public void clearData(Connection connection){
+    public void clearData(Connection connection) {
         try {
             Statement s = connection.createStatement();
             s.execute("DELETE from NODES where 1=1");
             s.execute("DELETE from EDGES where 1=1");
-        }catch(SQLException e){
+        } catch (SQLException e) {
             e.printStackTrace();
         }
     }
