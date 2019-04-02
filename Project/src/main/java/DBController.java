@@ -118,8 +118,25 @@ public class DBController {
     }
 
 
+    public static void fetchNode(String ID,Connection connection ){
+        try{
+            Statement s = connection.createStatement();
+            s.execute("Select from NODES where NODEID = '" + ID + "'");
+        }catch(SQLException e){
+            e.printStackTrace();
+        }
 
+    }
 
+    public static void fetchEdge(String ID,Connection connection ){
+        try{
+            Statement s = connection.createStatement();
+            s.execute("Select from EDGES where EDGEID= '" + ID + "'");
+        }catch(SQLException e){
+            e.printStackTrace();
+        }
+
+    }
 
     /**
      * delete node
