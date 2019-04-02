@@ -167,6 +167,7 @@ public class UIController {
             label.setText("" + method.invoke(object));
         } catch (Exception e) {
             //e.printStackTrace();
+            label.setText("");
         }
     }
 
@@ -184,6 +185,7 @@ public class UIController {
             runStringGetter(object, methodName, label);
         } catch (Exception e) {
             //e.printStackTrace();
+            textField.setText("");
         }
     }
 
