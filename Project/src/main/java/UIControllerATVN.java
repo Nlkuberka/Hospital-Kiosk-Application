@@ -1,5 +1,7 @@
 import com.jfoenix.controls.JFXButton;
 import javafx.beans.property.ReadOnlyObjectWrapper;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -53,6 +55,7 @@ public class UIControllerATVN extends  UIController {
             column.setCellValueFactory(param -> new ReadOnlyObjectWrapper<>(param.getValue()));
             column.setCellFactory(param -> new TableCell<Node, Node>() {
                 private TextField textField = new TextField("TEST");
+                private Label label = new Label("TEST");
                 private int index = indexOut;
 
                 @Override
@@ -62,11 +65,15 @@ public class UIControllerATVN extends  UIController {
                     try {
                         Method method = node.getClass().getMethod(nodeGetters[index]);
                         textField.setText((String) method.invoke(node));
+                        label.setText((String) method.invoke(edge));
                     } catch (Exception e) {
                         //e.printStackTrace();
                     }
 
-                    setGraphic(textField);
+                    textField.prefWidthProperty().bind(column.prefWidthProperty());
+                    label.prefWidthProperty().bind(column.prefWidthProperty());
+
+                    setGraphic(label);
                     textField.setOnAction(et -> {
                         Class paramClass = String.class;
                         if(indexOut == 1 || indexOut == 2) {
@@ -87,6 +94,24 @@ public class UIControllerATVN extends  UIController {
                             //DB Remove
                         }
                         //DB Add or Update
+                        setGraphic(label);
+                        label.setText(textField.getText());
+                    });
+
+                    textField.focusedProperty().addListener(new ChangeListener<Boolean>() {
+                        @Override
+                        public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
+                            if(!newValue) {
+                                setGraphic(label);
+                                textField.setText(label.getText());
+                            }
+                        }
+                    });
+
+                    label.setOnMouseClicked(et -> {
+                        setGraphic(textField);
+                        textField.setText(label.getText());
+                        textField.positionCaret(label.getText().length() - 1);
                     });
                 }
             });

@@ -1,24 +1,20 @@
 import com.jfoenix.controls.JFXButton;
 import javafx.beans.property.ReadOnlyObjectWrapper;
+import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
+import javafx.geometry.HPos;
+import javafx.scene.control.Label;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
-import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.control.cell.TextFieldTableCell;
+import javafx.scene.layout.GridPane;
 
 import java.lang.reflect.Method;
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.List;
-import java.util.Observable;
 
 public class UIControllerATVE extends UIController {
     private static final String[] edgeSetters  = {"setEdgeID", "setNode1ID", "setNode2ID"};
@@ -56,6 +52,7 @@ public class UIControllerATVE extends UIController {
             column.setCellValueFactory(param -> new ReadOnlyObjectWrapper<>(param.getValue()));
             column.setCellFactory(param -> new TableCell<Edge, Edge>() {
                 private TextField textField = new TextField("TEST");
+                private Label label = new Label("TEST");
                 private int index = indexOut;
 
                 @Override
@@ -65,11 +62,15 @@ public class UIControllerATVE extends UIController {
                     try {
                         Method method = edge.getClass().getMethod(edgeGetters[index]);
                         textField.setText((String) method.invoke(edge));
+                        label.setText((String) method.invoke(edge));
                     } catch (Exception e) {
-                        e.printStackTrace();
+                        //e.printStackTrace();
                     }
 
-                    setGraphic(textField);
+                    textField.prefWidthProperty().bind(column.prefWidthProperty());
+                    label.prefWidthProperty().bind(column.prefWidthProperty());
+
+                    setGraphic(label);
                     textField.setOnAction(et -> {
                         try {
                             Method method2 = edge.getClass().getMethod(edgeSetters[index], String.class);
@@ -82,6 +83,24 @@ public class UIControllerATVE extends UIController {
                             //DB Remove
                         }
                         //DB Add or Update
+                        setGraphic(label);
+                        label.setText(textField.getText());
+                    });
+
+                    textField.focusedProperty().addListener(new ChangeListener<Boolean>() {
+                        @Override
+                        public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
+                            if(!newValue) {
+                                setGraphic(label);
+                                textField.setText(label.getText());
+                            }
+                        }
+                    });
+
+                    label.setOnMouseClicked(et -> {
+                        setGraphic(textField);
+                        textField.setText(label.getText());
+                        textField.positionCaret(label.getText().length() - 1);
                     });
                 }
             });
@@ -91,6 +110,7 @@ public class UIControllerATVE extends UIController {
         removeColumn.setCellValueFactory(param -> new ReadOnlyObjectWrapper<>(param.getValue()));
         removeColumn.setCellFactory(param -> new TableCell<Edge, Edge>() {
             private JFXButton removeButton = new JFXButton("Remove");
+
 
             @Override
             protected void updateItem(Edge edge, boolean empty) {
@@ -105,16 +125,10 @@ public class UIControllerATVE extends UIController {
             }
         });
         //DB get Edges
-        try {
-            Connection conn = DBController.dbConnect();
-            ResultSet rs = conn.createStatement().executeQuery("select * from EDGES;");
-            while(rs.next()){
-                edgeTable.getItems().add(new Edge(rs.getString("EDGEID"),rs.getString("STARTNODE"),rs.getString("ENDNODE")));
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
+        for(int i = 0; i < 100; i++) {
+            Edge edge  = new Edge(i + "", i * 2 + "", i * 3 + "");
+            edgeTable.getItems().add(edge);
         }
-
     }
 
     /**
