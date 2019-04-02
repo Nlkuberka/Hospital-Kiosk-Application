@@ -1,5 +1,6 @@
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTimePicker;
+
 import javafx.fxml.FXML;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.DatePicker;
@@ -8,33 +9,50 @@ import java.text.SimpleDateFormat;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.time.ZoneId;
+
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.HashMap;
 
+/**
+ * The UIController that handles the creation and sending of reservations
+ * @author Jonathan Chang
+ * @version iteration1
+ */
 public class UIControllerRVM extends UIController {
 
     @FXML
-    private Map<String, String> nodeIDs;
+    private Map<String, String> nodeIDs; /** < Holds the reference of the short names to nodeIDs*/
 
     @FXML
-    private JFXButton confirmButton;
+    private JFXButton confirmButton; /** < The confirm button*/
 
     @FXML
-    private ChoiceBox nodeSelect;
+    private ChoiceBox nodeSelect; /** < The choicebox where the user selects the node*/
 
     @FXML
-    private DatePicker datePicker;
+    private DatePicker datePicker; /** < The picker for the date*/
 
     @FXML
-    private JFXTimePicker startTimePicker;
+    private JFXTimePicker startTimePicker; /** < The picker for the start time*/
 
     @FXML
-    private JFXTimePicker endTimePicker;
+    private JFXTimePicker endTimePicker; /** < The picker for the end time */
 
+    /**
+     * Run when the scene is first loaded
+     */
     @FXML
     public void initialize() {
+
+    }
+
+    /**
+     * Loads in the rooms each time the scene is show
+     */
+    @Override
+    public void onShow() {
         nodeIDs = new HashMap<String, String>();
         List<Node> nodes;
         //DB Get nodes
@@ -44,6 +62,9 @@ public class UIControllerRVM extends UIController {
         }*/
     }
 
+    /**
+     * Creates a reservation and sends it to the database
+     */
     @FXML
     private void setConfirmButton() {
         LocalDate ld = datePicker.getValue();
