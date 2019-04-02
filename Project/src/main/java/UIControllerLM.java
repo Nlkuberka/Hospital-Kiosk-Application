@@ -1,8 +1,15 @@
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;
+
 import javafx.fxml.FXML;
 
+/**
+ * The UIController for the Login screen
+ * Allows a user to login, for admins to login, or for guests to enter
+ * @author Jonathan Chang
+ * @version iteration1
+ */
 public class UIControllerLM extends UIController {
 
     @FXML

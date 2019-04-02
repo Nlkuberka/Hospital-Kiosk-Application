@@ -1,8 +1,16 @@
 import com.jfoenix.controls.JFXButton;
+
 import javafx.fxml.FXML;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuItem;
 
+/**
+ * The UIController for the Admin Tools Main Menu
+ * Allows the user to select the various admin tools as well as go back to the Admin
+ * Main Menu
+ * @author Jonathan Chang
+ * @version iteration1
+ */
 public class UIControllerATM extends UIController {
 
     @FXML

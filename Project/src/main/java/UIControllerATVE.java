@@ -1,21 +1,20 @@
 import com.jfoenix.controls.JFXButton;
+
 import javafx.beans.property.ReadOnlyObjectWrapper;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.geometry.HPos;
-import javafx.scene.control.Label;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
-import javafx.scene.layout.GridPane;
 
-import java.lang.reflect.Method;
-
+/**
+ * The UIController for viewing, adding, editing, and removing the edges
+ * Allows an admin to edit and modify the edges to conform to the new changes
+ * @author Jonathan Chang
+ * @version iteration1
+ */
 public class UIControllerATVE extends UIController {
     private static final int[] lengthRequirements = {21, 10, 10};
     private static final String[] edgeSetters  = {"setEdgeID", "setNode1ID", "setNode2ID"};
@@ -62,6 +61,7 @@ public class UIControllerATVE extends UIController {
 
                     // When the user commits changes with enter
                     textField.setOnAction(et -> {
+                        // Check length requirements
                         if(textField.getText().length() > lengthRequirements[index]) {
                             setGraphic(label);
                             textField.setText(label.getText());

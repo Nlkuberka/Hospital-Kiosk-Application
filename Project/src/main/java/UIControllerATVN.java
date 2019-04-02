@@ -1,22 +1,23 @@
 import com.jfoenix.controls.JFXButton;
+
 import javafx.beans.property.ReadOnlyObjectWrapper;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
-import javafx.scene.control.cell.PropertyValueFactory;
 
-import java.lang.reflect.Method;
-import java.rmi.server.ExportException;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Observable;
 
+import java.util.List;
+
+/**
+ * The UIController for viewing, editing, removing, and adding nodes to the graph
+ * Allows the admin to make and necessary changes to nodes
+ * @author Jonathan Chang
+ * @version iteration1
+ */
 public class UIControllerATVN extends  UIController {
     private static final int[] lengthRequirements = {10, -1, -1, 3, 15, 4, 50, 50};
     private static final String[] nodeSetters  = {"setNodeID", "setXcoord", "setYcoord", "setFloor",
