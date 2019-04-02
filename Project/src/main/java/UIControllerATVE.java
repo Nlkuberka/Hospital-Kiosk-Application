@@ -79,16 +79,15 @@ public class UIControllerATVE extends UIController {
         removeColumn.setCellFactory(param -> new TableCell<Edge, Edge>() {
             private JFXButton removeButton = new JFXButton("Remove");
 
-
             @Override
             protected void updateItem(Edge edge, boolean empty) {
                 super.updateItem(edge, empty);
 
                 setGraphic(removeButton);
                 removeButton.setOnAction( e -> {
-                            //DB Remove Edge
-                            getTableView().getItems().remove(edge);
-                        }
+                        //DB Remove Edge
+                        getTableView().getItems().remove(edge);
+                    }
                 );
             }
         });
