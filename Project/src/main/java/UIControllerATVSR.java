@@ -88,6 +88,11 @@ public class UIControllerATVSR extends UIController {
                 runStringGetterEditable(serviceRequest, serviceRequestGetters[index], label, textField);
 
                 textField.setOnAction(et -> {
+                    if(textField.getText().length() > 10) {
+                        setGraphic(label);
+                        textField.setText(label.getText());
+                        return;
+                    }
                     runSetter(serviceRequest, serviceRequestSetters[index],String.class, textField.getText());
                     // DB Add or Update
                     setGraphic(label);

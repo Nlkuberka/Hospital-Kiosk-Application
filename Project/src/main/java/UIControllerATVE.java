@@ -17,6 +17,7 @@ import javafx.scene.layout.GridPane;
 import java.lang.reflect.Method;
 
 public class UIControllerATVE extends UIController {
+    private static final int[] lengthRequirements = {21, 10, 10};
     private static final String[] edgeSetters  = {"setEdgeID", "setNode1ID", "setNode2ID"};
     private static final String[] edgeGetters  = {"getEdgeID", "getNode1ID", "getNode2ID"};
                                                 /**< The Various Edge Columns used for cell factories */
@@ -61,6 +62,11 @@ public class UIControllerATVE extends UIController {
 
                     // When the user commits changes with enter
                     textField.setOnAction(et -> {
+                        if(textField.getText().length() > lengthRequirements[index]) {
+                            setGraphic(label);
+                            textField.setText(label.getText());
+                            return;
+                        }
                         runSetter(edge, edgeSetters[index], String.class, textField.getText());
                         System.out.println(edge);
                         if(index == 0) {

@@ -9,6 +9,7 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 
 import java.lang.reflect.Method;
+import java.rmi.server.ExportException;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -17,6 +18,7 @@ import java.util.List;
 import java.util.Observable;
 
 public class UIControllerATVN extends  UIController {
+    private static final int[] lengthRequirements = {10, -1, -1, 3, 15, 4, 50, 50};
     private static final String[] nodeSetters  = {"setNodeID", "setXcoord", "setYcoord", "setFloor",
                                                     "setBuilding", "setLongName", "setShortName"};
     private static final String[] nodeGetters  = {"getNodeID", "getXcoord", "getYcoord", "getFloor",
@@ -68,8 +70,17 @@ public class UIControllerATVN extends  UIController {
                         // Catch if int is not able to be parsed
                         if(index == 1 || index == 2) {
                             try {
-                                Integer.parseInt(textField.getText());
+                                if(Integer.parseInt(textField.getText()) < 0) {
+                                    throw new IllegalArgumentException("Coordinates must be positive");
+                                }
                             } catch(Exception e) {
+                                setGraphic(label);
+                                textField.setText(label.getText());
+                                return;
+                            }
+                        } else {
+                            // Resets if the input is too long
+                            if(textField.getText().length() >lengthRequirements[index]) {
                                 setGraphic(label);
                                 textField.setText(label.getText());
                                 return;
