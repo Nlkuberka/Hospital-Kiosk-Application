@@ -44,8 +44,10 @@ public class UIControllerPFM extends UIController {
         // update choices for destination location
         destinationSelect.getItems().addAll("dest1", "dest2");
 
-        path.getElements().add(new MoveTo(0.0f, 0.0f));
-        path.getElements().add(new LineTo(100.0f, 100.0f));
+        // path demo code
+//        path.getElements().add(new MoveTo(0.0f, 0.0f));
+//        path.getElements().add(new LineTo(100.0f, 100.0f));
+//        path.getElements().add(new LineTo(200.0f, 150.0f));
     }
 
     @FXML
