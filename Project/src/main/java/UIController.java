@@ -164,7 +164,7 @@ public class UIController {
     protected void runStringGetter(Object object, String methodName, Label label) {
         try {
             Method method = object.getClass().getMethod(methodName);
-            label.setText((String) method.invoke(object));
+            label.setText("" + method.invoke(object));
         } catch (Exception e) {
             //e.printStackTrace();
         }
@@ -180,7 +180,7 @@ public class UIController {
     protected void runStringGetterEditable(Object object, String methodName, Label label, TextField textField) {
         try {
             Method method = object.getClass().getMethod(methodName);
-            textField.setText((String) method.invoke(object));
+            textField.setText("" + method.invoke(object));
             runStringGetter(object, methodName, label);
         } catch (Exception e) {
             //e.printStackTrace();

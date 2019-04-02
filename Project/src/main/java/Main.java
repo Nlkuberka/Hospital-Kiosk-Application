@@ -1,6 +1,7 @@
 import javafx.application.Application;
 import javafx.stage.Stage;
 
+import java.io.File;
 import java.sql.Connection;
 
 public class Main extends Application {
@@ -14,11 +15,12 @@ public class Main extends Application {
 
         System.out.println("Collaborator is " + "X");
 
-
         Connection conn = DBController.dbConnect();
+        //DBController.loadNodeData(new File("nodesv3.csv"), conn);
+        //DBController.loadEdgeData(new File("edgesv3.csv"), conn);
 
         // IF YOU DO NOT HAVE THE TABLES SET UP RUN THIS CODE TO GENERATE
-        /* DBController.createTable("CREATE TABLE NODES(" +
+        /*DBController.createTable("CREATE TABLE NODES(" +
                 "NODEID VARCHAR(10),"+
                 "XCOORD INTEGER," +
                 "YCOORD INTEGER," +
