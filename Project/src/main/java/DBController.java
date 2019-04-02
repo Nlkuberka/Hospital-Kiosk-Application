@@ -94,13 +94,13 @@ public class DBController {
         try{
             Statement s = connection.createStatement();
             s.execute("UPDATE NODES" +
-                    " SET XCOORD ="+ node.getXcoord() +","+
-                    "YCOORD ="+ node.getYcoord() + ","+
-                    "FLOOR = '"+ node.getFloor() + "',"+
-                    "BUILDING ='"+ node.getBuilding() + "',"+
-                    "NODETYPE = '"+ node.getNodeType() + "',"+
-                    "LONGNAME = '"+ node.getLongName() + "',"+
-                    "SHORTNAME = '"+ node.getShortName() +"'"+
+                    " SET XCOORD ="+ node.getXcoord() +", "+
+                    "YCOORD ="+ node.getYcoord() + ", "+
+                    "FLOOR = '"+ node.getFloor() + "', "+
+                    "BUILDING ='"+ node.getBuilding() + "', "+
+                    "NODETYPE = '"+ node.getNodeType() + "', "+
+                    "LONGNAME = '"+ node.getLongName() + "', "+
+                    "SHORTNAME = '"+ node.getShortName() +"' "+
                     "where NODEID = '" + node.getNodeID() +"'");
         }catch(SQLException e){
             e.printStackTrace();
@@ -269,8 +269,8 @@ public class DBController {
         try {
             s.execute("insert into NODES values ('"+node.getNodeID()+"',"+
                     node.getXcoord()+","
-                    +node.getYcoord()+","+
-                    node.getFloor() + "," +
+                    +node.getYcoord()+", '"+
+                    node.getFloor() + "' ," +
                     " '" + node.getBuilding() + "'," +
                     " '" + node.getNodeType() + "'," +
                     " '" + node.getLongName() + "'," +
