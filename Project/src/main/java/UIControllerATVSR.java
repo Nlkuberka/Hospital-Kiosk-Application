@@ -1,6 +1,7 @@
 import com.jfoenix.controls.JFXCheckBox;
 
 import javafx.beans.property.ReadOnlyObjectWrapper;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
@@ -11,6 +12,9 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 
 import java.lang.reflect.Method;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 /**
  * The UIController for the viewing, editing, adding, and removing service requests
@@ -75,12 +79,15 @@ public class UIControllerATVSR extends UIController {
                     Method method = serviceRequest.getClass().getMethod(serviceRequestGetters[index]);
                     checkBox.setSelected((boolean) method.invoke(serviceRequest));
                 } catch (Exception e) {
-                    //e.printStackTrace();
+                    e.printStackTrace();
                 }
                 setGraphic(checkBox);
                 checkBox.setOnAction(et -> {
                     runSetter(serviceRequest, serviceRequestSetters[index], boolean.class, checkBox.isSelected());
-                    // DB Update
+                    Connection conn = DBController.dbConnect();
+                    DBController.updateServiceRequest(serviceRequest,conn);
+                    DBController.closeConnection(conn);
+
                 });
             }
 
@@ -103,7 +110,9 @@ public class UIControllerATVSR extends UIController {
                         return;
                     }
                     runSetter(serviceRequest, serviceRequestSetters[index],String.class, textField.getText());
-                    // DB Add or Update
+                    Connection conn = DBController.dbConnect();
+                    DBController.updateServiceRequest(serviceRequest,conn);
+                    DBController.closeConnection(conn);
                     setGraphic(label);
                     label.setText(textField.getText());
                 });
@@ -133,11 +142,18 @@ public class UIControllerATVSR extends UIController {
      */
     @Override
     public void onShow() {
-        //DB get Service Requests
-        for(int i = 0; i < 100; i++) {
-            ServiceRequest serviceRequest  = new ServiceRequest(i + "", "Maintence", "Message", "Guest", false, "");
-            serviceRequestTable.getItems().add(serviceRequest);
+        Connection conn = DBController.dbConnect();
+        ObservableList<ServiceRequest> serviceRequests = FXCollections.observableArrayList();
+        try{
+            ResultSet rs = conn.createStatement().executeQuery("Select * from SERVICEREQUEST");
+            while (rs.next()){
+                serviceRequests.add(new ServiceRequest(rs.getString(1),rs.getString(2),rs.getString(3),
+                        rs.getString(4),rs.getBoolean(5),rs.getString(6)));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
+        serviceRequestTable.setItems(serviceRequests);
     }
 
     /**

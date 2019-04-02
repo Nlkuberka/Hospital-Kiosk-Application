@@ -124,6 +124,21 @@ public class DBController {
         }
     }
 
+    public static void updateServiceRequest(ServiceRequest serviceRequest, Connection connection){
+        try{
+            Statement s = connection.createStatement();
+            s.execute("UPDATE SERVICEREQUEST where  NODEID = '" + serviceRequest.getNodeID() + "' and " +
+                    "USERID = '" + serviceRequest.getUserID() +
+                    "' SET  SERVICETYPE ='"+ serviceRequest.getServiceType() +"',"+
+                    "MESSAGE = '"+ serviceRequest.getMessage() + "'," +
+                    "RESOLVED = '" + serviceRequest.isResolved() + "'," +
+                    "RESOLVERID = '"+serviceRequest.getResolverID()+"'");
+
+        }catch(SQLException e){
+            e.printStackTrace();
+        }
+    }
+
     public static void fetchNode(String ID,Connection connection ){
         try{
             Statement s = connection.createStatement();
@@ -170,6 +185,16 @@ public class DBController {
         }
     }
 
+    public static void deleteServiceRequest(String NODEID,String USERID, Connection connection){
+        try {
+            Statement s = connection.createStatement();
+            s.execute("delete  from SERVICEREQUEST where NODEID ='"+ NODEID +"' and USERID ='" + USERID + "'");
+        }catch(SQLException e){
+            e.printStackTrace();
+        }
+    }
+
+
     /**
      * addNode
      *
@@ -198,6 +223,18 @@ public class DBController {
             e.printStackTrace();
         }
     }
+
+    public static void addServiceRequest(ServiceRequest serviceRequest, Connection connection){
+        try{
+            Statement s = connection.createStatement();
+            s.execute("INSERT into SERVICEREQUEST  values ('" + serviceRequest.getNodeID() +
+                    "','"+ serviceRequest.getServiceType() +"','"+ serviceRequest.getMessage() + "','"+
+                    serviceRequest.getUserID()+"',"+serviceRequest.isResolved()+")");
+        }catch(SQLException e){
+            e.printStackTrace();
+        }
+    }
+
 
     /**
      * generateListofNodes
