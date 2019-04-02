@@ -7,7 +7,10 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.shape.*;
 
+import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.LinkedList;
 
 public class UIControllerPFM extends UIController {
 
@@ -38,13 +41,26 @@ public class UIControllerPFM extends UIController {
         rectangleLeft.widthProperty().bind(leftVBox.prefWidthProperty());
 
         // set default location
-        initialLocationSelect.getItems().add("This Kiosk");
+//        initialLocationSelect.getItems().add("This Kiosk");
         initialLocationSelect.getSelectionModel().selectFirst();
 
-        // update choices for initial location
-        initialLocationSelect.getItems().addAll("choice1", "choice2", "hi");
-        // update choices for destination location
-        destinationSelect.getItems().addAll("dest1", "dest2");
+        Connection conn = DBController.dbConnect();
+        LinkedList<Node> allNodes = DBController.generateListofNodes(conn);
+        try {
+            conn.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        LinkedList<Node> usefulNodes = new LinkedList<>();
+        for (Node node : allNodes) {
+            if (node.getFloor().equals("2") && node.getBuilding().equals("Tower")) {
+                // update choices for initial location
+                initialLocationSelect.getItems().add(node.getLongName());
+                // update choices for destination location
+                destinationSelect.getItems().addAll(node.getLongName());
+            }
+        }
 
         // path demo code
 //        path.getElements().add(new MoveTo(0.0f, 0.0f));

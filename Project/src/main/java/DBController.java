@@ -156,7 +156,7 @@ public class DBController {
      * creates and returns a list of node objects
      * @return LinkedList</Node>
      */
-    public LinkedList<Node> generateListofNodes(Connection connection){
+    public static LinkedList<Node> generateListofNodes(Connection connection){
         try{
             //connection = DriverManager.getConnection("jdbc:derby:myDB");
             Statement s = connection.createStatement();
