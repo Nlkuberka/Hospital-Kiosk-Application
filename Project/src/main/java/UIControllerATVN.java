@@ -117,17 +117,14 @@ public class UIControllerATVN extends  UIController {
             ResultSet rs = conn.createStatement().executeQuery("Select * from NODES");
             while (rs.next()){
                 nodeData.add(new Node(rs.getString(1),rs.getInt(2),rs.getInt(3),
-                        rs.getInt(4),rs.getString(5),rs.getString(6),
+                        rs.getString(4),rs.getString(5),rs.getString(6),
                         rs.getString(7),rs.getString(8)));
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
         nodeTable.setItems(nodeData);
-        for(int i = 0; i < 100; i++) {
-            Node node  = new Node(i + "", 1 + 1, i + 2, i + 3, "B", "NT", "LN", "SN");
-            nodeTable.getItems().add(node);
-        }
+
     }
 
     /**
@@ -135,7 +132,7 @@ public class UIControllerATVN extends  UIController {
      */
     @FXML
     private void setAddButton() {
-        Node node = new Node("", 0, 0, 0, "", "", "" ,"");
+        Node node = new Node("", 0, 0, "", "", "", "" ,"");
         nodeTable.getItems().add(node);
     }
 

@@ -14,6 +14,9 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
 
 import java.lang.reflect.Method;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.List;
 import java.util.Observable;
 
@@ -63,7 +66,7 @@ public class UIControllerATVE extends UIController {
                         Method method = edge.getClass().getMethod(edgeGetters[index]);
                         textField.setText((String) method.invoke(edge));
                     } catch (Exception e) {
-                        //e.printStackTrace();
+                        e.printStackTrace();
                     }
 
                     setGraphic(textField);
@@ -102,10 +105,16 @@ public class UIControllerATVE extends UIController {
             }
         });
         //DB get Edges
-        for(int i = 0; i < 100; i++) {
-            Edge edge  = new Edge(i + "", i * 2 + "", i * 3 + "");
-            edgeTable.getItems().add(edge);
+        try {
+            Connection conn = DBController.dbConnect();
+            ResultSet rs = conn.createStatement().executeQuery("select * from EDGES;");
+            while(rs.next()){
+                edgeTable.getItems().add(new Edge(rs.getString("EDGEID"),rs.getString("STARTNODE"),rs.getString("ENDNODE")));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
+
     }
 
     /**
