@@ -12,7 +12,6 @@ public class Graph {
     
     private ArrayList<ArrayList<Integer>> adj; //
     private ArrayList<ArrayList<Integer>> adjWeights; //weights of the edges
-    private ArrayList<Boolean> marked;
     private ArrayList<Node> storedNodes; //nodes that have been stored
 
 
@@ -20,12 +19,12 @@ public class Graph {
      * Constructor
      * Initalizes the graph with the given number of nodes
      */
-    public Graph() {
+    public Graph(ArrayList<Node> storedNodes) {
+        this.storedNodes = storedNodes;
         if(storedNodes.size() < 0) {
             throw new IllegalArgumentException("Number of nodes must be greater than or equal to 0");
         }
         //this.storedNodes.size() = storedNodes.size();
-        this.marked = new ArrayList<Boolean>(storedNodes.size());
         this.adj = new ArrayList<ArrayList<Integer>>();
         this.adjWeights = new ArrayList<ArrayList<Integer>>();
         for(int i = 0; i < storedNodes.size(); i++) {
@@ -82,15 +81,11 @@ public class Graph {
         int targetIndex = mapNodeIDToIndex(targetID);
         int current = startIndex;
         double[] distance = new double[storedNodes.size()]; //stored distance from start node to node at index
-        boolean[] marked = new boolean[storedNodes.size()]; //lets know if have taken look at node/queued nodes it is connected to
         Queue<Integer> queue = new LinkedList<Integer>(); //nodes that will be checked
-        ArrayList<List<String>> paths = new ArrayList<List<String>>(); //list of paths from the start node to the particular node
         for(int i = 0; i < storedNodes.size(); i++) {
-            paths.add(new ArrayList<String>());
             distance[i] = Double.MAX_VALUE;
         }
         distance[startIndex] = 0;
-        paths.get(startIndex).add(startID);
         queue.add(current);
 
         // BFS of nodes and get the distances of each node
@@ -101,21 +96,24 @@ public class Graph {
                 double currentDistance = distance[current] + adjWeights.get(current).get(i);
                 if(currentDistance < distance[nextNode]) {
                     distance[nextNode] = currentDistance;
-                    List<String> newPath = deepCopy(paths.get(current));
-
-                    newPath.add(mapIndexToNode(nextNode).getNodeID());
-                    paths.set(nextNode, newPath);
-                }
-                if(!marked[nextNode]) {
                     queue.add(nextNode);
-                    marked[nextNode] = true;
                 }
             }
-            //System.out.println("P - " + paths);
-            //System.out.println("D - " + Arrays.toString(distance));
         }
-        //paths.get(targetIndex).add(0, distance[targetIndex]);
-        return paths.get(targetIndex);
+        List<String> path = new LinkedList<>();
+        path.add(targetID);
+        current = targetIndex;
+        while(current != startIndex) {
+            for(int i = 0; i < adj.get(current).size(); i++) {
+                int previousNode = adj.get(current).get(i);
+                if(adjWeights.get(current).get(previousNode) + distance[previousNode] == distance[current]) {
+                    path.add(0, mapIndexToNode(previousNode).getNodeID());
+                    break;
+                }
+            }
+        }
+        path.add(0, startID);
+        return path;
     }
 
     /**
@@ -146,7 +144,7 @@ public class Graph {
      */
     public void removeNode(String desiredNodeID) {
         int storedNodesLength = storedNodes.size();
-        for(int i = 0; i < storedNodes.size(); i++) {
+        for(int i = 0; i < storedNodesLength; i++) {
             removeBiEdge(desiredNodeID, mapIndexToNode(i).getNodeID());
         }
         int nodeIndex = mapNodeIDToIndex(desiredNodeID);
@@ -154,7 +152,7 @@ public class Graph {
         adjWeights.remove(nodeIndex);
         storedNodesLength--;
 
-        for(int i = 0; i < storedNodes.size(); i++) {
+        for(int i = 0; i < storedNodesLength; i++) {
             List<Integer> adjList = adj.get(i);
             for(int j = 0; j < adjList.size(); j++) {
                 if(adjList.get(j) > nodeIndex) {
