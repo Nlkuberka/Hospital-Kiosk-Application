@@ -22,9 +22,9 @@ import java.util.List;
 public class UIControllerATVN extends  UIController {
     private static final int[] lengthRequirements = {10, -1, -1, 3, 15, 4, 50, 50};
     private static final String[] nodeSetters  = {"setNodeID", "setXcoord", "setYcoord", "setFloor",
-                                                    "setBuilding", "setLongName", "setShortName"};
+                                                    "setBuilding", "setNodeType", "setLongName", "setShortName"};
     private static final String[] nodeGetters  = {"getNodeID", "getXcoord", "getYcoord", "getFloor",
-                                                "getBuilding", "getLongName", "getShortName"};
+                                                "getBuilding", "getNodeType", "getLongName", "getShortName"};
                                                 /**< The Various Node Columns used for cell factories */
 
     @FXML
@@ -63,14 +63,6 @@ public class UIControllerATVN extends  UIController {
                 @Override
                 protected void updateItem(Node node, boolean empty) {
                     super.updateItem(node, empty);
-
-                    try {
-                        Method method = node.getClass().getMethod(nodeGetters[index]);
-                        textField.setText((String) method.invoke(node));
-                        label.setText((String) method.invoke(node));
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
 
                     // Get the starting text of the label and textField
                     runStringGetterEditable(node, nodeGetters[index], label, textField);
