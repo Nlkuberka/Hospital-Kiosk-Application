@@ -22,11 +22,11 @@ public class Main extends Application {
                 "NODEID VARCHAR(10),"+
                 "XCOORD INTEGER," +
                 "YCOORD INTEGER," +
-                "FLOOR INTEGER," +
+                "FLOOR VARCHAR(3)," +
                 "BUILDING VARCHAR(15)," +
                 "NODETYPE VARCHAR(4)," +
                 "LONGNAME VARCHAR(50)," +
-                "SHORTNAME VARCHAR(25)," +
+                "SHORTNAME VARCHAR(50)," +
                 "CONSTRAINT NODE_PK PRIMARY KEY(NODEID)" +
                 ")",conn);
         DBController.createTable("CREATE TABLE USERS(" +
