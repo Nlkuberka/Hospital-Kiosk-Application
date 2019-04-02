@@ -91,6 +91,14 @@ public class UIControllerATVE extends UIController {
                 );
             }
         });
+    }
+
+    /**
+     * Runs when the scene is shown
+     * Gets the edges from the database and puts them into the table
+     */
+    @Override
+    public void onShow() {
         //DB get Edges
         for(int i = 0; i < 100; i++) {
             Edge edge  = new Edge(i + "", i * 2 + "", i * 3 + "");

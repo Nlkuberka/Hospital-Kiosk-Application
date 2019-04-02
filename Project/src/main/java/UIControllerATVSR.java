@@ -53,6 +53,7 @@ public class UIControllerATVSR extends UIController {
         }
         // Set up the Resolved Column
         TableColumn<ServiceRequest, ServiceRequest> resolvedColumn = (TableColumn<ServiceRequest, ServiceRequest>) tableColumns.get(3);
+        resolvedColumn.setStyle( "-fx-alignment: CENTER;");
         resolvedColumn.setCellValueFactory(param -> new ReadOnlyObjectWrapper<>(param.getValue()));
         resolvedColumn.setCellFactory(param -> new TableCell<ServiceRequest, ServiceRequest>() {
             private JFXCheckBox checkBox = new JFXCheckBox();
@@ -111,7 +112,13 @@ public class UIControllerATVSR extends UIController {
                 setGraphic(label);
             }
         });
+    }
 
+    /**
+     * Run when the scene is shown
+     */
+    @Override
+    public void onShow() {
         //DB get Service Requests
         for(int i = 0; i < 100; i++) {
             ServiceRequest serviceRequest  = new ServiceRequest(i + "", "Maintence", "Message", "Guest", false, "");

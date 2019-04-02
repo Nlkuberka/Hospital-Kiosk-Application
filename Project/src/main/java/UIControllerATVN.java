@@ -86,7 +86,6 @@ public class UIControllerATVN extends  UIController {
                             //DB Remove
                         }
                         //DB Add or Update
-                        // Switch back to label
                         setGraphic(label);
                         label.setText(textField.getText());
                     });
@@ -112,6 +111,15 @@ public class UIControllerATVN extends  UIController {
             }
 
         });
+
+    }
+
+    /**
+     * Run when the scene is shown
+     * Gets the nodes from the database and puts them into the table
+     */
+    @Override
+    public void onShow() {
         //DB get Nodes
         Connection conn = DBController.dbConnect();
         ObservableList<Node> nodeData = FXCollections.observableArrayList();
