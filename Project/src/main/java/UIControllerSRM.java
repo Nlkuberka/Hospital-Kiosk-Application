@@ -4,6 +4,7 @@ import javafx.fxml.FXML;
 
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextArea;
+import javafx.scene.control.TextFormatter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -40,6 +41,10 @@ public class UIControllerSRM extends UIController {
         serviceTypes.add("Maintenance Request");
         serviceTypes.add("Tech Support Request");
         serviceSelect.setItems(FXCollections.observableList(serviceTypes));
+
+        serviceMessage.setTextFormatter(new TextFormatter<String>(e ->
+            e.getControlNewText().length() <= 100 ? e : null
+        ));
     }
 
     /**

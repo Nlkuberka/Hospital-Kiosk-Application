@@ -5,6 +5,7 @@
 <?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.effect.Blend?>
 <?import javafx.scene.effect.ColorAdjust?>
 <?import javafx.scene.effect.DropShadow?>
@@ -28,7 +29,10 @@
                <top>
                   <MenuBar blendMode="ADD" prefWidth="900.0" style="-fx-background-color: white;" stylesheets="@backgroud.css" BorderPane.alignment="CENTER">
                     <menus>
-                      <Menu mnemonicParsing="false" text="Home" />
+                      <Menu fx:id="homeButton" mnemonicParsing="false" onShowing="#setHomeButton" text="Home">
+                           <items>
+                              <MenuItem mnemonicParsing="false" text="HOME" />
+                           </items></Menu>
                     </menus>
                      <effect>
                         <ColorAdjust>
