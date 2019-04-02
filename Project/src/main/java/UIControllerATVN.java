@@ -65,9 +65,9 @@ public class UIControllerATVN extends  UIController {
                     try {
                         Method method = node.getClass().getMethod(nodeGetters[index]);
                         textField.setText((String) method.invoke(node));
-                        label.setText((String) method.invoke(edge));
+                        label.setText((String) method.invoke(node));
                     } catch (Exception e) {
-                        //e.printStackTrace();
+                        e.printStackTrace();
                     }
 
                     textField.prefWidthProperty().bind(column.prefWidthProperty());
