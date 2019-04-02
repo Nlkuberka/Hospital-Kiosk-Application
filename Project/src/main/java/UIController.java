@@ -14,7 +14,15 @@ import java.lang.reflect.Method;
 import java.util.Map;
 import java.util.HashMap;
 
+/**
+ * The UIController Superclass
+ * This controller handles all of the other UIControllers as well as
+ * storing the EditableTableCell which is used in adminTools
+ * @author Jonathan Chang
+ * @version interation1
+ */
 public class UIController {
+    // The various scenes that this UIController handles
     public static final String LOGIN_MAIN = "LM";
     public static final String GUEST_MAIN_MENU_MAIN = "GMMM";
     public static final String USER_MAIN_MENU_MAIN = "UMMM";
@@ -27,16 +35,23 @@ public class UIController {
     public static final String ADMIN_TOOLS_VIEW_EDGES = "ATVE";
     public static final String ADMIN_TOOLS_VIEW_SERVICE_REQUESTS = "ATVSR";
 
+    // The starting width and height of the window
     private static final int WIDTH = 900;
     private static final int HEIGHT = 600;
 
+    // Data storage about the stage
     private static Parent root;
     private static Stage primaryStage;
+
+    //Data storage about each scene
     private static Map<String, Scene> scenes;
     private static Map<String, UIController> sceneControllers;
     private static Map<String, String> sceneFiles;
     private static Map<String, String> sceneTitles;
 
+    /**
+     * Constructor
+     */
     public UIController() {
 
     }
@@ -100,6 +115,7 @@ public class UIController {
     protected UIController goToScene(String sceneString) {
         Scene scene = scenes.get(sceneString);
 
+        // If the scene has not yet been created
         if(scene == null) {
             try {
                 FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(sceneFiles.get(sceneString)));
@@ -112,10 +128,12 @@ public class UIController {
             }
         }
 
+        // Show the scene
         primaryStage.setTitle(sceneTitles.get(sceneString));
         primaryStage.setScene(scene);
         primaryStage.show();
 
+        // Run the onShow function and return the controller
         sceneControllers.get(sceneString).onShow();
         return sceneControllers.get(sceneString);
     }
@@ -207,6 +225,11 @@ public class UIController {
             this.index = indexOut;
         }
 
+        /**
+         * Updates the object when edits are made
+         * @param s The object
+         * @param empty Whether the cell is currently empty
+         */
         @Override
         protected void updateItem(S s, boolean empty) {
             super.updateItem(s, empty);

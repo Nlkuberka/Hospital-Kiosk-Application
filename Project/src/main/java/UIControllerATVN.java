@@ -1,22 +1,25 @@
 import com.jfoenix.controls.JFXButton;
+
 import javafx.beans.property.ReadOnlyObjectWrapper;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
-import javafx.scene.control.cell.PropertyValueFactory;
 
-import java.lang.reflect.Method;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Observable;
 
+import java.util.List;
+
+/**
+ * The UIController for viewing, editing, removing, and adding nodes to the graph
+ * Allows the admin to make and necessary changes to nodes
+ * @author Jonathan Chang
+ * @version iteration1
+ */
 public class UIControllerATVN extends  UIController {
+    private static final int[] lengthRequirements = {10, -1, -1, 3, 15, 4, 50, 50};
     private static final String[] nodeSetters  = {"setNodeID", "setXcoord", "setYcoord", "setFloor",
                                                     "setBuilding", "setLongName", "setShortName"};
     private static final String[] nodeGetters  = {"getNodeID", "getXcoord", "getYcoord", "getFloor",
@@ -77,8 +80,17 @@ public class UIControllerATVN extends  UIController {
                         // Catch if int is not able to be parsed
                         if(index == 1 || index == 2) {
                             try {
-                                Integer.parseInt(textField.getText());
+                                if(Integer.parseInt(textField.getText()) < 0) {
+                                    throw new IllegalArgumentException("Coordinates must be positive");
+                                }
                             } catch(Exception e) {
+                                setGraphic(label);
+                                textField.setText(label.getText());
+                                return;
+                            }
+                        } else {
+                            // Resets if the input is too long
+                            if(textField.getText().length() >lengthRequirements[index]) {
                                 setGraphic(label);
                                 textField.setText(label.getText());
                                 return;
@@ -95,7 +107,6 @@ public class UIControllerATVN extends  UIController {
                             //DB Remove
                         }
                         //DB Add or Update
-                        // Switch back to label
                         setGraphic(label);
                         label.setText(textField.getText());
                     });
@@ -121,6 +132,15 @@ public class UIControllerATVN extends  UIController {
             }
 
         });
+
+    }
+
+    /**
+     * Run when the scene is shown
+     * Gets the nodes from the database and puts them into the table
+     */
+    @Override
+    public void onShow() {
         //DB get Nodes
         Connection conn = DBController.dbConnect();
         ObservableList<Node> nodeData = FXCollections.observableArrayList();

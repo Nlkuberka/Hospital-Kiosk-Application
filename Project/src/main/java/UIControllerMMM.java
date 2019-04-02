@@ -2,6 +2,12 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.MenuItem;
 
+/**
+ * The UIController for the main menus
+ * Allows a user to select which section of the application they want to move to
+ * @author Jonathan Chang
+ * @version iteration1
+ */
 public class UIControllerMMM extends  UIController {
 
     @FXML

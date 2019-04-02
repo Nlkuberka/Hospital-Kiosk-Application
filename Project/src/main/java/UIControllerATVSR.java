@@ -1,4 +1,5 @@
 import com.jfoenix.controls.JFXCheckBox;
+
 import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -11,6 +12,12 @@ import javafx.scene.control.TableView;
 
 import java.lang.reflect.Method;
 
+/**
+ * The UIController for the viewing, editing, adding, and removing service requests
+ * Allows the admin to manage service Requests
+ * @author Jonathan Chang
+ * @version iteration1
+ */
 public class UIControllerATVSR extends UIController {
     private static final String[] serviceRequestSetters  = {"", "", "", "setResolved", "setResolverID", ""};
     private static final String[] serviceRequestGetters  = {"getNodeID", "getServiceType", "getUserID", "isResolved", "getResolverID", "getMessage"};
@@ -53,6 +60,7 @@ public class UIControllerATVSR extends UIController {
         }
         // Set up the Resolved Column
         TableColumn<ServiceRequest, ServiceRequest> resolvedColumn = (TableColumn<ServiceRequest, ServiceRequest>) tableColumns.get(3);
+        resolvedColumn.setStyle( "-fx-alignment: CENTER;");
         resolvedColumn.setCellValueFactory(param -> new ReadOnlyObjectWrapper<>(param.getValue()));
         resolvedColumn.setCellFactory(param -> new TableCell<ServiceRequest, ServiceRequest>() {
             private JFXCheckBox checkBox = new JFXCheckBox();
@@ -62,6 +70,7 @@ public class UIControllerATVSR extends UIController {
             protected void updateItem(ServiceRequest serviceRequest, boolean empty) {
                 super.updateItem(serviceRequest, empty);
 
+                // Get the initial value of the checkbox
                 try {
                     Method method = serviceRequest.getClass().getMethod(serviceRequestGetters[index]);
                     checkBox.setSelected((boolean) method.invoke(serviceRequest));
@@ -87,6 +96,12 @@ public class UIControllerATVSR extends UIController {
                 runStringGetterEditable(serviceRequest, serviceRequestGetters[index], label, textField);
 
                 textField.setOnAction(et -> {
+                    // Check Length
+                    if(textField.getText().length() > 10) {
+                        setGraphic(label);
+                        textField.setText(label.getText());
+                        return;
+                    }
                     runSetter(serviceRequest, serviceRequestSetters[index],String.class, textField.getText());
                     // DB Add or Update
                     setGraphic(label);
@@ -111,7 +126,13 @@ public class UIControllerATVSR extends UIController {
                 setGraphic(label);
             }
         });
+    }
 
+    /**
+     * Run when the scene is shown
+     */
+    @Override
+    public void onShow() {
         //DB get Service Requests
         for(int i = 0; i < 100; i++) {
             ServiceRequest serviceRequest  = new ServiceRequest(i + "", "Maintence", "Message", "Guest", false, "");
