@@ -150,6 +150,27 @@ public class DBController {
         return null;
     }
 
+    public static LinkedList<Node> multiNodeFetch(List<String> IDList, Connection connection) {
+        try{
+            Statement s = connection.createStatement();
+            LinkedList<Node> listOfNodes = new LinkedList<>();
+            for(int x = 0; x < IDList.size(); x++) {
+                ResultSet rs = s.executeQuery("SELECT * FROM NODES WHERE NODEID='" + IDList.get(x) + "'");
+                rs.next();
+                Node node = new Node(rs.getString(1), rs.getInt(2), rs.getInt(3),
+                        rs.getString(4), rs.getString(5), rs.getString(6),
+                        rs.getString(7), rs.getString(8));
+                listOfNodes.add(node);
+            }
+            return listOfNodes;
+        }catch(SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+//    public static
+
     /**
      * generateListofNodes
      *
