@@ -135,6 +135,21 @@ public class DBController {
         }
     }
 
+    public static Node fetchNode(String ID, Connection connection) {
+        try{
+            Statement s = connection.createStatement();
+            ResultSet rs = s.executeQuery("SELECT * FROM NODES WHERE NODEID ='" + ID + "'");
+            rs.next();
+            Node node = new Node(rs.getString(1),rs.getInt(2),rs.getInt(3),
+                    rs.getString(4),rs.getString(5),rs.getString(6),
+                    rs.getString(7),rs.getString(8));
+            return node;
+        }catch(SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
     /**
      * generateListofNodes
      *
