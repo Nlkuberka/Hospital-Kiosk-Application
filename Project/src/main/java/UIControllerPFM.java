@@ -1,11 +1,16 @@
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.MenuItem;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
-import javafx.scene.shape.*;
+import javafx.scene.shape.LineTo;
+import javafx.scene.shape.MoveTo;
+import javafx.scene.shape.Path;
+import javafx.scene.shape.Rectangle;
 
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -23,6 +28,11 @@ public class UIControllerPFM extends UIController {
     public AnchorPane parentAnchorPane;
     public Path path;
     public MenuItem backButton;
+    public ScrollPane scrollPane_pathfind;
+    public ImageView map_imageView;
+    public AnchorPane scroll_AnchorPane;
+    public Button zoom_button;
+    public Button unzoom_button;
 
     @FXML
     public void initialize() {
@@ -40,9 +50,19 @@ public class UIControllerPFM extends UIController {
         // bind opaque rectangle to leftVbox width
         rectangleLeft.widthProperty().bind(leftVBox.prefWidthProperty());
 
+        // bind Map to AnchorPane inside of ScrollPane
+        map_imageView.fitWidthProperty().bind(scroll_AnchorPane.prefWidthProperty());
+        map_imageView.fitHeightProperty().bind(scroll_AnchorPane.prefHeightProperty());
+
         // set default location
 //        initialLocationSelect.getItems().add("This Kiosk");
         initialLocationSelect.getSelectionModel().selectFirst();
+
+        // Only show scroll bars if Image inside is bigger than ScrollPane
+        scrollPane_pathfind.setHbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
+        scrollPane_pathfind.setVbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
+
+        setZoomOn(false);
 
         Connection conn = DBController.dbConnect();
         LinkedList<Node> allNodes = DBController.generateListofNodes(conn);
@@ -124,5 +144,26 @@ public class UIControllerPFM extends UIController {
 
     public void goBack(ActionEvent actionEvent) {
         this.goToScene(UIController.LOGIN_MAIN);
+    }
+
+    public double zoomFactor = 1.2;
+
+    public void setZoomOn(boolean bool) {
+        zoom_button.setVisible(bool);
+        unzoom_button.setVisible(bool);
+    }
+
+    public void zoom(ActionEvent actionEvent) {
+
+        if (scroll_AnchorPane.getPrefWidth() < scroll_AnchorPane.getMaxWidth()) {
+            scroll_AnchorPane.setPrefSize(scroll_AnchorPane.getPrefWidth() * zoomFactor, scroll_AnchorPane.getPrefHeight() * zoomFactor);
+        }
+    }
+
+    public void unZoom(ActionEvent actionEvent) {
+
+        if (scroll_AnchorPane.getPrefWidth() > scroll_AnchorPane.getMinWidth()) {
+            scroll_AnchorPane.setPrefSize(scroll_AnchorPane.getPrefWidth() / zoomFactor, scroll_AnchorPane.getPrefHeight() / zoomFactor);
+        }
     }
 }
