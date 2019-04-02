@@ -93,7 +93,7 @@ public class UIControllerATVN extends  UIController {
                         if(index == 1 || index == 2) {
                             runSetter(node, nodeSetters[index], int.class, Integer.parseInt(textField.getText()));
                         } else {
-                            runSetter(node, nodeSetters[index], String.class, Integer.parseInt(textField.getText()));
+                            runSetter(node, nodeSetters[index], String.class, textField.getText());
                         }
                         System.out.println(node);
 
@@ -122,7 +122,9 @@ public class UIControllerATVN extends  UIController {
             @Override
             protected void updateItem(Node node, boolean empty) {
                 super.updateItem(node, empty);
-
+                if(node == null) {
+                    return;
+                }
                 setGraphic(removeButton);
                 removeButton.setOnAction( e -> {
                         try {

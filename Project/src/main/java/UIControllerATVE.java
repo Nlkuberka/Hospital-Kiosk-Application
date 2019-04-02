@@ -111,7 +111,9 @@ public class UIControllerATVE extends UIController {
             @Override
             protected void updateItem(Edge edge, boolean empty) {
                 super.updateItem(edge, empty);
-
+                if(edge == null) {
+                    return;
+                }
                 setGraphic(removeButton);
                 removeButton.setOnAction( e -> {
                         Connection conn = DBController.dbConnect();
