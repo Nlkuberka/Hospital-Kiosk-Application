@@ -51,7 +51,8 @@ public class GraphJUnit extends TestCase {
         expected.add("N3");
         assertEquals(expected, path);
     }
-    public void checkRealNodes() {
+
+    public void testRealNodes() {
         Node n0 = new Node("N0", 1580, 2538, "", "", "", "", "");
         Node n1 = new Node("N1", 1395, 2674, "", "", "", "", "");
         Node n2 = new Node("N2", 1532, 2777, "", "", "", "", "");
@@ -66,5 +67,18 @@ public class GraphJUnit extends TestCase {
         nodes.add(n4);
         nodes.add(n5);
         Graph g = new Graph(nodes);
+        g.addBiEdge("N0", "N1");
+        g.addBiEdge("N1", "N5");
+        g.addBiEdge("N3", "N4");
+        g.addBiEdge("N2", "N3");
+        g.addBiEdge("N4", "N1");
+        g.addBiEdge("N3", "N0");
+        List<String> path = g.shortestPath("N5", "N0");
+//        List<String> expected = new LinkedList<>();
+//        expected.add("N5");
+//        expected.add("N1");
+//        expected.add("N0");
+        System.out.println(path);
+        //assertEquals(path, expected);
     }
 }
