@@ -109,6 +109,11 @@ public class UIControllerPFM extends UIController {
 //        path.getElements().add(new LineTo(200.0f, 150.0f));
     }
 
+    @Override
+    public void onShow() {
+
+    }
+
     @FXML
     public void initLocChanged(ActionEvent actionEvent) {
         System.out.println("Initial location selected: " + initialLocationSelect.getValue());
