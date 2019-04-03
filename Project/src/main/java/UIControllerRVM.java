@@ -100,6 +100,9 @@ public class UIControllerRVM extends UIController {
 
         Reservation r = new Reservation(nodeIDs.get((String) nodeSelect.getValue()), CurrentUser.userID, format.format(date), startTime.toString().substring(0, 8), endTime.toString().substring(0, 8));
         // DB Send
+        Connection conn = DBController.dbConnect();
+        DBController.addReservation(r,conn);
+
         System.out.println(r);
     }
 }

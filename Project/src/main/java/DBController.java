@@ -154,13 +154,35 @@ public class DBController {
         }
     }
 
-
+    /**
+     * addEdge
+     *
+     * lets user introduce a new edge to the DB
+     * @param edge
+     */
     public static void addEdge(Edge edge, Connection connection){
         try{
             //connection = DriverManager.getConnection("jdbc:derby:myDB");
             Statement s = connection.createStatement();
             s.execute("INSERT into EDGES values ('" + edge.getNode2ID() +"_" + edge.getNode1ID() +
                     "','"+ edge.getNode1ID() +"','"+ edge.getNode2ID() + "')");
+            //connection.close();
+        }catch(SQLException e){
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * addReservation
+     *
+     * @param reservation new reservation object
+     */
+    public static void addReservation(Reservation reservation, Connection connection){
+        try{
+            //connection = DriverManager.getConnection("jdbc:derby:myDB");
+            Statement s = connection.createStatement();
+            s.execute("INSERT into RESERVATIONS values ('" + reservation.getNodeID() +"','" + reservation.getUserID() +
+                    "','"+ reservation.getDate() +"','"+ reservation.getStartTime() + "','" + reservation.getEndTime() + "')");
             //connection.close();
         }catch(SQLException e){
             e.printStackTrace();
@@ -192,6 +214,8 @@ public class DBController {
         }
         return null;
     }
+
+
 
     /**
      * nodeInsert
