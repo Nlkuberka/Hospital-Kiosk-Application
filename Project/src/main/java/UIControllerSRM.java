@@ -62,7 +62,7 @@ public class UIControllerSRM extends UIController {
         // DB Get all Nodes
         try {
             Connection conn = DBController.dbConnect();
-            ResultSet rs = conn.createStatement().executeQuery("Select * From NODES where FLOOR = '2' AND BUILDING = 'TOWER'");
+            ResultSet rs = conn.createStatement().executeQuery("Select * From NODES where FLOOR = '2' AND BUILDING = 'Tower'");
             while(rs.next()){
                 nodeIDs.put(rs.getString("SHORTNAME"),rs.getString("NODEID"));
                 nodeShortNames.add(rs.getString("SHORTNAME"));
@@ -70,7 +70,6 @@ public class UIControllerSRM extends UIController {
         }catch(SQLException e){
             e.printStackTrace();
         }
-
         roomSelect.setItems(FXCollections.observableList(nodeShortNames));
         roomSelect.getSelectionModel().selectFirst();
     }
@@ -81,13 +80,15 @@ public class UIControllerSRM extends UIController {
     @FXML
     private void setConfirmButton() {
         String serviceType = (String) serviceSelect.getValue();
-        String roomShortName = (String) nodeIDs.get((String) roomSelect.getValue());
+        String roomShortName = (String) roomSelect.getValue();
         String nodeID = nodeIDs.get(roomShortName);
         String message = serviceMessage.getText();
-        ServiceRequest sr = new ServiceRequest(nodeID, serviceType, message, CurrentUser.userID, false, "");
+
+        CurrentUser.userID = "AMDIN0001";
+        ServiceRequest sr = new ServiceRequest(nodeID, serviceType, message, CurrentUser.userID, false, null);
         Connection conn = DBController.dbConnect();
         DBController.addServiceRequest(sr,conn);
         DBController.closeConnection(conn);
-        System.out.println(message);
+
     }
 }
