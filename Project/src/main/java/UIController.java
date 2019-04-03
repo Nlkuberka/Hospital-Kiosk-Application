@@ -67,9 +67,6 @@ public class UIController {
 
         sceneFiles.put(UIController.ADMIN_TOOLS_VIEW_NODES, "admin_tools_view_nodes.fxml");
         sceneTitles.put(UIController.ADMIN_TOOLS_VIEW_NODES, "Admin Tools - View Nodes");
-
-        sceneFiles.put(UIController.SERVICE_REQUEST_MAIN, "service_request_main.fxml");
-        sceneTitles.put(UIController.SERVICE_REQUEST_MAIN, "Service Request - Main");
     }
 
     /**
