@@ -238,6 +238,22 @@ public class DBController {
         return null;
     }
 
+    public static LinkedList<Edge> generateListofEdges(Connection connection) {
+        try{
+            Statement s = connection.createStatement();
+            ResultSet rs = s.executeQuery("SELECT * from EDGES");
+            LinkedList<Edge> listofEdges = new LinkedList<>();
+            while(rs.next()){
+                Edge edge = new Edge(rs.getString(1), rs.getString(2), rs.getString(3));
+                listofEdges.add(edge);
+            }
+            return listofEdges;
+        }catch(SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
     /**
      * nodeInsert
      *
