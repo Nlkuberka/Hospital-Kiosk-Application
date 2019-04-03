@@ -28,7 +28,7 @@ public class UIControllerPFM extends UIController {
     public VBox leftVBox;
     public Rectangle rectangleLeft;
     public ChoiceBox<String> destinationSelect;
-    public ImageView leftImage;
+    public ImageView backgroundImage;
     public AnchorPane parentAnchorPane;
     public Path path;
     public MenuItem backButton;
@@ -49,8 +49,8 @@ public class UIControllerPFM extends UIController {
 
         // bind background image size to window size
         // ensures auto resize works
-        leftImage.fitHeightProperty().bind(parentAnchorPane.heightProperty());
-        leftImage.fitWidthProperty().bind(parentAnchorPane.widthProperty());
+        backgroundImage.fitHeightProperty().bind(parentAnchorPane.heightProperty());
+        backgroundImage.fitWidthProperty().bind(parentAnchorPane.widthProperty());
 
         // bind opaque rectangle to leftVbox width
         rectangleLeft.widthProperty().bind(leftVBox.prefWidthProperty());
