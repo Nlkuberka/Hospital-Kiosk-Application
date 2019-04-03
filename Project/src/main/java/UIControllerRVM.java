@@ -1,6 +1,7 @@
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTimePicker;
 
+import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.DatePicker;
@@ -27,7 +28,7 @@ public class UIControllerRVM extends UIController {
     private JFXButton confirmButton; /** < The confirm button*/
 
     @FXML
-    private ChoiceBox nodeSelect; /** < The choicebox where the user selects the node*/
+    private ChoiceBox<String> nodeSelect; /** < The choicebox where the user selects the node*/
 
     @FXML
     private DatePicker datePicker; /** < The picker for the date*/
@@ -52,20 +53,20 @@ public class UIControllerRVM extends UIController {
     @Override
     public void onShow() {
         nodeIDs = new HashMap<String, String>();
-        List<Node> nodes = new LinkedList<Node>();
+        List<String> nodes = new LinkedList<String>();
         //DB Get nodes
         try {
             Connection conn = DBController.dbConnect();
             ResultSet rs = conn.createStatement().executeQuery("Select * From NODES where FLOOR = '2' AND BUILDING = 'Tower'");
             while(rs.next()){
                 nodeIDs.put(rs.getString("SHORTNAME"),rs.getString("NODEID"));
-                nodes.add(new Node(rs.getString(1),rs.getInt(2),rs.getInt(3),
-                        rs.getString(4),rs.getString(5),rs.getString(6),
-                        rs.getString(7),rs.getString(8)));
+                nodes.add(rs.getString("SHORTNAME"));
             }
         }catch(SQLException e){
             e.printStackTrace();
         }
+
+        nodeSelect.setItems(FXCollections.observableList(nodes));
 
         // Set initial Startup values
         datePicker.setValue(LocalDate.now());
@@ -98,7 +99,21 @@ public class UIControllerRVM extends UIController {
             return;
         }
 
-        Reservation r = new Reservation(nodeIDs.get((String) nodeSelect.getValue()), CurrentUser.userID, format.format(date), startTime.toString().substring(0, 8), endTime.toString().substring(0, 8));
+        String startString = startTime.toString();
+        String endString = endTime.toString();
+        if(startString.length() > 8) {
+            startString = startString.substring(0, 8);
+        } else if(startString.length() == 5) {
+            startString += ":00";
+        }
+
+        if(endString.length() > 8) {
+            endString = endString.substring(0, 8);
+        } else if(endString.length() == 5) {
+            endString += ":00";
+        }
+
+        Reservation r = new Reservation(nodeIDs.get((String) nodeSelect.getValue()), CurrentUser.userID, format.format(date), startString, endString);
         // DB Send
         Connection conn = DBController.dbConnect();
         DBController.addReservation(r,conn);
