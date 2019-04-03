@@ -14,7 +14,7 @@ import java.sql.SQLException;
 /**
  * The UIController for viewing, adding, editing, and removing the edges
  * Allows an admin to edit and modify the edges to conform to the new changes
- * @author Jonathan Chang
+ * @author Jonathan Chang, imoralessirgo
  * @version iteration1
  */
 public class UIControllerATVE extends UIController {
