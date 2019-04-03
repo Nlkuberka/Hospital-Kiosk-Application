@@ -1,3 +1,5 @@
+import com.sun.org.apache.bcel.internal.generic.RETURN;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -5,6 +7,17 @@ import java.io.*;
 import java.sql.*;
 import java.util.LinkedList;
 import java.util.List;
+
+/**
+ * Database Controller
+ * manages connection as well as add/updates to
+ * all application tables
+ *
+ * handles SQLExceptions thrown by statement execution
+ *
+ * @author imoralessirgo
+ * @version iteration1
+ */
 
 public class DBController {
     // Connection connection;
@@ -135,24 +148,34 @@ public class DBController {
         }
     }
 
-    public static void fetchNode(String ID,Connection connection ){
+    public static Node fetchNode(String ID,Connection connection ){
+        Node node = null;
         try{
             Statement s = connection.createStatement();
-            s.execute("Select from NODES where NODEID = '" + ID + "'");
+            ResultSet rs = s.executeQuery("Select from NODES where NODEID = '" + ID + "'");
+            rs.next();
+            node = new Node(rs.getString("NODEID"),rs.getInt("XCOORD"),
+                    rs.getInt("YCOORD"),rs.getString("FLOOR"),
+                    rs.getString("BUILDING"),rs.getString("NODETYPE"),
+                    rs.getString("SHORTNAME"),rs.getString("LONGNAME"));
         }catch(SQLException e){
             e.printStackTrace();
         }
+        return node;
 
     }
 
-    public static void fetchEdge(String ID,Connection connection ){
+    public static Edge fetchEdge(String ID,Connection connection ){
+        Edge edge = null;
         try{
             Statement s = connection.createStatement();
-            s.execute("Select from EDGES where EDGEID= '" + ID + "'");
+            ResultSet rs = s.executeQuery("Select from EDGES where EDGEID= '" + ID + "'");
+            rs.next();
+            edge = new Edge(rs.getString(1),rs.getString(2),rs.getString(3));
         }catch(SQLException e){
             e.printStackTrace();
         }
-
+        return edge;
     }
 
     /**
@@ -226,6 +249,24 @@ public class DBController {
             s.execute("INSERT into SERVICEREQUEST  values ('" + serviceRequest.getNodeID() +
                     "','"+ serviceRequest.getServiceType() +"','"+ serviceRequest.getMessage() + "','"+
                     serviceRequest.getUserID()+"',"+serviceRequest.isResolved()+")");
+        }catch(SQLException e){
+            e.printStackTrace();
+        }
+    }
+
+
+    /**
+     * addReservation
+     *
+     * @param reservation new reservation object
+     */
+    public static void addReservation(Reservation reservation, Connection connection){
+        try{
+            //connection = DriverManager.getConnection("jdbc:derby:myDB");
+            Statement s = connection.createStatement();
+            s.execute("INSERT into RESERVATIONS values ('" + reservation.getNodeID() +"','" + reservation.getUserID() +
+                    "','"+ reservation.getDate() +"','"+ reservation.getStartTime() + "','" + reservation.getEndTime() + "')");
+            //connection.close();
         }catch(SQLException e){
             e.printStackTrace();
         }

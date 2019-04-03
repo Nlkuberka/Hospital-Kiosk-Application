@@ -1,3 +1,7 @@
+/**
+ * The object that holds data about a particular node
+ * @version iteration1
+ */
 public class Node {
     private String nodeID;
     private int xcoord;
