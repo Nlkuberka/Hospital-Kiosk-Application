@@ -94,7 +94,7 @@ public class Graph {
         double [] distance = new double [storedNodes.size()]; //stored distance from start node to node at index
         Queue<Integer> queue = new LinkedList<Integer>(); //nodes that will be checked
         for(int i = 0; i < storedNodes.size(); i++) {
-            distance[i] = Integer.MAX_VALUE;
+            distance[i] = Double.MAX_VALUE;
         }
         distance[startIndex] = 0;
         queue.add(current);
