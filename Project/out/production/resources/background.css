@@ -1,14 +1,11 @@
 
 
 
-<<<<<<< HEAD
 
-/*Raised button example
-.jfx-button {
-=======
+
+
 /*Raised button example */
 /*.jfx-button {
->>>>>>> b25a4667ca4a56c45b23d4cb4ead8c32a88d775d
     -jfx-button-type: RAISED;
     -fx-background-color:#ebaecd;
     -fx-font-weight: bold;
@@ -22,10 +19,10 @@
      -fx-text-fill: white;
 <<<<<<< HEAD
  }
+<<<<<<< HEAD:Project/src/main/resources/backgroud.css
  */
-=======
- }*/
->>>>>>> b25a4667ca4a56c45b23d4cb4ead8c32a88d775d
+
+
 /* Tab pane styling*/
 .tab-pane{
     -fx-background-color: #bc77a5;
@@ -36,12 +33,8 @@
  .tab-header-background{
      -fx-background-color: #bc77a5;
  }
-/* Menu bar*/
 
-<<<<<<< HEAD:Project/out/production/resources/backgroud.css
-<<<<<<< HEAD
-=======
->>>>>>> 0ec2152661253d65e7c01b1c83a2707210130d0d:Project/out/production/resources/background.css
+/* Menu bar*/
 .menu-bar{
   /*  -fx-pref-width: 600;
     -webkit-fx-pref-height:30;
@@ -53,8 +46,6 @@
 }
 
 
-<<<<<<< HEAD:Project/out/production/resources/backgroud.css
-=======
  .menu-bar{
      width: 100%; overflow: hidden;
      -webkit-fx-pref-height:30;
@@ -68,9 +59,6 @@
      -fx-text-fill: white;
  }
  .container {width: 100%; overflow: hidden; }
->>>>>>> b25a4667ca4a56c45b23d4cb4ead8c32a88d775d
-=======
->>>>>>> 0ec2152661253d65e7c01b1c83a2707210130d0d:Project/out/production/resources/background.css
 
 
 

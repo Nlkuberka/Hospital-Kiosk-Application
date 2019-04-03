@@ -17,27 +17,30 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="UIControllerRVM">
+<AnchorPane prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="UIControllerRVM">
     <children>
-        <AnchorPane prefHeight="400.0" prefWidth="600.0">
+        <AnchorPane prefHeight="600.0" prefWidth="900.0">
             <children>
                 <AnchorPane prefHeight="400.0" prefWidth="600.0" styleClass="body-background" stylesheets="/background.css">
                     <children>
-                        <ImageView pickOnBounds="true" preserveRatio="true">
+                        <ImageView fitWidth="900.0" pickOnBounds="true" preserveRatio="true">
                             <image>
                                 <Image url="@purple-orange-gradient.jpg" />
                             </image>
                         </ImageView>
-                        <BorderPane>
+                        <BorderPane prefHeight="600.0" prefWidth="900.0">
                             <top>
                                 <MenuBar blendMode="ADD" prefWidth="600.0" style="-fx-background-color: white;" stylesheets="@background.css" BorderPane.alignment="CENTER">
                                     <menus>
                                         <Menu mnemonicParsing="false" text="Back">
                                             <items>
-                                                <MenuItem mnemonicParsing="false" text="Go back to previouse page" />
+                                                <MenuItem mnemonicParsing="false" onAction="#setHomeButton" text="Go back to previouse page" />
                                             </items>
                                         </Menu>
-                                        <Menu mnemonicParsing="false" text="Home" />
+                                        <Menu mnemonicParsing="false" onShowing="#setHomeButton" text="Home">
+                                 <items>
+                                    <MenuItem mnemonicParsing="false" text="HOME" />
+                                 </items></Menu>
                                     </menus>
                                     <effect>
                                         <ColorAdjust>
@@ -49,7 +52,7 @@
                                 </MenuBar>
                             </top>
                             <left>
-                                <AnchorPane opacity="0.3" prefHeight="375.0" prefWidth="200.0" style="-fx-background-color: #ffffff;" BorderPane.alignment="CENTER" />
+                                <AnchorPane opacity="0.3" prefHeight="375.0" prefWidth="900.0" style="-fx-background-color: #ffffff;" BorderPane.alignment="BOTTOM_CENTER" />
                             </left>
                         </BorderPane>
                     </children>
@@ -80,7 +83,7 @@
                         <Font name="System Bold Italic" size="16.0" />
                     </font>
                 </Text>
-                <JFXButton fx:id="confirmButton" buttonType="RAISED" onAction="#setConfirmButton" style="-fx-background-color: #ebaecd;" text="Confirm" textFill="WHITE" AnchorPane.leftAnchor="130.0" AnchorPane.topAnchor="365.0">
+                <JFXButton fx:id="confirmButton" buttonType="RAISED" onAction="#setConfirmButton" style="-fx-background-color: #ebaecd;" text="Confirm" textFill="WHITE" AnchorPane.leftAnchor="130.0" AnchorPane.topAnchor="320.0">
                     <font>
                         <Font name="System Bold" size="12.0" />
                     </font>
@@ -91,6 +94,11 @@
                     </font>
                 </Text>
                 <JFXTimePicker fx:id="endTimePicker" defaultColor="#c758c5" layoutX="10.0" layoutY="10.0" style="-fx-background-color: white;" AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="195.0" />
+            <ImageView fitHeight="575.0" fitWidth="700.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="200.0" AnchorPane.topAnchor="75.0">
+               <image>
+                  <Image url="@Tower2.png" />
+               </image>
+            </ImageView>
             </children>
         </AnchorPane>
     </children>

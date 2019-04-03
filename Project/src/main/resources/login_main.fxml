@@ -50,7 +50,7 @@
                                           <Font name="System Bold Italic" size="48.0" />
                                        </font>
                                     </Text>
-                                    <JFXButton fx:id="loginAsUserButton" layoutX="422.0" layoutY="440.0" onAction="#setLoginAsUserButton" style="-fx-background-color: #ebaecd;" text="Login" />
+                                    <JFXButton fx:id="loginAsUserButton" layoutX="422.0" layoutY="440.0" onAction="#setLoginAsUserButton" style="-fx-background-color: #ebaecd;fx-font-weight: bold" textFill="WHITE" text="Login" />
                                  </children>
                               </AnchorPane>
                            </content>
@@ -61,7 +61,7 @@
                                  <children>
                                     <JFXTextField fx:id="adminUsernameTextField" layoutX="350.0" layoutY="238.0" opacity="0.8" prefHeight="35.0" prefWidth="200.0" promptText="Username" style="-fx-background-color: #ffffff;" />
                                     <JFXPasswordField fx:id="adminPasswordTextField" layoutX="350.0" layoutY="335.0" opacity="0.8" prefHeight="35.0" prefWidth="200.0" promptText="Password" style="-fx-background-color: #ffffff;" />
-                                    <JFXButton fx:id="loginAsAdminButton" layoutX="423.0" layoutY="429.0" onAction="#setLoginAsAdminButton" style="-fx-background-color: #ebaecd;" text="Login" textAlignment="CENTER">
+                                    <JFXButton fx:id="loginAsAdminButton" layoutX="423.0" layoutY="429.0" onAction="#setLoginAsAdminButton" style="-fx-background-color: #ebaecd; fx-font-weight: bold" textFill="WHITE" text="Login" textAlignment="CENTER">
                                        <font>
                                           <Font name="System Bold" size="15.0" />
                                        </font>
@@ -94,7 +94,7 @@
                                           <Font name="System Bold Italic" size="36.0" />
                                        </font>
                                     </Text>
-                                    <JFXButton fx:id="loginAsGuestButton" layoutX="381.0" layoutY="334.0" onAction="#setLoginAsGuestButton" style="-fx-background-color: #ebaecd;" text="Continue As A Guest">
+                                    <JFXButton fx:id="loginAsGuestButton" layoutX="381.0" layoutY="334.0" onAction="#setLoginAsGuestButton" style="-fx-background-color: #ebaecd;" textFill="WHITE" text="Continue As A Guest">
                                        <font>
                                           <Font name="System Bold Italic" size="14.0" />
                                        </font>
