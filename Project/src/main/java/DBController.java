@@ -138,11 +138,24 @@ public class DBController {
     public static Edge fetchEdge(String ID, Connection connection){
         try{
             Statement s = connection.createStatement();
-            ResultSet rs = s.executeQuery("Select from EDGES where EDGEID= '" + ID + "'");
+            ResultSet rs = s.executeQuery("Select * from EDGES where EDGEID= '" + ID + "'");
             rs.next();
             Edge edge = new Edge(rs.getString(1), rs.getString(2), rs.getString(3));
             return edge;
         }catch(SQLException e){
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public static String IDfromLongName(String longName, Connection connection) {
+        try{
+            Statement s = connection.createStatement();
+            ResultSet rs = s.executeQuery("SELECT * FROM NODES where LONGNAME = '" + longName + "'");
+            rs.next();
+            String ID = rs.getString(1);
+            return ID;
+        }catch(SQLException e) {
             e.printStackTrace();
         }
         return null;
@@ -153,7 +166,7 @@ public class DBController {
             Statement s = connection.createStatement();
             LinkedList<Edge> listOfEdges = new LinkedList<>();
             for(int x = 0; x < IDList.size(); x++) {
-                ResultSet rs = s.executeQuery("Select from EDGES where EDGEID = '" + IDList.get(x) + "'");
+                ResultSet rs = s.executeQuery("Select * from EDGES where EDGEID = '" + IDList.get(x) + "'");
                 rs.next();
                 Edge edge = new Edge(rs.getString(1), rs.getString(2), rs.getString(3));
                 listOfEdges.add(edge);

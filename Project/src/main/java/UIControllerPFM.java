@@ -16,8 +16,13 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.LinkedList;
+import java.util.List;
 
 public class UIControllerPFM extends UIController {
+
+    private Graph graph;
+    private String initialID;
+    private String destID;
 
     @FXML
     public ChoiceBox<String> initialLocationSelect;
@@ -95,6 +100,8 @@ public class UIControllerPFM extends UIController {
     @FXML
     public void initLocChanged(ActionEvent actionEvent) {
         System.out.println("Initial location selected: " + initialLocationSelect.getValue());
+        Connection connection = DBController.dbConnect();
+        initialID = DBController.IDfromLongName(initialLocationSelect.getValue(), connection);
     }
 
     @FXML
@@ -103,6 +110,9 @@ public class UIControllerPFM extends UIController {
 
         System.out.println("Initial location: " + initialLocationSelect.getValue());
         System.out.println("Destination selected: " + value);
+
+        Connection connection = DBController.dbConnect();
+        destID = DBController.IDfromLongName(destinationSelect.getValue(), connection);
 
         // call getPath if not null
         if (!(value == null || value.length() == 0)) {
@@ -120,11 +130,15 @@ public class UIControllerPFM extends UIController {
 
     private void getPath() {
         System.out.println("getPath called");
-        //graph.shortestPath(initialLocationSelect, destinationSelect);
+        Connection connection = DBController.dbConnect();
+        List<String> pathIDs;
+        pathIDs = graph.shortestPath(initialID, destID);
+        LinkedList<Node> pathNodes = DBController.multiNodeFetch(pathIDs, connection);
+        drawPath(pathNodes);
     }
 
     // TODO: list of all nodes that have: names, XY coords
-    private void drawPath(ArrayList<Node> nodes) {
+    private void drawPath(LinkedList<Node> nodes) {
         clearPathOnMap();
         path.getElements().add(new MoveTo(nodes.get(0).getXcoord(), nodes.get(0).getYcoord())); // move path to initLocation
 
