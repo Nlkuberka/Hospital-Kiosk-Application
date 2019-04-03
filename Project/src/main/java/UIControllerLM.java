@@ -1,8 +1,12 @@
 import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXTabPane;
+import javafx.fxml.FXML;
+import javafx.scene.control.Button;
+import javafx.scene.control.Tab;
 import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;
-
 import javafx.fxml.FXML;
+
 
 /**
  * The UIController for the Login screen
@@ -13,13 +17,36 @@ import javafx.fxml.FXML;
 public class UIControllerLM extends UIController {
 
     @FXML
-    private JFXButton loginAsGuestButton; /**< The Login As Guest Button*/
+    private JFXTabPane login_tabpane;
 
     @FXML
-    private JFXButton loginAsUserButton; /**< The Login As User Button*/
+    private Tab guest_tab;
 
     @FXML
-    private JFXButton loginAsAdminButton; /**< The Login As Admin Button*/
+    private Tab user_tab;
+
+    @FXML
+    private Tab admin_tab;
+
+    @FXML
+    private JFXButton loginAsGuestButton;
+    /**
+     * < The Login As Guest Button
+     */
+
+    @FXML
+    private JFXButton loginAsUserButton;
+    /**
+     * < The Login As User Button
+     */
+
+    @FXML
+    private JFXButton loginAsAdminButton;
+
+    /**
+     * < The Login As Admin Button
+     */
+
 
     @FXML
     private JFXTextField userUsernameTextField;
@@ -81,5 +108,11 @@ public class UIControllerLM extends UIController {
     private void setLoginAsAdminButton() {
         CurrentUser.permissions = User.ADMIN_PERMISSIONS;
         this.goToScene(UIController.ADMIN_MAIN_MENU_MAIN);
+    }
+
+    @FXML
+    private void goToUserTab()
+    {
+        login_tabpane.getSelectionModel().select(user_tab);
     }
 }

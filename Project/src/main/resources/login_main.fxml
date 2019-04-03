@@ -13,9 +13,15 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
+<<<<<<< HEAD
+<AnchorPane prefHeight="400.0" prefWidth="600.0" stylesheets="@background.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="UIControllerLM">
+   <children>
+      <AnchorPane prefHeight="400.0" prefWidth="600.0" styleClass="body-background" stylesheets="background.css">
+=======
 <AnchorPane prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="UIControllerLM">
    <children>
       <AnchorPane prefHeight="600.0" prefWidth="900.0" styleClass="body-background" stylesheets="/backgroud.css">
+>>>>>>> 5505063287749db2ec32ce94c5620b84610a8a18
          <children>
             <ImageView fitWidth="900.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -27,9 +33,35 @@
                   <Blend />
                </effect>
                <top>
+<<<<<<< HEAD
+                  <JFXTabPane fx:id="login_tabpane" prefHeight="400.0" prefWidth="600.0" BorderPane.alignment="CENTER">
+=======
                   <JFXTabPane prefHeight="600.0" prefWidth="900.0" stylesheets="@backgroud.css" BorderPane.alignment="CENTER">
+>>>>>>> 5505063287749db2ec32ce94c5620b84610a8a18
                      <tabs>
-                        <Tab text="User">
+                        <Tab fx:id="guest_tab" text="Guest">
+                          <content>
+                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                 <children>
+                                    <Text fill="WHITE" layoutX="55.0" layoutY="174.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Welcome to Brigham &amp; Women’s Hospital! " textAlignment="CENTER" AnchorPane.leftAnchor="55.0" AnchorPane.topAnchor="148.1015625">
+                                       <font>
+                                          <Font name="System Bold Italic" size="24.0" />
+                                       </font>
+                                    </Text>
+                                    <JFXButton fx:id="loginAsGuestButton" layoutX="231.0" layoutY="212.0" text="Continue As A Guest">
+                                       <font>
+                                          <Font name="System Bold Italic" size="14.0" />
+                                       </font>
+                                    </JFXButton>
+                                    <JFXButton fx:id="loginAsGuestButton1" layoutX="280.0" layoutY="267.0" onMouseClicked="#goToUserTab" text="Login">
+                                       <font>
+                                          <Font name="System Bold Italic" size="14.0" />
+                                       </font>
+                                    </JFXButton>
+                                 </children></AnchorPane>
+                          </content>
+                        </Tab>
+                        <Tab fx:id="user_tab" text="User">
                            <content>
                               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="6.0">
                                  <children>
@@ -55,7 +87,7 @@
                               </AnchorPane>
                            </content>
                         </Tab>
-                        <Tab text="Administrator">
+                        <Tab fx:id="admin_tab" text="Administrator">
                           <content>
                             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                  <children>
@@ -85,6 +117,8 @@
                               </AnchorPane>
                           </content>
                         </Tab>
+<<<<<<< HEAD
+=======
                         <Tab text="Guest">
                           <content>
                             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
@@ -102,6 +136,7 @@
                                  </children></AnchorPane>
                           </content>
                         </Tab>
+>>>>>>> 5505063287749db2ec32ce94c5620b84610a8a18
                      </tabs>
                   </JFXTabPane>
                </top>

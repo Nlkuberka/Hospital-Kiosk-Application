@@ -101,6 +101,9 @@ public class UIController {
         sceneFiles.put(UIController.ADMIN_TOOLS_VIEW_NODES, "admin_tools_view_nodes.fxml");
         sceneTitles.put(UIController.ADMIN_TOOLS_VIEW_NODES, "Admin Tools - View Nodes");
 
+        sceneFiles.put(UIController.RESERVATIONS_MAIN, "reservations_main.fxml");
+        sceneTitles.put(UIController.RESERVATIONS_MAIN, "Reservations - Main");
+
         sceneFiles.put(UIController.ADMIN_TOOLS_VIEW_SERVICE_REQUESTS, "admin_tools_view_service_request.fxml");
         sceneTitles.put(UIController.ADMIN_TOOLS_VIEW_SERVICE_REQUESTS, "Admin Tools - View Service Requests");
         
@@ -155,6 +158,7 @@ public class UIController {
             this.goToScene(UIController.ADMIN_MAIN_MENU_MAIN);
         } else {
             this.goToScene(UIController.LOGIN_MAIN);
+
         }
     }
 
@@ -265,6 +269,7 @@ public class UIController {
                     textField.positionCaret(label.getText().length() - 1);
                 }
             });
+
         }
     }
 }
