@@ -18,6 +18,11 @@ import java.sql.SQLException;
 import java.util.LinkedList;
 import java.util.List;
 
+/**
+ * Controller for the path_find_main.fxml file
+ * @author panagiotisargyrakis, dimitriberardi
+ */
+
 public class UIControllerPFM extends UIController {
 
     public HBox hboxForMap;
