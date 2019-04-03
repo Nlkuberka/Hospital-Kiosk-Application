@@ -14,8 +14,8 @@ import javafx.scene.shape.Rectangle;
 
 import java.sql.Connection;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.LinkedList;
+import java.util.List;
 
 public class UIControllerPFM extends UIController {
 
@@ -33,6 +33,7 @@ public class UIControllerPFM extends UIController {
     public AnchorPane scroll_AnchorPane;
     public Button zoom_button;
     public Button unzoom_button;
+    private List<Node> currentPath;
 
     @FXML
     public void initialize() {
@@ -81,15 +82,17 @@ public class UIControllerPFM extends UIController {
                 initialLocationSelect.getItems().add(node.getLongName());
                 // update choices for destination location
                 destinationSelect.getItems().addAll(node.getLongName());
+                usefulNodes.add(node);
             }
         }
 
         Graph graph = new Graph(allNodes);
 
         // path demo code
-//        path.getElements().add(new MoveTo(0.0f, 0.0f));
-//        path.getElements().add(new LineTo(100.0f, 100.0f));
-//        path.getElements().add(new LineTo(200.0f, 150.0f));
+        System.out.println(usefulNodes.subList(0,5));
+        drawPath(usefulNodes.subList(0,8));
+
+
     }
 
     @FXML
@@ -124,14 +127,35 @@ public class UIControllerPFM extends UIController {
     }
 
     // TODO: list of all nodes that have: names, XY coords
-    private void drawPath(ArrayList<Node> nodes) {
+    private void drawPath(List<Node> nodes) {
+        this.currentPath = nodes;
+        drawPath();
+    }
+
+    private void drawPath() {
+        float scaleFx = (float) map_imageView.getFitWidth() / 5000.0f;
+        float scaleFy = (float) map_imageView.getFitHeight() / 3400.0f;
+
+        System.out.println("ScaleFx: " + scaleFx + "  ScaleFy: " + scaleFy);
+
         clearPathOnMap();
-        path.getElements().add(new MoveTo(nodes.get(0).getXcoord(), nodes.get(0).getYcoord())); // move path to initLocation
+
+        float x = (float) this.currentPath.get(0).getXcoord() * scaleFx;
+        float y = (float) this.currentPath.get(0).getYcoord() * scaleFy;
+
+        path.getElements().add(new MoveTo(x, y)); // move path to initLocation
 
         // get all XY pairs and turn them into lines
-        for (int i = 1; i < nodes.size() - 1; i++) {
-            Node node = nodes.get(i);
-            path.getElements().add(new LineTo(node.getXcoord(), node.getYcoord()));
+        for (int i = 1; i < this.currentPath.size() - 1; i++) {
+            Node node = this.currentPath.get(i);
+
+            x = (float) node.getXcoord() * scaleFx;
+            y = (float) node.getYcoord() * scaleFy;
+
+            System.out.println(node);
+            System.out.println("NodeX: " + x + "  NodeY: " + y);
+
+            path.getElements().add(new LineTo(x, y));
         }
 
         // draw lines
@@ -139,7 +163,7 @@ public class UIControllerPFM extends UIController {
     }
 
     private void clearPathOnMap() {
-        path.getElements().removeAll();
+        path.getElements().clear();
         path.setVisible(false);
     }
 
@@ -168,6 +192,7 @@ public class UIControllerPFM extends UIController {
         if (scroll_AnchorPane.getPrefWidth() < scroll_AnchorPane.getMaxWidth()) {
             scroll_AnchorPane.setPrefSize(scroll_AnchorPane.getPrefWidth() * zoomFactor, scroll_AnchorPane.getPrefHeight() * zoomFactor);
         }
+        drawPath();
     }
 
     /**
@@ -179,5 +204,6 @@ public class UIControllerPFM extends UIController {
         if (scroll_AnchorPane.getPrefWidth() > scroll_AnchorPane.getMinWidth()) {
             scroll_AnchorPane.setPrefSize(scroll_AnchorPane.getPrefWidth() / zoomFactor, scroll_AnchorPane.getPrefHeight() / zoomFactor);
         }
+        drawPath();
     }
 }
