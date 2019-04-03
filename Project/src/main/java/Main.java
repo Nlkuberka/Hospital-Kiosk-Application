@@ -23,10 +23,6 @@ public class Main extends Application {
 
         controller.goToScene(UIController.LOGIN_MAIN);
 
-
-        System.out.println("Collaborator is " + "X");
-
-
         Connection conn = DBController.dbConnect();
         DBController.closeConnection(conn);
         //DBController.loadNodeData(new File("nodesv3.csv"), conn);

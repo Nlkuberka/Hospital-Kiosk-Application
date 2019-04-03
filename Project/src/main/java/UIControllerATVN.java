@@ -52,7 +52,6 @@ public class UIControllerATVN extends  UIController {
         List<TableColumn<Node, ?>> tableColumns = nodeTable.getColumns();
 
         // Initialize the cell factories of the node field columns
-        System.out.println(tableColumns.size());
         for(int i = 0; i < tableColumns.size() - 1; i++) {
             int indexOut = i;
             TableColumn<Node, Node> column = (TableColumn<Node, Node>) tableColumns.get(i);

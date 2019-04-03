@@ -278,7 +278,7 @@ public class DBController {
         }
     }
 
-    public static Edge fetchEdge(String ID, Connection connection){
+    /*public static Edge fetchEdge(String ID, Connection connection){
         try{
             Statement s = connection.createStatement();
             ResultSet rs = s.executeQuery("Select * from EDGES where EDGEID= '" + ID + "'");
@@ -289,7 +289,7 @@ public class DBController {
             e.printStackTrace();
         }
         return null;
-    }
+    }*/
 
     public static String IDfromLongName(String longName, Connection connection) {
         try{
@@ -319,7 +319,7 @@ public class DBController {
         }
     }
 
-    public static Node fetchNode(String ID, Connection connection) {
+    /*public static Node fetchNode(String ID, Connection connection) {
         try{
             Statement s = connection.createStatement();
             ResultSet rs = s.executeQuery("SELECT * FROM NODES WHERE NODEID ='" + ID + "'");
@@ -332,7 +332,7 @@ public class DBController {
             e.printStackTrace();
         }
         return null;
-    }
+    }*/
 
     public static LinkedList<Node> multiNodeFetch(List<String> IDList, Connection connection) {
         try{

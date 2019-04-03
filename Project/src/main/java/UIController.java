@@ -64,8 +64,6 @@ public class UIController {
         setLists();
     }
 
-    public void onShow() {}
-
     /**
      * Function that is run on scene show
      */
