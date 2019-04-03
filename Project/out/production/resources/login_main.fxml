@@ -33,8 +33,8 @@
                            <content>
                               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="6.0">
                                  <children>
-                                    <JFXTextField fx:id="userUsernameTextField" layoutX="350.0" layoutY="223.0" opacity="0.8" prefHeight="35.0" prefWidth="200.0" promptText="Username" style="-fx-background-color: #ffffff;" />
-                                    <JFXPasswordField fx:id="userPasswordTextField" layoutX="350.0" layoutY="333.0" opacity="0.8" prefHeight="35.0" prefWidth="200.0" promptText="Password" style="-fx-background-color: #ffffff;" />
+                                    <JFXTextField layoutX="350.0" layoutY="223.0" opacity="0.8" prefHeight="35.0" prefWidth="200.0" promptText="Username" style="-fx-background-color: #ffffff;" />
+                                    <JFXPasswordField layoutX="350.0" layoutY="333.0" opacity="0.8" prefHeight="35.0" prefWidth="200.0" promptText="Password" style="-fx-background-color: #ffffff;" />
                                     <Text fill="WHITE" layoutX="300.0" layoutY="204.0" strokeType="OUTSIDE" strokeWidth="0.0" text="User's Username" AnchorPane.leftAnchor="300.0" AnchorPane.topAnchor="180.259765625">
                                        <font>
                                           <Font size="25.0" />
@@ -59,8 +59,8 @@
                           <content>
                             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                  <children>
-                                    <JFXTextField fx:id="adminUsernameTextField" layoutX="350.0" layoutY="238.0" opacity="0.8" prefHeight="35.0" prefWidth="200.0" promptText="Username" style="-fx-background-color: #ffffff;" />
-                                    <JFXPasswordField fx:id="adminPasswordTextField" layoutX="350.0" layoutY="335.0" opacity="0.8" prefHeight="35.0" prefWidth="200.0" promptText="Password" style="-fx-background-color: #ffffff;" />
+                                    <JFXTextField layoutX="350.0" layoutY="238.0" opacity="0.8" prefHeight="35.0" prefWidth="200.0" promptText="Username" style="-fx-background-color: #ffffff;" />
+                                    <JFXPasswordField layoutX="350.0" layoutY="335.0" opacity="0.8" prefHeight="35.0" prefWidth="200.0" promptText="Password" style="-fx-background-color: #ffffff;" />
                                     <JFXButton fx:id="loginAsAdminButton" layoutX="423.0" layoutY="429.0" onAction="#setLoginAsAdminButton" style="-fx-background-color: #ebaecd;" text="Login" textAlignment="CENTER">
                                        <font>
                                           <Font name="System Bold" size="15.0" />

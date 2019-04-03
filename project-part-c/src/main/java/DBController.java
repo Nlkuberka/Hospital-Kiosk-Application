@@ -7,10 +7,7 @@ import java.sql.*;
 import java.util.LinkedList;
 import java.util.List;
 
-
 public class DBController {
-
-
     Connection connection;
 
     public DBController() {
