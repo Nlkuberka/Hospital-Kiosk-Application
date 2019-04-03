@@ -87,6 +87,15 @@ public class UIControllerPFM extends UIController {
         // set value to "true" to use zoom functionality
         setZoomOn(true);
 
+
+        // path demo code
+//        path.getElements().add(new MoveTo(0.0f, 0.0f));
+//        path.getElements().add(new LineTo(100.0f, 100.0f));
+//        path.getElements().add(new LineTo(200.0f, 150.0f));
+    }
+
+    @Override
+    public void onShow() {
         Connection conn = DBController.dbConnect();
         LinkedList<Node> allNodes = DBController.generateListofNodes(conn);
         List<Edge> allEdges = DBController.generateListofEdges(conn);
@@ -119,11 +128,6 @@ public class UIControllerPFM extends UIController {
 
             }
         }
-
-        // path demo code
-//        path.getElements().add(new MoveTo(0.0f, 0.0f));
-//        path.getElements().add(new LineTo(100.0f, 100.0f));
-//        path.getElements().add(new LineTo(200.0f, 150.0f));
     }
 
 
@@ -131,8 +135,13 @@ public class UIControllerPFM extends UIController {
     @FXML
     public void initLocChanged(ActionEvent actionEvent) {
         System.out.println("Initial location selected: " + initialLocationSelect.getValue());
+        String dest = destinationSelect.getValue();
+        String init = initialLocationSelect.getValue();
         Connection connection = DBController.dbConnect();
         initialID = DBController.IDfromLongName(initialLocationSelect.getValue(), connection);
+
+        if(!(dest == null || dest.length() == 0 || init == null || init.length() == 0))
+            getPath();
     }
 
     @FXML
