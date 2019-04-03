@@ -16,7 +16,7 @@ import java.util.*;
 
 /**
  * The UIController that handles the creation and sending of reservations
- * @author Jonathan Chang
+ * @author Jonathan Chang, imoralessirgo
  * @version iteration1
  */
 public class UIControllerRVM extends UIController {

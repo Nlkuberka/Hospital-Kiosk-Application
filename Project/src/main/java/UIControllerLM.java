@@ -89,6 +89,7 @@ public class UIControllerLM extends UIController {
     @FXML
     private void setLoginAsGuestButton() {
         CurrentUser.permissions = User.GUEST_PERMISSIONS;
+        CurrentUser.userID = "GUEST0001";
         this.goToScene(UIController.GUEST_MAIN_MENU_MAIN);
     }
 
@@ -98,6 +99,7 @@ public class UIControllerLM extends UIController {
     @FXML
     private void setLoginAsUserButton() {
         CurrentUser.permissions = User.BASIC_PERMISSIONS;
+        CurrentUser.userID = "USER0001";
         this.goToScene(UIController.USER_MAIN_MENU_MAIN);
     }
 
@@ -107,6 +109,7 @@ public class UIControllerLM extends UIController {
     @FXML
     private void setLoginAsAdminButton() {
         CurrentUser.permissions = User.ADMIN_PERMISSIONS;
+        CurrentUser.userID = "ADMIN0001";
         this.goToScene(UIController.ADMIN_MAIN_MENU_MAIN);
     }
 

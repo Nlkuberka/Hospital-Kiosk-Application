@@ -16,7 +16,7 @@ import java.util.List;
 /**
  * The UIController for viewing, editing, removing, and adding nodes to the graph
  * Allows the admin to make and necessary changes to nodes
- * @author Jonathan Chang
+ * @author Jonathan Chang, imoralessirgo
  * @version iteration1
  */
 public class UIControllerATVN extends  UIController {

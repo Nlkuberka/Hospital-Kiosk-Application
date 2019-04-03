@@ -8,6 +8,8 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
 import java.lang.reflect.Method;
@@ -40,18 +42,23 @@ public class UIController {
     private static final int HEIGHT = 600;
 
     // Data storage about the stage
-    private static Parent root;
+    private static Scene rootScene;
+    private static BorderPane root;
     protected static Stage primaryStage;
     private static Map<String, Scene> scenes;
     private static Map<String, UIController> sceneControllers;
     private static Map<String, String> sceneFiles;
     private static Map<String, String> sceneTitles;
+    private static Map<String, Parent> sceneParents;
 
     /**
      * Constructor
      */
     public UIController() {
-
+        root = new BorderPane();
+        rootScene = new Scene(root, WIDTH, HEIGHT);
+        primaryStage.setScene(rootScene);
+        primaryStage.show();
     }
 
     /**
@@ -77,6 +84,7 @@ public class UIController {
         sceneControllers = new HashMap<String, UIController>();
         sceneFiles = new HashMap<String, String>();
         sceneTitles = new HashMap<String, String>();
+        sceneParents = new HashMap<String, Parent>();
 
         sceneFiles.put(UIController.LOGIN_MAIN, "login_main.fxml");
         sceneTitles.put(UIController.LOGIN_MAIN, "Login Screen");
@@ -133,6 +141,7 @@ public class UIController {
             try {
                 FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(sceneFiles.get(sceneString)));
                 Parent root = fxmlLoader.load();
+                sceneParents.put(sceneString, root);
                 sceneControllers.put(sceneString, fxmlLoader.getController());
                 scenes.put(sceneString, new Scene(root, WIDTH, HEIGHT));
                 scene = scenes.get(sceneString);
@@ -143,8 +152,7 @@ public class UIController {
 
         // Show the scene
         primaryStage.setTitle(sceneTitles.get(sceneString));
-        primaryStage.setScene(scene);
-        primaryStage.show();
+        root.setCenter(sceneParents.get(sceneString));
 
         // Run the onShow function and return the controller
         sceneControllers.get(sceneString).onShow();
