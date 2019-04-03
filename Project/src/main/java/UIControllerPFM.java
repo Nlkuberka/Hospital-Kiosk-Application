@@ -90,7 +90,7 @@ public class UIControllerPFM extends UIController {
             }
         }
 
-        Graph graph = new Graph(allNodes);
+        this.graph = new Graph(allNodes);
 
         // path demo code
 //        path.getElements().add(new MoveTo(0.0f, 0.0f));
