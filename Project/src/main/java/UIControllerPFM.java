@@ -72,6 +72,7 @@ public class UIControllerPFM extends UIController {
 
         Connection conn = DBController.dbConnect();
         LinkedList<Node> allNodes = DBController.generateListofNodes(conn);
+        List<Edge> allEdges = DBController.generateListofEdges(conn);
 
         try {
             conn.close();
@@ -91,6 +92,16 @@ public class UIControllerPFM extends UIController {
         }
 
         this.graph = new Graph(allNodes);
+
+        List<Edge> usefulEdges = new LinkedList<>();
+        for (Edge edge : allEdges) {
+            try {
+                graph.addBiEdge(edge.getNode1ID(), edge.getNode2ID());
+            }
+            catch(IllegalArgumentException e) {
+
+            }
+        }
 
         // path demo code
 //        path.getElements().add(new MoveTo(0.0f, 0.0f));
