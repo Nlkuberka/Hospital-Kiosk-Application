@@ -10,7 +10,7 @@ public class Main extends Application {
         CurrentUser.userID = "Guest";
         CurrentUser.permissions = User.GUEST_PERMISSIONS;
         UIController controller = new UIController(primaryStage);
-        controller.goToScene(UIController.LOGIN_MAIN);
+        controller.goToScene(UIController.RESERVATIONS_MAIN);
 
         System.out.println("Collaborator is " + "X");
 

@@ -34,10 +34,13 @@
                                     <menus>
                                         <Menu mnemonicParsing="false" text="Back">
                                             <items>
-                                                <MenuItem mnemonicParsing="false" text="Go back to previouse page" />
+                                                <MenuItem mnemonicParsing="false" onAction="#setHomeButton" text="Go back to previouse page" />
                                             </items>
                                         </Menu>
-                                        <Menu mnemonicParsing="false" text="Home" />
+                                        <Menu mnemonicParsing="false" onShowing="#setHomeButton" text="Home">
+                                 <items>
+                                    <MenuItem mnemonicParsing="false" text="HOME" />
+                                 </items></Menu>
                                     </menus>
                                     <effect>
                                         <ColorAdjust>
