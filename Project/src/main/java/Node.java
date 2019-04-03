@@ -1,5 +1,6 @@
 /**
  * The object that holds data about a particular node
+ * @author ryano647
  * @version iteration1
  */
 public class Node {
