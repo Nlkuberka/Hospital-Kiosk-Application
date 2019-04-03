@@ -72,6 +72,7 @@ public class UIControllerSRM extends UIController {
         }
         roomSelect.setItems(FXCollections.observableList(nodeShortNames));
         roomSelect.getSelectionModel().selectFirst();
+        serviceMessage.setText("");
     }
 
     /**
