@@ -29,7 +29,7 @@
                     <menus>
                       <Menu mnemonicParsing="false" text="Back">
                         <items>
-                          <MenuItem fx:id="backMenuItem" mnemonicParsing="false" onAction="#setBackMenuItem" text="Go back to previouse page" />
+                          <MenuItem fx:id="backMenuItem" mnemonicParsing="false" onAction="#setBackMenuItem" text="Go back to previous page" />
                         </items>
                       </Menu>
                     </menus>

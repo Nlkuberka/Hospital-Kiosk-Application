@@ -20,7 +20,7 @@ import java.util.List;
 
 /**
  * Controller for the path_find_main.fxml file
- * @author panagiotisargyrakis, dimitriberardi
+ * @author panagiotisargyrakis, dimitriberardi, ryano647
  */
 
 public class UIControllerPFM extends UIController {
@@ -110,6 +110,9 @@ public class UIControllerPFM extends UIController {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+
+        initialLocationSelect.getItems().clear();
+        destinationSelect.getItems().clear();
 
         LinkedList<Node> usefulNodes = new LinkedList<>();
         for (Node node : allNodes) {

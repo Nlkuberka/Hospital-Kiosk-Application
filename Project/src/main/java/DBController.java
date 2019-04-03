@@ -16,7 +16,7 @@ import java.util.List;
  *
  * handles SQLExceptions thrown by statement execution
  *
- * @author imoralessirgo
+ * @author imoralessirgo, ryano647
  * @version iteration1
  */
 public class DBController {
