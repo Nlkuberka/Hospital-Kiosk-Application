@@ -24,6 +24,7 @@ public class Main extends Application {
 
 
         Connection conn = DBController.dbConnect();
+        DBController.closeConnection(conn);
         //DBController.loadNodeData(new File("nodesv3.csv"), conn);
         //DBController.loadEdgeData(new File("edgesv3.csv"), conn);
 
