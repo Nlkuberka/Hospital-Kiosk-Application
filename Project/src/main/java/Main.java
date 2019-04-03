@@ -29,14 +29,14 @@ public class Main extends Application {
         //List<Node> list = CSVHandler.readFile("PrototypeNodes.csv");
         //dbController.enterData(list, connection);
 
-        String ID = "AELEV00S01";
-        Node singleNode= DBController.fetchNode(ID, conn);
-        String strNode; // = singleNode.toString();
+//        String ID = "AELEV00S01";
+//        Node singleNode= DBController.fetchNode(ID, conn);
+//        String strNode; // = singleNode.toString();
+////        System.out.print("Node:" + strNode);
+//
+//        LinkedList<Node> allNodes = dbController.generateListofNodes(conn);
+//        strNode = allNodes.getFirst().toString();
 //        System.out.print("Node:" + strNode);
-
-        LinkedList<Node> allNodes = dbController.generateListofNodes(conn);
-        strNode = allNodes.getFirst().toString();
-        System.out.print("Node:" + strNode);
 
         // IF YOU DO NOT HAVE THE TABLES SET UP RUN THIS CODE TO GENERATE
         // LEAVE COMMENTED OUT OTHERWISE
