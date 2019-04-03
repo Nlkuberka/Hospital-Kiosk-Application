@@ -81,4 +81,51 @@ public class GraphJUnit extends TestCase {
         System.out.println(path);
         //assertEquals(path, expected);
     }
+
+    public void testMultipleNodes() {
+        Node n0 = new Node("N0", 0, 0, "", "", "", "", "");
+        Node n1 = new Node("N1", 1, 1, "", "", "", "", "");
+        Node n2 = new Node("N2", 2, 2, "", "", "", "", "");
+        Node n3 = new Node("N3", 4, 1, "", "", "", "", "");
+        Node n4 = new Node("N4", 1, 4, "", "", "", "", "");
+        Node n5 = new Node("N5", 3, 2, "", "", "", "", "");
+        Node n6 = new Node("N6", 1, 0, "", "", "", "", "");
+        Node n7 = new Node("N7", 2, 0, "", "", "", "", "");
+        Node n8 = new Node("N8", 3, 0, "", "", "", "", "");
+        Node n9 = new Node("N9", 4, 0, "", "", "", "", "");
+        LinkedList<Node> nodes = new LinkedList<>();
+        nodes.add(n0);
+        nodes.add(n1);
+        nodes.add(n2);
+        nodes.add(n3);
+        nodes.add(n4);
+        nodes.add(n5);
+        nodes.add(n6);
+        nodes.add(n7);
+        nodes.add(n8);
+        nodes.add(n9);
+        Graph g = new Graph(nodes);
+        g.addBiEdge("N0", "N1");
+        g.addBiEdge("N1", "N2");
+        g.addBiEdge("N1", "N4");
+        g.addBiEdge("N2", "N4");
+        g.addBiEdge("N2", "N5");
+        g.addBiEdge("N3", "N5");
+        g.addBiEdge("N0", "N6");
+        g.addBiEdge("N6", "N7");
+        g.addBiEdge("N7", "N8");
+        g.addBiEdge("N8", "N9");
+        g.addBiEdge("N9", "N3");
+        List<String> path1 = g.shortestPath("N0", "N3");
+        List<String> path2 = g.shortestPath("N3", "N5");
+        List<List<String>> finalPath = new LinkedList<>();
+        finalPath.add(path1);
+        finalPath.add(path2);
+        System.out.println(finalPath);
+//        List<String> expected = new LinkedList<>();
+//        expected.add("N5");
+//        expected.add("N1");
+//        expected.add("N0");
+//        assertNotSame(expected, finalPath);
+    }
 }
