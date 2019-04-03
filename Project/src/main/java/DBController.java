@@ -316,7 +316,7 @@ public class DBController {
             Statement s = connection.createStatement();
             s.execute("INSERT into SERVICEREQUEST  values ('" + serviceRequest.getNodeID() +
                     "','"+ serviceRequest.getServiceType() +"','"+ serviceRequest.getMessage() + "','"+
-                    serviceRequest.getUserID()+"',"+serviceRequest.isResolved()+")");
+                    serviceRequest.getUserID()+"',"+serviceRequest.isResolved()+","+ serviceRequest.getResolverID()+")");
         }catch(SQLException e){
             e.printStackTrace();
         }
