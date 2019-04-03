@@ -27,7 +27,7 @@
             </ImageView>
             <VBox prefHeight="600.0" prefWidth="900.0">
                 <MenuBar blendMode="ADD" opacity="0.9" prefWidth="600.0" style="-fx-background-color: white;" stylesheets="@background.css">
-                    <Menu mnemonicParsing="false" onAction="#goBack" text="Home">
+                    <Menu mnemonicParsing="false" onShowing="#setHomeButton" text="Home">
                         <MenuItem fx:id="backButton" mnemonicParsing="false" onAction="#goBack" text="Go back to previous page" />
                     </Menu>
                 </MenuBar>
