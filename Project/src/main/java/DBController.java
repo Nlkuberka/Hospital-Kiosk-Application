@@ -21,6 +21,68 @@ import java.util.LinkedList;
 public class DBController {
     // Connection connection;
 
+    public static void initializeAppDB(){
+        Connection conn =  dbConnect();
+        String nodes = "CREATE TABLE NODES(\n" +
+                "NODEID VARCHAR(10),\n" +
+                "XCOORD INTEGER,\n" +
+                "YCOORD INTEGER,\n" +
+                "FLOOR VARCHAR(3),\n" +
+                "BUILDING VARCHAR(15),\n" +
+                "NODETYPE VARCHAR(4),\n" +
+                "LONGNAME VARCHAR(50),\n" +
+                "SHORTNAME VARCHAR(50),\n" +
+                "CONSTRAINT NODE_PK PRIMARY KEY(NODEID)\n" +
+                ")\n";
+        String edges = "CREATE TABLE EDGES (\n" +
+                "  EDGEID VARCHAR(21),\n" +
+                "  STARTNODE VARCHAR(10) REFERENCES NODES(NODEID),\n" +
+                "  ENDNODE varchar(10) REFERENCES NODES(NODEID),\n" +
+                "  CONSTRAINT EDGE_PK PRIMARY KEY(EDGEID)\n" +
+                ")\n";
+        String user = "CREATE TABLE USERS(\n" +
+                "  USERID VARCHAR(10),\n" +
+                "  PERMISSION SMALLINT,\n" +
+                "  USERNAME VARCHAR(15),\n" +
+                "  PASSWORD VARCHAR(15),\n" +
+                "  CONSTRAINT USER_PK PRIMARY KEY(USERID)\n" +
+                ")\n";
+        String servicerequest = "CREATE TABLE SERVICEREQUEST(\n" +
+                "  NODEID VARCHAR(10) REFERENCES NODES(NODEID),\n" +
+                "  SERVICETYPE VARCHAR(20),\n" +
+                "  MESSAGE VARCHAR(100),\n" +
+                "  USERID VARCHAR(10) REFERENCES USERS(USERID),\n" +
+                "  RESOLVED BOOLEAN,\n" +
+                "  RESOLVERID VARCHAR(10) REFERENCES USERS(USERID)\n" +
+                ")\n";
+        String reservations = "CREATE TABLE RESERVATIONS(\n" +
+                "  NODEID VARCHAR(10) REFERENCES NODES(NODEID),\n" +
+                "  USERID VARCHAR(10) REFERENCES USERS(USERID),\n" +
+                "  DAY DATE,\n" +
+                "  STARTTIME TIME,\n" +
+                "  ENDTIME TIME\n" +
+                ")\n";
+
+
+
+        createTable(nodes,conn);
+        createTable(edges,conn);
+        createTable(user,conn);
+        createTable(reservations,conn);
+        createTable(servicerequest,conn);
+
+        loadNodeData(new File("nodesv3.csv"),conn);
+        loadEdgeData(new File("edgesv3.csv"),conn);
+
+        try {
+            Statement s = conn.createStatement();
+            s.execute("INSERT INTO USERS VALUES('USER0001',2,'user','user')");
+            s.execute("INSERT INTO USERS VALUES('GUEST0001',1,'guest','guest')");
+            s.execute("INSERT INTO USERS VALUES('ADMIN00001',3,'admin','admin')");
+        }catch(SQLException e){
+            e.printStackTrace();
+        }
+    }
 
     public static Connection dbConnect() {
         try {
@@ -259,7 +321,6 @@ public class DBController {
         }
     }
 
-
     /**
      * addReservation
      *
@@ -387,5 +448,8 @@ public class DBController {
             e.printStackTrace();
         }
     }
+
+
+
 
 }
