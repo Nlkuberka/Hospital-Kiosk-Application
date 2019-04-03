@@ -55,10 +55,7 @@ public class UIController {
      * Constructor
      */
     public UIController() {
-        root = new BorderPane();
-        rootScene = new Scene(root, WIDTH, HEIGHT);
-        primaryStage.setScene(rootScene);
-        primaryStage.show();
+
     }
 
     /**
@@ -68,6 +65,11 @@ public class UIController {
      */
     public UIController(Stage stage) {
         primaryStage = stage;
+        root = new BorderPane();
+        rootScene = new Scene(root, WIDTH, HEIGHT);
+        primaryStage.setScene(rootScene);
+        primaryStage.show();
+
         setLists();
     }
 
