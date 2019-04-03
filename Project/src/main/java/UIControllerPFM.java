@@ -6,6 +6,7 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.shape.LineTo;
 import javafx.scene.shape.MoveTo;
@@ -19,6 +20,7 @@ import java.util.List;
 
 public class UIControllerPFM extends UIController {
 
+    public HBox hboxForMap;
     private Graph graph;
     private String initialID;
     private String destID;
@@ -54,18 +56,33 @@ public class UIControllerPFM extends UIController {
 
         // bind opaque rectangle to leftVbox width
         rectangleLeft.widthProperty().bind(leftVBox.prefWidthProperty());
+        rectangleLeft.heightProperty().bind(hboxForMap.prefHeightProperty());
 
         // bind Map to AnchorPane inside of ScrollPane
         map_imageView.fitWidthProperty().bind(scroll_AnchorPane.prefWidthProperty());
         map_imageView.fitHeightProperty().bind(scroll_AnchorPane.prefHeightProperty());
 
-        // set default location
-//        initialLocationSelect.getItems().add("This Kiosk");
-        initialLocationSelect.getSelectionModel().selectFirst();
+//        primaryStage.widthProperty().addListener((obs, oldVal, newVal) -> {
+//            System.out.println("Old Value Width " + oldVal);
+//            System.out.println("New Value Width " + newVal);
+////            scrollPane_pathfind.prefViewportWidthProperty().set(newVal.floatValue());
+//        });
+//
+//        primaryStage.heightProperty().addListener((obs, oldVal, newVal) -> {
+//            System.out.println("Old Value Height " + oldVal);
+//            System.out.println("new Value Height " + newVal);
+//        });
+
 
         // Only show scroll bars if Image inside is bigger than ScrollPane
         scrollPane_pathfind.setHbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
         scrollPane_pathfind.setVbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
+
+//        scrollPane_pathfind.prefViewportHeightProperty().bind(parentAnchorPane.prefHeightProperty());
+        scrollPane_pathfind.prefViewportWidthProperty().bind(hboxForMap.prefWidthProperty());
+
+//        scrollPane_pathfind.setFitToHeight(true);
+//        scrollPane_pathfind.setFitToWidth(true);
 
         // set value to "true" to use zoom functionality
         setZoomOn(true);
@@ -112,6 +129,8 @@ public class UIControllerPFM extends UIController {
             }
         }
     }
+
+
 
     @FXML
     public void initLocChanged(ActionEvent actionEvent) {
