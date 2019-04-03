@@ -5,13 +5,13 @@ import javafx.fxml.FXML;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.DatePicker;
 
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.time.*;
 
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
-import java.util.HashMap;
+import java.util.*;
 
 /**
  * The UIController that handles the creation and sending of reservations
@@ -52,12 +52,20 @@ public class UIControllerRVM extends UIController {
     @Override
     public void onShow() {
         nodeIDs = new HashMap<String, String>();
-        List<Node> nodes;
+        List<Node> nodes = new LinkedList<Node>();
         //DB Get nodes
-        /*for(int i = 0; i < nodes.size(); i++) {
-            nodeIDs.put(nodes.get(i).getShortName(), nodes.get(i).getNodeID());
-            nodeSelect.getItems().add(nodes.get(i).getShortName());
-        }*/
+        try {
+            Connection conn = DBController.dbConnect();
+            ResultSet rs = conn.createStatement().executeQuery("Select * From NODES where FLOOR = '2' AND BUILDING = 'Tower'");
+            while(rs.next()){
+                nodeIDs.put(rs.getString("SHORTNAME"),rs.getString("NODEID"));
+                nodes.add(new Node(rs.getString(1),rs.getInt(2),rs.getInt(3),
+                        rs.getString(4),rs.getString(5),rs.getString(6),
+                        rs.getString(7),rs.getString(8)));
+            }
+        }catch(SQLException e){
+            e.printStackTrace();
+        }
 
         // Set initial Startup values
         datePicker.setValue(LocalDate.now());
