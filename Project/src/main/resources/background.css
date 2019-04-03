@@ -1,7 +1,7 @@
 
- .body-background {
-    //  -fx-background-image: linear-gradient(56deg, #1200c3, #8441b5, #bc77a5, #eaae90)
-}
+
+
+
 
 
 /*Raised button example */
@@ -17,7 +17,12 @@
      -fx-font-size: 20;
      -fx-font-weight: bold italic;
      -fx-text-fill: white;
- }*/
+<<<<<<< HEAD
+ }
+<<<<<<< HEAD:Project/src/main/resources/backgroud.css
+ */
+
+
 /* Tab pane styling*/
 .tab-pane{
     -fx-background-color: #bc77a5;
@@ -28,7 +33,18 @@
  .tab-header-background{
      -fx-background-color: #bc77a5;
  }
+
 /* Menu bar*/
+.menu-bar{
+  /*  -fx-pref-width: 600;
+    -webkit-fx-pref-height:30;
+    -fx-font-size: 12;*/
+    -fx-font-weight: bold;
+    -fx-text-fill: white;
+
+    /* -fx-background-image: url("\purple-orange-gradient.jpg");*/
+}
+
 
  .menu-bar{
      width: 100%; overflow: hidden;

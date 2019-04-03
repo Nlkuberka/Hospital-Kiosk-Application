@@ -1,3 +1,8 @@
+/**
+ * The object that holds data about a particular node
+ * @author ryano647
+ * @version iteration1
+ */
 public class Node {
     private String nodeID;
     private int xcoord;
@@ -86,16 +91,17 @@ public class Node {
         this.shortName = shortName;
     }
 
+    @Override
     public String toString() {
-        String returnValue = "Node(";
-        returnValue += getNodeID() + ", ";
-        returnValue += getXcoord() + ", ";
-        returnValue += getYcoord() + ", ";
-        returnValue += getFloor() + ", ";
-        returnValue += getBuilding() + ", ";
-        returnValue += getNodeType() + ", ";
-        returnValue += getLongName() + ", ";
-        returnValue += getShortName() + ")";
-        return  returnValue;
+        return "Node{" +
+                "nodeID='" + nodeID + '\'' +
+                ", xcoord=" + xcoord +
+                ", ycoord=" + ycoord +
+                ", floor='" + floor + '\'' +
+                ", building='" + building + '\'' +
+                ", nodeType='" + nodeType + '\'' +
+                ", longName='" + longName + '\'' +
+                ", shortName='" + shortName + '\'' +
+                '}';
     }
 }

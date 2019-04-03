@@ -1,10 +1,11 @@
-import com.sun.org.apache.bcel.internal.generic.RETURN;
+
 
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.io.*;
 import java.sql.*;
+
 import java.util.LinkedList;
 import java.util.List;
 
@@ -15,10 +16,9 @@ import java.util.List;
  *
  * handles SQLExceptions thrown by statement execution
  *
- * @author imoralessirgo
+ * @author imoralessirgo, ryano647
  * @version iteration1
  */
-
 public class DBController {
     // Connection connection;
 
@@ -109,12 +109,12 @@ public class DBController {
             s.execute("UPDATE NODES" +
                     " SET XCOORD ="+ node.getXcoord() +","+
                     "YCOORD ="+ node.getYcoord() + ","+
-                    "FLOOR ="+ node.getFloor() + ","+
+                    "FLOOR = '"+ node.getFloor() + "',"+
                     "BUILDING ='"+ node.getBuilding() + "',"+
                     "NODETYPE = '"+ node.getNodeType() + "',"+
                     "LONGNAME = '"+ node.getLongName() + "',"+
                     "SHORTNAME = '"+ node.getShortName() +"'"+
-                    "where NODEID = '" + node.getNodeID() +"'");
+                    " where NODEID = '" + node.getNodeID() +"'");
         }catch(SQLException e){
             e.printStackTrace();
         }
@@ -231,6 +231,12 @@ public class DBController {
         }
     }
 
+    /**
+     * addEdge
+     *
+     * lets user introduce a new edge to the DB
+     * @param edge
+     */
     public static void addEdge(Edge edge, Connection connection){
         try{
             //connection = DriverManager.getConnection("jdbc:derby:myDB");
@@ -248,7 +254,7 @@ public class DBController {
             Statement s = connection.createStatement();
             s.execute("INSERT into SERVICEREQUEST  values ('" + serviceRequest.getNodeID() +
                     "','"+ serviceRequest.getServiceType() +"','"+ serviceRequest.getMessage() + "','"+
-                    serviceRequest.getUserID()+"',"+serviceRequest.isResolved()+","+ serviceRequest.getResolverID() +")");
+                    serviceRequest.getUserID()+"',"+serviceRequest.isResolved()+")");
         }catch(SQLException e){
             e.printStackTrace();
         }
@@ -256,12 +262,106 @@ public class DBController {
 
 
     /**
+     * addReservation
+     *
+     * @param reservation new reservation object
+     */
+    public static void addReservation(Reservation reservation, Connection connection){
+        try{
+            //connection = DriverManager.getConnection("jdbc:derby:myDB");
+            Statement s = connection.createStatement();
+            s.execute("INSERT into RESERVATIONS values ('" + reservation.getNodeID() +"','" + reservation.getUserID() +
+                    "','"+ reservation.getDate() +"','"+ reservation.getStartTime() + "','" + reservation.getEndTime() + "')");
+            //connection.close();
+        }catch(SQLException e){
+            e.printStackTrace();
+        }
+    }
+
+    /*public static Edge fetchEdge(String ID, Connection connection){
+        try{
+            Statement s = connection.createStatement();
+            ResultSet rs = s.executeQuery("Select * from EDGES where EDGEID= '" + ID + "'");
+            rs.next();
+            Edge edge = new Edge(rs.getString(1), rs.getString(2), rs.getString(3));
+            return edge;
+        }catch(SQLException e){
+            e.printStackTrace();
+        }
+        return null;
+    }*/
+
+    public static String IDfromLongName(String longName, Connection connection) {
+        try{
+            Statement s = connection.createStatement();
+            ResultSet rs = s.executeQuery("SELECT * FROM NODES where LONGNAME = '" + longName + "'");
+            rs.next();
+            String ID = rs.getString(1);
+            return ID;
+        }catch(SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public static void multiFetchEdge(List<String> IDList, Connection connection) {
+        try{
+            Statement s = connection.createStatement();
+            LinkedList<Edge> listOfEdges = new LinkedList<>();
+            for(int x = 0; x < IDList.size(); x++) {
+                ResultSet rs = s.executeQuery("Select * from EDGES where EDGEID = '" + IDList.get(x) + "'");
+                rs.next();
+                Edge edge = new Edge(rs.getString(1), rs.getString(2), rs.getString(3));
+                listOfEdges.add(edge);
+            }
+        }catch(SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /*public static Node fetchNode(String ID, Connection connection) {
+        try{
+            Statement s = connection.createStatement();
+            ResultSet rs = s.executeQuery("SELECT * FROM NODES WHERE NODEID ='" + ID + "'");
+            rs.next();
+            Node node = new Node(rs.getString(1),rs.getInt(2),rs.getInt(3),
+                    rs.getString(4),rs.getString(5),rs.getString(6),
+                    rs.getString(7),rs.getString(8));
+            return node;
+        }catch(SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }*/
+
+    public static LinkedList<Node> multiNodeFetch(List<String> IDList, Connection connection) {
+        try{
+            Statement s = connection.createStatement();
+            LinkedList<Node> listOfNodes = new LinkedList<>();
+            for(int x = 0; x < IDList.size(); x++) {
+                ResultSet rs = s.executeQuery("SELECT * FROM NODES WHERE NODEID='" + IDList.get(x) + "'");
+                rs.next();
+                Node node = new Node(rs.getString(1), rs.getInt(2), rs.getInt(3),
+                        rs.getString(4), rs.getString(5), rs.getString(6),
+                        rs.getString(7), rs.getString(8));
+                listOfNodes.add(node);
+            }
+            return listOfNodes;
+        }catch(SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+//    public static
+
+    /**
      * generateListofNodes
      *
      * creates and returns a list of node objects
-     * @return LinkedList<Node>
+     * @return LinkedList</Node>
      */
-    public LinkedList<Node> generateListofNodes(Connection connection){
+    public static LinkedList<Node> generateListofNodes(Connection connection){
         try{
             //connection = DriverManager.getConnection("jdbc:derby:myDB");
             Statement s = connection.createStatement();
@@ -281,6 +381,22 @@ public class DBController {
         return null;
     }
 
+    public static LinkedList<Edge> generateListofEdges(Connection connection) {
+        try{
+            Statement s = connection.createStatement();
+            ResultSet rs = s.executeQuery("SELECT * from EDGES");
+            LinkedList<Edge> listofEdges = new LinkedList<>();
+            while(rs.next()){
+                Edge edge = new Edge(rs.getString(1), rs.getString(2), rs.getString(3));
+                listofEdges.add(edge);
+            }
+            return listofEdges;
+        }catch(SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
     /**
      * nodeInsert
      *
@@ -292,8 +408,8 @@ public class DBController {
         try {
             s.execute("insert into NODES values ('"+node.getNodeID()+"',"+
                     node.getXcoord()+","
-                    +node.getYcoord()+","+
-                    node.getFloor() + "," +
+                    +node.getYcoord()+", '"+
+                    node.getFloor() + "' ," +
                     " '" + node.getBuilding() + "'," +
                     " '" + node.getNodeType() + "'," +
                     " '" + node.getLongName() + "'," +
@@ -364,3 +480,13 @@ public class DBController {
     }
 
 }
+
+
+
+
+
+
+
+
+
+

@@ -1,3 +1,7 @@
+/**
+ * The Object that stores information about a particular edge
+ * @version iteration1
+ */
 public class Edge {
     private String edgeID;
     private String node1ID;

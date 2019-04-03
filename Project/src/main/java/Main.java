@@ -1,7 +1,17 @@
+
 import javafx.application.Application;
 import javafx.stage.Stage;
-
+import java.io.File;
 import java.sql.Connection;
+import java.util.LinkedList;
+
+
+import java.io.File;
+import java.sql.Connection;
+
+
+
+
 
 public class Main extends Application {
 
@@ -10,15 +20,17 @@ public class Main extends Application {
         CurrentUser.userID = "Guest";
         CurrentUser.permissions = User.GUEST_PERMISSIONS;
         UIController controller = new UIController(primaryStage);
-        controller.goToScene(UIController.SERVICE_REQUEST_MAIN);
 
-        System.out.println("Collaborator is " + "X");
-
+        controller.goToScene(UIController.LOGIN_MAIN);
 
         Connection conn = DBController.dbConnect();
+        DBController.closeConnection(conn);
+        //DBController.loadNodeData(new File("nodesv3.csv"), conn);
+        //DBController.loadEdgeData(new File("edgesv3.csv"), conn);
+
 
         // IF YOU DO NOT HAVE THE TABLES SET UP RUN THIS CODE TO GENERATE
-        /* DBController.createTable("CREATE TABLE NODES(" +
+        /*DBController.createTable("CREATE TABLE NODES(" +
                 "NODEID VARCHAR(10),"+
                 "XCOORD INTEGER," +
                 "YCOORD INTEGER," +
@@ -56,6 +68,7 @@ public class Main extends Application {
                 "  STARTTIME TIME," +
                 "  ENDTIME TIME" +
                 ")",conn); */
+
     }
 
     public static void main(String[] args) {
