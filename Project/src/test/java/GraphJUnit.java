@@ -17,7 +17,7 @@ public class GraphJUnit extends TestCase {
         Node n7 = new Node("N7", 2, 0, "", "", "", "", "");
         Node n8 = new Node("N8", 3, 0, "", "", "", "", "");
         Node n9 = new Node("N9", 4, 0, "", "", "", "", "");
-        ArrayList<Node> nodes = new ArrayList<>();
+        LinkedList<Node> nodes = new LinkedList<>();
         nodes.add(n0);
         nodes.add(n1);
         nodes.add(n2);
@@ -59,7 +59,7 @@ public class GraphJUnit extends TestCase {
         Node n3 = new Node("N3", 1591, 2560, "", "", "", "", "");
         Node n4 = new Node("N4", 1590, 2604, "", "", "", "", "");
         Node n5 = new Node("N5", 1590, 2745, "", "", "", "", "");
-        ArrayList<Node> nodes = new ArrayList<>();
+        LinkedList<Node> nodes = new LinkedList<>();
         nodes.add(n0);
         nodes.add(n1);
         nodes.add(n2);

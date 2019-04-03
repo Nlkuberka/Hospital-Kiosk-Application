@@ -22,7 +22,7 @@ public class Main extends Application {
         DBController dbController = new DBController();
         Connection conn = DBController.dbConnect();
 
-        // Only needed if DB have not been populated yet
+//        // Only needed if DB have not been populated yet
 //        File nodeCSV = new File("nodesv3.csv");
 //        File edgeCSV = new File("edgesv3.csv");
 //        DBController.loadNodeData(nodeCSV, conn);

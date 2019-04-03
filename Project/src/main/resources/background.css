@@ -23,7 +23,7 @@
 .tab-pane {
     -fx-background-color: #bc77a5;
     -fx-pref-width: 600;
-    -webkit-fx-pref-height: 50;
+    -webkit-fx-pref-height: 50px;
 }
 
 .tab-header-background {
@@ -34,7 +34,7 @@
 
 .menu-bar {
     -fx-pref-width: 600;
-    -webkit-fx-pref-height: 30;
+    -webkit-fx-pref-height: 30px;
     -fx-font-size: 12;
     -fx-font-weight: bold;
     -fx-text-fill: white;
