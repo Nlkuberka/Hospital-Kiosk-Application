@@ -254,6 +254,22 @@ public class DBController {
         }
     }
 
+    /**
+     * addReservation
+     *
+     * @param reservation new reservation object
+     */
+    public static void addReservation(Reservation reservation, Connection connection){
+        try{
+            //connection = DriverManager.getConnection("jdbc:derby:myDB");
+            Statement s = connection.createStatement();
+            s.execute("INSERT into RESERVATIONS values ('" + reservation.getNodeID() +"','" + reservation.getUserID() +
+                    "','"+ reservation.getDate() +"','"+ reservation.getStartTime() + "','" + reservation.getEndTime() + "')");
+            //connection.close();
+        }catch(SQLException e){
+            e.printStackTrace();
+        }
+    }
 
     /**
      * generateListofNodes
