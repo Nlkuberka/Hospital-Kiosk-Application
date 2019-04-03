@@ -5,7 +5,7 @@
 
 
 /*Raised button example */
-.jfx-button {
+/*.jfx-button {
     -jfx-button-type: RAISED;
     -fx-background-color:#ebaecd;
     -fx-font-weight: bold;
@@ -17,7 +17,7 @@
      -fx-font-size: 20;
      -fx-font-weight: bold italic;
      -fx-text-fill: white;
- }
+ }*/
 /* Tab pane styling*/
 .tab-pane{
     -fx-background-color: #bc77a5;
