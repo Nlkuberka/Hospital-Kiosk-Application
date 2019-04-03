@@ -16,7 +16,7 @@ import java.util.List;
 /**
  * The UIController for viewing, editing, removing, and adding nodes to the graph
  * Allows the admin to make and necessary changes to nodes
- * @author Jonathan Chang
+ * @author Jonathan Chang, imoralessirgo
  * @version iteration1
  */
 public class UIControllerATVN extends  UIController {
@@ -52,7 +52,6 @@ public class UIControllerATVN extends  UIController {
         List<TableColumn<Node, ?>> tableColumns = nodeTable.getColumns();
 
         // Initialize the cell factories of the node field columns
-        System.out.println(tableColumns.size());
         for(int i = 0; i < tableColumns.size() - 1; i++) {
             int indexOut = i;
             TableColumn<Node, Node> column = (TableColumn<Node, Node>) tableColumns.get(i);

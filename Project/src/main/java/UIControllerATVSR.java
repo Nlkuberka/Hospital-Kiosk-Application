@@ -19,7 +19,7 @@ import java.sql.SQLException;
 /**
  * The UIController for the viewing, editing, adding, and removing service requests
  * Allows the admin to manage service Requests
- * @author Jonathan Chang
+ * @author Jonathan Chang, imoralessirgo
  * @version iteration1
  */
 public class UIControllerATVSR extends UIController {

@@ -16,7 +16,7 @@ import java.util.Map;
 
 /**
  * The UIController for the making and sending of service requests
- * @author Jonathan Chang
+ * @author Jonathan Chang, imoralessirgo
  * @verion iteration1
  */
 public class UIControllerSRM extends UIController {

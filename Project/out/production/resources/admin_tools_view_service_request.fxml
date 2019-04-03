@@ -16,7 +16,7 @@
    <children>
       <AnchorPane prefHeight="600.0" prefWidth="900.0">
          <children>
-            <AnchorPane prefHeight="600.0" prefWidth="900.0" styleClass="body-background" stylesheets="/backgroud.css">
+            <AnchorPane prefHeight="600.0" prefWidth="900.0" styleClass="body-background" stylesheets="/background.css">
                <children>
                   <ImageView fitWidth="900.0" opacity="0.6" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -28,7 +28,7 @@
                   </ImageView>
                   <BorderPane>
                      <top>
-                        <MenuBar blendMode="MULTIPLY" nodeOrientation="LEFT_TO_RIGHT" prefWidth="900.0" style="-fx-background-color: #F6B6E2;" styleClass="menu" stylesheets="@backgroud.css" BorderPane.alignment="CENTER">
+                        <MenuBar blendMode="MULTIPLY" nodeOrientation="LEFT_TO_RIGHT" prefWidth="900.0" style="-fx-background-color: #F6B6E2;" styleClass="menu" stylesheets="@background.css" BorderPane.alignment="CENTER">
                           <menus>
                             <Menu mnemonicParsing="false" text="Back">
                               <items>

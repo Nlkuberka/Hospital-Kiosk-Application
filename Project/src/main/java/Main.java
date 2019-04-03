@@ -1,6 +1,10 @@
 
 import javafx.application.Application;
 import javafx.stage.Stage;
+import java.io.File;
+import java.sql.Connection;
+import java.util.LinkedList;
+
 
 import java.io.File;
 import java.sql.Connection;
@@ -24,8 +28,6 @@ public class Main extends Application {
 
         DBController.initializeAppDB();
 
-//        Connection conn = DBController.dbConnect();
-//        DBController.closeConnection(conn);
         //DBController.loadNodeData(new File("nodesv3.csv"), conn);
         //DBController.loadEdgeData(new File("edgesv3.csv"), conn);
 

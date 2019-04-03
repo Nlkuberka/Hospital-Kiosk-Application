@@ -1,64 +1,102 @@
-import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
 
+import static java.lang.Math.abs;
+import static java.lang.Math.sqrt;
+
 
 public class Graph {
-    private int nodeNum;
-    private int edgeNum;
-    private ArrayList<ArrayList<Integer>> adj;
-    private ArrayList<ArrayList<Integer>> adjWeights;
-    private ArrayList<Boolean> marked;
+    
+    private LinkedList<LinkedList<Integer>> adj; //
+    private LinkedList<LinkedList<Double>> adjWeights; //weights of the edges
+    private LinkedList<Node> storedNodes; //nodes that have been stored
 
-    /**
-     * Constructor
-     * Initializes the graph with zero nodes
-     */
-    public Graph() {
-        this(0);
-    }
 
     /**
      * Constructor
      * Initalizes the graph with the given number of nodes
-     * @param nodeNum The number of nodes in the graph
      */
-    public Graph(int nodeNum) {
-        if(nodeNum < 0) {
+    public Graph(LinkedList<Node> storedNodes) {
+        this.storedNodes = storedNodes;
+        if(storedNodes.size() < 0) {
             throw new IllegalArgumentException("Number of nodes must be greater than or equal to 0");
         }
-        this.nodeNum = nodeNum;
-        this.edgeNum = 0;
-        this.marked = new ArrayList<Boolean>(nodeNum);
-        this.adj = new ArrayList<ArrayList<Integer>>();
-        this.adjWeights = new ArrayList<ArrayList<Integer>>();
-        for(int i = 0; i < nodeNum; i++) {
-            this.adj.add(new ArrayList<Integer>());
-            this.adjWeights.add(new ArrayList<Integer>());
+        //this.storedNodes.size() = storedNodes.size();
+        this.adj = new LinkedList<LinkedList<Integer>>();
+        this.adjWeights = new LinkedList<>();
+        for(int i = 0; i < storedNodes.size(); i++) {
+            this.adj.add(new LinkedList<Integer>());
+            this.adjWeights.add(new LinkedList<>());
         }
     }
 
     /**
-     * Gets the shortest path between the two given nodes
-     * @param start The node to start at
-     * @param target The node to end at
-     * @return A List of Integers that represent the node path to get to the target,
-     *          the first number is the distance of the path
+     * Check the formatting and contecnt of adj and adjWeights
      */
-    public List<Integer> shortestPath(int start, int target) {
-        int current = start;
-        int[] distance = new int[nodeNum];
-        boolean[] marked = new boolean[nodeNum];
-        Queue<Integer> queue = new LinkedList<Integer>();
-        ArrayList<List<Integer>> paths = new ArrayList<List<Integer>>();
-        for(int i = 0; i < nodeNum; i++) {
-            paths.add(new ArrayList<Integer>());
-            distance[i] = Integer.MAX_VALUE;
+    public void checkEdges() {
+        for(int i = 0; i < adj.size(); i++) {
+            System.out.println("Node " + (i ));
+            System.out.println("adj " + adj.get(i));
+            System.out.println("adjWeights" + adjWeights.get(i));
         }
-        distance[start] = 0;
-        paths.get(start).add(start);
+    }
+
+    /**
+     * Maps a node to its index
+     * @param desiredNode the node the user is looking to find the index of
+     * @return the index of the desired node or -1 for failure
+     */
+    public int mapNodeToIndex(Node desiredNode){
+        for(Node n: storedNodes){
+            if(desiredNode.equals(storedNodes.indexOf(n))) {
+                return storedNodes.indexOf(n);
+            }
+        }
+        return -1;
+    }
+
+    /**
+     * Maps the ID of a node to its index
+     * @param desiredNodeID the ID of the node the user is looking to find
+     * @return the index of the node in the LinkedList or -1 for failure
+     */
+    public int mapNodeIDToIndex(String desiredNodeID){
+        for(Node n: storedNodes){
+            if(n.getNodeID().equals(desiredNodeID)) {
+                return storedNodes.indexOf(n);
+            }
+        }
+        return -1;
+    }
+
+    /**
+     * Maps the index of a node to the actual node
+     * @param desiredIndex the location of the desired node
+     * @return the node at the desired index
+     */
+    public Node mapIndexToNode(int desiredIndex) {
+        return storedNodes.get(desiredIndex);
+    }
+
+    /**
+     * Finds the shortest path between two nodes
+     * @param startID the String ID of the starting node
+     * @param targetID the String ID of the desired finish node
+     * @return returns an LinkedList<List<String>> of the shortest path between those two points
+     */
+    public List<String> shortestPath(String startID, String targetID) {
+        int startIndex = mapNodeIDToIndex(startID);
+        int targetIndex = mapNodeIDToIndex(targetID);
+        int current = startIndex;
+        double [] distance = new double [storedNodes.size()]; //stored distance from start node to node at index
+        Queue<Integer> queue = new LinkedList<Integer>(); //nodes that will be checked
+        for(int i = 0; i < storedNodes.size(); i++) {
+            distance[i] = Double.MAX_VALUE;
+        }
+        distance[startIndex] = 0;
         queue.add(current);
 
         // BFS of nodes and get the distances of each node
@@ -66,23 +104,27 @@ public class Graph {
             current = queue.remove();
             for(int i = 0; i < adj.get(current).size(); i++) {
                 int nextNode = adj.get(current).get(i);
-                int currentDistance = distance[current] + adjWeights.get(current).get(i);
+                double currentDistance = distance[current] + adjWeights.get(current).get(i);
                 if(currentDistance < distance[nextNode]) {
                     distance[nextNode] = currentDistance;
-                    List<Integer> newPath = deepCopy(paths.get(current));
-                    newPath.add(nextNode);
-                    paths.set(nextNode, newPath);
-                }
-                if(!marked[nextNode]) {
                     queue.add(nextNode);
-                    marked[nextNode] = true;
                 }
             }
-            System.out.println("P - " + paths);
-            System.out.println("D - " + Arrays.toString(distance));
         }
-        paths.get(target).add(0, distance[target]);
-        return paths.get(target);
+        List<String> path = new LinkedList<>();
+        path.add(targetID);
+        current = targetIndex;
+        while(current != startIndex) {
+            for (int i = 0; i < adj.get(current).size(); i++) {
+                int previousNode = adj.get(current).get(i);
+                if (adjWeights.get(current).get(i) + distance[previousNode] == distance[current]) {
+                    path.add(0, mapIndexToNode(previousNode).getNodeID());
+                    current = previousNode;
+                    break;
+                }
+            }
+        }
+        return path;
     }
 
     /**
@@ -90,8 +132,8 @@ public class Graph {
      * @param original The original list to copy
      * @return The deep copy of the list
      */
-    private List<Integer> deepCopy(List<Integer> original) {
-        List<Integer> copy = new ArrayList<Integer>();
+    private List<String> deepCopy(List<String> original) {
+        List<String> copy = new LinkedList<String>();
         for(int i = 0 ; i < original.size(); i++) {
             copy.add(original.get(i));
         }
@@ -101,108 +143,117 @@ public class Graph {
     /**
      * Adds a single node to the graph
      */
-    public void addNode() {
-        nodeNum++;
-        adj.add(new ArrayList<Integer>());
-        adjWeights.add(new ArrayList<Integer>());
+    public void addNode(Node newNode) {
+        storedNodes.add(newNode);
+        adj.add(new LinkedList<Integer>());
+        adjWeights.add(new LinkedList<>());
     }
 
     /**
-     * Adds a number of nodes to the graph
-     * @param num The number of nodes to add
+     * Removes a node from the existing set of nodes
+     * @param desiredNodeID is the ID of the desired ID to remove
      */
-    public void addNodes(int num) {
-        for(int i = 0; i < num; i++) {
-            addNode();
+    public void removeNode(String desiredNodeID) {
+        int storedNodesLength = storedNodes.size();
+        for(int i = 0; i < storedNodesLength; i++) {
+            removeBiEdge(desiredNodeID, mapIndexToNode(i).getNodeID());
         }
-    }
+        int nodeIndex = mapNodeIDToIndex(desiredNodeID);
+        adj.remove(nodeIndex);
+        adjWeights.remove(nodeIndex);
+        storedNodesLength--;
 
-    /**
-     * Removes the node at from the graph
-     * @param node The node to remove
-     */
-    public void removeNode(int node) {
-        for(int i = 0; i < nodeNum; i++) {
-            removeBiEdge(node, i);
-        }
-
-        adj.remove(node);
-        adjWeights.remove(node);
-        nodeNum--;
-
-        for(int i = 0; i < nodeNum; i++) {
+        for(int i = 0; i < storedNodesLength; i++) {
             List<Integer> adjList = adj.get(i);
             for(int j = 0; j < adjList.size(); j++) {
-                if(adjList.get(j) > node) {
+                if(adjList.get(j) > nodeIndex) {
                     adjList.set(j, adjList.get(j) - 1);
                 }
             }
         }
     }
 
+
     /**
-     * Adds an edge to the graph
-     * @param n1 The first node that is connected
-     * @param n2 The second node that is connected
-     * @param weight The weight of the edge
+     * Adds an edge between two nodes and calculates wreight of edge
+     * @param nodeID1 is the first node
+     * @param nodeID2 is the second node to find the weight between
      */
-    public void addEdge(int n1, int n2, int weight) {
-        edgeNum++;
-        adj.get(n1).add(n2);
-        adjWeights.get(n1).add(weight);
+    public void addEdge(String nodeID1, String nodeID2) {
+        //check if nodes exist
+        int node1Index = mapNodeIDToIndex(nodeID1);
+        int node2Index = mapNodeIDToIndex(nodeID2);
+
+        if(node1Index == -1 || node2Index == -1) {
+            throw new IllegalArgumentException("Node does not exist");
+        }
+
+        Node node1 = storedNodes.get(node1Index);
+        Node node2 = storedNodes.get(node2Index);
+        //calculate weight
+        double xWeight = abs(node1.getXcoord() - node2.getXcoord());
+        double yWeight = abs(node1.getYcoord() - node2.getYcoord());
+
+        double weight = sqrt((xWeight*xWeight) + (yWeight*yWeight));
+
+        adj.get(node1Index).add(node2Index);
+        adjWeights.get(node1Index).add(weight);
     }
 
     /**
-     * Adds a bidirectional edge to the graph
-     * @param n1 The first node that is connected
-     * @param n2 The second node that is connected
-     * @param weight The weight of the edge
+     * Add a bidirectional edge between two nodes
+     * @param ID1 Node ID 1
+     * @param ID2 Node ID 2
      */
-    public void addBiEdge(int n1, int n2, int weight) {
-        addEdge(n1, n2, weight);
-        addEdge(n2, n1, weight);
+    public void addBiEdge(String ID1, String ID2) {
+        addEdge(ID1, ID2);
+        addEdge(ID2, ID1);
     }
 
     /**
-     * Removes an edge between the two given nodes
-     * @param n1 The first node to disconnect
-     * @param n2 The second node to disconnect
+     * Removed an edge between two nodes
+     * @param nodeID1 is the first node to be checked
+     * @param nodeID2 is the second node to be checked for an edge
      */
-    public void removeEdge(int n1, int n2) {
-        if(n1 == n2) {
+    public void removeEdge(String nodeID1, String nodeID2) {
+        if(mapNodeIDToIndex(nodeID1) == mapNodeIDToIndex(nodeID2)) {
             return;
         }
-        int edgeIndex = adj.get(n1).indexOf(n2);
+        int edgeIndex = adj.get(mapNodeIDToIndex(nodeID1)).indexOf(mapNodeIDToIndex(nodeID2));
         if(edgeIndex >= 0) {
-            edgeNum--;
-            adj.get(n1).remove(edgeIndex);
-            adjWeights.get(n1).remove(edgeIndex);
+            //edgeNum--;  TODO: Fix error I do not know what this does or where it comes from
+            adj.get(mapNodeIDToIndex(nodeID1)).remove(edgeIndex);
+            adjWeights.get(mapNodeIDToIndex(nodeID1)).remove(edgeIndex);
         }
     }
 
     /**
-     * Removes the any edges between the two given nodes
-     * @param n1 The first node to disconnect
-     * @param n2 The second node to disconnect
+     * Removes an edge that goes in two directions
+     * @param nodeID1 is a node with a bidirectional edge
+     * @param nodeID2 is the second node with that same bidirectional edge
      */
-    public void removeBiEdge(int n1, int n2) {
-        removeEdge(n1, n2);
-        removeEdge(n2, n1);
+    public void removeBiEdge(String nodeID1, String nodeID2) {
+        removeEdge(nodeID1, nodeID2);
+        removeEdge(nodeID2, nodeID1);
     }
 
-    public ArrayList<Integer> getEdges(int n) {
+    /**
+     * The getter for the edged
+     * @param n a node index
+     * @return the edged off that node
+     */
+    public LinkedList<Integer> getEdges(int n) {
         return adj.get(n);
     }
 
+    /**
+     * Finds the amount of edged off of a node
+     * @param n a node index
+     * @return the amount of edged off of a single node
+     */
     public int degreeOf(int n) {
         return adj.get(n).size();
     }
 
-    public int getNodeNum() {
-        return nodeNum;
-    }
 
-    public int getEdgeNum() {
-        return edgeNum;
-    }
 }

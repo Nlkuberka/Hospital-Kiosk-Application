@@ -16,10 +16,10 @@
 <AnchorPane prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="UIControllerLM">
    <children>
 <<<<<<< HEAD
-      <AnchorPane prefHeight="400.0" prefWidth="600.0" styleClass="body-background" stylesheets="/background.css">
+      <AnchorPane prefHeight="600.0" prefWidth="900.0" styleClass="body-background" stylesheets="/background.css">
 =======
-      <AnchorPane prefHeight="600.0" prefWidth="900.0" styleClass="body-background" stylesheets="/backgroud.css">
->>>>>>> 5505063287749db2ec32ce94c5620b84610a8a18
+      <AnchorPane prefHeight="400.0" prefWidth="600.0" styleClass="body-background" stylesheets="/background.css">
+>>>>>>> pathfinding
          <children>
             <ImageView fitWidth="900.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -32,17 +32,17 @@
                </effect>
                <top>
 <<<<<<< HEAD
-                  <JFXTabPane prefHeight="400.0" prefWidth="600.0" stylesheets="@background.css" BorderPane.alignment="CENTER">
+                  <JFXTabPane prefHeight="600.0" prefWidth="900.0" stylesheets="@background.css" BorderPane.alignment="CENTER">
 =======
-                  <JFXTabPane prefHeight="600.0" prefWidth="900.0" stylesheets="@backgroud.css" BorderPane.alignment="CENTER">
->>>>>>> 5505063287749db2ec32ce94c5620b84610a8a18
+                  <JFXTabPane prefHeight="400.0" prefWidth="600.0" stylesheets="@background.css" BorderPane.alignment="CENTER">
+>>>>>>> pathfinding
                      <tabs>
-                        <Tab text="User">
+                        <Tab fx:id="user_tab" text="User">
                            <content>
                               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="6.0">
                                  <children>
-                                    <JFXTextField layoutX="350.0" layoutY="223.0" opacity="0.8" prefHeight="35.0" prefWidth="200.0" promptText="Username" style="-fx-background-color: #ffffff;" />
-                                    <JFXPasswordField layoutX="350.0" layoutY="333.0" opacity="0.8" prefHeight="35.0" prefWidth="200.0" promptText="Password" style="-fx-background-color: #ffffff;" />
+                                    <JFXTextField fx:id="userUsernameTextField" layoutX="350.0" layoutY="223.0" opacity="0.8" prefHeight="35.0" prefWidth="200.0" promptText="Username" style="-fx-background-color: #ffffff;" />
+                                    <JFXPasswordField fx:id="userPasswordTextField" layoutX="350.0" layoutY="333.0" opacity="0.8" prefHeight="35.0" prefWidth="200.0" promptText="Password" style="-fx-background-color: #ffffff;" />
                                     <Text fill="WHITE" layoutX="300.0" layoutY="204.0" strokeType="OUTSIDE" strokeWidth="0.0" text="User's Username" AnchorPane.leftAnchor="300.0" AnchorPane.topAnchor="180.259765625">
                                        <font>
                                           <Font size="25.0" />
@@ -58,18 +58,18 @@
                                           <Font name="System Bold Italic" size="48.0" />
                                        </font>
                                     </Text>
-                                    <JFXButton fx:id="loginAsUserButton" layoutX="422.0" layoutY="440.0" onAction="#setLoginAsUserButton" style="-fx-background-color: #ebaecd;" text="Login" />
+                                    <JFXButton fx:id="loginAsUserButton" layoutX="422.0" layoutY="440.0" onAction="#setLoginAsUserButton" style="-fx-background-color: #ebaecd;fx-font-weight: bold" textFill="WHITE" text="Login" textAlignment="CENTER" />
                                  </children>
                               </AnchorPane>
                            </content>
                         </Tab>
-                        <Tab text="Administrator">
+                        <Tab fx:id="admin_tab" text="Administrator">
                           <content>
                             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                  <children>
-                                    <JFXTextField layoutX="350.0" layoutY="238.0" opacity="0.8" prefHeight="35.0" prefWidth="200.0" promptText="Username" style="-fx-background-color: #ffffff;" />
-                                    <JFXPasswordField layoutX="350.0" layoutY="335.0" opacity="0.8" prefHeight="35.0" prefWidth="200.0" promptText="Password" style="-fx-background-color: #ffffff;" />
-                                    <JFXButton fx:id="loginAsAdminButton" layoutX="423.0" layoutY="429.0" onAction="#setLoginAsAdminButton" style="-fx-background-color: #ebaecd;" text="Login" textAlignment="CENTER">
+                                    <JFXTextField fx:id="adminUsernameTextField" layoutX="350.0" layoutY="238.0" opacity="0.8" prefHeight="35.0" prefWidth="200.0" promptText="Username" style="-fx-background-color: #ffffff;" />
+                                    <JFXPasswordField fx:id="adminPasswordTextField" layoutX="350.0" layoutY="335.0" opacity="0.8" prefHeight="35.0" prefWidth="200.0" promptText="Password" style="-fx-background-color: #ffffff;" />
+                                    <JFXButton fx:id="loginAsAdminButton" layoutX="423.0" layoutY="440.0" onAction="#setLoginAsAdminButton" style="-fx-background-color: #ebaecd; fx-font-weight: bold" textFill="WHITE" text="Login" textAlignment="CENTER">
                                        <font>
                                           <Font name="System Bold" size="15.0" />
                                        </font>
@@ -102,7 +102,7 @@
                                           <Font name="System Bold Italic" size="36.0" />
                                        </font>
                                     </Text>
-                                    <JFXButton fx:id="loginAsGuestButton" layoutX="381.0" layoutY="334.0" onAction="#setLoginAsGuestButton" style="-fx-background-color: #ebaecd;" text="Continue As A Guest">
+                                    <JFXButton fx:id="loginAsGuestButton" layoutX="381.0" layoutY="334.0" onAction="#setLoginAsGuestButton" style="-fx-background-color: #ebaecd;" textFill="WHITE" text="Continue As A Guest">
                                        <font>
                                           <Font name="System Bold Italic" size="14.0" />
                                        </font>
