@@ -83,6 +83,7 @@ public class UIController {
         sceneFiles.put(UIController.LOGIN_MAIN, "login_main.fxml");
         sceneTitles.put(UIController.LOGIN_MAIN, "Login Screen");
 
+        // Main Menus
         sceneFiles.put(UIController.GUEST_MAIN_MENU_MAIN, "guest_main_menu_main.fxml");
         sceneTitles.put(UIController.GUEST_MAIN_MENU_MAIN, "Main Menu");
 
@@ -92,6 +93,7 @@ public class UIController {
         sceneFiles.put(UIController.ADMIN_MAIN_MENU_MAIN, "admin_main_menu_main.fxml");
         sceneTitles.put(UIController.ADMIN_MAIN_MENU_MAIN, "Main Menu");
 
+        // Admin Tools
         sceneFiles.put(UIController.ADMIN_TOOLS_MAIN, "admin_tools_main.fxml");
         sceneTitles.put(UIController.ADMIN_TOOLS_MAIN, "Admin Tools - Main");
 
@@ -101,14 +103,18 @@ public class UIController {
         sceneFiles.put(UIController.ADMIN_TOOLS_VIEW_NODES, "admin_tools_view_nodes.fxml");
         sceneTitles.put(UIController.ADMIN_TOOLS_VIEW_NODES, "Admin Tools - View Nodes");
 
+        sceneFiles.put(UIController.ADMIN_TOOLS_VIEW_SERVICE_REQUESTS, "admin_tools_view_service_request.fxml");
+        sceneTitles.put(UIController.ADMIN_TOOLS_VIEW_SERVICE_REQUESTS, "Admin Tools - View Service Requests");
+
+        // Service Request
+        sceneFiles.put(UIController.SERVICE_REQUEST_MAIN, "service_request_main.fxml");
+        sceneTitles.put(UIController.SERVICE_REQUEST_MAIN, "Service Request - Main");
+
+
+        // Reservations
         sceneFiles.put(UIController.RESERVATIONS_MAIN, "reservations_main.fxml");
         sceneTitles.put(UIController.RESERVATIONS_MAIN, "Reservations - Main");
 
-        sceneFiles.put(UIController.ADMIN_TOOLS_VIEW_SERVICE_REQUESTS, "admin_tools_view_service_request.fxml");
-        sceneTitles.put(UIController.ADMIN_TOOLS_VIEW_SERVICE_REQUESTS, "Admin Tools - View Service Requests");
-        
-        sceneFiles.put(UIController.SERVICE_REQUEST_MAIN, "service_request_main.fxml");
-        sceneTitles.put(UIController.SERVICE_REQUEST_MAIN, "Service Request - Main");
     }
 
     /**

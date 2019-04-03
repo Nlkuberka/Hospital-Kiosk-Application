@@ -16,7 +16,7 @@
 
 <AnchorPane prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="UIControllerATVE">
    <children>
-      <AnchorPane prefHeight="600.0" prefWidth="900.0" styleClass="body-background" stylesheets="/backgroud.css">
+      <AnchorPane prefHeight="600.0" prefWidth="900.0" styleClass="body-background" stylesheets="/background.css">
          <children>
             <ImageView fitWidth="900.0" opacity="0.6" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -28,7 +28,7 @@
             </ImageView>
             <BorderPane>
                <top>
-                  <MenuBar blendMode="MULTIPLY" nodeOrientation="LEFT_TO_RIGHT" prefWidth="900.0" style="-fx-background-color: #F6B6E2;" styleClass="menu" stylesheets="@backgroud.css" BorderPane.alignment="CENTER">
+                  <MenuBar blendMode="MULTIPLY" nodeOrientation="LEFT_TO_RIGHT" prefWidth="900.0" style="-fx-background-color: #F6B6E2;" styleClass="menu" stylesheets="@background.css" BorderPane.alignment="CENTER">
                     <menus>
                       <Menu mnemonicParsing="false" text="Back">
                         <items>
@@ -60,7 +60,7 @@
                   </TableView>
                </center>
             </BorderPane>
-            <JFXButton fx:id="addButton" buttonType="RAISED" layoutX="774.0" layoutY="535.0" onAction="#setAddButton" style="-fx-background-color: #ebaecd;" stylesheets="@backgroud.css" text="Add Edge" textFill="WHITE">
+            <JFXButton fx:id="addButton" buttonType="RAISED" layoutX="774.0" layoutY="535.0" onAction="#setAddButton" style="-fx-background-color: #ebaecd;" stylesheets="@background.css" text="Add Edge" textFill="WHITE">
                <font>
                   <Font name="System Bold" size="14.0" />
                </font>

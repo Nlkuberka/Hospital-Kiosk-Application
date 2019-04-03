@@ -106,15 +106,6 @@ public class DBController {
         try{
             Statement s = connection.createStatement();
             s.execute("UPDATE NODES" +
-<<<<<<< HEAD
-                    " SET XCOORD ="+ node.getXcoord() +", "+
-                    "YCOORD ="+ node.getYcoord() + ", "+
-                    "FLOOR = '"+ node.getFloor() + "', "+
-                    "BUILDING ='"+ node.getBuilding() + "', "+
-                    "NODETYPE = '"+ node.getNodeType() + "', "+
-                    "LONGNAME = '"+ node.getLongName() + "', "+
-                    "SHORTNAME = '"+ node.getShortName() +"' "+
-=======
                     " SET XCOORD ="+ node.getXcoord() +","+
                     "YCOORD ="+ node.getYcoord() + ","+
                     "FLOOR ="+ node.getFloor() + ","+
@@ -122,7 +113,6 @@ public class DBController {
                     "NODETYPE = '"+ node.getNodeType() + "',"+
                     "LONGNAME = '"+ node.getLongName() + "',"+
                     "SHORTNAME = '"+ node.getShortName() +"'"+
->>>>>>> b25a4667ca4a56c45b23d4cb4ead8c32a88d775d
                     "where NODEID = '" + node.getNodeID() +"'");
         }catch(SQLException e){
             e.printStackTrace();
@@ -151,7 +141,6 @@ public class DBController {
                     "RESOLVERID = '"+serviceRequest.getResolverID()+"' " +
                     "where  NODEID = '" + serviceRequest.getNodeID() + "' and " +
                     "USERID = '" + serviceRequest.getUserID() + "'");
-<<<<<<< HEAD
 
         }catch(SQLException e){
             e.printStackTrace();
@@ -173,29 +162,6 @@ public class DBController {
         }
         return node;
 
-=======
-
-        }catch(SQLException e){
-            e.printStackTrace();
-        }
-    }
-
-    public static Node fetchNode(String ID,Connection connection ){
-        Node node = null;
-        try{
-            Statement s = connection.createStatement();
-            ResultSet rs = s.executeQuery("Select from NODES where NODEID = '" + ID + "'");
-            rs.next();
-            node = new Node(rs.getString("NODEID"),rs.getInt("XCOORD"),
-                    rs.getInt("YCOORD"),rs.getString("FLOOR"),
-                    rs.getString("BUILDING"),rs.getString("NODETYPE"),
-                    rs.getString("SHORTNAME"),rs.getString("LONGNAME"));
-        }catch(SQLException e){
-            e.printStackTrace();
-        }
-        return node;
-
->>>>>>> b25a4667ca4a56c45b23d4cb4ead8c32a88d775d
     }
 
     public static Edge fetchEdge(String ID,Connection connection ){
@@ -287,7 +253,6 @@ public class DBController {
             Statement s = connection.createStatement();
             s.execute("INSERT into SERVICEREQUEST  values ('" + serviceRequest.getNodeID() +
                     "','"+ serviceRequest.getServiceType() +"','"+ serviceRequest.getMessage() + "','"+
-<<<<<<< HEAD
                     serviceRequest.getUserID()+"',"+serviceRequest.isResolved()+")");
         }catch(SQLException e){
             e.printStackTrace();
@@ -307,9 +272,6 @@ public class DBController {
             s.execute("INSERT into RESERVATIONS values ('" + reservation.getNodeID() +"','" + reservation.getUserID() +
                     "','"+ reservation.getDate() +"','"+ reservation.getStartTime() + "','" + reservation.getEndTime() + "')");
             //connection.close();
-=======
-                    serviceRequest.getUserID()+"',"+serviceRequest.isResolved()+","+ serviceRequest.getResolverID() +")");
->>>>>>> b25a4667ca4a56c45b23d4cb4ead8c32a88d775d
         }catch(SQLException e){
             e.printStackTrace();
         }
