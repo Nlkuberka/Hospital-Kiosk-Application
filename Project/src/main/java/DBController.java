@@ -1,4 +1,4 @@
-import com.sun.org.apache.bcel.internal.generic.RETURN;
+
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -6,7 +6,6 @@ import java.sql.SQLException;
 import java.io.*;
 import java.sql.*;
 import java.util.LinkedList;
-import java.util.List;
 
 /**
  * Database Controller
@@ -231,6 +230,12 @@ public class DBController {
         }
     }
 
+    /**
+     * addEdge
+     *
+     * lets user introduce a new edge to the DB
+     * @param edge
+     */
     public static void addEdge(Edge edge, Connection connection){
         try{
             //connection = DriverManager.getConnection("jdbc:derby:myDB");
@@ -296,6 +301,8 @@ public class DBController {
         }
         return null;
     }
+
+
 
     /**
      * nodeInsert

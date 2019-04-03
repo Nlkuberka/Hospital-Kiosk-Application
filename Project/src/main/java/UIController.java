@@ -67,6 +67,9 @@ public class UIController {
 
         sceneFiles.put(UIController.ADMIN_TOOLS_VIEW_NODES, "admin_tools_view_nodes.fxml");
         sceneTitles.put(UIController.ADMIN_TOOLS_VIEW_NODES, "Admin Tools - View Nodes");
+
+        sceneFiles.put(UIController.RESERVATIONS_MAIN, "reservations_main.fxml");
+        sceneTitles.put(UIController.RESERVATIONS_MAIN, "Reservations - Main");
     }
 
     /**
