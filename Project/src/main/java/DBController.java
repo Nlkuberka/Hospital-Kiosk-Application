@@ -109,12 +109,12 @@ public class DBController {
             s.execute("UPDATE NODES" +
                     " SET XCOORD ="+ node.getXcoord() +","+
                     "YCOORD ="+ node.getYcoord() + ","+
-                    "FLOOR ="+ node.getFloor() + ","+
+                    "FLOOR = '"+ node.getFloor() + "',"+
                     "BUILDING ='"+ node.getBuilding() + "',"+
                     "NODETYPE = '"+ node.getNodeType() + "',"+
                     "LONGNAME = '"+ node.getLongName() + "',"+
                     "SHORTNAME = '"+ node.getShortName() +"'"+
-                    "where NODEID = '" + node.getNodeID() +"'");
+                    " where NODEID = '" + node.getNodeID() +"'");
         }catch(SQLException e){
             e.printStackTrace();
         }
