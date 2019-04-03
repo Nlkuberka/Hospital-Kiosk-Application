@@ -1,10 +1,19 @@
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTabPane;
 import javafx.fxml.FXML;
-
 import javafx.scene.control.Button;
 import javafx.scene.control.Tab;
+import com.jfoenix.controls.JFXPasswordField;
+import com.jfoenix.controls.JFXTextField;
+import javafx.fxml.FXML;
 
+
+/**
+ * The UIController for the Login screen
+ * Allows a user to login, for admins to login, or for guests to enter
+ * @author Jonathan Chang
+ * @version iteration1
+ */
 public class UIControllerLM extends UIController {
 
     @FXML
@@ -39,6 +48,18 @@ public class UIControllerLM extends UIController {
      */
 
 
+    @FXML
+    private JFXTextField userUsernameTextField;
+
+    @FXML
+    private JFXPasswordField userPasswordTextField;
+
+    @FXML
+    private JFXTextField adminUsernameTextField;
+
+    @FXML
+    private JFXPasswordField adminPasswordTextField;
+
     public UIControllerLM() {
 
     }
@@ -49,6 +70,17 @@ public class UIControllerLM extends UIController {
     @FXML
     public void initialize() {
 
+    }
+
+    /**
+     * Called whenever the scene is shown
+     */
+    @Override
+    public void onShow() {
+        userUsernameTextField.setText("");
+        userPasswordTextField.setText("");
+        adminUsernameTextField.setText("");
+        adminPasswordTextField.setText("");
     }
 
     /**
