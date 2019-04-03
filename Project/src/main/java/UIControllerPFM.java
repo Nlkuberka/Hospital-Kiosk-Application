@@ -204,7 +204,8 @@ public class UIControllerPFM extends UIController {
         if (scroll_AnchorPane.getPrefWidth() < scroll_AnchorPane.getMaxWidth()) {
             scroll_AnchorPane.setPrefSize(scroll_AnchorPane.getPrefWidth() * zoomFactor, scroll_AnchorPane.getPrefHeight() * zoomFactor);
         }
-        drawPath();
+        if (this.currentPath != null)
+            drawPath();
     }
 
     /**
@@ -216,6 +217,7 @@ public class UIControllerPFM extends UIController {
         if (scroll_AnchorPane.getPrefWidth() > scroll_AnchorPane.getMinWidth()) {
             scroll_AnchorPane.setPrefSize(scroll_AnchorPane.getPrefWidth() / zoomFactor, scroll_AnchorPane.getPrefHeight() / zoomFactor);
         }
-        drawPath();
+        if (this.currentPath != null)
+            drawPath();
     }
 }
