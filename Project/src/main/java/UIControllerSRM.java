@@ -84,11 +84,9 @@ public class UIControllerSRM extends UIController {
         String nodeID = nodeIDs.get(roomShortName);
         String message = serviceMessage.getText();
 
-        CurrentUser.userID = "AMDIN0001";
         ServiceRequest sr = new ServiceRequest(nodeID, serviceType, message, CurrentUser.userID, false, null);
         Connection conn = DBController.dbConnect();
         DBController.addServiceRequest(sr,conn);
         DBController.closeConnection(conn);
-
     }
 }
