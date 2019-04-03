@@ -41,9 +41,7 @@ public class UIController {
 
     // Data storage about the stage
     private static Parent root;
-    private static Stage primaryStage;
-
-    //Data storage about each scene
+    protected static Stage primaryStage;
     private static Map<String, Scene> scenes;
     private static Map<String, UIController> sceneControllers;
     private static Map<String, String> sceneFiles;
@@ -65,6 +63,8 @@ public class UIController {
         primaryStage = stage;
         setLists();
     }
+
+    public void onShow() {}
 
     /**
      * Function that is run on scene show
@@ -115,6 +115,9 @@ public class UIController {
         sceneFiles.put(UIController.RESERVATIONS_MAIN, "reservations_main.fxml");
         sceneTitles.put(UIController.RESERVATIONS_MAIN, "Reservations - Main");
 
+        // Pathfinding
+        sceneFiles.put(UIController.PATHFINDING_MAIN, "path_find_main.fxml");
+        sceneTitles.put(UIController.PATHFINDING_MAIN, "Path Finding Main");
     }
 
     /**
