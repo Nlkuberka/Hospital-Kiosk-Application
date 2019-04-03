@@ -1,3 +1,7 @@
+/**
+ * The Objecct that holds data about a particular service request
+ * @version iteration1
+ */
 public class ServiceRequest {
     private String nodeID;
     private String serviceType;
