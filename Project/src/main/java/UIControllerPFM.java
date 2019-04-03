@@ -112,8 +112,13 @@ public class UIControllerPFM extends UIController {
     @FXML
     public void initLocChanged(ActionEvent actionEvent) {
         System.out.println("Initial location selected: " + initialLocationSelect.getValue());
+        String dest = destinationSelect.getValue();
+        String init = initialLocationSelect.getValue();
         Connection connection = DBController.dbConnect();
         initialID = DBController.IDfromLongName(initialLocationSelect.getValue(), connection);
+
+        if(!(dest == null || dest.length() == 0 || init == null || init.length() == 0))
+            getPath();
     }
 
     @FXML
