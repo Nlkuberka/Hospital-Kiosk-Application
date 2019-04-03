@@ -22,7 +22,7 @@ public class UIController {
     private static final int WIDTH = 900;
     private static final int HEIGHT = 600;
 
-    private static Stage primaryStage;
+    protected static Stage primaryStage;
     private static Map<String, Scene> scenes;
     private static Map<String, UIController> sceneControllers;
     private static Map<String, String> sceneFiles;
