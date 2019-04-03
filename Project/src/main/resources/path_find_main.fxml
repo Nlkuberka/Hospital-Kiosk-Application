@@ -85,8 +85,8 @@
                       </VBox>
                   </StackPane>
                 <ScrollPane fx:id="scrollPane_pathfind" HBox.hgrow="ALWAYS">
-                    <AnchorPane fx:id="scroll_AnchorPane" maxWidth="3000.0" minWidth="684.0" prefHeight="465.0" prefWidth="684.0">
-                         <ImageView fx:id="map_imageView" fitHeight="465.0" fitWidth="684.0" preserveRatio="true">
+                    <AnchorPane fx:id="scroll_AnchorPane" maxWidth="3000.0" minWidth="684.0" prefHeight="664.0" prefWidth="926.0">
+                         <ImageView fx:id="map_imageView" fitHeight="568.0" fitWidth="836.0" preserveRatio="true">
                              <Image url="@02_thesecondfloor.png" />
                          </ImageView>
                          <Path fx:id="path" />
