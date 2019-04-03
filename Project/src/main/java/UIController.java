@@ -103,6 +103,9 @@ public class UIController {
 
         sceneFiles.put(UIController.ADMIN_TOOLS_VIEW_SERVICE_REQUESTS, "admin_tools_view_service_request.fxml");
         sceneTitles.put(UIController.ADMIN_TOOLS_VIEW_SERVICE_REQUESTS, "Admin Tools - View Service Requests");
+        
+        sceneFiles.put(UIController.SERVICE_REQUEST_MAIN, "service_request_main.fxml");
+        sceneTitles.put(UIController.SERVICE_REQUEST_MAIN, "Service Request - Main");
     }
 
     /**

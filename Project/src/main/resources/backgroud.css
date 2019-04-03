@@ -1,9 +1,14 @@
 
 
 
+<<<<<<< HEAD
 
 /*Raised button example
 .jfx-button {
+=======
+/*Raised button example */
+/*.jfx-button {
+>>>>>>> b25a4667ca4a56c45b23d4cb4ead8c32a88d775d
     -jfx-button-type: RAISED;
     -fx-background-color:#ebaecd;
     -fx-font-weight: bold;
@@ -15,8 +20,12 @@
      -fx-font-size: 20;
      -fx-font-weight: bold italic;
      -fx-text-fill: white;
+<<<<<<< HEAD
  }
  */
+=======
+ }*/
+>>>>>>> b25a4667ca4a56c45b23d4cb4ead8c32a88d775d
 /* Tab pane styling*/
 .tab-pane{
     -fx-background-color: #bc77a5;
@@ -29,6 +38,7 @@
  }
 /* Menu bar*/
 
+<<<<<<< HEAD
 .menu-bar{
   /*  -fx-pref-width: 600;
     -webkit-fx-pref-height:30;
@@ -40,6 +50,21 @@
 }
 
 
+=======
+ .menu-bar{
+     width: 100%; overflow: hidden;
+     -webkit-fx-pref-height:30;
+     -fx-font-size: 12;
+     -fx-font-weight: bold;
+     -fx-text-fill: white;
+
+    /* -fx-background-image: url("\purple-orange-gradient.jpg");*/
+ }
+ .menu{
+     -fx-text-fill: white;
+ }
+ .container {width: 100%; overflow: hidden; }
+>>>>>>> b25a4667ca4a56c45b23d4cb4ead8c32a88d775d
 
 
 
