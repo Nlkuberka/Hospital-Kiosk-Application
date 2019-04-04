@@ -1,9 +1,12 @@
+package application;
+
+import com.jfoenix.controls.JFXButton;
+
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
 import javafx.scene.control.MenuItem;
 
 /**
- * The UIController for the main menus
+ * The UIController for the application menus
  * Allows a user to select which section of the application they want to move to
  * @author Jonathan Chang
  * @version iteration1
@@ -11,16 +14,16 @@ import javafx.scene.control.MenuItem;
 public class UIControllerMMM extends  UIController {
 
     @FXML
-    private Button pathfindingButton; /**< The Pathfinding Button*/
+    private JFXButton pathfindingButton; /**< The Pathfinding Button*/
 
     @FXML
-    private Button reservationsButton; /**< The Reservations Button*/
+    private JFXButton reservationsButton; /**< The Reservations Button*/
 
     @FXML
-    private Button serviceRequestButton; /**< The Reserve Request Button*/
+    private JFXButton serviceRequestButton; /**< The Reserve Request Button*/
 
     @FXML
-    private Button adminToolsButton; /**< The Admin Tools Button*/
+    private JFXButton adminToolsButton; /**< The Admin Tools Button*/
 
     @FXML
     private MenuItem backMenuItem;

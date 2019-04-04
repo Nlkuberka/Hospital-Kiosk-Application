@@ -1,4 +1,9 @@
+package application;
 
+import entities.Edge;
+import entities.Node;
+import entities.Reservation;
+import entities.ServiceRequest;
 
 import java.sql.Connection;
 import java.sql.DriverManager;

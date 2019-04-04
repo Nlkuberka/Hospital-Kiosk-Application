@@ -1,3 +1,5 @@
+package entities;
+
 public class User {
     public static final int GUEST_PERMISSIONS = 1;
     public static final int BASIC_PERMISSIONS = 2;

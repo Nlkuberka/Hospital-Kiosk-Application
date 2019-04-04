@@ -1,3 +1,5 @@
+package entities;
+
 /**
  * The object that holds data about a particular node
  * @author ryano647

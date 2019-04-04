@@ -1,17 +1,9 @@
+package application;
+
+import entities.User;
 
 import javafx.application.Application;
 import javafx.stage.Stage;
-import java.io.File;
-import java.sql.Connection;
-import java.util.LinkedList;
-
-
-import java.io.File;
-import java.sql.Connection;
-
-
-
-
 
 public class Main extends Application {
 

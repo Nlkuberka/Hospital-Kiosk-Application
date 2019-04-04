@@ -1,3 +1,9 @@
+package admintools;
+
+import application.DBController;
+import application.UIController;
+import entities.ServiceRequest;
+
 import com.jfoenix.controls.JFXCheckBox;
 
 import javafx.beans.property.ReadOnlyObjectWrapper;
@@ -158,7 +164,7 @@ public class UIControllerATVSR extends UIController {
     }
 
     /**
-     * Goes back to the admin tools main menu
+     * Goes back to the admin tools application menu
      */
     @FXML
     private void setBackButton() {

@@ -1,3 +1,7 @@
+package application;
+
+import entities.User;
+
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
@@ -8,7 +12,6 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
@@ -43,7 +46,7 @@ public class UIController {
 
     // Data storage about the stage
     private static Scene rootScene;
-    private static BorderPane root;
+    private static BorderPane rootPane;
     protected static Stage primaryStage;
     private static Map<String, Scene> scenes;
     private static Map<String, UIController> sceneControllers;
@@ -65,8 +68,8 @@ public class UIController {
      */
     public UIController(Stage stage) {
         primaryStage = stage;
-        root = new BorderPane();
-        rootScene = new Scene(root, WIDTH, HEIGHT);
+        rootPane = new BorderPane();
+        rootScene = new Scene(rootPane, WIDTH, HEIGHT);
         primaryStage.setScene(rootScene);
         primaryStage.show();
 
@@ -88,43 +91,43 @@ public class UIController {
         sceneTitles = new HashMap<String, String>();
         sceneParents = new HashMap<String, Parent>();
 
-        sceneFiles.put(UIController.LOGIN_MAIN, "login_main.fxml");
+        sceneFiles.put(UIController.LOGIN_MAIN, "/login_main.fxml");
         sceneTitles.put(UIController.LOGIN_MAIN, "Login Screen");
 
         // Main Menus
-        sceneFiles.put(UIController.GUEST_MAIN_MENU_MAIN, "guest_main_menu_main.fxml");
+        sceneFiles.put(UIController.GUEST_MAIN_MENU_MAIN, "/guest_main_menu_main.fxml");
         sceneTitles.put(UIController.GUEST_MAIN_MENU_MAIN, "Main Menu");
 
-        sceneFiles.put(UIController.USER_MAIN_MENU_MAIN, "user_main_menu_main.fxml");
+        sceneFiles.put(UIController.USER_MAIN_MENU_MAIN, "/user_main_menu_main.fxml");
         sceneTitles.put(UIController.USER_MAIN_MENU_MAIN, "Main Menu");
 
-        sceneFiles.put(UIController.ADMIN_MAIN_MENU_MAIN, "admin_main_menu_main.fxml");
+        sceneFiles.put(UIController.ADMIN_MAIN_MENU_MAIN, "/admin_main_menu_main.fxml");
         sceneTitles.put(UIController.ADMIN_MAIN_MENU_MAIN, "Main Menu");
 
         // Admin Tools
-        sceneFiles.put(UIController.ADMIN_TOOLS_MAIN, "admin_tools_main.fxml");
+        sceneFiles.put(UIController.ADMIN_TOOLS_MAIN, "/admin_tools_main.fxml");
         sceneTitles.put(UIController.ADMIN_TOOLS_MAIN, "Admin Tools - Main");
 
-        sceneFiles.put(UIController.ADMIN_TOOLS_VIEW_EDGES, "admin_tools_view_edges.fxml");
+        sceneFiles.put(UIController.ADMIN_TOOLS_VIEW_EDGES, "/admin_tools_view_edges.fxml");
         sceneTitles.put(UIController.ADMIN_TOOLS_VIEW_EDGES, "Admin Tools - View Edges");
 
-        sceneFiles.put(UIController.ADMIN_TOOLS_VIEW_NODES, "admin_tools_view_nodes.fxml");
+        sceneFiles.put(UIController.ADMIN_TOOLS_VIEW_NODES, "/admin_tools_view_nodes.fxml");
         sceneTitles.put(UIController.ADMIN_TOOLS_VIEW_NODES, "Admin Tools - View Nodes");
 
-        sceneFiles.put(UIController.ADMIN_TOOLS_VIEW_SERVICE_REQUESTS, "admin_tools_view_service_request.fxml");
+        sceneFiles.put(UIController.ADMIN_TOOLS_VIEW_SERVICE_REQUESTS, "/admin_tools_view_service_request.fxml");
         sceneTitles.put(UIController.ADMIN_TOOLS_VIEW_SERVICE_REQUESTS, "Admin Tools - View Service Requests");
 
         // Service Request
-        sceneFiles.put(UIController.SERVICE_REQUEST_MAIN, "service_request_main.fxml");
+        sceneFiles.put(UIController.SERVICE_REQUEST_MAIN, "/service_request_main.fxml");
         sceneTitles.put(UIController.SERVICE_REQUEST_MAIN, "Service Request - Main");
 
 
         // Reservations
-        sceneFiles.put(UIController.RESERVATIONS_MAIN, "reservations_main.fxml");
+        sceneFiles.put(UIController.RESERVATIONS_MAIN, "/reservations_main.fxml");
         sceneTitles.put(UIController.RESERVATIONS_MAIN, "Reservations - Main");
 
         // Pathfinding
-        sceneFiles.put(UIController.PATHFINDING_MAIN, "path_find_main.fxml");
+        sceneFiles.put(UIController.PATHFINDING_MAIN, "/path_find_main.fxml");
         sceneTitles.put(UIController.PATHFINDING_MAIN, "Path Finding Main");
     }
 
@@ -140,13 +143,16 @@ public class UIController {
 
         // If the scene has not yet been created
         if(scene == null) {
+            System.out.println(sceneFiles.get(sceneString));
+            System.out.println(getClass().getResource(sceneFiles.get(sceneString)));
+            System.out.println(System.getProperty("user.dir"));
             try {
+                //FXMLLoader fxmlLoader = new FXMLLoader(new File(System.getProperty("user.dir") + "/resources" + sceneFiles.get(sceneString)).toURI().toURL());
                 FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(sceneFiles.get(sceneString)));
                 Parent root = fxmlLoader.load();
                 sceneParents.put(sceneString, root);
                 sceneControllers.put(sceneString, fxmlLoader.getController());
                 scenes.put(sceneString, new Scene(root, WIDTH, HEIGHT));
-                scene = scenes.get(sceneString);
             } catch(Exception e) {
                 e.printStackTrace();
             }
@@ -154,7 +160,7 @@ public class UIController {
 
         // Show the scene
         primaryStage.setTitle(sceneTitles.get(sceneString));
-        root.setCenter(sceneParents.get(sceneString));
+        rootPane.setCenter(sceneParents.get(sceneString));
 
         // Run the onShow function and return the controller
         sceneControllers.get(sceneString).onShow();
@@ -162,7 +168,7 @@ public class UIController {
     }
 
     /**
-     * Switches the scene to the main menu
+     * Switches the scene to the application menu
      * Used across all UIControllers
      */
     @FXML

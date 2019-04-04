@@ -1,3 +1,6 @@
+package application;
+
+import entities.User;
 /**
  * An class with static variables to store information about the current user
  * @version iteration1

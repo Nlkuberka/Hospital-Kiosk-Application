@@ -1,3 +1,5 @@
+package entities;
+
 /**
  * The Objecct that holds data about a particular service request
  * @version iteration1

@@ -1,12 +1,15 @@
+package application;
+
+import entities.User;
+
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTabPane;
+
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
 import javafx.scene.control.Tab;
+
 import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;
-import javafx.fxml.FXML;
-
 
 /**
  * The UIController for the Login screen
