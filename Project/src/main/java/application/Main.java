@@ -20,7 +20,6 @@ public class Main extends Application {
 
         DBController.initializeAppDB();
 
-        controller.popupWarning("TEST");
         //DBController.loadNodeData(new File("nodesv3.csv"), conn);
         //DBController.loadEdgeData(new File("edgesv3.csv"), conn);
 
