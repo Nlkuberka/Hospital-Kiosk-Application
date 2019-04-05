@@ -2,7 +2,7 @@
 .idea/
 classes/
 build/
-myDB/
+Project/myDB/
 derby.log
 *.class
 *.csv
