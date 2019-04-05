@@ -114,6 +114,7 @@ public class UIControllerATVSR extends UIController {
                     if(textField.getText().length() > 10) {
                         setGraphic(label);
                         textField.setText(label.getText());
+                        popupWarning("Field must have equal to or less than " +  10 + " characters.");
                         return;
                     }
                     runSetter(serviceRequest, serviceRequestSetters[index],String.class, textField.getText());

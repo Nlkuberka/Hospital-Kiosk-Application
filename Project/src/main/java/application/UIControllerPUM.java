@@ -29,6 +29,7 @@ public class UIControllerPUM extends UIController {
      * @param warning The warning string to display to the user
      */
     public void setWarning(String warning) {
+        System.out.println(warning);
         warningLabel.setText(warning);
     }
 

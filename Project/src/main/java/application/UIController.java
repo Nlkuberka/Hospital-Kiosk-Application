@@ -1,5 +1,6 @@
 package application;
 
+import com.jfoenix.controls.JFXTextField;
 import entities.User;
 
 import javafx.beans.value.ChangeListener;
@@ -192,12 +193,14 @@ public class UIController {
         stage.initOwner(primaryStage);
         stage.initModality(Modality.APPLICATION_MODAL);
 
+        controller.setWarning(warning);
+
         stage.setTitle("Warning - Main");
         stage.setScene(scene);
         stage.showAndWait();
         stage.setAlwaysOnTop(true);
 
-        controller.setWarning(warning);
+
     }
 
     /**
@@ -274,7 +277,7 @@ public class UIController {
      * @param <S> The object that is being displayed in the TableView
      */
     protected class EditableTextCell<T, S> extends TableCell<T, S> {
-        protected TextField textField = new TextField(); /**< The Textfield to edit*/
+        protected JFXTextField textField = new JFXTextField(); /**< The Textfield to edit*/
         protected Label label = new Label(); /**< The Label to display*/
         protected TableColumn column; /**< The column that the cell is in, used for width properties*/
         protected int index; /**< The Column index, used for per column commands*/
