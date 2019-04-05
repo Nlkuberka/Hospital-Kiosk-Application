@@ -22,13 +22,13 @@ import java.util.List;
  * handles SQLExceptions thrown by statement execution
  *
  * @author imoralessirgo, ryano647
- * @version iteration1
+ * @version iteration2
  */
 public class DBController {
     // Connection connection;
 
     public static void initializeAppDB(){
-        Connection conn =  dbConnect();
+        Connection conn = dbConnect();
         String nodes = "CREATE TABLE NODES(\n" +
                 "NODEID VARCHAR(10),\n" +
                 "XCOORD INTEGER,\n" +
@@ -54,19 +54,23 @@ public class DBController {
                 "  CONSTRAINT USER_PK PRIMARY KEY(USERID)\n" +
                 ")\n";
         String servicerequest = "CREATE TABLE SERVICEREQUEST(\n" +
+                "  SERVICEID INTEGER GENERATED ALWAYS AS IDENTITY, \n" +
                 "  NODEID VARCHAR(10) REFERENCES NODES(NODEID),\n" +
                 "  SERVICETYPE VARCHAR(20),\n" +
                 "  MESSAGE VARCHAR(100),\n" +
                 "  USERID VARCHAR(10) REFERENCES USERS(USERID),\n" +
                 "  RESOLVED BOOLEAN,\n" +
-                "  RESOLVERID VARCHAR(10) REFERENCES USERS(USERID)\n" +
+                "  RESOLVERID VARCHAR(10) REFERENCES USERS(USERID), \n" +
+                "  CONSTRAINT SERVICE_PK PRIMARY KEY(SERVICEID)\n" +
                 ")\n";
         String reservations = "CREATE TABLE RESERVATIONS(\n" +
+                "  RSVID INTEGER GENERATED ALWAYS AS IDENTITY,\n" +
                 "  NODEID VARCHAR(10) REFERENCES NODES(NODEID),\n" +
                 "  USERID VARCHAR(10) REFERENCES USERS(USERID),\n" +
                 "  DAY DATE,\n" +
                 "  STARTTIME TIME,\n" +
-                "  ENDTIME TIME\n" +
+                "  ENDTIME TIME,\n" +
+                "  CONSTRAINT RSV_PK PRIMARY KEY(RSVID)\n" +
                 ")\n";
 
 
