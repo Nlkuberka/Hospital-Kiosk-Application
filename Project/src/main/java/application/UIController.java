@@ -148,9 +148,6 @@ public class UIController {
 
         // If the scene has not yet been created
         if(scene == null) {
-            System.out.println(sceneFiles.get(sceneString));
-            System.out.println(getClass().getResource(sceneFiles.get(sceneString)));
-            System.out.println(System.getProperty("user.dir"));
             try {
                 //FXMLLoader fxmlLoader = new FXMLLoader(new File(System.getProperty("user.dir") + "/resources" + sceneFiles.get(sceneString)).toURI().toURL());
                 FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(sceneFiles.get(sceneString)));
