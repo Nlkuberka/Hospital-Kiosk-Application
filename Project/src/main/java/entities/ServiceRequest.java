@@ -2,7 +2,7 @@ package entities;
 
 /**
  * The Objecct that holds data about a particular service request
- * @version iteration1
+ * @version iteration2
  */
 public class ServiceRequest {
     private String nodeID;
@@ -11,6 +11,7 @@ public class ServiceRequest {
     private String userID;
     private boolean resolved;
     private String resolverID;
+    private int serviceID;
 
     public ServiceRequest() {
     }
@@ -22,6 +23,16 @@ public class ServiceRequest {
         this.userID = userID;
         this.resolved = resolved;
         this.resolverID = resolverID;
+    }
+
+    public ServiceRequest(String nodeID, String serviceType, String message, String userID, boolean resolved, String resolverID, int serviceID) {
+        this.nodeID = nodeID;
+        this.serviceType = serviceType;
+        this.message = message;
+        this.userID = userID;
+        this.resolved = resolved;
+        this.resolverID = resolverID;
+        this.serviceID = serviceID;
     }
 
     public String getNodeID() {
@@ -71,6 +82,10 @@ public class ServiceRequest {
     public void setResolverID(String resolverID) {
         this.resolverID = resolverID;
     }
+
+    public int getServiceID() { return serviceID; }
+
+    public void setServiceID(int serviceID) { this.serviceID = serviceID; }
 
     public String toString() {
         String returnValue = "Node(";
