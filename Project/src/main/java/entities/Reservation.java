@@ -1,5 +1,7 @@
 package entities;
 
+import java.util.List;
+
 /**
  * The Object that holds data about a particular reservation
  * @version iteration1
@@ -70,5 +72,9 @@ public class Reservation {
         returnValue += getStartTime() + ", ";
         returnValue += getEndTime() + ")";
         return  returnValue;
+    }
+
+    public boolean isValid(List<Reservation> reservations) {
+
     }
 }
