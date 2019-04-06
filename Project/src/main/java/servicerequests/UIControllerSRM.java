@@ -97,7 +97,7 @@ public class UIControllerSRM extends UIController {
         DBController.addServiceRequest(sr,conn);
         DBController.closeConnection(conn);
 
-        this.popupWarning("Your service request has been received.");
+        this.popupMessage("Your service request has been received.", false);
         onShow();
     }
 }

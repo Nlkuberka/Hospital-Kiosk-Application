@@ -171,15 +171,15 @@ public class UIController {
 
     /**
      * Pops up a window with the given warning that the user must acknowledge to continue
-     * @param warning The warning string to dispaly
+     * @param message The warning string to dispaly
      */
     @FXML
-    public void popupWarning(String warning) {
+    public void popupMessage(String message, boolean isWarning) {
         Stage stage = new Stage();
         Scene scene = null;
         UIControllerPUM controller = null;
         try {
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/popup_main.fxml"));
+            FXMLLoader fxmlLoader = isWarning ? new FXMLLoader(getClass().getResource("/popup_warning_main.fxml")) :  new FXMLLoader(getClass().getResource("/popup_message_main.fxml"));
             Parent root = fxmlLoader.load();
             scene = new Scene(root, WIDTH_POPUP_WARNING, HEIGHT_POPUP_WARNING);
             controller = fxmlLoader.getController();
@@ -190,7 +190,7 @@ public class UIController {
         stage.initOwner(primaryStage);
         stage.initModality(Modality.APPLICATION_MODAL);
 
-        controller.setWarning(warning);
+        controller.setMessage(message);
 
         stage.setTitle("Warning - Main");
         stage.setScene(scene);
