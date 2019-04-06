@@ -1,5 +1,6 @@
 package application;
 
+import com.jfoenix.controls.JFXTextField;
 import entities.User;
 
 import javafx.beans.value.ChangeListener;
@@ -147,9 +148,6 @@ public class UIController {
 
         // If the scene has not yet been created
         if(scene == null) {
-            System.out.println(sceneFiles.get(sceneString));
-            System.out.println(getClass().getResource(sceneFiles.get(sceneString)));
-            System.out.println(System.getProperty("user.dir"));
             try {
                 //FXMLLoader fxmlLoader = new FXMLLoader(new File(System.getProperty("user.dir") + "/resources" + sceneFiles.get(sceneString)).toURI().toURL());
                 FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(sceneFiles.get(sceneString)));
@@ -192,12 +190,14 @@ public class UIController {
         stage.initOwner(primaryStage);
         stage.initModality(Modality.APPLICATION_MODAL);
 
+        controller.setWarning(warning);
+
         stage.setTitle("Warning - Main");
         stage.setScene(scene);
         stage.showAndWait();
         stage.setAlwaysOnTop(true);
 
-        controller.setWarning(warning);
+
     }
 
     /**
@@ -274,7 +274,7 @@ public class UIController {
      * @param <S> The object that is being displayed in the TableView
      */
     protected class EditableTextCell<T, S> extends TableCell<T, S> {
-        protected TextField textField = new TextField(); /**< The Textfield to edit*/
+        protected JFXTextField textField = new JFXTextField(); /**< The Textfield to edit*/
         protected Label label = new Label(); /**< The Label to display*/
         protected TableColumn column; /**< The column that the cell is in, used for width properties*/
         protected int index; /**< The Column index, used for per column commands*/

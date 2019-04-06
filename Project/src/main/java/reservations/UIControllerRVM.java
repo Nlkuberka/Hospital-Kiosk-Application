@@ -121,10 +121,18 @@ public class UIControllerRVM extends UIController {
         }
 
         Reservation r = new Reservation(nodeIDs.get((String) nodeSelect.getValue()), CurrentUser.userID, format.format(date), startString, endString);
-        // DB Send
-        Connection conn = DBController.dbConnect();
-        DBController.addReservation(r,conn);
 
-        System.out.println(r);
+        boolean valid = true;
+        //Check valid
+        if(valid) {
+            // DB Send
+            Connection conn = DBController.dbConnect();
+            DBController.addReservation(r,conn);
+            this.popupWarning("Your reservation has been confirmed.");
+            onShow();
+        } else {
+            this.popupWarning("Your reservation conflicts with another reservation.");
+        }
+
     }
 }
