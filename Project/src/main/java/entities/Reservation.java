@@ -1,5 +1,8 @@
 package entities;
 
+import java.time.LocalTime;
+import java.util.List;
+
 /**
  * The Object that holds data about a particular reservation
  * @version iteration1
@@ -83,5 +86,24 @@ public class Reservation {
         returnValue += getStartTime() + ", ";
         returnValue += getEndTime() + ")";
         return  returnValue;
+    }
+
+    /**
+     * Returns whether this current reservations would be valid in the given list of reservations
+     * @param reservations The list of reservations to compare to
+     * @return Whether this reservation can actually fit into that list
+     */
+    public boolean isValid(List<Reservation> reservations) {
+        LocalTime startTimeLocal = LocalTime.parse(startTime);
+        LocalTime endTimeLocal = LocalTime.parse(endTime);
+        for(int i = 0 ; i < reservations.size(); i++) {
+            LocalTime otherStartTimeLocal = LocalTime.parse(reservations.get(i).getStartTime());
+            LocalTime otherEndTimeLocal = LocalTime.parse(reservations.get(i).getEndTime());
+            // Tests to ensure that the current reservation is either completely before or after the reservation in the list
+            if((endTimeLocal.compareTo(otherStartTimeLocal) >= 0) && (startTimeLocal.compareTo(otherEndTimeLocal) <= 0)) {
+                return false;
+            }
+        }
+        return true;
     }
 }

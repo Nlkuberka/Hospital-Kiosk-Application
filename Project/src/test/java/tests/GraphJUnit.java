@@ -1,7 +1,9 @@
+package tests;
+
+import entities.Graph;
+import entities.Node;
 import junit.framework.TestCase;
 
-import java.lang.reflect.Array;
-import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
