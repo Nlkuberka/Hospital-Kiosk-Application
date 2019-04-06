@@ -22,12 +22,12 @@
          <children>
             <ImageView fitHeight="600.0" fitWidth="900.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@purple-orange-gradient.jpg" />
+                  <Image url="@Hospitalbackground.png" />
                </image>
             </ImageView>
             <BorderPane prefHeight="600.0" prefWidth="900.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                <top>
-                  <MenuBar blendMode="ADD" prefWidth="900.0" style="-fx-background-color: white;" stylesheets="@background.css" BorderPane.alignment="CENTER">
+                  <MenuBar blendMode="ADD" prefWidth="900.0" style="-fx-background-color: #ffffff;" stylesheets="@background.css" BorderPane.alignment="CENTER">
                     <menus>
                       <Menu fx:id="homeButton" mnemonicParsing="false" onShowing="#setHomeButton" text="Home">
                            <items>
@@ -76,7 +76,7 @@
                   <Font name="System Bold Italic" size="16.0" />
                </font>
             </Text>
-            <JFXButton fx:id="confirmButton" buttonType="RAISED" onAction="#setConfirmButton" style="-fx-background-color: #ebaecd;" text="Confirm" textFill="WHITE" AnchorPane.leftAnchor="110.0" AnchorPane.topAnchor="555.0">
+            <JFXButton fx:id="confirmButton" buttonType="RAISED" onAction="#setConfirmButton" style="-fx-background-color: #ffc41e;" text="Confirm" textFill="WHITE" AnchorPane.leftAnchor="110.0" AnchorPane.topAnchor="555.0">
                <font>
                   <Font name="System Bold" size="14.0" />
                </font>

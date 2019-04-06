@@ -16,18 +16,18 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="UIControllerSRM">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="servicerequests.UIControllerSRM">
    <children>
       <AnchorPane prefHeight="600.0" prefWidth="900.0" styleClass="body-background" stylesheets="/background.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
             <ImageView fitHeight="600.0" fitWidth="900.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@purple-orange-gradient.jpg" />
+                  <Image url="@Hospitalbackground.png" />
                </image>
             </ImageView>
             <BorderPane prefHeight="600.0" prefWidth="900.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                <top>
-                  <MenuBar blendMode="ADD" prefWidth="900.0" style="-fx-background-color: white;" stylesheets="@background.css" BorderPane.alignment="CENTER">
+                  <MenuBar blendMode="ADD" prefWidth="900.0" style="-fx-background-color: #ffffff;" stylesheets="@background.css" BorderPane.alignment="CENTER">
                     <menus>
                       <Menu fx:id="homeButton" mnemonicParsing="false" onShowing="#setHomeButton" text="Home">
                            <items>
@@ -52,11 +52,7 @@
             </ImageView>
             <ChoiceBox fx:id="roomSelect" prefWidth="150.0" style="-fx-background-color: #ffffff;" AnchorPane.leftAnchor="25.0" AnchorPane.topAnchor="100.0">
                <effect>
-                  <Blend mode="MULTIPLY" opacity="0.34">
-                     <topInput>
-                        <DropShadow />
-                     </topInput>
-                  </Blend>
+                  <Blend mode="MULTIPLY" opacity="0.34" />
                </effect>
             </ChoiceBox>
             <Text fill="WHITE" smooth="false" strokeType="OUTSIDE" strokeWidth="0.0" text="Select Your Room" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="65.0">
@@ -71,11 +67,7 @@
             </Text>
             <ChoiceBox fx:id="serviceSelect" prefHeight="0.0" prefWidth="150.0" style="-fx-background-color: #ffffff;" AnchorPane.leftAnchor="25.0" AnchorPane.topAnchor="175.0">
                <effect>
-                  <Blend mode="MULTIPLY" opacity="0.34">
-                     <topInput>
-                        <DropShadow />
-                     </topInput>
-                  </Blend>
+                  <Blend mode="MULTIPLY" opacity="0.34" />
                </effect>
             </ChoiceBox>
             <JFXTextArea fx:id="serviceMessage" layoutY="278.0" maxHeight="267.0" maxWidth="160.0" prefHeight="267.0" prefWidth="160.0" style="-fx-background-color: #ffffff;" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="270.0" />
@@ -84,7 +76,7 @@
                   <Font name="System Bold Italic" size="16.0" />
                </font>
             </Text>
-            <JFXButton fx:id="confirmButton" buttonType="RAISED" onAction="#setConfirmButton" style="-fx-background-color: #ebaecd;" text="Confirm" textFill="WHITE" AnchorPane.leftAnchor="110.0" AnchorPane.topAnchor="555.0">
+            <JFXButton fx:id="confirmButton" buttonType="RAISED" onAction="#setConfirmButton" style="-fx-background-color: #ffc41e;" text="Confirm" textFill="WHITE" AnchorPane.leftAnchor="110.0" AnchorPane.topAnchor="555.0">
                <font>
                   <Font name="System Bold" size="14.0" />
                </font>
