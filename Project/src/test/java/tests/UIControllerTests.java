@@ -1,3 +1,9 @@
+package tests;
+
+import application.UIController;
+import entities.Node;
+import entities.ServiceRequest;
+
 import javafx.embed.swing.JFXPanel;
 import org.junit.Assert;
 import org.junit.Before;

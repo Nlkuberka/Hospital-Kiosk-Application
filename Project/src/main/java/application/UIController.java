@@ -191,7 +191,7 @@ public class UIController {
      * @param methodName The method name of the getter
      * @param label The label to put the value into
      */
-    protected void runStringGetter(Object object, String methodName, Label label) {
+    public void runStringGetter(Object object, String methodName, Label label) {
         try {
             Method method = object.getClass().getMethod(methodName);
             label.setText("" + method.invoke(object));
@@ -208,7 +208,7 @@ public class UIController {
      * @param label The label to put the value into
      * @param textField The textField to put the value into
      */
-    protected void runStringGetterEditable(Object object, String methodName, Label label, TextField textField) {
+    public void runStringGetterEditable(Object object, String methodName, Label label, TextField textField) {
         try {
             Method method = object.getClass().getMethod(methodName);
             textField.setText("" + method.invoke(object));
@@ -226,7 +226,7 @@ public class UIController {
      * @param className The class of the argument for the setter
      * @param argument The argument of the given class to set to
      */
-    protected void runSetter(Object object, String methodName, Class className, Object argument) {
+    public void runSetter(Object object, String methodName, Class className, Object argument) {
         try {
             Method method = object.getClass().getMethod(methodName, className);
             method.invoke(object, argument);
