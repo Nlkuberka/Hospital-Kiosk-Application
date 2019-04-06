@@ -128,10 +128,10 @@ public class UIControllerRVM extends UIController {
             // DB Send
             Connection conn = DBController.dbConnect();
             DBController.addReservation(r,conn);
-            this.popupWarning("Your reservation has been confirmed.");
+            this.popupMessage("Your reservation has been confirmed.", false);
             onShow();
         } else {
-            this.popupWarning("Your reservation conflicts with another reservation.");
+            this.popupMessage("Your reservation conflicts with another reservation.", true);
         }
 
     }
