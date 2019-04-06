@@ -3,6 +3,7 @@
 classes/
 build/
 myDB/
+Project/myDb/
 derby.log
 *.class
 *.csv

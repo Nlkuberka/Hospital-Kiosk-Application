@@ -10,6 +10,7 @@ public class Reservation {
     private String date;
     private String startTime;
     private String endTime;
+    private int rsvID;
 
     public Reservation() {
     }
@@ -20,6 +21,14 @@ public class Reservation {
         this.date = date;
         this.startTime = startTime;
         this.endTime = endTime;
+    }
+    public Reservation(String nodeID, String userID, String date, String startTime, String endTime, int rsvID) {
+        this.nodeID = nodeID;
+        this.userID = userID;
+        this.date = date;
+        this.startTime = startTime;
+        this.endTime = endTime;
+        this.rsvID = rsvID;
     }
 
     public String getNodeID() {
@@ -61,6 +70,10 @@ public class Reservation {
     public void setEndTime(String endTime) {
         this.endTime = endTime;
     }
+
+    public int getRsvID() { return rsvID; }
+
+    public void setRsvID(int rsvID) { this.rsvID = rsvID; }
 
     public String toString() {
         String returnValue = "Node(";
