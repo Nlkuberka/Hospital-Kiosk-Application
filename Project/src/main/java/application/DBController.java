@@ -485,6 +485,33 @@ public class DBController {
         }
     }
 
+    /**
+     * isRoomAvailable
+     *
+     * Determines whether a room is available on a certain day within the given time parameters
+     * @param nodeID - ID of room which is being checked for availability
+     * @param day - The day where the room's availability is being checked
+     * @param startTime - Check to see if the room is available after this time
+     * @param endTime - Check to see if the room is available before this time
+     * @return - Whether or not the selected room will be available on the day and times given
+     */
+    public static boolean isRoomAvailable(String nodeID, Date day, Time startTime, Time endTime, Connection connection){
+        try{
+            //Check if room has any reservations overlapping with the given times
+            //Four cases to check:
+            //Reservation within the given times, starts before and ends during, starts during and ends after, or room is booked for the whole duration or more
+            Statement s = connection.createStatement();
+            ResultSet rs = s.executeQuery("select * from RESERVATIONS where NODEID = '" + nodeID + "' and DAY = '" + day + "' and " +
+                    "((STARTTIME > '" + startTime + "' and ENDTIME < '" + endTime + "') " +
+                    "OR (STARTTIME < '" + startTime + "' and ENDTIME > '" + startTime + "') " +
+                    "OR (STARTTIME < '" + endTime + "' and ENDTIME > '" + endTime + "'))");
+            return !rs.next();
+        }catch(SQLException e){
+            e.printStackTrace();
+            return false;
+        }
+    }
+
 //    /**
 //     * exportData
 //     *
