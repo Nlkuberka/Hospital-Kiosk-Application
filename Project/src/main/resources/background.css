@@ -124,6 +124,35 @@
     -fx-background-color: #FFC41E;
 }
 
+/*Tabel view for my reservations*/
+.table-view2{
+    -fx-background-color: #ffffff;
+    -fx-border-color: #4787ae;
+
+}
+
+.table-row-cell2:odd{
+    -fx-background-color: #ffffff;
+    -fx-background-insets:10, 10 20 1 10;
+    -fx-padding: 2;
+
+}
+
+.table-row-cell2:even{
+    -fx-background-color: #dcdcdc;
+    -fx-background-insets:10, 10 20 1 10;
+    -fx-padding: 2;
+
+}
+
+
+.table-view2.column-header2,
+.table-view2 .column-header2 .filler2,
+.table-view2 .column-header-background2 .filler2 {
+    -fx-background-color: #FFC41E;
+    -fx-pref-height: 35;
+}
+
 
 
 
