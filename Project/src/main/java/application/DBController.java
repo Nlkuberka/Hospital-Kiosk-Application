@@ -22,13 +22,22 @@ import java.util.List;
  * handles SQLExceptions thrown by statement execution
  *
  * @author imoralessirgo, ryano647
- * @version iteration1
+ * @version iteration2
  */
 public class DBController {
     // Connection connection;
 
+
+    /**
+     * initializeAppDB
+     *
+     * generates application tables and loads them with data if not already set up
+     * for JAR file use
+     *
+     * LAST UPDATE 04/05/2019
+     */
     public static void initializeAppDB(){
-        Connection conn =  dbConnect();
+        Connection conn = dbConnect();
         String nodes = "CREATE TABLE NODES(\n" +
                 "NODEID VARCHAR(10),\n" +
                 "XCOORD INTEGER,\n" +
@@ -54,19 +63,23 @@ public class DBController {
                 "  CONSTRAINT USER_PK PRIMARY KEY(USERID)\n" +
                 ")\n";
         String servicerequest = "CREATE TABLE SERVICEREQUEST(\n" +
+                "  SERVICEID INTEGER GENERATED ALWAYS AS IDENTITY, \n" +
                 "  NODEID VARCHAR(10) REFERENCES NODES(NODEID),\n" +
                 "  SERVICETYPE VARCHAR(20),\n" +
                 "  MESSAGE VARCHAR(100),\n" +
                 "  USERID VARCHAR(10) REFERENCES USERS(USERID),\n" +
                 "  RESOLVED BOOLEAN,\n" +
-                "  RESOLVERID VARCHAR(10) REFERENCES USERS(USERID)\n" +
+                "  RESOLVERID VARCHAR(10) REFERENCES USERS(USERID), \n" +
+                "  CONSTRAINT SERVICE_PK PRIMARY KEY(SERVICEID)\n" +
                 ")\n";
         String reservations = "CREATE TABLE RESERVATIONS(\n" +
+                "  RSVID INTEGER GENERATED ALWAYS AS IDENTITY,\n" +
                 "  NODEID VARCHAR(10) REFERENCES NODES(NODEID),\n" +
                 "  USERID VARCHAR(10) REFERENCES USERS(USERID),\n" +
                 "  DAY DATE,\n" +
                 "  STARTTIME TIME,\n" +
-                "  ENDTIME TIME\n" +
+                "  ENDTIME TIME,\n" +
+                "  CONSTRAINT RSV_PK PRIMARY KEY(RSVID)\n" +
                 ")\n";
 
 
@@ -90,6 +103,15 @@ public class DBController {
         }
     }
 
+
+    /**
+     * dbConnect
+     *
+     * connects to the application's database for query execution
+     * handles SQLExceptions
+     *
+     * @return
+     */
     public static Connection dbConnect() {
         try {
             DriverManager.registerDriver(new org.apache.derby.jdbc.EmbeddedDriver());
@@ -101,6 +123,14 @@ public class DBController {
         return null;
     }
 
+    /**
+     * closeConnection
+     *
+     * Terminates connection to database after use
+     * ensures proper functionality during query execution
+     *
+     * @param connection
+     */
     public static void closeConnection(Connection connection){
         try{
             connection.close();
@@ -109,6 +139,15 @@ public class DBController {
         }
     }
 
+
+    /**
+     * loadNodeData
+     *
+     * reads and stores node data fro given csv file
+     *
+     * @param file
+     * @param connection
+     */
     public static void loadNodeData(File file, Connection connection){
         BufferedReader br = null;
         String line = "";
@@ -126,6 +165,15 @@ public class DBController {
         }
     }
 
+
+    /**
+     * loadEdgeData
+     *
+     * reads and stores edge data from given csv file
+     *
+     * @param file
+     * @param connection
+     */
     public static void loadEdgeData(File file, Connection connection){
         BufferedReader br = null;
         String line = "";
@@ -143,6 +191,14 @@ public class DBController {
         }
     }
 
+    /**
+     * CreateTable
+     *
+     * executes the given query
+     *
+     * @param createStatement
+     * @param conn
+     */
     public static void createTable(String createStatement, Connection conn){
         try {
             conn.createStatement().execute(createStatement);
@@ -151,18 +207,7 @@ public class DBController {
         }
     }
 
-//    public void enterData(List<Node> nodes, Connection connection){
-//        try {
-//            //connection = DriverManager.getConnection("jdbc:derby:myDB");
-//            Statement s = connection.createStatement();
-//            for (Node node : nodes) {
-//                nodeInsert(s,node);
-//            }
-//            //connection.close();
-//        }catch(SQLException e) {
-//            e.printStackTrace();
-//        }
-//    }
+
 
     /**
      * updateNode
@@ -187,6 +232,12 @@ public class DBController {
         }
     }
 
+    /**
+     * updateNode
+     *
+     * updates edge of given id, overriding all fields
+     * @param edge desired node content -- Must have an existing ID --
+     */
     public static void updateEdge(Edge edge, Connection connection){
         try{
             Statement s = connection.createStatement();
@@ -200,6 +251,15 @@ public class DBController {
         }
     }
 
+    /**
+     * updateServiceRequest
+     *
+     * saves changes msde to a ServiceRequest object
+     *
+     * UP TO DATE
+     * @param serviceRequest
+     * @param connection
+     */
     public static void updateServiceRequest(ServiceRequest serviceRequest, Connection connection){
         try{
             Statement s = connection.createStatement();
@@ -207,14 +267,22 @@ public class DBController {
                     "MESSAGE = '"+ serviceRequest.getMessage() + "'," +
                     "RESOLVED = '" + serviceRequest.isResolved() + "'," +
                     "RESOLVERID = '"+serviceRequest.getResolverID()+"' " +
-                    "where  NODEID = '" + serviceRequest.getNodeID() + "' and " +
-                    "USERID = '" + serviceRequest.getUserID() + "'");
+                    "where  SERVICEID = " + serviceRequest.getServiceID());
 
         }catch(SQLException e){
             e.printStackTrace();
         }
     }
 
+    /**
+     * fetchNode
+     *
+     * generates an node object from data under given ID
+     *
+     * @param ID
+     * @param connection
+     * @return
+     */
     public static Node fetchNode(String ID,Connection connection ){
         Node node = null;
         try{
@@ -232,6 +300,15 @@ public class DBController {
 
     }
 
+    /**
+     * fetchEdge
+     *
+     * generates an edge object from data under given ID
+     *
+     * @param ID
+     * @param connection
+     * @return
+     */
     public static Edge fetchEdge(String ID,Connection connection ){
         Edge edge = null;
         try{
@@ -261,6 +338,14 @@ public class DBController {
             e.printStackTrace();
         } }
 
+    /**
+     * deleteEdge
+     *
+     * deletes edge of given id from the database
+     *
+     * @param ID
+     * @param connection
+     */
     public static void deleteEdge(String ID, Connection connection){
         try {
             Statement s = connection.createStatement();
@@ -271,15 +356,33 @@ public class DBController {
         }
     }
 
-    public static void deleteServiceRequest(String NODEID,String USERID, Connection connection){
+    /**
+     * deleteServiceRequest
+     *
+     * Not in use
+     *
+     *
+     * @param NODEID
+     * @param USERID
+     * @param connection
+     */
+//    public static void deleteServiceRequest(String NODEID,String USERID, Connection connection){
+//        try {
+//            Statement s = connection.createStatement();
+//            s.execute("delete  from SERVICEREQUEST where NODEID ='"+ NODEID +"' and USERID ='" + USERID + "'");
+//        }catch(SQLException e){
+//            e.printStackTrace();
+//        }
+//    }
+
+    public static void deleteReservation(int reservationID,Connection connection){
         try {
             Statement s = connection.createStatement();
-            s.execute("delete  from SERVICEREQUEST where NODEID ='"+ NODEID +"' and USERID ='" + USERID + "'");
+            s.execute("delete  from RESERVATIONS where RSVID ='"+ reservationID +"'");
         }catch(SQLException e){
             e.printStackTrace();
         }
     }
-
 
     /**
      * addNode
@@ -289,10 +392,8 @@ public class DBController {
      */
     public static void addNode(Node node, Connection connection){
         try{
-            //connection = DriverManager.getConnection("jdbc:derby:myDB");
             Statement s = connection.createStatement();
             nodeInsert(s,node);
-            //connection.close();
         }catch(SQLException e){
             e.printStackTrace();
         }
@@ -316,47 +417,58 @@ public class DBController {
         }
     }
 
-    public static void addServiceRequest(ServiceRequest serviceRequest, Connection connection){
+
+    //// possible modification to return autogenerated ID! talk to Ryan and John
+    /**
+     * addServiceRequest
+     *
+     * Enters ServiceRequest object to database
+     *
+     * @param serviceRequest
+     * @param connection
+     */
+    public static int addServiceRequest(ServiceRequest serviceRequest, Connection connection){
         try{
-            Statement s = connection.createStatement();
-            s.execute("INSERT into SERVICEREQUEST  values ('" + serviceRequest.getNodeID() +
+            PreparedStatement s = connection.prepareStatement("INSERT into SERVICEREQUEST (NODEID, SERVICETYPE, MESSAGE, USERID, RESOLVED, RESOLVERID)" +
+                    " values ('" + serviceRequest.getNodeID() +
                     "','"+ serviceRequest.getServiceType() +"','"+ serviceRequest.getMessage() + "','"+
                     serviceRequest.getUserID()+"',"+serviceRequest.isResolved()+","+ serviceRequest.getResolverID()+")");
+            ResultSet rs = s.getGeneratedKeys();
+            rs.next();
+            return rs.getInt("SERVICEID");
         }catch(SQLException e){
             e.printStackTrace();
+            return 0;
         }
     }
 
+
+
+    //// possible modification to return autogenerated ID! talk to Ryan and John
     /**
      * addReservation
      *
+     * records new reservation object to database
+     *
      * @param reservation new reservation object
      */
-    public static void addReservation(Reservation reservation, Connection connection){
+    public static int addReservation(Reservation reservation, Connection connection){
         try{
             //connection = DriverManager.getConnection("jdbc:derby:myDB");
-            Statement s = connection.createStatement();
-            s.execute("INSERT into RESERVATIONS values ('" + reservation.getNodeID() +"','" + reservation.getUserID() +
+            PreparedStatement s = connection.prepareStatement("INSERT into RESERVATIONS (NODEID, USERID, DAY, STARTTIME, ENDTIME) values ('" + reservation.getNodeID() +"','" + reservation.getUserID() +
                     "','"+ reservation.getDate() +"','"+ reservation.getStartTime() + "','" + reservation.getEndTime() + "')");
-            //connection.close();
-        }catch(SQLException e){
+            s.execute();
+            ResultSet rs = s.getGeneratedKeys();
+            rs.next();
+            return rs.getInt("RSVID");
+        }catch(SQLException e) {
             e.printStackTrace();
+            return 0;
         }
     }
 
-    /*public static Edge fetchEdge(String ID, Connection connection){
-        try{
-            Statement s = connection.createStatement();
-            ResultSet rs = s.executeQuery("Select * from EDGES where EDGEID= '" + ID + "'");
-            rs.next();
-            Edge edge = new Edge(rs.getString(1), rs.getString(2), rs.getString(3));
-            return edge;
-        }catch(SQLException e){
-            e.printStackTrace();
-        }
-        return null;
-    }*/
 
+    // Talk to Ryan possible change to hash map use
     public static String IDfromLongName(String longName, Connection connection) {
         try{
             Statement s = connection.createStatement();
@@ -370,6 +482,16 @@ public class DBController {
         return null;
     }
 
+
+    /**
+     * multiEdgeFetch
+     *
+     * gets multiple nodes from database using the edge object IDs
+     *
+     * @param IDList list of Edge IDs
+     * @param connection
+     * @return list of edges from the database
+     */
     public static void multiFetchEdge(List<String> IDList, Connection connection) {
         try{
             Statement s = connection.createStatement();
@@ -385,21 +507,17 @@ public class DBController {
         }
     }
 
-    /*public static Node fetchNode(String ID, Connection connection) {
-        try{
-            Statement s = connection.createStatement();
-            ResultSet rs = s.executeQuery("SELECT * FROM NODES WHERE NODEID ='" + ID + "'");
-            rs.next();
-            Node node = new Node(rs.getString(1),rs.getInt(2),rs.getInt(3),
-                    rs.getString(4),rs.getString(5),rs.getString(6),
-                    rs.getString(7),rs.getString(8));
-            return node;
-        }catch(SQLException e) {
-            e.printStackTrace();
-        }
-        return null;
-    }*/
 
+
+    /**
+     * multiNodeFetch
+     *
+     * gets multiple nodes from database using the node object IDs
+     *
+     * @param IDList list of Node IDs
+     * @param connection
+     * @return list of nodes from the database
+     */
     public static LinkedList<Node> multiNodeFetch(List<String> IDList, Connection connection) {
         try{
             Statement s = connection.createStatement();
@@ -419,13 +537,13 @@ public class DBController {
         return null;
     }
 
-//    public static
+
 
     /**
      * generateListofNodes
      *
      * creates and returns a list of node objects
-     * @return LinkedList</Node>
+     * @return LinkedList<Node>
      */
     public static LinkedList<Node> generateListofNodes(Connection connection){
         try{
@@ -447,6 +565,13 @@ public class DBController {
         return null;
     }
 
+    /**
+     * generateListofEdges
+     *
+     * generates a list of edge objects fetched from the database
+     * @param connection
+     * @return
+     */
     public static LinkedList<Edge> generateListofEdges(Connection connection) {
         try{
             Statement s = connection.createStatement();
@@ -485,12 +610,12 @@ public class DBController {
         }
     }
 
-//    /**
-//     * exportData
-//     *
-//     * selects all content held in Nodes table and prints it to a file
-//     * @param filename name of output file
-//     */
+    /**
+     * exportData
+     *
+     * selects all content held in Nodes table and prints it to a file
+     * @param filename name of output file
+     */
 //    public void exportData(String filename) {
 //        Connection connection = null;
 //        Statement stmt;
