@@ -1,9 +1,6 @@
 package application;
 
-import entities.Edge;
-import entities.Node;
-import entities.Reservation;
-import entities.ServiceRequest;
+import entities.*;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -483,6 +480,24 @@ public class DBController {
         }catch(SQLException e){
             e.printStackTrace();
         }
+    }
+
+    public static User loginCheck(String username, String password, Connection conn, int permission){
+            try{
+                PreparedStatement ps = conn.prepareStatement("SELECT * FROM USERS WHERE USERNAME = '"+ username + "'" +
+                        "AND PASSWORD = '"+ password +"' AND PERMISSION =" + permission);
+                if(ps.execute()) {
+                    ResultSet rs = ps.getResultSet();
+                    rs.next();
+                    User curr = new User(rs.getString("USERID"),rs.getString("USERNAME"),rs.getInt("PERMISSION"));
+                    return curr;
+                }else{
+                    return null;
+                }
+            }catch(SQLException e){
+                e.printStackTrace();
+                return null;
+            }
     }
 
 //    /**
