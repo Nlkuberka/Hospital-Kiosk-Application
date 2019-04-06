@@ -419,15 +419,18 @@ public class DBController {
      * @param serviceRequest
      * @param connection
      */
-    public static void addServiceRequest(ServiceRequest serviceRequest, Connection connection){
+    public static int addServiceRequest(ServiceRequest serviceRequest, Connection connection){
         try{
-            Statement s = connection.createStatement();
-            s.execute("INSERT into SERVICEREQUEST (NODEID, SERVICETYPE, MESSAGE, USERID, RESOLVED, RESOLVERID)" +
+            PreparedStatement s = connection.prepareStatement("INSERT into SERVICEREQUEST (NODEID, SERVICETYPE, MESSAGE, USERID, RESOLVED, RESOLVERID)" +
                     " values ('" + serviceRequest.getNodeID() +
                     "','"+ serviceRequest.getServiceType() +"','"+ serviceRequest.getMessage() + "','"+
                     serviceRequest.getUserID()+"',"+serviceRequest.isResolved()+","+ serviceRequest.getResolverID()+")");
+            ResultSet rs = s.getGeneratedKeys();
+            rs.next();
+            return rs.getInt("SERVICEID");
         }catch(SQLException e){
             e.printStackTrace();
+            return 0;
         }
     }
 
@@ -441,15 +444,18 @@ public class DBController {
      *
      * @param reservation new reservation object
      */
-    public static void addReservation(Reservation reservation, Connection connection){
+    public static int addReservation(Reservation reservation, Connection connection){
         try{
             //connection = DriverManager.getConnection("jdbc:derby:myDB");
-            Statement s = connection.createStatement();
-            s.execute("INSERT into RESERVATIONS (NODEID, USERID, DAY, STARTTIME, ENDTIME) values ('" + reservation.getNodeID() +"','" + reservation.getUserID() +
+            PreparedStatement s = connection.prepareStatement("INSERT into RESERVATIONS (NODEID, USERID, DAY, STARTTIME, ENDTIME) values ('" + reservation.getNodeID() +"','" + reservation.getUserID() +
                     "','"+ reservation.getDate() +"','"+ reservation.getStartTime() + "','" + reservation.getEndTime() + "')");
-            //connection.close();
-        }catch(SQLException e){
+            s.execute();
+            ResultSet rs = s.getGeneratedKeys();
+            rs.next();
+            return rs.getInt("RSVID");
+        }catch(SQLException e) {
             e.printStackTrace();
+            return 0;
         }
     }
 
