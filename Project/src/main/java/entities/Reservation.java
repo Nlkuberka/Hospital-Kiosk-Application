@@ -86,22 +86,11 @@ public class Reservation {
         for(int i = 0 ; i < reservations.size(); i++) {
             LocalTime otherStartTimeLocal = LocalTime.parse(reservations.get(i).getStartTime());
             LocalTime otherEndTimeLocal = LocalTime.parse(reservations.get(i).getEndTime());
-            if(!oneSided(startTimeLocal, otherStartTimeLocal, otherEndTimeLocal) || !oneSided(endTimeLocal, otherStartTimeLocal, otherEndTimeLocal)
-                || !oneSided(otherStartTimeLocal, startTimeLocal, endTimeLocal) || !oneSided(otherEndTimeLocal, startTimeLocal, endTimeLocal)) {
+            // Tests to ensure that the current reservation is either completely before or after the reservation in the list
+            if((endTimeLocal.compareTo(otherStartTimeLocal) >= 0) && (startTimeLocal.compareTo(otherEndTimeLocal) <= 0)) {
                 return false;
             }
         }
         return true;
-    }
-
-    /**
-     * Whether the second and third LocalTimes are on the same side compared to the first LocalTime
-     * @param lt1 The first LocalTime to compare to
-     * @param lt2 The second LocalTime
-     * @param lt3 The third LocalTime
-     * @return Whether the third and second LocalTimes are on one side of the first
-     */
-    public boolean oneSided(LocalTime lt1, LocalTime lt2, LocalTime lt3) {
-        return (lt1.compareTo(lt2) == lt1.compareTo(lt3));
     }
 }

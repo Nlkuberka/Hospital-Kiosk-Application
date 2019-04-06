@@ -28,22 +28,6 @@ public class ReservationTests {
     }
 
     /**
-     * Tests to ensure that the oneSided helper function is working property
-     */
-    @Test
-    public void testOneSided() {
-        LocalTime ltbase = getLocalTime("12:00:00");
-        LocalTime ltb1 = getLocalTime("10:00:00");
-        LocalTime ltb2 = getLocalTime("11:00:00");
-        LocalTime lta1 = getLocalTime("13:00:00");
-        LocalTime lta2 = getLocalTime("14:00:00");
-        Assert.assertEquals(true, reservation.oneSided(ltbase, ltb1, ltb2));
-        Assert.assertEquals(true, reservation.oneSided(ltbase, lta1, lta2));
-        Assert.assertEquals(false, reservation.oneSided(ltbase, lta1, ltb2));
-        Assert.assertEquals(false, reservation.oneSided(ltbase, ltb1, lta2));
-    }
-
-    /**
      * Tests to ensure that the isValid function is working
      */
     @Test
