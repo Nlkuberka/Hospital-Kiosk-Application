@@ -60,7 +60,8 @@ public class DBController {
                 "  PERMISSION SMALLINT,\n" +
                 "  USERNAME VARCHAR(15),\n" +
                 "  PASSWORD VARCHAR(15),\n" +
-                "  CONSTRAINT USER_PK PRIMARY KEY(USERID)\n" +
+                "  CONSTRAINT USER_PK PRIMARY KEY(USERID),\n" +
+                "  CONSTRAINT UN_UN UNIQUE (USERNAME)" +
                 ")\n";
         String servicerequest = "CREATE TABLE SERVICEREQUEST(\n" +
                 "  SERVICEID INTEGER GENERATED ALWAYS AS IDENTITY, \n" +
