@@ -81,36 +81,58 @@
             <StackPane HBox.hgrow="ALWAYS">
                <children>
                        <ScrollPane fx:id="scrollPane_pathfind">
-                           <AnchorPane fx:id="scroll_AnchorPane" maxWidth="3000.0" minWidth="684.0" prefHeight="465.0" prefWidth="684.0">
-                               <StackPane alignment="TOP_LEFT">
-                                   <children>
-                                       <ImageView fx:id="map_002" opacity="0.0" preserveRatio="true">
-                                           <Image url="@maps/00_thelowerlevel2.png" />
-                                       </ImageView>
-                                       <Path fx:id="p_002" />
-                                       <ImageView fx:id="map_001" opacity="0.0" preserveRatio="true">
-                                           <Image url="@maps/00_thelowerlevel2.png" />
-                                       </ImageView>
-                                       <Path fx:id="p_001" />
-                                       <ImageView fx:id="map_00" opacity="0.0" preserveRatio="true">
-                                           <Image url="@maps/00_thegroundfloor.png" />
-                                       </ImageView>
-                                       <Path fx:id="p_00" />
-                                       <ImageView fx:id="map_01" opacity="0.0" preserveRatio="true">
-                                           <Image url="@maps/01_thefirstfloor.png" />
-                                       </ImageView>
-                                       <Path fx:id="p_01" />
-                                       <ImageView fx:id="map_02" opacity="0.0" preserveRatio="true">
-                                           <Image url="@maps/02_thesecondfloor.png" />
-                                       </ImageView>
-                                       <Path fx:id="p_02" />
-                                       <ImageView fx:id="map_03" opacity="0.0" preserveRatio="true">
-                                           <Image url="@maps/03_thethirdfloor.png" />
-                                       </ImageView>
-                                       <Path fx:id="p_03" />
-                                   </children>
-                               </StackPane>
+                            <StackPane alignment="TOP_LEFT">
+                                <children>
+                           <AnchorPane fx:id="pane_002" maxWidth="3000.0" minWidth="684.0" prefHeight="465.0" prefWidth="684.0">
+                              <children>
+                                          <ImageView fx:id="map_002" opacity="0.0" preserveRatio="true">
+                                              <Image url="@maps/00_thelowerlevel2.png" />
+                                          </ImageView>
+                                          <Path fx:id="p_002" />
+                              </children>
                            </AnchorPane>
+                           <AnchorPane fx:id="pane_001" maxWidth="3000.0" minWidth="684.0" prefHeight="465.0" prefWidth="684.0">
+                              <children>
+                                          <ImageView fx:id="map_001" opacity="0.0" preserveRatio="true">
+                                              <Image url="@maps/00_thelowerlevel2.png" />
+                                          </ImageView>
+                                          <Path fx:id="p_001" />
+                              </children>
+                           </AnchorPane>
+                           <AnchorPane fx:id="pane_00" maxWidth="3000.0" minWidth="684.0" prefHeight="465.0" prefWidth="684.0">
+                              <children>
+                                          <ImageView fx:id="map_00" opacity="0.0" preserveRatio="true">
+                                              <Image url="@maps/00_thegroundfloor.png" />
+                                          </ImageView>
+                                          <Path fx:id="p_00" />
+                              </children>
+                           </AnchorPane>
+                           <AnchorPane fx:id="pane_01" maxWidth="3000.0" minWidth="684.0" prefHeight="465.0" prefWidth="684.0">
+                              <children>
+                                          <ImageView fx:id="map_01" opacity="0.0" preserveRatio="true">
+                                              <Image url="@maps/01_thefirstfloor.png" />
+                                          </ImageView>
+                                          <Path fx:id="p_01" />
+                              </children>
+                           </AnchorPane>
+                           <AnchorPane fx:id="pane_02" maxWidth="3000.0" minWidth="684.0" prefHeight="465.0" prefWidth="684.0">
+                              <children>
+                                          <ImageView fx:id="map_02" opacity="0.0" preserveRatio="true">
+                                              <Image url="@maps/02_thesecondfloor.png" />
+                                          </ImageView>
+                                          <Path fx:id="p_02" />
+                              </children>
+                           </AnchorPane>
+                           <AnchorPane fx:id="pane_03" maxWidth="3000.0" minWidth="684.0" prefHeight="465.0" prefWidth="684.0">
+                              <children>
+                                          <ImageView fx:id="map_03" opacity="0.0" preserveRatio="true">
+                                              <Image url="@maps/03_thethirdfloor.png" />
+                                          </ImageView>
+                                          <Path fx:id="p_03" />
+                              </children>
+                           </AnchorPane>
+                                </children>
+                            </StackPane>
                        </ScrollPane>
                   <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="75.0" StackPane.alignment="TOP_LEFT">
                      <children>

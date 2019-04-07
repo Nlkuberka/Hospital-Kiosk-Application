@@ -23,6 +23,7 @@ import javafx.scene.shape.Rectangle;
 
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -46,19 +47,24 @@ public class UIControllerPFM extends UIController {
     //public VBox leftVBox;
     public ChoiceBox<String> destinationSelect;
     public ImageView backgroundImage;
-    private Path path;
     public MenuItem backButton;
     public ScrollPane scrollPane_pathfind;
     @FXML
     private ImageView map_02, map_01, map_03, map_00, map_001, map_002;
     @FXML
     private Path p_002, p_001, p_00, p_01, p_02, p_03;
+    @FXML
+    private AnchorPane pane_002, pane_001, pane_00, pane_01, pane_02, pane_03;
     private LinkedList<Path> pathList = new LinkedList<>();
     private LinkedList<ImageView> mapList = new LinkedList<>();
-    public AnchorPane scroll_AnchorPane;
     public Button zoom_button;
     public Button unzoom_button;
     private List<Node> currentPath;
+
+    private Path path;
+    private ImageView map;
+    private AnchorPane pane;
+    private LinkedList<AnchorPane> paneList = new LinkedList<>();
 
     @FXML
     public void initialize() {
@@ -76,6 +82,13 @@ public class UIControllerPFM extends UIController {
         pathList.add(p_02);
         pathList.add(p_03);
 
+        paneList.add(pane_002);
+        paneList.add(pane_001);
+        paneList.add(pane_00);
+        paneList.add(pane_01);
+        paneList.add(pane_02);
+        paneList.add(pane_03);
+
         floorSlider.setMax((double) mapList.size() - 0.001);
         floorSlider.setValue(2.0);
         setOpacity(2);
@@ -86,9 +99,11 @@ public class UIControllerPFM extends UIController {
         backgroundImage.fitWidthProperty().bind(parentPane.widthProperty());
 
         // bind Map to AnchorPane inside of ScrollPane
-        for (ImageView map : mapList) {
-            map.fitWidthProperty().bind(scroll_AnchorPane.prefWidthProperty());
-            map.fitHeightProperty().bind(scroll_AnchorPane.prefHeightProperty());
+        for (int i = 0; i < mapList.size(); i++) {
+            ImageView map = mapList.get(i);
+            AnchorPane pane = paneList.get(i);
+            map.fitWidthProperty().bind(pane.prefWidthProperty());
+            map.fitHeightProperty().bind(pane.prefHeightProperty());
         }
 
 //        primaryStage.heightProperty().addListener((obs, oldVal, newVal) -> {
@@ -207,8 +222,8 @@ public class UIControllerPFM extends UIController {
     }
 
     private void drawPath() {
-        float scaleFx = (float) mapList.get((int) floorSlider.getValue()).getFitWidth() / 5000.0f;
-        float scaleFy = (float) mapList.get((int) floorSlider.getValue()).getFitHeight() / 3400.0f;
+        float scaleFx = (float) pane.getPrefWidth() / 5000.0f;
+        float scaleFy = (float) pane.getPrefHeight() / 3400.0f;
 
         System.out.println("ScaleFx: " + scaleFx + "  ScaleFy: " + scaleFy);
 
@@ -263,8 +278,8 @@ public class UIControllerPFM extends UIController {
      */
     public void zoom(ActionEvent actionEvent) {
 
-        if (scroll_AnchorPane.getPrefWidth() < scroll_AnchorPane.getMaxWidth()) {
-            scroll_AnchorPane.setPrefSize(scroll_AnchorPane.getPrefWidth() * zoomFactor, scroll_AnchorPane.getPrefHeight() * zoomFactor);
+        if (pane.getPrefWidth() < pane.getMaxWidth()) {
+            pane.setPrefSize(pane.getPrefWidth() * zoomFactor, pane.getPrefHeight() * zoomFactor);
         }
         if (this.currentPath != null)
             drawPath();
@@ -276,8 +291,8 @@ public class UIControllerPFM extends UIController {
      */
     public void unZoom(ActionEvent actionEvent) {
 
-        if (scroll_AnchorPane.getPrefWidth() > scroll_AnchorPane.getMinWidth()) {
-            scroll_AnchorPane.setPrefSize(scroll_AnchorPane.getPrefWidth() / zoomFactor, scroll_AnchorPane.getPrefHeight() / zoomFactor);
+        if (pane.getPrefWidth() > pane.getMinWidth()) {
+            pane.setPrefSize(pane.getPrefWidth() / zoomFactor, pane.getPrefHeight() / zoomFactor);
         }
         if (this.currentPath != null)
             drawPath();
@@ -298,6 +313,8 @@ public class UIControllerPFM extends UIController {
                 mapList.get(i).setOpacity(100.0);
                 pathList.get(i).setOpacity(100.0);
                 this.path = pathList.get(i);
+                this.map = mapList.get(i);
+                this.pane = paneList.get(i);
             } else {
                 mapList.get(i).setOpacity(0.0);
                 pathList.get(i).setOpacity(0.0);
