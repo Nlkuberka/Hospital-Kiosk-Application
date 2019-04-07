@@ -11,6 +11,8 @@ import javafx.scene.control.Tab;
 import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;
 
+import java.sql.Connection;
+
 /**
  * The UIController for the Login screen
  * Allows a user to login, for admins to login, or for guests to enter
@@ -91,8 +93,7 @@ public class UIControllerLM extends UIController {
      */
     @FXML
     private void setLoginAsGuestButton() {
-        CurrentUser.permissions = User.GUEST_PERMISSIONS;
-        CurrentUser.userID = "GUEST0001";
+        CurrentUser.user = null; // DB get guest user
         this.goToScene(UIController.GUEST_MAIN_MENU_MAIN);
     }
 
@@ -101,8 +102,15 @@ public class UIControllerLM extends UIController {
      */
     @FXML
     private void setLoginAsUserButton() {
-        CurrentUser.permissions = User.BASIC_PERMISSIONS;
-        CurrentUser.userID = "USER0001";
+        String username = userUsernameTextField.getText();
+        String password = userPasswordTextField.getText();
+
+        User user = checkLogin(username, password, User.BASIC_PERMISSIONS);
+        if(user == null) {
+            this.popupWarning("Incorrect username or password.");
+            return;
+        }
+
         this.goToScene(UIController.USER_MAIN_MENU_MAIN);
     }
 
@@ -111,8 +119,14 @@ public class UIControllerLM extends UIController {
      */
     @FXML
     private void setLoginAsAdminButton() {
-        CurrentUser.permissions = User.ADMIN_PERMISSIONS;
-        CurrentUser.userID = "ADMIN0001";
+        String username = userUsernameTextField.getText();
+        String password = userPasswordTextField.getText();
+        User user = checkLogin(username, password, User.ADMIN_PERMISSIONS);
+        if(user == null) {
+            this.popupWarning("Incorrect username or password.");
+            return;
+        }
+
         this.goToScene(UIController.ADMIN_MAIN_MENU_MAIN);
     }
 
@@ -120,5 +134,17 @@ public class UIControllerLM extends UIController {
     private void goToUserTab()
     {
         login_tabpane.getSelectionModel().select(user_tab);
+    }
+
+    private User checkLogin(String username, String password, int permissions) {
+        User user = null;
+        Connection conn = DBController.dbConnect();
+        user = DBController.loginCheck(username,password,conn,permissions);
+        if(user == null) {
+            return null;
+        }
+        DBController.closeConnection(conn);
+        CurrentUser.user = user;
+        return user;
     }
 }

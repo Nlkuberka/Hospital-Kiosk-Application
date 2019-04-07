@@ -13,6 +13,7 @@ import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.lang.reflect.Method;
@@ -43,6 +44,9 @@ public class UIController {
     // The starting width and height of the window
     private static final int WIDTH = 900;
     private static final int HEIGHT = 600;
+
+    private static final int WIDTH_POPUP_WARNING = 300;
+    private static final int HEIGHT_POPUP_WARNING = 100;
 
     // Data storage about the stage
     private static Scene rootScene;
@@ -168,16 +172,45 @@ public class UIController {
     }
 
     /**
+     * Pops up a window with the given warning that the user must acknowledge to continue
+     * @param warning The warning string to dispaly
+     */
+    @FXML
+    public void popupWarning(String warning) {
+        Stage stage = new Stage();
+        Scene scene = null;
+        UIControllerPUM controller = null;
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/popup_main.fxml"));
+            Parent root = fxmlLoader.load();
+            scene = new Scene(root, WIDTH_POPUP_WARNING, HEIGHT_POPUP_WARNING);
+            controller = fxmlLoader.getController();
+        } catch(Exception e) {
+            e.printStackTrace();
+        }
+
+        stage.initOwner(primaryStage);
+        stage.initModality(Modality.APPLICATION_MODAL);
+
+        stage.setTitle("Warning - Main");
+        stage.setScene(scene);
+        stage.showAndWait();
+        stage.setAlwaysOnTop(true);
+
+        controller.setWarning(warning);
+    }
+
+    /**
      * Switches the scene to the application menu
      * Used across all UIControllers
      */
     @FXML
     private void setHomeButton() {
-        if(CurrentUser.permissions == User.GUEST_PERMISSIONS) {
+        if(CurrentUser.user.getPermissions() == User.GUEST_PERMISSIONS) {
             this.goToScene(UIController.GUEST_MAIN_MENU_MAIN);
-        } else if(CurrentUser.permissions == User.BASIC_PERMISSIONS) {
+        } else if(CurrentUser.user.getPermissions() == User.BASIC_PERMISSIONS) {
             this.goToScene(UIController.USER_MAIN_MENU_MAIN);
-        } else if(CurrentUser.permissions == User.ADMIN_PERMISSIONS) {
+        } else if(CurrentUser.user.getPermissions() == User.ADMIN_PERMISSIONS) {
             this.goToScene(UIController.ADMIN_MAIN_MENU_MAIN);
         } else {
             this.goToScene(UIController.LOGIN_MAIN);
