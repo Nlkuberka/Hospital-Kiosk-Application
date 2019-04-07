@@ -1,4 +1,7 @@
+import entities.Graph;
+import entities.Node;
 import junit.framework.TestCase;
+import org.junit.Test;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
@@ -50,8 +53,9 @@ public class GraphJUnit extends TestCase {
         expected.add("N8");
         expected.add("N9");
         expected.add("N3");
+        System.out.println(g.textDirections(path));
         assertEquals(expected, path);
-        System.out.println();
+
     }
 
     public void testRealNodes() {
