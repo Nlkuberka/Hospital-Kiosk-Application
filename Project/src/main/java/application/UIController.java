@@ -32,13 +32,18 @@ public class UIController {
     public static final String GUEST_MAIN_MENU_MAIN = "GMMM";
     public static final String USER_MAIN_MENU_MAIN = "UMMM";
     public static final String ADMIN_MAIN_MENU_MAIN = "AMMM";
+
     public static final String PATHFINDING_MAIN = "PFM";
+
     public static final String RESERVATIONS_MAIN = "RVM";
-    public static final String SERVICE_REQUEST_MAIN = "SRM";
+
     public static final String ADMIN_TOOLS_MAIN = "ATM";
     public static final String ADMIN_TOOLS_VIEW_NODES = "ATVN";
     public static final String ADMIN_TOOLS_VIEW_EDGES = "ATVE";
     public static final String ADMIN_TOOLS_VIEW_SERVICE_REQUESTS = "ATVSR";
+
+    public static final String SERVICE_REQUEST_MAIN = "SRM";
+    public static final String SERVICE_REQUEST_BASE = "SRB";
 
     // The starting width and height of the window
     private static final int WIDTH = 900;
@@ -121,6 +126,8 @@ public class UIController {
         sceneFiles.put(UIController.SERVICE_REQUEST_MAIN, "/service_request_main.fxml");
         sceneTitles.put(UIController.SERVICE_REQUEST_MAIN, "Service Request - Main");
 
+        sceneFiles.put(UIController.SERVICE_REQUEST_BASE, "/service_request_base.fxml");
+        sceneTitles.put(UIController.SERVICE_REQUEST_BASE, "Service Request - Base");
 
         // Reservations
         sceneFiles.put(UIController.RESERVATIONS_MAIN, "/reservations_main.fxml");
