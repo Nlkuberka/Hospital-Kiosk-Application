@@ -120,7 +120,7 @@ public class UIControllerRVM extends UIController {
             endString += ":00";
         }
 
-        Reservation r = new Reservation(nodeIDs.get((String) nodeSelect.getValue()), CurrentUser.userID, format.format(date), startString, endString);
+        Reservation r = new Reservation(nodeIDs.get((String) nodeSelect.getValue()), CurrentUser.user.getUserID(), format.format(date), startString, endString);
 
         boolean valid = true;
         //Check valid
@@ -128,10 +128,10 @@ public class UIControllerRVM extends UIController {
             // DB Send
             Connection conn = DBController.dbConnect();
             DBController.addReservation(r,conn);
-            this.popupWarning("Your reservation has been confirmed.");
+            this.popupMessage("Your reservation has been confirmed.", false);
             onShow();
         } else {
-            this.popupWarning("Your reservation conflicts with another reservation.");
+            this.popupMessage("Your reservation conflicts with another reservation.", true);
         }
 
     }

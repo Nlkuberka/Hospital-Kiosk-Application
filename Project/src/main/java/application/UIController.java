@@ -171,15 +171,15 @@ public class UIController {
 
     /**
      * Pops up a window with the given warning that the user must acknowledge to continue
-     * @param warning The warning string to dispaly
+     * @param message The warning string to dispaly
      */
     @FXML
-    public void popupWarning(String warning) {
+    public void popupMessage(String message, boolean isWarning) {
         Stage stage = new Stage();
         Scene scene = null;
         UIControllerPUM controller = null;
         try {
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/popup_main.fxml"));
+            FXMLLoader fxmlLoader = isWarning ? new FXMLLoader(getClass().getResource("/popup_warning_main.fxml")) :  new FXMLLoader(getClass().getResource("/popup_message_main.fxml"));
             Parent root = fxmlLoader.load();
             scene = new Scene(root, WIDTH_POPUP_WARNING, HEIGHT_POPUP_WARNING);
             controller = fxmlLoader.getController();
@@ -190,7 +190,7 @@ public class UIController {
         stage.initOwner(primaryStage);
         stage.initModality(Modality.APPLICATION_MODAL);
 
-        controller.setWarning(warning);
+        controller.setMessage(message);
 
         stage.setTitle("Warning - Main");
         stage.setScene(scene);
@@ -206,11 +206,11 @@ public class UIController {
      */
     @FXML
     private void setHomeButton() {
-        if(CurrentUser.permissions == User.GUEST_PERMISSIONS) {
+        if(CurrentUser.user.getPermissions() == User.GUEST_PERMISSIONS) {
             this.goToScene(UIController.GUEST_MAIN_MENU_MAIN);
-        } else if(CurrentUser.permissions == User.BASIC_PERMISSIONS) {
+        } else if(CurrentUser.user.getPermissions() == User.BASIC_PERMISSIONS) {
             this.goToScene(UIController.USER_MAIN_MENU_MAIN);
-        } else if(CurrentUser.permissions == User.ADMIN_PERMISSIONS) {
+        } else if(CurrentUser.user.getPermissions() == User.ADMIN_PERMISSIONS) {
             this.goToScene(UIController.ADMIN_MAIN_MENU_MAIN);
         } else {
             this.goToScene(UIController.LOGIN_MAIN);
