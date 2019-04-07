@@ -13,9 +13,7 @@ import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
 import javafx.scene.shape.LineTo;
 import javafx.scene.shape.MoveTo;
 import javafx.scene.shape.Path;
@@ -34,17 +32,17 @@ import java.util.List;
 public class UIControllerPFM extends UIController {
 
     public HBox hboxForMap;
+    public GridPane interfaceGrid;
+    public StackPane parentPane;
     private Graph graph;
     private String initialID;
     private String destID;
 
     @FXML
     public ChoiceBox<String> initialLocationSelect;
-    public VBox leftVBox;
-    public Rectangle rectangleLeft;
+    //public VBox leftVBox;
     public ChoiceBox<String> destinationSelect;
     public ImageView backgroundImage;
-    public AnchorPane parentAnchorPane;
     public Path path;
     public MenuItem backButton;
     public ScrollPane scrollPane_pathfind;
@@ -56,34 +54,22 @@ public class UIControllerPFM extends UIController {
 
     @FXML
     public void initialize() {
-//        leftVBox.prefWidthProperty().bind(parentAnchorPane.widthProperty().multiply(0.15));
-
-        // bind choicebox widths to pane
-        initialLocationSelect.prefWidthProperty().bind(leftVBox.prefWidthProperty().multiply(0.75));
-        destinationSelect.prefWidthProperty().bind(leftVBox.prefWidthProperty().multiply(0.75));
 
         // bind background image size to window size
         // ensures auto resize works
-        backgroundImage.fitHeightProperty().bind(parentAnchorPane.heightProperty());
-        backgroundImage.fitWidthProperty().bind(parentAnchorPane.widthProperty());
-
-        // bind opaque rectangle to leftVbox width
-        rectangleLeft.widthProperty().bind(leftVBox.prefWidthProperty());
-        rectangleLeft.heightProperty().bind(hboxForMap.prefHeightProperty());
+        backgroundImage.fitHeightProperty().bind(parentPane.heightProperty());
+        backgroundImage.fitWidthProperty().bind(parentPane.widthProperty());
 
         // bind Map to AnchorPane inside of ScrollPane
         map_imageView.fitWidthProperty().bind(scroll_AnchorPane.prefWidthProperty());
         map_imageView.fitHeightProperty().bind(scroll_AnchorPane.prefHeightProperty());
 
-//        primaryStage.widthProperty().addListener((obs, oldVal, newVal) -> {
-//            System.out.println("Old Value Width " + oldVal);
-//            System.out.println("New Value Width " + newVal);
-////            scrollPane_pathfind.prefViewportWidthProperty().set(newVal.floatValue());
+//        primaryStage.heightProperty().addListener((obs, oldVal, newVal) -> {
+//            primaryStage.show();
 //        });
 //
-//        primaryStage.heightProperty().addListener((obs, oldVal, newVal) -> {
-//            System.out.println("Old Value Height " + oldVal);
-//            System.out.println("new Value Height " + newVal);
+//        primaryStage.widthProperty().addListener((obs, oldVal, newVal) -> {
+//            primaryStage.show();
 //        });
 
 
@@ -91,20 +77,15 @@ public class UIControllerPFM extends UIController {
         scrollPane_pathfind.setHbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
         scrollPane_pathfind.setVbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
 
-//        scrollPane_pathfind.prefViewportHeightProperty().bind(parentAnchorPane.prefHeightProperty());
-        scrollPane_pathfind.prefViewportWidthProperty().bind(hboxForMap.prefWidthProperty());
+        interfaceGrid.prefHeightProperty().bind(hboxForMap.heightProperty());
 
-//        scrollPane_pathfind.setFitToHeight(true);
-//        scrollPane_pathfind.setFitToWidth(true);
+
+        scrollPane_pathfind.prefViewportWidthProperty().bind(hboxForMap.prefWidthProperty());
+//        scrollPane_pathfind.prefViewportHeightProperty().bind(hboxForMap.prefHeightProperty());
 
         // set value to "true" to use zoom functionality
         setZoomOn(true);
 
-
-        // path demo code
-//        path.getElements().add(new MoveTo(0.0f, 0.0f));
-//        path.getElements().add(new LineTo(100.0f, 100.0f));
-//        path.getElements().add(new LineTo(200.0f, 150.0f));
     }
 
     @Override
@@ -151,29 +132,22 @@ public class UIControllerPFM extends UIController {
     @FXML
     public void initLocChanged(ActionEvent actionEvent) {
         System.out.println("Initial location selected: " + initialLocationSelect.getValue());
-        String dest = destinationSelect.getValue();
-        String init = initialLocationSelect.getValue();
         Connection connection = DBController.dbConnect();
         initialID = DBController.IDfromLongName(initialLocationSelect.getValue(), connection);
 
-        if(!(dest == null || dest.length() == 0 || init == null || init.length() == 0))
-            getPath();
+        getPath();
     }
 
     @FXML
     public void destLocChanged(ActionEvent actionEvent) {
-        String value = destinationSelect.getValue();
-
         System.out.println("Initial location: " + initialLocationSelect.getValue());
-        System.out.println("Destination selected: " + value);
+        System.out.println("Destination selected: " + destinationSelect.getValue());
 
         Connection connection = DBController.dbConnect();
         destID = DBController.IDfromLongName(destinationSelect.getValue(), connection);
 
         // call getPath if not null
-        if (!(value == null || value.length() == 0)) {
-            getPath();
-        }
+        getPath();
     }
 
 
@@ -185,6 +159,12 @@ public class UIControllerPFM extends UIController {
     }
 
     private void getPath() {
+        String dest = destinationSelect.getValue();
+        String init = initialLocationSelect.getValue();
+
+        if(dest == null || dest.length() == 0 || init == null || init.length() == 0)
+            return;
+
         System.out.println("getPath called");
         Connection connection = DBController.dbConnect();
         List<String> pathIDs;
