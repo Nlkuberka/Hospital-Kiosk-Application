@@ -100,11 +100,13 @@
 
  .menu-bar{
      width: 100%; overflow: hidden;
+     -webkit-fx-pref-height:30;
      -fx-font-size: 12;
      -fx-font-weight: bold;
      -fx-text-fill:  #FFC41E;
 
-    /* -fx-background-image: url("\purple-orange-gradient.jpg");*/
+
+     /* -fx-background-image: url("\purple-orange-gradient.jpg");*/
  }
  .menu{
      -fx-text-fill:  #FFC41E;
@@ -158,9 +160,13 @@
     -fx-font-size: 12;
     -fx-font-weight: bold;
     -fx-text-fill: #090a0f;
-    -fx-pref-width: 290;
+
 }
 
+
+.cell-renderer{
+    -fx-background-insets:  2 3 2 2;
+}
 
 
 
