@@ -89,7 +89,7 @@ public class UIControllerPFM extends UIController {
         paneList.add(pane_02);
         paneList.add(pane_03);
 
-        floorSlider.setMax((double) mapList.size() - 0.001);
+        floorSlider.setMax((double) mapList.size() - 1.0);
         floorSlider.setValue(2.0);
         setOpacity(2);
 
@@ -279,7 +279,7 @@ public class UIControllerPFM extends UIController {
     public void zoom(ActionEvent actionEvent) {
 
         if (pane.getPrefWidth() < pane.getMaxWidth()) {
-            pane.setPrefSize(pane.getPrefWidth() * zoomFactor, pane.getPrefHeight() * zoomFactor);
+            this.setAllPaneSize(pane.getPrefWidth() * zoomFactor, pane.getPrefHeight() * zoomFactor);
         }
         if (this.currentPath != null)
             drawPath();
@@ -292,7 +292,7 @@ public class UIControllerPFM extends UIController {
     public void unZoom(ActionEvent actionEvent) {
 
         if (pane.getPrefWidth() > pane.getMinWidth()) {
-            pane.setPrefSize(pane.getPrefWidth() / zoomFactor, pane.getPrefHeight() / zoomFactor);
+            this.setAllPaneSize(pane.getPrefWidth() / zoomFactor, pane.getPrefHeight() / zoomFactor);
         }
         if (this.currentPath != null)
             drawPath();
@@ -304,21 +304,30 @@ public class UIControllerPFM extends UIController {
 
         System.out.println(value);
 
-        setOpacity((int) value);
+        setOpacity(value);
     }
 
-    private void setOpacity(int value) {
+    private void setOpacity(double value) {
         for (int i = 0; i < mapList.size(); i++) {
-            if (i == value) {
-                mapList.get(i).setOpacity(100.0);
-                pathList.get(i).setOpacity(100.0);
-                this.path = pathList.get(i);
-                this.map = mapList.get(i);
-                this.pane = paneList.get(i);
-            } else {
-                mapList.get(i).setOpacity(0.0);
-                pathList.get(i).setOpacity(0.0);
-            }
+            double difference = getDifference((double) i, value);
+            mapList.get(i).setOpacity(difference);
+            pathList.get(i).setOpacity(difference);
         }
+        this.path = pathList.get((int) value);
+        this.map = mapList.get((int) value);
+        this.pane = paneList.get((int) value);
+    }
+
+    private void setAllPaneSize(double width, double height) {
+        for (AnchorPane pane : this.paneList) {
+            pane.setPrefSize(width, height);
+        }
+    }
+
+    private double getDifference(double a, double b) {
+        double result = a - b;
+        result = result > 0.0 ? result : -result;
+        result = result > 1.0 ? 0.0 : 1.0 - result;
+        return result;
     }
 }
