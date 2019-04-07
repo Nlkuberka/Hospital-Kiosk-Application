@@ -2,6 +2,7 @@ package pathfinding;
 
 import application.DBController;
 import application.UIController;
+import com.jfoenix.controls.JFXSlider;
 import entities.Edge;
 import entities.Graph;
 import entities.Node;
@@ -13,6 +14,7 @@ import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.shape.LineTo;
 import javafx.scene.shape.MoveTo;
@@ -34,6 +36,7 @@ public class UIControllerPFM extends UIController {
     public HBox hboxForMap;
     public GridPane interfaceGrid;
     public StackPane parentPane;
+    public JFXSlider floorSlider;
     private Graph graph;
     private String initialID;
     private String destID;
@@ -43,10 +46,15 @@ public class UIControllerPFM extends UIController {
     //public VBox leftVBox;
     public ChoiceBox<String> destinationSelect;
     public ImageView backgroundImage;
-    public Path path;
+    private Path path;
     public MenuItem backButton;
     public ScrollPane scrollPane_pathfind;
-    public ImageView map_imageView;
+    @FXML
+    private ImageView map_02, map_01, map_03, map_00, map_001, map_002;
+    @FXML
+    private Path p_002, p_001, p_00, p_01, p_02, p_03;
+    private LinkedList<Path> pathList = new LinkedList<>();
+    private LinkedList<ImageView> mapList = new LinkedList<>();
     public AnchorPane scroll_AnchorPane;
     public Button zoom_button;
     public Button unzoom_button;
@@ -54,6 +62,23 @@ public class UIControllerPFM extends UIController {
 
     @FXML
     public void initialize() {
+        mapList.add(map_002);
+        mapList.add(map_001);
+        mapList.add(map_00);
+        mapList.add(map_01);
+        mapList.add(map_02);
+        mapList.add(map_03);
+
+        pathList.add(p_002);
+        pathList.add(p_001);
+        pathList.add(p_00);
+        pathList.add(p_01);
+        pathList.add(p_02);
+        pathList.add(p_03);
+
+        floorSlider.setMax((double) mapList.size() - 0.001);
+        floorSlider.setValue(2.0);
+        setOpacity(2);
 
         // bind background image size to window size
         // ensures auto resize works
@@ -61,8 +86,10 @@ public class UIControllerPFM extends UIController {
         backgroundImage.fitWidthProperty().bind(parentPane.widthProperty());
 
         // bind Map to AnchorPane inside of ScrollPane
-        map_imageView.fitWidthProperty().bind(scroll_AnchorPane.prefWidthProperty());
-        map_imageView.fitHeightProperty().bind(scroll_AnchorPane.prefHeightProperty());
+        for (ImageView map : mapList) {
+            map.fitWidthProperty().bind(scroll_AnchorPane.prefWidthProperty());
+            map.fitHeightProperty().bind(scroll_AnchorPane.prefHeightProperty());
+        }
 
 //        primaryStage.heightProperty().addListener((obs, oldVal, newVal) -> {
 //            primaryStage.show();
@@ -180,8 +207,8 @@ public class UIControllerPFM extends UIController {
     }
 
     private void drawPath() {
-        float scaleFx = (float) map_imageView.getFitWidth() / 5000.0f;
-        float scaleFy = (float) map_imageView.getFitHeight() / 3400.0f;
+        float scaleFx = (float) mapList.get((int) floorSlider.getValue()).getFitWidth() / 5000.0f;
+        float scaleFy = (float) mapList.get((int) floorSlider.getValue()).getFitHeight() / 3400.0f;
 
         System.out.println("ScaleFx: " + scaleFx + "  ScaleFy: " + scaleFy);
 
@@ -193,7 +220,7 @@ public class UIControllerPFM extends UIController {
         path.getElements().add(new MoveTo(x, y)); // move path to initLocation
 
         // get all XY pairs and turn them into lines
-        for (int i = 1; i < this.currentPath.size() - 1; i++) {
+        for (int i = 1; i < this.currentPath.size(); i++) {
             Node node = this.currentPath.get(i);
 
             x = (float) node.getXcoord() * scaleFx;
@@ -254,5 +281,27 @@ public class UIControllerPFM extends UIController {
         }
         if (this.currentPath != null)
             drawPath();
+    }
+
+    @FXML
+    public void chageFloor(MouseEvent mouseEvent) {
+        double value = floorSlider.getValue();
+
+        System.out.println(value);
+
+        setOpacity((int) value);
+    }
+
+    private void setOpacity(int value) {
+        for (int i = 0; i < mapList.size(); i++) {
+            if (i == value) {
+                mapList.get(i).setOpacity(100.0);
+                pathList.get(i).setOpacity(100.0);
+                this.path = pathList.get(i);
+            } else {
+                mapList.get(i).setOpacity(0.0);
+                pathList.get(i).setOpacity(0.0);
+            }
+        }
     }
 }
