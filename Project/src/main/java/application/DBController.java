@@ -590,6 +590,30 @@ public class DBController {
     }
 
     /**
+     * generateListOfUserReservations
+     *
+     * generates list of reservations made by the given user
+     * @param userID - ID of user whose reservations are being accessed
+     * @return - LinkedList of all reservations made by a user
+     */
+    public static LinkedList<Reservation> generateListofUserReservations(String userID ,Connection connection){
+        try{
+            Statement s = connection.createStatement();
+            ResultSet rs = s.executeQuery("select * from RESERVATIONS where USERID = '" + userID + "'");
+            LinkedList<Reservation> listOfReservations = new LinkedList<Reservation>();
+            while(rs.next()){
+                Reservation r = new Reservation(rs.getString(1),rs.getString(2),rs.getString(3),
+                                                rs.getString(4),rs.getString(5));
+                listOfReservations.add(r);
+            }
+            return listOfReservations;
+        }catch(SQLException e){
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    /**
      * nodeInsert
      *
      * helper method, inserts nodes into existing table
