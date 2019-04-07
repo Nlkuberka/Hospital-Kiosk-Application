@@ -11,6 +11,8 @@ import javafx.scene.control.Tab;
 import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;
 
+import java.sql.Connection;
+
 /**
  * The UIController for the Login screen
  * Allows a user to login, for admins to login, or for guests to enter
@@ -137,10 +139,12 @@ public class UIControllerLM extends UIController {
 
     private User checkLogin(String username, String password, int permissions) {
         User user = null;
-        // DB check username and password
+        Connection conn = DBController.dbConnect();
+        user = DBController.loginCheck(username,password,conn,permissions);
         if(user == null) {
             return null;
         }
+        DBController.closeConnection(conn);
         CurrentUser.user = user;
         return user;
     }

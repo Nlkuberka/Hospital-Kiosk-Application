@@ -485,7 +485,7 @@ public class DBController {
     public static User loginCheck(String username, String password, Connection conn, int permission){
             try{
                 PreparedStatement ps = conn.prepareStatement("SELECT * FROM USERS WHERE USERNAME = '"+ username + "'" +
-                        "AND PASSWORD = '"+ password +"' AND PERMISSION =" + permission);
+                        " AND PASSWORD = '"+ password +"' AND PERMISSION = " + permission);
                 if(ps.execute()) {
                     ResultSet rs = ps.getResultSet();
                     rs.next();
