@@ -1,5 +1,6 @@
 package application;
 
+import com.jfoenix.controls.JFXTextField;
 import entities.User;
 
 import javafx.beans.value.ChangeListener;
@@ -13,6 +14,7 @@ import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.lang.reflect.Method;
@@ -43,6 +45,9 @@ public class UIController {
     // The starting width and height of the window
     private static final int WIDTH = 900;
     private static final int HEIGHT = 600;
+
+    private static final int WIDTH_POPUP_WARNING = 300;
+    private static final int HEIGHT_POPUP_WARNING = 100;
 
     // Data storage about the stage
     private static Scene rootScene;
@@ -143,9 +148,6 @@ public class UIController {
 
         // If the scene has not yet been created
         if(scene == null) {
-            System.out.println(sceneFiles.get(sceneString));
-            System.out.println(getClass().getResource(sceneFiles.get(sceneString)));
-            System.out.println(System.getProperty("user.dir"));
             try {
                 //FXMLLoader fxmlLoader = new FXMLLoader(new File(System.getProperty("user.dir") + "/resources" + sceneFiles.get(sceneString)).toURI().toURL());
                 FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(sceneFiles.get(sceneString)));
@@ -168,16 +170,47 @@ public class UIController {
     }
 
     /**
+     * Pops up a window with the given warning that the user must acknowledge to continue
+     * @param message The warning string to dispaly
+     */
+    @FXML
+    public void popupMessage(String message, boolean isWarning) {
+        Stage stage = new Stage();
+        Scene scene = null;
+        UIControllerPUM controller = null;
+        try {
+            FXMLLoader fxmlLoader = isWarning ? new FXMLLoader(getClass().getResource("/popup_warning_main.fxml")) :  new FXMLLoader(getClass().getResource("/popup_message_main.fxml"));
+            Parent root = fxmlLoader.load();
+            scene = new Scene(root, WIDTH_POPUP_WARNING, HEIGHT_POPUP_WARNING);
+            controller = fxmlLoader.getController();
+        } catch(Exception e) {
+            e.printStackTrace();
+        }
+
+        stage.initOwner(primaryStage);
+        stage.initModality(Modality.APPLICATION_MODAL);
+
+        controller.setMessage(message);
+
+        stage.setTitle("Warning - Main");
+        stage.setScene(scene);
+        stage.showAndWait();
+        stage.setAlwaysOnTop(true);
+
+
+    }
+
+    /**
      * Switches the scene to the application menu
      * Used across all UIControllers
      */
     @FXML
     private void setHomeButton() {
-        if(CurrentUser.permissions == User.GUEST_PERMISSIONS) {
+        if(CurrentUser.user.getPermissions() == User.GUEST_PERMISSIONS) {
             this.goToScene(UIController.GUEST_MAIN_MENU_MAIN);
-        } else if(CurrentUser.permissions == User.BASIC_PERMISSIONS) {
+        } else if(CurrentUser.user.getPermissions() == User.BASIC_PERMISSIONS) {
             this.goToScene(UIController.USER_MAIN_MENU_MAIN);
-        } else if(CurrentUser.permissions == User.ADMIN_PERMISSIONS) {
+        } else if(CurrentUser.user.getPermissions() == User.ADMIN_PERMISSIONS) {
             this.goToScene(UIController.ADMIN_MAIN_MENU_MAIN);
         } else {
             this.goToScene(UIController.LOGIN_MAIN);
@@ -241,7 +274,7 @@ public class UIController {
      * @param <S> The object that is being displayed in the TableView
      */
     protected class EditableTextCell<T, S> extends TableCell<T, S> {
-        protected TextField textField = new TextField(); /**< The Textfield to edit*/
+        protected JFXTextField textField = new JFXTextField(); /**< The Textfield to edit*/
         protected Label label = new Label(); /**< The Label to display*/
         protected TableColumn column; /**< The column that the cell is in, used for width properties*/
         protected int index; /**< The Column index, used for per column commands*/

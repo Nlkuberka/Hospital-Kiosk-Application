@@ -20,6 +20,12 @@ public class User {
         this.permissions = permissions;
     }
 
+    public User(String userID, String username, int permissions) {
+        this.userID = userID;
+        this.username = username;
+        this.permissions = permissions;
+    }
+
     public String getUserID() {
         return userID;
     }
