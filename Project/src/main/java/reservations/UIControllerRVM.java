@@ -125,6 +125,18 @@ public class UIControllerRVM extends UIController {
         Connection conn = DBController.dbConnect();
         DBController.addReservation(r,conn);
 
-        System.out.println(r);
+
+        boolean valid = true;
+        //Check valid
+        if(valid) {
+            // DB Send
+            Connection conn = DBController.dbConnect();
+            DBController.addReservation(r,conn);
+            this.popupMessage("Your reservation has been confirmed.", false);
+            onShow();
+        } else {
+            this.popupMessage("Your reservation conflicts with another reservation.", true);
+        }
+
     }
 }

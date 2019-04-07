@@ -96,5 +96,8 @@ public class UIControllerSRM extends UIController {
         Connection conn = DBController.dbConnect();
         DBController.addServiceRequest(sr,conn);
         DBController.closeConnection(conn);
+
+        this.popupMessage("Your service request has been received.", false);
+        onShow();
     }
 }

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="150.0" prefWidth="300.0" style="-fx-background-color: #ffffff;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.UIControllerPUM">
+   <children>
+      <ImageView fitHeight="150.0" fitWidth="300.0" pickOnBounds="true">
+         <image>
+            <Image url="@pictures/MainMenu.png" />
+         </image>
+      </ImageView>
+      <AnchorPane layoutX="5.0" layoutY="25.0" prefHeight="120.0" prefWidth="290.0" style="-fx-background-color: #ffffff;">
+         <children>
+            <Label fx:id="warningLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="-1.0" layoutY="52.0" text="Unfortunatlly, this room has already been booked." wrapText="true" AnchorPane.leftAnchor="-1.0" AnchorPane.rightAnchor="1.0" AnchorPane.topAnchor="52.0" />
+            <ImageView fitHeight="40.0" fitWidth="40.0" layoutX="125.0" layoutY="3.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@icon/warning%20(1).png" />
+               </image>
+            </ImageView>
+         </children>
+      </AnchorPane>
+      <JFXButton fx:id="okButton" layoutX="100.0" layoutY="63.0" onAction="#setOkButton" styleClass="jfx-button-OK" stylesheets="@background.css" text="Ok" AnchorPane.bottomAnchor="12.0" AnchorPane.leftAnchor="100.0" AnchorPane.rightAnchor="100.0" />
+   </children>
+</AnchorPane>
