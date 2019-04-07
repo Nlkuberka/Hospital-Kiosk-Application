@@ -1,5 +1,6 @@
 package application;
 
+import com.jfoenix.controls.JFXTextField;
 import entities.User;
 
 import javafx.beans.value.ChangeListener;
@@ -147,9 +148,6 @@ public class UIController {
 
         // If the scene has not yet been created
         if(scene == null) {
-            System.out.println(sceneFiles.get(sceneString));
-            System.out.println(getClass().getResource(sceneFiles.get(sceneString)));
-            System.out.println(System.getProperty("user.dir"));
             try {
                 //FXMLLoader fxmlLoader = new FXMLLoader(new File(System.getProperty("user.dir") + "/resources" + sceneFiles.get(sceneString)).toURI().toURL());
                 FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(sceneFiles.get(sceneString)));
@@ -173,15 +171,15 @@ public class UIController {
 
     /**
      * Pops up a window with the given warning that the user must acknowledge to continue
-     * @param warning The warning string to dispaly
+     * @param message The warning string to dispaly
      */
     @FXML
-    public void popupWarning(String warning) {
+    public void popupMessage(String message, boolean isWarning) {
         Stage stage = new Stage();
         Scene scene = null;
         UIControllerPUM controller = null;
         try {
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/popup_main.fxml"));
+            FXMLLoader fxmlLoader = isWarning ? new FXMLLoader(getClass().getResource("/popup_warning_main.fxml")) :  new FXMLLoader(getClass().getResource("/popup_message_main.fxml"));
             Parent root = fxmlLoader.load();
             scene = new Scene(root, WIDTH_POPUP_WARNING, HEIGHT_POPUP_WARNING);
             controller = fxmlLoader.getController();
@@ -192,12 +190,14 @@ public class UIController {
         stage.initOwner(primaryStage);
         stage.initModality(Modality.APPLICATION_MODAL);
 
+        controller.setMessage(message);
+
         stage.setTitle("Warning - Main");
         stage.setScene(scene);
         stage.showAndWait();
         stage.setAlwaysOnTop(true);
 
-        controller.setWarning(warning);
+
     }
 
     /**
@@ -224,7 +224,7 @@ public class UIController {
      * @param methodName The method name of the getter
      * @param label The label to put the value into
      */
-    protected void runStringGetter(Object object, String methodName, Label label) {
+    public void runStringGetter(Object object, String methodName, Label label) {
         try {
             Method method = object.getClass().getMethod(methodName);
             label.setText("" + method.invoke(object));
@@ -241,7 +241,7 @@ public class UIController {
      * @param label The label to put the value into
      * @param textField The textField to put the value into
      */
-    protected void runStringGetterEditable(Object object, String methodName, Label label, TextField textField) {
+    public void runStringGetterEditable(Object object, String methodName, Label label, TextField textField) {
         try {
             Method method = object.getClass().getMethod(methodName);
             textField.setText("" + method.invoke(object));
@@ -259,7 +259,7 @@ public class UIController {
      * @param className The class of the argument for the setter
      * @param argument The argument of the given class to set to
      */
-    protected void runSetter(Object object, String methodName, Class className, Object argument) {
+    public void runSetter(Object object, String methodName, Class className, Object argument) {
         try {
             Method method = object.getClass().getMethod(methodName, className);
             method.invoke(object, argument);
@@ -274,7 +274,7 @@ public class UIController {
      * @param <S> The object that is being displayed in the TableView
      */
     protected class EditableTextCell<T, S> extends TableCell<T, S> {
-        protected TextField textField = new TextField(); /**< The Textfield to edit*/
+        protected JFXTextField textField = new JFXTextField(); /**< The Textfield to edit*/
         protected Label label = new Label(); /**< The Label to display*/
         protected TableColumn column; /**< The column that the cell is in, used for width properties*/
         protected int index; /**< The Column index, used for per column commands*/

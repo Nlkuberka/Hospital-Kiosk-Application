@@ -26,10 +26,10 @@ public class UIControllerPUM extends UIController {
 
     /**
      * Sets the warning label to the given string
-     * @param warning The warning string to display to the user
+     * @param message The warning string to display to the user
      */
-    public void setWarning(String warning) {
-        warningLabel.setText(warning);
+    public void setMessage(String message) {
+        warningLabel.setText(message);
     }
 
     /**

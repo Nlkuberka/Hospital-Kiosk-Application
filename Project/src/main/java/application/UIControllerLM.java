@@ -107,7 +107,7 @@ public class UIControllerLM extends UIController {
 
         User user = checkLogin(username, password, User.BASIC_PERMISSIONS);
         if(user == null) {
-            this.popupWarning("Incorrect username or password.");
+            this.popupMessage("Incorrect username or password.", true);
             return;
         }
 
@@ -119,11 +119,11 @@ public class UIControllerLM extends UIController {
      */
     @FXML
     private void setLoginAsAdminButton() {
-        String username = userUsernameTextField.getText();
-        String password = userPasswordTextField.getText();
+        String username = adminUsernameTextField.getText();
+        String password = adminPasswordTextField.getText();
         User user = checkLogin(username, password, User.ADMIN_PERMISSIONS);
         if(user == null) {
-            this.popupWarning("Incorrect username or password.");
+            this.popupMessage("Incorrect username or password.", true);
             return;
         }
 

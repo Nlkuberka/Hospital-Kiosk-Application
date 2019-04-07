@@ -1,9 +1,9 @@
 import junit.framework.TestCase;
 
-import java.lang.reflect.Array;
-import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
+import entities.Node;
+import entities.Graph;
 
 public class GraphJUnit extends TestCase {
     public void testShortestPath() {
