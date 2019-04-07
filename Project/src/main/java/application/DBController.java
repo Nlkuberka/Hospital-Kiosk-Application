@@ -5,12 +5,15 @@ import entities.Node;
 import entities.Reservation;
 import entities.ServiceRequest;
 
+import javax.xml.transform.Result;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.io.*;
 import java.sql.*;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
@@ -274,6 +277,27 @@ public class DBController {
             e.printStackTrace();
         }
     }
+    /**
+     * fetchNode
+     *
+     * generates an node object from data under given ID
+     *
+     * @param reservation
+     * @param connection
+     */
+    public static void updateReservation(Reservation reservation, Connection connection) {
+        try{
+            Statement s = connection.createStatement();
+            s.execute("UPDATE RESERVATIONS SET NODEID ='"+ reservation.getNodeID() +"'," +
+                    "USERID = '"+ reservation.getUserID() + "'," +
+                    "DAY = '" + reservation.getDate() + "'," +
+                    "STARTTIME = '" + reservation.getStartTime() + "'," +
+                    "ENDTIME = '" + reservation.getEndTime() + "'," +
+                    " where RSVID = '" + reservation.getRsvID() +"'");
+        }catch(SQLException e) {
+            e.printStackTrace();
+        }
+    }
 
     /**
      * fetchNode
@@ -455,17 +479,29 @@ public class DBController {
      */
     public static int addReservation(Reservation reservation, Connection connection){
         try{
-            //connection = DriverManager.getConnection("jdbc:derby:myDB");
-            PreparedStatement s = connection.prepareStatement("INSERT into RESERVATIONS (NODEID, USERID, DAY, STARTTIME, ENDTIME) values ('" + reservation.getNodeID() +"','" + reservation.getUserID() +
-                    "','"+ reservation.getDate() +"','"+ reservation.getStartTime() + "','" + reservation.getEndTime() + "')");
-            s.execute();
-            ResultSet rs = s.getGeneratedKeys();
-            rs.next();
-            return rs.getInt("RSVID");
+            Time startTime = Time.valueOf(reservation.getStartTime());
+            Time endTime = Time.valueOf(reservation.getEndTime());
+            Date date = new SimpleDateFormat("yyyy-MM-dd").parse(reservation.getDate());
+
+            if(!DBController.isRoomAvailable(reservation.getNodeID(), date, startTime, endTime, connection)) {
+                //connection = DriverManager.getConnection("jdbc:derby:myDB");
+                PreparedStatement s = connection.prepareStatement("INSERT into RESERVATIONS (NODEID, USERID, DAY, STARTTIME, ENDTIME) values ('" + reservation.getNodeID() +"','" + reservation.getUserID() +
+                        "','"+ reservation.getDate() +"','"+ reservation.getStartTime() + "','" + reservation.getEndTime() + "')",Statement.RETURN_GENERATED_KEYS);
+                s.execute();
+                ResultSet rs = s.getGeneratedKeys();
+                System.out.println(rs);
+                rs.next();
+                return rs.getInt(1);
+            }
+            else {
+                return -1; // Room is already reserved during the requested tie
+            }
         }catch(SQLException e) {
             e.printStackTrace();
-            return 0;
+        } catch (ParseException e) {
+            e.printStackTrace();
         }
+        return 0;
     }
 
 
@@ -637,6 +673,8 @@ public class DBController {
             return false;
         }
     }
+
+
 
     /**
      * exportData
