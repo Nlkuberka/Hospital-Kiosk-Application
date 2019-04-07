@@ -121,7 +121,6 @@ public class UIControllerLM extends UIController {
     private void setLoginAsAdminButton() {
         String username = userUsernameTextField.getText();
         String password = userPasswordTextField.getText();
-
         User user = checkLogin(username, password, User.ADMIN_PERMISSIONS);
         if(user == null) {
             this.popupWarning("Incorrect username or password.");
