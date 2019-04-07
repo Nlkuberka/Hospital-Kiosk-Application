@@ -18,26 +18,6 @@ public class Main extends Application {
 
         System.out.println("Collaborator is " + "X");
 
-        Connection connection = DBController.dbConnect();
-//        Reservation reservation = new Reservation("HRETL00202", "AMDIN0001", "2019-04-03", "18:30:00", "21:30:49");
-        Reservation reservation1 = new Reservation("HRETL00202", "AMDIN0001", "2019-04-06", "08:12:00", "10:41:50");
-        Reservation reservation2 = new Reservation("DHALL00902", "USER0001", "2019-04-09", "14:35:00", "16:20:00");
-        Reservation reservation3 = new Reservation("GDEPT01901", "AMDIN0001", "2019-04-14", "18:35:00", "21:52:09");
-
-        reservation1.setRsvID(DBController.addReservation(reservation1, connection));
-        System.out.println(reservation1.getRsvID());
-        reservation2.setRsvID(DBController.addReservation(reservation2, connection));
-        System.out.println(reservation2.getRsvID());
-        reservation3.setRsvID(DBController.addReservation(reservation3, connection));
-        System.out.println(reservation3.getRsvID());
-
-
-//        Reservation reservation1Edit = new Reservation("HRETL00202", "AMDIN0001", "2019-04-05", "18:35:00", "21:41:50");
-//
-//        DBController.updateReservation(reservation1Edit, connection);
-
-
-
 
 //        DBController.initializeAppDB();
 
