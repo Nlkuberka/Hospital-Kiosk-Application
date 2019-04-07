@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.effect.ColorAdjust?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="admintools.UIControllerATM">
+   <children>
+      <AnchorPane prefHeight="400.0" prefWidth="600.0" styleClass="bodybackground" stylesheets="@background.css">
+         <children>
+            <ImageView fitHeight="600.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@purple-orange-gradient.jpg" />
+               </image>
+            </ImageView>
+            <BorderPane>
+               <top>
+                  <MenuBar blendMode="ADD" prefWidth="900.0" style="-fx-background-color: white;" stylesheets="@background.css" BorderPane.alignment="CENTER">
+                    <menus>
+                      <Menu mnemonicParsing="false" text="Back">
+                        <items>
+                          <MenuItem fx:id="backMenuItem" mnemonicParsing="false" onAction="#setBackMenuItem" text="Go back to previous page" />
+                        </items>
+                      </Menu>
+                    </menus>
+                     <effect>
+                        <ColorAdjust brightness="0.19" contrast="0.1" hue="0.1" saturation="-0.44">
+                           <input>
+                              <DropShadow />
+                           </input>
+                        </ColorAdjust>
+                     </effect>
+                  </MenuBar>
+               </top>
+            </BorderPane>
+            <VBox layoutX="214.0" layoutY="140.0" />
+            <JFXButton fx:id="viewEdgesButton" buttonType="RAISED" layoutX="275.0" layoutY="222.0" onAction="#setViewEdgesButton" prefHeight="40.0" prefWidth="350.0" style="-fx-background-color: #ebaecd;" text="Edit Edges" textAlignment="CENTER" textFill="WHITE" wrapText="true">
+               <font>
+                  <Font name="System Bold" size="28.0" />
+               </font>
+            </JFXButton>
+            <Text fill="WHITE" layoutX="262.0" layoutY="156.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Administrator Tools">
+               <font>
+                  <Font name="System Bold" size="40.0" />
+               </font>
+            </Text>
+            <JFXButton fx:id="viewEdgesButton1" buttonType="RAISED" layoutX="275.0" layoutY="326.0" onAction="#setViewNodesButton" prefHeight="40.0" prefWidth="350.0" style="-fx-background-color: #ebaecd;" text="Edit Nodes" textAlignment="CENTER" textFill="WHITE" wrapText="true">
+               <font>
+                  <Font name="System Bold" size="28.0" />
+               </font>
+            </JFXButton>
+            <JFXButton fx:id="viewServiceRequestsButton" buttonType="RAISED" layoutX="275.0" layoutY="428.0" onAction="#setViewServiceRequestsButton" prefHeight="40.0" prefWidth="350.0" style="-fx-background-color: #ebaecd;" text="View Service Requests" textAlignment="CENTER" textFill="WHITE" wrapText="true">
+               <font>
+                  <Font name="System Bold" size="28.0" />
+               </font>
+            </JFXButton>
+         </children>
+      </AnchorPane>
+   </children>
+</AnchorPane>

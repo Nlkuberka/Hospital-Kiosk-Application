@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.effect.ColorAdjust?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="admintools.UIControllerATVN">
+   <children>
+      <AnchorPane prefHeight="600.0" prefWidth="900.0" styleClass="body-background" stylesheets="/background.css">
+         <children>
+            <ImageView fitWidth="900.0" opacity="0.6" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@purple-orange-gradient.jpg" />
+               </image>
+               <effect>
+                  <ColorAdjust brightness="-0.15" hue="0.05" />
+               </effect>
+            </ImageView>
+            <BorderPane>
+               <top>
+                  <MenuBar blendMode="MULTIPLY" nodeOrientation="LEFT_TO_RIGHT" prefWidth="900.0" style="-fx-background-color: #F6B6E2;" styleClass="menu" stylesheets="@background.css" BorderPane.alignment="CENTER">
+                    <menus>
+                      <Menu mnemonicParsing="false" text="Back">
+                        <items>
+                          <MenuItem fx:id="backButton" mnemonicParsing="false" onAction="#setBackButton" text="Go back to previous page" />
+                        </items>
+                      </Menu>
+                      <Menu fx:id="homeButton" mnemonicParsing="false" onAction="#setHomeButton" onShowing="#setHomeButton" text="Home">
+                           <items>
+                              <MenuItem mnemonicParsing="false" text="HOME" />
+                           </items></Menu>
+                    </menus>
+                     <effect>
+                        <ColorAdjust brightness="0.19" contrast="0.01" hue="0.01" saturation="-0.44">
+                           <input>
+                              <DropShadow />
+                           </input>
+                        </ColorAdjust>
+                     </effect>
+                  </MenuBar>
+               </top>
+               <center>
+                  <TableView fx:id="nodeTable" maxWidth="850.0" prefHeight="520.0" prefWidth="850.0" BorderPane.alignment="CENTER">
+                    <columns>
+                      <TableColumn prefWidth="60.0" text="NodeID" />
+                      <TableColumn prefWidth="60.0" text="xcrood" />
+                        <TableColumn prefWidth="60.0" text="ycrood" />
+                        <TableColumn prefWidth="60.0" text="floor" />
+                        <TableColumn prefWidth="60.0" text="building" />
+                        <TableColumn text="nodeType" />
+                        <TableColumn prefWidth="250.0" text="longName" />
+                        <TableColumn prefWidth="120.0" text="shortName" />
+                        <TableColumn prefWidth="100.0" text="Remove" />
+                    </columns>
+                  </TableView>
+               </center>
+            </BorderPane>
+            <JFXButton fx:id="addButton" buttonType="RAISED" layoutX="805.0" layoutY="557.0" onAction="#setAddButton" style="-fx-background-color: #ebaecd;" stylesheets="@background.css" text="Add Node" textFill="WHITE">
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font>
+            </JFXButton>
+         </children>
+      </AnchorPane>
+   </children>
+</AnchorPane>
