@@ -121,10 +121,6 @@ public class UIControllerRVM extends UIController {
         }
 
         Reservation r = new Reservation(nodeIDs.get((String) nodeSelect.getValue()), CurrentUser.user.getUserID(), format.format(date), startString, endString);
-        // DB Send
-        Connection conn = DBController.dbConnect();
-        DBController.addReservation(r,conn);
-
 
         boolean valid = true;
         //Check valid
