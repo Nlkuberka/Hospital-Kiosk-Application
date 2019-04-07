@@ -16,7 +16,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="UIControllerSRM">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="servicerequests.UIControllerSRM">
    <children>
       <AnchorPane prefHeight="600.0" prefWidth="900.0" styleClass="body-background" stylesheets="/background.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
@@ -52,11 +52,7 @@
             </ImageView>
             <ChoiceBox fx:id="roomSelect" prefWidth="150.0" style="-fx-background-color: #ffffff;" AnchorPane.leftAnchor="25.0" AnchorPane.topAnchor="100.0">
                <effect>
-                  <Blend mode="MULTIPLY" opacity="0.34">
-                     <topInput>
-                        <DropShadow />
-                     </topInput>
-                  </Blend>
+                  <Blend mode="MULTIPLY" opacity="0.34" />
                </effect>
             </ChoiceBox>
             <Text fill="WHITE" smooth="false" strokeType="OUTSIDE" strokeWidth="0.0" text="Select Your Room" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="65.0">
@@ -71,11 +67,7 @@
             </Text>
             <ChoiceBox fx:id="serviceSelect" prefHeight="0.0" prefWidth="150.0" style="-fx-background-color: #ffffff;" AnchorPane.leftAnchor="25.0" AnchorPane.topAnchor="175.0">
                <effect>
-                  <Blend mode="MULTIPLY" opacity="0.34">
-                     <topInput>
-                        <DropShadow />
-                     </topInput>
-                  </Blend>
+                  <Blend mode="MULTIPLY" opacity="0.34" />
                </effect>
             </ChoiceBox>
             <JFXTextArea fx:id="serviceMessage" layoutY="278.0" maxHeight="267.0" maxWidth="160.0" prefHeight="267.0" prefWidth="160.0" style="-fx-background-color: #ffffff;" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="270.0" />

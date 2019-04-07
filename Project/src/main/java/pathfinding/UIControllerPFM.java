@@ -5,9 +5,9 @@ import application.UIController;
 import entities.Edge;
 import entities.Graph;
 import entities.Node;
-
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.Group;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.MenuItem;
@@ -16,18 +16,18 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.scene.shape.LineTo;
-import javafx.scene.shape.MoveTo;
-import javafx.scene.shape.Path;
-import javafx.scene.shape.Rectangle;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.*;
 
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 
 /**
  * Controller for the path_find_main.fxml file
+ *
  * @author panagiotisargyrakis, dimitriberardi, ryano647
  */
 
@@ -37,6 +37,9 @@ public class UIControllerPFM extends UIController {
     private Graph graph;
     private String initialID;
     private String destID;
+    private Group circles = new Group();
+    Circle currentInitCircle;
+    Circle currentDestCircle;
 
     @FXML
     public ChoiceBox<String> initialLocationSelect;
@@ -105,6 +108,8 @@ public class UIControllerPFM extends UIController {
 //        path.getElements().add(new MoveTo(0.0f, 0.0f));
 //        path.getElements().add(new LineTo(100.0f, 100.0f));
 //        path.getElements().add(new LineTo(200.0f, 150.0f));
+        scroll_AnchorPane.getChildren().add(circles);
+        drawNodes();
     }
 
     @Override
@@ -139,13 +144,11 @@ public class UIControllerPFM extends UIController {
         for (Edge edge : allEdges) {
             try {
                 graph.addBiEdge(edge.getNode1ID(), edge.getNode2ID());
-            }
-            catch(IllegalArgumentException e) {
+            } catch (IllegalArgumentException e) {
 
             }
         }
     }
-
 
 
     @FXML
@@ -156,7 +159,7 @@ public class UIControllerPFM extends UIController {
         Connection connection = DBController.dbConnect();
         initialID = DBController.IDfromLongName(initialLocationSelect.getValue(), connection);
 
-        if(!(dest == null || dest.length() == 0 || init == null || init.length() == 0))
+        if (!(dest == null || dest.length() == 0 || init == null || init.length() == 0))
             getPath();
     }
 
@@ -199,9 +202,18 @@ public class UIControllerPFM extends UIController {
         drawPath();
     }
 
-    private void drawPath() {
+    private HashMap<String, Float> getScale() {
+        HashMap<String, Float> scales = new HashMap<>();
         float scaleFx = (float) map_imageView.getFitWidth() / 5000.0f;
         float scaleFy = (float) map_imageView.getFitHeight() / 3400.0f;
+        scales.put("scaleFx", scaleFx);
+        scales.put("scaleFy", scaleFy);
+        return scales;
+    }
+
+    private void drawPath() {
+        float scaleFx = getScale().get("scaleFx");
+        float scaleFy = getScale().get("scaleFy");
 
         System.out.println("ScaleFx: " + scaleFx + "  ScaleFy: " + scaleFy);
 
@@ -213,7 +225,7 @@ public class UIControllerPFM extends UIController {
         path.getElements().add(new MoveTo(x, y)); // move path to initLocation
 
         // get all XY pairs and turn them into lines
-        for (int i = 1; i < this.currentPath.size() - 1; i++) {
+        for (int i = 1; i < this.currentPath.size(); i++) {
             Node node = this.currentPath.get(i);
 
             x = (float) node.getXcoord() * scaleFx;
@@ -242,7 +254,6 @@ public class UIControllerPFM extends UIController {
     private double zoomFactor = 1.2;
 
     /**
-     *
      * @param bool Set in initialize() to turn on/off zoom functionality
      */
     private void setZoomOn(boolean bool) {
@@ -252,6 +263,7 @@ public class UIControllerPFM extends UIController {
 
     /**
      * Allows the map to increase in size, up to scroll_AnchorPane.getMaxWidth
+     *
      * @param actionEvent Triggered when zoom_button is pressed
      */
     public void zoom(ActionEvent actionEvent) {
@@ -261,10 +273,14 @@ public class UIControllerPFM extends UIController {
         }
         if (this.currentPath != null)
             drawPath();
+
+        circles.getChildren().clear();
+        drawNodes();
     }
 
     /**
      * Allows the map to decrease in size, down to scroll_AnchorPane.getMinWidth
+     *
      * @param actionEvent Triggered when zoom_button is pressed
      */
     public void unZoom(ActionEvent actionEvent) {
@@ -274,5 +290,59 @@ public class UIControllerPFM extends UIController {
         }
         if (this.currentPath != null)
             drawPath();
+
+        circles.getChildren().clear();
+        drawNodes();
     }
+
+    public void drawNodes() {
+        Connection conn = DBController.dbConnect();
+        LinkedList<Node> allNodes = DBController.generateListofNodes(conn);
+
+        try {
+            conn.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        float scaleFx = getScale().get("scaleFx");
+        float scaleFy = getScale().get("scaleFy");
+
+        float x;
+        float y;
+
+        // get all XY pairs and turn them into lines
+        for (int i = 0; i < allNodes.size(); i++) {
+            Node nodeCopy = allNodes.get(i);
+
+            if (nodeCopy.getFloor().equals("2")) {
+
+                x = (float) nodeCopy.getXcoord() * scaleFx;
+                y = (float) nodeCopy.getYcoord() * scaleFy;
+                Circle circle = new Circle(x, y, 3);
+
+                circle.setOnMouseClicked(e -> {
+                    if((initialLocationSelect.getValue() == null))
+                    {
+                        circle.setFill(javafx.scene.paint.Color.RED);
+                        initialLocationSelect.setValue(nodeCopy.getLongName());
+                    }
+                    else //if ((destinationSelect.getValue() == null))
+                    {
+                        if(!(currentDestCircle == null))
+                        {
+                            currentDestCircle.setFill(Color.BLACK);
+                        }
+                        currentDestCircle = circle;
+                        circle.setFill(javafx.scene.paint.Color.RED);
+                        destinationSelect.setValue(nodeCopy.getLongName());
+                    }
+                });
+
+                circles.getChildren().add(circle);
+            }
+        }
+    }
+
+
 }

@@ -11,48 +11,56 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="UIControllerMMM">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.UIControllerMMM">
    <children>
-      <AnchorPane prefHeight="600.0" prefWidth="900.0" styleClass="body-background" stylesheets="/backgroud.css">
+      <AnchorPane prefHeight="600.0" prefWidth="900.0">
          <children>
-            <ImageView fitWidth="900.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@purple-orange-gradient.jpg" />
-               </image>
-            </ImageView>
-            <BorderPane>
-               <top>
-                  <MenuBar blendMode="ADD" prefWidth="900.0" style="-fx-background-color: white;" stylesheets="@backgroud.css" BorderPane.alignment="CENTER">
-                    <menus>
-                      <Menu mnemonicParsing="false" text="Back">
-                        <items>
-                          <MenuItem fx:id="backMenuItem" mnemonicParsing="false" onAction="#setBackMenuItem" text="Go back to previouse page" />
-                        </items>
-                      </Menu>
-                    </menus>
-                  </MenuBar>
-               </top>
-            </BorderPane>
-            <JFXButton fx:id="serviceRequestButton" buttonType="RAISED" layoutX="250.0" layoutY="462.0" maxHeight="50.0" onAction="#setServiceRequestButton" prefHeight="50.0" prefWidth="400.0" style="-fx-background-color: #ebaecd;" text="Service Request" textFill="WHITE">
-               <font>
-                  <Font name="System Bold" size="25.0" />
-               </font>
-            </JFXButton>
-            <JFXButton fx:id="reservationsButton" buttonType="RAISED" layoutX="250.0" layoutY="343.0" maxHeight="50.0" onAction="#setReservationsButton" prefHeight="50.0" prefWidth="400.0" style="-fx-background-color: #ebaecd;" text="Reserve a Room" textFill="WHITE">
-               <font>
-                  <Font name="System Bold" size="25.0" />
-               </font>
-            </JFXButton>
-            <Text fill="WHITE" layoutX="331.0" layoutY="136.0" strokeType="OUTSIDE" strokeWidth="0.0" text="User's Home">
-               <font>
-                  <Font name="System Bold" size="40.0" />
-               </font>
-            </Text>
-            <JFXButton fx:id="pathfindingButton" buttonType="RAISED" layoutX="250.0" layoutY="223.0" maxHeight="50.0" onAction="#setPathfindingButton" prefHeight="50.0" prefWidth="400.0" style="-fx-background-color: #ebaecd;" text="Find Your Path" textFill="WHITE">
-               <font>
-                  <Font name="System Bold" size="25.0" />
-               </font>
-            </JFXButton>
+            <AnchorPane prefHeight="400.0" prefWidth="600.0">
+               <children>
+                  <AnchorPane prefHeight="400.0" prefWidth="600.0" styleClass="body-background" stylesheets="/background.css">
+                     <children>
+                        <ImageView fitHeight="600.0" fitWidth="900.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@purple-orange-gradient.jpg" />
+                           </image>
+                        </ImageView>
+                        <BorderPane>
+                           <top>
+                              <MenuBar blendMode="ADD" prefWidth="900.0" style="-fx-background-color: white;" stylesheets="@background.css" BorderPane.alignment="CENTER">
+                                <menus>
+                                  <Menu mnemonicParsing="false" text="Back">
+                                    <items>
+                                      <MenuItem fx:id="backMenuItem" mnemonicParsing="false" onAction="#setBackMenuItem" text="Go back to previouse page" />
+                                    </items>
+                                  </Menu>
+                                </menus>
+                              </MenuBar>
+                           </top>
+                        </BorderPane>
+                        <JFXButton fx:id="serviceRequestButton" buttonType="RAISED" layoutX="251.0" layoutY="426.0" maxHeight="50.0" onAction="#setServiceRequestButton" prefHeight="50.0" prefWidth="400.0" style="-fx-background-color: #ebaecd;" text="Service Request" textFill="WHITE">
+                           <font>
+                              <Font name="System Bold" size="25.0" />
+                           </font>
+                        </JFXButton>
+                        <JFXButton fx:id="reservationsButton" buttonType="RAISED" layoutX="251.0" layoutY="308.0" maxHeight="50.0" onAction="#setReservationsButton" prefHeight="50.0" prefWidth="400.0" style="-fx-background-color: #ebaecd;" text="Reserve a Room" textFill="WHITE">
+                           <font>
+                              <Font name="System Bold" size="25.0" />
+                           </font>
+                        </JFXButton>
+                        <Text fill="WHITE" layoutX="302.0" layoutY="140.0" strokeType="OUTSIDE" strokeWidth="0.0" text="User's Home">
+                           <font>
+                              <Font name="System Bold" size="50.0" />
+                           </font>
+                        </Text>
+                        <JFXButton fx:id="pathfindingButton" buttonType="RAISED" layoutX="250.0" layoutY="198.0" maxHeight="40.0" onAction="#setPathfindingButton" prefHeight="40.0" prefWidth="400.0" style="-fx-background-color: #ebaecd;" text="Find Your Path" textFill="WHITE">
+                           <font>
+                              <Font name="System Bold" size="25.0" />
+                           </font>
+                        </JFXButton>
+                     </children>
+                  </AnchorPane>
+               </children>
+            </AnchorPane>
          </children>
       </AnchorPane>
    </children>

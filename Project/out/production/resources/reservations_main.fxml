@@ -17,7 +17,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="UIControllerRVM">
+<AnchorPane prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="reservations.UIControllerRVM">
     <children>
         <AnchorPane prefHeight="600.0" prefWidth="900.0">
             <children>
@@ -32,11 +32,6 @@
                             <top>
                                 <MenuBar blendMode="ADD" prefWidth="600.0" style="-fx-background-color: white;" stylesheets="@background.css" BorderPane.alignment="CENTER">
                                     <menus>
-                                        <Menu mnemonicParsing="false" text="Back">
-                                            <items>
-                                                <MenuItem mnemonicParsing="false" onAction="#setHomeButton" text="Go back to previouse page" />
-                                            </items>
-                                        </Menu>
                                         <Menu mnemonicParsing="false" onShowing="#setHomeButton" text="Home">
                                  <items>
                                     <MenuItem mnemonicParsing="false" text="HOME" />
