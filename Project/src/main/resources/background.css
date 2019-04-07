@@ -105,7 +105,8 @@
      -fx-font-weight: bold;
      -fx-text-fill:  #FFC41E;
 
-    /* -fx-background-image: url("\purple-orange-gradient.jpg");*/
+
+     /* -fx-background-image: url("\purple-orange-gradient.jpg");*/
  }
  .menu{
      -fx-text-fill:  #FFC41E;
@@ -162,6 +163,35 @@
 
 }
 
+
+
+
+.anchor_pane{
+-fx-background-size: 600 400;
+-fx-background-radius: 30;
+-fx-border-radius: 30;
+-fx-border-width:5;
+-fx-border-color:  #ffc41e;
+}
+/*Text for view my reservations*/
+.text_view_my_reservation{
+    -fx-font-size: 28;
+    -fx-font-weight: bold;
+    -fx-text-fill: #015080;
+}
+
+/*Label settings for popups */
+.label{
+    -fx-font-size: 12;
+    -fx-font-weight: bold;
+    -fx-text-fill: #090a0f;
+
+}
+
+
+.cell-renderer{
+    -fx-background-insets:  2 3 2 2;
+}
 
 
 

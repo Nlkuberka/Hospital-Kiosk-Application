@@ -2,6 +2,7 @@
 
 <?import com.jfoenix.controls.JFXButton?>
 <?import javafx.scene.control.Label?>
+
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -24,5 +25,6 @@
          </children>
       </AnchorPane>
       <JFXButton fx:id="okButton" layoutX="100.0" layoutY="63.0" onAction="#setOkButton" styleClass="jfx-button-OK" stylesheets="@background.css" text="Ok" AnchorPane.bottomAnchor="12.0" AnchorPane.leftAnchor="100.0" AnchorPane.rightAnchor="100.0" />
+
    </children>
 </AnchorPane>
