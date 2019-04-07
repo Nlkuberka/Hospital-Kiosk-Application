@@ -4,8 +4,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
 
-import static java.lang.Math.abs;
-import static java.lang.Math.sqrt;
+import static java.lang.Math.*;
 
 
 public class Graph {
@@ -255,5 +254,38 @@ public class Graph {
         return adj.get(n).size();
     }
 
+    public String addAndReturnAngle(String ID1, String ID2) {
+
+        String direction = "N";
+        int node1Index = mapNodeIDToIndex(ID1);
+        int node2Index = mapNodeIDToIndex(ID2);
+
+        Node node1 = storedNodes.get(node1Index);
+        Node node2 = storedNodes.get(node2Index);
+        //calculate weight
+        double xWeight = abs(node1.getXcoord() - node2.getXcoord());
+        double yWeight = abs(node1.getYcoord() - node2.getYcoord());
+
+        int angle = (int) atan2(yWeight, xWeight);
+
+        if (angle <= 15 || angle >= 345) {
+            direction = "N";
+        } else if (angle > 15 && angle <= 75) {
+            direction = "NE";
+        } else if (angle > 75 && angle <= 105) {
+            direction = "E";
+        } else if (angle > 105 && angle <= 165) {
+            direction = "SE";
+        } else if (angle > 165 && angle <= 195) {
+            direction = "S";
+        } else if (angle > 195 && angle <= 255) {
+            direction = "SW";
+        } else if (angle > 255 && angle <= 285) {
+            direction = "W";
+        } else if (angle > 285 && angle <= 345) {
+            direction = "NW";
+        }
+        return direction;
+    }
 
 }
