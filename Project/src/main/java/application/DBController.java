@@ -639,6 +639,36 @@ public class DBController {
     }
 
     /**
+     * availableRooms
+     *
+     * Determines which rooms are available on the given date, and within the given times.
+     * @param day - The day where the availabilty of all rooms is being checked
+     * @param startTime - Check to see if each room is available after this time
+     * @param endTime - Check to see if each room is available before this time
+     * @return - A list of all the available rooms within the given parameters
+     */
+    public static LinkedList<Node> availableRooms(Date day, Time startTime, Time endTime, Connection connection){
+        try {
+            Statement s = connection.createStatement();
+            ResultSet rs = s.executeQuery("SELECT NODEID from NODES where DAY = '" + day + "' and " +
+                    "((STARTTIME > '" + startTime + "' and ENDTIME < '" + endTime + "') " +
+                    "OR (STARTTIME < '" + startTime + "' and ENDTIME > '" + startTime + "') " +
+                    "OR (STARTTIME < '" + endTime + "' and ENDTIME > '" + endTime + "'))");
+            LinkedList<Node> availableNodes = new LinkedList<>();
+            while(rs.next()){
+                Node node = new Node(rs.getString(1),rs.getInt(2),rs.getInt(3),
+                        rs.getString(4),rs.getString(5),rs.getString(6),
+                        rs.getString(7),rs.getString(8));
+                availableNodes.add(node);
+            }
+            return availableNodes;
+        }catch(SQLException e){
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    /**
      * exportData
      *
      * selects all content held in Nodes table and prints it to a file
