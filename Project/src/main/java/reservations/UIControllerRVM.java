@@ -3,6 +3,7 @@ package reservations;
 import application.CurrentUser;
 import application.DBController;
 import application.UIController;
+import entities.Node;
 import entities.Reservation;
 
 import com.jfoenix.controls.JFXButton;
@@ -28,7 +29,6 @@ import java.util.*;
  */
 public class UIControllerRVM extends UIController {
 
-    @FXML
     private Map<String, String> nodeIDs; /** < Holds the reference of the short names to nodeIDs*/
 
     @FXML
@@ -80,6 +80,19 @@ public class UIControllerRVM extends UIController {
         startTimePicker.setValue(LocalTime.now());
         endTimePicker.setValue(LocalTime.now());
         nodeSelect.getSelectionModel().selectFirst();
+    }
+
+    /**
+     * Updates the colorView based on the given date and times
+     */
+    @FXML
+    private void updateColorView() {
+        for(int i = 0; i < nodeSelect.getItems().size(); i++) {
+            String nodeID = nodeIDs.get(nodeSelect.getItems().get(i));
+            List<Reservation> reservations = new LinkedList<Reservation>();
+            //DB Get Reservations of Node
+            Reservation reservation = new Reservation("TEMP", "TEMP", "")
+        }
     }
 
     /**
