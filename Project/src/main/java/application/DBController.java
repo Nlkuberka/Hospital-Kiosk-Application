@@ -1,9 +1,6 @@
 package application;
 
-import entities.Edge;
-import entities.Node;
-import entities.Reservation;
-import entities.ServiceRequest;
+import entities.*;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -90,14 +87,16 @@ public class DBController {
         createTable(reservations,conn);
         createTable(servicerequest,conn);
 
-        loadNodeData(new File("nodesv3.csv"),conn);
-        loadEdgeData(new File("edgesv3.csv"),conn);
+        loadNodeData(new File("nodesv4.csv"),conn);
+        loadEdgeData(new File("edgesv5.csv"),conn);
 
         try {
             Statement s = conn.createStatement();
             s.execute("INSERT INTO USERS VALUES('USER0001',2,'user','user')");
             s.execute("INSERT INTO USERS VALUES('GUEST0001',1,'guest','guest')");
             s.execute("INSERT INTO USERS VALUES('ADMIN00001',3,'admin','admin')");
+            s.execute("INSERT INTO USERS VALUES('WWONG2',3,'staff','staff')");
+
         }catch(SQLException e){
             e.printStackTrace();
         }
@@ -610,12 +609,33 @@ public class DBController {
         }
     }
 
-    /**
-     * exportData
-     *
-     * selects all content held in Nodes table and prints it to a file
-     * @param filename name of output file
-     */
+
+    public static User loginCheck(String username, String password, Connection conn, int permission){
+            try{
+                //System.out.println(username + password + permission);
+                PreparedStatement ps = conn.prepareStatement("SELECT * FROM USERS WHERE USERNAME = '"+ username + "'" +
+                        " AND PASSWORD = '"+ password +"' AND PERMISSION = " + permission);
+                if(ps.execute()) {
+                    ResultSet rs = ps.getResultSet();
+                    rs.next();
+                    User curr = new User(rs.getString("USERID"),rs.getString("USERNAME"),rs.getInt("PERMISSION"));
+                    return curr;
+                }else{
+                    return null;
+                }
+            }catch(SQLException e){
+                e.printStackTrace();
+                return null;
+            }
+    }
+
+//    /**
+//     * exportData
+//     *
+//     * selects all content held in Nodes table and prints it to a file
+//     * @param filename name of output file
+//     */
+
 //    public void exportData(String filename) {
 //        Connection connection = null;
 //        Statement stmt;

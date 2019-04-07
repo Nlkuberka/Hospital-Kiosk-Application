@@ -206,11 +206,11 @@ public class UIController {
      */
     @FXML
     private void setHomeButton() {
-        if(CurrentUser.permissions == User.GUEST_PERMISSIONS) {
+        if(CurrentUser.user.getPermissions() == User.GUEST_PERMISSIONS) {
             this.goToScene(UIController.GUEST_MAIN_MENU_MAIN);
-        } else if(CurrentUser.permissions == User.BASIC_PERMISSIONS) {
+        } else if(CurrentUser.user.getPermissions() == User.BASIC_PERMISSIONS) {
             this.goToScene(UIController.USER_MAIN_MENU_MAIN);
-        } else if(CurrentUser.permissions == User.ADMIN_PERMISSIONS) {
+        } else if(CurrentUser.user.getPermissions() == User.ADMIN_PERMISSIONS) {
             this.goToScene(UIController.ADMIN_MAIN_MENU_MAIN);
         } else {
             this.goToScene(UIController.LOGIN_MAIN);
