@@ -6,17 +6,18 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class GraphJUnit extends TestCase {
+    @Test
     public void testShortestPath() {
-        Node n0 = new Node("N0", 0, 0, "", "", "", "", "");
-        Node n1 = new Node("N1", 1, 1, "", "", "", "", "");
-        Node n2 = new Node("N2", 2, 2, "", "", "", "", "");
-        Node n3 = new Node("N3", 4, 1, "", "", "", "", "");
-        Node n4 = new Node("N4", 1, 4, "", "", "", "", "");
-        Node n5 = new Node("N5", 3, 2, "", "", "", "", "");
-        Node n6 = new Node("N6", 1, 0, "", "", "", "", "");
-        Node n7 = new Node("N7", 2, 0, "", "", "", "", "");
-        Node n8 = new Node("N8", 3, 0, "", "", "", "", "");
-        Node n9 = new Node("N9", 4, 0, "", "", "", "", "");
+        Node n0 = new Node("N0", 0, 0, "", "", "", "Jon", "");
+        Node n1 = new Node("N1", 1, 1, "", "", "", "Nicole", "");
+        Node n2 = new Node("N2", 2, 2, "", "", "", "Joe", "");
+        Node n3 = new Node("N3", 4, 1, "", "", "", "Ryan", "");
+        Node n4 = new Node("N4", 1, 4, "", "", "", "Dimitri", "");
+        Node n5 = new Node("N5", 3, 2, "", "", "", "Panos", "");
+        Node n6 = new Node("N6", 1, 0, "", "", "", "Shiyi", "");
+        Node n7 = new Node("N7", 2, 0, "", "", "", "Isabel", "");
+        Node n8 = new Node("N8", 3, 0, "", "", "", "Henry", "");
+        Node n9 = new Node("N9", 4, 0, "", "", "", "Rakesh", "");
         LinkedList<Node> nodes = new LinkedList<>();
         nodes.add(n0);
         nodes.add(n1);
@@ -50,6 +51,7 @@ public class GraphJUnit extends TestCase {
         expected.add("N9");
         expected.add("N3");
         assertEquals(expected, path);
+        System.out.println();
     }
 
     public void testRealNodes() {

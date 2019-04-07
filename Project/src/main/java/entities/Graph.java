@@ -254,7 +254,7 @@ public class Graph {
         return adj.get(n).size();
     }
 
-    public String addAndReturnAngle(String ID1, String ID2) {
+    public String returnAngle(String ID1, String ID2) {
 
         String direction = "N";
         int node1Index = mapNodeIDToIndex(ID1);
@@ -266,7 +266,7 @@ public class Graph {
         double xWeight = abs(node1.getXcoord() - node2.getXcoord());
         double yWeight = abs(node1.getYcoord() - node2.getYcoord());
 
-        int angle = (int) atan2(yWeight, xWeight);
+        int angle = (int) Math.atan2(yWeight, xWeight) * 180;
 
         if (angle <= 15 || angle >= 345) {
             direction = "N";
@@ -285,17 +285,20 @@ public class Graph {
         } else if (angle > 285 && angle <= 345) {
             direction = "NW";
         }
+
         return direction;
     }
 
     public String textDirections(List<String> NodeIDS){
         String directions = "";
         for(int i = 0; i < NodeIDS.size()-1; i++){
-            directions += addAndReturnAngle(NodeIDS.get(i), NodeIDS.get(i+1))
+            int currentNodeIndex = mapNodeIDToIndex(NodeIDS.get(i));
+            int nextNodeIndex = mapNodeIDToIndex(NodeIDS.get(i+1));
+                    directions += returnAngle(NodeIDS.get(i), NodeIDS.get(i+1))
                     + " "
-                    + adjWeights.get(i).get(i+1)
+                    + adjWeights.get(currentNodeIndex).get(nextNodeIndex)
                     + " pixels to "
-                    + storedNodes.get(mapNodeIDToIndex(NodeIDS.get(i+1))).getLongName();
+                    + storedNodes.get(nextNodeIndex).getLongName();
         }
         return directions;
     }
