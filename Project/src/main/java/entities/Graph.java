@@ -288,4 +288,16 @@ public class Graph {
         return direction;
     }
 
+    public String textDirections(List<String> NodeIDS){
+        String directions = "";
+        for(int i = 0; i < NodeIDS.size()-1; i++){
+            directions += addAndReturnAngle(NodeIDS.get(i), NodeIDS.get(i+1))
+                    + " "
+                    + adjWeights.get(i).get(i+1)
+                    + " pixels to "
+                    + storedNodes.get(mapNodeIDToIndex(NodeIDS.get(i+1))).getLongName();
+        }
+        return directions;
+    }
+
 }
