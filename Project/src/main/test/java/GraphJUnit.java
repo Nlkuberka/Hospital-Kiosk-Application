@@ -1,8 +1,9 @@
-import com.sun.corba.se.impl.orbutil.graph.Graph;
 import junit.framework.TestCase;
 
 import java.util.LinkedList;
 import java.util.List;
+import entities.Node;
+import entities.Graph;
 
 public class GraphJUnit extends TestCase {
     public void testShortestPath() {
