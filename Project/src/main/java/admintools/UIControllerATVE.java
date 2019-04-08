@@ -87,6 +87,7 @@ public class UIControllerATVE extends UIController {
                         if(textField.getText().length() > lengthRequirements[index]) {
                             setGraphic(label);
                             textField.setText(label.getText());
+                            popupMessage("Field must have equal to or less than " +  lengthRequirements[index] + " characters.", true);
                             return;
                         }
                         runSetter(edge, edgeSetters[index], String.class, textField.getText());
