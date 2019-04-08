@@ -473,7 +473,7 @@ public class DBController {
             Statement s = connection.createStatement();
             ResultSet rs = s.executeQuery("SELECT * FROM NODES where LONGNAME = '" + longName + "'");
             rs.next();
-            String ID = rs.getString(1);
+             String ID = rs.getString(1);
             return ID;
         }catch(SQLException e) {
             e.printStackTrace();

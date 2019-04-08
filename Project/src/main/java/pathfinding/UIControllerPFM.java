@@ -121,7 +121,7 @@ public class UIControllerPFM extends UIController {
 
         LinkedList<Node> usefulNodes = new LinkedList<>();
         for (Node node : allNodes) {
-            if (node.getFloor().equals("2") && node.getBuilding().equals("Tower")) {
+            if (node.getFloor().equals("2") && !node.getNodeType().equals("HALL") && !node.getNodeType().equals("STAI")) {
                 // update choices for initial location
                 initialLocationSelect.getItems().add(node.getLongName());
                 // update choices for destination location
@@ -149,6 +149,18 @@ public class UIControllerPFM extends UIController {
         Connection connection = DBController.dbConnect();
         initialID = DBController.IDfromLongName(initialLocationSelect.getValue(), connection);
 
+        for (javafx.scene.Node n : circles.getChildren()) {
+            if (n.getId().equals(initialID)) {
+                if (!(currentInitCircle == null)) {
+                    currentInitCircle.setFill(Color.BLACK);
+                    currentInitCircle.setRadius(3);
+                }
+                currentInitCircle = ((Circle) n);
+                currentInitCircle.setRadius(5);
+                currentInitCircle.setFill(Color.LIGHTGREEN);
+            }
+        }
+
         getPath();
     }
 
@@ -159,6 +171,18 @@ public class UIControllerPFM extends UIController {
 
         Connection connection = DBController.dbConnect();
         destID = DBController.IDfromLongName(destinationSelect.getValue(), connection);
+
+        for (javafx.scene.Node n : circles.getChildren()) {
+            if (n.getId().equals(destID)) {
+                if (!(currentDestCircle == null)) {
+                    currentDestCircle.setFill(Color.BLACK);
+                    currentDestCircle.setRadius(3);
+                }
+                currentDestCircle = ((Circle) n);
+                currentDestCircle.setRadius(5);
+                currentDestCircle.setFill(Color.RED);
+            }
+        }
 
         // call getPath if not null
         getPath();
@@ -176,7 +200,7 @@ public class UIControllerPFM extends UIController {
         String dest = destinationSelect.getValue();
         String init = initialLocationSelect.getValue();
 
-        if(dest == null || dest.length() == 0 || init == null || init.length() == 0)
+        if (dest == null || dest.length() == 0 || init == null || init.length() == 0)
             return;
 
         System.out.println("getPath called");
@@ -306,26 +330,28 @@ public class UIControllerPFM extends UIController {
         for (int i = 0; i < allNodes.size(); i++) {
             Node nodeCopy = allNodes.get(i);
 
-            if (nodeCopy.getFloor().equals("2")) {
+            if (nodeCopy.getFloor().equals("2") && !nodeCopy.getNodeType().equals("HALL") && !nodeCopy.getNodeType().equals("STAI")) {
 
                 x = (float) nodeCopy.getXcoord() * scaleFx;
                 y = (float) nodeCopy.getYcoord() * scaleFy;
                 Circle circle = new Circle(x, y, 3);
+                circle.setId(nodeCopy.getNodeID());
 
                 circle.setOnMouseClicked(e -> {
-                    if((initialLocationSelect.getValue() == null))
-                    {
-                        circle.setFill(javafx.scene.paint.Color.RED);
+                    if ((initialLocationSelect.getValue() == null)) {
+                        currentInitCircle = circle;
+                        currentInitCircle.setFill(Color.GREEN);
+                        currentInitCircle.setRadius(5);
                         initialLocationSelect.setValue(nodeCopy.getLongName());
-                    }
-                    else //if ((destinationSelect.getValue() == null))
+                    } else //if ((destinationSelect.getValue() == null))
                     {
-                        if(!(currentDestCircle == null))
-                        {
+                        if (!(currentDestCircle == null)) {
                             currentDestCircle.setFill(Color.BLACK);
+                            currentDestCircle.setRadius(3);
                         }
                         currentDestCircle = circle;
-                        circle.setFill(javafx.scene.paint.Color.RED);
+                        currentDestCircle.setFill(Color.RED);
+                        currentDestCircle.setRadius(5);
                         destinationSelect.setValue(nodeCopy.getLongName());
                     }
                 });
