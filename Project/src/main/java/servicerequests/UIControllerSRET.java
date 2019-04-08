@@ -19,12 +19,14 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class UIControllerETSR extends UIController {
+public class UIControllerSRET extends UIController {
     String serviceType;
     Map<String, String> nodeIDs; /**< Holds reference between node short name and nodeID*/
 
+
+
     @FXML
-    private ChoiceBox roomSelect;
+    private ChoiceBox<String> roomSelect;
 
     @FXML
     private TextArea serviceMessage;
@@ -47,7 +49,7 @@ public class UIControllerETSR extends UIController {
         // DB Get all Nodes
         try {
             Connection conn = DBController.dbConnect();
-            ResultSet rs = conn.createStatement().executeQuery("Select * From NODES where FLOOR = '2' AND BUILDING = 'Tower'");
+            ResultSet rs = conn.createStatement().executeQuery("Select * From NODES where NODETYPE = 'EXIT'");
             while (rs.next()) {
                 nodeIDs.put(rs.getString("SHORTNAME"), rs.getString("NODEID"));
                 nodeShortNames.add(rs.getString("SHORTNAME"));
