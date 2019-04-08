@@ -13,17 +13,13 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="UIControllerLM">
+<AnchorPane prefHeight="600.0" prefWidth="900.0" style="-fx-background-color: #ffffff;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.UIControllerLM">
    <children>
-<<<<<<< HEAD
       <AnchorPane prefHeight="600.0" prefWidth="900.0" styleClass="body-background" stylesheets="/background.css">
-=======
-      <AnchorPane prefHeight="400.0" prefWidth="600.0" styleClass="body-background" stylesheets="/background.css">
->>>>>>> pathfinding
          <children>
-            <ImageView fitWidth="900.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitWidth="900.0" layoutY="200.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@purple-orange-gradient.jpg" />
+                  <Image url="@MainMenu.png" />
                </image>
             </ImageView>
             <BorderPane prefHeight="35.0" prefWidth="900.0">
@@ -31,13 +27,31 @@
                   <Blend />
                </effect>
                <top>
-<<<<<<< HEAD
                   <JFXTabPane prefHeight="600.0" prefWidth="900.0" stylesheets="@background.css" BorderPane.alignment="CENTER">
-=======
-                  <JFXTabPane prefHeight="400.0" prefWidth="600.0" stylesheets="@background.css" BorderPane.alignment="CENTER">
->>>>>>> pathfinding
                      <tabs>
-                        <Tab fx:id="user_tab" text="User">
+                        <Tab text="Guest">
+                          <content>
+                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                 <children>
+                                    <Text fill="WHITE" layoutX="82.0" layoutY="256.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Welcome to Brigham &amp; Women’s Hospital! " textAlignment="CENTER" AnchorPane.leftAnchor="82.0" AnchorPane.topAnchor="217.15234375">
+                                       <font>
+                                          <Font name="System Bold Italic" size="36.0" />
+                                       </font>
+                                    </Text>
+                                    <JFXButton fx:id="loginAsGuestButton" layoutX="349.0" layoutY="334.0" onAction="#setLoginAsGuestButton" styleClass="jfx-button-login" stylesheets="@background.css" text="Continue As A Guest" textFill="WHITE">
+                                       <font>
+                                          <Font name="System Bold Italic" size="14.0" />
+                                       </font>
+                                    </JFXButton>
+                                    <ImageView fitHeight="150.0" fitWidth="300.0" layoutX="300.0" layoutY="38.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@BWH.JPG" />
+                                       </image>
+                                    </ImageView>
+                                 </children></AnchorPane>
+                          </content>
+                        </Tab>
+                        <Tab fx:id="user_tab" style="-fx-text-fill: #090a0f;" text="User">
                            <content>
                               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="6.0">
                                  <children>
@@ -53,12 +67,17 @@
                                           <Font size="25.0" />
                                        </font>
                                     </Text>
-                                    <Text fill="WHITE" layoutX="361.0" layoutY="148.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Hi, User">
+                                    <Text fill="#090a0f" layoutX="361.0" layoutY="130.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Hi, User">
                                        <font>
                                           <Font name="System Bold Italic" size="48.0" />
                                        </font>
                                     </Text>
-                                    <JFXButton fx:id="loginAsUserButton" layoutX="422.0" layoutY="440.0" onAction="#setLoginAsUserButton" style="-fx-background-color: #ebaecd;fx-font-weight: bold" textFill="WHITE" text="Login" textAlignment="CENTER" />
+                                    <JFXButton fx:id="loginAsUserButton" layoutX="417.0" layoutY="400.0" onAction="#setLoginAsUserButton" styleClass="jfx-button-login" stylesheets="@background.css" text="Login" textAlignment="CENTER" textFill="WHITE" />
+                                    <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="15.0" layoutY="20.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@BWH.JPG" />
+                                       </image>
+                                    </ImageView>
                                  </children>
                               </AnchorPane>
                            </content>
@@ -69,7 +88,7 @@
                                  <children>
                                     <JFXTextField fx:id="adminUsernameTextField" layoutX="350.0" layoutY="238.0" opacity="0.8" prefHeight="35.0" prefWidth="200.0" promptText="Username" style="-fx-background-color: #ffffff;" />
                                     <JFXPasswordField fx:id="adminPasswordTextField" layoutX="350.0" layoutY="335.0" opacity="0.8" prefHeight="35.0" prefWidth="200.0" promptText="Password" style="-fx-background-color: #ffffff;" />
-                                    <JFXButton fx:id="loginAsAdminButton" layoutX="423.0" layoutY="440.0" onAction="#setLoginAsAdminButton" style="-fx-background-color: #ebaecd; fx-font-weight: bold" textFill="WHITE" text="Login" textAlignment="CENTER">
+                                    <JFXButton fx:id="loginAsAdminButton" layoutX="417.0" layoutY="400.0" onAction="#setLoginAsAdminButton" styleClass="jfx-button-login" stylesheets="@background.css" text="Login" textAlignment="CENTER" textFill="WHITE">
                                        <font>
                                           <Font name="System Bold" size="15.0" />
                                        </font>
@@ -84,30 +103,18 @@
                                           <Font size="25.0" />
                                        </font>
                                     </Text>
-                                    <Text fill="WHITE" layoutX="280.0" layoutY="160.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Hi, Administrator">
+                                    <Text fill="#090a0f" layoutX="280.0" layoutY="130.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Hi, Administrator">
                                        <font>
                                           <Font name="System Bold Italic" size="48.0" />
                                        </font>
                                     </Text>
+                                    <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="15.0" layoutY="20.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@BWH.JPG" />
+                                       </image>
+                                    </ImageView>
                                  </children>
                               </AnchorPane>
-                          </content>
-                        </Tab>
-                        <Tab text="Guest">
-                          <content>
-                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                                 <children>
-                                    <Text fill="WHITE" layoutX="82.0" layoutY="255.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Welcome to Brigham &amp; Women’s Hospital! " textAlignment="CENTER" AnchorPane.leftAnchor="82.0" AnchorPane.topAnchor="216.15234375">
-                                       <font>
-                                          <Font name="System Bold Italic" size="36.0" />
-                                       </font>
-                                    </Text>
-                                    <JFXButton fx:id="loginAsGuestButton" layoutX="381.0" layoutY="334.0" onAction="#setLoginAsGuestButton" style="-fx-background-color: #ebaecd;" textFill="WHITE" text="Continue As A Guest">
-                                       <font>
-                                          <Font name="System Bold Italic" size="14.0" />
-                                       </font>
-                                    </JFXButton>
-                                 </children></AnchorPane>
                           </content>
                         </Tab>
                      </tabs>
