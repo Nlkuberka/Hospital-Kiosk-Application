@@ -266,7 +266,8 @@ public class Graph {
         double xWeight = abs(node1.getXcoord() - node2.getXcoord());
         double yWeight = abs(node1.getYcoord() - node2.getYcoord());
 
-        int angle = (int) Math.atan2(yWeight, xWeight) * 180;
+        double angle = Math.atan2(yWeight, xWeight) * 180;
+        System.out.println(angle);
 
         if (angle <= 15 || angle >= 345) {
             direction = "N";
@@ -291,14 +292,23 @@ public class Graph {
 
     public String textDirections(List<String> NodeIDS){
         String directions = "";
+        String commaOrPeriod = ",";
         for(int i = 0; i < NodeIDS.size()-1; i++){
+            if(i == NodeIDS.size()-1) {
+                commaOrPeriod = ".";
+            }
+            else{
+                commaOrPeriod = ", ";
+            }
             int currentNodeIndex = mapNodeIDToIndex(NodeIDS.get(i));
             int nextNodeIndex = mapNodeIDToIndex(NodeIDS.get(i+1));
+            //System.out.println(returnAngle(NodeIDS.get(i), NodeIDS.get(i+1)));
                     directions += returnAngle(NodeIDS.get(i), NodeIDS.get(i+1))
                     + " "
-                    + adjWeights.get(currentNodeIndex).get(nextNodeIndex)
-                    + " pixels to "
-                    + storedNodes.get(nextNodeIndex).getLongName();
+                    + (int) (adjWeights.get(currentNodeIndex).getFirst() * 25)
+                    + " feet to "
+                    + storedNodes.get(nextNodeIndex).getLongName()
+                    + commaOrPeriod;
         }
         return directions;
     }
