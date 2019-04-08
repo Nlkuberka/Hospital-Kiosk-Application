@@ -87,7 +87,7 @@ public class DBController {
                 " ROOMNAME VARCHAR(50),\n" +
                 " CAPACITY INT,\n" +
                 " OUTLINE VARCHAR(150),\n" +
-                " CONSTRAINT WK_PK PRIMARY KEY(WKPLACEID)
+                " CONSTRAINT WK_PK PRIMARY KEY(WKPLACEID) " +
                 ")\n";
 
 
