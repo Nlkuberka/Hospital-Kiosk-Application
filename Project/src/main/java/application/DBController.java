@@ -82,6 +82,12 @@ public class DBController {
                 "  ENDTIME TIME,\n" +
                 "  CONSTRAINT RSV_PK PRIMARY KEY(RSVID)\n" +
                 ")\n";
+        String workplaces = "CREATE TABLE WORKPLACES(\n" +
+                " WKPLACEID VARCHAR(10),\n" +
+                " ROOMNAME VARCHAR(50),\n" +
+                " CAPACITY INT,\n" +
+                " OUTLINE VARCHAR(150),\n" +
+                ")\n";
 
 
 
@@ -90,6 +96,7 @@ public class DBController {
         createTable(user,conn);
         createTable(reservations,conn);
         createTable(servicerequest,conn);
+        createTable(workplaces, conn);
 
         loadNodeData(new File("nodesv4.csv"),conn);
         loadEdgeData(new File("edgesv5.csv"),conn);
@@ -190,6 +197,31 @@ public class DBController {
                         "values ('"+ arr[0] + "','"+ arr[1]+"','"+ arr[2]+"')");
             }
         }catch(Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * loadWorkplaceData
+     *
+     * reads and stores workplace data from given csv file
+     *
+     * @param file
+     * @param connection
+     */
+    public static void loadWorkplaceData(File file, Connection connection) {
+        BufferedReader br = null;
+        String line = "";
+        String[] arr;
+        try {
+            br = new BufferedReader(new FileReader(file));
+            br.readLine();
+            while((line = br.readLine()) != null) {
+                arr = line.split(",");
+                connection.createStatement().execute("insert into EDGES " +
+                        "values ('"+ arr[0] + "','"+ arr[1]+ "','"+ arr[2]+ "','"+ arr[3]+"')");
+            }
+        }catch(Exception e) {
             e.printStackTrace();
         }
     }
