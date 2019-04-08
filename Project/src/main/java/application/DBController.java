@@ -100,6 +100,7 @@ public class DBController {
 
         loadNodeData(new File("nodesv4.csv"),conn);
         loadEdgeData(new File("edgesv5.csv"),conn);
+//        loadWorkplaceData(new File( "workplaces.csv"),conn);
 
         try {
             Statement s = conn.createStatement();
