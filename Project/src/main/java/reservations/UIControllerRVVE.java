@@ -213,17 +213,6 @@ public class UIControllerRVVE extends UIController {
     }
 
     /**
-     * Adds an empty to the table
-     */
-    @FXML
-    private void setAddButton() {
-        Connection connection = DBController.dbConnect();
-        Reservation reservation = new Reservation("", "", "", "", "");
-        DBController.addReservation(reservation, connection);
-        reservationTable.getItems().add(reservation);
-    }
-
-    /**
      * Goes back to the admin tools application menu
      */
     @FXML
