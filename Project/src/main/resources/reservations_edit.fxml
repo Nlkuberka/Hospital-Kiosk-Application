@@ -54,7 +54,7 @@
                         <TableColumn minWidth="0.0" prefWidth="123.66668701171875" text="Date" />
                         <TableColumn minWidth="0.0" prefWidth="141.33331298828125" text="Start Time" />
                         <TableColumn minWidth="0.0" prefWidth="144.66668701171875" text="End Time" />
-                        <TableColumn prefWidth="65.66668701171875" text="Remove" />
+                        <TableColumn prefWidth="65.66668701171875" />
                     </columns>
                   </TableView>
                </center>

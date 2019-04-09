@@ -17,6 +17,9 @@ import java.lang.reflect.Method;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Time;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -108,8 +111,45 @@ public class UIControllerRVVE extends UIController {
 //                        }
 //                        System.out.println(reservation);
 
+//                        Time startTime = Time.valueOf(reservation.getStartTime());
+//                        Time endTime = Time.valueOf(reservation.getEndTime());
+//                        Date date = new SimpleDateFormat("yyyy-MM-dd").parse(reservation.getDate());
+
+                        // See if input is a valid date
+                        if(index ==3) {
+                            try {
+                                Date date = new SimpleDateFormat("yyyy-MM-dd").parse(textField.getText());
+                                runSetter(reservation, reservationSetters[index], String.class, date);
+                            } catch(Exception e) {
+                                setGraphic(label);
+                                textField.setText(label.getText());
+                                return;
+                            }
+                        } else {
+                            setGraphic(label);
+                            textField.setText(label.getText());
+                        }
+
+                        // See if input is a valid time
+                        if(index == 4 | index == 5) {
+                            try {
+                                Time time = Time.valueOf(textField.getText());
+                                runSetter(reservation, reservationSetters[index], String.class, textField.getText());
+                            } catch(Exception e) {
+                                setGraphic(label);
+                                textField.setText(label.getText());
+                                return;
+                            }
+                        } else {
+                            setGraphic(label);
+                            textField.setText(label.getText());
+                        }
+
+//                        runSetter(reservation, reservationSetters[index], String.class, textField.getText());
+
                         try{
                             Connection conn = DBController.dbConnect();
+                            System.out.println(reservation.getRsvID());
                             DBController.updateReservation(reservation, conn);
                             conn.close();
                         }catch(SQLException e){
@@ -125,7 +165,7 @@ public class UIControllerRVVE extends UIController {
         TableColumn<Reservation, Reservation> removeColumn = (TableColumn<Reservation, Reservation>) tableColumns.get(tableColumns.size() - 1);
         removeColumn.setCellValueFactory(param -> new ReadOnlyObjectWrapper<>(param.getValue()));
         removeColumn.setCellFactory(param -> new TableCell<Reservation, Reservation>() {
-            private JFXButton removeButton = new JFXButton("Remove");
+            private JFXButton removeButton = new JFXButton("Cancel");
 
             @Override
             protected void updateItem(Reservation reservation, boolean empty) {
@@ -158,7 +198,6 @@ public class UIControllerRVVE extends UIController {
     @Override
     public void onShow() {
         //DB get Nodes
-        reservationTable.getItems().clear();
         Connection conn = DBController.dbConnect();
         ObservableList<Reservation> rsvData = FXCollections.observableArrayList();
         try{
@@ -178,7 +217,9 @@ public class UIControllerRVVE extends UIController {
      */
     @FXML
     private void setAddButton() {
+        Connection connection = DBController.dbConnect();
         Reservation reservation = new Reservation("", "", "", "", "");
+        DBController.addReservation(reservation, connection);
         reservationTable.getItems().add(reservation);
     }
 
