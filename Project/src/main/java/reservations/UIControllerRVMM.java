@@ -64,6 +64,6 @@ public class UIControllerRVMM extends UIController {
      */
     @FXML
     private void setBackMenuItem() {
-        this.goToScene(UIController.ADMIN_MAIN_MENU_MAIN);
+        this.goToScene(UIController.USER_MAIN_MENU_MAIN);
     }
 }

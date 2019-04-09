@@ -36,7 +36,7 @@ public class UIControllerRVVE extends UIController {
     private Menu homeButton; /**< The Home Button */
 
     @FXML
-    private TableView<Reservation> reservationTable; /**< The table that holds all of the nodes */
+    private TableView<Reservation> reservationTable; /**< The table that holds all of the reservations */
 
     /**
      * Called when the scene is first created
@@ -46,7 +46,7 @@ public class UIControllerRVVE extends UIController {
     public void initialize() {
         List<TableColumn<Reservation, ?>> tableColumns = reservationTable.getColumns();
 
-        // Initialize the cell factories of the node field columns
+        // Initialize the cell factories of the reservation field columns
         for(int i = 0; i < tableColumns.size() - 1; i++) {
             int indexOut = i;
             TableColumn<Reservation, Reservation> column = (TableColumn<Reservation, Reservation>) tableColumns.get(i);
@@ -54,7 +54,7 @@ public class UIControllerRVVE extends UIController {
             column.setCellFactory(param -> new EditableTextCell<Reservation, Reservation
                     >(column, indexOut) {
 
-                // When the Node is updated on the textfield
+                // When the Reservation is updated on the textfield
                 @Override
                 protected void updateItem(Reservation reservation, boolean empty) {
                     super.updateItem(reservation, empty);
@@ -168,7 +168,7 @@ public class UIControllerRVVE extends UIController {
      */
     @FXML
     private void setAddButton() {
-        Reservation reservation = new Reservation("", "", "", "", "", 0);
+        Reservation reservation = new Reservation("", "", "", "", "");
         reservationTable.getItems().add(reservation);
     }
 

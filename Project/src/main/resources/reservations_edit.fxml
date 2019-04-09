@@ -48,12 +48,13 @@
                <center>
                   <TableView fx:id="nodeTable" maxWidth="850.0" prefHeight="520.0" prefWidth="850.0" BorderPane.alignment="CENTER">
                     <columns>
-                      <TableColumn prefWidth="73.33331298828125" text="RSV ID" />
-                      <TableColumn prefWidth="107.0" text="Node ID" />
-                        <TableColumn minWidth="0.0" prefWidth="72.0" text="User ID" />
-                        <TableColumn minWidth="0.0" prefWidth="61.33331298828125" text="Date" />
-                        <TableColumn minWidth="0.0" prefWidth="91.3333740234375" text="Start Time" />
-                        <TableColumn minWidth="0.0" prefWidth="79.66668701171875" text="End Time" />
+                      <TableColumn prefWidth="98.66668701171875" text="RSV ID" />
+                      <TableColumn prefWidth="137.33331298828125" text="Node ID" />
+                        <TableColumn minWidth="0.0" prefWidth="127.33334350585938" text="User ID" />
+                        <TableColumn minWidth="0.0" prefWidth="123.66668701171875" text="Date" />
+                        <TableColumn minWidth="0.0" prefWidth="141.33331298828125" text="Start Time" />
+                        <TableColumn minWidth="0.0" prefWidth="144.66668701171875" text="End Time" />
+                        <TableColumn prefWidth="65.66668701171875" text="Remove" />
                     </columns>
                   </TableView>
                </center>
