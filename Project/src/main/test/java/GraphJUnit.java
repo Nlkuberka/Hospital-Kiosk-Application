@@ -1,9 +1,10 @@
+import entities.BFSGraph;
 import junit.framework.TestCase;
 
-import java.lang.reflect.Array;
-import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
+import entities.Node;
+import entities.Graph;
 
 public class GraphJUnit extends TestCase {
     public void testShortestPath() {
@@ -28,7 +29,7 @@ public class GraphJUnit extends TestCase {
         nodes.add(n7);
         nodes.add(n8);
         nodes.add(n9);
-        Graph g = new Graph(nodes);
+        Graph g = new BFSGraph(nodes);
         g.addBiEdge("N0", "N1");
         g.addBiEdge("N1", "N2");
         g.addBiEdge("N1", "N4");
@@ -50,6 +51,12 @@ public class GraphJUnit extends TestCase {
         expected.add("N9");
         expected.add("N3");
         assertEquals(expected, path);
+        g = g.toDFS();
+        path = g.shortestPath("N0", "N3");
+        assertEquals(expected, path);
+        g = g.toAStar();
+        path = g.shortestPath("N0", "N3");
+        assertEquals(expected, path);
     }
 
     public void testRealNodes() {
@@ -66,7 +73,7 @@ public class GraphJUnit extends TestCase {
         nodes.add(n3);
         nodes.add(n4);
         nodes.add(n5);
-        Graph g = new Graph(nodes);
+        Graph g = new BFSGraph(nodes);
         g.addBiEdge("N0", "N1");
         g.addBiEdge("N1", "N5");
         g.addBiEdge("N3", "N4");
@@ -74,12 +81,17 @@ public class GraphJUnit extends TestCase {
         g.addBiEdge("N4", "N1");
         g.addBiEdge("N3", "N0");
         List<String> path = g.shortestPath("N5", "N0");
-//        List<String> expected = new LinkedList<>();
-//        expected.add("N5");
-//        expected.add("N1");
-//        expected.add("N0");
-        System.out.println(path);
-        //assertEquals(path, expected);
+        List<String> expected = new LinkedList<>();
+        expected.add("N5");
+        expected.add("N1");
+        expected.add("N0");
+        assertEquals(expected, path);
+        g = g.toDFS();
+        path = g.shortestPath("N5", "N0");
+        assertEquals(expected, path);
+        g = g.toAStar();
+        path = g.shortestPath("N5", "N0");
+        assertEquals(expected, path);
     }
 
     public void testMultipleNodes() {
@@ -104,7 +116,7 @@ public class GraphJUnit extends TestCase {
         nodes.add(n7);
         nodes.add(n8);
         nodes.add(n9);
-        Graph g = new Graph(nodes);
+        Graph g = new BFSGraph(nodes);
         g.addBiEdge("N0", "N1");
         g.addBiEdge("N1", "N2");
         g.addBiEdge("N1", "N4");
@@ -118,14 +130,73 @@ public class GraphJUnit extends TestCase {
         g.addBiEdge("N9", "N3");
         List<String> path1 = g.shortestPath("N0", "N3");
         List<String> path2 = g.shortestPath("N3", "N5");
-        List<List<String>> finalPath = new LinkedList<>();
-        finalPath.add(path1);
-        finalPath.add(path2);
-        System.out.println(finalPath);
-//        List<String> expected = new LinkedList<>();
-//        expected.add("N5");
-//        expected.add("N1");
-//        expected.add("N0");
-//        assertNotSame(expected, finalPath);
+        List<String> expected1 = new LinkedList<>();
+        expected1.add("N0");
+        expected1.add("N6");
+        expected1.add("N7");
+        expected1.add("N8");
+        expected1.add("N9");
+        expected1.add("N3");
+        List<String> expected2 = new LinkedList<>();
+        expected2.add("N3");
+        expected2.add("N5");
+        assertEquals(expected1, path1);
+        assertEquals(expected2, path2);
+        g = g.toDFS();
+        path1 = g.shortestPath("N0", "N3");
+        path2 = g.shortestPath("N3", "N5");
+        assertEquals(expected1, path1);
+        assertEquals(expected2, path2);
+        g = g.toAStar();
+        path1 = g.shortestPath("N0", "N3");
+        path2 = g.shortestPath("N3", "N5");
+        assertEquals(expected1, path1);
+        assertEquals(expected2, path2);
+    }
+
+    public void testDisconnectedGraph() {
+        LinkedList<Node> nodes = new LinkedList<>();
+        Node n0 = new Node("N0", 0, 0, "", "", "", "", "");
+        Node n1 = new Node("N1", 0, 1, "", "", "", "", "");
+        Node n2 = new Node("N2", 1, 0, "", "", "", "", "");
+        Node n3 = new Node("N3", 1, 1, "", "", "", "", "");
+        Node n4 = new Node("N4", 5, 0, "", "", "", "", "");
+        Node n5 = new Node("N5", 0, 5, "", "", "", "", "");
+        Node n6 = new Node("N6", 5, 5, "", "", "", "", "");
+        nodes.add(n0);
+        nodes.add(n1);
+        nodes.add(n2);
+        nodes.add(n3);
+        nodes.add(n4);
+        nodes.add(n5);
+        nodes.add(n6);
+        Graph g = new BFSGraph(nodes);
+        g.addBiEdge("N0", "N1");
+        g.addBiEdge("N1", "N2");
+        g.addBiEdge("N2", "N3");
+        g.addBiEdge("N3", "N0");
+        g.addBiEdge("N4", "N5");
+        g.addBiEdge("N5", "N6");
+        g.addBiEdge("N6", "N4");
+        List<String> expected = new LinkedList<>();
+        expected.add("N0");
+        expected.add("N1");
+        List<String> actual = g.shortestPath("N0", "N1");
+        assertEquals(expected, actual);
+        g = g.toAStar();
+        actual = g.shortestPath("N0", "N1");
+        assertEquals(expected, actual);
+        g = g.toBFS();
+        actual = g.shortestPath("N2", "N5");
+        assertEquals(null, actual);
+        g = g.toDFS();
+        actual = g.shortestPath("N2", "N5");
+        assertEquals(null, actual);
+        g = g.toAStar();
+        actual = g.shortestPath("N2", "N5");
+        assertEquals(null, actual);
+    }
+
+    public void testBridge() {
     }
 }
