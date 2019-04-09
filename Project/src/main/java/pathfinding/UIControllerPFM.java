@@ -7,6 +7,8 @@ import entities.Edge;
 import entities.Graph;
 import entities.Node;
 
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -127,6 +129,14 @@ public class UIControllerPFM extends UIController {
 
         // set value to "true" to use zoom functionality
         setZoomOn(true);
+
+        floorSlider.valueProperty().addListener(new ChangeListener() {
+
+            @Override
+            public void changed(ObservableValue arg0, Object arg1, Object arg2) {
+                setOpacity(floorSlider.getValue());
+            }
+        });
 
     }
 
@@ -298,20 +308,11 @@ public class UIControllerPFM extends UIController {
             drawPath();
     }
 
-    @FXML
-    public void chageFloor(MouseEvent mouseEvent) {
-        double value = floorSlider.getValue();
-
-        System.out.println(value);
-
-        setOpacity(value);
-    }
-
     private void setOpacity(double value) {
         for (int i = 0; i < mapList.size(); i++) {
-            double difference = getDifference((double) i, value);
-            mapList.get(i).setOpacity(difference);
-            pathList.get(i).setOpacity(difference);
+            double opacity = getOpacity((double) i, value);
+            mapList.get(i).setOpacity(opacity);
+            pathList.get(i).setOpacity(opacity);
         }
         this.path = pathList.get((int) value);
         this.map = mapList.get((int) value);
@@ -324,10 +325,11 @@ public class UIControllerPFM extends UIController {
         }
     }
 
-    private double getDifference(double a, double b) {
+    private double getOpacity(double a, double b) {
         double result = a - b;
-        result = result > 0.0 ? result : -result;
-        result = result > 1.0 ? 0.0 : 1.0 - result;
+        result = result > 0.0 ? result : -result; // get abs value
+        result = result > 1.0 ? 0.0 : 1.0 - result; // clip to bounds
+        result = result < 0.5 ? 0.0 : 1.0;
         return result;
     }
 }

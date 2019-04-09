@@ -160,7 +160,7 @@
                               </ImageView>
                            </graphic>
                         </JFXButton>
-                        <JFXSlider fx:id="floorSlider" layoutX="20.0" layoutY="150.0" onDragDetected="#chageFloor" orientation="VERTICAL" prefHeight="150.0" prefWidth="0.0" AnchorPane.leftAnchor="15.0" />
+                        <JFXSlider fx:id="floorSlider" layoutX="20.0" layoutY="150.0" orientation="VERTICAL" prefHeight="150.0" prefWidth="0.0" AnchorPane.leftAnchor="15.0" />
                      </children>
                      <StackPane.margin>
                         <Insets left="10.0" />
