@@ -3,6 +3,7 @@ package servicerequests;
 import application.CurrentUser;
 import application.DBController;
 import application.UIController;
+import com.jfoenix.controls.JFXTextField;
 import entities.ServiceRequest;
 
 import com.jfoenix.controls.JFXButton;
@@ -28,7 +29,7 @@ import java.util.Map;
  */
 public class UIControllerSRM extends UIController {
     Map<String, String> nodeIDs; /**< Holds reference between node short name and nodeID*/
-    List<String> serviceTypes; /**< Hold the list of services*/
+    //List<String> serviceTypes; /**< Hold the list of services*/
 
     @FXML
     private ChoiceBox<String> roomSelect; /**< The choicebox for node selection*/
@@ -37,7 +38,7 @@ public class UIControllerSRM extends UIController {
     private ChoiceBox<String> serviceSelect; /**< The choicebox for service selection*/
 
     @FXML
-    private TextArea serviceMessage; /**< The area for addition messages*/
+    private JFXTextField serviceMessage; /**< The area for addition messages*/
 
     @FXML
     private JFXButton confirmButton; /**< The confirm button*/
@@ -47,15 +48,15 @@ public class UIControllerSRM extends UIController {
      */
     @FXML
     public void initialize() {
-        serviceTypes = new ArrayList<String>();
-        serviceTypes.add("Maintenance Request");
-        serviceTypes.add("Tech Support Request");
-        serviceSelect.setItems(FXCollections.observableList(serviceTypes));
-        serviceSelect.getSelectionModel().selectFirst();
+//        serviceTypes = new ArrayList<String>();
+//        serviceTypes.add("Maintenance Request");
+//        serviceTypes.add("Tech Support Request");
+//        serviceSelect.setItems(FXCollections.observableList(serviceTypes));
+//        serviceSelect.getSelectionModel().selectFirst();
 
-        serviceMessage.setTextFormatter(new TextFormatter<String>(e ->
-            e.getControlNewText().length() <= 100 ? e : null
-        ));
+//        serviceMessage.setTextFormatter(new TextFormatter<String>(e ->
+//            e.getControlNewText().length() <= 100 ? e : null
+//        ));
     }
 
     /**

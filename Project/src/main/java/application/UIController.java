@@ -26,7 +26,7 @@ import java.util.HashMap;
  * This controller handles all of the other UIControllers as well as
  * storing the EditableTableCell which is used in adminTools
  * @author Jonathan Chang
- * @version interation1
+ * @version interation 1
  */
 public class UIController {
     // The various scenes that this UIController handles
@@ -179,7 +179,7 @@ public class UIController {
         Scene scene = null;
         UIControllerPUM controller = null;
         try {
-            FXMLLoader fxmlLoader = isWarning ? new FXMLLoader(getClass().getResource("/popup_warning_main.fxml")) :  new FXMLLoader(getClass().getResource("/popup_message_main.fxml"));
+            FXMLLoader fxmlLoader = isWarning ? new FXMLLoader(getClass().getResource("/popup_main.fxml")) :  new FXMLLoader(getClass().getResource("/popup_confirm.fxml"));
             Parent root = fxmlLoader.load();
             scene = new Scene(root, WIDTH_POPUP_WARNING, HEIGHT_POPUP_WARNING);
             controller = fxmlLoader.getController();

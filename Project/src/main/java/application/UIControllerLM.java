@@ -142,10 +142,10 @@ public class UIControllerLM extends UIController {
         User user = null;
         Connection conn = DBController.dbConnect();
         user = DBController.loginCheck(username,password,conn,permissions);
+        DBController.closeConnection(conn);
         if(user == null) {
             return null;
         }
-        DBController.closeConnection(conn);
         CurrentUser.user = user;
         return user;
     }

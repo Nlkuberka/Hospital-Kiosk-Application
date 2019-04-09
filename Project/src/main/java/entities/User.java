@@ -160,7 +160,7 @@ public class User {
      * @param permissions The number to get the array of
      * @return The bit array
      */
-    public boolean[] getBitArray(int permissions) {
+    public static boolean[] getBitArray(int permissions) {
         boolean[] bits = new boolean[12];
         for (int i = 0 ; i < bits.length; i++) {
             bits[bits.length - 1 - i] = (permissions & (1 << i)) != 0;
@@ -174,7 +174,7 @@ public class User {
      * @param bits The array of bits
      * @return The int representation
      */
-    public int getIntFromBitArray(boolean[] bits) {
+    public static int getIntFromBitArray(boolean[] bits) {
         int sum = 0;
         if(bits[bits.length - 1]) {
             sum = 1;
