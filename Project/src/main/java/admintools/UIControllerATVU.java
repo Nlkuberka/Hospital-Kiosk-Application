@@ -9,6 +9,7 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableCell;
@@ -16,6 +17,8 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 
+import java.lang.reflect.Array;
+import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -76,7 +79,7 @@ public class UIControllerATVU extends UIController {
             });
         }
 
-        // Initialize the permissions column
+        // Initialize the password column
         TableColumn<User, User> passwordColumn = (TableColumn<User, User>) tableColumns.get(2);
         passwordColumn.setCellValueFactory(param -> new ReadOnlyObjectWrapper<>(param.getValue()));
         passwordColumn.setCellFactory(param -> new TableCell<User, User>() {
@@ -143,6 +146,66 @@ public class UIControllerATVU extends UIController {
                     int permission = userPermissions[userPermissionNames.indexOf(permissionName)];
                     // DB Update User
                 });
+            }
+        });
+
+        // Initialize the permissions column
+        TableColumn<User, User> serviceRequestsColumn = (TableColumn<User, User>) tableColumns.get(4);
+        serviceRequestsColumn.setCellValueFactory(param -> new ReadOnlyObjectWrapper<>(param.getValue()));
+        serviceRequestsColumn.setCellFactory(param -> new TableCell<User, User>() {
+            private AnchorPane pane = new AnchorPane();
+            private JFXButton addSRButton = new JFXButton("Add");
+            private List<ChoiceBox<String>> choiceBoxes = new LinkedList<ChoiceBox<String>>();
+
+            @Override
+            protected void updateItem(User user, boolean empty) {
+                super.updateItem(user, empty);
+                if(user == null) {
+                    return;
+                }
+                List<String> serviceRequests = user.getServiceRequestFullfillment();
+                for(int i = 0; i < serviceRequests.size(); i++) {
+                    ChoiceBox<String> choiceBox = new ChoiceBox<String>();
+                    choiceBox.setItems(FXCollections.observableList(Arrays.asList(User.serviceRequests)));
+                    choiceBox.getItems().add("Remove");
+                    choiceBox.getSelectionModel().select(serviceRequests.get(i));
+                    choiceBox.setOnAction(et -> {
+                        if(choiceBox.getValue() == "Remove") {
+                            choiceBoxes.remove(choiceBox);
+                            pane.getChildren().remove(choiceBox);
+                        }
+                        user.setServiceRequestsFullfillment(getAllServiceRequests());
+                        // DB Update User
+                    });
+                    choiceBoxes.add(choiceBox);
+                }
+
+                pane.getChildren().setAll(choiceBoxes);
+                pane.getChildren().add(addSRButton);
+                setGraphic(pane);
+
+                addSRButton.setOnAction(et -> {
+                    ChoiceBox<String> choiceBox = new ChoiceBox<String>();
+                    choiceBox.setItems(FXCollections.observableList(Arrays.asList(User.serviceRequests)));
+                    choiceBox.getItems().add("Remove");
+                    choiceBox.setOnAction(e -> {
+                        if(choiceBox.getValue() == "Remove") {
+                            choiceBoxes.remove(choiceBox);
+                            pane.getChildren().remove(choiceBox);
+                        }
+                        user.setServiceRequestsFullfillment(getAllServiceRequests());
+                        // DB Update User
+                    });
+                    choiceBoxes.add(choiceBox);
+                });
+            }
+
+            private List<String> getAllServiceRequests() {
+                List<String> result = new LinkedList<String>();
+                for(int i = 0; i < choiceBoxes.size(); i++) {
+                    result.add(choiceBoxes.get(i).getValue());
+                }
+                return result;
             }
         });
 
