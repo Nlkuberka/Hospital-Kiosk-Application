@@ -1,3 +1,5 @@
+package tests;
+
 import junit.framework.TestCase;
 
 import java.util.LinkedList;

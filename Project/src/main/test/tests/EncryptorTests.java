@@ -1,3 +1,5 @@
+package tests;
+
 import application.Encryptor;
 import junit.framework.TestCase;
 import org.junit.Test;
