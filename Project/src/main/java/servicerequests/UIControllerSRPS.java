@@ -86,6 +86,8 @@ public class UIControllerSRPS extends UIController {
         roomSelect.setItems(FXCollections.observableList(nodeShortNames));
         roomSelect.getSelectionModel().selectFirst();
         serviceMessage.setText("");
+        prescriptionTextField.setText("");
+        patientNameTextField.setText("");
     }
 
     public void setServiceType(String serviceType) {
