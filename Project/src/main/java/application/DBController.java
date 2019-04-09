@@ -627,40 +627,39 @@ public class DBController {
             //Reservation within the given times, starts before and ends during, starts during and ends after, or room is booked for the whole duration or more
             Statement s = connection.createStatement();
             ResultSet rs = s.executeQuery("select * from RESERVATIONS where NODEID = '" + nodeID + "' and DAY = '" + day + "' and " +
-                    "((STARTTIME > '" + startTime + "' and ENDTIME < '" + endTime + "') " +
+                    "((STARTTIME >= '" + startTime + "' and ENDTIME <= '" + endTime + "') " +
                     "OR (STARTTIME < '" + startTime + "' and ENDTIME > '" + startTime + "') " +
                     "OR (STARTTIME < '" + endTime + "' and ENDTIME > '" + endTime + "'))");
             return !rs.next();
         }catch(SQLException e){
             e.printStackTrace();
-            return false;
         }
+        return false;
     }
 
     /**
-     * availableRooms
+     * unavailableRooms
      *
      * Determines which rooms are available on the given date, and within the given times.
-     * @param day - The day where the availabilty of all rooms is being checked
+     * @param day - The day where the availability of all rooms is being checked
      * @param startTime - Check to see if each room is available after this time
      * @param endTime - Check to see if each room is available before this time
      * @return - A list of all the available rooms within the given parameters
      */
-    public static LinkedList<Node> availableRooms(Date day, Time startTime, Time endTime, Connection connection){
+    public static LinkedList<Node> unavailableRooms(Date day, Time startTime, Time endTime, Connection connection){
         try {
             Statement s = connection.createStatement();
-            ResultSet rs = s.executeQuery("SELECT NODEID from NODES where DAY = '" + day + "' and " +
-                    "((STARTTIME > '" + startTime + "' and ENDTIME < '" + endTime + "') " +
-                    "OR (STARTTIME < '" + startTime + "' and ENDTIME > '" + startTime + "') " +
-                    "OR (STARTTIME < '" + endTime + "' and ENDTIME > '" + endTime + "'))");
-            LinkedList<Node> availableNodes = new LinkedList<>();
+            ResultSet rs = s.executeQuery("SELECT * from NODES");
+            LinkedList<Node> unavailableRooms = new LinkedList<>();
             while(rs.next()){
-                Node node = new Node(rs.getString(1),rs.getInt(2),rs.getInt(3),
+                Node room = new Node(rs.getString(1),rs.getInt(2),rs.getInt(3),
                         rs.getString(4),rs.getString(5),rs.getString(6),
                         rs.getString(7),rs.getString(8));
-                availableNodes.add(node);
+                if(!isRoomAvailable(room.getNodeID(),day,startTime,endTime,connection)){
+                    unavailableRooms.add(room);
+                }
             }
-            return availableNodes;
+            return unavailableRooms;
         }catch(SQLException e){
             e.printStackTrace();
         }
@@ -671,7 +670,6 @@ public class DBController {
      * exportData
      *
      * selects all content held in Nodes table and prints it to a file
-     * @param filename name of output file
      */
 
     public static User loginCheck(String username, String password, Connection conn, int permission){
