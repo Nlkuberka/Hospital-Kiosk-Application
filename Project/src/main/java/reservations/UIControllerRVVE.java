@@ -148,10 +148,11 @@ public class UIControllerRVVE extends UIController {
     @Override
     public void onShow() {
         //DB get Nodes
+        reservationTable.getItems().clear();
         Connection conn = DBController.dbConnect();
         ObservableList<Reservation> rsvData = FXCollections.observableArrayList();
         try{
-            ResultSet rs = conn.createStatement().executeQuery("Select * from NODES");
+            ResultSet rs = conn.createStatement().executeQuery("Select * from RESERVATIONS");
             while (rs.next()){
                 rsvData.add(new Reservation(rs.getString(1),rs.getString(2),rs.getString(3),
                         rs.getString(4),rs.getString(5),rs.getInt(6)));
