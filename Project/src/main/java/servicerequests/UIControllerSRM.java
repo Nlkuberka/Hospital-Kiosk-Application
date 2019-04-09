@@ -13,6 +13,9 @@ import javafx.fxml.FXML;
 public class UIControllerSRM extends UIController {
 
     @FXML
+    private JFXButton ITButton;
+
+    @FXML
     private JFXButton baseButton;
 
     /**
@@ -30,6 +33,16 @@ public class UIControllerSRM extends UIController {
     public void onShow() {
 
     }
+
+    /**
+     * Redirects to IT ServiceRequest
+     */
+    @FXML
+    public void setITButton() {
+        UIControllerSRIT controller = (UIControllerSRIT) this.goToScene(UIController.SERVICE_REQUEST_IT);
+        controller.setServiceType("IT");
+    }
+
 
     @FXML
     public void setBaseButton() {

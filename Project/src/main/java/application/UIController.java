@@ -46,6 +46,7 @@ public class UIController {
 
     public static final String SERVICE_REQUEST_MAIN = "SRM";
     public static final String SERVICE_REQUEST_BASE = "SRB";
+    public static final String SERVICE_REQUEST_IT = "SRIT";
 
     // The starting width and height of the window
     private static final int WIDTH = 900;
@@ -133,6 +134,9 @@ public class UIController {
 
         sceneFiles.put(UIController.SERVICE_REQUEST_BASE, "/service_request_base.fxml");
         sceneTitles.put(UIController.SERVICE_REQUEST_BASE, "Service Request - Base");
+
+        sceneFiles.put(UIController.SERVICE_REQUEST_IT, "/service_request_It.fxml");
+        sceneTitles.put(UIController.SERVICE_REQUEST_IT, "Service Request - IT");
 
         // Reservations
         sceneFiles.put(UIController.RESERVATIONS_MAIN, "/reservations_main.fxml");
