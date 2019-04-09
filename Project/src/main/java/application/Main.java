@@ -1,9 +1,12 @@
 package application;
 
+import entities.Reservation;
 import entities.User;
 
 import javafx.application.Application;
 import javafx.stage.Stage;
+
+import java.sql.Connection;
 
 public class Main extends Application {
 
@@ -13,8 +16,8 @@ public class Main extends Application {
 
         controller.goToScene(UIController.LOGIN_MAIN);
 
-
         System.out.println("Collaborator is " + "X");
+
 
         DBController.initializeAppDB();
 
