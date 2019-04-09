@@ -149,7 +149,7 @@ public class UIControllerATVU extends UIController {
             }
         });
 
-        // Initialize the permissions column
+        // Initialize the service request column
         TableColumn<User, User> serviceRequestsColumn = (TableColumn<User, User>) tableColumns.get(4);
         serviceRequestsColumn.setCellValueFactory(param -> new ReadOnlyObjectWrapper<>(param.getValue()));
         serviceRequestsColumn.setCellFactory(param -> new TableCell<User, User>() {

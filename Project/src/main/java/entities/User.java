@@ -176,10 +176,7 @@ public class User {
      */
     public static int getIntFromBitArray(boolean[] bits) {
         int sum = 0;
-        if(bits[bits.length - 1]) {
-            sum = 1;
-        }
-        for(int i = 0; i < bits.length - 1; i++) {
+        for(int i = 0; i < bits.length; i++) {
             if(bits[i]) {
                 sum += Math.pow(2, bits.length - 1 - i);
             }
