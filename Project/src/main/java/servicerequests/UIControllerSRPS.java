@@ -19,6 +19,7 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.rmi.server.ExportException;
+import java.sql.Array;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -28,9 +29,10 @@ public class UIControllerSRPS extends UIController {
     String serviceType;
     Map<String, String> nodeIDs; /**< Holds reference between node short name and nodeID*/
     String[] prescriptionArray;
+    String[] lengthArray = {"1 day", "1 week", "1 month", "3 months", "6 month", "1 year"};
 
     @FXML
-    private ChoiceBox roomSelect;
+    private ChoiceBox<String> roomSelect;
 
     @FXML
     private JFXTextField serviceMessage;
@@ -40,6 +42,9 @@ public class UIControllerSRPS extends UIController {
 
     @FXML
     private JFXTextField prescriptionTextField;
+
+    @FXML
+    private ChoiceBox<String> lengthChoiceBox;
 
     @FXML
     private JFXButton confirmButton; /**< The confirm button*/
@@ -52,9 +57,9 @@ public class UIControllerSRPS extends UIController {
             String line = br.readLine();
             int count = 0;
             while((line = br.readLine()) != null) {
-                String[] tokens = line.split("/\\t/");
+                String[] tokens = line.split("\\t");
                 drugs.add(tokens[0]);
-                count ++;
+                count++;
             }
             prescriptionArray = new String[count];
             prescriptionArray = drugs.toArray(prescriptionArray);
@@ -65,6 +70,7 @@ public class UIControllerSRPS extends UIController {
         serviceMessage.setTextFormatter(new TextFormatter<String>(e ->
                 e.getControlNewText().length() <= 50 ? e : null
         ));
+        lengthChoiceBox.getItems().addAll(FXCollections.observableList(Arrays.asList(lengthArray)));
     }
 
     @FXML
@@ -98,7 +104,7 @@ public class UIControllerSRPS extends UIController {
     private void setConfirmButton() {
         String roomShortName = (String) roomSelect.getValue();
         String nodeID = nodeIDs.get(roomShortName);
-        String message = prescriptionTextField.getText() + " for patient" + patientNameTextField.getText() + " " + serviceMessage.getText();
+        String message = prescriptionTextField.getText() + " for patient" + patientNameTextField.getText() + " for " + lengthChoiceBox.getValue() + "  " + serviceMessage.getText();
 
         ServiceRequest sr = new ServiceRequest(nodeID, serviceType, message, CurrentUser.user.getUserID(), false, null);
         Connection conn = DBController.dbConnect();
