@@ -33,6 +33,9 @@ public class UIControllerSRSanitation extends UIController {
     private JFXButton confirmButton; /**< The confirm button*/
 
     @FXML
+    private JFXButton cancelButton; /**< The cancel button*/
+
+    @FXML
     public void initialize() {
         serviceMessage.setTextFormatter(new TextFormatter<String>(e ->
                 e.getControlNewText().length() <= 100 ? e : null
@@ -80,5 +83,10 @@ public class UIControllerSRSanitation extends UIController {
     @FXML
     private void setCancelButton() {
         this.goToScene(UIController.SERVICE_REQUEST_MAIN);
+    }
+
+    @FXML
+    private void setRoomSelect(){
+
     }
 }
