@@ -47,7 +47,7 @@ public class UIControllerSRSanitation extends UIController {
         // DB Get all Nodes
         try {
             Connection conn = DBController.dbConnect();
-            ResultSet rs = conn.createStatement().executeQuery("Select * From NODES where FLOOR = '2' AND BUILDING = 'Tower'");
+            ResultSet rs = conn.createStatement().executeQuery("Select * From NODES"); //can select from all nodes
             while (rs.next()) {
                 nodeIDs.put(rs.getString("SHORTNAME"), rs.getString("NODEID"));
                 nodeShortNames.add(rs.getString("SHORTNAME"));
