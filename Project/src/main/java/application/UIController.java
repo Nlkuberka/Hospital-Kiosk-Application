@@ -36,6 +36,8 @@ public class UIController {
     public static final String ADMIN_MAIN_MENU_MAIN = "AMMM";
     public static final String PATHFINDING_MAIN = "PFM";
     public static final String RESERVATIONS_MAIN = "RVM";
+    public static final String RESERVATIONS_EDIT = "RVE";
+    public static final String RESERVATIONS_MAIN_MENU = "RVMM";
     public static final String SERVICE_REQUEST_MAIN = "SRM";
     public static final String ADMIN_TOOLS_MAIN = "ATM";
     public static final String ADMIN_TOOLS_VIEW_NODES = "ATVN";
@@ -130,6 +132,12 @@ public class UIController {
         // Reservations
         sceneFiles.put(UIController.RESERVATIONS_MAIN, "/reservations_main.fxml");
         sceneTitles.put(UIController.RESERVATIONS_MAIN, "Reservations - Main");
+
+        sceneFiles.put(UIController.RESERVATIONS_EDIT, "/reservations_edit.fxml");
+        sceneTitles.put(UIController.RESERVATIONS_EDIT, "Reservations - Edit");
+
+        sceneFiles.put(UIController.RESERVATIONS_MAIN_MENU, "/reservations_main_menu.fxml");
+        sceneTitles.put(UIController.RESERVATIONS_MAIN_MENU, "Reservations - Main Menu");
 
         // Pathfinding
         sceneFiles.put(UIController.PATHFINDING_MAIN, "/path_find_main.fxml");
