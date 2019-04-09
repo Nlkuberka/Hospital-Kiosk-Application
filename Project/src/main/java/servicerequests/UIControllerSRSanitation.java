@@ -24,7 +24,7 @@ public class UIControllerSRSanitation extends UIController {
     Map<String, String> nodeIDs; /**< Holds reference between node short name and nodeID*/
 
     @FXML
-    private ChoiceBox roomSelect;
+    private ChoiceBox<String> roomSelect;
 
     @FXML
     private TextArea serviceMessage;
@@ -34,6 +34,9 @@ public class UIControllerSRSanitation extends UIController {
 
     @FXML
     private JFXButton cancelButton; /**< The cancel button*/
+
+    @FXML
+    private JFXButton homeButton; /**< The cancel button*/
 
     @FXML
     public void initialize() {
@@ -77,6 +80,8 @@ public class UIControllerSRSanitation extends UIController {
         Connection conn = DBController.dbConnect();
         DBController.addServiceRequest(sr,conn);
         DBController.closeConnection(conn);
+
+        serviceMessage.setText("");
         this.goToScene(UIController.SERVICE_REQUEST_MAIN);
     }
 
@@ -86,7 +91,5 @@ public class UIControllerSRSanitation extends UIController {
     }
 
     @FXML
-    private void setRoomSelect(){
-
-    }
+    private void setRoomSelect(){}
 }

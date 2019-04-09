@@ -137,6 +137,7 @@ public class UIController {
 
         sceneFiles.put(UIController.SERVICE_REQUEST_SANITATION, "/service_request_sanitation.fxml");
         sceneTitles.put(UIController.SERVICE_REQUEST_SANITATION, "Service Request - Sanitation");
+
         // Reservations
         sceneFiles.put(UIController.RESERVATIONS_MAIN, "/reservations_main.fxml");
         sceneTitles.put(UIController.RESERVATIONS_MAIN, "Reservations - Main");
