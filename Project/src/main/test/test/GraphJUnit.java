@@ -51,7 +51,7 @@ public class GraphJUnit extends TestCase {
         expected.add("N9");
         expected.add("N3");
         System.out.println(g.textDirections(path));
-        System.out.println(path);
+        //System.out.println(path);
         assertEquals(expected, path);
     }
 
@@ -81,6 +81,7 @@ public class GraphJUnit extends TestCase {
 //        expected.add("N5");
 //        expected.add("N1");
 //        expected.add("N0");
+        System.out.println(g.textDirections(path));
         System.out.println(path);
         //assertEquals(path, expected);
     }

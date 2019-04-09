@@ -294,7 +294,7 @@ public class Graph {
         String directions = "";
         String commaOrPeriod = ",";
         for(int i = 0; i < NodeIDS.size()-1; i++){
-            if(i == NodeIDS.size()-1) {
+            if(i == NodeIDS.size()-2) {
                 commaOrPeriod = ".";
             }
             else{
@@ -305,7 +305,7 @@ public class Graph {
             //System.out.println(returnAngle(NodeIDS.get(i), NodeIDS.get(i+1)));
                     directions += returnAngle(NodeIDS.get(i), NodeIDS.get(i+1))
                     + " "
-                    + (int) (adjWeights.get(currentNodeIndex).getFirst() * 25)
+                    +  Math.round(adjWeights.get(currentNodeIndex).getFirst())
                     + " feet to "
                     + storedNodes.get(nextNodeIndex).getLongName()
                     + commaOrPeriod;
