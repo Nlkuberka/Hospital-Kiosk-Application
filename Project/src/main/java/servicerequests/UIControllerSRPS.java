@@ -4,38 +4,66 @@ import application.CurrentUser;
 import application.DBController;
 import application.UIController;
 import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXTextArea;
+import com.jfoenix.controls.JFXTextField;
 import entities.ServiceRequest;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
 import javafx.scene.control.TextFormatter;
+import org.controlsfx.control.textfield.TextFields;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.rmi.server.ExportException;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
-public class UIControllerSRBase extends UIController {
+public class UIControllerSRPS extends UIController {
     String serviceType;
     Map<String, String> nodeIDs; /**< Holds reference between node short name and nodeID*/
+    String[] prescriptionArray;
 
     @FXML
     private ChoiceBox roomSelect;
 
     @FXML
-    private TextArea serviceMessage;
+    private JFXTextField serviceMessage;
+
+    @FXML
+    private JFXTextField patientNameTextField;
+
+    @FXML
+    private JFXTextField prescriptionTextField;
 
     @FXML
     private JFXButton confirmButton; /**< The confirm button*/
 
     @FXML
     public void initialize() {
+        List<String> drugs = new LinkedList<String>();
+        try {
+            BufferedReader br = new BufferedReader(new FileReader("src/main/resources/textfiles/prescriptiondrugs.txt"));
+            String line = br.readLine();
+            int count = 0;
+            while((line = br.readLine()) != null) {
+                String[] tokens = line.split("/\\t/");
+                drugs.add(tokens[0]);
+                count ++;
+            }
+            prescriptionArray = new String[count];
+            prescriptionArray = drugs.toArray(prescriptionArray);
+            TextFields.bindAutoCompletion(prescriptionTextField, prescriptionArray);
+        } catch(Exception e) {
+            e.printStackTrace();
+        }
         serviceMessage.setTextFormatter(new TextFormatter<String>(e ->
-                e.getControlNewText().length() <= 100 ? e : null
+                e.getControlNewText().length() <= 50 ? e : null
         ));
     }
 
@@ -47,7 +75,7 @@ public class UIControllerSRBase extends UIController {
         // DB Get all Nodes
         try {
             Connection conn = DBController.dbConnect();
-            ResultSet rs = conn.createStatement().executeQuery("Select * From NODES where FLOOR = '2' AND BUILDING = 'Tower'");
+            ResultSet rs = conn.createStatement().executeQuery("Select * From NODES");
             while (rs.next()) {
                 nodeIDs.put(rs.getString("SHORTNAME"), rs.getString("NODEID"));
                 nodeShortNames.add(rs.getString("SHORTNAME"));
@@ -68,7 +96,7 @@ public class UIControllerSRBase extends UIController {
     private void setConfirmButton() {
         String roomShortName = (String) roomSelect.getValue();
         String nodeID = nodeIDs.get(roomShortName);
-        String message = serviceMessage.getText();
+        String message = prescriptionTextField.getText() + " for patient" + patientNameTextField.getText() + " " + serviceMessage.getText();
 
         ServiceRequest sr = new ServiceRequest(nodeID, serviceType, message, CurrentUser.user.getUserID(), false, null);
         Connection conn = DBController.dbConnect();

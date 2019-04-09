@@ -36,4 +36,11 @@ public class UIControllerSRM extends UIController {
         UIControllerSRBase controller = (UIControllerSRBase) this.goToScene(UIController.SERVICE_REQUEST_BASE);
         controller.setServiceType("BASE");
     }
+
+    @FXML
+    public void setPrescriptionServicesButton() {
+        UIControllerSRPS controller = (UIControllerSRPS) this.goToScene(UIController.SERVICE_REQUEST_PRESCRIPTION_SERVICES_MAIN);
+        controller.setServiceType("Prescription Services");
+    }
+
 }
