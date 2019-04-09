@@ -254,6 +254,12 @@ public class Graph {
         return adj.get(n).size();
     }
 
+    /**
+     * Deterines the angle of any edge
+     * @param ID1: the nodeID of the first node
+     * @param ID2: the nodeID of the second node
+     * @return the cardinal direction of the edge
+     */
     public String returnAngle(String ID1, String ID2) {
 
         String direction = "N";
@@ -267,7 +273,7 @@ public class Graph {
         double yWeight = abs(node1.getYcoord() - node2.getYcoord());
 
         double angle = Math.atan2(yWeight, xWeight) * 180;
-        System.out.println(angle);
+        //System.out.println(angle);
 
         if (angle <= 15 || angle >= 345) {
             direction = "N";
@@ -290,6 +296,11 @@ public class Graph {
         return direction;
     }
 
+    /**
+     * Prints directions to every node in a path
+     * @param NodeIDS the path generated from shortestPath
+     * @return text based directions directing a reader from one point to another
+     */
     public String textDirections(List<String> NodeIDS){
         String directions = "";
         String commaOrPeriod = ",";
@@ -306,7 +317,7 @@ public class Graph {
                     directions += returnAngle(NodeIDS.get(i), NodeIDS.get(i+1))
                     + " "
                     +  Math.round(adjWeights.get(currentNodeIndex).getFirst())
-                    + " feet to "
+                    + " pixels to "
                     + storedNodes.get(nextNodeIndex).getLongName()
                     + commaOrPeriod;
         }
