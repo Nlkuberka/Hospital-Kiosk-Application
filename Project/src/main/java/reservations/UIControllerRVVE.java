@@ -4,6 +4,7 @@ import application.DBController;
 import application.UIController;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXCheckBox;
+import com.sun.org.apache.regexp.internal.RESyntaxException;
 import entities.Reservation;
 import entities.ServiceRequest;
 import javafx.beans.property.ReadOnlyObjectWrapper;
@@ -27,7 +28,7 @@ import java.util.List;
 public class UIControllerRVVE extends UIController {
     private static final int[] lengthRequirements = {-1, 10, 10, 10, 8, 8};
     private static final String[] reservationSetters  = {"setNodeID", "setUserID", "setDate", "setStartTime", "setEndTime", ""};
-    private static final String[] reservationGetters  = {"getNodeID", "getUserID", "getDate", "getStartTime", "getEndTime", "getRsvID"};
+    private static final String[] reservationGetters  = {"getRsvID", "getNodeID", "getUserID", "getDate", "getStartTime", "getEndTime"};
                                                     /**< The Various Reservation Columns used for cell factories */
     @FXML
     private MenuItem backButton; /**< The Back Button */
@@ -45,9 +46,23 @@ public class UIControllerRVVE extends UIController {
     @FXML
     public void initialize() {
         List<TableColumn<Reservation, ?>> tableColumns = reservationTable.getColumns();
-
         // Initialize the cell factories of the reservation field columns
-        for(int i = 0; i < tableColumns.size() - 1; i++) {
+
+        TableColumn<Reservation, Reservation> rsvIDColumn = (TableColumn<Reservation, Reservation>) tableColumns.get(0);
+        rsvIDColumn.setCellValueFactory(param -> new ReadOnlyObjectWrapper<>(param.getValue()));
+        rsvIDColumn.setCellFactory(param -> new TableCell<Reservation, Reservation>() {
+            private Label label = new Label();
+            private int index = 0; //RSVID is last field in Reservation
+
+            @Override
+            protected  void updateItem(Reservation reservation, boolean empty) {
+                super.updateItem(reservation, empty);
+                runStringGetter(reservation, reservationGetters[index], label);
+                setGraphic(label);
+            }
+        });
+
+        for(int i = 1; i < tableColumns.size() - 1; i++) {
             int indexOut = i;
             TableColumn<Reservation, Reservation> column = (TableColumn<Reservation, Reservation>) tableColumns.get(i);
             column.setCellValueFactory(param -> new ReadOnlyObjectWrapper<>(param.getValue()));
@@ -66,41 +81,36 @@ public class UIControllerRVVE extends UIController {
                     // When an edit is committed with enter
                     textField.setOnAction(et -> {
                         // Catch if int is not able to be parsed
-                        if(index == 1 || index == 2) {
-                            try {
-                                if(Integer.parseInt(textField.getText()) < 0) {
-                                    popupMessage("Coordinate fields must be positive", true);
-                                }
-                            } catch(Exception e) {
-                                setGraphic(label);
-                                textField.setText(label.getText());
-                                return;
-                            }
-                        } else {
-                            // Resets if the input is too long
-                            if(textField.getText().length() > lengthRequirements[index]) {
-                                setGraphic(label);
-                                textField.setText(label.getText());
-                                popupMessage("Field must have equal to or less than " +  lengthRequirements[index] + " characters.", true);
-                                return;
-                            }
-                        }
-                        // Update the object with the new value
-                        if(index == 1 || index == 2) {
-                            runSetter(reservation, reservationSetters[index], int.class, Integer.parseInt(textField.getText()));
-                        } else {
-                            runSetter(reservation, reservationSetters[index], String.class, textField.getText());
-                        }
-                        System.out.println(reservation);
+//                        if(index == 3 || index == 4) {
+//                            try {
+//                                if(Integer.parseInt(textField.getText()) < 0) {
+//                                    popupMessage("Coordinate fields must be positive", true);
+//                                }
+//                            } catch(Exception e) {
+//                                setGraphic(label);
+//                                textField.setText(label.getText());
+//                                return;
+//                            }
+//                        } else {
+//                            // Resets if the input is too long
+//                            if(textField.getText().length() > lengthRequirements[index]) {
+//                                setGraphic(label);
+//                                textField.setText(label.getText());
+//                                popupMessage("Field must have equal to or less than " +  lengthRequirements[index] + " characters.", true);
+//                                return;
+//                            }
+//                        }
+//                        // Update the object with the new value
+//                        if(index == 1 || index == 2) {
+//                            runSetter(reservation, reservationSetters[index], int.class, Integer.parseInt(textField.getText()));
+//                        } else {
+//                            runSetter(reservation, reservationSetters[index], String.class, textField.getText());
+//                        }
+//                        System.out.println(reservation);
 
                         try{
                             Connection conn = DBController.dbConnect();
-                            if(index == 0) {
-                                DBController.deleteNode(label.getText(),conn); //TODO
-                                DBController.addReservation(reservation,conn);
-                            } else {
-                                DBController.updateReservation(reservation, conn);
-                            }
+                            DBController.updateReservation(reservation, conn);
                             conn.close();
                         }catch(SQLException e){
                             e.printStackTrace();
@@ -111,7 +121,7 @@ public class UIControllerRVVE extends UIController {
                 }
             });
         }
-        // Initialize cell factories of the remove node column
+        // Initialize cell factories of the remove rsv column
         TableColumn<Reservation, Reservation> removeColumn = (TableColumn<Reservation, Reservation>) tableColumns.get(tableColumns.size() - 1);
         removeColumn.setCellValueFactory(param -> new ReadOnlyObjectWrapper<>(param.getValue()));
         removeColumn.setCellFactory(param -> new TableCell<Reservation, Reservation>() {
@@ -154,8 +164,8 @@ public class UIControllerRVVE extends UIController {
         try{
             ResultSet rs = conn.createStatement().executeQuery("Select * from RESERVATIONS");
             while (rs.next()){
-                rsvData.add(new Reservation(rs.getString(1),rs.getString(2),rs.getString(3),
-                        rs.getString(4),rs.getString(5),rs.getInt(6)));
+                rsvData.add(new Reservation(rs.getString(2),rs.getString(3),rs.getString(4),
+                        rs.getString(5),rs.getString(6), rs.getInt(1)));
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -177,6 +187,11 @@ public class UIControllerRVVE extends UIController {
      */
     @FXML
     private void setBackButton() {
-        this.goToScene(UIController.ADMIN_TOOLS_MAIN);
+        this.goToScene(UIController.RESERVATIONS_MAIN_MENU);
     }
+
+
+    @FXML
+    private void setHomeButton() { this.goToScene(UIController.USER_MAIN_MENU_MAIN); }
+
 }

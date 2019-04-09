@@ -14,7 +14,7 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="admintools.UIControllerATVN">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="reservations.UIControllerRVVE">
    <children>
       <AnchorPane prefHeight="600.0" prefWidth="900.0" styleClass="body-background" stylesheets="/background.css">
          <children>
@@ -46,7 +46,7 @@
                   </MenuBar>
                </top>
                <center>
-                  <TableView fx:id="nodeTable" maxWidth="850.0" prefHeight="520.0" prefWidth="850.0" BorderPane.alignment="CENTER">
+                  <TableView fx:id="reservationTable" maxWidth="850.0" prefHeight="520.0" prefWidth="850.0" BorderPane.alignment="CENTER">
                     <columns>
                       <TableColumn prefWidth="98.66668701171875" text="RSV ID" />
                       <TableColumn prefWidth="137.33331298828125" text="Node ID" />
@@ -59,7 +59,7 @@
                   </TableView>
                </center>
             </BorderPane>
-            <JFXButton fx:id="addButton" buttonType="RAISED" layoutX="756.0" layoutY="553.0" onAction="#setAddButton" styleClass="jfx-button-add" stylesheets="@background.css" text="Add Node " textFill="WHITE">
+            <JFXButton fx:id="addButton" buttonType="RAISED" layoutX="706.0" layoutY="553.0" maxHeight="5000.0" maxWidth="6000.0" minHeight="41.0" minWidth="162.0" onAction="#setAddButton" prefHeight="41.0" prefWidth="171.0" styleClass="jfx-button-add" stylesheets="@background.css" text="Add Reservation" textFill="WHITE">
                <font>
                   <Font name="System Bold" size="14.0" />
                </font>

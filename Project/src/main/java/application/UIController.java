@@ -134,10 +134,10 @@ public class UIController {
         sceneTitles.put(UIController.RESERVATIONS_MAIN, "Reservations - Main");
 
         sceneFiles.put(UIController.RESERVATIONS_EDIT, "/reservations_edit.fxml");
-        sceneTitles.put(UIController.RESERVATIONS_EDIT, "Reservations -Edit");
+        sceneTitles.put(UIController.RESERVATIONS_EDIT, "Reservations - Edit");
 
         sceneFiles.put(UIController.RESERVATIONS_MAIN_MENU, "/reservations_main_menu.fxml");
-        sceneTitles.put(UIController.RESERVATIONS_MAIN_MENU, "Reservations -Main Menu");
+        sceneTitles.put(UIController.RESERVATIONS_MAIN_MENU, "Reservations - Main Menu");
 
         // Pathfinding
         sceneFiles.put(UIController.PATHFINDING_MAIN, "/path_find_main.fxml");

@@ -101,7 +101,7 @@ public class DBController {
 
         loadNodeData(new File("nodesv4.csv"),conn);
         loadEdgeData(new File("edgesv5.csv"),conn);
-//        loadWorkplaceData(new File( "workplaces.csv"),conn);
+        loadWorkplaceData(new File( "workplaces.csv"),conn);
 
         try {
             Statement s = conn.createStatement();
@@ -220,8 +220,8 @@ public class DBController {
             br.readLine();
             while((line = br.readLine()) != null) {
                 arr = line.split(",");
-                connection.createStatement().execute("insert into EDGES " +
-                        "values ('"+ arr[0] + "','"+ arr[1]+ "','"+ arr[2]+ "','"+ arr[3]+"')");
+                connection.createStatement().execute("insert into WORKPLACES " +
+                        "values ('"+ arr[0] + "','"+ arr[1]+ "',"+ arr[2]+ ",'"+ arr[3]+"')");
             }
         }catch(Exception e) {
             e.printStackTrace();
@@ -325,8 +325,8 @@ public class DBController {
                     "USERID = '"+ reservation.getUserID() + "'," +
                     "DAY = '" + reservation.getDate() + "'," +
                     "STARTTIME = '" + reservation.getStartTime() + "'," +
-                    "ENDTIME = '" + reservation.getEndTime() + "'," +
-                    " where RSVID = '" + reservation.getRsvID() +"'");
+                    "ENDTIME = '" + reservation.getEndTime() + "'" +
+                    " where RSVID = " + reservation.getRsvID());
         }catch(SQLException e) {
             e.printStackTrace();
         }
