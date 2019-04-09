@@ -41,6 +41,7 @@ public class UIController {
     public static final String ADMIN_TOOLS_VIEW_NODES = "ATVN";
     public static final String ADMIN_TOOLS_VIEW_EDGES = "ATVE";
     public static final String ADMIN_TOOLS_VIEW_SERVICE_REQUESTS = "ATVSR";
+    public static final String ADMIN_TOOLS_VIEW_USERS = "ATVU";
 
     // The starting width and height of the window
     private static final int WIDTH = 900;
@@ -121,6 +122,9 @@ public class UIController {
 
         sceneFiles.put(UIController.ADMIN_TOOLS_VIEW_SERVICE_REQUESTS, "/admin_tools_view_service_request.fxml");
         sceneTitles.put(UIController.ADMIN_TOOLS_VIEW_SERVICE_REQUESTS, "Admin Tools - View Service Requests");
+
+        sceneFiles.put(UIController.ADMIN_TOOLS_VIEW_USERS, "/admin_tools_view_users.fxml");
+        sceneTitles.put(UIController.ADMIN_TOOLS_VIEW_USERS, "Admin Tools - View Users");
 
         // Service Request
         sceneFiles.put(UIController.SERVICE_REQUEST_MAIN, "/service_request_main.fxml");
