@@ -93,7 +93,9 @@ public class UIControllerLM extends UIController {
      */
     @FXML
     private void setLoginAsGuestButton() {
-        CurrentUser.user = null; // DB get guest user
+        Connection conn = DBController.dbConnect();
+        CurrentUser.user = DBController.getGuestUser(conn);
+        DBController.closeConnection(conn);
         this.goToScene(UIController.GUEST_MAIN_MENU_MAIN);
     }
 

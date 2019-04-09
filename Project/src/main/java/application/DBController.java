@@ -630,6 +630,25 @@ public class DBController {
             }
     }
 
+
+     public static User getGuestUser(Connection conn){
+         User guestUser;
+        try {
+             PreparedStatement ps = conn.prepareStatement("SELECT * from USERS where PERMISSION = 1");
+             ResultSet rs = ps.executeQuery();
+             rs.next();
+             guestUser = new User(rs.getString("USERID"),rs.getString("USERNAME"),rs.getInt("PERMISSiON"));
+         } catch (SQLException e) {
+             e.printStackTrace();
+             guestUser = null;
+         }
+
+
+        return guestUser;
+     }
+
+
+
 //    /**
 //     * exportData
 //     *
