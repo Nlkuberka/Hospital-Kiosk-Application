@@ -64,7 +64,7 @@ public class UIControllerRVM extends UIController {
         //DB Get nodes
         try {
             Connection conn = DBController.dbConnect();
-            ResultSet rs = conn.createStatement().executeQuery("Select * From WORKPLACES where NODETYPE = 'EXIT'");
+            ResultSet rs = conn.createStatement().executeQuery("Select * From NODES where FLOOR = '2' AND BUILDING = 'Tower'");
             while(rs.next()){
                 nodeIDs.put(rs.getString("SHORTNAME"),rs.getString("NODEID"));
                 nodes.add(rs.getString("SHORTNAME"));
