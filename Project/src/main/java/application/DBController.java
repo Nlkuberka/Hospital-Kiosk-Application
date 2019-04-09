@@ -101,7 +101,7 @@ public class DBController {
 
         loadNodeData(new File("nodesv4.csv"),conn);
         loadEdgeData(new File("edgesv5.csv"),conn);
-//        loadWorkplaceData(new File( "workplaces.csv"),conn);
+        loadWorkplaceData(new File( "workplaces.csv"),conn);
 
         try {
             Statement s = conn.createStatement();
@@ -220,8 +220,8 @@ public class DBController {
             br.readLine();
             while((line = br.readLine()) != null) {
                 arr = line.split(",");
-                connection.createStatement().execute("insert into EDGES " +
-                        "values ('"+ arr[0] + "','"+ arr[1]+ "','"+ arr[2]+ "','"+ arr[3]+"')");
+                connection.createStatement().execute("insert into WORKPLACES (wkplaceid, roomname, capacity, outline) " +
+                        "values ('"+ arr[0] + "','"+ arr[1]+ "',"+ arr[2]+ ",'"+ arr[3]+"')");
             }
         }catch(Exception e) {
             e.printStackTrace();
