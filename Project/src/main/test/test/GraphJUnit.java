@@ -8,16 +8,16 @@ import entities.Graph;
 
 public class GraphJUnit extends TestCase {
     public void testShortestPath() {
-        Node n0 = new Node("N0", 0, 0, "", "", "", "Jon", "");
-        Node n1 = new Node("N1", 1, 1, "", "", "", "Nicole", "");
-        Node n2 = new Node("N2", 2, 2, "", "", "", "Joe", "");
-        Node n3 = new Node("N3", 4, 1, "", "", "", "Ryan", "");
-        Node n4 = new Node("N4", 1, 4, "", "", "", "Dimitri", "");
-        Node n5 = new Node("N5", 3, 2, "", "", "", "Panos", "");
-        Node n6 = new Node("N6", 1, 0, "", "", "", "Shiyi", "");
-        Node n7 = new Node("N7", 2, 0, "", "", "", "Isabel", "");
-        Node n8 = new Node("N8", 3, 0, "", "", "", "Henry", "");
-        Node n9 = new Node("N9", 4, 0, "", "", "", "Rakesh", "");
+        Node n0 = new Node("N0", 0, 0, "", "", "", "N0", "");
+        Node n1 = new Node("N1", 1, 1, "", "", "", "N1", "");
+        Node n2 = new Node("N2", 2, 2, "", "", "", "N2", "");
+        Node n3 = new Node("N3", 4, 1, "", "", "", "N3", "");
+        Node n4 = new Node("N4", 1, 4, "", "", "", "N4", "");
+        Node n5 = new Node("N5", 3, 2, "", "", "", "N5", "");
+        Node n6 = new Node("N6", 1, 0, "", "", "", "N6", "");
+        Node n7 = new Node("N7", 2, 0, "", "", "", "N7", "");
+        Node n8 = new Node("N8", 3, 0, "", "", "", "N8", "");
+        Node n9 = new Node("N9", 4, 0, "", "", "", "N9", "");
         LinkedList<Node> nodes = new LinkedList<>();
         nodes.add(n0);
         nodes.add(n1);
@@ -51,6 +51,7 @@ public class GraphJUnit extends TestCase {
         expected.add("N9");
         expected.add("N3");
         System.out.println(g.textDirections(path));
+        System.out.println(path);
         assertEquals(expected, path);
     }
 
