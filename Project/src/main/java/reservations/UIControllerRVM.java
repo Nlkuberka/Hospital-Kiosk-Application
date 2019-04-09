@@ -120,7 +120,7 @@ public class UIControllerRVM extends UIController {
         String endString = getTimeString(endTimePicker);
 
         Reservation r = new Reservation(nodeIDs.get((String) nodeSelect.getValue()),
-                CurrentUser.userID, dateString, startString, endString);
+                CurrentUser.user.getUserID(), dateString, startString, endString);
         // DB Send
         Connection conn = DBController.dbConnect();
         DBController.addReservation(r,conn);
