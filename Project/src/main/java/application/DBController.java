@@ -300,7 +300,7 @@ public class DBController {
                 list.add(new Node(rs.getString("NODEID"),rs.getInt("XCOORD"),
                         rs.getInt("YCOORD"),rs.getString("FLOOR"),
                         rs.getString("BUILDING"),rs.getString("NODETYPE"),
-                        rs.getString("SHORTNAME"),rs.getString("LONGNAME")));
+                        rs.getString("LONGNAME"),rs.getString("SHORTNAME")));
             }
         }catch(SQLException e){
             e.printStackTrace();
@@ -524,7 +524,7 @@ public class DBController {
             Statement s = connection.createStatement();
             ResultSet rs = s.executeQuery("SELECT * FROM NODES where LONGNAME = '" + longName + "'");
             rs.next();
-             String ID = rs.getString(1);
+            String ID = rs.getString(1);
             return ID;
         }catch(SQLException e) {
             e.printStackTrace();

@@ -48,6 +48,8 @@ public class MapHandler {
             AnchorPane pane = this.paneList.get(i);
             map.fitWidthProperty().bind(pane.prefWidthProperty());
             map.fitHeightProperty().bind(pane.prefHeightProperty());
+
+            this.pathList.get(i).setStrokeWidth(3);
         }
 
         changeToFloor(currentFloor.getIndex());
@@ -80,15 +82,15 @@ public class MapHandler {
         }
     }
 
-    private AnchorPane getCurrentPane() {
+    AnchorPane getCurrentPane() {
         return this.paneList.get(currentFloor.getIndex());
     }
 
-    private ImageView getCurrentMap() {
+    ImageView getCurrentMap() {
         return this.mapList.get(currentFloor.getIndex());
     }
 
-    private Path getCurrentPath() {
+    Path getCurrentPath() {
         return this.pathList.get(currentFloor.getIndex());
     }
 
@@ -190,5 +192,9 @@ public class MapHandler {
         UIControllerPFM.Floors floor = UIControllerPFM.Floors.getByID(startingNode.getFloor());
         changeToFloor(floor.getIndex());
         enablePaths();
+    }
+
+    AnchorPane getTopPane() {
+        return this.paneList.getLast();
     }
 }
