@@ -105,4 +105,10 @@ public class UIControllerSRM extends UIController {
         UIControllerSRSecurity controller = (UIControllerSRSecurity) this.goToScene(UIController.SERVICE_REQUEST_SECURITY);
         controller.setServiceType("SECURITY");
     }
+
+    @FXML
+    private void avButton(ActionEvent actionEvent) {
+        UIControllerSRAVE controller = (UIControllerSRAVE) this.goToScene(UIController.SERVICE_REQUEST_AV_EQUIPMENT);
+        controller.setServiceType("Audio Visual");
+    }
 }
