@@ -317,7 +317,7 @@ public class DBController {
                 list.add(new Node(rs.getString("NODEID"),rs.getInt("XCOORD"),
                         rs.getInt("YCOORD"),rs.getString("FLOOR"),
                         rs.getString("BUILDING"),rs.getString("NODETYPE"),
-                        rs.getString("SHORTNAME"),rs.getString("LONGNAME")));
+                        rs.getString("LONGNAME"),rs.getString("SHORTNAME")));
             }
         }catch(SQLException e){
             e.printStackTrace();
