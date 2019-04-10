@@ -12,7 +12,7 @@ import javafx.scene.control.MenuItem;
  * The UIController for the Admin Tools Main Menu
  * Allows the user to select the various admin tools as well as go back to the Admin
  * Main Menu
- * @author Jonathan Chang
+ * @author Jonathan Chang, Shiyi Liu
  * @version iteration1
  */
 public class UIControllerATM extends UIController {
@@ -28,6 +28,12 @@ public class UIControllerATM extends UIController {
 
     @FXML
     private JFXButton viewEdgesButton; /**< The View Edges Button*/
+
+    @FXML
+    private JFXButton viewUsersButton; /**< The View Edges Button*/
+
+    @FXML
+    private JFXButton editReservationsButton; /**< The View Edges Button*/
 
     @FXML
     private JFXButton viewServiceRequestsButton; /**< The View Service Request Button */
@@ -68,6 +74,15 @@ public class UIControllerATM extends UIController {
     private void setViewServiceRequestsButton() {
         this.goToScene(UIController.ADMIN_TOOLS_VIEW_SERVICE_REQUESTS);
     }
+
+    /**
+     * Goes to the view users page
+     */
+    @FXML
+    private void setUsersButton() {
+        this.goToScene(UIController.ADMIN_TOOLS_VIEW_USERS);
+    }
+
 
     /**
      * Goes back t0 the admin application Menu
