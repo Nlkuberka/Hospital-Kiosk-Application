@@ -1,4 +1,4 @@
-nodeID,xcoord,ycoord,floor,building,nodeType,longName,shortName
+wkplaceID,xcoord,ycoord,floor,building,nodeType,longName,shortName
 ACONF00102,1580,2538,2,BTM,HALL,Hall,Hall
 ACONF00103,1648,2968,3,BTM,CONF,BTM Conference Center,BTM Conference
 ADEPT00101,1401,2628,1,BTM,DEPT,Neuroscience Waiting Room,Neuro Waiting Room
