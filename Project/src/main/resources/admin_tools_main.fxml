@@ -112,7 +112,7 @@
                   </ImageView>
                </graphic>
             </JFXButton>
-            <JFXButton alignment="BOTTOM_CENTER" buttonType="RAISED" contentDisplay="TOP" graphicTextGap="2.0" layoutX="311.0" layoutY="371.0" prefHeight="40.0" prefWidth="350.0" styleClass="jfx-button-admin-tools-main-horizontal" stylesheets="@background.css" text="Edit Reservatins" textAlignment="CENTER" textFill="WHITE" wrapText="true">
+            <JFXButton alignment="BOTTOM_CENTER" buttonType="RAISED" contentDisplay="TOP" graphicTextGap="2.0" layoutX="311.0" layoutY="371.0" onAction="#setEditReservationsButton" prefHeight="40.0" prefWidth="350.0" styleClass="jfx-button-admin-tools-main-horizontal" stylesheets="@background.css" text="Edit Reservatins" textAlignment="CENTER" textFill="WHITE" wrapText="true">
                <font>
                   <Font name="System Bold" size="28.0" />
                </font>
