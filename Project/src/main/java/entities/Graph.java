@@ -205,13 +205,20 @@ public abstract class Graph {
         return adj.get(n).size();
     }
 
+    /**
+     * Creates a graph with the same nodes and edges as the object this method is called on.
+     * The new graph computes shortest paths using a breadth-first-search algorithm.
+     */
     public BFSGraph toBFS() {
         BFSGraph returnValue = new BFSGraph(storedNodes);
         returnValue.adj = adj;
         returnValue.adjWeights = adjWeights;
         return returnValue;
     }
-
+    /**
+     * Creates a graph with the same nodes and edges as the object this method is called on.
+     * The new graph computes shortest paths using a depth-first-search algorithm.
+     */
     public DFSGraph toDFS() {
         DFSGraph returnValue = new DFSGraph(storedNodes);
         returnValue.adj = adj;
@@ -219,6 +226,10 @@ public abstract class Graph {
         return returnValue;
     }
 
+    /**
+     * Creates a graph with the same nodes and edges as the object this method is called on.
+     * The new graph computes shortest paths using an A* algorithm.
+     */
     public AStarGraph toAStar() {
         AStarGraph returnValue = new AStarGraph(storedNodes);
         returnValue.adj = adj;

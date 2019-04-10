@@ -1,10 +1,13 @@
+import entities.AStarGraph;
 import entities.BFSGraph;
 import junit.framework.TestCase;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import entities.Node;
 import entities.Graph;
+import org.junit.Test;
 
 public class GraphJUnit extends TestCase {
     public void testShortestPath() {
@@ -197,6 +200,49 @@ public class GraphJUnit extends TestCase {
         assertEquals(null, actual);
     }
 
-    public void testBridge() {
+    @Test
+    public void testDistanceReplacement() {
+        Node n0 = new Node("N0", 0, 0, "", "", "", "", "");
+        Node n1 = new Node("N1", 1, 0, "", "", "", "", "");
+        Node n2 = new Node("N2", 2, 0, "", "", "", "", "");
+        Node n3 = new Node("N3", 3, 0, "", "", "", "", "");
+        Node n4 = new Node("N4", 4, 0, "", "", "", "", "");
+        Node n5 = new Node("N5", 5, 0, "", "", "", "", "");
+        Node n6 = new Node("N6", 6, 0, "", "", "", "", "");
+        Node n7 = new Node("N7", 3, 1, "", "", "", "", "");
+        LinkedList<Node> nodes = new LinkedList<>();
+        nodes.add(n0);
+        nodes.add(n1);
+        nodes.add(n2);
+        nodes.add(n3);
+        nodes.add(n4);
+        nodes.add(n5);
+        nodes.add(n6);
+        nodes.add(n7);
+        Graph g = new AStarGraph(nodes);
+        g.addBiEdge("N0", "N1");
+        g.addBiEdge("N1", "N2");
+        g.addBiEdge("N2", "N3");
+        g.addBiEdge("N3", "N4");
+        g.addBiEdge("N4", "N5");
+        g.addBiEdge("N5", "N6");
+        g.addBiEdge("N1", "N7");
+        g.addBiEdge("N7", "N5");
+        List<String> expected = new LinkedList<>();
+        expected.add("N0");
+        expected.add("N1");
+        expected.add("N2");
+        expected.add("N3");
+        expected.add("N4");
+        expected.add("N5");
+        expected.add("N6");
+        List<String> actual = g.shortestPath("N0", "N6");
+        assertEquals(expected, actual);
+        g = g.toBFS();
+        actual = g.shortestPath("N0", "N6");
+        assertEquals(expected, actual);
+        g = g.toDFS();
+        actual = g.shortestPath("N0", "N6");
+        assertEquals(expected, actual);
     }
 }

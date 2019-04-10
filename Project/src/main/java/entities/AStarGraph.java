@@ -12,7 +12,9 @@ public class AStarGraph extends Graph {
     @Override
     public List<String> shortestPath(String startID, String targetID) {
         List<Integer> priorityQueue = new LinkedList<>();
+        // the distances of the shortest known path from start to each node
         List<Double> distanceFromStart = new ArrayList<>(storedNodes.size());
+        // the estimated distances of the shortest path from start to target that includes each node.
         List<Double> pathDistance = new ArrayList<>(storedNodes.size());
         for(int i = 0; i < storedNodes.size(); i++) {
             distanceFromStart.add(Double.MAX_VALUE);
@@ -23,15 +25,18 @@ public class AStarGraph extends Graph {
         distanceFromStart.set(startIndex, 0.0);
         pathDistance.set(startIndex, getDistanceToTarget(startIndex, targetIndex));
         priorityQueue.add(startIndex);
+
+        // Search nodes most likely to be in the shortest path from start to target.
         boolean done = false;
         while(!done) {
-            if(priorityQueue.isEmpty()) {
+            if(priorityQueue.isEmpty()) {   // if there is no path from start to target
                 return null;
             }
             int node = priorityQueue.remove(0);
-            if(node == targetIndex) {
+            if(node == targetIndex) {   // Stop searching when a path to target is found.
                 done = true;
             }
+            // Search nodes adjacent to this node.
             for(int i = 0; i < adj.get(node).size(); i++) {
                 int nextNode = adj.get(node).get(i);
                 double newDistanceFromStart = distanceFromStart.get(node) + adjWeights.get(node).get(i);
@@ -50,6 +55,7 @@ public class AStarGraph extends Graph {
                 }
             }
         }
+        // Backtrack from target node to get the shortest path from start to target.
         List<String> path = new LinkedList<>();
         path.add(targetID);
         int current = targetIndex;
@@ -66,6 +72,13 @@ public class AStarGraph extends Graph {
         return path;
     }
 
+    /**
+     * Estimates the distance of the shortest path from an arbitrary node to the target.
+     * Calculates the Euclidean distance between these two points, using the Pythagorean theorem.
+     * @param nodeIndex the index in storedNodes of the arbitrary node
+     * @param targetIndex the index in storedNodes of the target node
+     * @return the estimated distance between these nodes
+     */
     private double getDistanceToTarget(int nodeIndex, int targetIndex) {
         Node startNode = storedNodes.get(nodeIndex);
         Node targetNode = storedNodes.get(targetIndex);

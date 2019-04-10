@@ -18,17 +18,16 @@ public abstract class DijkstraGraph extends Graph {
     public List<String> shortestPath(String startID, String targetID) {
         int startIndex = mapNodeIDToIndex(startID);
         int targetIndex = mapNodeIDToIndex(targetID);
-        int current = startIndex;
-        double [] distance = new double [storedNodes.size()]; //stored distance from start node to node at index
+        double [] distance = new double [storedNodes.size()]; // distance of shortest known path from start to all nodes
         for(int i = 0; i < storedNodes.size(); i++) {
             distance[i] = Double.MAX_VALUE;
         }
         distance[startIndex] = 0;
         addNodeToRelax(startIndex);
 
-        // BFS of nodes and get the distances of each node
+        // Search nodes and get the distances of the shortest path from start to each node.
         while(hasNodesToRelax()) {
-            current = getNodeToRelax();
+            int current = getNodeToRelax();
             for(int i = 0; i < adj.get(current).size(); i++) {
                 int nextNode = adj.get(current).get(i);
                 double currentDistance = distance[current] + adjWeights.get(current).get(i);
@@ -38,12 +37,13 @@ public abstract class DijkstraGraph extends Graph {
                 }
             }
         }
-        if(distance[targetIndex] == Double.MAX_VALUE) {
+        if(distance[targetIndex] == Double.MAX_VALUE) { // if there is no path from start to target
             return null;
         }
+        // Backtrack from target to start to find the shortest path from start to target.
         List<String> path = new LinkedList<>();
         path.add(targetID);
-        current = targetIndex;
+        int current = targetIndex;
         while(current != startIndex) {
             for (int i = 0; i < adj.get(current).size(); i++) {
                 int previousNode = adj.get(current).get(i);
