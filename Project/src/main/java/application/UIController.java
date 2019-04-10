@@ -52,6 +52,8 @@ public class UIController {
 
     public static final String SERVICE_REQUEST_FLOWER_DELIVERY = "SRFD";
 
+    public static final String SERVICE_REQUEST_AV_EQUIPMENT = "SRAVE";
+
     // The starting width and height of the window
     private static final int WIDTH = 900;
     private static final int HEIGHT = 600;

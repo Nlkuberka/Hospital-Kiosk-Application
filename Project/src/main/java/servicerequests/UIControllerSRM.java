@@ -76,4 +76,8 @@ public class UIControllerSRM extends UIController {
     }
 
 
+    public void avButton(ActionEvent actionEvent) {
+        UIControllerSRPS controller = (UIControllerSRPS) this.goToScene(UIController.SERVICE_REQUEST_AV_EQUIPMENT);
+        controller.setServiceType("Audio Visual");
+    }
 }
