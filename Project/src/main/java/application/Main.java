@@ -16,7 +16,7 @@ public class Main extends Application {
 
         System.out.println("Collaborator is " + "X");
 
-        DBController.initializeAppDB();
+        //DBController.initializeAppDB();
 
 //        String ID = "AELEV00S01";
 //        Node singleNode= DBController.fetchNode(ID, conn);

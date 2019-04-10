@@ -22,7 +22,6 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-
 <StackPane fx:id="parentPane" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pathfinding.UIControllerPFM">
      <children>
          <ImageView fx:id="backgroundImage" pickOnBounds="true">
@@ -40,10 +39,10 @@
              <HBox fx:id="hboxForMap" fillHeight="true" VBox.vgrow="ALWAYS">
             <GridPane fx:id="interfaceGrid" minWidth="200.0" prefWidth="200.0" HBox.hgrow="NEVER">
                <columnConstraints>
-                  <ColumnConstraints hgrow="ALWAYS" fillWidth="true" minWidth="200.0" />
+                  <ColumnConstraints fillWidth="true" hgrow="ALWAYS" minWidth="200.0" />
                </columnConstraints>
                <rowConstraints>
-                  <RowConstraints percentHeight="5.0" vgrow="ALWAYS"  />
+                  <RowConstraints percentHeight="5.0" vgrow="ALWAYS" />
                   <RowConstraints percentHeight="5.0" vgrow="ALWAYS" />
                   <RowConstraints percentHeight="10.0" vgrow="ALWAYS" />
                   <RowConstraints percentHeight="10.0" vgrow="ALWAYS" />
@@ -59,13 +58,13 @@
                                  <Font name="System Bold Italic" size="16.0" />
                              </font>
                          </Text>
-                         <ChoiceBox fx:id="initialLocationSelect" onAction="#initLocChanged" prefWidth="150.0" style="-fx-background-color: #ffffff;" GridPane.halignment="CENTER" GridPane.rowIndex="5" GridPane.valignment="CENTER" />
+                         <ChoiceBox fx:id="destinationSelect" onAction="#destLocChanged" prefWidth="150.0" style="-fx-background-color: #ffffff;" GridPane.halignment="CENTER" GridPane.rowIndex="5" GridPane.valignment="CENTER" />
                          <Text fill="WHITE" smooth="false" strokeType="OUTSIDE" strokeWidth="0.0" text="Destination" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="CENTER">
                              <font>
                                  <Font name="System Bold Italic" size="16.0" />
                              </font>
                          </Text>
-                         <ChoiceBox fx:id="destinationSelect" onAction="#destLocChanged" prefWidth="150.0" style="-fx-background-color: #ffffff;" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
+                         <ChoiceBox fx:id="initialLocationSelect" onAction="#initLocChanged" prefWidth="150.0" style="-fx-background-color: #ffffff;" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
                          <JFXButton onAction="#clearSelection" prefWidth="100.0" styleClass="jfx-button-login" stylesheets="@background.css" text="Cancel" textFill="WHITE" GridPane.halignment="CENTER" GridPane.rowIndex="6" GridPane.valignment="CENTER">
                              <font>
                                  <Font name="System Bold" size="14.0" />
@@ -97,7 +96,7 @@
                            <graphic>
                               <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
-                                    <Image url="@icon/zoom-in%20(1).png" />
+                                    <Image url="@icon/zoom-in (1).png" />
                                  </image>
                               </ImageView>
                            </graphic>
@@ -109,7 +108,7 @@
                            <graphic>
                               <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
-                                    <Image url="@icon/zoom-out%20(1).png" />
+                                    <Image url="@icon/zoom-out (1).png" />
                                  </image>
                               </ImageView>
                            </graphic>
