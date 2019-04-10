@@ -203,8 +203,8 @@ public class DBController {
             PreparedStatement ps = conn.prepareStatement("Select * from RESERVATIONS where WKPLACEID ='"+ID+"' and DAY ='"+Date+"'");
             ResultSet rs = ps.executeQuery();
             while(rs.next()){
-                Reservation r = new Reservation(rs.getString(1),rs.getString(2),rs.getString(3),
-                        rs.getString(4),rs.getString(5));
+                Reservation r = new Reservation(rs.getString(2),rs.getString(3),rs.getString(4),
+                        rs.getString(5),rs.getString(6));
                 list.add(r);
             }
         } catch (SQLException e) {

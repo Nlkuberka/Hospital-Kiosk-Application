@@ -9,6 +9,7 @@ import entities.Reservation;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTimePicker;
 
+import entities.Workplace;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.control.ChoiceBox;
@@ -141,6 +142,7 @@ public class UIControllerRVM extends UIController {
     @FXML
     private void setConfirmButton() {
         if(!checkValidReservation()) {
+            popupMessage("Invalid Reservation", true);
             return;
         }
 
@@ -153,11 +155,20 @@ public class UIControllerRVM extends UIController {
         String startString = getTimeString(startTimePicker);
         String endString = getTimeString(endTimePicker);
 
+        Connection conn = DBController.dbConnect();
+        List<Reservation> reservations = DBController.getResForRoom(workplaceIDs.get((String) workplaceSelect.getValue()), dateString, conn);
+        System.out.println(reservations);
         Reservation r = new Reservation(workplaceIDs.get((String) workplaceSelect.getValue()),
                 CurrentUser.user.getUserID(), dateString, startString, endString);
-        // DB Send
-        Connection conn = DBController.dbConnect();
+
+        if(!r.isValid(reservations)) {
+            popupMessage("This reservation conflicts with another.", true);
+            return;
+        }
+
         DBController.addReservation(r,conn);
+        DBController.closeConnection(conn);
+        popupMessage("Reservation Confirmed.", false);
     }
 
     /**
