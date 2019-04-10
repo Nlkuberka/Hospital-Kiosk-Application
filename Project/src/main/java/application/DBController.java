@@ -362,9 +362,6 @@ public class DBController {
      * Not in use
      *
      *
-//   * @param NODEID
-//   * @param USERID
-     * @param connection
      */
 //    public static void deleteServiceRequest(String NODEID,String USERID, Connection connection){
 //        try {
@@ -444,8 +441,6 @@ public class DBController {
             }
             s.execute();
             ResultSet rs = s.getGeneratedKeys();
-            //rs.next();
-            //return rs.getInt(1);
             return 1;
         }catch(SQLException e){
             e.printStackTrace();

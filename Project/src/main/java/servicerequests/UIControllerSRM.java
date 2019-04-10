@@ -18,6 +18,10 @@ public class UIControllerSRM extends UIController {
     @FXML
     private JFXButton baseButton;
 
+
+    @FXML
+    private JFXButton babysittingButton;
+
     /**
      * Runs on the scene creation and adds the various service request types
      */
@@ -32,6 +36,7 @@ public class UIControllerSRM extends UIController {
     @Override
     public void onShow() {
 
+
     }
 
     /**
@@ -44,9 +49,13 @@ public class UIControllerSRM extends UIController {
     }
 
 
+    /**
+     * Redirects to BabysittingServiceRequest
+     */
+
     @FXML
-    public void setBaseButton() {
-        UIControllerSRBase controller = (UIControllerSRBase) this.goToScene(UIController.SERVICE_REQUEST_BASE);
-        controller.setServiceType("BASE");
+    public void setbabysittingButton() {
+        UIControllerSRB controller = (UIControllerSRB) this.goToScene(UIController.SERVICE_REQUEST_BABYSITTING);
+        controller.setServiceType("BABYSITTING");
     }
 }
