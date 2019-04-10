@@ -33,18 +33,43 @@ import java.util.List;
 
 public class UIControllerPFM extends UIController {
 
-    enum Floors {
-        LL2("Lower Level 2"), LL1("Lower Level 1"), GROUND("Ground Floor"),
-        FIRST("First Floor"), SECOND("Second Floor"), THIRD("Third Floor");
+    public enum Floors {
+        FIRST("First Floor", "1"), GROUND("Ground Floor", "G"), LL1("Lower Level 1", "L1"),
+        LL2("Lower Level 2", "L2"), SECOND("Second Floor", "2"), THIRD("Third Floor", "3");
 
         private final String name;
+        private final String ID;
 
-        Floors(String name) {
+        Floors(String name, String ID) {
             this.name = name;
+            this.ID = ID;
         }
 
         public String getName() {
             return this.name;
+        }
+
+        public String getID() {
+            return this.name;
+        }
+
+        public static Floors getByID(String ID) {
+            if(ID.equals("1")) {
+                return FIRST;
+            }
+            if(ID.equals("2")) {
+                return SECOND;
+            }
+            if(ID.equals("3")) {
+                return THIRD;
+            }
+            if(ID.equals("G")) {
+                return GROUND;
+            }
+            if(ID.equals("L1")) {
+                return LL1;
+            }
+            return LL2;
         }
     }
 

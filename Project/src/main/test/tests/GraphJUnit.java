@@ -1,6 +1,11 @@
-import junit.framework.TestCase;
+package tests;
 
-import java.lang.reflect.Array;
+import entities.Graph;
+import entities.Node;
+import junit.framework.TestCase;
+import org.junit.Test;
+import pathfinding.UIControllerPFM;
+
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
@@ -118,14 +123,64 @@ public class GraphJUnit extends TestCase {
         g.addBiEdge("N9", "N3");
         List<String> path1 = g.shortestPath("N0", "N3");
         List<String> path2 = g.shortestPath("N3", "N5");
-        List<List<String>> finalPath = new LinkedList<>();
-        finalPath.add(path1);
-        finalPath.add(path2);
-        System.out.println(finalPath);
-//        List<String> expected = new LinkedList<>();
-//        expected.add("N5");
-//        expected.add("N1");
-//        expected.add("N0");
-//        assertNotSame(expected, finalPath);
+    }
+
+    @Test
+    public void testSeparatePathByFloor() {
+        Node n0 = new Node("N0", 0, 0, "1", "", "", "", "");
+        Node n1 = new Node("N1", 0, 0, "1", "", "", "", "");
+        Node n2 = new Node("N2", 0, 0, "G", "", "", "", "");
+        Node n3 = new Node("N3", 0, 0, "1", "", "", "", "");
+        Node n4 = new Node("N4", 0, 0, "2", "", "", "", "");
+        Node n5 = new Node("N5", 0, 0, "2", "", "", "", "");
+        Node n6 = new Node("N6", 0, 0, "2", "", "", "", "");
+        Node n7 = new Node("N7", 0, 0, "G", "", "", "", "");
+        Node n8 = new Node("N8", 0, 0, "1", "", "", "", "");
+        Node n9 = new Node("N9", 0, 0, "1", "", "", "", "");
+        LinkedList<Node> nodes = new LinkedList<>();
+        nodes.add(n0);
+        nodes.add(n1);
+        nodes.add(n2);
+        nodes.add(n3);
+        nodes.add(n4);
+        nodes.add(n5);
+        nodes.add(n6);
+        nodes.add(n7);
+        nodes.add(n8);
+        nodes.add(n9);
+        Graph g = new Graph(nodes);
+        List<String> path = new LinkedList<>();
+        path.add("N0");
+        path.add("N1");
+        path.add("N2");
+        path.add("N3");
+        path.add("N4");
+        path.add("N5");
+        path.add("N6");
+        path.add("N7");
+        path.add("N8");
+        path.add("N9");
+        List<List<List<String>>> expected = new ArrayList<>();
+        for(int i = 0; i < UIControllerPFM.Floors.values().length; i++) {
+            expected.add(new LinkedList<>());
+        }
+        expected.get(UIControllerPFM.Floors.FIRST.ordinal()).add(new LinkedList<>());
+        expected.get(UIControllerPFM.Floors.FIRST.ordinal()).get(0).add("N0");
+        expected.get(UIControllerPFM.Floors.FIRST.ordinal()).get(0).add("N1");
+        expected.get(UIControllerPFM.Floors.GROUND.ordinal()).add(new LinkedList<>());
+        expected.get(UIControllerPFM.Floors.GROUND.ordinal()).get(0).add("N2");
+        expected.get(UIControllerPFM.Floors.FIRST.ordinal()).add(new LinkedList<>());
+        expected.get(UIControllerPFM.Floors.FIRST.ordinal()).get(1).add("N3");
+        expected.get(UIControllerPFM.Floors.SECOND.ordinal()).add(new LinkedList<>());
+        expected.get(UIControllerPFM.Floors.SECOND.ordinal()).get(0).add("N4");
+        expected.get(UIControllerPFM.Floors.SECOND.ordinal()).get(0).add("N5");
+        expected.get(UIControllerPFM.Floors.SECOND.ordinal()).get(0).add("N6");
+        expected.get(UIControllerPFM.Floors.GROUND.ordinal()).add(new LinkedList<>());
+        expected.get(UIControllerPFM.Floors.GROUND.ordinal()).get(1).add("N7");
+        expected.get(UIControllerPFM.Floors.FIRST.ordinal()).add(new LinkedList<>());
+        expected.get(UIControllerPFM.Floors.FIRST.ordinal()).get(2).add("N8");
+        expected.get(UIControllerPFM.Floors.FIRST.ordinal()).get(2).add("N9");
+        List<List<List<String>>> actual = g.separatePathByFloor(path);
+        assertEquals(expected, actual);
     }
 }
