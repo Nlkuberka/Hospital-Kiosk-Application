@@ -4,6 +4,7 @@ import application.CurrentUser;
 import application.DBController;
 import application.UIController;
 import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXTextField;
 import entities.ServiceRequest;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
@@ -29,7 +30,7 @@ public class UIControllerSRET extends UIController {
     private ChoiceBox<String> roomSelect;
 
     @FXML
-    private TextArea serviceMessage;
+    private JFXTextField serviceMessage;
 
     @FXML
     private JFXButton confirmButton; /**< The confirm button*/
@@ -81,6 +82,7 @@ public class UIControllerSRET extends UIController {
 
     @FXML
     private void setCancelButton() {
+        serviceMessage.setText("");
         this.goToScene(UIController.SERVICE_REQUEST_MAIN);
     }
 }

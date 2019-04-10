@@ -39,7 +39,7 @@ public class UIControllerSRM extends UIController {
 
     @FXML
     public void setTransportButton() {
-        UIControllerSRBase controller = (UIControllerSRBase) this.goToScene(UIController.SERVICE_REQUEST_TRANSPORT);
+        UIControllerSRET controller = (UIControllerSRET) this.goToScene(UIController.SERVICE_REQUEST_TRANSPORT);
         controller.setServiceType("Transport");
     }
 }
