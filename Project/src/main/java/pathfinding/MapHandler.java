@@ -16,6 +16,7 @@ public class MapHandler {
     private LinkedList<AnchorPane> paneList = new LinkedList<>();
     UIControllerPFM.Floors currentFloor;
     private List<List<List<Node>>> latestPath;
+    private Node latestStartingNode;
 
     public MapHandler(Path p1, Path p2, Path p3, Path p4, Path p5, Path p6,
                       ImageView m1, ImageView m2, ImageView m3, ImageView m4, ImageView m5, ImageView m6,
@@ -48,6 +49,8 @@ public class MapHandler {
             map.fitWidthProperty().bind(pane.prefWidthProperty());
             map.fitHeightProperty().bind(pane.prefHeightProperty());
         }
+
+        changeToFloor(currentFloor.ordinal());
     }
 
     private void addToPath(Path path, List<Node> nodes) {
@@ -91,6 +94,7 @@ public class MapHandler {
 
     private void clearLatestPath() {
         this.latestPath = null;
+        this.latestStartingNode = null;
     }
 
     private void clearAndHidePath(Path path) {
@@ -178,9 +182,12 @@ public class MapHandler {
         }
     }
 
-    void displayNewPath(List<List<List<Node>>> list, UIControllerPFM.Floors floor) {
+    void displayNewPath(List<List<List<Node>>> list, Node startingNode) {
         updatePaths(list);
         this.latestPath = list;
+        this.latestStartingNode = startingNode;
+
+        UIControllerPFM.Floors floor = UIControllerPFM.Floors.getByID(startingNode.getFloor());
         changeToFloor(floor.ordinal());
         enablePaths();
     }

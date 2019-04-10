@@ -194,6 +194,7 @@ public class UIControllerPFM extends UIController {
         System.out.println("Initial location selected: " + initialLocationSelect.getValue());
         Connection connection = DBController.dbConnect();
         initialID = DBController.IDfromLongName(initialLocationSelect.getValue(), connection);
+        DBController.closeConnection(connection);
 
         getPath();
     }
@@ -205,6 +206,7 @@ public class UIControllerPFM extends UIController {
 
         Connection connection = DBController.dbConnect();
         destID = DBController.IDfromLongName(destinationSelect.getValue(), connection);
+        DBController.closeConnection(connection);
 
         // call getPath if not null
         getPath();
@@ -219,20 +221,18 @@ public class UIControllerPFM extends UIController {
     }
 
     private void getPath() {
-        String dest = destinationSelect.getValue();
-        String init = initialLocationSelect.getValue();
 
-        if(dest == null || dest.length() == 0 || init == null || init.length() == 0)
+        if(initialID == null || destID == null)
             return;
 
-        System.out.println("getPath called");
         Connection connection = DBController.dbConnect();
         List<String> pathIDs;
         pathIDs = graph.shortestPath(initialID, destID);
-        //graph.separatePathByFloor(pathIDs);
-        LinkedList<Node> pathNodes = DBController.multiNodeFetch(pathIDs, connection);
 
-        //mapHandler.displayNewPath(pathNodes, ); TODO get current floor
+        Node initialNode = DBController.fetchNode(initialID, connection);
+        DBController.closeConnection(connection);
+
+        mapHandler.displayNewPath(graph.separatePathByFloor(pathIDs), initialNode);
     }
 
 
