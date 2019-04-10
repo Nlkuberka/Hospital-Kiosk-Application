@@ -6,6 +6,7 @@ import application.UIController;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextArea;
 import com.jfoenix.controls.JFXTextField;
+import entities.Node;
 import entities.ServiceRequest;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
@@ -54,17 +55,15 @@ public class UIControllerSRFD extends UIController {
         List<String> nodeShortNames = new ArrayList<String>();
         nodeIDs = new HashMap<String, String>();
 
-        // DB Get all Nodes
-        try {
-            Connection conn = DBController.dbConnect();
-            ResultSet rs = conn.createStatement().executeQuery("Select * From NODES where FLOOR = '2' AND BUILDING = 'Tower'");
-            while (rs.next()) {
-                nodeIDs.put(rs.getString("SHORTNAME"), rs.getString("NODEID"));
-                nodeShortNames.add(rs.getString("SHORTNAME"));
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
+        Connection conn = DBController.dbConnect();
+        List<Node> nodes = DBController.fetchAllRooms(conn);
+        DBController.closeConnection(conn);
+        for(int i = 0; i < nodes.size(); i++) {
+            Node node = nodes.get(i);
+            nodeShortNames.add(node.getShortName());
+            nodeIDs.put(node.getShortName(), node.getNodeID());
         }
+
         roomSelect.setItems(FXCollections.observableList(nodeShortNames));
         roomSelect.getSelectionModel().selectFirst();
         serviceMessage1.setText("");
