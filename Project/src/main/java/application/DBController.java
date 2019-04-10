@@ -432,6 +432,7 @@ public class DBController {
                     " values ('" + serviceRequest.getNodeID() +
                     "','"+ serviceRequest.getServiceType() +"','"+ serviceRequest.getMessage() + "','"+
                     serviceRequest.getUserID()+"',"+serviceRequest.isResolved()+","+ serviceRequest.getResolverID()+")");
+            s.execute();
             //ResultSet rs = s.getGeneratedKeys();
             //rs.next();
             return 1;
