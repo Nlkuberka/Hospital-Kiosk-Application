@@ -18,6 +18,9 @@ public class Main extends Application {
 
         //DBController.initializeAppDB();
 
+        //DBController.loadNodeData(new File("nodesv3.csv"), conn);
+        //DBController.loadEdgeData(new File("edgesv3.csv"), conn);
+
 //        String ID = "AELEV00S01";
 //        Node singleNode= DBController.fetchNode(ID, conn);
 //        String strNode; // = singleNode.toString();

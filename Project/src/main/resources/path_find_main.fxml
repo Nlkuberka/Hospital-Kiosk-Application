@@ -1,13 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXSlider?>
 <?import com.jfoenix.controls.JFXToggleButton?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.effect.BoxBlur?>
 <?import javafx.scene.effect.ColorAdjust?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -85,14 +88,66 @@
             <StackPane HBox.hgrow="ALWAYS">
                <children>
                        <ScrollPane fx:id="scrollPane_pathfind">
-                           <AnchorPane fx:id="scroll_AnchorPane" maxWidth="3000.0" minWidth="684.0" prefHeight="465.0" prefWidth="684.0">
-                               <ImageView fx:id="map_imageView" preserveRatio="true">
-                                   <Image url="@02_thesecondfloor.png" />
-                               </ImageView>
-                               <Path fx:id="path" />
+                            <StackPane alignment="TOP_LEFT">
+                                <children>
+                           <AnchorPane fx:id="pane_002" maxWidth="3000.0" minWidth="684.0" prefHeight="465.0" prefWidth="684.0">
+                              <children>
+                                          <ImageView fx:id="map_002" opacity="0.0" preserveRatio="true">
+                                              <Image url="@maps/00_thelowerlevel2.png" />
+                                          </ImageView>
+                                          <Path fx:id="p_002" />
+                              </children>
                            </AnchorPane>
+                           <AnchorPane fx:id="pane_001" maxWidth="3000.0" minWidth="684.0" prefHeight="465.0" prefWidth="684.0">
+                              <children>
+                                          <ImageView fx:id="map_001" opacity="0.0" preserveRatio="true">
+                                              <Image url="@maps/00_thelowerlevel1.png" />
+                                          </ImageView>
+                                          <Path fx:id="p_001" />
+                              </children>
+                           </AnchorPane>
+                           <AnchorPane fx:id="pane_00" maxWidth="3000.0" minWidth="684.0" prefHeight="465.0" prefWidth="684.0">
+                              <children>
+                                          <ImageView fx:id="map_00" opacity="0.0" preserveRatio="true">
+                                              <Image url="@maps/00_thegroundfloor.png" />
+                                          </ImageView>
+                                          <Path fx:id="p_00" />
+                              </children>
+                           </AnchorPane>
+                           <AnchorPane fx:id="pane_01" maxWidth="3000.0" minWidth="684.0" prefHeight="465.0" prefWidth="684.0">
+                              <children>
+                                          <ImageView fx:id="map_01" opacity="0.0" preserveRatio="true">
+                                              <Image url="@maps/01_thefirstfloor.png" />
+                                          </ImageView>
+                                          <Path fx:id="p_01" />
+                              </children>
+                           </AnchorPane>
+                           <AnchorPane fx:id="pane_02" maxWidth="3000.0" minWidth="684.0" prefHeight="465.0" prefWidth="684.0">
+                              <children>
+                                          <ImageView fx:id="map_02" opacity="0.0" preserveRatio="true">
+                                              <Image url="@maps/02_thesecondfloor.png" />
+                                          </ImageView>
+                                          <Path fx:id="p_02" />
+                              </children>
+                           </AnchorPane>
+                           <AnchorPane fx:id="pane_03" maxWidth="3000.0" minWidth="684.0" prefHeight="465.0" prefWidth="684.0">
+                              <children>
+                                          <ImageView fx:id="map_03" opacity="0.0" preserveRatio="true">
+                                              <Image url="@maps/03_thethirdfloor.png" />
+                                          </ImageView>
+                                          <Path fx:id="p_03" />
+                              </children>
+                           </AnchorPane>
+                                </children>
+                            </StackPane>
                        </ScrollPane>
-                  <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="140.0" prefWidth="75.0" StackPane.alignment="TOP_LEFT">
+                  <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="20.0" StackPane.alignment="TOP_CENTER">
+                     <children>
+                        <Label fx:id="floorLabel" styleClass="titleLabel" stylesheets="background.css" layoutY="14.0" text="Floor Label">
+                        </Label>
+                     </children>
+                  </AnchorPane>
+                  <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="75.0" StackPane.alignment="TOP_LEFT">
                      <children>
                         <JFXButton fx:id="zoom_button" contentDisplay="CENTER" layoutX="4.0" layoutY="14.0" mnemonicParsing="false" onAction="#zoom" prefWidth="100.0" styleClass="jfx-button-zoom" stylesheets="@background.css" text=" " textFill="WHITE">
                            <font>
@@ -118,10 +173,9 @@
                               </ImageView>
                            </graphic>
                         </JFXButton>
+                        <JFXSlider fx:id="floorSlider" styleClass="floor-slider" stylesheets="background.css" layoutX="20.0" layoutY="150.0" max="6.0" prefHeight="150.0" prefWidth="10.0" showTickMarks="true" snapToTicks="true" AnchorPane.leftAnchor="20.0">
+                           </JFXSlider>
                      </children>
-                     <StackPane.margin>
-                        <Insets left="10.0" />
-                     </StackPane.margin>
                   </AnchorPane>
                </children>
             </StackPane>
