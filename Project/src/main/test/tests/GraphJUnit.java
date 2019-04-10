@@ -1,7 +1,5 @@
 package tests;
 
-import entities.Graph;
-import entities.Node;
 import junit.framework.TestCase;
 
 import java.util.LinkedList;

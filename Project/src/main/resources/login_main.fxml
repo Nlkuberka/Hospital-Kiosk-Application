@@ -27,7 +27,7 @@
                   <Blend />
                </effect>
                <top>
-                  <JFXTabPane prefHeight="600.0" prefWidth="900.0" stylesheets="@background.css" BorderPane.alignment="CENTER">
+                  <JFXTabPane fx:id="tabs" prefHeight="600.0" prefWidth="900.0" stylesheets="@background.css" BorderPane.alignment="CENTER">
                      <tabs>
                         <Tab text="Guest">
                           <content>

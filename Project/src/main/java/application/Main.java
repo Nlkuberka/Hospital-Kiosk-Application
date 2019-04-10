@@ -1,6 +1,5 @@
 package application;
 
-import entities.Reservation;
 import entities.User;
 
 import javafx.application.Application;
@@ -11,7 +10,6 @@ import java.sql.Connection;
 import java.sql.DatabaseMetaData;
 import java.sql.ResultSet;
 import java.io.File;
-
 
 public class Main extends Application {
 
@@ -30,6 +28,8 @@ public class Main extends Application {
             DBController.initializeAppDB();
         }
 
+        CurrentUser.currentAlgorithm = CurrentUser.AALOGRITHM;
+        //DBController.initializeAppDB();
     }
 
     public static void main(String[] args) {
