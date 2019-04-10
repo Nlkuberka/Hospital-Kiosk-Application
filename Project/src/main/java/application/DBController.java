@@ -197,6 +197,21 @@ public class DBController {
         return null;
     }
 
+    public static LinkedList<Reservation> getResForRoom(String ID, String Date, Connection conn){
+        LinkedList<Reservation> list = new LinkedList<Reservation>();
+        try {
+            PreparedStatement ps = conn.prepareStatement("Select * from RESERVATIONS where WKPLACEID ='"+ID+"' and DAY ='"+Date+"'");
+            ResultSet rs = ps.executeQuery();
+            while(rs.next()){
+                Reservation r = new Reservation(rs.getString(2),rs.getString(3),rs.getString(4),
+                        rs.getString(5),rs.getString(6));
+                list.add(r);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return list;
+    }
 
 
     /**
