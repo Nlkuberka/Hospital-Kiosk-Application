@@ -31,8 +31,8 @@ import java.util.List;
  */
 public class UIControllerATVU extends UIController {
     private static final int[] lengthRequirements = {10, 15, 15, -1};
-    private static final String[] userGetters= {"getUserID", "getUsername", "NO", "getPermissions"};
-    private static final String[] userSetters= {"setUserID", "setUsername", "setPassword", "setPermissions"};
+    private static final String[] userGetters = {"getUserID", "getUsername", "NO", "getPermissions"};
+    private static final String[] userSetters = {"setUserID", "setUsername", "setPassword", "setPermissions"};
 
     private static final List<String> userPermissionNames = new LinkedList<String>() {{add("Guest"); add("User"); add("Administrator");}};
     private static final List<Integer> userPermissions = new LinkedList<Integer>(){{add(1); add(2); add(3);}};

@@ -14,7 +14,7 @@ public class Main extends Application {
         controller.goToScene(UIController.ADMIN_TOOLS_VIEW_USERS);
 
         System.out.println("Collaborator is " + "X");
-
+        CurrentUser.currentAlgorithm = CurrentUser.AALOGRITHM;
         //DBController.initializeAppDB();
     }
 
