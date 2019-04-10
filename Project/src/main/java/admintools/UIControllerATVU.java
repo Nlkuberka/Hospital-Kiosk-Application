@@ -243,7 +243,7 @@ public class UIControllerATVU extends UIController {
                     DBController.updateUser(user.getUserID(),user,conn);
                     DBController.closeConnection(conn);
                 });
-                choiceBox.setMaxWidth(200.0);
+                choiceBox.setMinWidth(225.0);
                 choiceBox.setLayoutY(30.0 * choiceBoxes.size());
                 choiceBoxes.add(choiceBox);
                 pane.getChildren().add(choiceBox);

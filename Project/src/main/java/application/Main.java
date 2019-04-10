@@ -11,7 +11,7 @@ public class Main extends Application {
     public void start(Stage primaryStage) throws Exception {
         UIController controller = new UIController(primaryStage);
 
-        controller.goToScene(UIController.ADMIN_TOOLS_VIEW_USERS);
+        controller.goToScene(UIController.LOGIN_MAIN);
 
         System.out.println("Collaborator is " + "X");
         CurrentUser.currentAlgorithm = CurrentUser.AALOGRITHM;

@@ -83,7 +83,10 @@ public class UIControllerATM extends UIController {
         this.goToScene(UIController.ADMIN_TOOLS_VIEW_USERS);
     }
 
-
+    @FXML
+    private void setAlgorithmButton() {
+        this.goToScene(UIController.ADMIN_TOOLS_CHANGE_ALGORITHM);
+    }
     /**
      * Goes back t0 the admin application Menu
      */

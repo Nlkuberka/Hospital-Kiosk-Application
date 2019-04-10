@@ -2,9 +2,8 @@ package admintools;
 
 import application.CurrentUser;
 import application.UIController;
-import javafx.collections.FXCollections;
+import com.jfoenix.controls.JFXTabPane;
 import javafx.fxml.FXML;
-import javafx.scene.control.ChoiceBox;
 
 import java.util.HashMap;
 
@@ -25,18 +24,23 @@ public class UIControllerATCA extends UIController {
     }};
 
     @FXML
-    private ChoiceBox<String> algorithmChoiceBox;
-
+    private JFXTabPane tabs;
 
     @FXML
     public void initialize() {
         List<String> keys = new LinkedList<>();
         keys.addAll(algorithms.keySet());
-        algorithmChoiceBox.setItems(FXCollections.observableList(keys));
     }
 
     @FXML
     private void changeAlgorithm() {
-        CurrentUser.currentAlgorithm = algorithms.get(algorithmChoiceBox.getValue());
+        String algorithm = tabs.getSelectionModel().getSelectedItem().getText();
+        CurrentUser.currentAlgorithm = algorithms.get(algorithm);
+        popupMessage("Algorithm changed to " + algorithm, false);
+    }
+
+    @FXML
+    private void setBackMenuItem() {
+        this.goToScene(UIController.ADMIN_TOOLS_MAIN);
     }
 }

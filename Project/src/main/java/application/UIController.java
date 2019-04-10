@@ -42,13 +42,14 @@ public class UIController {
     public static final String ADMIN_TOOLS_VIEW_EDGES = "ATVE";
     public static final String ADMIN_TOOLS_VIEW_SERVICE_REQUESTS = "ATVSR";
     public static final String ADMIN_TOOLS_VIEW_USERS = "ATVU";
+    public static final String ADMIN_TOOLS_CHANGE_ALGORITHM = "ATCA";
 
     // The starting width and height of the window
     private static final int WIDTH = 900;
     private static final int HEIGHT = 600;
 
     private static final int WIDTH_POPUP_WARNING = 300;
-    private static final int HEIGHT_POPUP_WARNING = 100;
+    private static final int HEIGHT_POPUP_WARNING = 150;
 
     // Data storage about the stage
     private static Scene rootScene;
@@ -125,6 +126,9 @@ public class UIController {
 
         sceneFiles.put(UIController.ADMIN_TOOLS_VIEW_USERS, "/admin_tools_view_users.fxml");
         sceneTitles.put(UIController.ADMIN_TOOLS_VIEW_USERS, "Admin Tools - View Users");
+
+        sceneFiles.put(UIController.ADMIN_TOOLS_CHANGE_ALGORITHM, "/admin_tools_switch_algorithm.fxml");
+        sceneTitles.put(UIController.ADMIN_TOOLS_CHANGE_ALGORITHM, "Admin Tools - Change Algorithm");
 
         // Service Request
         sceneFiles.put(UIController.SERVICE_REQUEST_MAIN, "/service_request_main.fxml");
