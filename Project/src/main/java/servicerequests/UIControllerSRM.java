@@ -58,6 +58,29 @@ public class UIControllerSRM extends UIController {
         controller.setServiceType("Flower Delivery");
     }
 
+    @FXML
+    public void setSanitationButton() {
+        UIControllerSRSA controller = (UIControllerSRSA) this.goToScene(UIController.SERVICE_REQUEST_SANITATION);
+        controller.setServiceType("Sanitation");
+    }
+    @FXML
+    public void setReligiousServices(){
+        UIControllerSRRS controller = (UIControllerSRRS) this.goToScene(UIController.SERVICE_REQUEST_RELIGIOUS_SERVICES);
+        controller.setServiceType("Religious Services");
+    }
+
+    @FXML
+    public void setInterpreterButton() {
+        UIControllerSRIN controller = (UIControllerSRIN) this.goToScene(UIController.SERVICE_REQUEST_INTERPRETER);
+        controller.setServiceType("Interpreter");
+    }
+
+    @FXML
+    public void setTransportButton() {
+        UIControllerSRET controller = (UIControllerSRET) this.goToScene(UIController.SERVICE_REQUEST_TRANSPORT);
+        controller.setServiceType("Transport");
+    }
+
 
     /**
      * Redirects to BabysittingServiceRequest
@@ -74,7 +97,7 @@ public class UIControllerSRM extends UIController {
         UIControllerSRPS controller = (UIControllerSRPS) this.goToScene(UIController.SERVICE_REQUEST_PRESCRIPTION_SERVICES_MAIN);
         controller.setServiceType("Prescription Services");
     }
-
+  
     @FXML
     private void avButton(ActionEvent actionEvent) {
         UIControllerSRAVE controller = (UIControllerSRAVE) this.goToScene(UIController.SERVICE_REQUEST_AV_EQUIPMENT);

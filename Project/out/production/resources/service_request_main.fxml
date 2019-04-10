@@ -84,7 +84,7 @@
                               </ImageView>
                            </graphic>
                         </JFXButton>
-                        <JFXButton alignment="BOTTOM_CENTER" contentDisplay="TOP" graphicTextGap="20.0" layoutX="187.0" layoutY="296.0" prefHeight="180.0" prefWidth="160.0" style="-fx-background-color: #ffc41e;" styleClass="jfx-button-SVmain2" stylesheets="@background.css" text="Sanitation" textFill="WHITE">
+                        <JFXButton fx:id="sanitationButton" alignment="BOTTOM_CENTER" contentDisplay="TOP" graphicTextGap="20.0" layoutX="187.0" layoutY="296.0" onAction="#setSanitationButton" prefHeight="180.0" prefWidth="160.0" style="-fx-background-color: #ffc41e;" styleClass="jfx-button-SVmain2" stylesheets="@background.css" text="Sanitation" textFill="WHITE">
                            <font>
                               <Font name="System Bold" size="14.0" />
                            </font>
@@ -103,12 +103,12 @@
                            <graphic>
                               <ImageView fitHeight="95.0" fitWidth="95.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
-                                    <Image url="@icon/login%20(1).png" />
+                                    <Image url="@icon/login (1).png" />
                                  </image>
                               </ImageView>
                            </graphic>
                         </JFXButton>
-                        <JFXButton alignment="BOTTOM_CENTER" contentDisplay="TOP" graphicTextGap="20.0" layoutX="47.0" layoutY="296.0" prefHeight="180.0" prefWidth="160.0" style="-fx-background-color: #ffc41e;" styleClass="jfx-button-SVmain2" stylesheets="@background.css" text="Interperter" textFill="WHITE">
+                        <JFXButton alignment="BOTTOM_CENTER" contentDisplay="TOP" graphicTextGap="20.0" layoutX="47.0" layoutY="296.0" onAction="#goToInterpreterRequest" prefHeight="180.0" prefWidth="160.0" style="-fx-background-color: #ffc41e;" styleClass="jfx-button-SVmain2" stylesheets="@background.css" text="Interperter" textFill="WHITE">
                            <font>
                               <Font name="System Bold" size="14.0" />
                            </font>

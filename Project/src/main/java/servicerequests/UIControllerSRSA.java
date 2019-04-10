@@ -4,34 +4,43 @@ import application.CurrentUser;
 import application.DBController;
 import application.UIController;
 import com.jfoenix.controls.JFXButton;
+import entities.Edge;
+import entities.Graph;
+import entities.Node;
 import entities.ServiceRequest;
 import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextFormatter;
-import org.omg.CORBA.Current;
+import javafx.scene.control.*;
 
+import java.awt.event.ActionEvent;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
-public class UIControllerSRBase extends UIController {
+public class UIControllerSRSA extends UIController {
     String serviceType;
     Map<String, String> nodeIDs; /**< Holds reference between node short name and nodeID*/
+    private Graph graph;
 
     @FXML
-    private ChoiceBox roomSelect;
-
-    @FXML
-    private TextArea serviceMessage;
+    private TextField serviceMessage;
 
     @FXML
     private JFXButton confirmButton; /**< The confirm button*/
+
+    @FXML
+    private JFXButton cancelButton; /**< The cancel button*/
+
+    @FXML
+    private Menu homeButton; /**< The home button*/
+
+    @FXML
+    private ChoiceBox<String> roomSelect; /**< The room select dropdown*/
+
+    @FXML
+    private ChoiceBox<String> sanitationSelect;
 
     @FXML
     public void initialize() {
@@ -42,23 +51,24 @@ public class UIControllerSRBase extends UIController {
 
     @FXML
     public void onShow() {
+        Connection conn = DBController.dbConnect();
         List<String> nodeShortNames = new ArrayList<String>();
         nodeIDs = new HashMap<String, String>();
 
-        // DB Get all Nodes
-        try {
-            Connection conn = DBController.dbConnect();
-            ResultSet rs = conn.createStatement().executeQuery("Select * From NODES where FLOOR = '2' AND BUILDING = 'Tower'");
-            while (rs.next()) {
-                nodeIDs.put(rs.getString("SHORTNAME"), rs.getString("NODEID"));
-                nodeShortNames.add(rs.getString("SHORTNAME"));
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
+        List<Node> nodes = DBController.fetchAllRooms(conn);
+        System.out.println(nodes.size());
+        DBController.closeConnection(conn);
+        for(int i = 0; i < nodes.size(); i++) {
+            Node node = nodes.get(i);
+            nodeShortNames.add(node.getShortName());
+            nodeIDs.put(node.getShortName(), node.getNodeID());
         }
+
         roomSelect.setItems(FXCollections.observableList(nodeShortNames));
-        roomSelect.getSelectionModel().selectFirst();
+
         serviceMessage.setText("");
+
+        sanitationSelect.getItems().addAll("Fecal Matter", "Vomit", "Urine", "Blood", "Dropped Baby", "Lost Grandma");
     }
 
     public void setServiceType(String serviceType) {
@@ -67,7 +77,8 @@ public class UIControllerSRBase extends UIController {
 
     @FXML
     private void setConfirmButton() {
-        String roomShortName = (String) roomSelect.getValue();
+        Connection connection = DBController.dbConnect();
+        String roomShortName = DBController.IDfromLongName(roomSelect.getValue(), connection);
         String nodeID = nodeIDs.get(roomShortName);
         String message = serviceMessage.getText();
 
@@ -75,6 +86,8 @@ public class UIControllerSRBase extends UIController {
         Connection conn = DBController.dbConnect();
         DBController.addServiceRequest(sr,conn);
         DBController.closeConnection(conn);
+
+        serviceMessage.setText("Thank you! We will get on this soon!");
         this.goToScene(UIController.SERVICE_REQUEST_MAIN);
     }
 
@@ -82,4 +95,15 @@ public class UIControllerSRBase extends UIController {
     private void setCancelButton() {
         this.goToScene(UIController.SERVICE_REQUEST_MAIN);
     }
+
+    @FXML
+    private void setHomeButton() {
+        this.goToScene(UIController.LOGIN_MAIN);
+    }
+
+    @FXML
+    private void setRoomSelect(){}
+
+    @FXML
+    private void setSanitationSelect(){}
 }

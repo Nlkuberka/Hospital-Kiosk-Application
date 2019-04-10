@@ -58,7 +58,7 @@
                            <graphic>
                               <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
-                                    <Image url="@icon/cancel%20(1).png" />
+                                    <Image url="@icon/cancel (1).png" />
                                  </image>
                               </ImageView>
                            </graphic>
@@ -74,7 +74,6 @@
                            </font>
                         </Text>
                         <ChoiceBox layoutX="48.0" layoutY="109.0" prefWidth="150.0" style="-fx-background-color: #ffffff;" />
-                        <JFXTextField alignment="CENTER" layoutX="48.0" layoutY="220.0" prefHeight="220.0" prefWidth="150.0" promptText="What 
                         <JFXTextField layoutX="48.0" layoutY="220.0" prefHeight="220.0" prefWidth="150.0" style="-fx-background-color: #ffffff;" />
                      </children>
                   </AnchorPane>

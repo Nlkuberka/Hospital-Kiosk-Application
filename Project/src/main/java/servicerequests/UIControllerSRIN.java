@@ -4,14 +4,16 @@ import application.CurrentUser;
 import application.DBController;
 import application.UIController;
 import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXTextField;
+import entities.Node;
 import entities.ServiceRequest;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextFormatter;
-import org.omg.CORBA.Current;
 
+import javax.swing.*;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -20,56 +22,61 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class UIControllerSRBase extends UIController {
+public class UIControllerSRIN extends UIController {
     String serviceType;
     Map<String, String> nodeIDs; /**< Holds reference between node short name and nodeID*/
 
     @FXML
-    private ChoiceBox roomSelect;
+    private ChoiceBox<String> roomSelect;
 
     @FXML
-    private TextArea serviceMessage;
+    private ChoiceBox<String> languageSelect;
+
+    @FXML
+    private JFXTextField serviceMessage;
 
     @FXML
     private JFXButton confirmButton; /**< The confirm button*/
 
     @FXML
     public void initialize() {
+        languageSelect.getItems().addAll("Spanish", "Mandarin", "Arabic", "French");
         serviceMessage.setTextFormatter(new TextFormatter<String>(e ->
                 e.getControlNewText().length() <= 100 ? e : null
         ));
     }
 
+    @SuppressWarnings("Duplicates")
     @FXML
     public void onShow() {
-        List<String> nodeShortNames = new ArrayList<String>();
-        nodeIDs = new HashMap<String, String>();
+        nodeIDs = new HashMap<>();
 
         // DB Get all Nodes
-        try {
-            Connection conn = DBController.dbConnect();
-            ResultSet rs = conn.createStatement().executeQuery("Select * From NODES where FLOOR = '2' AND BUILDING = 'Tower'");
-            while (rs.next()) {
-                nodeIDs.put(rs.getString("SHORTNAME"), rs.getString("NODEID"));
-                nodeShortNames.add(rs.getString("SHORTNAME"));
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
+        Connection conn = DBController.dbConnect();
+        System.out.println(conn);
+        List<Node> rooms = DBController.fetchAllRooms(conn);
+        for(Node room : rooms) {
+            roomSelect.getItems().add(room.getShortName());
+            nodeIDs.put(room.getShortName(), room.getNodeID());
         }
-        roomSelect.setItems(FXCollections.observableList(nodeShortNames));
+        //roomSelect.setItems(FXCollections.observableList(nodeShortNames));
         roomSelect.getSelectionModel().selectFirst();
+        languageSelect.getSelectionModel().selectFirst();
         serviceMessage.setText("");
+
     }
 
     public void setServiceType(String serviceType) {
         this.serviceType = serviceType;
     }
 
+    @SuppressWarnings("Duplicates")
     @FXML
     private void setConfirmButton() {
-        String roomShortName = (String) roomSelect.getValue();
+        String roomShortName = roomSelect.getValue();
         String nodeID = nodeIDs.get(roomShortName);
-        String message = serviceMessage.getText();
+        String message = "Language: " + languageSelect.getValue() + " Comments: " + serviceMessage.getText();
+        message = message.substring(0, Math.min(150, message.length()));
 
         ServiceRequest sr = new ServiceRequest(nodeID, serviceType, message, CurrentUser.user.getUserID(), false, null);
         Connection conn = DBController.dbConnect();

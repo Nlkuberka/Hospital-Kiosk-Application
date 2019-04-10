@@ -45,12 +45,19 @@ public class UIController {
     public static final String ADMIN_TOOLS_VIEW_SERVICE_REQUESTS = "ATVSR";
 
     public static final String SERVICE_REQUEST_MAIN = "SRM";
+    public static final String SERVICE_REQUEST_BASE = "SRB";
+    public static final String SERVICE_REQUEST_SANITATION = "SRSA";
+    public static final String SERVICE_REQUEST_INTERPRETER = "SRIN";
+
 
     public static final String SERVICE_REQUEST_PRESCRIPTION_SERVICES_MAIN = "SRPSM";
     public static final String SERVICE_REQUEST_IT = "SRIT";
     public static final String SERVICE_REQUEST_BABYSITTING = "SRB";
 
     public static final String SERVICE_REQUEST_FLOWER_DELIVERY = "SRFD";
+    public static final String SERVICE_REQUEST_TRANSPORT = "SRET";
+
+    public static final String SERVICE_REQUEST_RELIGIOUS_SERVICES = "SRRS";
 
     public static final String SERVICE_REQUEST_AV_EQUIPMENT = "SRAVE";
 
@@ -152,6 +159,19 @@ public class UIController {
 
         sceneFiles.put(UIController.SERVICE_REQUEST_FLOWER_DELIVERY, "/service_request_flower_delivery.fxml");
         sceneTitles.put(UIController.SERVICE_REQUEST_FLOWER_DELIVERY, "Service Request - Flower Delivery");
+
+
+        sceneFiles.put(UIController.SERVICE_REQUEST_SANITATION, "/service_request_sanitation.fxml");
+        sceneTitles.put(UIController.SERVICE_REQUEST_SANITATION, "Service Request - Sanitation");
+
+        sceneFiles.put(UIController.SERVICE_REQUEST_RELIGIOUS_SERVICES,"/service_request_religious_services.fxml");
+        sceneTitles.put(UIController.SERVICE_REQUEST_RELIGIOUS_SERVICES, "Service Request - Religious Services");
+
+        sceneFiles.put(UIController.SERVICE_REQUEST_INTERPRETER, "/service_request_interpreter.fxml");
+        sceneTitles.put(UIController.SERVICE_REQUEST_INTERPRETER, "Service Request - Interpreter");
+
+        sceneFiles.put(UIController.SERVICE_REQUEST_TRANSPORT, "/service_request_transport.fxml");
+        sceneTitles.put(UIController.SERVICE_REQUEST_TRANSPORT, "Service Request - Transport");
 
         // Reservations
         sceneFiles.put(UIController.RESERVATIONS_MAIN, "/reservations_main.fxml");
