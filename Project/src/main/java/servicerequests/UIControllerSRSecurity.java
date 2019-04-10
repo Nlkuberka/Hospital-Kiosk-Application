@@ -3,18 +3,17 @@ package servicerequests;
 import application.CurrentUser;
 import application.DBController;
 import application.UIController;
+import entities.Node;
+
 import com.jfoenix.controls.JFXButton;
 import entities.ServiceRequest;
 import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextFormatter;
 
 import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.*;
 
 /*

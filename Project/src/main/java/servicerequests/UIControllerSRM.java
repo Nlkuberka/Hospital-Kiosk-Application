@@ -1,6 +1,8 @@
 package servicerequests;
 
 import application.UIController;
+import com.jfoenix.controls.JFXTextField;
+import entities.ServiceRequest;
 
 import com.jfoenix.controls.JFXButton;
 import javafx.fxml.FXML;
@@ -20,16 +22,11 @@ public class UIControllerSRM extends UIController {
     @FXML
     private JFXButton baseButton;
 
-
-    @FXML
-    private JFXButton babysittingButton;
-
     /**
      * Runs on the scene creation and adds the various service request types
      */
     @FXML
     public void initialize() {
-
     }
 
     /**

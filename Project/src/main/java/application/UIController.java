@@ -26,7 +26,7 @@ import java.util.HashMap;
  * This controller handles all of the other UIControllers as well as
  * storing the EditableTableCell which is used in adminTools
  * @author Jonathan Chang
- * @version interation1
+ * @version interation 1
  */
 public class UIController {
     // The various scenes that this UIController handles
@@ -43,6 +43,8 @@ public class UIController {
     public static final String ADMIN_TOOLS_VIEW_NODES = "ATVN";
     public static final String ADMIN_TOOLS_VIEW_EDGES = "ATVE";
     public static final String ADMIN_TOOLS_VIEW_SERVICE_REQUESTS = "ATVSR";
+    public static final String ADMIN_TOOLS_VIEW_USERS = "ATVU";
+    public static final String ADMIN_TOOLS_CHANGE_ALGORITHM = "ATCA";
 
     public static final String SERVICE_REQUEST_MAIN = "SRM";
     public static final String SERVICE_REQUEST_BASE = "SRB";
@@ -66,7 +68,7 @@ public class UIController {
     private static final int HEIGHT = 600;
 
     private static final int WIDTH_POPUP_WARNING = 300;
-    private static final int HEIGHT_POPUP_WARNING = 100;
+    private static final int HEIGHT_POPUP_WARNING = 150;
 
     // Data storage about the stage
     private static Scene rootScene;
@@ -140,6 +142,12 @@ public class UIController {
 
         sceneFiles.put(UIController.ADMIN_TOOLS_VIEW_SERVICE_REQUESTS, "/admin_tools_view_service_request.fxml");
         sceneTitles.put(UIController.ADMIN_TOOLS_VIEW_SERVICE_REQUESTS, "Admin Tools - View Service Requests");
+
+        sceneFiles.put(UIController.ADMIN_TOOLS_VIEW_USERS, "/admin_tools_view_users.fxml");
+        sceneTitles.put(UIController.ADMIN_TOOLS_VIEW_USERS, "Admin Tools - View Users");
+
+        sceneFiles.put(UIController.ADMIN_TOOLS_CHANGE_ALGORITHM, "/admin_tools_switch_algorithm.fxml");
+        sceneTitles.put(UIController.ADMIN_TOOLS_CHANGE_ALGORITHM, "Admin Tools - Change Algorithm");
 
         // Service Request
         sceneFiles.put(UIController.SERVICE_REQUEST_MAIN, "/service_request_main.fxml");
@@ -228,7 +236,7 @@ public class UIController {
         Scene scene = null;
         UIControllerPUM controller = null;
         try {
-            FXMLLoader fxmlLoader = isWarning ? new FXMLLoader(getClass().getResource("/popup_warning_main.fxml")) :  new FXMLLoader(getClass().getResource("/popup_message_main.fxml"));
+            FXMLLoader fxmlLoader = isWarning ? new FXMLLoader(getClass().getResource("/popup_main.fxml")) :  new FXMLLoader(getClass().getResource("/popup_confirm.fxml"));
             Parent root = fxmlLoader.load();
             scene = new Scene(root, WIDTH_POPUP_WARNING, HEIGHT_POPUP_WARNING);
             controller = fxmlLoader.getController();
