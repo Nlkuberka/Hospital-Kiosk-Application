@@ -47,6 +47,7 @@ public class UIController {
     public static final String ADMIN_TOOLS_VIEW_SERVICE_REQUESTS = "ATVSR";
     public static final String ADMIN_TOOLS_VIEW_USERS = "ATVU";
     public static final String ADMIN_TOOLS_CHANGE_ALGORITHM = "ATCA";
+    public static final String ADMIN_TOOLS_MAP_VIEW = "ATMV";
 
     public static final String SERVICE_REQUEST_MAIN = "SRM";
 //    public static final String SERVICE_REQUEST_BASE = "SRB";
@@ -150,6 +151,8 @@ public class UIController {
 
         sceneFiles.put(UIController.ADMIN_TOOLS_CHANGE_ALGORITHM, "/admin_tools_switch_algorithm.fxml");
         sceneTitles.put(UIController.ADMIN_TOOLS_CHANGE_ALGORITHM, "Admin Tools - Change Algorithm");
+        sceneFiles.put((UIController.ADMIN_TOOLS_MAP_VIEW), "/admin_tools_map_view.fxml");
+        sceneTitles.put((UIController.ADMIN_TOOLS_MAP_VIEW), "Admin Tools ; Map View");
 
         // Service Request
         sceneFiles.put(UIController.SERVICE_REQUEST_MAIN, "/service_request_main.fxml");
