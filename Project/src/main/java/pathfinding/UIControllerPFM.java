@@ -114,6 +114,7 @@ public class UIControllerPFM extends UIController {
             }
         }
 
+        DBController.closeConnection(conn);
         this.graph = new Graph(allNodes);
 
         List<Edge> usefulEdges = new LinkedList<>();
@@ -134,7 +135,7 @@ public class UIControllerPFM extends UIController {
         System.out.println("Initial location selected: " + initialLocationSelect.getValue());
         Connection connection = DBController.dbConnect();
         initialID = DBController.IDfromLongName(initialLocationSelect.getValue(), connection);
-
+        DBController.closeConnection(connection);
         getPath();
     }
 
@@ -145,7 +146,7 @@ public class UIControllerPFM extends UIController {
 
         Connection connection = DBController.dbConnect();
         destID = DBController.IDfromLongName(destinationSelect.getValue(), connection);
-
+        DBController.closeConnection(connection);
         // call getPath if not null
         getPath();
     }
@@ -171,6 +172,7 @@ public class UIControllerPFM extends UIController {
         pathIDs = graph.shortestPath(initialID, destID);
         LinkedList<Node> pathNodes = DBController.multiNodeFetch(pathIDs, connection);
         drawPath(pathNodes);
+        DBController.closeConnection(connection);
     }
 
     // TODO: list of all nodes that have: names, XY coords
