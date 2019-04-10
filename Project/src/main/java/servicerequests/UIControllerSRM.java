@@ -66,6 +66,13 @@ public class UIControllerSRM extends UIController {
         controller.setServiceType("Religious Services");
     }
 
+    @FXML
+    public void setInterpreterButton() {
+        UIControllerSRIN controller = (UIControllerSRIN) this.goToScene(UIController.SERVICE_REQUEST_INTERPRETER);
+        controller.setServiceType("Interpreter");
+
+    }
+
 
     /**
      * Redirects to BabysittingServiceRequest
