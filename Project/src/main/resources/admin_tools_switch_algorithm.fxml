@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import com.jfoenix.controls.JFXButton?>
 <?import com.jfoenix.controls.JFXTabPane?>
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
@@ -41,21 +42,60 @@
                               <Font name="System Bold" size="40.0" />
                            </font>
                         </Text>
-                        <JFXTabPane layoutY="125.0" maxHeight="450.0" prefHeight="450.0" prefWidth="900.0">
+                        <JFXTabPane layoutY="125.0" maxHeight="450.0" prefHeight="450.0" prefWidth="900.0" stylesheets="@background.css">
                            <tabs>
                               <Tab text="A*">
                                 <content>
-                                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="413.0" prefWidth="900.0" style="-fx-background-color: #ffffff;" />
+                                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="413.0" prefWidth="900.0" style="-fx-background-color: #ffffff;">
+                                       <children>
+                                          <Text fill="#015080" layoutX="132.0" layoutY="82.0" strokeType="OUTSIDE" strokeWidth="0.0" text="A* Algorithm" AnchorPane.leftAnchor="110.0" AnchorPane.topAnchor="40.0">
+                                             <font>
+                                                <Font name="System Bold" size="30.0" />
+                                             </font>
+                                          </Text>
+                                          <Text fill="#015080" layoutX="110.0" layoutY="124.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Introduction:" AnchorPane.leftAnchor="110.0" AnchorPane.topAnchor="105.0">
+                                             <font>
+                                                <Font size="18.0" />
+                                             </font>
+                                          </Text>
+                                          <JFXButton layoutX="356.0" layoutY="322.0" styleClass="jfx-button-login" stylesheets="@background.css" text="Set A* Algorithm" AnchorPane.leftAnchor="356.0" AnchorPane.topAnchor="322.0" />
+                                       </children></AnchorPane>
                                 </content>
                               </Tab>
                               <Tab text="Breadth For Search">
                                 <content>
-                                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="413.0" prefWidth="900.0" style="-fx-background-color: #ffffff;" stylesheets="@background.css" />
+                                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="413.0" prefWidth="900.0" style="-fx-background-color: #ffffff;" stylesheets="@background.css">
+                                       <children>
+                                          <Text fill="#015080" layoutX="106.0" layoutY="68.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Breadth For Search" AnchorPane.leftAnchor="110.0" AnchorPane.topAnchor="40.0">
+                                             <font>
+                                                <Font name="System Bold" size="30.0" />
+                                             </font>
+                                          </Text>
+                                          <Text fill="#015080" layoutX="110.0" layoutY="124.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Introduction:" AnchorPane.leftAnchor="110.0" AnchorPane.topAnchor="105.0">
+                                             <font>
+                                                <Font size="18.0" />
+                                             </font>
+                                          </Text>
+                                          <JFXButton layoutX="278.0" layoutY="324.0" styleClass="jfx-button-login" stylesheets="@background.css" text="Set Breadth For Search Algorithm" AnchorPane.leftAnchor="278.0" AnchorPane.topAnchor="324.0" />
+                                       </children></AnchorPane>
                                 </content>
                               </Tab>
                               <Tab text="Depth For Search">
                                 <content>
-                                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="413.0" prefWidth="900.0" style="-fx-background-color: #ffffff;" />
+                                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="413.0" prefWidth="900.0" style="-fx-background-color: #ffffff;">
+                                       <children>
+                                          <Text fill="#015080" strokeType="OUTSIDE" strokeWidth="0.0" text="Depth For Search" AnchorPane.leftAnchor="110.0" AnchorPane.topAnchor="40.0">
+                                             <font>
+                                                <Font name="System Bold" size="30.0" />
+                                             </font>
+                                          </Text>
+                                          <Text fill="#015080" strokeType="OUTSIDE" strokeWidth="0.0" text="Introduction:" AnchorPane.leftAnchor="110.0" AnchorPane.topAnchor="105.0">
+                                             <font>
+                                                <Font size="18.0" />
+                                             </font>
+                                          </Text>
+                                          <JFXButton layoutX="278.0" layoutY="319.0" styleClass="jfx-button-login" stylesheets="@background.css" text="Set Breadth For Search Algorithm" AnchorPane.topAnchor="322.0" />
+                                       </children></AnchorPane>
                                 </content>
                               </Tab>
                            </tabs>
