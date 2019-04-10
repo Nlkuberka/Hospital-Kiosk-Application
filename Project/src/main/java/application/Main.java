@@ -7,6 +7,8 @@ import javafx.application.Application;
 import javafx.stage.Stage;
 
 import java.sql.Connection;
+import java.sql.DatabaseMetaData;
+import java.sql.ResultSet;
 
 public class Main extends Application {
 
@@ -18,8 +20,12 @@ public class Main extends Application {
 
         System.out.println("Collaborator is " + "X");
 
-//        DBController.initializeAppDB();
-
+        Connection conn = DBController.dbConnect();
+        DatabaseMetaData dbmd = conn.getMetaData();
+        ResultSet rs = dbmd.getTables(null, null, "WORKPLACES",null);
+        if(!rs.next()){
+            DBController.initializeAppDB();
+        }
         //DBController.loadNodeData(new File("nodesv3.csv"), conn);
         //DBController.loadEdgeData(new File("edgesv3.csv"), conn);
 
