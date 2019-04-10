@@ -129,32 +129,33 @@ public class Graph {
 
     /**
      * Divides a path into several lists of nodes based on which floor they are located.
-     * There is a list for each floor, containing the IDs of nodes in the path on that floor.
+     * There is a list for each floor, containing the nodes in the path on that floor.
      * The nodes on a particular floor are further divided into lists based on where they appear in the path.
      * A set of nodes that appear consecutively in the path are stored in a bottom-level list together.
      * If the user has to leave a floor and come back to it later in the path,
      * then the nodes in this path would be stored in two bottom-level lists.
      * If the path never touches a certain floor, then the mid-level list for that floor would be empty,
      * but there is a mid-level list instantiated for every floor.
-     * @param path a list of node IDs
+     * @param path a list of nodes
      * @return a list of lists of lists of node IDs
      */
-    public List<List<List<String>>> separatePathByFloor(List<String> path) {
+    public List<List<List<Node>>> separatePathByFloor(List<String> path) {
         // a collection of lists for each floor
-        List<List<List<String>>> separatedPath = new ArrayList<>(UIControllerPFM.Floors.values().length);
+        List<List<List<Node>>> separatedPath = new ArrayList<>(UIControllerPFM.Floors.values().length);
         for(int i = 0; i < UIControllerPFM.Floors.values().length; i++) {
             separatedPath.add(new LinkedList<>());  // Create the mid-level list for each floor.
         }
         // Analyze the nodes in the order that they appear in the path, looking for when the path jumps between floors.
         UIControllerPFM.Floors previousFloor = null; // the floor of the node previously analyzed
         for(String nodeID : path) {
-            UIControllerPFM.Floors currentFloor = UIControllerPFM.Floors.getByID(storedNodes.get(mapNodeIDToIndex(nodeID)).getFloor());
+            Node node = storedNodes.get(mapNodeIDToIndex(nodeID));
+            UIControllerPFM.Floors currentFloor = UIControllerPFM.Floors.getByID(node.getFloor());
             // If the current node is on a different floor than the previous node,
             // then put the current node in a different list.
             if(previousFloor != currentFloor) {
                 separatedPath.get(currentFloor.ordinal()).add(new LinkedList<>());
             }
-            ((LinkedList<List<String>>) separatedPath.get(currentFloor.ordinal())).getLast().add(nodeID);
+            ((LinkedList<List<Node>>) separatedPath.get(currentFloor.ordinal())).getLast().add(node);
             previousFloor = currentFloor;
         }
         return separatedPath;
