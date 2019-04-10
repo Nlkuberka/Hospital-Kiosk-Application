@@ -42,11 +42,8 @@ public class UIController {
     public static final String ADMIN_TOOLS_VIEW_EDGES = "ATVE";
     public static final String ADMIN_TOOLS_VIEW_SERVICE_REQUESTS = "ATVSR";
     public static final String ADMIN_TOOLS_VIEW_USERS = "ATVU";
-<<<<<<< Updated upstream
     public static final String ADMIN_TOOLS_CHANGE_ALGORITHM = "ATCA";
-=======
     public static final String ADMIN_TOOLS_MAP_VIEW = "ATMV";
->>>>>>> Stashed changes
 
     // The starting width and height of the window
     private static final int WIDTH = 900;
@@ -131,13 +128,10 @@ public class UIController {
         sceneFiles.put(UIController.ADMIN_TOOLS_VIEW_USERS, "/admin_tools_view_users.fxml");
         sceneTitles.put(UIController.ADMIN_TOOLS_VIEW_USERS, "Admin Tools - View Users");
 
-<<<<<<< Updated upstream
         sceneFiles.put(UIController.ADMIN_TOOLS_CHANGE_ALGORITHM, "/admin_tools_switch_algorithm.fxml");
         sceneTitles.put(UIController.ADMIN_TOOLS_CHANGE_ALGORITHM, "Admin Tools - Change Algorithm");
-=======
         sceneFiles.put((UIController.ADMIN_TOOLS_MAP_VIEW), "/admin_tools_map_view.fxml");
         sceneTitles.put((UIController.ADMIN_TOOLS_MAP_VIEW), "Admin Tools ; Map View");
->>>>>>> Stashed changes
 
         // Service Request
         sceneFiles.put(UIController.SERVICE_REQUEST_MAIN, "/service_request_main.fxml");
