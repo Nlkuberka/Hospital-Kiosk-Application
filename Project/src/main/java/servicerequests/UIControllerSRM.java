@@ -97,7 +97,15 @@ public class UIControllerSRM extends UIController {
         UIControllerSRPS controller = (UIControllerSRPS) this.goToScene(UIController.SERVICE_REQUEST_PRESCRIPTION_SERVICES_MAIN);
         controller.setServiceType("Prescription Services");
     }
-  
+
+
+
+    @FXML
+    public void setSecurityButton() {
+        UIControllerSRSecurity controller = (UIControllerSRSecurity) this.goToScene(UIController.SERVICE_REQUEST_SECURITY);
+        controller.setServiceType("SECURITY");
+    }
+
     @FXML
     private void avButton(ActionEvent actionEvent) {
         UIControllerSRAVE controller = (UIControllerSRAVE) this.goToScene(UIController.SERVICE_REQUEST_AV_EQUIPMENT);
