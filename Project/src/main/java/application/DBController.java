@@ -446,6 +446,7 @@ public class DBController {
     public static int addServiceRequest(ServiceRequest serviceRequest, Connection connection){
         try{
             PreparedStatement s;
+            System.out.println("hello");
             if (serviceRequest.getNodeID() == null){
                 s = connection.prepareStatement("INSERT into SERVICEREQUEST (NODEID, SERVICETYPE, MESSAGE, USERID, RESOLVED, RESOLVERID)" +
                         " values (" + serviceRequest.getNodeID() +
