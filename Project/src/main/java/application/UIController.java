@@ -45,12 +45,16 @@ public class UIController {
     public static final String ADMIN_TOOLS_VIEW_SERVICE_REQUESTS = "ATVSR";
 
     public static final String SERVICE_REQUEST_MAIN = "SRM";
+    public static final String SERVICE_REQUEST_BASE = "SRB";
+    public static final String SERVICE_REQUEST_INTERPRETER = "SRIN";
 
     public static final String SERVICE_REQUEST_PRESCRIPTION_SERVICES_MAIN = "SRPSM";
     public static final String SERVICE_REQUEST_IT = "SRIT";
     public static final String SERVICE_REQUEST_BABYSITTING = "SRB";
     public static final String SERVICE_REQUEST_FLOWER_DELIVERY = "SRFD";
     public static final String SERVICE_REQUEST_SECURITY = "SRS";
+
+    public static final String SERVICE_REQUEST_RELIGIOUS_SERVICES = "SRRS";
 
     // The starting width and height of the window
     private static final int WIDTH = 900;
@@ -150,6 +154,13 @@ public class UIController {
 
         sceneFiles.put(UIController.SERVICE_REQUEST_SECURITY, "/service_request_security.fxml");
         sceneTitles.put(UIController.SERVICE_REQUEST_SECURITY, "Service Request - Security");
+
+        sceneFiles.put(UIController.SERVICE_REQUEST_RELIGIOUS_SERVICES,"/service_request_religious_services.fxml");
+        sceneTitles.put(UIController.SERVICE_REQUEST_RELIGIOUS_SERVICES, "Service Request - Religious Services");
+
+        sceneFiles.put(UIController.SERVICE_REQUEST_INTERPRETER, "/service_request_interpreter.fxml");
+        sceneTitles.put(UIController.SERVICE_REQUEST_INTERPRETER, "Service Request - Interpreter");
+
 
         // Reservations
         sceneFiles.put(UIController.RESERVATIONS_MAIN, "/reservations_main.fxml");
