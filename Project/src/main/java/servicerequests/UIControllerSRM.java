@@ -15,7 +15,14 @@ import javafx.event.ActionEvent;
 public class UIControllerSRM extends UIController {
 
     @FXML
+    private JFXButton ITButton;
+
+    @FXML
     private JFXButton baseButton;
+
+
+    @FXML
+    private JFXButton babysittingButton;
 
     /**
      * Runs on the scene creation and adds the various service request types
@@ -31,13 +38,18 @@ public class UIControllerSRM extends UIController {
     @Override
     public void onShow() {
 
+
     }
 
+    /**
+     * Redirects to IT ServiceRequest
+     */
     @FXML
-    public void setBaseButton() {
-        UIControllerSRBase controller = (UIControllerSRBase) this.goToScene(UIController.SERVICE_REQUEST_BASE);
-        controller.setServiceType("BASE");
+    public void setITButton() {
+        UIControllerSRIT controller = (UIControllerSRIT) this.goToScene(UIController.SERVICE_REQUEST_IT);
+        controller.setServiceType("IT");
     }
+
 
     @FXML
     public void setFlowerButton(ActionEvent actionEvent)
@@ -45,4 +57,23 @@ public class UIControllerSRM extends UIController {
         UIControllerSRFD controller = (UIControllerSRFD) this.goToScene(UIController.SERVICE_REQUEST_FLOWER_DELIVERY);
         controller.setServiceType("Flower Delivery");
     }
+
+
+    /**
+     * Redirects to BabysittingServiceRequest
+     */
+
+    @FXML
+    public void setbabysittingButton() {
+        UIControllerSRB controller = (UIControllerSRB) this.goToScene(UIController.SERVICE_REQUEST_BABYSITTING);
+        controller.setServiceType("BABYSITTING");
+    }
+
+    @FXML
+    public void setPrescriptionServicesButton() {
+        UIControllerSRPS controller = (UIControllerSRPS) this.goToScene(UIController.SERVICE_REQUEST_PRESCRIPTION_SERVICES_MAIN);
+        controller.setServiceType("Prescription Services");
+    }
+
+
 }
