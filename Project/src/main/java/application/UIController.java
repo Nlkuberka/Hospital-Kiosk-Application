@@ -55,6 +55,7 @@ public class UIController {
     public static final String SERVICE_REQUEST_BABYSITTING = "SRB";
     public static final String SERVICE_REQUEST_FLOWER_DELIVERY = "SRFD";
     public static final String SERVICE_REQUEST_SECURITY = "SRS";
+    public static final String SERVICE_REQUEST_TRANSPORT = "SRET";
 
     public static final String SERVICE_REQUEST_RELIGIOUS_SERVICES = "SRRS";
 
@@ -166,6 +167,9 @@ public class UIController {
 
         sceneFiles.put(UIController.SERVICE_REQUEST_INTERPRETER, "/service_request_interpreter.fxml");
         sceneTitles.put(UIController.SERVICE_REQUEST_INTERPRETER, "Service Request - Interpreter");
+
+        sceneFiles.put(UIController.SERVICE_REQUEST_TRANSPORT, "/service_request_transport.fxml");
+        sceneTitles.put(UIController.SERVICE_REQUEST_TRANSPORT, "Service Request - Transport");
 
         // Reservations
         sceneFiles.put(UIController.RESERVATIONS_MAIN, "/reservations_main.fxml");
