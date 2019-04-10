@@ -40,16 +40,6 @@ public class UIControllerPFM extends UIController {
     public HBox hboxForMap;
     public GridPane interfaceGrid;
     public StackPane parentPane;
-    private Graph graph;
-    private String initialID;
-    private String destID;
-    private Group circles = new Group();
-    private Circle currentInitCircle;
-    private Circle currentDestCircle;
-    private PathTransition pathTransition;
-    private Random random = new Random(System.currentTimeMillis());
-    private LinkedList<Node> usefulNodes;
-
     @FXML
     public ChoiceBox<String> initialLocationSelect;
     public ChoiceBox<String> destinationSelect;
@@ -61,7 +51,18 @@ public class UIControllerPFM extends UIController {
     public AnchorPane scroll_AnchorPane;
     public Button zoom_button;
     public Button unzoom_button;
+    private Graph graph;
+    private String initialID;
+    private String destID;
+    private Group circles = new Group();
+    private Circle currentInitCircle;
+    private Circle currentDestCircle;
+    private PathTransition pathTransition;
+    private Random random = new Random(System.currentTimeMillis());
+    private LinkedList<Node> usefulNodes;
     private List<Node> currentPath;
+    // The multiplication factor at which the map changes size
+    private double zoomFactor = 1.2;
 
     @FXML
     public void initialize() {
@@ -141,7 +142,6 @@ public class UIControllerPFM extends UIController {
         path.setStrokeWidth(3);
     }
 
-
     @FXML
     public void initLocChanged(ActionEvent actionEvent) {
         if (!(pathTransition == null)) {
@@ -181,10 +181,13 @@ public class UIControllerPFM extends UIController {
         pathAnimation();
     }
 
-
     @FXML
     private void clearSelection(ActionEvent actionEvent) {
         setNodesVisible(true);
+        setZoomOn(true);
+        initialLocationSelect.setDisable(false);
+        destinationSelect.setDisable(false);
+        currentPath = null;
         destinationSelect.getSelectionModel().clearSelection();
         initialLocationSelect.getSelectionModel().selectFirst();
         clearPathOnMap();
@@ -286,13 +289,16 @@ public class UIControllerPFM extends UIController {
             scroll_AnchorPane.getChildren().remove(circle);
             setZoomOn(true);
             setNodesVisible(true);
+            initialLocationSelect.setDisable(false);
+            destinationSelect.setDisable(false);
             //setNodesVisible(true);
         });
 
-        if((!(currentDestCircle == null)) && (!(currentInitCircle == null)))
-        {
+        if ((!(currentDestCircle == null)) && (!(currentInitCircle == null))) {
             setZoomOn(false);
             setNodesVisible(false);
+            initialLocationSelect.setDisable(true);
+            destinationSelect.setDisable(true);
             pathTransition.play();
         }
     }
@@ -303,8 +309,7 @@ public class UIControllerPFM extends UIController {
                 n.setVisible(bool);
             }
         }
-        if(bool)
-        {
+        if (bool) {
             focusNodes();
         }
     }
@@ -317,9 +322,6 @@ public class UIControllerPFM extends UIController {
     public void goBack(ActionEvent actionEvent) {
         this.goToScene(UIController.LOGIN_MAIN);
     }
-
-    // The multiplication factor at which the map changes size
-    private double zoomFactor = 1.2;
 
     /**
      * @param bool Set in initialize() to turn on/off zoom functionality
