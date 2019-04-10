@@ -1,4 +1,9 @@
 /*JFXbuttons for login buttons*/
+/**
+ * .css file for iteration2
+ * @author Shiyi Liu
+ * @version iteration2
+ */
 .jfx-button-login{
     -jfx-button-type: FLAT;
     -fx-background-color:#FFC41E;
