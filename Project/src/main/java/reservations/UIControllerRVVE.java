@@ -1,5 +1,6 @@
 package reservations;
 
+import application.CurrentUser;
 import application.DBController;
 import application.UIController;
 import com.jfoenix.controls.JFXButton;
@@ -7,6 +8,7 @@ import com.jfoenix.controls.JFXCheckBox;
 import com.sun.org.apache.regexp.internal.RESyntaxException;
 import entities.Reservation;
 import entities.ServiceRequest;
+import entities.User;
 import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -14,6 +16,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 
 import java.lang.reflect.Method;
+import java.security.BasicPermission;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -83,51 +86,17 @@ public class UIControllerRVVE extends UIController {
 
                     // When an edit is committed with enter
                     textField.setOnAction(et -> {
-                        // Catch if int is not able to be parsed
-//                        if(index == 3 || index == 4) {
-//                            try {
-//                                if(Integer.parseInt(textField.getText()) < 0) {
-//                                    popupMessage("Coordinate fields must be positive", true);
-//                                }
-//                            } catch(Exception e) {
-//                                setGraphic(label);
-//                                textField.setText(label.getText());
-//                                return;
-//                            }
-//                        } else {
-//                            // Resets if the input is too long
-//                            if(textField.getText().length() > lengthRequirements[index]) {
-//                                setGraphic(label);
-//                                textField.setText(label.getText());
-//                                popupMessage("Field must have equal to or less than " +  lengthRequirements[index] + " characters.", true);
-//                                return;
-//                            }
-//                        }
-//                        // Update the object with the new value
-//                        if(index == 1 || index == 2) {
-//                            runSetter(reservation, reservationSetters[index], int.class, Integer.parseInt(textField.getText()));
-//                        } else {
-//                            runSetter(reservation, reservationSetters[index], String.class, textField.getText());
-//                        }
-//                        System.out.println(reservation);
-
-//                        Time startTime = Time.valueOf(reservation.getStartTime());
-//                        Time endTime = Time.valueOf(reservation.getEndTime());
-//                        Date date = new SimpleDateFormat("yyyy-MM-dd").parse(reservation.getDate());
 
                         // See if input is a valid date
                         if(index ==3) {
                             try {
-                                Date date = new SimpleDateFormat("yyyy-MM-dd").parse(textField.getText());
-                                runSetter(reservation, reservationSetters[index], String.class, date);
+                                //Date date = new SimpleDateFormat("yyyy-MM-dd").parse(textField.getText());
+                                runSetter(reservation, reservationSetters[index], String.class, textField.getText());
                             } catch(Exception e) {
                                 setGraphic(label);
                                 textField.setText(label.getText());
                                 return;
                             }
-                        } else {
-                            setGraphic(label);
-                            textField.setText(label.getText());
                         }
 
                         // See if input is a valid time
@@ -140,12 +109,7 @@ public class UIControllerRVVE extends UIController {
                                 textField.setText(label.getText());
                                 return;
                             }
-                        } else {
-                            setGraphic(label);
-                            textField.setText(label.getText());
                         }
-
-//                        runSetter(reservation, reservationSetters[index], String.class, textField.getText());
 
                         try{
                             Connection conn = DBController.dbConnect();
@@ -200,14 +164,27 @@ public class UIControllerRVVE extends UIController {
         //DB get Nodes
         Connection conn = DBController.dbConnect();
         ObservableList<Reservation> rsvData = FXCollections.observableArrayList();
-        try{
-            ResultSet rs = conn.createStatement().executeQuery("Select * from RESERVATIONS");
-            while (rs.next()){
-                rsvData.add(new Reservation(rs.getString(2),rs.getString(3),rs.getString(4),
-                        rs.getString(5),rs.getString(6), rs.getInt(1)));
+        if(CurrentUser.user.getPermissions() == User.BASIC_PERMISSIONS) {
+            try {
+                ResultSet rs = conn.createStatement().executeQuery("Select * from RESERVATIONS WHERE USERID = '" + CurrentUser.user.getUserID() + "'");
+                while (rs.next()) {
+                    rsvData.add(new Reservation(rs.getString(2), rs.getString(3), rs.getString(4),
+                            rs.getString(5), rs.getString(6), rs.getInt(1)));
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
             }
-        } catch (SQLException e) {
-            e.printStackTrace();
+        }
+        else if (CurrentUser.user.getPermissions() == User.ADMIN_PERMISSIONS) {
+            try {
+                ResultSet rs = conn.createStatement().executeQuery("Select * from RESERVATIONS");
+                while (rs.next()) {
+                    rsvData.add(new Reservation(rs.getString(2), rs.getString(3), rs.getString(4),
+                            rs.getString(5), rs.getString(6), rs.getInt(1)));
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
         reservationTable.setItems(rsvData);
     }
