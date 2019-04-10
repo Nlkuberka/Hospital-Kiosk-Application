@@ -53,7 +53,8 @@ public class UIControllerSRSecurity extends UIController {
         // DB Get all Nodes
         try {
             Connection conn = DBController.dbConnect();
-            ResultSet rs = conn.createStatement().executeQuery("Select * From NODES");
+            ResultSet rs = conn.createStatement().executeQuery("Select * From NODES " +
+                    "WHERE NODETYPE != 'HALL' AND NODETYPE != 'ELEV' AND NODETYPE != 'STAI'");
             while (rs.next()) {
                 nodeIDs.put(rs.getString("SHORTNAME"), rs.getString("NODEID"));
                 nodeShortNames.add(rs.getString("SHORTNAME"));
