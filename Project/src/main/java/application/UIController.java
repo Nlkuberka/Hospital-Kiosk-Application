@@ -99,6 +99,7 @@ public class UIController {
      */
     public UIController(Stage stage) {
         primaryStage = stage;
+        primaryStage.setResizable(false);
         rootPane = new BorderPane();
         rootScene = new Scene(rootPane, WIDTH, HEIGHT);
         primaryStage.setScene(rootScene);
