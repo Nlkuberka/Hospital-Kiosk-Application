@@ -153,7 +153,6 @@ public class UIControllerSRRS extends UIController {
             message = message.substring(0, 149);
         }
 
-        System.out.print("Message Start \n" + message);
 
 
         ServiceRequest sr = new ServiceRequest(nodeID, serviceType, message, CurrentUser.user.getUserID(), false, null);
