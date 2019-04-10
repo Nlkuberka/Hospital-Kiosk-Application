@@ -11,7 +11,7 @@ public class UIControllerPUD extends UIController{
     String message = "";
 
     @FXML
-    private Label directions = new Label(message); //the actual directions
+    private Label directions; //the actual directions
 
     @FXML
     private Button printDirections; //the option to print a receipt

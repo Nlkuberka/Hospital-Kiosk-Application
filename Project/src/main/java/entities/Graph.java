@@ -319,8 +319,7 @@ public class Graph {
                     +  Math.round(adjWeights.get(currentNodeIndex).getFirst())
                     + " pixels to "
                     + storedNodes.get(nextNodeIndex).getLongName()
-                    + commaOrPeriod
-                    + "\n";
+                    + commaOrPeriod;
         }
         return directions;
     }

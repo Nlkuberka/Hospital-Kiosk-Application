@@ -22,7 +22,10 @@
                <font>
                   <Font size="20.0" />
                </font></Button>
-            <Label fx:id="directions" layoutX="28.0" layoutY="25.0" prefHeight="350.0" prefWidth="263.0" />
+            <Label fx:id="directions" layoutX="28.0" prefHeight="400.0" prefWidth="263.0" wrapText="true">
+               <font>
+                  <Font size="10.0" />
+               </font></Label>
       </children>
     </AnchorPane>
   </children>

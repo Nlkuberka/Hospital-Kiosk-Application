@@ -455,11 +455,12 @@ public class UIControllerPFM extends UIController {
             FXMLLoader fxmlLoader = new FXMLLoader();
             fxmlLoader.setLocation(getClass().getResource("/directions_popup.fxml"));
 
-            UIControllerPUD controller = new UIControllerPUD();
-            controller.setDirections(direction);
-
             Scene popupScene = new Scene(fxmlLoader.load(), 600, 400);
             Stage popupStage = new Stage();
+
+            UIControllerPUD controller = (UIControllerPUD) fxmlLoader.getController();
+            controller.setDirections(direction);
+
             popupStage.setTitle("Directions");
             popupStage.setScene(popupScene);
             popupStage.show();
