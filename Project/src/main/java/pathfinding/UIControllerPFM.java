@@ -33,7 +33,7 @@ import java.util.List;
 
 public class UIControllerPFM extends UIController {
 
-    enum Floors {
+    public enum Floors {
         LL2("Lower Level 2"), LL1("Lower Level 1"), GROUND("Ground Floor"),
         FIRST("First Floor"), SECOND("Second Floor"), THIRD("Third Floor");
 
@@ -84,13 +84,8 @@ public class UIControllerPFM extends UIController {
     @FXML
     private Button unzoom_button;
 
-    private LinkedList<Path> pathList = new LinkedList<>();
-    private LinkedList<ImageView> mapList = new LinkedList<>();
-    private List<Node> currentPath;
-    private Path path;
-    private ImageView map;
-    private AnchorPane pane;
-    private LinkedList<AnchorPane> paneList = new LinkedList<>();
+
+    private MapHandler mapHandler;
 
     @FXML
     public void initialize() {
@@ -160,7 +155,7 @@ public class UIControllerPFM extends UIController {
             @Override
             public void changed(ObservableValue arg0, Object arg1, Object arg2) {
                 floorLabel.setText(Floors.values()[(int) floorSlider.getValue()].getName());
-                setOpacity(floorSlider.getValue());
+                mapHandler.changeToFloor(floorSlider.getValue());
             }
         });
 
@@ -233,7 +228,7 @@ public class UIControllerPFM extends UIController {
     private void clearSelection(ActionEvent actionEvent) {
         initialLocationSelect.getSelectionModel().selectFirst();
         destinationSelect.getSelectionModel().clearSelection();
-        clearPathOnMap();
+        mapHandler.cancel();
     }
 
     private void getPath() {
@@ -248,49 +243,11 @@ public class UIControllerPFM extends UIController {
         List<String> pathIDs;
         pathIDs = graph.shortestPath(initialID, destID);
         LinkedList<Node> pathNodes = DBController.multiNodeFetch(pathIDs, connection);
-        drawPath(pathNodes);
+
+        //mapHandler.displayNewPath(pathNodes, ); TODO get current floor
     }
 
-    // TODO: list of all nodes that have: names, XY coords
-    private void drawPath(List<Node> nodes) {
-        this.currentPath = nodes;
-        drawPath();
-    }
 
-    private void drawPath() {
-        float scaleFx = (float) pane.getPrefWidth() / 5000.0f;
-        float scaleFy = (float) pane.getPrefHeight() / 3400.0f;
-
-        System.out.println("ScaleFx: " + scaleFx + "  ScaleFy: " + scaleFy);
-
-        clearPathOnMap();
-
-        float x = (float) this.currentPath.get(0).getXcoord() * scaleFx;
-        float y = (float) this.currentPath.get(0).getYcoord() * scaleFy;
-
-        path.getElements().add(new MoveTo(x, y)); // move path to initLocation
-
-        // get all XY pairs and turn them into lines
-        for (int i = 1; i < this.currentPath.size(); i++) {
-            Node node = this.currentPath.get(i);
-
-            x = (float) node.getXcoord() * scaleFx;
-            y = (float) node.getYcoord() * scaleFy;
-
-            System.out.println(node);
-            System.out.println("NodeX: " + x + "  NodeY: " + y);
-
-            path.getElements().add(new LineTo(x, y));
-        }
-
-        // draw lines
-        path.setVisible(true); //must be the very last thing done once lines are drawn
-    }
-
-    private void clearPathOnMap() {
-        path.getElements().clear();
-        path.setVisible(false);
-    }
 
     public void goBack(ActionEvent actionEvent) {
         this.goToScene(UIController.LOGIN_MAIN);
@@ -314,11 +271,7 @@ public class UIControllerPFM extends UIController {
      */
     public void zoom(ActionEvent actionEvent) {
 
-        if (pane.getPrefWidth() < pane.getMaxWidth()) {
-            this.setAllPaneSize(pane.getPrefWidth() * zoomFactor, pane.getPrefHeight() * zoomFactor);
-        }
-        if (this.currentPath != null)
-            drawPath();
+        mapHandler.zoomIn(zoomFactor);
     }
 
     /**
@@ -327,37 +280,6 @@ public class UIControllerPFM extends UIController {
      */
     public void unZoom(ActionEvent actionEvent) {
 
-        if (pane.getPrefWidth() > pane.getMinWidth()) {
-            this.setAllPaneSize(pane.getPrefWidth() / zoomFactor, pane.getPrefHeight() / zoomFactor);
-        }
-        if (this.currentPath != null)
-            drawPath();
-    }
-
-    private void setOpacity(double value) {
-        for (int i = 0; i < mapList.size(); i++) {
-            double opacity = getOpacity((double) i, value);
-            mapList.get(i).setOpacity(opacity);
-            pathList.get(i).setOpacity(opacity);
-        }
-        this.path = pathList.get((int) value);
-        this.map = mapList.get((int) value);
-        this.pane = paneList.get((int) value);
-    }
-
-    private void setAllPaneSize(double width, double height) {
-        for (AnchorPane pane : this.paneList) {
-            pane.setPrefSize(width, height);
-        }
-    }
-
-    private double getOpacity(double a, double b) {
-//        double result = a - b;
-//        result = result > 0.0 ? result : -result; // get abs value
-//        result = result > 1.0 ? 0.0 : 1.0 - result; // clip to bounds
-//        result = result < 0.5 ? 0.0 : 1.0;
-
-        double result = (int) a == (int) b ? 1.0 : 0.0;
-        return result;
+        mapHandler.zoomOut(zoomFactor);
     }
 }
