@@ -75,9 +75,9 @@ public class UIControllerSRM extends UIController {
         controller.setServiceType("Prescription Services");
     }
 
-
-    public void avButton(ActionEvent actionEvent) {
-        UIControllerSRPS controller = (UIControllerSRPS) this.goToScene(UIController.SERVICE_REQUEST_AV_EQUIPMENT);
+    @FXML
+    private void avButton(ActionEvent actionEvent) {
+        UIControllerSRAVE controller = (UIControllerSRAVE) this.goToScene(UIController.SERVICE_REQUEST_AV_EQUIPMENT);
         controller.setServiceType("Audio Visual");
     }
 }

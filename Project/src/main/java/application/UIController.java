@@ -138,6 +138,9 @@ public class UIController {
         sceneFiles.put(UIController.SERVICE_REQUEST_MAIN, "/service_request_main.fxml");
         sceneTitles.put(UIController.SERVICE_REQUEST_MAIN, "Service Request - Main");
 
+        sceneFiles.put(UIController.SERVICE_REQUEST_AV_EQUIPMENT, "/service_request_audio_visual.fxml");
+        sceneTitles.put(UIController.SERVICE_REQUEST_AV_EQUIPMENT, "Service Request - Audio Visual");
+
         sceneFiles.put(UIController.SERVICE_REQUEST_BABYSITTING, "/service_request_babysitting.fxml");
         sceneTitles.put(UIController.SERVICE_REQUEST_BABYSITTING, "Service Request - Babysitting");
 

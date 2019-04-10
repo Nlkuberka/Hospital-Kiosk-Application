@@ -4,12 +4,14 @@ import application.CurrentUser;
 import application.DBController;
 import application.UIController;
 import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXTextField;
 import entities.ServiceRequest;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextFormatter;
+import javafx.scene.layout.GridPane;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -20,6 +22,7 @@ import java.util.List;
 import java.util.Map;
 
 public class UIControllerSRAVE extends UIController {
+    public GridPane gridPane;
     String serviceType;
     Map<String, String> nodeIDs; /**< Holds reference between node short name and nodeID*/
 
@@ -27,7 +30,7 @@ public class UIControllerSRAVE extends UIController {
     private ChoiceBox roomSelect;
 
     @FXML
-    private TextArea serviceMessage;
+    private JFXTextField serviceMessage;
 
     @FXML
     private JFXButton confirmButton; /**< The confirm button*/
@@ -37,6 +40,9 @@ public class UIControllerSRAVE extends UIController {
         serviceMessage.setTextFormatter(new TextFormatter<String>(e ->
                 e.getControlNewText().length() <= 100 ? e : null
         ));
+
+        gridPane.setFillHeight(serviceMessage, true);
+        gridPane.setFillWidth(serviceMessage, true);
     }
 
     @FXML
