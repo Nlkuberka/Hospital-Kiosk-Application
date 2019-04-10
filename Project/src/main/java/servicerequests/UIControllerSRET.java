@@ -22,18 +22,24 @@ import java.util.Map;
 
 public class UIControllerSRET extends UIController {
     String serviceType;
-    Map<String, String> nodeIDs; /**< Holds reference between node short name and nodeID*/
-
+    Map<String, String> nodeIDs;
+    /**
+     * < Holds reference between node short name and nodeID
+     */
 
 
     @FXML
     private ChoiceBox<String> roomSelect;
 
     @FXML
-    private JFXTextField serviceMessage;
+    private JFXTextArea serviceMessage;
 
     @FXML
-    private JFXButton confirmButton; /**< The confirm button*/
+    private JFXButton confirmButton;
+
+    /**
+     * < The confirm button
+     */
 
     @FXML
     public void initialize() {
@@ -75,7 +81,7 @@ public class UIControllerSRET extends UIController {
 
         ServiceRequest sr = new ServiceRequest(nodeID, serviceType, message, CurrentUser.user.getUserID(), false, null);
         Connection conn = DBController.dbConnect();
-        DBController.addServiceRequest(sr,conn);
+        DBController.addServiceRequest(sr, conn);
         DBController.closeConnection(conn);
         this.goToScene(UIController.SERVICE_REQUEST_MAIN);
     }
@@ -85,4 +91,11 @@ public class UIControllerSRET extends UIController {
         serviceMessage.setText("");
         this.goToScene(UIController.SERVICE_REQUEST_MAIN);
     }
+
+//    @FXML
+//    private void transportType() {
+//        String[] transportTypes = ("
+//        prioritySelect.setItems(FXCollections.observableList(Arrays.asList(types))
+//    }
+
 }
