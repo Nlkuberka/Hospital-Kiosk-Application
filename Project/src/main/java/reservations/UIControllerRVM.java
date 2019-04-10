@@ -14,11 +14,13 @@ import javafx.fxml.FXML;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.shape.Shape;
+import sun.util.resources.cldr.shi.LocaleNames_shi_Tfng;
 
 import java.awt.*;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Time;
 import java.text.SimpleDateFormat;
 import java.time.*;
 
@@ -49,11 +51,14 @@ public class UIControllerRVM extends UIController {
     @FXML private Shape classroom7; @FXML private Shape classroom8; @FXML private Shape classroom9;
     @FXML private Shape pantry; @FXML private Shape MHA; @FXML private Shape MHCR;
 
+    private Shape[] shapes = {classroom1, classroom2, classroom3, classroom4, classroom5, classroom6, classroom7,
+                                classroom8, classroom9, pantry, MHA, MHCR};
     /**
      * Run when the scene is first loaded
      */
     @FXML
     public void initialize() {
+
         classroom1.setFill(javafx.scene.paint.Color.GREEN);
         classroom2.setFill(javafx.scene.paint.Color.GREEN);
         classroom3.setFill(javafx.scene.paint.Color.GREEN);
@@ -100,19 +105,33 @@ public class UIControllerRVM extends UIController {
     /**
      * Updates the colorView based on the given date and times
      */
+
+//    Time startTime = Time.valueOf(reservation.getStartTime());
+//    Time endTime = Time.valueOf(reservation.getEndTime());
+//    Date date = new SimpleDateFormat("yyyy-MM-dd").parse(reservation.getDate());
+
     @FXML
     private void updateColorView() {
+        Connection connection = DBController.dbConnect();
         if(!checkValidReservation()) {
             return;
         }
         for(int i = 0; i < workplaceSelect.getItems().size(); i++) {
-            String nodeID = workplaceIDs.get(workplaceSelect.getItems().get(i));
-            List<Reservation> reservations = new LinkedList<Reservation>();
-            //DB Get Reservations of Node
-            // Or use Rakesh's function
-            Reservation reservation = new Reservation("TEMP", "TEMP", getDateString(), getTimeString(startTimePicker), getTimeString(endTimePicker));
-            boolean isValid = reservation.isValid(reservations);
-            // Draw NodeShape based on isValid
+            if(!DBController.isRoomAvailableString(workplaceSelect.getItems().get(i), getDateString(),
+                    getTimeString(startTimePicker), getTimeString(endTimePicker), connection)) {
+
+                shapes[i].setFill(javafx.scene.paint.Color.RED);
+                classroom6.setFill(javafx.scene.paint.Color.RED);
+
+
+            }
+
+
+//            String nodeID = workplaceIDs.get(workplaceSelect.getItems().get(i));
+//            List<Reservation> reservations = new LinkedList<Reservation>();
+//            Reservation reservation = new Reservation("TEMP", "TEMP", getDateString(), getTimeString(startTimePicker), getTimeString(endTimePicker));
+//            boolean isValid = reservation.isValid(reservations);
+//            // Draw NodeShape based on isValid
         }
     }
 

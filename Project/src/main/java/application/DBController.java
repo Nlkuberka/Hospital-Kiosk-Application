@@ -731,6 +731,30 @@ public class DBController {
         return false;
     }
 
+    public static boolean isRoomAvailableString(String wkplaceID, String dateSTR, String startTimeSTR, String endTimeSTR, Connection connection){
+        try{
+            //Check if room has any reservations overlapping with the given times
+            //Four cases to check:
+            //Reservation within the given times, starts before and ends during, starts during and ends after, or room is booked for the whole duration or more
+
+            Time startTime = Time.valueOf(startTimeSTR);
+            Time endTime = Time.valueOf(endTimeSTR);
+            Date date = new SimpleDateFormat("yyyy-MM-dd").parse(dateSTR);
+
+            Statement s = connection.createStatement();
+            ResultSet rs = s.executeQuery("select * from RESERVATIONS where WKPLACEID = '" + wkplaceID + "' and DAY = '" + date + "' and " +
+                    "((STARTTIME >= '" + startTime + "' and ENDTIME <= '" + endTime + "') " +
+                    "OR (STARTTIME < '" + startTime + "' and ENDTIME > '" + startTime + "') " +
+                    "OR (STARTTIME < '" + endTime + "' and ENDTIME > '" + endTime + "'))");
+            return !rs.next();
+        }catch(SQLException e){
+            e.printStackTrace();
+        }catch(ParseException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
     /**
      * unavailableRooms
      *
