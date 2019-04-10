@@ -50,12 +50,12 @@
                       <TableColumn prefWidth="200.0" text="Reserved Date" />
                       <TableColumn prefWidth="200.0" text="Reserved Time" />
                         <TableColumn prefWidth="200.0" text="Reserved Room" />
-                        <TableColumn prefWidth="200.0" text="Cancel" />
+                        <TableColumn prefWidth="200.0" text="Remove" />
                     </columns>
                      <styleClass>
-                        <String fx:value="table-row-cell" />
-                        <String fx:value="table-row-cell" />
                         <String fx:value="table-view" />
+                        <String fx:value="cell-renderer" />
+                        <String fx:value="table-row-cell" />
                      </styleClass>
                   </TableView>
                </center>
