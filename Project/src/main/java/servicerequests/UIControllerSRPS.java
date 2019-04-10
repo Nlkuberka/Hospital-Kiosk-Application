@@ -6,6 +6,7 @@ import application.UIController;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextArea;
 import com.jfoenix.controls.JFXTextField;
+import entities.Node;
 import entities.ServiceRequest;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
@@ -25,6 +26,11 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.*;
 
+/**
+ * UIController for the prescription services service request
+ * @author Jonathan Chang
+ * @version iteration2
+ */
 public class UIControllerSRPS extends UIController {
     String serviceType;
     Map<String, String> nodeIDs; /**< Holds reference between node short name and nodeID*/
@@ -49,6 +55,9 @@ public class UIControllerSRPS extends UIController {
     @FXML
     private JFXButton confirmButton; /**< The confirm button*/
 
+    /**
+     * Runs on initialize and adds the drugs to the textfield
+     */
     @FXML
     public void initialize() {
         List<String> drugs = new LinkedList<String>();
@@ -73,22 +82,23 @@ public class UIControllerSRPS extends UIController {
         lengthChoiceBox.getItems().addAll(FXCollections.observableList(Arrays.asList(lengthArray)));
     }
 
+    /**
+     * Runs whenever the scene is shown and gets all of the room nodes
+     */
     @FXML
     public void onShow() {
         List<String> nodeShortNames = new ArrayList<String>();
         nodeIDs = new HashMap<String, String>();
 
-        // DB Get all Nodes
-        try {
-            Connection conn = DBController.dbConnect();
-            ResultSet rs = conn.createStatement().executeQuery("Select * From NODES");
-            while (rs.next()) {
-                nodeIDs.put(rs.getString("SHORTNAME"), rs.getString("NODEID"));
-                nodeShortNames.add(rs.getString("SHORTNAME"));
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
+        Connection conn = DBController.dbConnect();
+        List<Node> nodes = DBController.fetchAllRooms(conn);
+        DBController.closeConnection(conn);
+        for(int i = 0; i < nodes.size(); i++) {
+            Node node = nodes.get(i);
+            nodeShortNames.add(node.getShortName());
+            nodeIDs.put(node.getShortName(), node.getNodeID());
         }
+
         roomSelect.setItems(FXCollections.observableList(nodeShortNames));
         roomSelect.getSelectionModel().selectFirst();
         serviceMessage.setText("");
@@ -96,10 +106,17 @@ public class UIControllerSRPS extends UIController {
         patientNameTextField.setText("");
     }
 
+    /**
+     * Sets the service type
+     * @param serviceType
+     */
     public void setServiceType(String serviceType) {
         this.serviceType = serviceType;
     }
 
+    /**
+     * Sends the service request to the database
+     */
     @FXML
     private void setConfirmButton() {
         String roomShortName = (String) roomSelect.getValue();
@@ -113,6 +130,9 @@ public class UIControllerSRPS extends UIController {
         this.goToScene(UIController.SERVICE_REQUEST_MAIN);
     }
 
+    /**
+     * Goes back to the service request main
+     */
     @FXML
     private void setCancelButton() {
         this.goToScene(UIController.SERVICE_REQUEST_MAIN);
