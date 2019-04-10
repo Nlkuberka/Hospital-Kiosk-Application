@@ -634,6 +634,8 @@ public class DBController {
     }
 
 
+
+
      public static User getGuestUser(Connection conn){
          User guestUser;
         try {
@@ -713,6 +715,23 @@ public class DBController {
 //        }
 //    }
 
+
+    /**
+     * UpdateUser
+     *
+     *
+     */
+    public static void updateUser(String ID, User user, Connection conn){
+        try {
+            PreparedStatement ps = conn.prepareStatement("UPDATE USERS where " +
+                    "UDERID ='"+ID+"' SET USERID ='"+user.getUserID()+"'," +
+                    " PERMISION = "+ user.getPermissionsNumber() +"," +
+                    " USERNAME = '"+ user.getUsername() +"'");
+            ps.execute();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 
     /**
      * AddUser
