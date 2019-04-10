@@ -6,6 +6,7 @@ import application.UIController;
 import com.jfoenix.controls.JFXButton;
 import entities.ServiceRequest;
 import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextArea;
@@ -14,10 +15,7 @@ import javafx.scene.control.TextFormatter;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /*
 Security Service Request
@@ -28,6 +26,9 @@ public class UIControllerSRSecurity extends UIController {
 
     @FXML
     private ChoiceBox roomSelect;
+
+    @FXML
+    private ChoiceBox prioritySelect;
 
     @FXML
     private TextArea serviceMessage;
@@ -64,6 +65,10 @@ public class UIControllerSRSecurity extends UIController {
         }
         roomSelect.setItems(FXCollections.observableList(nodeShortNames));
         roomSelect.getSelectionModel().selectFirst();
+
+        String[] priorities = {"1","2","3","4","5"};
+        prioritySelect.setItems(FXCollections.observableList(Arrays.asList(priorities)));
+
         serviceMessage.setText("");
     }
 
@@ -75,7 +80,7 @@ public class UIControllerSRSecurity extends UIController {
     private void setConfirmButton() {
         String roomShortName = (String) roomSelect.getValue();
         String nodeID = nodeIDs.get(roomShortName);
-        String message = serviceMessage.getText();
+        String message = prioritySelect.getValue() + " - " + serviceMessage.getText();
         serviceMessage.clear();
 
         ServiceRequest sr = new ServiceRequest(nodeID, serviceType, message, CurrentUser.user.getUserID(), false, null);

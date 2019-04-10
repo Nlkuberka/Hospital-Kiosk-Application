@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXTextArea?>
 <?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
@@ -14,7 +15,6 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<?import com.jfoenix.controls.JFXTextArea?>
 <AnchorPane prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="servicerequests.UIControllerSRSecurity">
     <children>
           <AnchorPane prefHeight="400.0" prefWidth="600.0" styleClass="body-background" stylesheets="/background.css">
@@ -43,18 +43,10 @@
                               </effect>
                           </MenuBar>
                       </top>
-               <right>
-                  <ImageView fitHeight="575.0" fitWidth="650.0" pickOnBounds="true" preserveRatio="true" BorderPane.alignment="CENTER">
-                     <image>
-                        <Image url="@02_thesecondfloor.png" />
-                     </image>
-                  </ImageView>
-               </right>
                <left>
-                  <AnchorPane prefHeight="575.0" prefWidth="250.0" BorderPane.alignment="CENTER">
+                  <AnchorPane prefHeight="575.0" prefWidth="900.0" BorderPane.alignment="CENTER">
                      <children>
-                        <JFXButton fx:id="confirmButton" layoutX="86.0" layoutY="472.0" onAction="#setConfirmButton" styleClass="jfx-button_edit" stylesheets="@background.css" text="Confirm" />
-                        <JFXButton fx:id="cancelButton" contentDisplay="CENTER" layoutX="102.0" layoutY="516.0" onAction="#setCancelButton" styleClass="jfx-button-cancel" stylesheets="@background.css" text=" ">
+                        <JFXButton fx:id="cancelButton" contentDisplay="CENTER" layoutX="249.0" layoutY="501.0" onAction="#setCancelButton" prefHeight="35.0" prefWidth="57.0" styleClass="jfx-button-cancel" stylesheets="@background.css" text=" ">
                            <graphic>
                               <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
@@ -73,14 +65,24 @@
                               <Font name="System Bold" size="12.0" />
                            </font>
                         </Text>
-                        <Text fill="WHITE" layoutX="48.0" layoutY="104.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Where do you need security?">
+                        <Text fill="WHITE" layoutX="20.0" layoutY="109.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Where do you need security?">
                            <font>
-                              <Font size="13.0" />
+                              <Font size="16.0" />
                            </font>
                         </Text>
-                        <ChoiceBox fx:id="roomSelect" layoutX="48.0" layoutY="109.0" prefWidth="150.0" style="-fx-background-color: #ffffff;" />
-                        <Text fill="WHITE" layoutX="48.0" layoutY="215.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Describe the issue" />
-                        <JFXTextArea fx:id="serviceMessage" layoutX="48.0" layoutY="220.0" prefHeight="220.0" prefWidth="150.0" style="-fx-background-color: #ffffff;" />
+                        <ChoiceBox fx:id="roomSelect" layoutX="18.0" layoutY="115.0" prefHeight="29.0" prefWidth="212.0" style="-fx-background-color: #ffffff;" />
+                        <Text fill="WHITE" layoutX="18.0" layoutY="344.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Describe the issue">
+                           <font>
+                              <Font size="16.0" />
+                           </font></Text>
+                        <JFXTextArea fx:id="serviceMessage" layoutX="19.0" layoutY="349.0" prefHeight="130.0" prefWidth="862.0" style="-fx-background-color: #ffffff;" AnchorPane.leftAnchor="19.0" AnchorPane.rightAnchor="19.0" />
+                        <JFXButton fx:id="confirmButton" layoutX="540.0" layoutY="503.0" onAction="#setConfirmButton" styleClass="jfx-button_edit" stylesheets="@background.css" text="Confirm" />
+                        <Text fill="WHITE" layoutX="20.0" layoutY="220.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Indicate the severity of the problem (1 = lowest priority, 5 = highest priority)">
+                           <font>
+                              <Font size="16.0" />
+                           </font>
+                        </Text>
+                        <ChoiceBox fx:id="prioritySelect" layoutX="18.0" layoutY="226.0" prefHeight="31.0" prefWidth="546.0" style="-fx-background-color: #ffffff;" />
                      </children>
                   </AnchorPane>
                </left>
