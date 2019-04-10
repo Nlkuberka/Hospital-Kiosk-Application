@@ -5,8 +5,10 @@ import application.DBController;
 import application.UIController;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextField;
+import entities.Node;
 import entities.ServiceRequest;
 import javafx.collections.FXCollections;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextArea;
@@ -23,6 +25,7 @@ import java.util.Map;
 
 public class UIControllerSRAVE extends UIController {
     public GridPane gridPane;
+    public ChoiceBox serviceSelect;
     String serviceType;
     Map<String, String> nodeIDs; /**< Holds reference between node short name and nodeID*/
 
@@ -41,8 +44,12 @@ public class UIControllerSRAVE extends UIController {
                 e.getControlNewText().length() <= 100 ? e : null
         ));
 
+        serviceSelect.getItems().addAll("Computer", "Projector", "Speakers", "Display", "Microphone");
+
         gridPane.setFillHeight(serviceMessage, true);
         gridPane.setFillWidth(serviceMessage, true);
+
+        confirmButton.setDisable(true);
     }
 
     @FXML
@@ -50,17 +57,15 @@ public class UIControllerSRAVE extends UIController {
         List<String> nodeShortNames = new ArrayList<String>();
         nodeIDs = new HashMap<String, String>();
 
-        // DB Get all Nodes
-        try {
-            Connection conn = DBController.dbConnect();
-            ResultSet rs = conn.createStatement().executeQuery("Select * From NODES where FLOOR = '2' AND BUILDING = 'Tower'");
-            while (rs.next()) {
-                nodeIDs.put(rs.getString("SHORTNAME"), rs.getString("NODEID"));
-                nodeShortNames.add(rs.getString("SHORTNAME"));
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
+        Connection conn = DBController.dbConnect();
+        List<Node> nodes = DBController.fetchAllRooms(conn);
+        DBController.closeConnection(conn);
+        for(int i = 0; i < nodes.size(); i++) {
+            Node node = nodes.get(i);
+            nodeShortNames.add(node.getShortName());
+            nodeIDs.put(node.getShortName(), node.getNodeID());
         }
+
         roomSelect.setItems(FXCollections.observableList(nodeShortNames));
         roomSelect.getSelectionModel().selectFirst();
         serviceMessage.setText("");
@@ -72,11 +77,12 @@ public class UIControllerSRAVE extends UIController {
 
     @FXML
     private void setConfirmButton() {
-        String roomShortName = (String) roomSelect.getValue();
+        String roomShortName = roomSelect.getValue().toString();
+        String service = serviceSelect.getValue().toString();
         String nodeID = nodeIDs.get(roomShortName);
         String message = serviceMessage.getText();
 
-        ServiceRequest sr = new ServiceRequest(nodeID, serviceType, message, CurrentUser.user.getUserID(), false, null);
+        ServiceRequest sr = new ServiceRequest(nodeID, serviceType, "Equipment Needed: " + service + "\n Message: " + message, CurrentUser.user.getUserID(), false, null);
         Connection conn = DBController.dbConnect();
         DBController.addServiceRequest(sr,conn);
         DBController.closeConnection(conn);
@@ -86,5 +92,11 @@ public class UIControllerSRAVE extends UIController {
     @FXML
     private void setCancelButton() {
         this.goToScene(UIController.SERVICE_REQUEST_MAIN);
+    }
+
+    @FXML
+    private void validate(ActionEvent actionEvent) {
+        if (serviceSelect.getValue() != null && roomSelect.getValue() != null && serviceSelect.getValue().toString().length() > 0 && roomSelect.getValue().toString().length() > 0)
+            confirmButton.setDisable(false);
     }
 }
