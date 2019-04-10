@@ -74,7 +74,11 @@
                            </font>
                         </Text>
                         <ChoiceBox layoutX="48.0" layoutY="109.0" prefWidth="150.0" style="-fx-background-color: #ffffff;" />
+<<<<<<< HEAD
+                        <JFXTextField layoutX="48.0" layoutY="220.0" prefHeight="220.0" prefWidth="150.0" style="-fx-background-color: #ffffff;" />
+=======
                         <JFXTextField alignment="CENTER" layoutX="48.0" layoutY="220.0" prefHeight="220.0" prefWidth="150.0" promptText="What is wrong?" style="-fx-background-color: #ffffff;" />
+>>>>>>> aa80d13f412e79c39763d9fcbc8103a7bcb8e28e
                      </children>
                   </AnchorPane>
                </left>

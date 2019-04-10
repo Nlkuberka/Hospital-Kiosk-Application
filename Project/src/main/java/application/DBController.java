@@ -214,6 +214,25 @@ public class DBController {
     }
 
 
+
+    public static LinkedList<Node> fetchAllRooms(Connection connection) {
+        try{
+            Statement s = connection.createStatement();
+            LinkedList<Node> listOfRooms = new LinkedList<>();
+            ResultSet rs = s.executeQuery("SELECT * FROM NODES WHERE NODETYPE != 'HALL' and NODETYPE != 'STAI' and NODETYPE != 'ELEV'");
+            while(rs.next()) {
+                Node node = new Node(rs.getString(1), rs.getInt(2), rs.getInt(3),
+                        rs.getString(4), rs.getString(5), rs.getString(6),
+                        rs.getString(7), rs.getString(8));
+                listOfRooms.add(node);
+            }
+            return listOfRooms;
+        }catch(SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
     /**
      * loadEdgeData
      *
@@ -368,6 +387,39 @@ public class DBController {
         }
     }
 
+    public static LinkedList<Node> getRoomsforFloor(Connection connection, String floor){
+        LinkedList<Node> list = new LinkedList<Node>();
+        try{
+            ResultSet rs = connection.createStatement().executeQuery("Select * from NODES where FLOOR ='"+floor+"' and NODETYPE != 'HALL' and NODETYPE != 'STAI' and NODETYPE != 'ELEV'");
+            while (rs.next()){
+                list.add(new Node(rs.getString("NODEID"),rs.getInt("XCOORD"),
+                        rs.getInt("YCOORD"),rs.getString("FLOOR"),
+                        rs.getString("BUILDING"),rs.getString("NODETYPE"),
+                        rs.getString("LONGNAME"),rs.getString("SHORTNAME")));
+            }
+        }catch(SQLException e){
+            e.printStackTrace();
+        }
+        return list;
+    }
+
+
+    public static LinkedList<Node> getNodesforFloor(Connection connection, String floor){
+        LinkedList<Node> list = new LinkedList<Node>();
+        try{
+            ResultSet rs = connection.createStatement().executeQuery("Select * from NODES where FLOOR ='"+floor+"'");
+            while (rs.next()){
+                list.add(new Node(rs.getString("NODEID"),rs.getInt("XCOORD"),
+                        rs.getInt("YCOORD"),rs.getString("FLOOR"),
+                        rs.getString("BUILDING"),rs.getString("NODETYPE"),
+                        rs.getString("LONGNAME"),rs.getString("SHORTNAME")));
+            }
+        }catch(SQLException e){
+            e.printStackTrace();
+        }
+        return list;
+    }
+
     /**
      * fetchNode
      *
@@ -381,7 +433,7 @@ public class DBController {
         Node node = null;
         try{
             Statement s = connection.createStatement();
-            ResultSet rs = s.executeQuery("Select from NODES where NODEID = '" + ID + "'");
+            ResultSet rs = s.executeQuery("Select * from NODES where NODEID = '" + ID + "'");
             rs.next();
             node = new Node(rs.getString("NODEID"),rs.getInt("XCOORD"),
                     rs.getInt("YCOORD"),rs.getString("FLOOR"),

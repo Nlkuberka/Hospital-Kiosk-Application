@@ -1,18 +1,21 @@
 package entities;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
+import pathfinding.UIControllerPFM;
 
-import static java.lang.Math.abs;
-import static java.lang.Math.sqrt;
+import java.util.*;
+
+import static java.lang.Math.*;
 
 
-public class Graph {
+public abstract class Graph {
     
-    private LinkedList<LinkedList<Integer>> adj; //
-    private LinkedList<LinkedList<Double>> adjWeights; //weights of the edges
-    private LinkedList<Node> storedNodes; //nodes that have been stored
+    protected LinkedList<LinkedList<Integer>> adj; //
+    protected LinkedList<LinkedList<Double>> adjWeights; //weights of the edges
+    protected LinkedList<Node> storedNodes; //nodes that have been stored
 
 
     /**
@@ -87,44 +90,40 @@ public class Graph {
      * @param targetID the String ID of the desired finish node
      * @return returns an LinkedList<List<String>> of the shortest path between those two points
      */
-    public List<String> shortestPath(String startID, String targetID) {
-        int startIndex = mapNodeIDToIndex(startID);
-        int targetIndex = mapNodeIDToIndex(targetID);
-        int current = startIndex;
-        double [] distance = new double [storedNodes.size()]; //stored distance from start node to node at index
-        Queue<Integer> queue = new LinkedList<Integer>(); //nodes that will be checked
-        for(int i = 0; i < storedNodes.size(); i++) {
-            distance[i] = Double.MAX_VALUE;
-        }
-        distance[startIndex] = 0;
-        queue.add(current);
+    public abstract List<String> shortestPath(String startID, String targetID);
 
-        // BFS of nodes and get the distances of each node
-        while(queue.size() != 0) {
-            current = queue.remove();
-            for(int i = 0; i < adj.get(current).size(); i++) {
-                int nextNode = adj.get(current).get(i);
-                double currentDistance = distance[current] + adjWeights.get(current).get(i);
-                if(currentDistance < distance[nextNode]) {
-                    distance[nextNode] = currentDistance;
-                    queue.add(nextNode);
-                }
-            }
+    /**
+     * Divides a path into several lists of nodes based on which floor they are located.
+     * There is a list for each floor, containing the nodes in the path on that floor.
+     * The nodes on a particular floor are further divided into lists based on where they appear in the path.
+     * A set of nodes that appear consecutively in the path are stored in a bottom-level list together.
+     * If the user has to leave a floor and come back to it later in the path,
+     * then the nodes in this path would be stored in two bottom-level lists.
+     * If the path never touches a certain floor, then the mid-level list for that floor would be empty,
+     * but there is a mid-level list instantiated for every floor.
+     * @param path a list of nodes
+     * @return a list of lists of lists of node IDs
+     */
+    public List<List<List<Node>>> separatePathByFloor(List<String> path) {
+        // a collection of lists for each floor
+        List<List<List<Node>>> separatedPath = new ArrayList<>(UIControllerPFM.Floors.values().length);
+        for(int i = 0; i < UIControllerPFM.Floors.values().length; i++) {
+            separatedPath.add(new LinkedList<>());  // Create the mid-level list for each floor.
         }
-        List<String> path = new LinkedList<>();
-        path.add(targetID);
-        current = targetIndex;
-        while(current != startIndex) {
-            for (int i = 0; i < adj.get(current).size(); i++) {
-                int previousNode = adj.get(current).get(i);
-                if (adjWeights.get(current).get(i) + distance[previousNode] == distance[current]) {
-                    path.add(0, mapIndexToNode(previousNode).getNodeID());
-                    current = previousNode;
-                    break;
-                }
+        // Analyze the nodes in the order that they appear in the path, looking for when the path jumps between floors.
+        UIControllerPFM.Floors previousFloor = null; // the floor of the node previously analyzed
+        for(String nodeID : path) {
+            Node node = storedNodes.get(mapNodeIDToIndex(nodeID));
+            UIControllerPFM.Floors currentFloor = UIControllerPFM.Floors.getByID(node.getFloor());
+            // If the current node is on a different floor than the previous node,
+            // then put the current node in a different list.
+            if(previousFloor != currentFloor) {
+                separatedPath.get(currentFloor.ordinal()).add(new LinkedList<>());
             }
+            ((LinkedList<List<Node>>) separatedPath.get(currentFloor.ordinal())).getLast().add(node);
+            previousFloor = currentFloor;
         }
-        return path;
+        return separatedPath;
     }
 
     /**
@@ -255,5 +254,104 @@ public class Graph {
         return adj.get(n).size();
     }
 
+    /**
+     * Creates a graph with the same nodes and edges as the object this method is called on.
+     * The new graph computes shortest paths using a breadth-first-search algorithm.
+     */
+    public BFSGraph toBFS() {
+        BFSGraph returnValue = new BFSGraph(storedNodes);
+        returnValue.adj = adj;
+        returnValue.adjWeights = adjWeights;
+        return returnValue;
+    }
+    /**
+     * Creates a graph with the same nodes and edges as the object this method is called on.
+     * The new graph computes shortest paths using a depth-first-search algorithm.
+     */
+    public DFSGraph toDFS() {
+        DFSGraph returnValue = new DFSGraph(storedNodes);
+        returnValue.adj = adj;
+        returnValue.adjWeights = adjWeights;
+        return returnValue;
+    }
+    /**
+     * Deterines the angle of any edge
+     * @param ID1: the nodeID of the first node
+     * @param ID2: the nodeID of the second node
+     * @return the cardinal direction of the edge
+     */
+    public String returnAngle(String ID1, String ID2) {
 
+        String direction = "N";
+        int node1Index = mapNodeIDToIndex(ID1);
+        int node2Index = mapNodeIDToIndex(ID2);
+
+        Node node1 = storedNodes.get(node1Index);
+        Node node2 = storedNodes.get(node2Index);
+        //calculate weight
+        double xWeight = abs(node1.getXcoord() - node2.getXcoord());
+        double yWeight = abs(node1.getYcoord() - node2.getYcoord());
+
+        double angle = Math.atan2(yWeight, xWeight) * 180;
+        //System.out.println(angle);
+
+        if (angle <= 15 || angle >= 345) {
+            direction = "N";
+        } else if (angle > 15 && angle <= 75) {
+            direction = "NE";
+        } else if (angle > 75 && angle <= 105) {
+            direction = "E";
+        } else if (angle > 105 && angle <= 165) {
+            direction = "SE";
+        } else if (angle > 165 && angle <= 195) {
+            direction = "S";
+        } else if (angle > 195 && angle <= 255) {
+            direction = "SW";
+        } else if (angle > 255 && angle <= 285) {
+            direction = "W";
+        } else if (angle > 285 && angle <= 345) {
+            direction = "NW";
+        }
+
+        return direction;
+    }
+
+    /**
+     * Prints directions to every node in a path
+     * @param NodeIDS the path generated from shortestPath
+     * @return text based directions directing a reader from one point to another
+     */
+    public String textDirections(List<String> NodeIDS){
+        String directions = "";
+        String commaOrPeriod = ",";
+        for(int i = 0; i < NodeIDS.size()-1; i++){
+            if(i == NodeIDS.size()-2) {
+                commaOrPeriod = ".";
+            }
+            else{
+                commaOrPeriod = ", ";
+            }
+            int currentNodeIndex = mapNodeIDToIndex(NodeIDS.get(i));
+            int nextNodeIndex = mapNodeIDToIndex(NodeIDS.get(i+1));
+            //System.out.println(returnAngle(NodeIDS.get(i), NodeIDS.get(i+1)));
+                    directions += returnAngle(NodeIDS.get(i), NodeIDS.get(i+1))
+                    + " "
+                    +  Math.round(adjWeights.get(currentNodeIndex).getFirst())
+                    + " pixels to "
+                    + storedNodes.get(nextNodeIndex).getLongName()
+                    + commaOrPeriod;
+        }
+        return directions;
+    }
+
+    /**
+     * Creates a graph with the same nodes and edges as the object this method is called on.
+     * The new graph computes shortest paths using an A* algorithm.
+     */
+    public AStarGraph toAStar() {
+        AStarGraph returnValue = new AStarGraph(storedNodes);
+        returnValue.adj = adj;
+        returnValue.adjWeights = adjWeights;
+        return returnValue;
+    }
 }
