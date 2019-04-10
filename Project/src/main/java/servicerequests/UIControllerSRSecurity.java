@@ -51,23 +51,20 @@ public class UIControllerSRSecurity extends UIController {
         List<String> nodeShortNames = new ArrayList<String>();
         nodeIDs = new HashMap<String, String>();
 
-        // DB Get all Nodes
-        try {
-            Connection conn = DBController.dbConnect();
-            ResultSet rs = conn.createStatement().executeQuery("Select * From NODES " +
-                    "WHERE NODETYPE != 'HALL' AND NODETYPE != 'ELEV' AND NODETYPE != 'STAI'");
-            while (rs.next()) {
-                nodeIDs.put(rs.getString("SHORTNAME"), rs.getString("NODEID"));
-                nodeShortNames.add(rs.getString("SHORTNAME"));
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
+
+        Connection conn = DBController.dbConnect();
+        LinkedList<Node> rooms = DBController.fetchAllRooms(conn);
+        for(Node n:rooms) {
+            nodeIDs.put(n.getShortName(), n.getNodeID());
+            nodeShortNames.add(n.getShortName());
         }
+
         roomSelect.setItems(FXCollections.observableList(nodeShortNames));
         roomSelect.getSelectionModel().selectFirst();
 
         String[] priorities = {"1","2","3","4","5"};
         prioritySelect.setItems(FXCollections.observableList(Arrays.asList(priorities)));
+        prioritySelect.getSelectionModel().selectFirst();
 
         serviceMessage.setText("");
     }
