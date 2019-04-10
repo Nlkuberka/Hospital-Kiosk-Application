@@ -155,8 +155,8 @@ public class UIControllerATVSR extends UIController {
         try{
             ResultSet rs = conn.createStatement().executeQuery("Select * from SERVICEREQUEST");
             while (rs.next()){
-                serviceRequests.add(new ServiceRequest(rs.getString(1),rs.getString(2),rs.getString(3),
-                        rs.getString(4),rs.getBoolean(5),rs.getString(6)));
+                serviceRequests.add(new ServiceRequest(rs.getString(2),rs.getString(3),rs.getString(4),
+                        rs.getString(5),rs.getBoolean(6),rs.getString(7)));
             }
         } catch (SQLException e) {
             e.printStackTrace();

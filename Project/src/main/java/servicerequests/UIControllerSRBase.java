@@ -70,7 +70,7 @@ public class UIControllerSRBase extends UIController {
         String nodeID = nodeIDs.get(roomShortName);
         String message = serviceMessage.getText();
 
-        ServiceRequest sr = new ServiceRequest(nodeID, serviceType, message, CurrentUser.userID, false, null);
+        ServiceRequest sr = new ServiceRequest(nodeID, serviceType, message, CurrentUser.user.getUserID(), false, null);
         Connection conn = DBController.dbConnect();
         DBController.addServiceRequest(sr,conn);
         DBController.closeConnection(conn);
