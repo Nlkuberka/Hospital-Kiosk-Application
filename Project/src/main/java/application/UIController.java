@@ -41,6 +41,7 @@ public class UIController {
     public static final String ADMIN_TOOLS_VIEW_NODES = "ATVN";
     public static final String ADMIN_TOOLS_VIEW_EDGES = "ATVE";
     public static final String ADMIN_TOOLS_VIEW_SERVICE_REQUESTS = "ATVSR";
+    public static final String POPUP_DIRECTIONS = "PUD";
 
     // The starting width and height of the window
     private static final int WIDTH = 900;
@@ -134,6 +135,10 @@ public class UIController {
         // Pathfinding
         sceneFiles.put(UIController.PATHFINDING_MAIN, "/path_find_main.fxml");
         sceneTitles.put(UIController.PATHFINDING_MAIN, "Path Finding Main");
+
+        // Popups
+        sceneFiles.put(UIController.POPUP_DIRECTIONS, "/direction_popup.fxml");
+        sceneTitles.put(UIController.POPUP_DIRECTIONS, "Popup Window For Directions");
     }
 
     /**
