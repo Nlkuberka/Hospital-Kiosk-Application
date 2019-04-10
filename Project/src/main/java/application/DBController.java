@@ -325,8 +325,8 @@ public class DBController {
                     "USERID = '"+ reservation.getUserID() + "'," +
                     "DAY = '" + reservation.getDate() + "'," +
                     "STARTTIME = '" + reservation.getStartTime() + "'," +
-                    "ENDTIME = '" + reservation.getEndTime() + "'," +
-                    " where RSVID = '" + reservation.getRsvID() +"'");
+                    "ENDTIME = '" + reservation.getEndTime() + "'" +
+                    " where RSVID = " + reservation.getRsvID());
         }catch(SQLException e) {
             e.printStackTrace();
         }
@@ -436,7 +436,7 @@ public class DBController {
     public static void deleteReservation(int reservationID,Connection connection){
         try {
             Statement s = connection.createStatement();
-            s.execute("delete  from RESERVATIONS where RSVID ='"+ reservationID +"'");
+            s.execute("delete from RESERVATIONS where RSVID ="+ reservationID +"");
         }catch(SQLException e){
             e.printStackTrace();
         }
