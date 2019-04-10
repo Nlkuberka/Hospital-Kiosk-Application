@@ -25,7 +25,7 @@ public class Main extends Application {
 
         Connection conn = DBController.dbConnect();
         DatabaseMetaData dbmd = conn.getMetaData();
-        ResultSet rs = dbmd.getTables(null, null, "WORKPLACES",null);
+        ResultSet rs = dbmd.getTables(null, null, "RESERVATIONS",null);
         if(!rs.next()){
             DBController.initializeAppDB();
         }
