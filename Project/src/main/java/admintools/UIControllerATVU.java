@@ -72,7 +72,7 @@ public class UIControllerATVU extends UIController {
                         }
                         runSetter(user, userSetters[index],String.class, textField.getText());
                         if(index == 0) {
-                            DBController.createTable("Delete * From USERS WHERE USERID = '"+label.getText()+"'",conn);
+                            DBController.createTable("Delete From USERS WHERE USERID = '"+label.getText()+"'",conn);
                         }
                         DBController.updateUser(label.getText(),user,conn);
 
@@ -282,7 +282,7 @@ public class UIControllerATVU extends UIController {
                     System.out.println("Remove");
                     userTableView.getItems().remove(user);
                     Connection conn = DBController.dbConnect();
-                    DBController.createTable("Delete * From USERS WHERE USERID = '"+user.getUserID()+"'",conn);
+                    DBController.createTable("Delete From USERS WHERE USERID = '"+user.getUserID()+"'",conn);
                     DBController.closeConnection(conn);
                 });
             }
