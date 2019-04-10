@@ -4,30 +4,28 @@ import application.CurrentUser;
 import application.DBController;
 import application.UIController;
 import com.jfoenix.controls.JFXButton;
+import entities.Edge;
+import entities.Graph;
+import entities.Node;
 import entities.ServiceRequest;
 import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextFormatter;
+import javafx.scene.control.*;
 
+import java.awt.event.ActionEvent;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
-public class UIControllerSRSanitation extends UIController {
+public class UIControllerSRSA extends UIController {
     String serviceType;
     Map<String, String> nodeIDs; /**< Holds reference between node short name and nodeID*/
+    private Graph graph;
 
     @FXML
-    private ChoiceBox<String> roomSelect;
-
-    @FXML
-    private TextArea serviceMessage;
+    private TextField serviceMessage;
 
     @FXML
     private JFXButton confirmButton; /**< The confirm button*/
@@ -36,7 +34,10 @@ public class UIControllerSRSanitation extends UIController {
     private JFXButton cancelButton; /**< The cancel button*/
 
     @FXML
-    private JFXButton homeButton; /**< The cancel button*/
+    private Menu homeButton; /**< The home button*/
+
+    @FXML
+    private ChoiceBox<String> roomSelect = new ChoiceBox<String>(); /**< The room select dropdown*/
 
     @FXML
     public void initialize() {
@@ -47,12 +48,12 @@ public class UIControllerSRSanitation extends UIController {
 
     @FXML
     public void onShow() {
+        Connection conn = DBController.dbConnect();
         List<String> nodeShortNames = new ArrayList<String>();
         nodeIDs = new HashMap<String, String>();
 
         // DB Get all Nodes
         try {
-            Connection conn = DBController.dbConnect();
             ResultSet rs = conn.createStatement().executeQuery("Select * From NODES"); //can select from all nodes
             while (rs.next()) {
                 nodeIDs.put(rs.getString("SHORTNAME"), rs.getString("NODEID"));
@@ -61,9 +62,19 @@ public class UIControllerSRSanitation extends UIController {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        roomSelect.setItems(FXCollections.observableList(nodeShortNames));
-        roomSelect.getSelectionModel().selectFirst();
+
+        ObservableList<String> content = FXCollections.observableArrayList();
+        int index = 0;
+        for(String nodeID : nodeIDs.values()){
+            System.out.println(nodeID);
+            content.add(index, nodeID);
+            index++;
+        }
+
+        roomSelect.getItems().addAll(content);
         serviceMessage.setText("");
+
+
     }
 
     public void setServiceType(String serviceType) {
@@ -72,7 +83,8 @@ public class UIControllerSRSanitation extends UIController {
 
     @FXML
     private void setConfirmButton() {
-        String roomShortName = (String) roomSelect.getValue();
+        Connection connection = DBController.dbConnect();
+        String roomShortName = DBController.IDfromLongName(roomSelect.getValue(), connection);
         String nodeID = nodeIDs.get(roomShortName);
         String message = serviceMessage.getText();
 
@@ -81,7 +93,7 @@ public class UIControllerSRSanitation extends UIController {
         DBController.addServiceRequest(sr,conn);
         DBController.closeConnection(conn);
 
-        serviceMessage.setText("");
+        serviceMessage.setText("Thank you! We will get on this soon!");
         this.goToScene(UIController.SERVICE_REQUEST_MAIN);
     }
 
@@ -91,5 +103,11 @@ public class UIControllerSRSanitation extends UIController {
     }
 
     @FXML
-    private void setRoomSelect(){}
+    private void setHomeButton() {
+        this.goToScene(UIController.LOGIN_MAIN);
+    }
+
+    @FXML
+    private void setRoomSelect(){
+    }
 }

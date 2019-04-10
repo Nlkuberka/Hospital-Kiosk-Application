@@ -15,7 +15,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="servicerequests.UIControllerSRSanitation">
+<AnchorPane prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="servicerequests.UIControllerSRSA">
     <children>
           <AnchorPane prefHeight="400.0" prefWidth="600.0" styleClass="body-background" stylesheets="/background.css">
               <children>
@@ -28,7 +28,7 @@
                       <top>
                           <MenuBar blendMode="ADD" prefWidth="600.0" style="-fx-background-color: white;" stylesheets="@background.css" BorderPane.alignment="CENTER">
                               <menus>
-                                  <Menu mnemonicParsing="false" onShowing="#setHomeButton" text="Home">
+                                  <Menu fx:id="homeButton" mnemonicParsing="false" onShowing="#setHomeButton" onAction="#setHomeButton" text="Home">
                            <items>
                               <MenuItem mnemonicParsing="false" text="HOME" />
                            </items>
@@ -53,12 +53,12 @@
                <left>
                   <AnchorPane prefHeight="575.0" prefWidth="250.0" BorderPane.alignment="CENTER">
                      <children>
-                        <JFXButton layoutX="86.0" layoutY="472.0" onAction="#setConfirmButton" styleClass="jfx-button_edit" stylesheets="@background.css" text="Confirm" />
-                        <JFXButton contentDisplay="CENTER" layoutX="102.0" layoutY="516.0" onAction="#setCancelButton" styleClass="jfx-button-cancel" stylesheets="@background.css" text=" ">
+                        <JFXButton fx:id="confirmButton" layoutX="86.0" layoutY="472.0" onAction="#setConfirmButton" styleClass="jfx-button_edit" stylesheets="@background.css" text="Confirm" />
+                        <JFXButton fx:id="cancelButton" contentDisplay="CENTER" layoutX="102.0" layoutY="516.0" onAction="#setCancelButton" styleClass="jfx-button-cancel" stylesheets="@background.css" text=" ">
                            <graphic>
                               <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
-                                    <Image url="@icon/cancel%20(1).png" />
+                                    <Image url="@icon/cancel (1).png" />
                                  </image>
                               </ImageView>
                            </graphic>
@@ -74,7 +74,7 @@
                            </font>
                         </Text>
                         <ChoiceBox fx:id="rooomSelect" layoutX="48.0" layoutY="109.0" onMouseClicked="#setRoomSelect" prefWidth="150.0" style="-fx-background-color: #ffffff;" />
-                        <JFXTextField fx:id="#serviceMessage" alignment="CENTER" layoutX="48.0" layoutY="220.0" prefHeight="220.0" prefWidth="150.0" promptText="What is wrong?" style="-fx-background-color: #ffffff;" />
+                        <JFXTextField fx:id="serviceMessage" alignment="CENTER" layoutX="48.0" layoutY="220.0" prefHeight="220.0" prefWidth="150.0" promptText="What is wrong?" style="-fx-background-color: #ffffff;" />
                      </children>
                   </AnchorPane>
                </left>

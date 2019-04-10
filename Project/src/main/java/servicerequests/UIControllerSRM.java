@@ -39,7 +39,7 @@ public class UIControllerSRM extends UIController {
 
     @FXML
     public void setSanitationButton() {
-        UIControllerSRBase controller = (UIControllerSRBase) this.goToScene(UIController.SERVICE_REQUEST_SANITATION);
+        UIControllerSRSA controller = (UIControllerSRSA) this.goToScene(UIController.SERVICE_REQUEST_SANITATION);
         controller.setServiceType("Sanitation");
     }
 }

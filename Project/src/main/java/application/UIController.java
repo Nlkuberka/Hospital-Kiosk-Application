@@ -46,7 +46,7 @@ public class UIController {
 
     public static final String SERVICE_REQUEST_MAIN = "SRM";
     public static final String SERVICE_REQUEST_BASE = "SRB";
-    public static final String SERVICE_REQUEST_SANITATION = "SRS";
+    public static final String SERVICE_REQUEST_SANITATION = "SRSA";
 
     // The starting width and height of the window
     private static final int WIDTH = 900;
