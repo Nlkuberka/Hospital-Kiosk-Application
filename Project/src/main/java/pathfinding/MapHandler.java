@@ -56,8 +56,6 @@ public class MapHandler {
         float scaleFx = (float) pane.getPrefWidth() / 5000.0f;
         float scaleFy = (float) pane.getPrefHeight() / 3400.0f;
 
-        System.out.println("ScaleFx: " + scaleFx + "  ScaleFy: " + scaleFy);
-
 //        clearPathOnMap();
 
         float x = (float) nodes.get(0).getXcoord() * scaleFx;
