@@ -64,6 +64,7 @@ public class UIControllerATVU extends UIController {
 
                     textField.setOnAction(et -> {
                         // Check Length
+                        Connection conn = DBController.dbConnect();
                         if(textField.getText().length() > lengthRequirements[index]) {
                             setGraphic(label);
                             textField.setText(label.getText());
@@ -71,9 +72,10 @@ public class UIControllerATVU extends UIController {
                         }
                         runSetter(user, userSetters[index],String.class, textField.getText());
                         if(index == 0) {
-                            // Remove User
+                            DBController.createTable("Delete * From USERS WHERE USERID = '"+label.getText()+"'",conn);
                         }
-                        // Update User
+                        DBController.updateUser(label.getText(),user,conn);
+
                         setGraphic(label);
                         label.setText(textField.getText());
                     });
@@ -156,7 +158,9 @@ public class UIControllerATVU extends UIController {
                     }
                     int permission = userPermissions.get(userPermissionNames.indexOf(permissionName));
                     runSetter(user, userSetters[3], int.class, permission);
-                    // DB Update User
+                    Connection conn = DBController.dbConnect();
+                    DBController.updateUser(user.getUserID(),user,conn);
+                    DBController.closeConnection(conn);
                 });
                 setGraphic(choiceBox);
             }
@@ -233,7 +237,9 @@ public class UIControllerATVU extends UIController {
                         pane.getChildren().add(addSRButton);
                     }
                     user.setServiceRequestsFullfillment(getAllServiceRequests());
-                    // DB Update Users
+                    Connection conn = DBController.dbConnect();
+                    DBController.updateUser(user.getUserID(),user,conn);
+                    DBController.closeConnection(conn);
                 });
                 choiceBox.setMaxWidth(200.0);
                 choiceBox.setLayoutY(30.0 * choiceBoxes.size());
@@ -275,7 +281,9 @@ public class UIControllerATVU extends UIController {
                 removeButton.setOnAction( e -> {
                     System.out.println("Remove");
                     userTableView.getItems().remove(user);
-                    //DB Remove User
+                    Connection conn = DBController.dbConnect();
+                    DBController.createTable("Delete * From USERS WHERE USERID = '"+user.getUserID()+"'",conn);
+                    DBController.closeConnection(conn);
                 });
             }
         });
