@@ -361,9 +361,9 @@ public class DBController {
      * Not in use
      *
      *
-     * @param NODEID
-     * @param USERID
-     * @param connection
+     * @param
+     * @param
+     * @param
      */
 //    public static void deleteServiceRequest(String NODEID,String USERID, Connection connection){
 //        try {
@@ -428,13 +428,22 @@ public class DBController {
      */
     public static int addServiceRequest(ServiceRequest serviceRequest, Connection connection){
         try{
-            PreparedStatement s = connection.prepareStatement("INSERT into SERVICEREQUEST (NODEID, SERVICETYPE, MESSAGE, USERID, RESOLVED, RESOLVERID)" +
-                    " values ('" + serviceRequest.getNodeID() +
-                    "','"+ serviceRequest.getServiceType() +"','"+ serviceRequest.getMessage() + "','"+
-                    serviceRequest.getUserID()+"',"+serviceRequest.isResolved()+","+ serviceRequest.getResolverID()+")");
+            PreparedStatement s;
+            if (serviceRequest.getNodeID() == null){
+                s = connection.prepareStatement("INSERT into SERVICEREQUEST (NODEID, SERVICETYPE, MESSAGE, USERID, RESOLVED, RESOLVERID)" +
+                        " values (" + serviceRequest.getNodeID() +
+                        ",'"+ serviceRequest.getServiceType() +"','"+ serviceRequest.getMessage() + "','"+
+                        serviceRequest.getUserID()+"',"+serviceRequest.isResolved()+","+ serviceRequest.getResolverID()+")");
+            }else{
+                s = connection.prepareStatement("INSERT into SERVICEREQUEST (NODEID, SERVICETYPE, MESSAGE, USERID, RESOLVED, RESOLVERID)" +
+                        " values ('" + serviceRequest.getNodeID() +
+                        "','"+ serviceRequest.getServiceType() +"','"+ serviceRequest.getMessage() + "','"+
+                        serviceRequest.getUserID()+"',"+serviceRequest.isResolved()+","+ serviceRequest.getResolverID()+")");
+
+            }
+            s.execute();
             ResultSet rs = s.getGeneratedKeys();
-            rs.next();
-            return rs.getInt("SERVICEID");
+            return 1;
         }catch(SQLException e){
             e.printStackTrace();
             return 0;
