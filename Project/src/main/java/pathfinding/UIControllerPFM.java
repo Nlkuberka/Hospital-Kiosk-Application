@@ -37,12 +37,15 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * Controller for the path_find_main.fxml file
@@ -515,29 +518,28 @@ public class UIControllerPFM extends UIController {
 
     @FXML
     private void directionSelection() {
-        Label secondLabel = new Label(graph.textDirections(graph.shortestPath(initialID, destID)));
+        String direction = graph.textDirections(graph.shortestPath(initialID, destID));
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader();
+            fxmlLoader.setLocation(getClass().getResource("/directions_popup.fxml"));
 
-        StackPane secondaryLayout = new StackPane();
-        secondaryLayout.getChildren().add(secondLabel);
+            Scene popupScene = new Scene(fxmlLoader.load(), 600, 400);
+            Stage popupStage = new Stage();
 
-        Scene secondScene = new Scene(secondaryLayout, 230, 100);
+            popupStage.initModality(Modality.WINDOW_MODAL);
+            popupStage.initOwner(this.primaryStage);
 
-        // New window (Stage)
-        Stage newWindow = new Stage();
-        newWindow.setTitle("Second Stage");
-        newWindow.setScene(secondScene);
+            UIControllerPUD controller = (UIControllerPUD) fxmlLoader.getController();
+            controller.setDirections(direction);
 
-        // Specifies the modality for new window.
-        newWindow.initModality(Modality.WINDOW_MODAL);
+            popupStage.setTitle("Directions");
+            popupStage.setScene(popupScene);
+            popupStage.show();
+        } catch (IOException e){
+            Logger logger = Logger.getLogger((getClass().getName()));
+            logger.log(Level.SEVERE, "Failed to create new window.", e);
 
-        // Specifies the owner Window (parent) for new window
-        newWindow.initOwner(primaryStage);
-
-        // Set position of second window, related to primary window.
-        newWindow.setX(primaryStage.getX() + 200);
-        newWindow.setY(primaryStage.getY() + 100);
-
-        newWindow.show();
+        }
 
     }
 
