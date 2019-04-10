@@ -96,6 +96,7 @@ public class DBController {
             s.execute("INSERT INTO USERS VALUES('GUEST0001',1,'guest','guest')");
             s.execute("INSERT INTO USERS VALUES('ADMIN00001',3,'admin','admin')");
             s.execute("INSERT INTO USERS VALUES('WWONG2',3,'staff','staff')");
+            //s.execute("INSERT INTO NODES (NODEID) VALUES('DEFAULT')");
 
         }catch(SQLException e){
             e.printStackTrace();
@@ -163,6 +164,25 @@ public class DBController {
             e.printStackTrace();
         }
     }
+
+    public static LinkedList<Node> fetchAllRooms(Connection connection) {
+        try{
+            Statement s = connection.createStatement();
+            LinkedList<Node> listOfRooms = new LinkedList<>();
+            ResultSet rs = s.executeQuery("SELECT * FROM NODES WHERE NODETYPE != 'HALL' and NODETYPE != 'STAI' and NODETYPE != 'ELEV'");
+            while(rs.next()) {
+                Node node = new Node(rs.getString(1), rs.getInt(2), rs.getInt(3),
+                        rs.getString(4), rs.getString(5), rs.getString(6),
+                        rs.getString(7), rs.getString(8));
+                listOfRooms.add(node);
+            }
+            return listOfRooms;
+        }catch(SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
 
 
     /**
@@ -361,9 +381,6 @@ public class DBController {
      * Not in use
      *
      *
-     * @param NODEID
-     * @param USERID
-     * @param connection
      */
 //    public static void deleteServiceRequest(String NODEID,String USERID, Connection connection){
 //        try {
@@ -428,13 +445,22 @@ public class DBController {
      */
     public static int addServiceRequest(ServiceRequest serviceRequest, Connection connection){
         try{
-            PreparedStatement s = connection.prepareStatement("INSERT into SERVICEREQUEST (NODEID, SERVICETYPE, MESSAGE, USERID, RESOLVED, RESOLVERID)" +
-                    " values ('" + serviceRequest.getNodeID() +
-                    "','"+ serviceRequest.getServiceType() +"','"+ serviceRequest.getMessage() + "','"+
-                    serviceRequest.getUserID()+"',"+serviceRequest.isResolved()+","+ serviceRequest.getResolverID()+")");
+            PreparedStatement s;
+            if (serviceRequest.getNodeID() == null){
+                s = connection.prepareStatement("INSERT into SERVICEREQUEST (NODEID, SERVICETYPE, MESSAGE, USERID, RESOLVED, RESOLVERID)" +
+                        " values (" + serviceRequest.getNodeID() +
+                        ",'"+ serviceRequest.getServiceType() +"','"+ serviceRequest.getMessage() + "','"+
+                        serviceRequest.getUserID()+"',"+serviceRequest.isResolved()+","+ serviceRequest.getResolverID()+")");
+            }else{
+                s = connection.prepareStatement("INSERT into SERVICEREQUEST (NODEID, SERVICETYPE, MESSAGE, USERID, RESOLVED, RESOLVERID)" +
+                        " values ('" + serviceRequest.getNodeID() +
+                        "','"+ serviceRequest.getServiceType() +"','"+ serviceRequest.getMessage() + "','"+
+                        serviceRequest.getUserID()+"',"+serviceRequest.isResolved()+","+ serviceRequest.getResolverID()+")");
+
+            }
+            s.execute();
             ResultSet rs = s.getGeneratedKeys();
-            rs.next();
-            return rs.getInt("SERVICEID");
+            return 1;
         }catch(SQLException e){
             e.printStackTrace();
             return 0;

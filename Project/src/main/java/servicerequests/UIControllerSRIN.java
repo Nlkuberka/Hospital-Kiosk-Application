@@ -5,6 +5,7 @@ import application.DBController;
 import application.UIController;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextField;
+import entities.Node;
 import entities.ServiceRequest;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
@@ -39,29 +40,30 @@ public class UIControllerSRIN extends UIController {
 
     @FXML
     public void initialize() {
-        languageSelect.getItems().addAll("Mandarin", "Spanish", "Arabic", "French");
+        languageSelect.getItems().addAll("Spanish", "Mandarin", "Arabic", "French");
+        serviceMessage.setTextFormatter(new TextFormatter<String>(e ->
+                e.getControlNewText().length() <= 100 ? e : null
+        ));
     }
 
     @SuppressWarnings("Duplicates")
     @FXML
     public void onShow() {
-        List<String> nodeShortNames = new ArrayList<>();
         nodeIDs = new HashMap<>();
 
         // DB Get all Nodes
-        try {
-            Connection conn = DBController.dbConnect();
-            ResultSet rs = conn.createStatement().executeQuery("Select * From NODES where FLOOR = '2' AND BUILDING = 'Tower'");
-            while (rs.next()) {
-                nodeIDs.put(rs.getString("SHORTNAME"), rs.getString("NODEID"));
-                nodeShortNames.add(rs.getString("SHORTNAME"));
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
+        Connection conn = DBController.dbConnect();
+        System.out.println(conn);
+        List<Node> rooms = DBController.fetchAllRooms(conn);
+        for(Node room : rooms) {
+            roomSelect.getItems().add(room.getShortName());
+            nodeIDs.put(room.getShortName(), room.getNodeID());
         }
-        roomSelect.setItems(FXCollections.observableList(nodeShortNames));
+        //roomSelect.setItems(FXCollections.observableList(nodeShortNames));
         roomSelect.getSelectionModel().selectFirst();
+        languageSelect.getSelectionModel().selectFirst();
         serviceMessage.setText("");
+
     }
 
     public void setServiceType(String serviceType) {
@@ -73,7 +75,8 @@ public class UIControllerSRIN extends UIController {
     private void setConfirmButton() {
         String roomShortName = roomSelect.getValue();
         String nodeID = nodeIDs.get(roomShortName);
-        String message = serviceMessage.getText();
+        String message = "Language: " + languageSelect.getValue() + " Comments: " + serviceMessage.getText();
+        message = message.substring(0, Math.min(150, message.length()));
 
         ServiceRequest sr = new ServiceRequest(nodeID, serviceType, message, CurrentUser.user.getUserID(), false, null);
         Connection conn = DBController.dbConnect();
