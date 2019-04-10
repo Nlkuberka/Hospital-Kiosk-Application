@@ -96,8 +96,8 @@
                 </Text>
                 <JFXTimePicker fx:id="endTimePicker" defaultColor="#5777c6" layoutX="10.0" layoutY="10.0" onAction="#updateColorView" style="-fx-background-color: white;" AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="195.0" />
 
-            <Rectangle fx:id="classroom8" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="66.0" layoutX="535.0" layoutY="89.0" opacity="0.15" stroke="BLACK" strokeType="INSIDE" width="62.0" />
-            <Rectangle fx:id="classroom6" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="66.0" layoutX="595.0" layoutY="89.0" opacity="0.15" stroke="BLACK" strokeType="INSIDE" width="62.0" />
+            <Rectangle fx:id="classroom8" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="66.0" layoutX="545.0" layoutY="70.0" opacity="0.15" stroke="BLACK" strokeType="INSIDE" width="62.0" />
+            <Rectangle fx:id="classroom6" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="66.0" layoutX="605.0" layoutY="70.0" opacity="0.15" stroke="BLACK" strokeType="INSIDE" width="62.0" />
             <Rectangle fx:id="classroom7" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="60.0" layoutX="590.0" layoutY="180.0" opacity="0.15" stroke="BLACK" strokeType="INSIDE" width="42.0" />
             <Rectangle fx:id="classroom5" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="60.0" layoutX="635.0" layoutY="180.0" opacity="0.15" stroke="BLACK" strokeType="INSIDE" width="55.0" />
             <Rectangle fx:id="classroom9" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="33.0" layoutX="548.0" layoutY="175.0" opacity="0.15" stroke="BLACK" strokeType="INSIDE" width="35.0" />
@@ -106,7 +106,7 @@
             <Rectangle fx:id="classroom2" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="33.0" layoutX="744.0" layoutY="266.0" opacity="0.15" rotate="70.0" stroke="BLACK" strokeType="INSIDE" width="69.0" />
             <Rectangle fx:id="classroom3" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="33.0" layoutX="720.0" layoutY="190.0" opacity="0.15" rotate="70.0" stroke="BLACK" strokeType="INSIDE" width="69.0" />
             <Rectangle fx:id="pantry" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="86.0" layoutX="640.0" layoutY="440.0" opacity="0.15" stroke="BLACK" strokeType="INSIDE" width="95.0" />
-            <Rectangle fx:id="classroom4" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="66.0" layoutX="657.0" layoutY="89.0" opacity="0.15" stroke="BLACK" strokeType="INSIDE" width="35.0" />
+            <Rectangle fx:id="classroom4" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="66.0" layoutX="665.0" layoutY="70.0" opacity="0.15" stroke="BLACK" strokeType="INSIDE" width="35.0" />
             <Polygon fx:id="MHA" fill="DODGERBLUE" layoutX="785.0" layoutY="374.0" opacity="0.15" points="-50.0, 40.0, 39.0, 20.0, 18.8045654296875, -60.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
             </children>
         </AnchorPane>
