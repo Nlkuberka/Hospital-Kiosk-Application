@@ -8,7 +8,7 @@ import java.util.List;
  * @version iteration1
  */
 public class Reservation {
-    private String nodeID;
+    private String wkplaceID;
     private String userID;
     private String date;
     private String startTime;
@@ -18,15 +18,15 @@ public class Reservation {
     public Reservation() {
     }
 
-    public Reservation(String nodeID, String userID, String date, String startTime, String endTime) {
-        this.nodeID = nodeID;
+    public Reservation(String wkplaceID, String userID, String date, String startTime, String endTime) {
+        this.wkplaceID = wkplaceID;
         this.userID = userID;
         this.date = date;
         this.startTime = startTime;
         this.endTime = endTime;
     }
-    public Reservation(String nodeID, String userID, String date, String startTime, String endTime, int rsvID) {
-        this.nodeID = nodeID;
+    public Reservation(String wkplaceID, String userID, String date, String startTime, String endTime, int rsvID) {
+        this.wkplaceID = wkplaceID;
         this.userID = userID;
         this.date = date;
         this.startTime = startTime;
@@ -34,12 +34,12 @@ public class Reservation {
         this.rsvID = rsvID;
     }
 
-    public String getNodeID() {
-        return nodeID;
+    public String getWkplaceID() {
+        return wkplaceID;
     }
 
-    public void setNodeID(String nodeID) {
-        this.nodeID = nodeID;
+    public void setWkplaceID(String wkplaceID) {
+        this.wkplaceID = wkplaceID;
     }
 
     public String getUserID() {
@@ -79,8 +79,8 @@ public class Reservation {
     public void setRsvID(int rsvID) { this.rsvID = rsvID; }
 
     public String toString() {
-        String returnValue = "Node(";
-        returnValue += getNodeID() + ", ";
+        String returnValue = "Wkplace(";
+        returnValue += getWkplaceID() + ", ";
         returnValue += getUserID() + ", ";
         returnValue += getDate() + ", ";
         returnValue += getStartTime() + ", ";
