@@ -161,6 +161,9 @@ public class UIControllerATVSR extends UIController {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        for(int i = 0; i < serviceRequests.size(); i ++) {
+            System.out.println(serviceRequests.get(i));
+        }
         serviceRequestTable.setItems(serviceRequests);
     }
 
