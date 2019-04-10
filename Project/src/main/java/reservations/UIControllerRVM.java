@@ -121,7 +121,6 @@ public class UIControllerRVM extends UIController {
         }
 
         Reservation r = new Reservation(nodeIDs.get((String) nodeSelect.getValue()), CurrentUser.user.getUserID(), format.format(date), startString, endString);
-
         boolean valid = true;
         //Check valid
         if(valid) {

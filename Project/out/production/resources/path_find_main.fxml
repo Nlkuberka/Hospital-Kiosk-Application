@@ -78,6 +78,11 @@
                         <Font name="System Bold" size="14.0" />
                      </font>
                   </JFXToggleButton>
+                   <JFXButton fx:id="directionsRequest" onAction="#directionSelection" prefHeight="88.0" prefWidth="177.0" styleClass="jfx-button-login" stylesheets="@background.css" text="Do you want directions?" textAlignment="CENTER" textFill="WHITE" wrapText="true" GridPane.halignment="CENTER" GridPane.rowIndex="7" GridPane.valignment="CENTER">
+                       <font>
+                           <Font name="System Bold" size="14.0" />
+                       </font>
+                   </JFXButton>
                </children>
             </GridPane>
             <StackPane HBox.hgrow="ALWAYS">

@@ -55,9 +55,9 @@
                         <TableColumn prefWidth="200.0" text="Remove" />
                     </columns>
                      <styleClass>
-                        <String fx:value="table-view2" />
-                        <String fx:value="table-cell2" />
-                        <String fx:value="table-row-cell2" />
+                        <String fx:value="table-view" />
+                        <String fx:value="cell-renderer" />
+                        <String fx:value="table-row-cell" />
                      </styleClass>
                   </TableView>
                </center>

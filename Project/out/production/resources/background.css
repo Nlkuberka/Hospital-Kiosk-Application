@@ -72,6 +72,13 @@
     -fx-text-fill: white;
 }
 
+.jfx-button-cancel{
+    -jfx-button-type: FLAT;
+    -fx-background-color:#FFC41E;
+    -fx-background-radius: 30;
+
+}
+
 .jfx-button_edit{
     -jfx-button-type: FLAT;
     -fx-background-color:#FFC41E;
@@ -79,6 +86,47 @@
     -fx-font-weight: bold;
     -fx-text-fill: white;
 }
+
+.jfx-button-SVmain{
+    -jfx-button-type: FLAT;
+    -fx-background-color:#FFC41E;
+    -fx-font-size: 16;
+    -fx-font-weight: bold;
+    -fx-text-fill: white;
+    -fx-pref-width: 160;
+    -fx-pref-height: 180;
+    -fx-border-color: #015080;
+    -fx-border-width: 1;
+    -fx-background-radius: 10;
+
+}
+
+.jfx-button-SVmain2{
+    -jfx-button-type: FLAT;
+    -fx-background-color:#FFC41E;
+    -fx-font-size: 16;
+    -fx-font-weight: bold;
+    -fx-text-fill: white;
+    -fx-pref-width: 140;
+    -fx-pref-height: 180;
+    -fx-border-color: #015080;
+    -fx-border-width: 1;
+    -fx-background-radius: 10;
+}
+
+.jfx-button-SVmain3{
+    -jfx-button-type: FLAT;
+    -fx-background-color:#FFC41E;
+    -fx-font-size: 16;
+    -fx-font-weight: bold;
+    -fx-text-fill: white;
+    -fx-pref-width: 205;
+    -fx-pref-height: 180;
+    -fx-border-color: #015080;
+    -fx-border-width: 1;
+    -fx-background-radius: 10;
+}
+
 /* Tab pane styling*/
 .tab-pane{
     -fx-background-color: #FFC41E;
@@ -95,7 +143,15 @@
  }
 
 /* Menu bar*/
+.menu-bar{
+  /*  -fx-pref-width: 600;
+    -webkit-fx-pref-height:30;
+    -fx-font-size: 12;*/
+    -fx-font-weight: bold;
+    -fx-text-fill: white;
 
+    /* -fx-background-image: url("\purple-orange-gradient.jpg");*/
+}
 
 
  .menu-bar{

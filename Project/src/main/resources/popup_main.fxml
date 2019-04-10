@@ -18,7 +18,7 @@
             <Label fx:id="warningLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="-1.0" layoutY="52.0" stylesheets="@background.css" text="Unfortunatlly, this room has already been booked." wrapText="true" AnchorPane.leftAnchor="-1.0" AnchorPane.rightAnchor="1.0" AnchorPane.topAnchor="52.0" />
             <ImageView fitHeight="40.0" fitWidth="40.0" layoutX="125.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@icon/warning%20(1).png" />
+                  <Image url="@icon/warning (1).png" />
                </image>
             </ImageView>
             <JFXButton fx:id="okButton" layoutX="95.0" layoutY="91.0" onAction="#setOkButton" styleClass="jfx-button-OK" stylesheets="@background.css" text="Ok" AnchorPane.bottomAnchor="14.0" AnchorPane.leftAnchor="95.0" AnchorPane.rightAnchor="105.0" />
