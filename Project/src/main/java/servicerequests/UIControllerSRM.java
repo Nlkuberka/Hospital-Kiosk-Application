@@ -59,9 +59,12 @@ public class UIControllerSRM extends UIController {
     }
 
     @FXML
-    public void setReligiousServices()
-    {
-
+    public void setSanitationButton() {
+        UIControllerSRSA controller = (UIControllerSRSA) this.goToScene(UIController.SERVICE_REQUEST_SANITATION);
+        controller.setServiceType("Sanitation");
+    }
+    @FXML
+    public void setReligiousServices(){
         UIControllerSRRS controller = (UIControllerSRRS) this.goToScene(UIController.SERVICE_REQUEST_RELIGIOUS_SERVICES);
         controller.setServiceType("Religious Services");
     }
@@ -72,7 +75,6 @@ public class UIControllerSRM extends UIController {
         controller.setServiceType("Interpreter");
 
     }
-
 
     /**
      * Redirects to BabysittingServiceRequest

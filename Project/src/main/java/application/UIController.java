@@ -46,7 +46,9 @@ public class UIController {
 
     public static final String SERVICE_REQUEST_MAIN = "SRM";
     public static final String SERVICE_REQUEST_BASE = "SRB";
+    public static final String SERVICE_REQUEST_SANITATION = "SRSA";
     public static final String SERVICE_REQUEST_INTERPRETER = "SRIN";
+
 
     public static final String SERVICE_REQUEST_PRESCRIPTION_SERVICES_MAIN = "SRPSM";
     public static final String SERVICE_REQUEST_IT = "SRIT";
@@ -152,6 +154,10 @@ public class UIController {
         sceneFiles.put(UIController.SERVICE_REQUEST_FLOWER_DELIVERY, "/service_request_flower_delivery.fxml");
         sceneTitles.put(UIController.SERVICE_REQUEST_FLOWER_DELIVERY, "Service Request - Flower Delivery");
 
+
+        sceneFiles.put(UIController.SERVICE_REQUEST_SANITATION, "/service_request_sanitation.fxml");
+        sceneTitles.put(UIController.SERVICE_REQUEST_SANITATION, "Service Request - Sanitation");
+
         sceneFiles.put(UIController.SERVICE_REQUEST_SECURITY, "/service_request_security.fxml");
         sceneTitles.put(UIController.SERVICE_REQUEST_SECURITY, "Service Request - Security");
 
@@ -160,7 +166,6 @@ public class UIController {
 
         sceneFiles.put(UIController.SERVICE_REQUEST_INTERPRETER, "/service_request_interpreter.fxml");
         sceneTitles.put(UIController.SERVICE_REQUEST_INTERPRETER, "Service Request - Interpreter");
-
 
         // Reservations
         sceneFiles.put(UIController.RESERVATIONS_MAIN, "/reservations_main.fxml");
