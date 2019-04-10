@@ -15,7 +15,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="reservations.UIControllerRVM">
+<AnchorPane prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="servicerequests.UIControllerSRSA">
     <children>
           <AnchorPane prefHeight="400.0" prefWidth="600.0" styleClass="body-background" stylesheets="/background.css">
               <children>
@@ -28,7 +28,7 @@
                       <top>
                           <MenuBar blendMode="ADD" prefWidth="600.0" style="-fx-background-color: white;" stylesheets="@background.css" BorderPane.alignment="CENTER">
                               <menus>
-                                  <Menu mnemonicParsing="false" onShowing="#setHomeButton" text="Home">
+                                  <Menu fx:id="homeButton" mnemonicParsing="false" onShowing="#setHomeButton" onAction="#setHomeButton" text="Home">
                            <items>
                               <MenuItem mnemonicParsing="false" text="HOME" />
                            </items>
@@ -53,29 +53,28 @@
                <left>
                   <AnchorPane prefHeight="575.0" prefWidth="250.0" BorderPane.alignment="CENTER">
                      <children>
-                        <JFXButton layoutX="86.0" layoutY="472.0" styleClass="jfx-button_edit" stylesheets="@background.css" text="Confirm" />
-                        <JFXButton contentDisplay="CENTER" layoutX="102.0" layoutY="516.0" styleClass="jfx-button-cancel" stylesheets="@background.css" text=" ">
+                        <JFXButton fx:id="confirmButton" layoutX="86.0" layoutY="472.0" onAction="#setConfirmButton" styleClass="jfx-button_edit" stylesheets="@background.css" text="Confirm" />
+                        <JFXButton fx:id="cancelButton" contentDisplay="CENTER" layoutX="102.0" layoutY="516.0" onAction="#setCancelButton" styleClass="jfx-button-cancel" stylesheets="@background.css" text=" ">
                            <graphic>
                               <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
-                                    <Image url="@icon/cancel%20(1).png" />
+                                    <Image url="@icon/cancel (1).png" />
                                  </image>
                               </ImageView>
                            </graphic>
                         </JFXButton>
-                        <Text fill="WHITE" layoutX="31.0" layoutY="44.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Servie Name ">
+                        <Text fill="WHITE" layoutX="31.0" layoutY="44.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Service Name ">
                            <font>
                               <Font name="System Bold Italic" size="24.0" />
                            </font>
                         </Text>
-                        <Text fill="WHITE" layoutX="31.0" layoutY="63.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Your Name">
+                        <Text fill="WHITE" layoutX="31.0" layoutY="63.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Joseph Niski">
                            <font>
                               <Font name="System Bold" size="12.0" />
                            </font>
                         </Text>
-                        <ChoiceBox layoutX="48.0" layoutY="109.0" prefWidth="150.0" style="-fx-background-color: #ffffff;" />
-                        <JFXTextField alignment="CENTER" layoutX="48.0" layoutY="220.0" prefHeight="220.0" prefWidth="150.0" promptText="What 
-                        <JFXTextField layoutX="48.0" layoutY="220.0" prefHeight="220.0" prefWidth="150.0" style="-fx-background-color: #ffffff;" />
+                        <ChoiceBox fx:id="rooomSelect" layoutX="48.0" layoutY="109.0" onMouseClicked="#setRoomSelect" prefWidth="150.0" style="-fx-background-color: #ffffff;" />
+                        <JFXTextField fx:id="serviceMessage" alignment="CENTER" layoutX="48.0" layoutY="220.0" prefHeight="220.0" prefWidth="150.0" promptText="What is wrong?" style="-fx-background-color: #ffffff;" />
                      </children>
                   </AnchorPane>
                </left>
