@@ -458,6 +458,9 @@ public class UIControllerPFM extends UIController {
             Scene popupScene = new Scene(fxmlLoader.load(), 600, 400);
             Stage popupStage = new Stage();
 
+            popupStage.initModality(Modality.WINDOW_MODAL);
+            popupStage.initOwner(this.primaryStage);
+
             UIControllerPUD controller = (UIControllerPUD) fxmlLoader.getController();
             controller.setDirections(direction);
 
