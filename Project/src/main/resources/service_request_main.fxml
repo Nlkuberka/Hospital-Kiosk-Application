@@ -72,7 +72,7 @@
                               </ImageView>
                            </graphic>
                         </JFXButton>
-                        <JFXButton alignment="BOTTOM_CENTER" contentDisplay="TOP" graphicTextGap="20.0" layoutX="487.0" layoutY="116.0" prefHeight="180.0" prefWidth="160.0" style="-fx-background-color: #ffc41e;" styleClass="jfx-button-SVmain" stylesheets="@background.css" text="IT Services" textFill="WHITE">
+                        <JFXButton fx:id="ITServices" alignment="BOTTOM_CENTER" contentDisplay="TOP" graphicTextGap="20.0" layoutX="487.0" layoutY="116.0" onMouseClicked="#setITButton" prefHeight="180.0" prefWidth="160.0" style="-fx-background-color: #ffc41e;" styleClass="jfx-button-SVmain" stylesheets="@background.css" text="IT Services" textFill="WHITE">
                            <font>
                               <Font name="System Bold" size="14.0" />
                            </font>
@@ -120,7 +120,7 @@
                               </ImageView>
                            </graphic>
                         </JFXButton>
-                        <JFXButton alignment="BOTTOM_CENTER" contentDisplay="TOP" graphicTextGap="20.0" layoutX="187.0" layoutY="116.0" prefHeight="180.0" prefWidth="160.0" style="-fx-background-color: #ffc41e;" styleClass="jfx-button-SVmain2" stylesheets="@background.css" text="Babysitter" textFill="WHITE">
+                        <JFXButton fx:id="babysittingButton" alignment="BOTTOM_CENTER" contentDisplay="TOP" graphicTextGap="20.0" layoutX="187.0" layoutY="116.0" onAction="#setbabysittingButton" prefHeight="180.0" prefWidth="160.0" style="-fx-background-color: #ffc41e;" styleClass="jfx-button-SVmain2" stylesheets="@background.css" text="Babysitter" textFill="WHITE">
                            <font>
                               <Font name="System Bold" size="14.0" />
                            </font>
