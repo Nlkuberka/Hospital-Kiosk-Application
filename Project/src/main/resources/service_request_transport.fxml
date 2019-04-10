@@ -84,13 +84,13 @@
                               <Font name="System Bold" size="14.0" />
                            </font>
                         </Text>
-                        <ChoiceBox fx:id="transportType" layoutX="47.0" layoutY="164.0" prefWidth="150.0" />
+                        <ChoiceBox fx:id="transportSelect" layoutX="47.0" layoutY="164.0" prefWidth="150.0" />
                         <Text fill="WHITE" layoutX="47.0" layoutY="160.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Transport Type">
                            <font>
                               <Font name="System Bold" size="14.0" />
                            </font>
                         </Text>
-                        <JFXTextArea fx:id="serviceMessage" focusColor="WHITE" layoutX="47.0" layoutY="220.0" prefHeight="218.0" prefWidth="152.0" unFocusColor="WHITE" />
+                        <JFXTextArea fx:id="serviceMessage" focusColor="WHITE" layoutX="47.0" layoutY="220.0" prefHeight="218.0" prefWidth="152.0" style="-fx-background-color: #ffffff;" unFocusColor="WHITE" />
                      </children>
                   </AnchorPane>
                </left>

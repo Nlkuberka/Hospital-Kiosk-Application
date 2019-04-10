@@ -4,6 +4,7 @@ import application.CurrentUser;
 import application.DBController;
 import application.UIController;
 import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXTextArea;
 import com.jfoenix.controls.JFXTextField;
 import entities.ServiceRequest;
 import javafx.collections.FXCollections;
@@ -15,10 +16,7 @@ import javafx.scene.control.TextFormatter;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class UIControllerSRET extends UIController {
     String serviceType;
@@ -37,6 +35,9 @@ public class UIControllerSRET extends UIController {
     @FXML
     private JFXButton confirmButton;
 
+    @FXML
+    private ChoiceBox<String> transportSelect;
+
     /**
      * < The confirm button
      */
@@ -46,6 +47,8 @@ public class UIControllerSRET extends UIController {
         serviceMessage.setTextFormatter(new TextFormatter<String>(e ->
                 e.getControlNewText().length() <= 100 ? e : null
         ));
+        String[] transportTypes = {"Uber", "Lyft", "Taxi", "Private", "Bus", "Other"};
+        transportSelect.setItems(FXCollections.observableList(Arrays.asList(transportTypes)));
     }
 
     @FXML
@@ -94,8 +97,7 @@ public class UIControllerSRET extends UIController {
 
 //    @FXML
 //    private void transportType() {
-//        String[] transportTypes = ("
-//        prioritySelect.setItems(FXCollections.observableList(Arrays.asList(types))
+//
 //    }
 
 }

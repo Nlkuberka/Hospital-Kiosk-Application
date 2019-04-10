@@ -53,7 +53,6 @@ public class UIController {
     public static final String SERVICE_REQUEST_BABYSITTING = "SRB";
 
     public static final String SERVICE_REQUEST_FLOWER_DELIVERY = "SRFD";
-    public static final String SERVICE_REQUEST_BASE = "SRB";
     public static final String SERVICE_REQUEST_TRANSPORT = "SRET";
 
     // The starting width and height of the window
