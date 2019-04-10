@@ -25,6 +25,9 @@ public class UIControllerLM extends UIController {
     private JFXTabPane login_tabpane;
 
     @FXML
+    private JFXTabPane tabs;
+
+    @FXML
     private Tab guest_tab;
 
     @FXML
@@ -74,7 +77,10 @@ public class UIControllerLM extends UIController {
      */
     @FXML
     public void initialize() {
-
+        tabs.getSelectionModel().selectedItemProperty().addListener(param -> {
+            setDefaultButton();
+        });
+        loginAsGuestButton.setDefaultButton(true);
     }
 
     /**
@@ -93,7 +99,9 @@ public class UIControllerLM extends UIController {
      */
     @FXML
     private void setLoginAsGuestButton() {
-        CurrentUser.user = null; // DB get guest user
+        Connection conn = DBController.dbConnect();
+        CurrentUser.user = DBController.getGuestUser(conn);
+        DBController.closeConnection(conn);
         this.goToScene(UIController.GUEST_MAIN_MENU_MAIN);
     }
 
@@ -131,8 +139,7 @@ public class UIControllerLM extends UIController {
     }
 
     @FXML
-    private void goToUserTab()
-    {
+    private void goToUserTab() {
         login_tabpane.getSelectionModel().select(user_tab);
     }
 
@@ -140,11 +147,26 @@ public class UIControllerLM extends UIController {
         User user = null;
         Connection conn = DBController.dbConnect();
         user = DBController.loginCheck(username,password,conn,permissions);
+        DBController.closeConnection(conn);
         if(user == null) {
             return null;
         }
-        DBController.closeConnection(conn);
         CurrentUser.user = user;
         return user;
     }
+
+    private void setDefaultButton() {
+        String tabName = tabs.getSelectionModel().getSelectedItem().getText();
+        loginAsGuestButton.setDefaultButton(false);
+        loginAsUserButton.setDefaultButton(false);
+        loginAsAdminButton.setDefaultButton(false);
+        if(tabName.equals("Guest")) {
+            loginAsGuestButton.setDefaultButton(true);
+        } else if(tabName.equals("User")) {
+            loginAsUserButton.setDefaultButton(true);
+        } else if(tabName.equals("Administrator")) {
+            loginAsAdminButton.setDefaultButton(true);
+        }
+    }
+
 }

@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXTabPane?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="admintools.UIControllerATCA">
+   <children>
+      <AnchorPane prefHeight="400.0" prefWidth="600.0" styleClass="body-background" stylesheets="/background.css">
+         <children>
+            <ImageView fitHeight="600.0" fitWidth="900.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@Hospitalbackground.png" />
+               </image>
+            </ImageView>
+            <BorderPane>
+               <top>
+                  <MenuBar blendMode="ADD" prefWidth="900.0" style="-fx-background-color: white;" stylesheets="@background.css" BorderPane.alignment="CENTER">
+                    <menus>
+                      <Menu mnemonicParsing="false" text="Back">
+                        <items>
+                          <MenuItem fx:id="backMenuItem" mnemonicParsing="false" onAction="#setBackMenuItem" text="Go back to previous page" />
+                        </items>
+                      </Menu>
+                        <Menu fx:id="homeButton" mnemonicParsing="false" onShowing="#setHomeButton" text="Home">
+                           <items>
+                              <MenuItem mnemonicParsing="false" text="HOME" />
+                           </items>
+                        </Menu>
+                    </menus>
+                  </MenuBar>
+               </top>
+               <left>
+                  <AnchorPane prefHeight="575.0" prefWidth="900.0" BorderPane.alignment="CENTER">
+                     <children>
+                        <Text fill="WHITE" layoutX="286.0" layoutY="99.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Switch Algorithm">
+                           <font>
+                              <Font name="System Bold" size="40.0" />
+                           </font>
+                        </Text>
+                        <JFXTabPane fx:id="tabs" layoutY="125.0" maxHeight="450.0" prefHeight="450.0" prefWidth="900.0" stylesheets="@background.css">
+                           <tabs>
+                              <Tab text="A* Algorithm">
+                                <content>
+                                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="413.0" prefWidth="900.0" style="-fx-background-color: #ffffff;">
+                                       <children>
+                                          <Text fill="#015080" layoutX="132.0" layoutY="82.0" strokeType="OUTSIDE" strokeWidth="0.0" text="A* Algorithm" AnchorPane.leftAnchor="110.0" AnchorPane.topAnchor="40.0">
+                                             <font>
+                                                <Font name="System Bold" size="30.0" />
+                                             </font>
+                                          </Text>
+                                          <Text fill="#015080" layoutX="110.0" layoutY="124.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Introduction: Prioritizes nodes to search base on their estimated distance to the destination node." AnchorPane.leftAnchor="110.0" AnchorPane.topAnchor="105.0">
+                                             <font>
+                                                <Font size="18.0" />
+                                             </font>
+                                          </Text>
+                                          <JFXButton layoutX="356.0" layoutY="322.0" onAction="#changeAlgorithm" styleClass="jfx-button-login" stylesheets="@background.css" text="Set A* Algorithm" AnchorPane.leftAnchor="356.0" AnchorPane.topAnchor="322.0" />
+                                       </children></AnchorPane>
+                                </content>
+                              </Tab>
+                              <Tab text="Depth First Algorithm">
+                                <content>
+                                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="413.0" prefWidth="900.0" style="-fx-background-color: #ffffff;" stylesheets="@background.css">
+                                       <children>
+                                          <Text fill="#015080" layoutX="106.0" layoutY="68.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Depth First Algorithm" AnchorPane.leftAnchor="110.0" AnchorPane.topAnchor="40.0">
+                                             <font>
+                                                <Font name="System Bold" size="30.0" />
+                                             </font>
+                                          </Text>
+                                          <Text fill="#015080" layoutX="110.0" layoutY="124.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Introduction: Fully explores each branch of the graph before moving on to the next." AnchorPane.leftAnchor="110.0" AnchorPane.topAnchor="105.0">
+                                             <font>
+                                                <Font size="18.0" />
+                                             </font>
+                                          </Text>
+                                          <JFXButton layoutX="278.0" layoutY="324.0" onAction="#changeAlgorithm" styleClass="jfx-button-login" stylesheets="@background.css" text="Set Breadth For Search Algorithm" AnchorPane.leftAnchor="278.0" AnchorPane.topAnchor="324.0" />
+                                       </children></AnchorPane>
+                                </content>
+                              </Tab>
+                              <Tab text="Breath First Algorithm">
+                                <content>
+                                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="413.0" prefWidth="900.0" style="-fx-background-color: #ffffff;">
+                                       <children>
+                                          <Text fill="#015080" strokeType="OUTSIDE" strokeWidth="0.0" text="Breath First Algorithm" AnchorPane.leftAnchor="110.0" AnchorPane.topAnchor="40.0">
+                                             <font>
+                                                <Font name="System Bold" size="30.0" />
+                                             </font>
+                                          </Text>
+                                          <Text fill="#015080" strokeType="OUTSIDE" strokeWidth="0.0" text="Introduction: Searches close to the start node, slowly moving outward." AnchorPane.leftAnchor="110.0" AnchorPane.topAnchor="105.0">
+                                             <font>
+                                                <Font size="18.0" />
+                                             </font>
+                                          </Text>
+                                          <JFXButton layoutX="278.0" layoutY="319.0" onAction="#changeAlgorithm" styleClass="jfx-button-login" stylesheets="@background.css" text="Set Breadth For Search Algorithm" AnchorPane.topAnchor="322.0" />
+                                       </children></AnchorPane>
+                                </content>
+                              </Tab>
+                           </tabs>
+                        </JFXTabPane>
+                     </children>
+                  </AnchorPane>
+               </left>
+            </BorderPane>
+         </children>
+      </AnchorPane>
+   </children>
+</AnchorPane>
