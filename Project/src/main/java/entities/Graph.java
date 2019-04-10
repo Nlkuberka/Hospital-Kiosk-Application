@@ -1,5 +1,6 @@
-import java.util.LinkedList;
-import java.util.Arrays;
+package entities;
+
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
@@ -8,11 +9,11 @@ import static java.lang.Math.abs;
 import static java.lang.Math.sqrt;
 
 
-public class Graph {
+public abstract class Graph {
     
-    private LinkedList<LinkedList<Integer>> adj; //
-    private LinkedList<LinkedList<Double>> adjWeights; //weights of the edges
-    private LinkedList<Node> storedNodes; //nodes that have been stored
+    protected LinkedList<LinkedList<Integer>> adj; //
+    protected LinkedList<LinkedList<Double>> adjWeights; //weights of the edges
+    protected LinkedList<Node> storedNodes; //nodes that have been stored
 
 
     /**
@@ -87,58 +88,7 @@ public class Graph {
      * @param targetID the String ID of the desired finish node
      * @return returns an LinkedList<List<String>> of the shortest path between those two points
      */
-    public List<String> shortestPath(String startID, String targetID) {
-        int startIndex = mapNodeIDToIndex(startID);
-        int targetIndex = mapNodeIDToIndex(targetID);
-        int current = startIndex;
-        double [] distance = new double [storedNodes.size()]; //stored distance from start node to node at index
-        Queue<Integer> queue = new LinkedList<Integer>(); //nodes that will be checked
-        for(int i = 0; i < storedNodes.size(); i++) {
-            distance[i] = Double.MAX_VALUE;
-        }
-        distance[startIndex] = 0;
-        queue.add(current);
-
-        // BFS of nodes and get the distances of each node
-        while(queue.size() != 0) {
-            current = queue.remove();
-            for(int i = 0; i < adj.get(current).size(); i++) {
-                int nextNode = adj.get(current).get(i);
-                double currentDistance = distance[current] + adjWeights.get(current).get(i);
-                if(currentDistance < distance[nextNode]) {
-                    distance[nextNode] = currentDistance;
-                    queue.add(nextNode);
-                }
-            }
-        }
-        List<String> path = new LinkedList<>();
-        path.add(targetID);
-        current = targetIndex;
-        while(current != startIndex) {
-            for (int i = 0; i < adj.get(current).size(); i++) {
-                int previousNode = adj.get(current).get(i);
-                if (adjWeights.get(current).get(i) + distance[previousNode] == distance[current]) {
-                    path.add(0, mapIndexToNode(previousNode).getNodeID());
-                    current = previousNode;
-                    break;
-                }
-            }
-        }
-        return path;
-    }
-
-    /**
-     * Creates a deep copy of the given List
-     * @param original The original list to copy
-     * @return The deep copy of the list
-     */
-    private List<String> deepCopy(List<String> original) {
-        List<String> copy = new LinkedList<String>();
-        for(int i = 0 ; i < original.size(); i++) {
-            copy.add(original.get(i));
-        }
-        return copy;
-    }
+    public abstract List<String> shortestPath(String startID, String targetID);
 
     /**
      * Adds a single node to the graph
@@ -255,5 +205,35 @@ public class Graph {
         return adj.get(n).size();
     }
 
+    /**
+     * Creates a graph with the same nodes and edges as the object this method is called on.
+     * The new graph computes shortest paths using a breadth-first-search algorithm.
+     */
+    public BFSGraph toBFS() {
+        BFSGraph returnValue = new BFSGraph(storedNodes);
+        returnValue.adj = adj;
+        returnValue.adjWeights = adjWeights;
+        return returnValue;
+    }
+    /**
+     * Creates a graph with the same nodes and edges as the object this method is called on.
+     * The new graph computes shortest paths using a depth-first-search algorithm.
+     */
+    public DFSGraph toDFS() {
+        DFSGraph returnValue = new DFSGraph(storedNodes);
+        returnValue.adj = adj;
+        returnValue.adjWeights = adjWeights;
+        return returnValue;
+    }
 
+    /**
+     * Creates a graph with the same nodes and edges as the object this method is called on.
+     * The new graph computes shortest paths using an A* algorithm.
+     */
+    public AStarGraph toAStar() {
+        AStarGraph returnValue = new AStarGraph(storedNodes);
+        returnValue.adj = adj;
+        returnValue.adjWeights = adjWeights;
+        return returnValue;
+    }
 }

@@ -1,3 +1,9 @@
+package admintools;
+
+import application.DBController;
+import application.UIController;
+import entities.Edge;
+
 import com.jfoenix.controls.JFXButton;
 
 import javafx.beans.property.ReadOnlyObjectWrapper;
@@ -6,7 +12,6 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 
-import java.net.ConnectException;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -155,7 +160,7 @@ public class UIControllerATVE extends UIController {
     }
 
     /**
-     * Goes back to the admin tools main menu
+     * Goes back to the admin tools application menu
      */
     @FXML
     private void setBackButton() {

@@ -1,3 +1,7 @@
+package admintools;
+
+import application.UIController;
+
 import com.jfoenix.controls.JFXButton;
 
 import javafx.fxml.FXML;
@@ -66,7 +70,7 @@ public class UIControllerATM extends UIController {
     }
 
     /**
-     * Goes back t0 the admin main Menu
+     * Goes back t0 the admin application Menu
      */
     @FXML
     private void setBackMenuItem() {

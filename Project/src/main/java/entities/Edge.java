@@ -1,3 +1,5 @@
+package entities;
+
 /**
  * The Object that stores information about a particular edge
  * @version iteration1
