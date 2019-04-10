@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXTextArea?>
 <?import com.jfoenix.controls.JFXTextField?>
 <?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.Menu?>
@@ -74,7 +75,6 @@
                            </font>
                         </Text>
                         <ChoiceBox fx:id="roomSelect" layoutX="48.0" layoutY="109.0" prefWidth="150.0" style="-fx-background-color: #ffffff;" />
-                        <JFXTextField fx:id="serviceMessage" layoutX="48.0" layoutY="325.0" prefHeight="125.0" prefWidth="150.0" style="-fx-background-color: #ffffff;" />
                         <Text fill="WHITE" layoutX="50.0" layoutY="104.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Room Select">
                            <font>
                               <Font name="System Bold" size="12.0" />
@@ -98,6 +98,7 @@
                            </font>
                         </Text>
                         <ChoiceBox fx:id="lengthChoiceBox" layoutX="48.0" layoutY="275.0" prefWidth="150.0" style="-fx-background-color: #ffffff;" />
+                        <JFXTextArea fx:id="serviceMessage" layoutX="48.0" layoutY="325.0" prefHeight="125.0" prefWidth="150.0" style="-fx-background-color: #ffffff;" />
                      </children>
                   </AnchorPane>
                </left>
