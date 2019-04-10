@@ -46,7 +46,7 @@ public class UIControllerMMM extends  UIController {
      */
     @FXML
     private void setReservationsButton() {
-        this.goToScene(UIController.RESERVATIONS_MAIN);
+        this.goToScene(UIController.RESERVATIONS_MAIN_MENU);
     }
 
     /**

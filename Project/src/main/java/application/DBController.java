@@ -9,6 +9,9 @@ import java.sql.SQLException;
 import java.io.*;
 import java.sql.*;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -71,9 +74,16 @@ public class DBController {
                 "  RESOLVERID VARCHAR(10) REFERENCES USERS(USERID), \n" +
                 "  CONSTRAINT SERVICE_PK PRIMARY KEY(SERVICEID)\n" +
                 ")\n";
+        String workplaces = "CREATE TABLE WORKPLACES(\n" +
+                " WKPLACEID VARCHAR(10),\n" +
+                " ROOMNAME VARCHAR(50),\n" +
+                " CAPACITY INT,\n" +
+                " OUTLINE VARCHAR(150),\n" +
+                " CONSTRAINT WK_PK PRIMARY KEY(WKPLACEID) " +
+                ")\n";
         String reservations = "CREATE TABLE RESERVATIONS(\n" +
                 "  RSVID INTEGER GENERATED ALWAYS AS IDENTITY,\n" +
-                "  NODEID VARCHAR(10) REFERENCES NODES(NODEID),\n" +
+                "  WKPLACEID VARCHAR(10) REFERENCES WORKPLACES(WKPLACEID),\n" +
                 "  USERID VARCHAR(10) REFERENCES USERS(USERID),\n" +
                 "  DAY DATE,\n" +
                 "  STARTTIME TIME,\n" +
@@ -83,14 +93,17 @@ public class DBController {
 
 
 
+
         createTable(nodes,conn);
         createTable(edges,conn);
         createTable(user,conn);
-        createTable(reservations,conn);
         createTable(servicerequest,conn);
+        createTable(workplaces, conn);
+        createTable(reservations,conn);
 
         loadNodeData(new File("nodesv4.csv"),conn);
         loadEdgeData(new File("edgesv5.csv"),conn);
+        loadWorkplaceData(new File( "workplaces.csv"),conn);
 
         try {
             Statement s = conn.createStatement();
@@ -212,6 +225,31 @@ public class DBController {
     }
 
     /**
+     * loadWorkplaceData
+     *
+     * reads and stores workplace data from given csv file
+     *
+     * @param file
+     * @param connection
+     */
+    public static void loadWorkplaceData(File file, Connection connection) {
+        BufferedReader br = null;
+        String line = "";
+        String[] arr;
+        try {
+            br = new BufferedReader(new FileReader(file));
+            br.readLine();
+            while((line = br.readLine()) != null) {
+                arr = line.split(",");
+                connection.createStatement().execute("insert into WORKPLACES (wkplaceid, roomname, capacity, outline) " +
+                        "values ('"+ arr[0] + "','"+ arr[1]+ "',"+ arr[2]+ ",'"+ arr[3]+"')");
+            }
+        }catch(Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
      * CreateTable
      *
      * executes the given query
@@ -290,6 +328,27 @@ public class DBController {
                     "where  SERVICEID = " + serviceRequest.getServiceID());
 
         }catch(SQLException e){
+            e.printStackTrace();
+        }
+    }
+    /**
+     * fetchNode
+     *
+     * generates an node object from data under given ID
+     *
+     * @param reservation
+     * @param connection
+     */
+    public static void updateReservation(Reservation reservation, Connection connection) {
+        try{
+            Statement s = connection.createStatement();
+            s.execute("UPDATE RESERVATIONS SET WKPLACEID ='"+ reservation.getWkplaceID() +"'," +
+                    "USERID = '"+ reservation.getUserID() + "'," +
+                    "DAY = '" + reservation.getDate() + "'," +
+                    "STARTTIME = '" + reservation.getStartTime() + "'," +
+                    "ENDTIME = '" + reservation.getEndTime() + "'" +
+                    " where RSVID = " + reservation.getRsvID());
+        }catch(SQLException e) {
             e.printStackTrace();
         }
     }
@@ -398,7 +457,7 @@ public class DBController {
     public static void deleteReservation(int reservationID,Connection connection){
         try {
             Statement s = connection.createStatement();
-            s.execute("delete  from RESERVATIONS where RSVID ='"+ reservationID +"'");
+            s.execute("delete from RESERVATIONS where RSVID ="+ reservationID +"");
         }catch(SQLException e){
             e.printStackTrace();
         }
@@ -450,7 +509,6 @@ public class DBController {
     public static int addServiceRequest(ServiceRequest serviceRequest, Connection connection){
         try{
             PreparedStatement s;
-            System.out.println("hello");
             if (serviceRequest.getNodeID() == null){
                 s = connection.prepareStatement("INSERT into SERVICEREQUEST (NODEID, SERVICETYPE, MESSAGE, USERID, RESOLVED, RESOLVERID)" +
                         " values (" + serviceRequest.getNodeID() +
@@ -484,17 +542,28 @@ public class DBController {
      */
     public static int addReservation(Reservation reservation, Connection connection){
         try{
-            //connection = DriverManager.getConnection("jdbc:derby:myDB");
-            PreparedStatement s = connection.prepareStatement("INSERT into RESERVATIONS (NODEID, USERID, DAY, STARTTIME, ENDTIME) values ('" + reservation.getNodeID() +"','" + reservation.getUserID() +
-                    "','"+ reservation.getDate() +"','"+ reservation.getStartTime() + "','" + reservation.getEndTime() + "')");
-            s.execute();
-            ResultSet rs = s.getGeneratedKeys();
-            rs.next();
-            return rs.getInt("RSVID");
+            Time startTime = Time.valueOf(reservation.getStartTime());
+            Time endTime = Time.valueOf(reservation.getEndTime());
+            Date date = new SimpleDateFormat("yyyy-MM-dd").parse(reservation.getDate());
+
+            if(DBController.isRoomAvailable(reservation.getWkplaceID(), date, startTime, endTime, connection)) {
+                //connection = DriverManager.getConnection("jdbc:derby:myDB");
+                PreparedStatement s = connection.prepareStatement("INSERT into RESERVATIONS (WKPLACEID, USERID, DAY, STARTTIME, ENDTIME) values ('" + reservation.getWkplaceID() +"','" + reservation.getUserID() +
+                        "','"+ reservation.getDate() +"','"+ reservation.getStartTime() + "','" + reservation.getEndTime() + "')",Statement.RETURN_GENERATED_KEYS);
+                s.execute();
+                ResultSet rs = s.getGeneratedKeys();
+                rs.next();
+                return rs.getInt(1);
+            }
+            else {
+                return -1; // Room is already reserved during the requested tie
+            }
         }catch(SQLException e) {
             e.printStackTrace();
-            return 0;
+        } catch (ParseException e) {
+            e.printStackTrace();
         }
+        return 0;
     }
 
 
@@ -618,6 +687,30 @@ public class DBController {
     }
 
     /**
+     * generateListOfUserReservations
+     *
+     * generates list of reservations made by the given user
+     * @param userID - ID of user whose reservations are being accessed
+     * @return - LinkedList of all reservations made by a user
+     */
+    public static LinkedList<Reservation> generateListofUserReservations(String userID ,Connection connection){
+        try{
+            Statement s = connection.createStatement();
+            ResultSet rs = s.executeQuery("select * from RESERVATIONS where USERID = '" + userID + "'");
+            LinkedList<Reservation> listOfReservations = new LinkedList<Reservation>();
+            while(rs.next()){
+                Reservation r = new Reservation(rs.getString(1),rs.getString(2),rs.getString(3),
+                                                rs.getString(4),rs.getString(5));
+                listOfReservations.add(r);
+            }
+            return listOfReservations;
+        }catch(SQLException e){
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    /**
      * nodeInsert
      *
      * helper method, inserts nodes into existing table
@@ -639,6 +732,93 @@ public class DBController {
         }
     }
 
+    /**
+     * isRoomAvailable
+     *
+     * Determines whether a room is available on a certain day within the given time parameters
+     * @param wkplaceID - ID of room which is being checked for availability
+     * @param day - The day where the room's availability is being checked
+     * @param startTime - Check to see if the room is available after this time
+     * @param endTime - Check to see if the room is available before this time
+     * @return - Whether or not the selected room will be available on the day and times given
+     */
+    public static boolean isRoomAvailable(String wkplaceID, Date day, Time startTime, Time endTime, Connection connection){
+        try{
+            //Check if room has any reservations overlapping with the given times
+            //Four cases to check:
+            //Reservation within the given times, starts before and ends during, starts during and ends after, or room is booked for the whole duration or more
+            Statement s = connection.createStatement();
+            ResultSet rs = s.executeQuery("select * from RESERVATIONS where WKPLACEID = '" + wkplaceID + "' and DAY = '" + day + "' and " +
+                    "((STARTTIME >= '" + startTime + "' and ENDTIME <= '" + endTime + "') " +
+                    "OR (STARTTIME < '" + startTime + "' and ENDTIME > '" + startTime + "') " +
+                    "OR (STARTTIME < '" + endTime + "' and ENDTIME > '" + endTime + "'))");
+            return !rs.next();
+        }catch(SQLException e){
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    public static boolean isRoomAvailableString(String wkplaceID, String dateSTR, String startTimeSTR, String endTimeSTR, Connection connection){
+        try{
+            //Check if room has any reservations overlapping with the given times
+            //Four cases to check:
+            //Reservation within the given times, starts before and ends during, starts during and ends after, or room is booked for the whole duration or more
+
+            Time startTime = Time.valueOf(startTimeSTR);
+            Time endTime = Time.valueOf(endTimeSTR);
+            Date date = new SimpleDateFormat("yyyy-MM-dd").parse(dateSTR);
+
+            Statement s = connection.createStatement();
+            ResultSet rs = s.executeQuery("select * from RESERVATIONS where WKPLACEID = '" + wkplaceID + "' and DAY = '" + date + "' and " +
+                    "((STARTTIME >= '" + startTime + "' and ENDTIME <= '" + endTime + "') " +
+                    "OR (STARTTIME < '" + startTime + "' and ENDTIME > '" + startTime + "') " +
+                    "OR (STARTTIME < '" + endTime + "' and ENDTIME > '" + endTime + "'))");
+            return !rs.next();
+        }catch(SQLException e){
+            e.printStackTrace();
+        }catch(ParseException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    /**
+     * unavailableRooms
+     *
+     * Determines which rooms are available on the given date, and within the given times.
+     * @param day - The day where the availability of all rooms is being checked
+     * @param startTime - Check to see if each room is available after this time
+     * @param endTime - Check to see if each room is available before this time
+     * @return - A list of all the available rooms within the given parameters
+     */
+    public static LinkedList<Workplace> unavailableRooms(Date day, Time startTime, Time endTime, Connection connection){
+        try {
+            Statement s = connection.createStatement();
+            ResultSet rs = s.executeQuery("SELECT * from WORKPLACES");
+            LinkedList<Workplace> unavailableRooms = new LinkedList<>();
+            while(rs.next()){
+                Workplace room = new Workplace(rs.getString(1),rs.getString(2),rs.getInt(3),
+                        rs.getString(4));
+                if(!isRoomAvailable(room.getWkplaceID(),day,startTime,endTime,connection)){
+                    unavailableRooms.add(room);
+                }
+            }
+            return unavailableRooms;
+        }catch(SQLException e){
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+
+
+    /**
+     * exportData
+     *
+     * selects all content held in Nodes table and prints it to a file
+
+     */
 
     public static User loginCheck(String username, String password, Connection conn, int permission){
             try{
