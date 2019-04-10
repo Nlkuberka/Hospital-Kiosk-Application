@@ -152,8 +152,8 @@ public class UIController {
         sceneFiles.put(UIController.ADMIN_TOOLS_CHANGE_ALGORITHM, "/admin_tools_switch_algorithm.fxml");
         sceneTitles.put(UIController.ADMIN_TOOLS_CHANGE_ALGORITHM, "Admin Tools - Change Algorithm");
 
-        sceneFiles.put(UIController.ADMIN_TOOLS_EDIT_RESERVATIONS, "/admin_tools_switch_algorithm.fxml");
-        sceneTitles.put(UIController.ADMIN_TOOLS_EDIT_RESERVATIONS, "Admin Tools - Change Algorithm");
+        sceneFiles.put(UIController.ADMIN_TOOLS_EDIT_RESERVATIONS, "/admin_tools_edit_reservations.fxml");
+        sceneTitles.put(UIController.ADMIN_TOOLS_EDIT_RESERVATIONS, "Admin Tools - Edit Reservation");
 
 
         // Service Request
