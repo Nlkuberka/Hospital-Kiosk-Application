@@ -17,6 +17,39 @@ public class MapHandler {
     UIControllerPFM.Floors currentFloor;
     private List<List<List<Node>>> latestPath;
 
+    public MapHandler(Path p1, Path p2, Path p3, Path p4, Path p5, Path p6,
+                      ImageView m1, ImageView m2, ImageView m3, ImageView m4, ImageView m5, ImageView m6,
+                      AnchorPane pa1, AnchorPane pa2, AnchorPane pa3, AnchorPane pa4, AnchorPane pa5, AnchorPane pa6,
+                      UIControllerPFM.Floors currentFloor) {
+        this.pathList.add(p1);
+        this.pathList.add(p2);
+        this.pathList.add(p3);
+        this.pathList.add(p4);
+        this.pathList.add(p5);
+        this.pathList.add(p6);
+        this.mapList.add(m1);
+        this.mapList.add(m2);
+        this.mapList.add(m3);
+        this.mapList.add(m4);
+        this.mapList.add(m5);
+        this.mapList.add(m6);
+        this.paneList.add(pa1);
+        this.paneList.add(pa2);
+        this.paneList.add(pa3);
+        this.paneList.add(pa4);
+        this.paneList.add(pa5);
+        this.paneList.add(pa6);
+        this.currentFloor = currentFloor;
+
+        // bind Map to AnchorPane inside of ScrollPane
+        for (int i = 0; i < this.mapList.size(); i++) {
+            ImageView map = this.mapList.get(i);
+            AnchorPane pane = this.paneList.get(i);
+            map.fitWidthProperty().bind(pane.prefWidthProperty());
+            map.fitHeightProperty().bind(pane.prefHeightProperty());
+        }
+    }
+
     private void addToPath(Path path, List<Node> nodes) {
         AnchorPane pane = getCurrentPane();
 

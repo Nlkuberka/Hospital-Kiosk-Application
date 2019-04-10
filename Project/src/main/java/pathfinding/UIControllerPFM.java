@@ -114,52 +114,19 @@ public class UIControllerPFM extends UIController {
 
     @FXML
     public void initialize() {
-        mapList.add(map_002);
-        mapList.add(map_001);
-        mapList.add(map_00);
-        mapList.add(map_01);
-        mapList.add(map_02);
-        mapList.add(map_03);
+        this.mapHandler = new MapHandler(p_002, p_001, p_00, p_01, p_02, p_03,
+                map_002, map_001, map_00, map_01, map_02, map_03,
+                pane_002, pane_001, pane_00, pane_01, pane_02, pane_03,
+                Floors.SECOND);
 
-        pathList.add(p_002);
-        pathList.add(p_001);
-        pathList.add(p_00);
-        pathList.add(p_01);
-        pathList.add(p_02);
-        pathList.add(p_03);
-
-        paneList.add(pane_002);
-        paneList.add(pane_001);
-        paneList.add(pane_00);
-        paneList.add(pane_01);
-        paneList.add(pane_02);
-        paneList.add(pane_03);
-
-        floorSlider.setMax((double) mapList.size() - 1.0);
+        floorSlider.setMax(5.0); // number of floors - 1
         floorSlider.setValue(2.0);
-        setOpacity(2);
         floorLabel.setText(Floors.values()[(int) floorSlider.getValue()].getName());
 
         // bind background image size to window size
         // ensures auto resize works
         backgroundImage.fitHeightProperty().bind(parentPane.heightProperty());
         backgroundImage.fitWidthProperty().bind(parentPane.widthProperty());
-
-        // bind Map to AnchorPane inside of ScrollPane
-        for (int i = 0; i < mapList.size(); i++) {
-            ImageView map = mapList.get(i);
-            AnchorPane pane = paneList.get(i);
-            map.fitWidthProperty().bind(pane.prefWidthProperty());
-            map.fitHeightProperty().bind(pane.prefHeightProperty());
-        }
-
-//        primaryStage.heightProperty().addListener((obs, oldVal, newVal) -> {
-//            primaryStage.show();
-//        });
-//
-//        primaryStage.widthProperty().addListener((obs, oldVal, newVal) -> {
-//            primaryStage.show();
-//        });
 
 
         // Only show scroll bars if Image inside is bigger than ScrollPane
@@ -267,6 +234,7 @@ public class UIControllerPFM extends UIController {
         Connection connection = DBController.dbConnect();
         List<String> pathIDs;
         pathIDs = graph.shortestPath(initialID, destID);
+        //graph.separatePathByFloor(pathIDs);
         LinkedList<Node> pathNodes = DBController.multiNodeFetch(pathIDs, connection);
 
         //mapHandler.displayNewPath(pathNodes, ); TODO get current floor
