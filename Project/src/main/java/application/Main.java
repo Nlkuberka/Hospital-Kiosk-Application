@@ -9,8 +9,6 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        CurrentUser.userID = "Guest";
-        CurrentUser.permissions = User.GUEST_PERMISSIONS;
         UIController controller = new UIController(primaryStage);
 
         controller.goToScene(UIController.LOGIN_MAIN);
@@ -18,11 +16,19 @@ public class Main extends Application {
 
         System.out.println("Collaborator is " + "X");
 
-        DBController.initializeAppDB();
+        //DBController.initializeAppDB();
 
         //DBController.loadNodeData(new File("nodesv3.csv"), conn);
         //DBController.loadEdgeData(new File("edgesv3.csv"), conn);
 
+//        String ID = "AELEV00S01";
+//        Node singleNode= DBController.fetchNode(ID, conn);
+//        String strNode; // = singleNode.toString();
+////        System.out.print("Node:" + strNode);
+//
+//        LinkedList<Node> allNodes = dbController.generateListofNodes(conn);
+//        strNode = allNodes.getFirst().toString();
+//        System.out.print("Node:" + strNode);
 
         // IF YOU DO NOT HAVE THE TABLES SET UP RUN THIS CODE TO GENERATE
         /*DBController.createTable("CREATE TABLE NODES(" +
