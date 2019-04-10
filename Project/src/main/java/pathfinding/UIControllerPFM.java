@@ -5,7 +5,6 @@ import application.UIController;
 import entities.Edge;
 import entities.Graph;
 import entities.Node;
-
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -13,11 +12,13 @@ import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.*;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.StackPane;
 import javafx.scene.shape.LineTo;
 import javafx.scene.shape.MoveTo;
 import javafx.scene.shape.Path;
-import javafx.scene.shape.Rectangle;
 
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -114,6 +115,7 @@ public class UIControllerPFM extends UIController {
             }
         }
 
+        DBController.closeConnection(conn);
         this.graph = new Graph(allNodes);
 
         List<Edge> usefulEdges = new LinkedList<>();
@@ -134,7 +136,7 @@ public class UIControllerPFM extends UIController {
         System.out.println("Initial location selected: " + initialLocationSelect.getValue());
         Connection connection = DBController.dbConnect();
         initialID = DBController.IDfromLongName(initialLocationSelect.getValue(), connection);
-
+        DBController.closeConnection(connection);
         getPath();
     }
 
@@ -145,7 +147,7 @@ public class UIControllerPFM extends UIController {
 
         Connection connection = DBController.dbConnect();
         destID = DBController.IDfromLongName(destinationSelect.getValue(), connection);
-
+        DBController.closeConnection(connection);
         // call getPath if not null
         getPath();
     }
@@ -171,6 +173,7 @@ public class UIControllerPFM extends UIController {
         pathIDs = graph.shortestPath(initialID, destID);
         LinkedList<Node> pathNodes = DBController.multiNodeFetch(pathIDs, connection);
         drawPath(pathNodes);
+        DBController.closeConnection(connection);
     }
 
     // TODO: list of all nodes that have: names, XY coords

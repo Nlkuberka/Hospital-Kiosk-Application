@@ -91,7 +91,7 @@ public class UIControllerATM extends UIController {
      * Goes back t0 the admin application Menu
      */
     @FXML
-    private void setBackMenuItem() {
+    private void setHomeButton() {
         this.goToScene(UIController.ADMIN_MAIN_MENU_MAIN);
     }
 }
