@@ -53,7 +53,7 @@
                                                 <Font name="System Bold" size="30.0" />
                                              </font>
                                           </Text>
-                                          <Text fill="#015080" layoutX="110.0" layoutY="124.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Introduction:" AnchorPane.leftAnchor="110.0" AnchorPane.topAnchor="105.0">
+                                          <Text fill="#015080" layoutX="110.0" layoutY="124.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Introduction: Prioritizes nodes to search base on their estimated distance to the destination node." AnchorPane.leftAnchor="110.0" AnchorPane.topAnchor="105.0">
                                              <font>
                                                 <Font size="18.0" />
                                              </font>
@@ -71,7 +71,7 @@
                                                 <Font name="System Bold" size="30.0" />
                                              </font>
                                           </Text>
-                                          <Text fill="#015080" layoutX="110.0" layoutY="124.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Introduction:" AnchorPane.leftAnchor="110.0" AnchorPane.topAnchor="105.0">
+                                          <Text fill="#015080" layoutX="110.0" layoutY="124.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Introduction: Fully explores each branch of the graph before moving on to the next." AnchorPane.leftAnchor="110.0" AnchorPane.topAnchor="105.0">
                                              <font>
                                                 <Font size="18.0" />
                                              </font>
@@ -89,7 +89,7 @@
                                                 <Font name="System Bold" size="30.0" />
                                              </font>
                                           </Text>
-                                          <Text fill="#015080" strokeType="OUTSIDE" strokeWidth="0.0" text="Introduction:" AnchorPane.leftAnchor="110.0" AnchorPane.topAnchor="105.0">
+                                          <Text fill="#015080" strokeType="OUTSIDE" strokeWidth="0.0" text="Introduction: Searches close to the start node, slowly moving outward." AnchorPane.leftAnchor="110.0" AnchorPane.topAnchor="105.0">
                                              <font>
                                                 <Font size="18.0" />
                                              </font>
