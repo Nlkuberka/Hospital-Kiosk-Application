@@ -256,6 +256,12 @@
 
 }
 
+.label1{
+    -fx-font-size: 12;
+    -fx-font-weight: bold;
+    -fx-text-fill: #fdfdff;
+
+}
 
 .cell-renderer{
     -fx-background-insets:  2 3 2 2;

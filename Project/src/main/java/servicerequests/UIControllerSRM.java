@@ -5,6 +5,8 @@ import application.UIController;
 import com.jfoenix.controls.JFXButton;
 import javafx.fxml.FXML;
 
+import javafx.event.ActionEvent;
+
 /**
  * The UIController for the making and sending of service requests
  * @author Jonathan Chang, imoralessirgo
@@ -49,6 +51,14 @@ public class UIControllerSRM extends UIController {
     }
 
 
+    @FXML
+    public void setFlowerButton(ActionEvent actionEvent)
+    {
+        UIControllerSRFD controller = (UIControllerSRFD) this.goToScene(UIController.SERVICE_REQUEST_FLOWER_DELIVERY);
+        controller.setServiceType("Flower Delivery");
+    }
+
+
     /**
      * Redirects to BabysittingServiceRequest
      */
@@ -64,5 +74,6 @@ public class UIControllerSRM extends UIController {
         UIControllerSRPS controller = (UIControllerSRPS) this.goToScene(UIController.SERVICE_REQUEST_PRESCRIPTION_SERVICES_MAIN);
         controller.setServiceType("Prescription Services");
     }
+
 
 }

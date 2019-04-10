@@ -50,6 +50,8 @@ public class UIController {
     public static final String SERVICE_REQUEST_IT = "SRIT";
     public static final String SERVICE_REQUEST_BABYSITTING = "SRB";
 
+    public static final String SERVICE_REQUEST_FLOWER_DELIVERY = "SRFD";
+
     // The starting width and height of the window
     private static final int WIDTH = 900;
     private static final int HEIGHT = 600;
@@ -142,6 +144,9 @@ public class UIController {
 
         sceneFiles.put(UIController.SERVICE_REQUEST_PRESCRIPTION_SERVICES_MAIN, "/service_request_prescription_services_main.fxml");
         sceneTitles.put(UIController.SERVICE_REQUEST_PRESCRIPTION_SERVICES_MAIN, "Service Request - Prescription Services");
+
+        sceneFiles.put(UIController.SERVICE_REQUEST_FLOWER_DELIVERY, "/service_request_flower_delivery.fxml");
+        sceneTitles.put(UIController.SERVICE_REQUEST_FLOWER_DELIVERY, "Service Request - Flower Delivery");
 
         // Reservations
         sceneFiles.put(UIController.RESERVATIONS_MAIN, "/reservations_main.fxml");
