@@ -5,6 +5,8 @@ import application.UIController;
 import com.jfoenix.controls.JFXButton;
 import javafx.fxml.FXML;
 
+import javafx.event.ActionEvent;
+
 /**
  * The UIController for the making and sending of service requests
  * @author Jonathan Chang, imoralessirgo
@@ -13,7 +15,14 @@ import javafx.fxml.FXML;
 public class UIControllerSRM extends UIController {
 
     @FXML
+    private JFXButton ITButton;
+
+    @FXML
     private JFXButton baseButton;
+
+
+    @FXML
+    private JFXButton babysittingButton;
 
     /**
      * Runs on the scene creation and adds the various service request types
@@ -29,12 +38,24 @@ public class UIControllerSRM extends UIController {
     @Override
     public void onShow() {
 
+
     }
 
+    /**
+     * Redirects to IT ServiceRequest
+     */
     @FXML
-    public void setBaseButton() {
-        UIControllerSRBase controller = (UIControllerSRBase) this.goToScene(UIController.SERVICE_REQUEST_BASE);
-        controller.setServiceType("BASE");
+    public void setITButton() {
+        UIControllerSRIT controller = (UIControllerSRIT) this.goToScene(UIController.SERVICE_REQUEST_IT);
+        controller.setServiceType("IT");
+    }
+
+
+    @FXML
+    public void setFlowerButton(ActionEvent actionEvent)
+    {
+        UIControllerSRFD controller = (UIControllerSRFD) this.goToScene(UIController.SERVICE_REQUEST_FLOWER_DELIVERY);
+        controller.setServiceType("Flower Delivery");
     }
 
     @FXML
@@ -42,4 +63,23 @@ public class UIControllerSRM extends UIController {
         UIControllerSRET controller = (UIControllerSRET) this.goToScene(UIController.SERVICE_REQUEST_TRANSPORT);
         controller.setServiceType("Transport");
     }
+
+
+    /**
+     * Redirects to BabysittingServiceRequest
+     */
+
+    @FXML
+    public void setbabysittingButton() {
+        UIControllerSRB controller = (UIControllerSRB) this.goToScene(UIController.SERVICE_REQUEST_BABYSITTING);
+        controller.setServiceType("BABYSITTING");
+    }
+
+    @FXML
+    public void setPrescriptionServicesButton() {
+        UIControllerSRPS controller = (UIControllerSRPS) this.goToScene(UIController.SERVICE_REQUEST_PRESCRIPTION_SERVICES_MAIN);
+        controller.setServiceType("Prescription Services");
+    }
+
+
 }
