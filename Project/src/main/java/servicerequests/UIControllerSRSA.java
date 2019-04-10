@@ -37,7 +37,10 @@ public class UIControllerSRSA extends UIController {
     private Menu homeButton; /**< The home button*/
 
     @FXML
-    private ChoiceBox<String> roomSelect = new ChoiceBox<String>(); /**< The room select dropdown*/
+    private ChoiceBox<String> roomSelect; /**< The room select dropdown*/
+
+    @FXML
+    private ChoiceBox<String> sanitationSelect;
 
     @FXML
     public void initialize() {
@@ -52,15 +55,6 @@ public class UIControllerSRSA extends UIController {
         List<String> nodeShortNames = new ArrayList<String>();
         nodeIDs = new HashMap<String, String>();
 
-        /*ObservableList<String> content = FXCollections.observableArrayList();
-        int index = 0;
-        for(String nodeID : nodeIDs.values()){
-            System.out.println(nodeID);
-            content.add(index, nodeID);
-            index++;
-        }
-
-        roomSelect.getItems().addAll(content);*/
         List<Node> nodes = DBController.fetchAllRooms(conn);
         System.out.println(nodes.size());
         DBController.closeConnection(conn);
@@ -74,7 +68,7 @@ public class UIControllerSRSA extends UIController {
 
         serviceMessage.setText("");
 
-
+        sanitationSelect.getItems().addAll("Fecal Matter", "Vomit", "Urine", "Blood", "Dropped Baby", "Lost Grandma");
     }
 
     public void setServiceType(String serviceType) {
@@ -108,6 +102,8 @@ public class UIControllerSRSA extends UIController {
     }
 
     @FXML
-    private void setRoomSelect(){
-    }
+    private void setRoomSelect(){}
+
+    @FXML
+    private void setSanitationSelect(){}
 }
