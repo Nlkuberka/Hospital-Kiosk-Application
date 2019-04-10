@@ -73,8 +73,14 @@ public class UIControllerSRM extends UIController {
     public void setInterpreterButton() {
         UIControllerSRIN controller = (UIControllerSRIN) this.goToScene(UIController.SERVICE_REQUEST_INTERPRETER);
         controller.setServiceType("Interpreter");
-
     }
+
+    @FXML
+    public void setTransportButton() {
+        UIControllerSRET controller = (UIControllerSRET) this.goToScene(UIController.SERVICE_REQUEST_TRANSPORT);
+        controller.setServiceType("Transport");
+    }
+
 
     /**
      * Redirects to BabysittingServiceRequest
