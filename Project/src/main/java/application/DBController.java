@@ -1,8 +1,8 @@
 package application;
 
+import com.sun.corba.se.spi.orbutil.threadpool.Work;
 import entities.*;
 
-import javax.xml.transform.Result;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -67,7 +67,7 @@ public class DBController {
                 "  SERVICEID INTEGER GENERATED ALWAYS AS IDENTITY, \n" +
                 "  NODEID VARCHAR(10) REFERENCES NODES(NODEID),\n" +
                 "  SERVICETYPE VARCHAR(20),\n" +
-                "  MESSAGE VARCHAR(100),\n" +
+                "  MESSAGE VARCHAR(150),\n" +
                 "  USERID VARCHAR(10) REFERENCES USERS(USERID),\n" +
                 "  RESOLVED BOOLEAN,\n" +
                 "  RESOLVERID VARCHAR(10) REFERENCES USERS(USERID), \n" +
@@ -75,7 +75,7 @@ public class DBController {
                 ")\n";
         String reservations = "CREATE TABLE RESERVATIONS(\n" +
                 "  RSVID INTEGER GENERATED ALWAYS AS IDENTITY,\n" +
-                "  NODEID VARCHAR(10) REFERENCES NODES(NODEID),\n" +
+                "  WKPLACEID VARCHAR(10) REFERENCES WORKPLACES(WKPLACEID),\n" +
                 "  USERID VARCHAR(10) REFERENCES USERS(USERID),\n" +
                 "  DAY DATE,\n" +
                 "  STARTTIME TIME,\n" +
@@ -321,7 +321,7 @@ public class DBController {
     public static void updateReservation(Reservation reservation, Connection connection) {
         try{
             Statement s = connection.createStatement();
-            s.execute("UPDATE RESERVATIONS SET NODEID ='"+ reservation.getNodeID() +"'," +
+            s.execute("UPDATE RESERVATIONS SET WKPLACEID ='"+ reservation.getWkplaceID() +"'," +
                     "USERID = '"+ reservation.getUserID() + "'," +
                     "DAY = '" + reservation.getDate() + "'," +
                     "STARTTIME = '" + reservation.getStartTime() + "'," +
@@ -516,9 +516,9 @@ public class DBController {
             Time endTime = Time.valueOf(reservation.getEndTime());
             Date date = new SimpleDateFormat("yyyy-MM-dd").parse(reservation.getDate());
 
-            if(DBController.isRoomAvailable(reservation.getNodeID(), date, startTime, endTime, connection)) {
+            if(DBController.isRoomAvailable(reservation.getWkplaceID(), date, startTime, endTime, connection)) {
                 //connection = DriverManager.getConnection("jdbc:derby:myDB");
-                PreparedStatement s = connection.prepareStatement("INSERT into RESERVATIONS (NODEID, USERID, DAY, STARTTIME, ENDTIME) values ('" + reservation.getNodeID() +"','" + reservation.getUserID() +
+                PreparedStatement s = connection.prepareStatement("INSERT into RESERVATIONS (WKPLACEID, USERID, DAY, STARTTIME, ENDTIME) values ('" + reservation.getWkplaceID() +"','" + reservation.getUserID() +
                         "','"+ reservation.getDate() +"','"+ reservation.getStartTime() + "','" + reservation.getEndTime() + "')",Statement.RETURN_GENERATED_KEYS);
                 s.execute();
                 ResultSet rs = s.getGeneratedKeys();
@@ -707,19 +707,19 @@ public class DBController {
      * isRoomAvailable
      *
      * Determines whether a room is available on a certain day within the given time parameters
-     * @param nodeID - ID of room which is being checked for availability
+     * @param wkplaceID - ID of room which is being checked for availability
      * @param day - The day where the room's availability is being checked
      * @param startTime - Check to see if the room is available after this time
      * @param endTime - Check to see if the room is available before this time
      * @return - Whether or not the selected room will be available on the day and times given
      */
-    public static boolean isRoomAvailable(String nodeID, Date day, Time startTime, Time endTime, Connection connection){
+    public static boolean isRoomAvailable(String wkplaceID, Date day, Time startTime, Time endTime, Connection connection){
         try{
             //Check if room has any reservations overlapping with the given times
             //Four cases to check:
             //Reservation within the given times, starts before and ends during, starts during and ends after, or room is booked for the whole duration or more
             Statement s = connection.createStatement();
-            ResultSet rs = s.executeQuery("select * from RESERVATIONS where NODEID = '" + nodeID + "' and DAY = '" + day + "' and " +
+            ResultSet rs = s.executeQuery("select * from RESERVATIONS where WKPLACEID = '" + wkplaceID + "' and DAY = '" + day + "' and " +
                     "((STARTTIME >= '" + startTime + "' and ENDTIME <= '" + endTime + "') " +
                     "OR (STARTTIME < '" + startTime + "' and ENDTIME > '" + startTime + "') " +
                     "OR (STARTTIME < '" + endTime + "' and ENDTIME > '" + endTime + "'))");
@@ -739,16 +739,15 @@ public class DBController {
      * @param endTime - Check to see if each room is available before this time
      * @return - A list of all the available rooms within the given parameters
      */
-    public static LinkedList<Node> unavailableRooms(Date day, Time startTime, Time endTime, Connection connection){
+    public static LinkedList<Workplace> unavailableRooms(Date day, Time startTime, Time endTime, Connection connection){
         try {
             Statement s = connection.createStatement();
-            ResultSet rs = s.executeQuery("SELECT * from NODES");
-            LinkedList<Node> unavailableRooms = new LinkedList<>();
+            ResultSet rs = s.executeQuery("SELECT * from WORKPLACES");
+            LinkedList<Workplace> unavailableRooms = new LinkedList<>();
             while(rs.next()){
-                Node room = new Node(rs.getString(1),rs.getInt(2),rs.getInt(3),
-                        rs.getString(4),rs.getString(5),rs.getString(6),
-                        rs.getString(7),rs.getString(8));
-                if(!isRoomAvailable(room.getNodeID(),day,startTime,endTime,connection)){
+                Workplace room = new Workplace(rs.getString(1),rs.getString(2),rs.getInt(3),
+                        rs.getString(4));
+                if(!isRoomAvailable(room.getWkplaceID(),day,startTime,endTime,connection)){
                     unavailableRooms.add(room);
                 }
             }
