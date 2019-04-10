@@ -90,12 +90,6 @@ public abstract class Graph {
      */
     public abstract List<String> shortestPath(String startID, String targetID);
 
-    public List<List<List<String>>> shortestPathByFloor(String startID, String targetID) {
-        List<String> shortestPath = shortestPath(startID, targetID);
-        List<List<List<String>>> pathByFloor = new ArrayList<>();
-        return pathByFloor;
-    }
-
     /**
      * Adds a single node to the graph
      */
