@@ -36,7 +36,7 @@
                         </MenuBar>
                      </top>
                   </BorderPane>
-                  <JFXButton fx:id="viewReservations" alignment="BOTTOM_CENTER" buttonType="RAISED" contentDisplay="TOP" graphicTextGap="20.0" layoutX="480.0" layoutY="200.0" maxHeight="240.0" onAction="#setViewReservations" prefHeight="40.0" prefWidth="400.0" styleClass="jfx-button-guest-main-menu" stylesheets="@background.css" text="View My Reservations" textFill="WHITE" AnchorPane.leftAnchor="480.0">
+                  <JFXButton fx:id="viewReservations" alignment="BOTTOM_CENTER" buttonType="RAISED" contentDisplay="TOP" graphicTextGap="20.0" layoutX="480.0" layoutY="200.0" maxHeight="240.0" onAction="#setViewReservations" prefHeight="40.0" prefWidth="400.0" styleClass="jfx-button-guest-main-menu" stylesheets="@background.css" text="View/Edit Reservations" textFill="WHITE" AnchorPane.leftAnchor="480.0">
                      <font>
                         <Font name="System Bold" size="25.0" />
                      </font>
