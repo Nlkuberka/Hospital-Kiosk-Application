@@ -168,20 +168,15 @@ public class UIControllerPFM extends UIController {
         initialLocationSelect.getItems().clear();
         destinationSelect.getItems().clear();
 
-        LinkedList<Node> usefulNodes = new LinkedList<>();
         for (Node node : allNodes) {
-            if (node.getFloor().equals("2")) {
-                // update choices for initial location
-                initialLocationSelect.getItems().add(node.getLongName());
-                // update choices for destination location
-                destinationSelect.getItems().addAll(node.getLongName());
-                usefulNodes.add(node);
-            }
+            // update choices for initial location
+            initialLocationSelect.getItems().add(node.getLongName());
+            // update choices for destination location
+            destinationSelect.getItems().addAll(node.getLongName());
         }
 
         this.graph = new Graph(allNodes);
 
-        List<Edge> usefulEdges = new LinkedList<>();
         for (Edge edge : allEdges) {
             try {
                 graph.addBiEdge(edge.getNode1ID(), edge.getNode2ID());
