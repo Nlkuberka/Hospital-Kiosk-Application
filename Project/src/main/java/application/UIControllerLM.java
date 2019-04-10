@@ -11,6 +11,8 @@ import javafx.scene.control.Tab;
 import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;
 
+import java.sql.Connection;
+
 /**
  * The UIController for the Login screen
  * Allows a user to login, for admins to login, or for guests to enter
@@ -21,6 +23,9 @@ public class UIControllerLM extends UIController {
 
     @FXML
     private JFXTabPane login_tabpane;
+
+    @FXML
+    private JFXTabPane tabs;
 
     @FXML
     private Tab guest_tab;
@@ -72,7 +77,10 @@ public class UIControllerLM extends UIController {
      */
     @FXML
     public void initialize() {
-
+        tabs.getSelectionModel().selectedItemProperty().addListener(param -> {
+            setDefaultButton();
+        });
+        loginAsGuestButton.setDefaultButton(true);
     }
 
     /**
@@ -91,8 +99,9 @@ public class UIControllerLM extends UIController {
      */
     @FXML
     private void setLoginAsGuestButton() {
-        CurrentUser.permissions = User.GUEST_PERMISSIONS;
-        CurrentUser.userID = "GUEST0001";
+        Connection conn = DBController.dbConnect();
+        CurrentUser.user = DBController.getGuestUser(conn);
+        DBController.closeConnection(conn);
         this.goToScene(UIController.GUEST_MAIN_MENU_MAIN);
     }
 
@@ -101,8 +110,15 @@ public class UIControllerLM extends UIController {
      */
     @FXML
     private void setLoginAsUserButton() {
-        CurrentUser.permissions = User.BASIC_PERMISSIONS;
-        CurrentUser.userID = "USER0001";
+        String username = userUsernameTextField.getText();
+        String password = userPasswordTextField.getText();
+
+        User user = checkLogin(username, password, User.BASIC_PERMISSIONS);
+        if(user == null) {
+            this.popupMessage("Incorrect username or password.", true);
+            return;
+        }
+
         this.goToScene(UIController.USER_MAIN_MENU_MAIN);
     }
 
@@ -111,14 +127,46 @@ public class UIControllerLM extends UIController {
      */
     @FXML
     private void setLoginAsAdminButton() {
-        CurrentUser.permissions = User.ADMIN_PERMISSIONS;
-        CurrentUser.userID = "ADMIN0001";
+        String username = adminUsernameTextField.getText();
+        String password = adminPasswordTextField.getText();
+        User user = checkLogin(username, password, User.ADMIN_PERMISSIONS);
+        if(user == null) {
+            this.popupMessage("Incorrect username or password.", true);
+            return;
+        }
+
         this.goToScene(UIController.ADMIN_MAIN_MENU_MAIN);
     }
 
     @FXML
-    private void goToUserTab()
-    {
+    private void goToUserTab() {
         login_tabpane.getSelectionModel().select(user_tab);
     }
+
+    private User checkLogin(String username, String password, int permissions) {
+        User user = null;
+        Connection conn = DBController.dbConnect();
+        user = DBController.loginCheck(username,password,conn,permissions);
+        DBController.closeConnection(conn);
+        if(user == null) {
+            return null;
+        }
+        CurrentUser.user = user;
+        return user;
+    }
+
+    private void setDefaultButton() {
+        String tabName = tabs.getSelectionModel().getSelectedItem().getText();
+        loginAsGuestButton.setDefaultButton(false);
+        loginAsUserButton.setDefaultButton(false);
+        loginAsAdminButton.setDefaultButton(false);
+        if(tabName.equals("Guest")) {
+            loginAsGuestButton.setDefaultButton(true);
+        } else if(tabName.equals("User")) {
+            loginAsUserButton.setDefaultButton(true);
+        } else if(tabName.equals("Administrator")) {
+            loginAsAdminButton.setDefaultButton(true);
+        }
+    }
+
 }

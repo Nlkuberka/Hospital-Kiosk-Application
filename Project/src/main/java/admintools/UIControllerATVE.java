@@ -52,7 +52,7 @@ public class UIControllerATVE extends UIController {
     public void initialize() {
         ObservableList<TableColumn<Edge, ?>> tableColumns = edgeTable.getColumns();
 
-        // Initialize the cell factories of the node field columns
+        // Initialize the cell factories of the edge field columns
         TableColumn<Edge, Edge> edgeIDColumn = (TableColumn<Edge, Edge>) tableColumns.get(0);
         edgeIDColumn.setCellValueFactory(param -> new ReadOnlyObjectWrapper<>(param.getValue()));
         edgeIDColumn.setCellFactory(param -> new TableCell<Edge, Edge>() {
@@ -87,6 +87,7 @@ public class UIControllerATVE extends UIController {
                         if(textField.getText().length() > lengthRequirements[index]) {
                             setGraphic(label);
                             textField.setText(label.getText());
+                            popupMessage("Field must have equal to or less than " +  lengthRequirements[index] + " characters.", true);
                             return;
                         }
                         runSetter(edge, edgeSetters[index], String.class, textField.getText());

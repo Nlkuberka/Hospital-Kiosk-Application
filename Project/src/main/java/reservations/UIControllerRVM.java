@@ -3,54 +3,75 @@ package reservations;
 import application.CurrentUser;
 import application.DBController;
 import application.UIController;
+import entities.Node;
 import entities.Reservation;
 
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTimePicker;
 
+import entities.Workplace;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.DatePicker;
+import javafx.scene.shape.Shape;
+import sun.util.resources.cldr.shi.LocaleNames_shi_Tfng;
 
+import java.awt.*;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Time;
 import java.text.SimpleDateFormat;
 import java.time.*;
 
 import java.util.*;
+import java.util.List;
 
 /**
  * The UIController that handles the creation and sending of reservations
- * @author Jonathan Chang, imoralessirgo
+ * @author Jonathan Chang, imoralessirgo, Ryan O'Brien
  * @version iteration1
  */
 public class UIControllerRVM extends UIController {
 
-    @FXML
-    private Map<String, String> nodeIDs; /** < Holds the reference of the short names to nodeIDs*/
+    private Map<String, String> workplaceIDs; /** < Holds the reference of the short names to nodeIDs*/
 
-    @FXML
-    private JFXButton confirmButton; /** < The confirm button*/
+    @FXML private JFXButton confirmButton; /** < The confirm button*/
 
-    @FXML
-    private ChoiceBox<String> nodeSelect; /** < The choicebox where the user selects the node*/
+    @FXML private ChoiceBox<String> workplaceSelect; /** < The choicebox where the user selects the node*/
 
-    @FXML
-    private DatePicker datePicker; /** < The picker for the date*/
+    @FXML private DatePicker datePicker; /** < The picker for the date*/
 
-    @FXML
-    private JFXTimePicker startTimePicker; /** < The picker for the start time*/
+    @FXML private JFXTimePicker startTimePicker; /** < The picker for the start time*/
 
-    @FXML
-    private JFXTimePicker endTimePicker; /** < The picker for the end time */
+    @FXML private JFXTimePicker endTimePicker; /** < The picker for the end time */
 
+    @FXML private Shape classroom1; @FXML private Shape classroom2; @FXML private Shape classroom3;
+    @FXML private Shape classroom4; @FXML private Shape classroom5; @FXML private Shape classroom6;
+    @FXML private Shape classroom7; @FXML private Shape classroom8; @FXML private Shape classroom9;
+    @FXML private Shape pantry; @FXML private Shape MHA; @FXML private Shape MHCR;
+
+    private Shape[] shapes = {classroom1, classroom2, classroom3, classroom4, classroom5, classroom6, classroom7,
+                                classroom8, classroom9, pantry, MHA, MHCR};
     /**
      * Run when the scene is first loaded
      */
     @FXML
     public void initialize() {
+
+        classroom1.setFill(javafx.scene.paint.Color.GREEN);
+        classroom2.setFill(javafx.scene.paint.Color.GREEN);
+        classroom3.setFill(javafx.scene.paint.Color.GREEN);
+        classroom4.setFill(javafx.scene.paint.Color.GREEN);
+        classroom5.setFill(javafx.scene.paint.Color.GREEN);
+        classroom6.setFill(javafx.scene.paint.Color.GREEN);
+        classroom7.setFill(javafx.scene.paint.Color.GREEN);
+        classroom8.setFill(javafx.scene.paint.Color.GREEN);
+        classroom9.setFill(javafx.scene.paint.Color.GREEN);
+        pantry.setFill(javafx.scene.paint.Color.GREEN);
+        MHA.setFill(javafx.scene.paint.Color.GREEN);
+        MHCR.setFill(javafx.scene.paint.Color.GREEN);
 
     }
 
@@ -59,27 +80,60 @@ public class UIControllerRVM extends UIController {
      */
     @Override
     public void onShow() {
-        nodeIDs = new HashMap<String, String>();
-        List<String> nodes = new LinkedList<String>();
+        workplaceIDs = new HashMap<String, String>();
+        List<String> workplaces = new LinkedList<String>();
         //DB Get nodes
         try {
             Connection conn = DBController.dbConnect();
-            ResultSet rs = conn.createStatement().executeQuery("Select * From NODES where FLOOR = '2' AND BUILDING = 'Tower'");
+            ResultSet rs = conn.createStatement().executeQuery("Select * From WORKPLACES");
             while(rs.next()){
-                nodeIDs.put(rs.getString("SHORTNAME"),rs.getString("NODEID"));
-                nodes.add(rs.getString("SHORTNAME"));
+                workplaceIDs.put(rs.getString("ROOMNAME"),rs.getString("WKPLACEID"));
+                workplaces.add(rs.getString("ROOMNAME"));
             }
         }catch(SQLException e){
             e.printStackTrace();
         }
 
-        nodeSelect.setItems(FXCollections.observableList(nodes));
+        workplaceSelect.setItems(FXCollections.observableList(workplaces));
 
         // Set initial Startup values
         datePicker.setValue(LocalDate.now());
         startTimePicker.setValue(LocalTime.now());
         endTimePicker.setValue(LocalTime.now());
-        nodeSelect.getSelectionModel().selectFirst();
+        workplaceSelect.getSelectionModel().selectFirst();
+    }
+
+    /**
+     * Updates the colorView based on the given date and times
+     */
+
+//    Time startTime = Time.valueOf(reservation.getStartTime());
+//    Time endTime = Time.valueOf(reservation.getEndTime());
+//    Date date = new SimpleDateFormat("yyyy-MM-dd").parse(reservation.getDate());
+
+    @FXML
+    private void updateColorView() {
+        Connection connection = DBController.dbConnect();
+        if(!checkValidReservation()) {
+            return;
+        }
+        for(int i = 0; i < workplaceSelect.getItems().size(); i++) {
+            if(!DBController.isRoomAvailableString(workplaceSelect.getItems().get(i), getDateString(),
+                    getTimeString(startTimePicker), getTimeString(endTimePicker), connection)) {
+
+                shapes[i].setFill(javafx.scene.paint.Color.RED);
+                classroom6.setFill(javafx.scene.paint.Color.RED);
+
+
+            }
+
+
+//            String nodeID = workplaceIDs.get(workplaceSelect.getItems().get(i));
+//            List<Reservation> reservations = new LinkedList<Reservation>();
+//            Reservation reservation = new Reservation("TEMP", "TEMP", getDateString(), getTimeString(startTimePicker), getTimeString(endTimePicker));
+//            boolean isValid = reservation.isValid(reservations);
+//            // Draw NodeShape based on isValid
+        }
     }
 
     /**
@@ -87,6 +141,43 @@ public class UIControllerRVM extends UIController {
      */
     @FXML
     private void setConfirmButton() {
+        if(!checkValidReservation()) {
+            popupMessage("Invalid Reservation", true);
+            return;
+        }
+
+        String dateString = getDateString();
+
+        // If endTime before startTime return
+
+        LocalTime endTime = endTimePicker.getValue();
+
+        String startString = getTimeString(startTimePicker);
+        String endString = getTimeString(endTimePicker);
+
+        Connection conn = DBController.dbConnect();
+        List<Reservation> reservations = DBController.getResForRoom(workplaceIDs.get((String) workplaceSelect.getValue()), dateString, conn);
+        System.out.println(reservations);
+        Reservation r = new Reservation(workplaceIDs.get((String) workplaceSelect.getValue()),
+                CurrentUser.user.getUserID(), dateString, startString, endString);
+
+        if(!r.isValid(reservations)) {
+            popupMessage("This reservation conflicts with another.", true);
+            return;
+        }
+
+        DBController.addReservation(r,conn);
+        DBController.closeConnection(conn);
+        popupMessage("Reservation Confirmed.", false);
+    }
+
+    /**
+     * Checks if the reservation input is valid
+     * Must be at least one day in advance
+     * Must have start time before end time
+     * @return Whether the reservation input is valid
+     */
+    private boolean checkValidReservation() {
         LocalDate ld = datePicker.getValue();
         Instant instant = Instant.from(ld.atStartOfDay(ZoneId.systemDefault()));
         Date date = Date.from(instant);
@@ -94,37 +185,44 @@ public class UIControllerRVM extends UIController {
         // If date selected is before today
         Date today = new Date();
         if(date.compareTo(today) <= 0) {
-            return;
+            return false;
         }
 
-        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-
-        // If endTime before startTime return
         LocalTime startTime = startTimePicker.getValue();
         LocalTime endTime = endTimePicker.getValue();
         if(endTime.compareTo(startTime) <= 0) {
-            return;
+            return false;
         }
+        return true;
+    }
 
-        String startString = startTime.toString();
-        String endString = endTime.toString();
-        if(startString.length() > 8) {
-            startString = startString.substring(0, 8);
-        } else if(startString.length() == 5) {
-            startString += ":00";
+    /**
+     * Gets the date string from the datePicker
+     * @return The string from the datePicker
+     */
+    private String getDateString() {
+        LocalDate ld = datePicker.getValue();
+        Instant instant = Instant.from(ld.atStartOfDay(ZoneId.systemDefault()));
+        Date date = Date.from(instant);
+
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+
+        return format.format(date);
+    }
+
+    /**
+     * Gets the time string from the given JFXTimePicker
+     * @param timePicker The JFXTimePicker to get the timeString from
+     * @return The timeString
+     */
+    private String getTimeString(JFXTimePicker timePicker) {
+        LocalTime localTime = timePicker.getValue();
+        String timeString = localTime.toString();
+        if(timeString.length() > 8) {
+            timeString = timeString.substring(0, 8);
+        } else if(timeString.length() == 5) {
+            timeString += ":00";
         }
-
-        if(endString.length() > 8) {
-            endString = endString.substring(0, 8);
-        } else if(endString.length() == 5) {
-            endString += ":00";
-        }
-
-        Reservation r = new Reservation(nodeIDs.get((String) nodeSelect.getValue()), CurrentUser.userID, format.format(date), startString, endString);
-        // DB Send
-        Connection conn = DBController.dbConnect();
-        DBController.addReservation(r,conn);
-
-        System.out.println(r);
+        return timeString;
     }
 }

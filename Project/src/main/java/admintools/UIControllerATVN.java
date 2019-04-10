@@ -79,7 +79,7 @@ public class UIControllerATVN extends  UIController {
                         if(index == 1 || index == 2) {
                             try {
                                 if(Integer.parseInt(textField.getText()) < 0) {
-                                    throw new IllegalArgumentException("Coordinates must be positive");
+                                    popupMessage("Coordinate fields must be positive", true);
                                 }
                             } catch(Exception e) {
                                 setGraphic(label);
@@ -91,6 +91,7 @@ public class UIControllerATVN extends  UIController {
                             if(textField.getText().length() >lengthRequirements[index]) {
                                 setGraphic(label);
                                 textField.setText(label.getText());
+                                popupMessage("Field must have equal to or less than " +  lengthRequirements[index] + " characters.", true);
                                 return;
                             }
                         }

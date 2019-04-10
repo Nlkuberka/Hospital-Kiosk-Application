@@ -1,38 +1,205 @@
-
-
-
-
-
-
-/*Raised button example */
-/*.jfx-button {
-    -jfx-button-type: RAISED;
-    -fx-background-color:#ebaecd;
+/*JFXbuttons for login buttons*/
+/**
+ * .css file for iteration2
+ * @author Shiyi Liu
+ * @version iteration2
+ */
+.jfx-button-login{
+    -jfx-button-type: FLAT;
+    -fx-background-color:#FFC41E;
+    -fx-font-size: 20;
     -fx-font-weight: bold;
     -fx-text-fill: white;
 }
- .jfx-button2 {
-     -jfx-button-type: RAISED;
-     -fx-background-color:#ebaecd;
-     -fx-font-size: 20;
-     -fx-font-weight: bold italic;
-     -fx-text-fill: white;
-<<<<<<< HEAD
- }
-<<<<<<< HEAD:Project/src/main/resources/backgroud.css
- */
+.jfx-button-main-menu{
+    -jfx-button-type: FLAT;
+    -fx-background-color:#FFC41E;
+    -fx-font-size: 20;
+    -fx-font-weight: bold;
+    -fx-text-fill: white;
+    -fx-pref-width: 180;
+    -fx-pref-height: 240;
+}
 
+.jfx-button-admin-main-menu-main{
+    -jfx-button-type: FLAT;
+    -fx-background-color:#FFC41E;
+    -fx-font-size: 20;
+    -fx-font-weight: bold;
+    -fx-text-fill: white;
+    -fx-pref-width: 230;
+    -fx-pref-height: 240;
+}
+.jfx-button-guest-main-menu{
+    -jfx-button-type: FLAT;
+    -fx-background-color:#FFC41E;
+    -fx-font-size: 20;
+    -fx-font-weight: bold;
+    -fx-text-fill: white;
+    -fx-pref-width: 240;
+    -fx-pref-height: 240;
+}
+
+.jfx-button-admin-main{
+    -jfx-button-type: FLAT;
+    -fx-background-color:#FFC41E;
+    -fx-font-size: 30;
+    -fx-font-weight: bold;
+    -fx-text-fill: white;
+    -fx-pref-width: 400;
+    -fx-pref-height: 60;
+}
+
+.jfx-button-admin-tools-main{
+    -jfx-button-type: FLAT;
+    -fx-background-color:#FFC41E;
+    -fx-font-size: 20;
+    -fx-font-weight: bold;
+    -fx-text-fill: white;
+    -fx-pref-width: 201;
+    -fx-pref-height: 200;
+    -fx-border-color: #015080;
+    -fx-border-width: 1;
+    -fx-background-radius: 10;
+}
+
+
+
+.jfx-button-admin-tools-main-horizontal{
+    -jfx-button-type: FLAT;
+    -fx-background-color:#FFC41E;
+    -fx-font-size: 20;
+    -fx-font-weight: bold;
+    -fx-text-fill: white;
+    -fx-pref-width: 268;
+    -fx-pref-height: 150;
+    -fx-border-color: #015080;
+    -fx-border-width: 1;
+    -fx-background-radius: 10;
+}
+
+.jfx-button-add{
+    -jfx-button-type: FLAT;
+    -fx-background-color:#FFC41E;
+    -fx-font-size: 16;
+    -fx-font-weight: bold;
+    -fx-text-fill: white;
+    -fx-pref-width: 120;
+    -fx-pref-height: 35;
+}
+
+.jfx-button-zoom
+{
+    -jfx-button-type: FLAT;
+    -fx-background-color:#ffffff;
+    -fx-pref-width: 60;
+    -fx-pref-height: 60;
+}
+
+.jfx-button-OK{
+    -jfx-button-type: FLAT;
+    -fx-background-color:#FFC41E;
+    -fx-font-size: 12;
+    -fx-font-weight: bold;
+    -fx-text-fill: white;
+}
+
+.jfx-button-cancel{
+    -jfx-button-type: FLAT;
+    -fx-background-color:#FFC41E;
+    -fx-background-radius: 30;
+}
+
+.jfx-button_edit{
+    -jfx-button-type: FLAT;
+    -fx-background-color:#FFC41E;
+    -fx-font-size: 15;
+    -fx-font-weight: bold;
+    -fx-text-fill: white;
+}
+
+.jfx-button-SVmain{
+    -jfx-button-type: FLAT;
+    -fx-background-color:#FFC41E;
+    -fx-font-size: 16;
+    -fx-font-weight: bold;
+    -fx-text-fill: white;
+    -fx-pref-width: 160;
+    -fx-pref-height: 180;
+    -fx-border-color: #015080;
+    -fx-border-width: 1;
+    -fx-background-radius: 10;
+
+}
+
+.jfx-button-SVmain2{
+    -jfx-button-type: FLAT;
+    -fx-background-color:#FFC41E;
+    -fx-font-size: 16;
+    -fx-font-weight: bold;
+    -fx-text-fill: white;
+    -fx-pref-width: 140;
+    -fx-pref-height: 180;
+    -fx-border-color: #015080;
+    -fx-border-width: 1;
+    -fx-background-radius: 10;
+}
+
+.jfx-button-SVmain3{
+    -jfx-button-type: FLAT;
+    -fx-background-color:#FFC41E;
+    -fx-font-size: 16;
+    -fx-font-weight: bold;
+    -fx-text-fill: white;
+    -fx-pref-width: 205;
+    -fx-pref-height: 180;
+    -fx-border-color: #015080;
+    -fx-border-width: 1;
+    -fx-background-radius: 10;
+}
+
+.jfx-button-SRBaby{
+    -jfx-button-type: FLAT;
+    -fx-background-color:#efffff;
+    -fx-font-size: 16;
+    -fx-font-weight: bold;
+    -fx-text-fill: white;
+    -fx-wrap-text: #015080;
+    -fx-pref-width: 180;
+    -fx-pref-height: 200;
+    -fx-border-color: #015080;
+    -fx-border-width: 1;
+    -fx-background-radius: 10;
+}
 
 /* Tab pane styling*/
 .tab-pane{
-    -fx-background-color: #bc77a5;
-    -fx-pref-width: 600;
+    -fx-background-color: #FFC41E;
+    -fx-pref-width: 900;
     -webkit-fx-pref-height:50;
+}
+.tab .tab-label{
+    -fx-text-fill: #090a0f;
+    -fx-pref-height: 30;
+    -fx-text-fill: #090a0f;
+    -fx-font-weight: Bold;
+    -fx-font-size: 14;
+    -fx-text-alignment: CENTER;
 }
 
  .tab-header-background{
-     -fx-background-color: #bc77a5;
+     -fx-background-color: #FFC41E;
  }
+
+.tab-pane-switch-algorithm{
+    -fx-background-color: #ffc41e;
+    -fx-pref-width: 900;
+   -fx-border-color: #FFC41E;
+    -fx-border-width: 6;
+}
+
+
+
 
 /* Menu bar*/
 .menu-bar{
@@ -51,17 +218,166 @@
      -webkit-fx-pref-height:30;
      -fx-font-size: 12;
      -fx-font-weight: bold;
-     -fx-text-fill: white;
+     -fx-text-fill:  #FFC41E;
 
-    /* -fx-background-image: url("\purple-orange-gradient.jpg");*/
+
+     /* -fx-background-image: url("\purple-orange-gradient.jpg");*/
  }
  .menu{
-     -fx-text-fill: white;
+     -fx-text-fill:  #FFC41E;
  }
  .container {width: 100%; overflow: hidden; }
 
 
 
+/*Table view*/
+.table-view{
+    -fx-background-color: #ffffff;
+}
+
+.table-row-cell:odd{
+    -fx-background-color: #ffffff;
+    -fx-background-insets:0, 0 0 1 0;
+    -fx-padding: 0.0em;
+}
+
+.table-row-cell:even{
+    -fx-background-color: #dcdcdc;
+    -fx-background-insets:0, 0 0 1 0;
+    -fx-padding: 0.0em;
+
+}
+
+
+.table-view .column-header,
+.table-view .column-header .filler,
+.table-view .column-header-background .filler {
+    -fx-background-color: #FFC41E;
+}
+.anchor_pane{
+-fx-background-size: 600 400;
+-fx-background-radius: 30;
+-fx-border-radius: 30;
+-fx-border-width:5;
+-fx-border-color:  #ffc41e;
+}
+/*Text for view my reservations*/
+.text_view_my_reservation{
+    -fx-font-size: 28;
+    -fx-font-weight: bold;
+    -fx-text-fill: #015080;
+}
+
+/*Label settings for popups */
+.label{
+    -fx-font-size: 12;
+    -fx-font-weight: bold;
+    -fx-text-fill: #090a0f;
+
+
+}
+
+.label2{
+    -fx-font-size: 12;
+    -fx-font-weight: bold;
+    -fx-text-fill: #ffffff;
+
+
+}
 
 
 
+
+.anchor_pane{
+-fx-background-size: 600 400;
+-fx-background-radius: 30;
+-fx-border-radius: 30;
+-fx-border-width:5;
+-fx-border-color:  #ffc41e;
+}
+/*Text for view my reservations*/
+.text_view_my_reservation{
+    -fx-font-size: 28;
+    -fx-font-weight: bold;
+    -fx-text-fill: #015080;
+}
+
+/*Label settings for popups */
+.label{
+    -fx-font-size: 12;
+    -fx-font-weight: bold;
+    -fx-text-fill: #090a0f;
+
+}
+
+.label1{
+    -fx-font-size: 12;
+    -fx-font-weight: bold;
+    -fx-text-fill: #fdfdff;
+
+}
+
+.cell-renderer{
+    -fx-background-insets:  2 3 2 2;
+}
+
+<<<<<<< HEAD
+/* ~~~~~~~~~ Floor Slider ~~~~~~~~ */
+
+.floor-slider {
+    -fx-background-color: #00000040;
+    -fx-background-radius: 4;
+    -fx-major-tick-unit: 1.0;
+    -fx-minor-tick-count: 0;
+    -fx-orientation: vertical;
+}
+
+/* Styling the slider track */
+.floor-slider > .track {
+    -fx-background-color: #FFC41E;
+=======
+.paneBabysitting{
+    -jfx-button-type: FLAT;
+    -fx-background-color:#efffff;
+    -fx-font-size: 16;
+    -fx-font-weight: bold;
+    -fx-text-fill: white;
+    -fx-wrap-text: #015080;
+    -fx-pref-width: 180;
+    -fx-pref-height: 200;
+    -fx-border-color: #015080;
+    -fx-border-width: 1;
+    -fx-background-radius: 10;
+>>>>>>> aa80d13f412e79c39763d9fcbc8103a7bcb8e28e
+}
+
+/* Styling the slider thumb */
+.floor-slider > .thumb {
+    -fx-background-color: #FFC41E;
+}
+
+/* Styling the filled track */
+.floor-slider > .colored-track {
+    -fx-background-color: #FFC41E;
+}
+
+/* Styling the animated thumb */
+.floor-slider > .animated-thumb {
+    -fx-background-color: #FFC41E;
+}
+
+/* Styling the slider value text inside animated thumb */
+.floor-slider .slider-value {
+    -fx-fill: white;
+    -fx-stroke: white;
+}
+
+.titleLabel {
+    -fx-background-color: #00000040;
+    -fx-background-radius: 4;
+    -fx-font-family: -apple-system;
+    -fx-font-size: 24;
+    -fx-font-weight: bold;
+    -fx-text-fill: white;
+    -fx-alignment: center;
+}

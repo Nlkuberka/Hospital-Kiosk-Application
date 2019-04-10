@@ -114,6 +114,7 @@ public class UIControllerATVSR extends UIController {
                     if(textField.getText().length() > 10) {
                         setGraphic(label);
                         textField.setText(label.getText());
+                        popupMessage("Field must have equal to or less than " +  10 + " characters.", true);
                         return;
                     }
                     runSetter(serviceRequest, serviceRequestSetters[index],String.class, textField.getText());
@@ -154,11 +155,14 @@ public class UIControllerATVSR extends UIController {
         try{
             ResultSet rs = conn.createStatement().executeQuery("Select * from SERVICEREQUEST");
             while (rs.next()){
-                serviceRequests.add(new ServiceRequest(rs.getString(1),rs.getString(2),rs.getString(3),
-                        rs.getString(4),rs.getBoolean(5),rs.getString(6)));
+                serviceRequests.add(new ServiceRequest(rs.getString(2),rs.getString(3),rs.getString(4),
+                        rs.getString(5),rs.getBoolean(6),rs.getString(7)));
             }
         } catch (SQLException e) {
             e.printStackTrace();
+        }
+        for(int i = 0; i < serviceRequests.size(); i ++) {
+            System.out.println(serviceRequests.get(i));
         }
         serviceRequestTable.setItems(serviceRequests);
     }
