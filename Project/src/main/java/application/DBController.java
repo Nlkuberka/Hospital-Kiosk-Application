@@ -273,6 +273,22 @@ public class DBController {
         }
     }
 
+    public static LinkedList<Node> getNodesforFloor(Connection connection, String floor){
+        LinkedList<Node> list = new LinkedList<Node>();
+        try{
+            ResultSet rs = connection.createStatement().executeQuery("Select * from NODES where FLOOR ='"+floor+"'");
+            while (rs.next()){
+                list.add(new Node(rs.getString("NODEID"),rs.getInt("XCOORD"),
+                        rs.getInt("YCOORD"),rs.getString("FLOOR"),
+                        rs.getString("BUILDING"),rs.getString("NODETYPE"),
+                        rs.getString("SHORTNAME"),rs.getString("LONGNAME")));
+            }
+        }catch(SQLException e){
+            e.printStackTrace();
+        }
+        return list;
+    }
+
     /**
      * fetchNode
      *
@@ -361,8 +377,7 @@ public class DBController {
      * Not in use
      *
      *
-     * @param NODEID
-     * @param USERID
+
      * @param connection
      */
 //    public static void deleteServiceRequest(String NODEID,String USERID, Connection connection){
