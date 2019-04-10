@@ -22,6 +22,7 @@ public class UIControllerSRM extends UIController {
     @FXML
     private JFXButton baseButton;
 
+    /**
      * Runs on the scene creation and adds the various service request types
      */
     @FXML
