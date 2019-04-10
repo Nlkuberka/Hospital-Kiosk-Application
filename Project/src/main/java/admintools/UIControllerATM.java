@@ -95,6 +95,7 @@ public class UIControllerATM extends UIController {
     private void setViewMapButton() {
         this.goToScene(UIController.ADMIN_TOOLS_MAP_VIEW);
     }
+
     /**
      * Goes back t0 the admin application Menu
      */

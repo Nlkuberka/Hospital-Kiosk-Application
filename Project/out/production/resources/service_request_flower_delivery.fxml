@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXTextArea?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.effect.ColorAdjust?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="servicerequests.UIControllerSRFD">
+    <children>
+          <AnchorPane prefHeight="400.0" prefWidth="600.0" styleClass="body-background" stylesheets="/background.css">
+              <children>
+                  <ImageView fitWidth="900.0" pickOnBounds="true" preserveRatio="true">
+                      <image>
+                          <Image url="@Hospitalbackground.png" />
+                      </image>
+                  </ImageView>
+                  <BorderPane prefHeight="600.0" prefWidth="900.0" AnchorPane.leftAnchor="0.0">
+                      <top>
+                          <MenuBar blendMode="ADD" prefWidth="600.0" style="-fx-background-color: white;" stylesheets="@background.css" BorderPane.alignment="CENTER">
+                              <menus>
+                                  <Menu mnemonicParsing="false" onShowing="#setHomeButton" text="Home">
+                           <items>
+                              <MenuItem mnemonicParsing="false" text="HOME" />
+                           </items>
+                        </Menu>
+                              </menus>
+                              <effect>
+                                  <ColorAdjust>
+                                      <input>
+                                          <DropShadow />
+                                      </input>
+                                  </ColorAdjust>
+                              </effect>
+                          </MenuBar>
+                      </top>
+               <left>
+                  <AnchorPane prefHeight="575.0" prefWidth="250.0" BorderPane.alignment="CENTER">
+                     <children>
+                        <JFXButton fx:id="confirmButton" layoutX="86.0" layoutY="472.0" onAction="#setConfirmButton" styleClass="jfx-button_edit" stylesheets="@background.css" text="Confirm" />
+                        <JFXButton contentDisplay="CENTER" layoutX="102.0" layoutY="516.0" onMouseClicked="#setCancelButton" styleClass="jfx-button-cancel" stylesheets="@background.css" text=" ">
+                           <graphic>
+                              <ImageView fitHeight="25.0" fitWidth="25.0" onMouseClicked="#setCancelButton" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@icon/cancel (1).png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                        </JFXButton>
+                        <Text fill="WHITE" layoutX="31.0" layoutY="44.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Flower Delivery">
+                           <font>
+                              <Font name="System Bold Italic" size="24.0" />
+                           </font>
+                        </Text>
+                        <Text fill="WHITE" layoutX="31.0" layoutY="63.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nicole Kuberka">
+                           <font>
+                              <Font name="System Bold" size="12.0" />
+                           </font>
+                        </Text>
+                        <ChoiceBox fx:id="roomSelect" layoutX="48.0" layoutY="156.0" prefWidth="150.0" style="-fx-background-color: #ffffff;" />
+                        <Text fill="WHITE" layoutX="11.0" layoutY="207.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Message">
+                           <font>
+                              <Font name="System Bold" size="18.0" />
+                           </font>
+                        </Text>
+                        <Text fill="WHITE" layoutX="14.0" layoutY="149.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Location">
+                           <font>
+                              <Font name="System Bold" size="18.0" />
+                           </font>
+                        </Text>
+                        <Text fill="WHITE" layoutX="12.0" layoutY="100.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Cost">
+                           <font>
+                              <Font name="System Bold" size="18.0" />
+                           </font>
+                        </Text>
+                        <Label fx:id="costLabel" layoutX="48.0" layoutY="107.0" styleClass="label1" stylesheets="@background.css" text="\$0.00" textFill="WHITE">
+                           <font>
+                              <Font name="System Bold" size="15.0" />
+                           </font>
+                        </Label>
+                        <JFXTextArea fx:id="serviceMessage1" accessibleRole="TEXT_AREA" layoutX="48.0" layoutY="220.0" prefHeight="220.0" prefWidth="150.0" style="-fx-background-color: #ffffff;" />
+                         <Text fill="WHITE" layoutX="11.0" layoutY="207.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Message">
+                             <font>
+                                 <Font name="System Bold" size="18.0" />
+                             </font>
+                         </Text>
+                     </children>
+                  </AnchorPane>
+               </left>
+               <center>
+                  <GridPane BorderPane.alignment="CENTER">
+                    <columnConstraints>
+                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints />
+                        <ColumnConstraints />
+                    </columnConstraints>
+                    <rowConstraints>
+                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints />
+                        <RowConstraints />
+                        <RowConstraints />
+                        <RowConstraints />
+                        <RowConstraints />
+                        <RowConstraints />
+                    </rowConstraints>
+                     <children>
+                        <ImageView fitHeight="150.0" fitWidth="200.0" onMouseClicked="#costPic2" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.halignment="CENTER">
+                           <image>
+                              <Image url="@pictures/pic2.jpg" />
+                           </image>
+                        </ImageView>
+                        <ImageView fitHeight="150.0" fitWidth="200.0" onMouseClicked="#costPic3" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.halignment="CENTER">
+                           <image>
+                              <Image url="@pictures/pic5.jpg" />
+                           </image></ImageView>
+                        <ImageView fitHeight="150.0" fitWidth="200.0" onMouseClicked="#costPic4" pickOnBounds="true" preserveRatio="true" GridPane.halignment="CENTER" GridPane.rowIndex="1">
+                           <image>
+                              <Image url="@pictures/pic6.jpg" />
+                           </image></ImageView>
+                        <ImageView fitHeight="150.0" fitWidth="200.0" onMouseClicked="#costPic5" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1">
+                           <image>
+                              <Image url="@pictures/pic4.jpg" />
+                           </image>
+                        </ImageView>
+                        <ImageView fitHeight="180.0" fitWidth="250.0" onMouseClicked="#costPic7" pickOnBounds="true" preserveRatio="true" GridPane.halignment="CENTER" GridPane.rowIndex="2">
+                           <image>
+                              <Image url="@pictures/pic3.jpg" />
+                           </image>
+                        </ImageView>
+                        <ImageView fitHeight="150.0" fitWidth="200.0" onMouseClicked="#costPic6" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="1">
+                           <image>
+                              <Image url="@pictures/pic7.jpg" />
+                           </image>
+                        </ImageView>
+                        <ImageView fitHeight="180.0" fitWidth="230.0" onMouseClicked="#costPic8" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2">
+                           <image>
+                              <Image url="@pictures/pic8.jpg" />
+                           </image>
+                        </ImageView>
+                        <ImageView fitHeight="150.0" fitWidth="200.0" onMouseClicked="#costPic9" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="2">
+                           <image>
+                              <Image url="@pictures/pic9.jpg" />
+                           </image>
+                        </ImageView>
+                        <ImageView fitHeight="150.0" fitWidth="200.0" onMouseClicked="#costPic1" pickOnBounds="true" preserveRatio="true" GridPane.halignment="CENTER">
+                           <image>
+                              <Image url="@pictures/pic1.jpg" />
+                           </image>
+                        </ImageView>
+                     </children>
+                  </GridPane>
+               </center>
+                  </BorderPane>
+              </children>
+          </AnchorPane>
+    </children>
+</AnchorPane>
