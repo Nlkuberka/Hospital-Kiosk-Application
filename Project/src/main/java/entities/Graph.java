@@ -4,8 +4,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
 
-import static java.lang.Math.abs;
-import static java.lang.Math.sqrt;
+import static java.lang.Math.*;
 
 
 public class Graph {
@@ -255,5 +254,74 @@ public class Graph {
         return adj.get(n).size();
     }
 
+    /**
+     * Deterines the angle of any edge
+     * @param ID1: the nodeID of the first node
+     * @param ID2: the nodeID of the second node
+     * @return the cardinal direction of the edge
+     */
+    public String returnAngle(String ID1, String ID2) {
+
+        String direction = "N";
+        int node1Index = mapNodeIDToIndex(ID1);
+        int node2Index = mapNodeIDToIndex(ID2);
+
+        Node node1 = storedNodes.get(node1Index);
+        Node node2 = storedNodes.get(node2Index);
+        //calculate weight
+        double xWeight = abs(node1.getXcoord() - node2.getXcoord());
+        double yWeight = abs(node1.getYcoord() - node2.getYcoord());
+
+        double angle = Math.atan2(yWeight, xWeight) * 180;
+        //System.out.println(angle);
+
+        if (angle <= 15 || angle >= 345) {
+            direction = "N";
+        } else if (angle > 15 && angle <= 75) {
+            direction = "NE";
+        } else if (angle > 75 && angle <= 105) {
+            direction = "E";
+        } else if (angle > 105 && angle <= 165) {
+            direction = "SE";
+        } else if (angle > 165 && angle <= 195) {
+            direction = "S";
+        } else if (angle > 195 && angle <= 255) {
+            direction = "SW";
+        } else if (angle > 255 && angle <= 285) {
+            direction = "W";
+        } else if (angle > 285 && angle <= 345) {
+            direction = "NW";
+        }
+
+        return direction;
+    }
+
+    /**
+     * Prints directions to every node in a path
+     * @param NodeIDS the path generated from shortestPath
+     * @return text based directions directing a reader from one point to another
+     */
+    public String textDirections(List<String> NodeIDS){
+        String directions = "";
+        String commaOrPeriod = ",";
+        for(int i = 0; i < NodeIDS.size()-1; i++){
+            if(i == NodeIDS.size()-2) {
+                commaOrPeriod = ".";
+            }
+            else{
+                commaOrPeriod = ", ";
+            }
+            int currentNodeIndex = mapNodeIDToIndex(NodeIDS.get(i));
+            int nextNodeIndex = mapNodeIDToIndex(NodeIDS.get(i+1));
+            //System.out.println(returnAngle(NodeIDS.get(i), NodeIDS.get(i+1)));
+                    directions += returnAngle(NodeIDS.get(i), NodeIDS.get(i+1))
+                    + " "
+                    +  Math.round(adjWeights.get(currentNodeIndex).getFirst())
+                    + " pixels to "
+                    + storedNodes.get(nextNodeIndex).getLongName()
+                    + commaOrPeriod;
+        }
+        return directions;
+    }
 
 }

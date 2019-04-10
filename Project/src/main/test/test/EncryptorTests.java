@@ -1,4 +1,4 @@
-package java;
+package test;
 
 import application.Encryptor;
 import junit.framework.TestCase;

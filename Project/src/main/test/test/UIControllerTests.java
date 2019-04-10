@@ -1,4 +1,4 @@
-package java;
+package test;
 
 import application.UIController;
 import entities.ServiceRequest;
