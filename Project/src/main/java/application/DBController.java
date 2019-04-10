@@ -96,6 +96,7 @@ public class DBController {
             s.execute("INSERT INTO USERS VALUES('GUEST0001',1,'guest','guest')");
             s.execute("INSERT INTO USERS VALUES('ADMIN00001',3,'admin','admin')");
             s.execute("INSERT INTO USERS VALUES('WWONG2',3,'staff','staff')");
+            //s.execute("INSERT INTO NODES (NODEID) VALUES('DEFAULT')");
 
         }catch(SQLException e){
             e.printStackTrace();
@@ -361,9 +362,6 @@ public class DBController {
      * Not in use
      *
      *
-     * @param
-     * @param
-     * @param
      */
 //    public static void deleteServiceRequest(String NODEID,String USERID, Connection connection){
 //        try {

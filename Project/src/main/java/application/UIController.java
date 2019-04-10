@@ -45,6 +45,7 @@ public class UIController {
     public static final String ADMIN_TOOLS_VIEW_SERVICE_REQUESTS = "ATVSR";
 
     public static final String SERVICE_REQUEST_MAIN = "SRM";
+    public static final String SERVICE_REQUEST_IT = "SRIT";
     public static final String SERVICE_REQUEST_BABYSITTING = "SRB";
 
     // The starting width and height of the window
@@ -133,6 +134,9 @@ public class UIController {
 
         sceneFiles.put(UIController.SERVICE_REQUEST_BABYSITTING, "/service_request_babysitting.fxml");
         sceneTitles.put(UIController.SERVICE_REQUEST_BABYSITTING, "Service Request - Babysitting");
+
+        sceneFiles.put(UIController.SERVICE_REQUEST_IT, "/service_request_It.fxml");
+        sceneTitles.put(UIController.SERVICE_REQUEST_IT, "Service Request - IT");
 
         // Reservations
         sceneFiles.put(UIController.RESERVATIONS_MAIN, "/reservations_main.fxml");
