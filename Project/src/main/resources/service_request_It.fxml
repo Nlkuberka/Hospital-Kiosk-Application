@@ -15,7 +15,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="reservations.UIControllerRVM">
+<AnchorPane prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="servicerequests.UIControllerSRIT">
     <children>
           <AnchorPane prefHeight="400.0" prefWidth="600.0" styleClass="body-background" stylesheets="/background.css">
               <children>
@@ -43,45 +43,57 @@
                               </effect>
                           </MenuBar>
                       </top>
-               <right>
-                  <ImageView fitHeight="575.0" fitWidth="650.0" pickOnBounds="true" preserveRatio="true" BorderPane.alignment="CENTER">
-                     <image>
-                        <Image url="@02_thesecondfloor.png" />
-                     </image>
-                  </ImageView>
-               </right>
                <left>
                   <AnchorPane prefHeight="575.0" prefWidth="250.0" BorderPane.alignment="CENTER">
                      <children>
-                        <JFXButton layoutX="86.0" layoutY="472.0" styleClass="jfx-button_edit" stylesheets="@background.css" text="Confirm" />
-                        <JFXButton contentDisplay="CENTER" layoutX="102.0" layoutY="516.0" styleClass="jfx-button-cancel" stylesheets="@background.css" text=" ">
+                        <JFXButton fx:id="confirmButton" layoutX="86.0" layoutY="472.0" onMouseClicked="#setConfirmButton" styleClass="jfx-button_edit" stylesheets="@background.css" text="Confirm" />
+                        <JFXButton fx:id="cancelButton" contentDisplay="CENTER" layoutX="102.0" layoutY="516.0" onMouseClicked="#setCancelButton" styleClass="jfx-button-cancel" stylesheets="@background.css" text=" ">
                            <graphic>
                               <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
-                                    <Image url="@icon/cancel%20(1).png" />
+                                    <Image url="@icon/cancel (1).png" />
                                  </image>
                               </ImageView>
                            </graphic>
                         </JFXButton>
-                        <Text fill="WHITE" layoutX="31.0" layoutY="44.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Servie Name ">
+                        <Text fill="WHITE" layoutX="25.0" layoutY="74.0" strokeType="OUTSIDE" strokeWidth="0.0" text="IT Services" wrappingWidth="195.2734375">
                            <font>
-                              <Font name="System Bold Italic" size="24.0" />
+                              <Font name="System Bold Italic" size="36.0" />
                            </font>
                         </Text>
-                        <Text fill="WHITE" layoutX="31.0" layoutY="63.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Your Name">
+                        <Text fill="WHITE" layoutX="31.0" layoutY="97.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Isabel Morales ">
                            <font>
                               <Font name="System Bold" size="12.0" />
                            </font>
                         </Text>
-                        <ChoiceBox layoutX="48.0" layoutY="109.0" prefWidth="150.0" style="-fx-background-color: #ffffff;" />
-<<<<<<< HEAD
-                        <JFXTextField alignment="CENTER" layoutX="48.0" layoutY="220.0" prefHeight="220.0" prefWidth="150.0" promptText="What is wrong?" style="-fx-background-color: #ffffff;" />
-=======
-                        <JFXTextField layoutX="48.0" layoutY="220.0" prefHeight="220.0" prefWidth="150.0" style="-fx-background-color: #ffffff;" />
->>>>>>> serviceRequest
+                        <ChoiceBox fx:id="roomNum" layoutX="50.0" layoutY="237.0" prefWidth="150.0" style="-fx-background-color: #ffffff;" />
+                        <JFXTextField fx:id="Notes" layoutX="23.0" layoutY="305.0" prefHeight="143.0" prefWidth="201.0" style="-fx-background-color: #ffffff;" />
+                        <Text fill="WHITE" layoutX="78.0" layoutY="293.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Aditional Notes">
+                           <font>
+                              <Font name="System Bold" size="12.0" />
+                           </font>
+                        </Text>
+                        <Text fill="WHITE" layoutX="83.0" layoutY="227.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Room Number">
+                           <font>
+                              <Font name="System Bold" size="12.0" />
+                           </font>
+                        </Text>
+                        <JFXTextField fx:id="serviceRequired" layoutX="25.0" layoutY="173.0" prefHeight="26.0" prefWidth="200.0" style="-fx-background-color: #ffffff;" />
+                        <Text fill="WHITE" layoutX="73.0" layoutY="159.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Service Required">
+                           <font>
+                              <Font name="System Bold" size="12.0" />
+                           </font>
+                        </Text>
                      </children>
                   </AnchorPane>
                </left>
+               <center>
+                  <ImageView fitHeight="431.0" fitWidth="631.0" pickOnBounds="true" preserveRatio="true" BorderPane.alignment="CENTER">
+                     <image>
+                        <Image url="@WorkspaceMap.jpg" />
+                     </image>
+                  </ImageView>
+               </center>
                   </BorderPane>
               </children>
           </AnchorPane>

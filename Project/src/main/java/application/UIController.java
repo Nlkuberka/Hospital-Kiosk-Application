@@ -48,6 +48,12 @@ public class UIController {
     public static final String SERVICE_REQUEST_BASE = "SRB";
     public static final String SERVICE_REQUEST_SANITATION = "SRSA";
 
+    public static final String SERVICE_REQUEST_PRESCRIPTION_SERVICES_MAIN = "SRPSM";
+    public static final String SERVICE_REQUEST_IT = "SRIT";
+    public static final String SERVICE_REQUEST_BABYSITTING = "SRB";
+
+    public static final String SERVICE_REQUEST_FLOWER_DELIVERY = "SRFD";
+
     // The starting width and height of the window
     private static final int WIDTH = 900;
     private static final int HEIGHT = 600;
@@ -132,8 +138,17 @@ public class UIController {
         sceneFiles.put(UIController.SERVICE_REQUEST_MAIN, "/service_request_main.fxml");
         sceneTitles.put(UIController.SERVICE_REQUEST_MAIN, "Service Request - Main");
 
-        sceneFiles.put(UIController.SERVICE_REQUEST_BASE, "/service_request_base.fxml");
-        sceneTitles.put(UIController.SERVICE_REQUEST_BASE, "Service Request - Base");
+        sceneFiles.put(UIController.SERVICE_REQUEST_BABYSITTING, "/service_request_babysitting.fxml");
+        sceneTitles.put(UIController.SERVICE_REQUEST_BABYSITTING, "Service Request - Babysitting");
+
+        sceneFiles.put(UIController.SERVICE_REQUEST_IT, "/service_request_It.fxml");
+        sceneTitles.put(UIController.SERVICE_REQUEST_IT, "Service Request - IT");
+
+        sceneFiles.put(UIController.SERVICE_REQUEST_PRESCRIPTION_SERVICES_MAIN, "/service_request_prescription_services_main.fxml");
+        sceneTitles.put(UIController.SERVICE_REQUEST_PRESCRIPTION_SERVICES_MAIN, "Service Request - Prescription Services");
+
+        sceneFiles.put(UIController.SERVICE_REQUEST_FLOWER_DELIVERY, "/service_request_flower_delivery.fxml");
+        sceneTitles.put(UIController.SERVICE_REQUEST_FLOWER_DELIVERY, "Service Request - Flower Delivery");
 
         sceneFiles.put(UIController.SERVICE_REQUEST_SANITATION, "/service_request_sanitation.fxml");
         sceneTitles.put(UIController.SERVICE_REQUEST_SANITATION, "Service Request - Sanitation");
@@ -225,7 +240,6 @@ public class UIController {
             this.goToScene(UIController.ADMIN_MAIN_MENU_MAIN);
         } else {
             this.goToScene(UIController.LOGIN_MAIN);
-
         }
     }
 
