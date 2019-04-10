@@ -723,11 +723,15 @@ public class DBController {
      */
     public static void updateUser(String ID, User user, Connection conn){
         try {
-            PreparedStatement ps = conn.prepareStatement("UPDATE USERS where " +
-                    "UDERID ='"+ID+"' SET USERID ='"+user.getUserID()+"'," +
-                    " PERMISION = "+ user.getPermissionsNumber() +"," +
-                    " USERNAME = '"+ user.getUsername() +"'");
-            ps.execute();
+
+            if(!(ID == null  || ID == "")){
+            PreparedStatement ps = conn.prepareStatement("UPDATE USERS " +
+                    "SET USERID ='"+user.getUserID()+"'," +
+                    " PERMISSION = "+ user.getPermissionsNumber() +"," +
+                    " USERNAME = '"+ user.getUsername() +"' where USERID = '"+ID +"'");
+            ps.execute();}else{
+                addUser(user,conn);
+            }
         } catch (SQLException e) {
             e.printStackTrace();
         }
