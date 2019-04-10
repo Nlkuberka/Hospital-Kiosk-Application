@@ -45,6 +45,8 @@ public class UIController {
     public static final String ADMIN_TOOLS_VIEW_SERVICE_REQUESTS = "ATVSR";
 
     public static final String SERVICE_REQUEST_MAIN = "SRM";
+
+    public static final String SERVICE_REQUEST_PRESCRIPTION_SERVICES_MAIN = "SRPSM";
     public static final String SERVICE_REQUEST_IT = "SRIT";
     public static final String SERVICE_REQUEST_BABYSITTING = "SRB";
 
@@ -138,6 +140,9 @@ public class UIController {
         sceneFiles.put(UIController.SERVICE_REQUEST_IT, "/service_request_It.fxml");
         sceneTitles.put(UIController.SERVICE_REQUEST_IT, "Service Request - IT");
 
+        sceneFiles.put(UIController.SERVICE_REQUEST_PRESCRIPTION_SERVICES_MAIN, "/service_request_prescription_services_main.fxml");
+        sceneTitles.put(UIController.SERVICE_REQUEST_PRESCRIPTION_SERVICES_MAIN, "Service Request - Prescription Services");
+
         // Reservations
         sceneFiles.put(UIController.RESERVATIONS_MAIN, "/reservations_main.fxml");
         sceneTitles.put(UIController.RESERVATIONS_MAIN, "Reservations - Main");
@@ -225,7 +230,6 @@ public class UIController {
             this.goToScene(UIController.ADMIN_MAIN_MENU_MAIN);
         } else {
             this.goToScene(UIController.LOGIN_MAIN);
-
         }
     }
 

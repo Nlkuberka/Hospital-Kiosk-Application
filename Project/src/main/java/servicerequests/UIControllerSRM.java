@@ -58,4 +58,11 @@ public class UIControllerSRM extends UIController {
         UIControllerSRB controller = (UIControllerSRB) this.goToScene(UIController.SERVICE_REQUEST_BABYSITTING);
         controller.setServiceType("BABYSITTING");
     }
+
+    @FXML
+    public void setPrescriptionServicesButton() {
+        UIControllerSRPS controller = (UIControllerSRPS) this.goToScene(UIController.SERVICE_REQUEST_PRESCRIPTION_SERVICES_MAIN);
+        controller.setServiceType("Prescription Services");
+    }
+
 }
