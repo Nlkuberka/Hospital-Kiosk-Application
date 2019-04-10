@@ -18,7 +18,7 @@ public class Main extends Application {
 
         System.out.println("Collaborator is " + "X");
 
-        //DBController.initializeAppDB();
+        DBController.initializeAppDB();
 
 //        DBController.loadNodeData(new File("nodesv4.csv"), conn);
 //        DBController.loadEdgeData(new File("edgesv5.csv"), conn);

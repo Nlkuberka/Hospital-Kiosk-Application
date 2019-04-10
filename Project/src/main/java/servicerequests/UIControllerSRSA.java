@@ -52,18 +52,7 @@ public class UIControllerSRSA extends UIController {
         List<String> nodeShortNames = new ArrayList<String>();
         nodeIDs = new HashMap<String, String>();
 
-        // DB Get all Nodes
-        try {
-            ResultSet rs = conn.createStatement().executeQuery("Select * From NODES"); //can select from all nodes
-            while (rs.next()) {
-                nodeIDs.put(rs.getString("SHORTNAME"), rs.getString("NODEID"));
-                nodeShortNames.add(rs.getString("SHORTNAME"));
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-
-        ObservableList<String> content = FXCollections.observableArrayList();
+        /*ObservableList<String> content = FXCollections.observableArrayList();
         int index = 0;
         for(String nodeID : nodeIDs.values()){
             System.out.println(nodeID);
@@ -71,7 +60,18 @@ public class UIControllerSRSA extends UIController {
             index++;
         }
 
-        roomSelect.getItems().addAll(content);
+        roomSelect.getItems().addAll(content);*/
+        List<Node> nodes = DBController.fetchAllRooms(conn);
+        System.out.println(nodes.size());
+        DBController.closeConnection(conn);
+        for(int i = 0; i < nodes.size(); i++) {
+            Node node = nodes.get(i);
+            nodeShortNames.add(node.getShortName());
+            nodeIDs.put(node.getShortName(), node.getNodeID());
+        }
+
+        roomSelect.setItems(FXCollections.observableList(nodeShortNames));
+
         serviceMessage.setText("");
 
 
