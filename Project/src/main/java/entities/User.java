@@ -85,8 +85,8 @@ public class User {
     public void setPermissions(int permissions) {
         boolean[] bits = getBitArray(this.permissions);
         boolean[] permissionsBits = getBitArray(permissions);
-        bits[0] = permissionsBits[0];
-        bits[1] = permissionsBits[1];
+        bits[0] = permissionsBits[10];
+        bits[1] = permissionsBits[11];
         this.permissions = getIntFromBitArray(bits);
     }
 

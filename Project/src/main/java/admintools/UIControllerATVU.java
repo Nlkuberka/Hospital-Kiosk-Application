@@ -158,6 +158,8 @@ public class UIControllerATVU extends UIController {
                     }
                     int permission = userPermissions.get(userPermissionNames.indexOf(permissionName));
                     runSetter(user, userSetters[3], int.class, permission);
+                    System.out.println(user);
+                    System.out.println(user.getUserID());
                     Connection conn = DBController.dbConnect();
                     DBController.updateUser(user.getUserID(),user,conn);
                     DBController.closeConnection(conn);
@@ -279,7 +281,6 @@ public class UIControllerATVU extends UIController {
                 }
                 setGraphic(removeButton);
                 removeButton.setOnAction( e -> {
-                    System.out.println("Remove");
                     userTableView.getItems().remove(user);
                     Connection conn = DBController.dbConnect();
                     DBController.createTable("Delete From USERS WHERE USERID = '"+user.getUserID()+"'",conn);

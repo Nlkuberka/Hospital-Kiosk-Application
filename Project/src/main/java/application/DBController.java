@@ -724,7 +724,7 @@ public class DBController {
     public static void updateUser(String ID, User user, Connection conn){
         try {
 
-            if(ID == null  || ID == ""){
+            if(!(ID == null  || ID == "")){
             PreparedStatement ps = conn.prepareStatement("UPDATE USERS " +
                     "SET USERID ='"+user.getUserID()+"'," +
                     " PERMISSION = "+ user.getPermissionsNumber() +"," +
