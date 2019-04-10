@@ -57,6 +57,16 @@ public class User {
         this.password = password;
     }
 
+    public String toString() {
+        String returnValue = "User(";
+        returnValue += userID + ", ";
+        returnValue += username + ", ";
+        returnValue += password + ", ";
+        returnValue += permissions + "";
+        returnValue += ")";
+        return returnValue;
+    }
+
     /**
      * Gets the overall permissions level of the user
      * @return

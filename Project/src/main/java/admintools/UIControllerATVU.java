@@ -1,5 +1,6 @@
 package admintools;
 
+import application.DBController;
 import application.UIController;
 import com.jfoenix.controls.JFXButton;
 import entities.User;
@@ -18,6 +19,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 
 import java.lang.reflect.Array;
+import java.sql.Connection;
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
@@ -32,8 +34,8 @@ public class UIControllerATVU extends UIController {
     private static final String[] userGetters= {"getUserID", "getUsername", "NO", "getPermissions"};
     private static final String[] userSetters= {"setUserID", "setUsername", "setPassword", "setPermissions"};
 
-    private static final List<String> userPermissionNames = new LinkedList<String>() {{add("User"); add("Administrator");}};
-    private static final int[] userPermissions = {2, 3};
+    private static final List<String> userPermissionNames = new LinkedList<String>() {{add("Guest"); add("User"); add("Administrator");}};
+    private static final List<Integer> userPermissions = new LinkedList<Integer>(){{add(1); add(2); add(3);}};
 
     @FXML
     private TableView<User> userTableView;
@@ -82,6 +84,8 @@ public class UIControllerATVU extends UIController {
         // Initialize the password column
         TableColumn<User, User> passwordColumn = (TableColumn<User, User>) tableColumns.get(2);
         passwordColumn.setCellValueFactory(param -> new ReadOnlyObjectWrapper<>(param.getValue()));
+
+        // Code for a textfield that is editable but the user never sees the actual value
         passwordColumn.setCellFactory(param -> new TableCell<User, User>() {
             private Label label = new Label("Password");
             private TextField textField = new TextField("TEST");
@@ -92,6 +96,7 @@ public class UIControllerATVU extends UIController {
                 if(user == null) {
                     return;
                 }
+                setGraphic(label);
                 // Expand elements to the entire cell width
                 textField.prefWidthProperty().bind(passwordColumn.prefWidthProperty());
                 label.prefWidthProperty().bind(passwordColumn.prefWidthProperty());
@@ -131,6 +136,7 @@ public class UIControllerATVU extends UIController {
         permissionsColumn.setCellValueFactory(param -> new ReadOnlyObjectWrapper<>(param.getValue()));
         permissionsColumn.setCellFactory(param -> new TableCell<User, User>() {
             private ChoiceBox<String> choiceBox = new ChoiceBox<>();
+            private boolean first = true;
 
             @Override
             protected void updateItem(User user, boolean empty) {
@@ -138,14 +144,21 @@ public class UIControllerATVU extends UIController {
                 if(user == null) {
                     return;
                 }
-                choiceBox.setItems(FXCollections.observableList(userPermissionNames));
-                setGraphic(choiceBox);
-
+                if(first) {
+                    choiceBox.setItems(FXCollections.observableList(userPermissionNames));
+                    choiceBox.getSelectionModel().select(userPermissionNames.get(userPermissions.indexOf(user.getPermissions())));
+                    first = false;
+                }
                 choiceBox.setOnAction(et -> {
                     String permissionName = choiceBox.getValue();
-                    int permission = userPermissions[userPermissionNames.indexOf(permissionName)];
+                    if(permissionName == null) {
+                        return;
+                    }
+                    int permission = userPermissions.get(userPermissionNames.indexOf(permissionName));
+                    runSetter(user, userSetters[3], int.class, permission);
                     // DB Update User
                 });
+                setGraphic(choiceBox);
             }
         });
 
@@ -163,40 +176,15 @@ public class UIControllerATVU extends UIController {
                 if(user == null) {
                     return;
                 }
-                List<String> serviceRequests = user.getServiceRequestFullfillment();
-                for(int i = 0; i < serviceRequests.size(); i++) {
-                    ChoiceBox<String> choiceBox = new ChoiceBox<String>();
-                    choiceBox.setItems(FXCollections.observableList(Arrays.asList(User.serviceRequests)));
-                    choiceBox.getItems().add("Remove");
-                    choiceBox.getSelectionModel().select(serviceRequests.get(i));
-                    choiceBox.setOnAction(et -> {
-                        if(choiceBox.getValue() == "Remove") {
-                            choiceBoxes.remove(choiceBox);
-                            pane.getChildren().remove(choiceBox);
-                        }
-                        user.setServiceRequestsFullfillment(getAllServiceRequests());
-                        // DB Update User
-                    });
-                    choiceBoxes.add(choiceBox);
-                }
 
-                pane.getChildren().setAll(choiceBoxes);
+                setUpChoiceBoxes(user);
                 pane.getChildren().add(addSRButton);
                 setGraphic(pane);
 
                 addSRButton.setOnAction(et -> {
-                    ChoiceBox<String> choiceBox = new ChoiceBox<String>();
-                    choiceBox.setItems(FXCollections.observableList(Arrays.asList(User.serviceRequests)));
-                    choiceBox.getItems().add("Remove");
-                    choiceBox.setOnAction(e -> {
-                        if(choiceBox.getValue() == "Remove") {
-                            choiceBoxes.remove(choiceBox);
-                            pane.getChildren().remove(choiceBox);
-                        }
-                        user.setServiceRequestsFullfillment(getAllServiceRequests());
-                        // DB Update User
-                    });
-                    choiceBoxes.add(choiceBox);
+                    setupChoiceBox(user, "Remove");
+                    pane.setPrefHeight(30.0 * getAllServiceRequests().size());
+                    addSRButton.setLayoutY(30.0 * (getAllServiceRequests().size()));
                 });
             }
 
@@ -206,6 +194,36 @@ public class UIControllerATVU extends UIController {
                     result.add(choiceBoxes.get(i).getValue());
                 }
                 return result;
+            }
+
+            private void setUpChoiceBoxes(User user) {
+                pane.getChildren().clear();
+                List<String> serviceRequests = user.getServiceRequestFullfillment();
+                for(int i = 0; i < serviceRequests.size(); i++) {
+                    setupChoiceBox(user, serviceRequests.get(i));
+                }
+                pane.setPrefHeight(30.0 * getAllServiceRequests().size());
+                addSRButton.setLayoutY(30.0 * (getAllServiceRequests().size()));
+            }
+
+            private void setupChoiceBox(User user, String choice) {
+                ChoiceBox<String> choiceBox = new ChoiceBox<String>();
+                choiceBox.setItems(FXCollections.observableList(new LinkedList<String>(Arrays.asList(User.serviceRequests))));
+                choiceBox.getItems().add("Remove");
+                choiceBox.getSelectionModel().select(choice);
+                choiceBox.setOnAction(et -> {
+                    if(choiceBox.getValue() == "Remove") {
+                        choiceBoxes.remove(choiceBox);
+                        pane.getChildren().remove(choiceBox);
+                        setUpChoiceBoxes(user);
+                    }
+                    user.setServiceRequestsFullfillment(getAllServiceRequests());
+                    // DB Update Users
+                });
+                choiceBox.setMaxWidth(200.0);
+                choiceBox.setLayoutY(30.0 * getAllServiceRequests().size());
+                choiceBoxes.add(choiceBox);
+                pane.getChildren().add(choiceBox);
             }
         });
 
@@ -223,6 +241,8 @@ public class UIControllerATVU extends UIController {
                 }
                 setGraphic(removeButton);
                 removeButton.setOnAction( e -> {
+                    System.out.println("Remove");
+                    userTableView.getItems().remove(user);
                     //DB Remove User
                 });
             }
@@ -231,13 +251,26 @@ public class UIControllerATVU extends UIController {
 
     @Override
     public void onShow() {
-        //DB Get Items
-        //userTableView.setItems(userList);
+        Connection conn = DBController.dbConnect();
+        List<User> userList = DBController.getUser(conn);
+        DBController.closeConnection(conn);
+        for(int i = 0; i < userList.size(); i++) {
+            System.out.println(userList.get(i));
+        }
+        userTableView.setItems(FXCollections.observableList(userList));
     }
 
     @FXML
     private void setAddButton() {
-        User user = new User("", "", "", 1);
+        User user = new User("", "", "", 1024);
         userTableView.getItems().add(user);
+    }
+
+    /**
+     * Goes back to the admin tools application menu
+     */
+    @FXML
+    private void setBackButton() {
+        this.goToScene(UIController.ADMIN_TOOLS_MAIN);
     }
 }

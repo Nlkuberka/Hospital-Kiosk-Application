@@ -14,7 +14,7 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="admintools.UIControllerATVN">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="admintools.UIControllerATVU">
    <children>
       <AnchorPane prefHeight="600.0" prefWidth="900.0" styleClass="body-background" stylesheets="/background.css">
          <children>
@@ -46,7 +46,7 @@
                   </MenuBar>
                </top>
                <center>
-                  <TableView fx:id="nodeTable" maxWidth="850.0" prefHeight="520.0" prefWidth="850.0" BorderPane.alignment="CENTER">
+                  <TableView fx:id="userTableView" maxWidth="850.0" prefHeight="520.0" prefWidth="850.0" BorderPane.alignment="CENTER">
                     <columns>
                       <TableColumn prefWidth="60.0" text="UserID" />
                       <TableColumn prefWidth="150.0" text="Username" />

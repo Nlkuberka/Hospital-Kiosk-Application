@@ -16,8 +16,7 @@ public class Main extends Application {
 
         System.out.println("Collaborator is " + "X");
 
-        DBController.initializeAppDB();
-
+        //DBController.initializeAppDB();
     }
 
     public static void main(String[] args) {
