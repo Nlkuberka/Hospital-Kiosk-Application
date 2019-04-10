@@ -5,10 +5,12 @@
 <?import com.jfoenix.controls.JFXToggleButton?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.effect.BoxBlur?>
 <?import javafx.scene.effect.ColorAdjust?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -94,7 +96,7 @@
                            <AnchorPane fx:id="pane_001" maxWidth="3000.0" minWidth="684.0" prefHeight="465.0" prefWidth="684.0">
                               <children>
                                           <ImageView fx:id="map_001" opacity="0.0" preserveRatio="true">
-                                              <Image url="@maps/00_thelowerlevel2.png" />
+                                              <Image url="@maps/00_thelowerlevel1.png" />
                                           </ImageView>
                                           <Path fx:id="p_001" />
                               </children>
@@ -134,6 +136,12 @@
                                 </children>
                             </StackPane>
                        </ScrollPane>
+                  <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="20.0" StackPane.alignment="TOP_CENTER">
+                     <children>
+                        <Label fx:id="floorLabel" styleClass="titleLabel" stylesheets="background.css" layoutY="14.0" text="Floor Label">
+                        </Label>
+                     </children>
+                  </AnchorPane>
                   <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="75.0" StackPane.alignment="TOP_LEFT">
                      <children>
                         <JFXButton fx:id="zoom_button" contentDisplay="CENTER" layoutX="4.0" layoutY="14.0" mnemonicParsing="false" onAction="#zoom" prefWidth="100.0" styleClass="jfx-button-zoom" stylesheets="@background.css" text=" " textFill="WHITE">
@@ -160,11 +168,9 @@
                               </ImageView>
                            </graphic>
                         </JFXButton>
-                        <JFXSlider fx:id="floorSlider" layoutX="20.0" layoutY="150.0" orientation="VERTICAL" prefHeight="150.0" prefWidth="0.0" AnchorPane.leftAnchor="15.0" />
+                        <JFXSlider fx:id="floorSlider" styleClass="floor-slider" stylesheets="background.css" layoutX="20.0" layoutY="150.0" max="6.0" prefHeight="150.0" prefWidth="10.0" showTickMarks="true" snapToTicks="true" AnchorPane.leftAnchor="20.0">
+                           </JFXSlider>
                      </children>
-                     <StackPane.margin>
-                        <Insets left="10.0" />
-                     </StackPane.margin>
                   </AnchorPane>
                </children>
             </StackPane>

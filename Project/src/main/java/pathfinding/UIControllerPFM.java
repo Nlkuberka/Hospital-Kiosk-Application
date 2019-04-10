@@ -11,10 +11,7 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.MenuItem;
-import javafx.scene.control.ScrollPane;
+import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
@@ -36,33 +33,60 @@ import java.util.List;
 
 public class UIControllerPFM extends UIController {
 
-    public HBox hboxForMap;
-    public GridPane interfaceGrid;
-    public StackPane parentPane;
-    public JFXSlider floorSlider;
+    enum Floors {
+        LL2("Lower Level 2"), LL1("Lower Level 1"), GROUND("Ground Floor"),
+        FIRST("First Floor"), SECOND("Second Floor"), THIRD("Third Floor");
+
+        private final String name;
+
+        Floors(String name) {
+            this.name = name;
+        }
+
+        public String getName() {
+            return this.name;
+        }
+    }
+
+    @FXML
+    private HBox hboxForMap;
+    @FXML
+    private GridPane interfaceGrid;
+    @FXML
+    private StackPane parentPane;
+    @FXML
+    private JFXSlider floorSlider;
+
     private Graph graph;
     private String initialID;
     private String destID;
 
     @FXML
     public ChoiceBox<String> initialLocationSelect;
-    //public VBox leftVBox;
-    public ChoiceBox<String> destinationSelect;
-    public ImageView backgroundImage;
-    public MenuItem backButton;
-    public ScrollPane scrollPane_pathfind;
+    @FXML
+    private Label floorLabel;
+    @FXML
+    private ChoiceBox<String> destinationSelect;
+    @FXML
+    private ImageView backgroundImage;
+    @FXML
+    private MenuItem backButton;
+    @FXML
+    private ScrollPane scrollPane_pathfind;
     @FXML
     private ImageView map_02, map_01, map_03, map_00, map_001, map_002;
     @FXML
     private Path p_002, p_001, p_00, p_01, p_02, p_03;
     @FXML
     private AnchorPane pane_002, pane_001, pane_00, pane_01, pane_02, pane_03;
+    @FXML
+    private Button zoom_button;
+    @FXML
+    private Button unzoom_button;
+
     private LinkedList<Path> pathList = new LinkedList<>();
     private LinkedList<ImageView> mapList = new LinkedList<>();
-    public Button zoom_button;
-    public Button unzoom_button;
     private List<Node> currentPath;
-
     private Path path;
     private ImageView map;
     private AnchorPane pane;
@@ -94,6 +118,7 @@ public class UIControllerPFM extends UIController {
         floorSlider.setMax((double) mapList.size() - 1.0);
         floorSlider.setValue(2.0);
         setOpacity(2);
+        floorLabel.setText(Floors.values()[(int) floorSlider.getValue()].getName());
 
         // bind background image size to window size
         // ensures auto resize works
@@ -134,6 +159,7 @@ public class UIControllerPFM extends UIController {
 
             @Override
             public void changed(ObservableValue arg0, Object arg1, Object arg2) {
+                floorLabel.setText(Floors.values()[(int) floorSlider.getValue()].getName());
                 setOpacity(floorSlider.getValue());
             }
         });
@@ -157,7 +183,7 @@ public class UIControllerPFM extends UIController {
 
         LinkedList<Node> usefulNodes = new LinkedList<>();
         for (Node node : allNodes) {
-            if (node.getFloor().equals("2") && node.getBuilding().equals("Tower")) {
+            if (node.getFloor().equals("2")) {
                 // update choices for initial location
                 initialLocationSelect.getItems().add(node.getLongName());
                 // update choices for destination location
@@ -326,10 +352,12 @@ public class UIControllerPFM extends UIController {
     }
 
     private double getOpacity(double a, double b) {
-        double result = a - b;
-        result = result > 0.0 ? result : -result; // get abs value
-        result = result > 1.0 ? 0.0 : 1.0 - result; // clip to bounds
-        result = result < 0.5 ? 0.0 : 1.0;
+//        double result = a - b;
+//        result = result > 0.0 ? result : -result; // get abs value
+//        result = result > 1.0 ? 0.0 : 1.0 - result; // clip to bounds
+//        result = result < 0.5 ? 0.0 : 1.0;
+
+        double result = (int) a == (int) b ? 1.0 : 0.0;
         return result;
     }
 }
