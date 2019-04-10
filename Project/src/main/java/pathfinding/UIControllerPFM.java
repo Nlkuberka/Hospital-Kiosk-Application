@@ -5,7 +5,6 @@ import application.UIController;
 import entities.Edge;
 import entities.Graph;
 import entities.Node;
-
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -13,11 +12,13 @@ import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.*;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.StackPane;
 import javafx.scene.shape.LineTo;
 import javafx.scene.shape.MoveTo;
 import javafx.scene.shape.Path;
-import javafx.scene.shape.Rectangle;
 
 import java.sql.Connection;
 import java.sql.SQLException;

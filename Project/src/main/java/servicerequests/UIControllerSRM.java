@@ -36,4 +36,12 @@ public class UIControllerSRM extends UIController {
         UIControllerSRBase controller = (UIControllerSRBase) this.goToScene(UIController.SERVICE_REQUEST_BASE);
         controller.setServiceType("BASE");
     }
+
+    @FXML
+    public void setReligiousServices()
+    {
+
+        UIControllerSRRS controller = (UIControllerSRRS) this.goToScene(UIController.SERVICE_REQUEST_RELIGIOUS_SERVICES);
+        controller.setServiceType("Religious Services");
+    }
 }
