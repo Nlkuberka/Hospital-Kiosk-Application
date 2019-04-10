@@ -182,12 +182,16 @@ public class UIControllerATVU extends UIController {
                 setGraphic(pane);
 
                 addSRButton.setOnAction(et -> {
-                    setupChoiceBox(user, "Remove");
-                    pane.setPrefHeight(30.0 * getAllServiceRequests().size());
-                    addSRButton.setLayoutY(30.0 * (getAllServiceRequests().size()));
+                    setupChoiceBox(user, "");
+                    pane.setPrefHeight(30.0 * choiceBoxes.size());
+                    addSRButton.setLayoutY(30.0 * choiceBoxes.size());
                 });
             }
 
+            /**
+             * Gets all of the current service requests that the user can fulfill
+             * @return The list of services that the user can fulfill
+             */
             private List<String> getAllServiceRequests() {
                 List<String> result = new LinkedList<String>();
                 for(int i = 0; i < choiceBoxes.size(); i++) {
@@ -196,34 +200,62 @@ public class UIControllerATVU extends UIController {
                 return result;
             }
 
+            /**
+             * Sets up all of the choice boxes
+             * @param user The user to set up for
+             */
             private void setUpChoiceBoxes(User user) {
                 pane.getChildren().clear();
+                choiceBoxes.clear();
                 List<String> serviceRequests = user.getServiceRequestFullfillment();
                 for(int i = 0; i < serviceRequests.size(); i++) {
                     setupChoiceBox(user, serviceRequests.get(i));
                 }
-                pane.setPrefHeight(30.0 * getAllServiceRequests().size());
-                addSRButton.setLayoutY(30.0 * (getAllServiceRequests().size()));
+                pane.setPrefHeight(30.0 * choiceBoxes.size());
+                addSRButton.setLayoutY(30.0 * choiceBoxes.size());
             }
 
+            /**
+             * Sets up a single choice box for the user
+             * @param user The user to set up for
+             * @param choice The initial choice for the choicebox
+             */
             private void setupChoiceBox(User user, String choice) {
                 ChoiceBox<String> choiceBox = new ChoiceBox<String>();
                 choiceBox.setItems(FXCollections.observableList(new LinkedList<String>(Arrays.asList(User.serviceRequests))));
                 choiceBox.getItems().add("Remove");
                 choiceBox.getSelectionModel().select(choice);
                 choiceBox.setOnAction(et -> {
-                    if(choiceBox.getValue() == "Remove") {
+                    if(choiceBox.getValue() == "Remove" || isDuplicate(choiceBox)) {
                         choiceBoxes.remove(choiceBox);
-                        pane.getChildren().remove(choiceBox);
+                        user.setServiceRequestsFullfillment(getAllServiceRequests());
                         setUpChoiceBoxes(user);
+                        pane.getChildren().add(addSRButton);
                     }
                     user.setServiceRequestsFullfillment(getAllServiceRequests());
                     // DB Update Users
                 });
                 choiceBox.setMaxWidth(200.0);
-                choiceBox.setLayoutY(30.0 * getAllServiceRequests().size());
+                choiceBox.setLayoutY(30.0 * choiceBoxes.size());
                 choiceBoxes.add(choiceBox);
                 pane.getChildren().add(choiceBox);
+            }
+
+            /**
+             * Tests if the given choicebox is a dulicate of another
+             * @param choiceBox The choice to test
+             * @return Whether this choicebox is a duplicate or not
+             */
+            private boolean isDuplicate(ChoiceBox choiceBox) {
+                for(int i = 0; i < choiceBoxes.size(); i++) {
+                    if(choiceBoxes.indexOf(choiceBox) == i) {
+                        continue;
+                    }
+                    if(choiceBoxes.get(i).getValue() == choiceBox.getValue()) {
+                        return true;
+                    }
+                }
+                return false;
             }
         });
 
