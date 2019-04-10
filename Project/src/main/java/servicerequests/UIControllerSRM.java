@@ -36,4 +36,10 @@ public class UIControllerSRM extends UIController {
         UIControllerSRBase controller = (UIControllerSRBase) this.goToScene(UIController.SERVICE_REQUEST_BASE);
         controller.setServiceType("BASE");
     }
+
+    @FXML
+    public void setSecurityButton() {
+        UIControllerSRSecurity controller = (UIControllerSRSecurity) this.goToScene(UIController.SERVICE_REQUEST_SECURITY);
+        controller.setServiceType("SECURITY");
+    }
 }
