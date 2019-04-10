@@ -50,7 +50,7 @@ public class MapHandler {
             map.fitHeightProperty().bind(pane.prefHeightProperty());
         }
 
-        changeToFloor(currentFloor.ordinal());
+        changeToFloor(currentFloor.getIndex());
     }
 
     private void addToPath(Path path, List<Node> nodes) {
@@ -81,15 +81,15 @@ public class MapHandler {
     }
 
     private AnchorPane getCurrentPane() {
-        return this.paneList.get(currentFloor.ordinal());
+        return this.paneList.get(currentFloor.getIndex());
     }
 
     private ImageView getCurrentMap() {
-        return this.mapList.get(currentFloor.ordinal());
+        return this.mapList.get(currentFloor.getIndex());
     }
 
     private Path getCurrentPath() {
-        return this.pathList.get(currentFloor.ordinal());
+        return this.pathList.get(currentFloor.getIndex());
     }
 
     private void clearLatestPath() {
@@ -150,7 +150,7 @@ public class MapHandler {
             mapList.get(i).setOpacity(opacity);
             pathList.get(i).setOpacity(opacity);
         }
-        this.currentFloor = UIControllerPFM.Floors.values()[(int) floor];
+        this.currentFloor = UIControllerPFM.Floors.getByIndex((int) floor);
     }
 
     void cancel() {
@@ -177,7 +177,7 @@ public class MapHandler {
     private void redrawPathIfNeeded() {
         if (this.latestPath != null) {
             updatePaths(this.latestPath);
-            changeToFloor(this.currentFloor.ordinal());
+            changeToFloor(this.currentFloor.getIndex());
             this.enablePaths();
         }
     }
@@ -188,7 +188,7 @@ public class MapHandler {
         this.latestStartingNode = startingNode;
 
         UIControllerPFM.Floors floor = UIControllerPFM.Floors.getByID(startingNode.getFloor());
-        changeToFloor(floor.ordinal());
+        changeToFloor(floor.getIndex());
         enablePaths();
     }
 }

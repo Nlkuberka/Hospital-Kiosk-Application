@@ -286,7 +286,7 @@ public class DBController {
         Node node = null;
         try{
             Statement s = connection.createStatement();
-            ResultSet rs = s.executeQuery("Select from NODES where NODEID = '" + ID + "'");
+            ResultSet rs = s.executeQuery("Select * from NODES where NODEID = '" + ID + "'");
             rs.next();
             node = new Node(rs.getString("NODEID"),rs.getInt("XCOORD"),
                     rs.getInt("YCOORD"),rs.getString("FLOOR"),

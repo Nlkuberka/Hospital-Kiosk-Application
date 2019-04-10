@@ -34,15 +34,17 @@ import java.util.List;
 public class UIControllerPFM extends UIController {
 
     public enum Floors {
-        FIRST("First Floor", "1"), GROUND("Ground Floor", "G"), LL1("Lower Level 1", "L1"),
-        LL2("Lower Level 2", "L2"), SECOND("Second Floor", "2"), THIRD("Third Floor", "3");
+        FIRST("First Floor", "1", 3), GROUND("Ground Floor", "G", 2), LL1("Lower Level 1", "L1", 1),
+        LL2("Lower Level 2", "L2", 0), SECOND("Second Floor", "2", 4), THIRD("Third Floor", "3", 5);
 
         private final String name;
         private final String ID;
+        private final int index;
 
-        Floors(String name, String ID) {
+        Floors(String name, String ID, int index) {
             this.name = name;
             this.ID = ID;
+            this.index = index;
         }
 
         public String getName() {
@@ -51,6 +53,10 @@ public class UIControllerPFM extends UIController {
 
         public String getID() {
             return this.name;
+        }
+
+        public int getIndex() {
+            return this.index;
         }
 
         public static Floors getByID(String ID) {
@@ -70,6 +76,25 @@ public class UIControllerPFM extends UIController {
                 return LL1;
             }
             return LL2;
+        }
+
+        public static Floors getByIndex(int index) {
+            switch (index) {
+                case (0): {
+                    return LL2;
+                } case (1): {
+                    return LL1;
+                } case (2): {
+                    return GROUND;
+                } case (3): {
+                    return FIRST;
+                } case (4): {
+                    return SECOND;
+                }case (5): {
+                    return THIRD;
+                } default:
+                    return SECOND;
+            }
         }
     }
 
@@ -121,7 +146,7 @@ public class UIControllerPFM extends UIController {
 
         floorSlider.setMax(5.0); // number of floors - 1
         floorSlider.setValue(2.0);
-        floorLabel.setText(Floors.values()[(int) floorSlider.getValue()].getName());
+        floorLabel.setText(Floors.getByIndex((int) floorSlider.getValue()).getName());
 
         // bind background image size to window size
         // ensures auto resize works
@@ -146,7 +171,7 @@ public class UIControllerPFM extends UIController {
 
             @Override
             public void changed(ObservableValue arg0, Object arg1, Object arg2) {
-                floorLabel.setText(Floors.values()[(int) floorSlider.getValue()].getName());
+                floorLabel.setText(Floors.getByIndex((int) floorSlider.getValue()).getName());
                 mapHandler.changeToFloor(floorSlider.getValue());
             }
         });
@@ -225,10 +250,10 @@ public class UIControllerPFM extends UIController {
         if(initialID == null || destID == null)
             return;
 
-        Connection connection = DBController.dbConnect();
         List<String> pathIDs;
         pathIDs = graph.shortestPath(initialID, destID);
 
+        Connection connection = DBController.dbConnect();
         Node initialNode = DBController.fetchNode(initialID, connection);
         DBController.closeConnection(connection);
 
