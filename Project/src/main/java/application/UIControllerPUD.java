@@ -2,14 +2,16 @@ package application;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
+import javafx.scene.text.Text;
 
 public class UIControllerPUD extends UIController{
 
     String message = "";
 
     @FXML
-    private TextArea directions; //the actual directions
+    private Label directions = new Label(message); //the actual directions
 
     @FXML
     private Button printDirections; //the option to print a receipt
@@ -20,8 +22,9 @@ public class UIControllerPUD extends UIController{
     @FXML
     private Button emailDirections; //the option to email the directions
 
-    public void setMessage(String message){
-        this.message = message;
+    @FXML
+    public void setDirections(String message){
+        directions.setText(message);
     }
 
 }
