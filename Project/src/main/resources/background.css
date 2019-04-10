@@ -32,18 +32,18 @@
     -fx-font-size: 20;
     -fx-font-weight: bold;
     -fx-text-fill: white;
-    -fx-pref-width: 240;
+    -fx-pref-width: 250;
     -fx-pref-height: 240;
 }
 
 .jfx-button-admin-main{
     -jfx-button-type: FLAT;
     -fx-background-color:#FFC41E;
-    -fx-font-size: 30;
+    -fx-font-size: 20;
     -fx-font-weight: bold;
     -fx-text-fill: white;
-    -fx-pref-width: 400;
-    -fx-pref-height: 60;
+    -fx-pref-width: 200;
+    -fx-pref-height: 240;
 }
 
 .jfx-button-add{
@@ -126,6 +126,7 @@
     -fx-border-width: 1;
     -fx-background-radius: 10;
 }
+
 
 /* Tab pane styling*/
 .tab-pane{
@@ -214,7 +215,7 @@
     -fx-font-size: 12;
     -fx-font-weight: bold;
     -fx-text-fill: #090a0f;
-    -fx-pref-width: 290;
+
 
 
 }
