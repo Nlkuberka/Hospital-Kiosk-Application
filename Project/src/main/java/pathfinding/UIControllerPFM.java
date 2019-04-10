@@ -2,17 +2,20 @@ package pathfinding;
 
 import application.DBController;
 import application.UIController;
+import application.UIControllerPUD;
+import application.UIControllerPUM;
+import com.jfoenix.controls.JFXButton;
 import entities.Edge;
 import entities.Graph;
 import entities.Node;
 import javafx.animation.PathTransition;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.Group;
-import javafx.scene.control.Button;
-import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.MenuItem;
-import javafx.scene.control.ScrollPane;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
@@ -20,6 +23,8 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.*;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 import javafx.util.Duration;
 
 import java.sql.Connection;
@@ -63,6 +68,8 @@ public class UIControllerPFM extends UIController {
     private List<Node> currentPath;
     // The multiplication factor at which the map changes size
     private double zoomFactor = 1.2;
+    @FXML
+    private JFXButton directionsRequest;
 
     @FXML
     public void initialize() {
@@ -436,6 +443,34 @@ public class UIControllerPFM extends UIController {
                 ((Circle) n).setRadius(3);
             }
         }
+    }
+
+    @FXML
+    private void directionSelection() {
+        Label secondLabel = new Label(graph.textDirections(graph.shortestPath(initialID, destID)));
+
+        StackPane secondaryLayout = new StackPane();
+        secondaryLayout.getChildren().add(secondLabel);
+
+        Scene secondScene = new Scene(secondaryLayout, 230, 100);
+
+        // New window (Stage)
+        Stage newWindow = new Stage();
+        newWindow.setTitle("Second Stage");
+        newWindow.setScene(secondScene);
+
+        // Specifies the modality for new window.
+        newWindow.initModality(Modality.WINDOW_MODAL);
+
+        // Specifies the owner Window (parent) for new window
+        newWindow.initOwner(primaryStage);
+
+        // Set position of second window, related to primary window.
+        newWindow.setX(primaryStage.getX() + 200);
+        newWindow.setY(primaryStage.getY() + 100);
+
+        newWindow.show();
+
     }
 
 }
