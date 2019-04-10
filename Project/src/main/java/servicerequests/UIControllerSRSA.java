@@ -68,7 +68,7 @@ public class UIControllerSRSA extends UIController {
 
         serviceMessage.setText("");
 
-        sanitationSelect.getItems().addAll("Fecal Matter", "Vomit", "Urine", "Blood", "Dropped Baby", "Lost Grandma");
+        sanitationSelect.getItems().addAll("Fecal Matter", "Vomit", "Urine", "Blood", "Water", "Soda", "Juice");
     }
 
     public void setServiceType(String serviceType) {
