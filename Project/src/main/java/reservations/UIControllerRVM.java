@@ -13,7 +13,9 @@ import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.DatePicker;
+import javafx.scene.shape.Shape;
 
+import java.awt.*;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -21,36 +23,49 @@ import java.text.SimpleDateFormat;
 import java.time.*;
 
 import java.util.*;
+import java.util.List;
 
 /**
  * The UIController that handles the creation and sending of reservations
- * @author Jonathan Chang, imoralessirgo
+ * @author Jonathan Chang, imoralessirgo, Ryan O'Brien
  * @version iteration1
  */
 public class UIControllerRVM extends UIController {
 
-    private Map<String, String> nodeIDs; /** < Holds the reference of the short names to nodeIDs*/
+    private Map<String, String> workplaceIDs; /** < Holds the reference of the short names to nodeIDs*/
 
-    @FXML
-    private JFXButton confirmButton; /** < The confirm button*/
+    @FXML private JFXButton confirmButton; /** < The confirm button*/
 
-    @FXML
-    private ChoiceBox<String> nodeSelect; /** < The choicebox where the user selects the node*/
+    @FXML private ChoiceBox<String> workplaceSelect; /** < The choicebox where the user selects the node*/
 
-    @FXML
-    private DatePicker datePicker; /** < The picker for the date*/
+    @FXML private DatePicker datePicker; /** < The picker for the date*/
 
-    @FXML
-    private JFXTimePicker startTimePicker; /** < The picker for the start time*/
+    @FXML private JFXTimePicker startTimePicker; /** < The picker for the start time*/
 
-    @FXML
-    private JFXTimePicker endTimePicker; /** < The picker for the end time */
+    @FXML private JFXTimePicker endTimePicker; /** < The picker for the end time */
+
+    @FXML private Shape classroom1; @FXML private Shape classroom2; @FXML private Shape classroom3;
+    @FXML private Shape classroom4; @FXML private Shape classroom5; @FXML private Shape classroom6;
+    @FXML private Shape classroom7; @FXML private Shape classroom8; @FXML private Shape classroom9;
+    @FXML private Shape pantry; @FXML private Shape MHA; @FXML private Shape MHCR;
 
     /**
      * Run when the scene is first loaded
      */
     @FXML
     public void initialize() {
+        classroom1.setFill(javafx.scene.paint.Color.GREEN);
+        classroom2.setFill(javafx.scene.paint.Color.GREEN);
+        classroom3.setFill(javafx.scene.paint.Color.GREEN);
+        classroom4.setFill(javafx.scene.paint.Color.GREEN);
+        classroom5.setFill(javafx.scene.paint.Color.GREEN);
+        classroom6.setFill(javafx.scene.paint.Color.GREEN);
+        classroom7.setFill(javafx.scene.paint.Color.GREEN);
+        classroom8.setFill(javafx.scene.paint.Color.GREEN);
+        classroom9.setFill(javafx.scene.paint.Color.GREEN);
+        pantry.setFill(javafx.scene.paint.Color.GREEN);
+        MHA.setFill(javafx.scene.paint.Color.GREEN);
+        MHCR.setFill(javafx.scene.paint.Color.GREEN);
 
     }
 
@@ -59,27 +74,27 @@ public class UIControllerRVM extends UIController {
      */
     @Override
     public void onShow() {
-        nodeIDs = new HashMap<String, String>();
-        List<String> nodes = new LinkedList<String>();
+        workplaceIDs = new HashMap<String, String>();
+        List<String> workplaces = new LinkedList<String>();
         //DB Get nodes
         try {
             Connection conn = DBController.dbConnect();
-            ResultSet rs = conn.createStatement().executeQuery("Select * From NODES where FLOOR = '2' AND BUILDING = 'Tower'");
+            ResultSet rs = conn.createStatement().executeQuery("Select * From WORKPLACES");
             while(rs.next()){
-                nodeIDs.put(rs.getString("SHORTNAME"),rs.getString("NODEID"));
-                nodes.add(rs.getString("SHORTNAME"));
+                workplaceIDs.put(rs.getString("ROOMNAME"),rs.getString("WKPLACEID"));
+                workplaces.add(rs.getString("ROOMNAME"));
             }
         }catch(SQLException e){
             e.printStackTrace();
         }
 
-        nodeSelect.setItems(FXCollections.observableList(nodes));
+        workplaceSelect.setItems(FXCollections.observableList(workplaces));
 
         // Set initial Startup values
         datePicker.setValue(LocalDate.now());
         startTimePicker.setValue(LocalTime.now());
         endTimePicker.setValue(LocalTime.now());
-        nodeSelect.getSelectionModel().selectFirst();
+        workplaceSelect.getSelectionModel().selectFirst();
     }
 
     /**
@@ -90,8 +105,8 @@ public class UIControllerRVM extends UIController {
         if(!checkValidReservation()) {
             return;
         }
-        for(int i = 0; i < nodeSelect.getItems().size(); i++) {
-            String nodeID = nodeIDs.get(nodeSelect.getItems().get(i));
+        for(int i = 0; i < workplaceSelect.getItems().size(); i++) {
+            String nodeID = workplaceIDs.get(workplaceSelect.getItems().get(i));
             List<Reservation> reservations = new LinkedList<Reservation>();
             //DB Get Reservations of Node
             // Or use Rakesh's function
@@ -119,7 +134,7 @@ public class UIControllerRVM extends UIController {
         String startString = getTimeString(startTimePicker);
         String endString = getTimeString(endTimePicker);
 
-        Reservation r = new Reservation(nodeIDs.get((String) nodeSelect.getValue()),
+        Reservation r = new Reservation(workplaceIDs.get((String) workplaceSelect.getValue()),
                 CurrentUser.user.getUserID(), dateString, startString, endString);
         // DB Send
         Connection conn = DBController.dbConnect();

@@ -73,6 +73,13 @@ public class DBController {
                 "  RESOLVERID VARCHAR(10) REFERENCES USERS(USERID), \n" +
                 "  CONSTRAINT SERVICE_PK PRIMARY KEY(SERVICEID)\n" +
                 ")\n";
+        String workplaces = "CREATE TABLE WORKPLACES(\n" +
+                " WKPLACEID VARCHAR(10),\n" +
+                " ROOMNAME VARCHAR(50),\n" +
+                " CAPACITY INT,\n" +
+                " OUTLINE VARCHAR(150),\n" +
+                " CONSTRAINT WK_PK PRIMARY KEY(WKPLACEID) " +
+                ")\n";
         String reservations = "CREATE TABLE RESERVATIONS(\n" +
                 "  RSVID INTEGER GENERATED ALWAYS AS IDENTITY,\n" +
                 "  WKPLACEID VARCHAR(10) REFERENCES WORKPLACES(WKPLACEID),\n" +
@@ -82,13 +89,7 @@ public class DBController {
                 "  ENDTIME TIME,\n" +
                 "  CONSTRAINT RSV_PK PRIMARY KEY(RSVID)\n" +
                 ")\n";
-        String workplaces = "CREATE TABLE WORKPLACES(\n" +
-                " WKPLACEID VARCHAR(10),\n" +
-                " ROOMNAME VARCHAR(50),\n" +
-                " CAPACITY INT,\n" +
-                " OUTLINE VARCHAR(150),\n" +
-                " CONSTRAINT WK_PK PRIMARY KEY(WKPLACEID) " +
-                ")\n";
+
 
 
 
