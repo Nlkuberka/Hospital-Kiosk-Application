@@ -87,6 +87,11 @@ public class UIControllerATM extends UIController {
     private void setAlgorithmButton() {
         this.goToScene(UIController.ADMIN_TOOLS_CHANGE_ALGORITHM);
     }
+
+    @FXML
+    private void setEditReservationsButton() {
+        this.goToScene(UIController.ADMIN_TOOLS_EDIT_RESERVATIONS);
+    }
     /**
      * Goes back t0 the admin application Menu
      */

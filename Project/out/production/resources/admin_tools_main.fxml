@@ -29,7 +29,7 @@
                      <menus>
                         <Menu mnemonicParsing="false" text="Back">
                            <items>
-                              <MenuItem fx:id="backMenuItem" mnemonicParsing="false" onAction="#setBackMenuItem" text="Go back to previous page" />
+                              <MenuItem mnemonicParsing="false" text="Go back to previous page" />
                            </items>
                         </Menu>
                      </menus>
@@ -124,7 +124,7 @@
                   </ImageView>
                </graphic>
             </JFXButton>
-            <JFXButton alignment="BOTTOM_CENTER" buttonType="RAISED" contentDisplay="TOP" graphicTextGap="2.0" layoutX="579.0" layoutY="371.0" prefHeight="40.0" prefWidth="350.0" styleClass="jfx-button-admin-tools-main-horizontal" stylesheets="@background.css" text="Switch  Algorithm" textAlignment="CENTER" textFill="WHITE" wrapText="true">
+            <JFXButton alignment="BOTTOM_CENTER" buttonType="RAISED" contentDisplay="TOP" graphicTextGap="2.0" layoutX="579.0" layoutY="371.0" onAction="#setAlgorithmButton" prefHeight="40.0" prefWidth="350.0" styleClass="jfx-button-admin-tools-main-horizontal" stylesheets="@background.css" text="Switch  Algorithm" textAlignment="CENTER" textFill="WHITE" wrapText="true">
                <font>
                   <Font name="System Bold" size="28.0" />
                </font>

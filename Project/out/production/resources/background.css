@@ -11,7 +11,6 @@
     -fx-font-weight: bold;
     -fx-text-fill: white;
 }
-
 .jfx-button-main-menu{
     -jfx-button-type: FLAT;
     -fx-background-color:#FFC41E;
@@ -159,6 +158,20 @@
     -fx-background-radius: 10;
 }
 
+.jfx-button-SRBaby{
+    -jfx-button-type: FLAT;
+    -fx-background-color:#efffff;
+    -fx-font-size: 16;
+    -fx-font-weight: bold;
+    -fx-text-fill: white;
+    -fx-wrap-text: #015080;
+    -fx-pref-width: 180;
+    -fx-pref-height: 200;
+    -fx-border-color: #015080;
+    -fx-border-width: 1;
+    -fx-background-radius: 10;
+}
+
 /* Tab pane styling*/
 .tab-pane{
     -fx-background-color: #FFC41E;
@@ -289,12 +302,30 @@
 
 }
 
+.label1{
+    -fx-font-size: 12;
+    -fx-font-weight: bold;
+    -fx-text-fill: #fdfdff;
+
+}
 
 .cell-renderer{
     -fx-background-insets:  2 3 2 2;
 }
 
-
+.paneBabysitting{
+    -jfx-button-type: FLAT;
+    -fx-background-color:#efffff;
+    -fx-font-size: 16;
+    -fx-font-weight: bold;
+    -fx-text-fill: white;
+    -fx-wrap-text: #015080;
+    -fx-pref-width: 180;
+    -fx-pref-height: 200;
+    -fx-border-color: #015080;
+    -fx-border-width: 1;
+    -fx-background-radius: 10;
+}
 
 
 
