@@ -5,7 +5,6 @@ import application.DBController;
 import application.UIController;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXCheckBox;
-import com.sun.org.apache.regexp.internal.RESyntaxException;
 import entities.Reservation;
 import entities.ServiceRequest;
 import entities.User;

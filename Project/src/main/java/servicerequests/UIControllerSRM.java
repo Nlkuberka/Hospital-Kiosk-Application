@@ -1,25 +1,11 @@
 package servicerequests;
 
-import application.CurrentUser;
-import application.DBController;
 import application.UIController;
-import entities.ServiceRequest;
 
 import com.jfoenix.controls.JFXButton;
-import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 
-import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextFormatter;
-
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.HashMap;
-import java.util.Map;
+import javafx.event.ActionEvent;
 
 /**
  * The UIController for the making and sending of service requests
@@ -27,35 +13,23 @@ import java.util.Map;
  * @verion iteration1
  */
 public class UIControllerSRM extends UIController {
-    Map<String, String> nodeIDs; /**< Holds reference between node short name and nodeID*/
-    List<String> serviceTypes; /**< Hold the list of services*/
 
     @FXML
-    private ChoiceBox<String> roomSelect; /**< The choicebox for node selection*/
+    private JFXButton ITButton;
 
     @FXML
-    private ChoiceBox<String> serviceSelect; /**< The choicebox for service selection*/
+    private JFXButton baseButton;
+
 
     @FXML
-    private TextArea serviceMessage; /**< The area for addition messages*/
-
-    @FXML
-    private JFXButton confirmButton; /**< The confirm button*/
+    private JFXButton babysittingButton;
 
     /**
      * Runs on the scene creation and adds the various service request types
      */
     @FXML
     public void initialize() {
-        serviceTypes = new ArrayList<String>();
-        serviceTypes.add("Maintenance Request");
-        serviceTypes.add("Tech Support Request");
-        serviceSelect.setItems(FXCollections.observableList(serviceTypes));
-        serviceSelect.getSelectionModel().selectFirst();
 
-        serviceMessage.setTextFormatter(new TextFormatter<String>(e ->
-            e.getControlNewText().length() <= 100 ? e : null
-        ));
     }
 
     /**
@@ -63,41 +37,78 @@ public class UIControllerSRM extends UIController {
      */
     @Override
     public void onShow() {
-        List<String> nodeShortNames = new ArrayList<String>();
-        nodeIDs = new HashMap<String, String>();
 
-        // DB Get all Nodes
-        try {
-            Connection conn = DBController.dbConnect();
-            ResultSet rs = conn.createStatement().executeQuery("Select * From NODES where FLOOR = '2' AND BUILDING = 'Tower'");
-            while(rs.next()){
-                nodeIDs.put(rs.getString("SHORTNAME"),rs.getString("NODEID"));
-                nodeShortNames.add(rs.getString("SHORTNAME"));
-            }
-        }catch(SQLException e){
-            e.printStackTrace();
-        }
-        roomSelect.setItems(FXCollections.observableList(nodeShortNames));
-        roomSelect.getSelectionModel().selectFirst();
-        serviceMessage.setText("");
+
     }
 
     /**
-     * Creates a new serviceRequest and sends it to the database
+     * Redirects to IT ServiceRequest
      */
     @FXML
-    private void setConfirmButton() {
-        String serviceType = (String) serviceSelect.getValue();
-        String roomShortName = (String) roomSelect.getValue();
-        String nodeID = nodeIDs.get(roomShortName);
-        String message = serviceMessage.getText();
+    public void setITButton() {
+        UIControllerSRIT controller = (UIControllerSRIT) this.goToScene(UIController.SERVICE_REQUEST_IT);
+        controller.setServiceType("IT");
+    }
 
-        ServiceRequest sr = new ServiceRequest(nodeID, serviceType, message, CurrentUser.user.getUserID(), false, null);
-        Connection conn = DBController.dbConnect();
-        DBController.addServiceRequest(sr,conn);
-        DBController.closeConnection(conn);
 
-        this.popupMessage("Your service request has been received.", false);
-        onShow();
+    @FXML
+    public void setFlowerButton(ActionEvent actionEvent)
+    {
+        UIControllerSRFD controller = (UIControllerSRFD) this.goToScene(UIController.SERVICE_REQUEST_FLOWER_DELIVERY);
+        controller.setServiceType("Flower Delivery");
+    }
+
+    @FXML
+    public void setSanitationButton() {
+        UIControllerSRSA controller = (UIControllerSRSA) this.goToScene(UIController.SERVICE_REQUEST_SANITATION);
+        controller.setServiceType("Sanitation");
+    }
+    @FXML
+    public void setReligiousServices(){
+        UIControllerSRRS controller = (UIControllerSRRS) this.goToScene(UIController.SERVICE_REQUEST_RELIGIOUS_SERVICES);
+        controller.setServiceType("Religious Services");
+    }
+
+    @FXML
+    public void setInterpreterButton() {
+        UIControllerSRIN controller = (UIControllerSRIN) this.goToScene(UIController.SERVICE_REQUEST_INTERPRETER);
+        controller.setServiceType("Interpreter");
+    }
+
+    @FXML
+    public void setTransportButton() {
+        UIControllerSRET controller = (UIControllerSRET) this.goToScene(UIController.SERVICE_REQUEST_TRANSPORT);
+        controller.setServiceType("Transport");
+    }
+
+
+    /**
+     * Redirects to BabysittingServiceRequest
+     */
+
+    @FXML
+    public void setbabysittingButton() {
+        UIControllerSRB controller = (UIControllerSRB) this.goToScene(UIController.SERVICE_REQUEST_BABYSITTING);
+        controller.setServiceType("BABYSITTING");
+    }
+
+    @FXML
+    public void setPrescriptionServicesButton() {
+        UIControllerSRPS controller = (UIControllerSRPS) this.goToScene(UIController.SERVICE_REQUEST_PRESCRIPTION_SERVICES_MAIN);
+        controller.setServiceType("Prescription Services");
+    }
+
+
+
+    @FXML
+    public void setSecurityButton() {
+        UIControllerSRSecurity controller = (UIControllerSRSecurity) this.goToScene(UIController.SERVICE_REQUEST_SECURITY);
+        controller.setServiceType("SECURITY");
+    }
+
+    @FXML
+    private void avButton(ActionEvent actionEvent) {
+        UIControllerSRAVE controller = (UIControllerSRAVE) this.goToScene(UIController.SERVICE_REQUEST_AV_EQUIPMENT);
+        controller.setServiceType("Audio Visual");
     }
 }

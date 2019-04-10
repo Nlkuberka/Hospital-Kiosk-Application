@@ -34,15 +34,34 @@ public class UIController {
     public static final String GUEST_MAIN_MENU_MAIN = "GMMM";
     public static final String USER_MAIN_MENU_MAIN = "UMMM";
     public static final String ADMIN_MAIN_MENU_MAIN = "AMMM";
+
     public static final String PATHFINDING_MAIN = "PFM";
+
     public static final String RESERVATIONS_MAIN = "RVM";
     public static final String RESERVATIONS_EDIT = "RVE";
     public static final String RESERVATIONS_MAIN_MENU = "RVMM";
-    public static final String SERVICE_REQUEST_MAIN = "SRM";
+
     public static final String ADMIN_TOOLS_MAIN = "ATM";
     public static final String ADMIN_TOOLS_VIEW_NODES = "ATVN";
     public static final String ADMIN_TOOLS_VIEW_EDGES = "ATVE";
     public static final String ADMIN_TOOLS_VIEW_SERVICE_REQUESTS = "ATVSR";
+
+    public static final String SERVICE_REQUEST_MAIN = "SRM";
+//    public static final String SERVICE_REQUEST_BASE = "SRB";
+    public static final String SERVICE_REQUEST_SANITATION = "SRSA";
+    public static final String SERVICE_REQUEST_INTERPRETER = "SRIN";
+
+
+    public static final String SERVICE_REQUEST_PRESCRIPTION_SERVICES_MAIN = "SRPSM";
+    public static final String SERVICE_REQUEST_IT = "SRIT";
+    public static final String SERVICE_REQUEST_BABYSITTING = "SRB";
+    public static final String SERVICE_REQUEST_FLOWER_DELIVERY = "SRFD";
+    public static final String SERVICE_REQUEST_SECURITY = "SRS";
+    public static final String SERVICE_REQUEST_TRANSPORT = "SRET";
+
+    public static final String SERVICE_REQUEST_RELIGIOUS_SERVICES = "SRRS";
+
+    public static final String SERVICE_REQUEST_AV_EQUIPMENT = "SRAVE";
 
     // The starting width and height of the window
     private static final int WIDTH = 900;
@@ -128,6 +147,36 @@ public class UIController {
         sceneFiles.put(UIController.SERVICE_REQUEST_MAIN, "/service_request_main.fxml");
         sceneTitles.put(UIController.SERVICE_REQUEST_MAIN, "Service Request - Main");
 
+        sceneFiles.put(UIController.SERVICE_REQUEST_AV_EQUIPMENT, "/service_request_audio_visual.fxml");
+        sceneTitles.put(UIController.SERVICE_REQUEST_AV_EQUIPMENT, "Service Request - Audio Visual");
+
+        sceneFiles.put(UIController.SERVICE_REQUEST_BABYSITTING, "/service_request_babysitting.fxml");
+        sceneTitles.put(UIController.SERVICE_REQUEST_BABYSITTING, "Service Request - Babysitting");
+
+        sceneFiles.put(UIController.SERVICE_REQUEST_IT, "/service_request_It.fxml");
+        sceneTitles.put(UIController.SERVICE_REQUEST_IT, "Service Request - IT");
+
+        sceneFiles.put(UIController.SERVICE_REQUEST_PRESCRIPTION_SERVICES_MAIN, "/service_request_prescription_services_main.fxml");
+        sceneTitles.put(UIController.SERVICE_REQUEST_PRESCRIPTION_SERVICES_MAIN, "Service Request - Prescription Services");
+
+        sceneFiles.put(UIController.SERVICE_REQUEST_FLOWER_DELIVERY, "/service_request_flower_delivery.fxml");
+        sceneTitles.put(UIController.SERVICE_REQUEST_FLOWER_DELIVERY, "Service Request - Flower Delivery");
+
+
+        sceneFiles.put(UIController.SERVICE_REQUEST_SANITATION, "/service_request_sanitation.fxml");
+        sceneTitles.put(UIController.SERVICE_REQUEST_SANITATION, "Service Request - Sanitation");
+
+        sceneFiles.put(UIController.SERVICE_REQUEST_SECURITY, "/service_request_security.fxml");
+        sceneTitles.put(UIController.SERVICE_REQUEST_SECURITY, "Service Request - Security");
+
+        sceneFiles.put(UIController.SERVICE_REQUEST_RELIGIOUS_SERVICES,"/service_request_religious_services.fxml");
+        sceneTitles.put(UIController.SERVICE_REQUEST_RELIGIOUS_SERVICES, "Service Request - Religious Services");
+
+        sceneFiles.put(UIController.SERVICE_REQUEST_INTERPRETER, "/service_request_interpreter.fxml");
+        sceneTitles.put(UIController.SERVICE_REQUEST_INTERPRETER, "Service Request - Interpreter");
+
+        sceneFiles.put(UIController.SERVICE_REQUEST_TRANSPORT, "/service_request_transport.fxml");
+        sceneTitles.put(UIController.SERVICE_REQUEST_TRANSPORT, "Service Request - Transport");
 
         // Reservations
         sceneFiles.put(UIController.RESERVATIONS_MAIN, "/reservations_main.fxml");
@@ -222,7 +271,6 @@ public class UIController {
             this.goToScene(UIController.ADMIN_MAIN_MENU_MAIN);
         } else {
             this.goToScene(UIController.LOGIN_MAIN);
-
         }
     }
 

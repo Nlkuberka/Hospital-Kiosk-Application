@@ -1,6 +1,5 @@
 package application;
 
-import com.sun.corba.se.spi.orbutil.threadpool.Work;
 import entities.*;
 
 import java.sql.Connection;
@@ -73,6 +72,13 @@ public class DBController {
                 "  RESOLVERID VARCHAR(10) REFERENCES USERS(USERID), \n" +
                 "  CONSTRAINT SERVICE_PK PRIMARY KEY(SERVICEID)\n" +
                 ")\n";
+        String workplaces = "CREATE TABLE WORKPLACES(\n" +
+                " WKPLACEID VARCHAR(10),\n" +
+                " ROOMNAME VARCHAR(50),\n" +
+                " CAPACITY INT,\n" +
+                " OUTLINE VARCHAR(150),\n" +
+                " CONSTRAINT WK_PK PRIMARY KEY(WKPLACEID) " +
+                ")\n";
         String reservations = "CREATE TABLE RESERVATIONS(\n" +
                 "  RSVID INTEGER GENERATED ALWAYS AS IDENTITY,\n" +
                 "  WKPLACEID VARCHAR(10) REFERENCES WORKPLACES(WKPLACEID),\n" +
@@ -82,22 +88,16 @@ public class DBController {
                 "  ENDTIME TIME,\n" +
                 "  CONSTRAINT RSV_PK PRIMARY KEY(RSVID)\n" +
                 ")\n";
-        String workplaces = "CREATE TABLE WORKPLACES(\n" +
-                " WKPLACEID VARCHAR(10),\n" +
-                " ROOMNAME VARCHAR(50),\n" +
-                " CAPACITY INT,\n" +
-                " OUTLINE VARCHAR(150),\n" +
-                " CONSTRAINT WK_PK PRIMARY KEY(WKPLACEID) " +
-                ")\n";
+
 
 
 
         createTable(nodes,conn);
         createTable(edges,conn);
         createTable(user,conn);
-        createTable(reservations,conn);
         createTable(servicerequest,conn);
         createTable(workplaces, conn);
+        createTable(reservations,conn);
 
         loadNodeData(new File("nodesv4.csv"),conn);
         loadEdgeData(new File("edgesv5.csv"),conn);
@@ -109,6 +109,7 @@ public class DBController {
             s.execute("INSERT INTO USERS VALUES('GUEST0001',1,'guest','guest')");
             s.execute("INSERT INTO USERS VALUES('ADMIN00001',3,'admin','admin')");
             s.execute("INSERT INTO USERS VALUES('WWONG2',3,'staff','staff')");
+            //s.execute("INSERT INTO NODES (NODEID) VALUES('DEFAULT')");
 
         }catch(SQLException e){
             e.printStackTrace();
@@ -176,6 +177,25 @@ public class DBController {
             e.printStackTrace();
         }
     }
+
+    public static LinkedList<Node> fetchAllRooms(Connection connection) {
+        try{
+            Statement s = connection.createStatement();
+            LinkedList<Node> listOfRooms = new LinkedList<>();
+            ResultSet rs = s.executeQuery("SELECT * FROM NODES WHERE NODETYPE != 'HALL' and NODETYPE != 'STAI' and NODETYPE != 'ELEV'");
+            while(rs.next()) {
+                Node node = new Node(rs.getString(1), rs.getInt(2), rs.getInt(3),
+                        rs.getString(4), rs.getString(5), rs.getString(6),
+                        rs.getString(7), rs.getString(8));
+                listOfRooms.add(node);
+            }
+            return listOfRooms;
+        }catch(SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
 
 
     /**
@@ -420,9 +440,6 @@ public class DBController {
      * Not in use
      *
      *
-     * @param NODEID
-     * @param USERID
-     * @param connection
      */
 //    public static void deleteServiceRequest(String NODEID,String USERID, Connection connection){
 //        try {
@@ -487,22 +504,28 @@ public class DBController {
      */
     public static int addServiceRequest(ServiceRequest serviceRequest, Connection connection){
         try{
-            PreparedStatement s = connection.prepareStatement("INSERT into SERVICEREQUEST (NODEID, SERVICETYPE, MESSAGE, USERID, RESOLVED, RESOLVERID)" +
-                    " values ('" + serviceRequest.getNodeID() +
-                    "','"+ serviceRequest.getServiceType() +"','"+ serviceRequest.getMessage() + "','"+
-                    serviceRequest.getUserID()+"',"+serviceRequest.isResolved()+","+ serviceRequest.getResolverID()+")",
-                    Statement.RETURN_GENERATED_KEYS);
+            PreparedStatement s;
+            if (serviceRequest.getNodeID() == null){
+                s = connection.prepareStatement("INSERT into SERVICEREQUEST (NODEID, SERVICETYPE, MESSAGE, USERID, RESOLVED, RESOLVERID)" +
+                        " values (" + serviceRequest.getNodeID() +
+                        ",'"+ serviceRequest.getServiceType() +"','"+ serviceRequest.getMessage() + "','"+
+                        serviceRequest.getUserID()+"',"+serviceRequest.isResolved()+","+ serviceRequest.getResolverID()+")");
+            }else{
+                s = connection.prepareStatement("INSERT into SERVICEREQUEST (NODEID, SERVICETYPE, MESSAGE, USERID, RESOLVED, RESOLVERID)" +
+                        " values ('" + serviceRequest.getNodeID() +
+                        "','"+ serviceRequest.getServiceType() +"','"+ serviceRequest.getMessage() + "','"+
+                        serviceRequest.getUserID()+"',"+serviceRequest.isResolved()+","+ serviceRequest.getResolverID()+")");
+
+            }
             s.execute();
             ResultSet rs = s.getGeneratedKeys();
-            rs.next();
-            return rs.getInt(1);
+            return 1;
         }catch(SQLException e){
             e.printStackTrace();
             return 0;
         }
     }
 
-    //// possible modification to return autogenerated ID! talk to Ryan and John
     /**
      * addReservation
      *

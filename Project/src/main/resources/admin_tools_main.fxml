@@ -27,11 +27,10 @@
                <top>
                   <MenuBar blendMode="ADD" prefWidth="900.0" style="-fx-background-color: white;" stylesheets="@background.css" BorderPane.alignment="CENTER">
                     <menus>
-                      <Menu mnemonicParsing="false" text="Back">
-                        <items>
-                          <MenuItem fx:id="backMenuItem" mnemonicParsing="false" onAction="#setBackMenuItem" text="Go back to previous page" />
-                        </items>
-                      </Menu>
+                      <Menu fx:id="homeButton" mnemonicParsing="false" onAction="#setHomeButton" onShowing="#setHomeButton" text="Home">
+                           <items>
+                              <MenuItem mnemonicParsing="false" text="HOME" />
+                           </items></Menu>
                     </menus>
                      <effect>
                         <ColorAdjust brightness="0.19" contrast="0.1" hue="0.1" saturation="-0.44">
