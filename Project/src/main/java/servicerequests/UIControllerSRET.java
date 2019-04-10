@@ -80,7 +80,7 @@ public class UIControllerSRET extends UIController {
     private void setConfirmButton() {
         String roomShortName = (String) roomSelect.getValue();
         String nodeID = nodeIDs.get(roomShortName);
-        String message = transportSelect + serviceMessage.getText();
+        String message = transportSelect.getValue() + serviceMessage.getText();
 
         ServiceRequest sr = new ServiceRequest(nodeID, serviceType, message, CurrentUser.user.getUserID(), false, null);
         Connection conn = DBController.dbConnect();
