@@ -14,19 +14,19 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="reservations.UIControllerRVVE">
    <children>
-      <AnchorPane prefHeight="600.0" prefWidth="900.0" styleClass="body-background" stylesheets="/background.css">
+      <AnchorPane prefHeight="600.0" prefWidth="900.0" styleClass="body-background" stylesheets="/css/background.css">
          <children>
             <ImageView fitWidth="900.0" opacity="0.6" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@Hospitalbackground.png" />
+                  <Image url="@../images/Hospitalbackground.png" />
                </image>
                <effect>
                   <ColorAdjust brightness="-0.15" hue="0.05" />
                </effect>
             </ImageView>
-            <BorderPane stylesheets="@background.css">
+            <BorderPane stylesheets="@../css/background.css">
                <top>
-                  <MenuBar blendMode="LIGHTEN" nodeOrientation="LEFT_TO_RIGHT" prefWidth="900.0" style="-fx-background-color: #ffffff;" stylesheets="@background.css" BorderPane.alignment="CENTER">
+                  <MenuBar blendMode="LIGHTEN" nodeOrientation="LEFT_TO_RIGHT" prefWidth="900.0" style="-fx-background-color: #ffffff;" stylesheets="@../css/background.css" BorderPane.alignment="CENTER">
                     <menus>
                       <Menu mnemonicParsing="false" text="Back">
                         <items>

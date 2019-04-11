@@ -19,16 +19,16 @@
 
 <AnchorPane prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="servicerequests.UIControllerSRB">
     <children>
-          <AnchorPane prefHeight="400.0" prefWidth="600.0" styleClass="body-background" stylesheets="/background.css">
+          <AnchorPane prefHeight="400.0" prefWidth="600.0" styleClass="body-background" stylesheets="/css/background.css">
               <children>
                   <ImageView fitWidth="900.0" pickOnBounds="true" preserveRatio="true">
                       <image>
-                          <Image url="@Hospitalbackground.png" />
+                          <Image url="@../images/Hospitalbackground.png" />
                       </image>
                   </ImageView>
                   <BorderPane prefHeight="600.0" prefWidth="900.0">
                       <top>
-                          <MenuBar blendMode="ADD" prefWidth="600.0" style="-fx-background-color: white;" stylesheets="@background.css" BorderPane.alignment="CENTER">
+                          <MenuBar blendMode="ADD" prefWidth="600.0" style="-fx-background-color: white;" stylesheets="@../css/background.css" BorderPane.alignment="CENTER">
                               <menus>
                                   <Menu mnemonicParsing="false" onShowing="#setHomeButton" text="Home">
                            <items>
@@ -48,8 +48,8 @@
                <left>
                   <AnchorPane prefHeight="575.0" prefWidth="250.0" BorderPane.alignment="CENTER">
                      <children>
-                        <JFXButton fx:id="confirmButton" layoutX="86.0" layoutY="472.0" onAction="#setConfirmButton" styleClass="jfx-button_edit" stylesheets="@background.css" text="Confirm" />
-                        <JFXButton fx:id="cancelButton" contentDisplay="CENTER" layoutX="102.0" layoutY="516.0" onAction="#setCancelButton" styleClass="jfx-button-cancel" stylesheets="@background.css" text=" ">
+                        <JFXButton fx:id="confirmButton" layoutX="86.0" layoutY="472.0" onAction="#setConfirmButton" styleClass="jfx-button_edit" stylesheets="@../css/background.css" text="Confirm" />
+                        <JFXButton fx:id="cancelButton" contentDisplay="CENTER" layoutX="102.0" layoutY="516.0" onAction="#setCancelButton" styleClass="jfx-button-cancel" stylesheets="@../css/background.css" text=" ">
                            <graphic>
                               <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
@@ -86,61 +86,61 @@
                <center>
                   <AnchorPane prefHeight="575.0" prefWidth="700.0" BorderPane.alignment="CENTER">
                      <children>
-                        <Pane layoutX="33.0" layoutY="70.0" prefHeight="200.0" prefWidth="200.0" styleClass="paneBabysitting" stylesheets="@background.css">
+                        <Pane layoutX="33.0" layoutY="70.0" prefHeight="200.0" prefWidth="200.0" styleClass="paneBabysitting" stylesheets="@../css/background.css">
                            <children>
                               <ImageView fitHeight="130.0" fitWidth="120.0" layoutX="30.0" layoutY="34.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
-                                    <Image url="@icon/Babysitting/feeder1.png" />
+                                    <Image url="@../images/Babysitting/feeder1.png" />
                                  </image>
                               </ImageView>
                               <CheckBox fx:id="feeder" layoutX="50.0" layoutY="161.0" mnemonicParsing="false" text="Feeder" textFill="#015080" />
                            </children>
                         </Pane>
-                        <Pane layoutX="235.0" layoutY="70.0" prefHeight="200.0" prefWidth="200.0" styleClass="paneBabysitting" stylesheets="@background.css">
+                        <Pane layoutX="235.0" layoutY="70.0" prefHeight="200.0" prefWidth="200.0" styleClass="paneBabysitting" stylesheets="@../css/background.css">
                            <children>
                               <ImageView fitHeight="130.0" fitWidth="120.0" layoutX="30.0" layoutY="40.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
-                                    <Image url="@icon/Babysitting/diaper.png" />
+                                    <Image url="@../images/Babysitting/diaper.png" />
                                  </image>
                               </ImageView>
                               <CheckBox fx:id="diaper" layoutX="18.0" layoutY="160.0" mnemonicParsing="false" text="Change diapers" textFill="#015080" />
                            </children>
                         </Pane>
-                        <Pane layoutX="434.0" layoutY="70.0" prefHeight="200.0" prefWidth="200.0" styleClass="paneBabysitting" stylesheets="@background.css">
+                        <Pane layoutX="434.0" layoutY="70.0" prefHeight="200.0" prefWidth="200.0" styleClass="paneBabysitting" stylesheets="@../css/background.css">
                            <children>
                               <ImageView fitHeight="130.0" fitWidth="120.0" layoutX="30.0" layoutY="32.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
-                                    <Image url="@icon/Babysitting/bath.png" />
+                                    <Image url="@../images/Babysitting/bath.png" />
                                  </image>
                               </ImageView>
                               <CheckBox fx:id="bath" layoutX="58.0" layoutY="161.0" mnemonicParsing="false" text="Bath" textFill="#015080" />
                            </children>
                         </Pane>
-                        <Pane layoutX="33.0" layoutY="288.0" prefHeight="200.0" prefWidth="200.0" styleClass="paneBabysitting" stylesheets="@background.css">
+                        <Pane layoutX="33.0" layoutY="288.0" prefHeight="200.0" prefWidth="200.0" styleClass="paneBabysitting" stylesheets="@../css/background.css">
                            <children>
                               <ImageView fitHeight="130.0" fitWidth="120.0" layoutX="30.0" layoutY="26.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
-                                    <Image url="@icon/Babysitting/rocking-horse.png" />
+                                    <Image url="@../images/Babysitting/rocking-horse.png" />
                                  </image>
                               </ImageView>
                               <CheckBox fx:id="toy" layoutX="58.0" layoutY="161.0" mnemonicParsing="false" text="Toys" textFill="#015080" />
                            </children>
                         </Pane>
-                        <Pane layoutX="235.0" layoutY="288.0" prefHeight="200.0" prefWidth="200.0" styleClass="paneBabysitting" stylesheets="@background.css">
+                        <Pane layoutX="235.0" layoutY="288.0" prefHeight="200.0" prefWidth="200.0" styleClass="paneBabysitting" stylesheets="@../css/background.css">
                            <children>
                               <ImageView fitHeight="130.0" fitWidth="120.0" layoutX="31.0" layoutY="29.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
-                                    <Image url="@icon/Babysitting/baby-stroller.png" />
+                                    <Image url="@../images/Babysitting/baby-stroller.png" />
                                  </image>
                               </ImageView>
                               <CheckBox fx:id="babyStroller" layoutX="26.0" layoutY="161.0" mnemonicParsing="false" text="Baby Stroller" textFill="#015080" />
                            </children>
                         </Pane>
-                        <Pane layoutX="434.0" layoutY="288.0" prefHeight="200.0" prefWidth="200.0" styleClass="paneBabysitting" stylesheets="@background.css">
+                        <Pane layoutX="434.0" layoutY="288.0" prefHeight="200.0" prefWidth="200.0" styleClass="paneBabysitting" stylesheets="@../css/background.css">
                            <children>
                               <ImageView fitHeight="130.0" fitWidth="120.0" layoutX="30.0" layoutY="25.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
-                                    <Image url="@icon/Babysitting/cutlery.png" />
+                                    <Image url="@../images/Babysitting/cutlery.png" />
                                  </image>
                               </ImageView>
                               <CheckBox fx:id="food" layoutX="57.0" layoutY="161.0" mnemonicParsing="false" text="Food" textFill="#015080" />

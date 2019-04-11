@@ -23,16 +23,16 @@
     <children>
         <AnchorPane prefHeight="600.0" prefWidth="900.0">
             <children>
-                <AnchorPane prefHeight="400.0" prefWidth="600.0" styleClass="body-background" stylesheets="/background.css">
+                <AnchorPane prefHeight="400.0" prefWidth="600.0" styleClass="body-background" stylesheets="/css/background.css">
                     <children>
                         <ImageView fitWidth="900.0" pickOnBounds="true" preserveRatio="true">
                             <image>
-                                <Image url="@Hospitalbackground.png" />
+                                <Image url="@../images/Hospitalbackground.png" />
                             </image>
                         </ImageView>
                         <BorderPane prefHeight="600.0" prefWidth="900.0">
                             <top>
-                                <MenuBar blendMode="ADD" prefWidth="600.0" style="-fx-background-color: white;" stylesheets="@background.css" BorderPane.alignment="CENTER">
+                                <MenuBar blendMode="ADD" prefWidth="600.0" style="-fx-background-color: white;" stylesheets="@../css/background.css" BorderPane.alignment="CENTER">
                                     <menus>
                                         <Menu mnemonicParsing="false" onShowing="#setHomeButton" text="Home">
                                  <items>
@@ -51,7 +51,7 @@
                      <right>
                         <ImageView fitHeight="575.0" fitWidth="700.0" pickOnBounds="true" preserveRatio="true" BorderPane.alignment="CENTER">
                            <image>
-                              <Image url="@OBC-4-Concept-Plan-Overview.jpg" />
+                              <Image url="@../images/OBC-4-Concept-Plan-Overview.jpg" />
                            </image>
                         </ImageView>
                      </right>

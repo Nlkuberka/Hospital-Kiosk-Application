@@ -16,16 +16,16 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="admintools.UIControllerATM">
    <children>
-      <AnchorPane prefHeight="400.0" prefWidth="600.0" styleClass="bodybackground" stylesheets="@background.css">
+      <AnchorPane prefHeight="400.0" prefWidth="600.0" styleClass="bodybackground" stylesheets="@../css/background.css">
          <children>
             <ImageView fitHeight="600.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@Hospitalbackground.png" />
+                  <Image url="@../images/Hospitalbackground.png" />
                </image>
             </ImageView>
             <BorderPane>
                <top>
-                  <MenuBar blendMode="ADD" prefWidth="900.0" style="-fx-background-color: white;" stylesheets="@background.css" BorderPane.alignment="CENTER">
+                  <MenuBar blendMode="ADD" prefWidth="900.0" style="-fx-background-color: white;" stylesheets="@../css/background.css" BorderPane.alignment="CENTER">
                      <menus>
                         <Menu mnemonicParsing="false" text="Back">
                            <items>
@@ -49,50 +49,50 @@
                   <Font name="System Bold" size="40.0" />
                </font>
             </Text>
-            <JFXButton fx:id="viewEdgesButton" alignment="BOTTOM_CENTER" buttonType="RAISED" contentDisplay="TOP" graphicTextGap="10.0" layoutX="43.0" layoutY="171.0" onAction="#setViewEdgesButton" prefHeight="40.0" prefWidth="350.0" styleClass="jfx-button-admin-tools-main" stylesheets="@background.css" text="Edit Edges" textAlignment="CENTER" textFill="WHITE" wrapText="true" AnchorPane.topAnchor="171.0">
+            <JFXButton fx:id="viewEdgesButton" alignment="BOTTOM_CENTER" buttonType="RAISED" contentDisplay="TOP" graphicTextGap="10.0" layoutX="43.0" layoutY="171.0" onAction="#setViewEdgesButton" prefHeight="40.0" prefWidth="350.0" styleClass="jfx-button-admin-tools-main" stylesheets="@../css/background.css" text="Edit Edges" textAlignment="CENTER" textFill="WHITE" wrapText="true" AnchorPane.topAnchor="171.0">
                <font>
                   <Font name="System Bold" size="28.0" />
                </font>
                <graphic>
                   <ImageView fitHeight="140.0" fitWidth="140.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@icon/seo-and-web.png" />
+                        <Image url="@../images/seo-and-web.png" />
                      </image>
                   </ImageView>
                </graphic>
             </JFXButton>
-            <JFXButton fx:id="viewEdgesButton1" alignment="BOTTOM_CENTER" buttonType="RAISED" contentDisplay="TOP" graphicTextGap="27.0" layoutX="244.0" layoutY="171.0" onAction="#setViewNodesButton" prefHeight="40.0" prefWidth="350.0" styleClass="jfx-button-admin-tools-main" stylesheets="@background.css" text="Edit Nodes" textAlignment="CENTER" textFill="WHITE" wrapText="true">
+            <JFXButton fx:id="viewEdgesButton1" alignment="BOTTOM_CENTER" buttonType="RAISED" contentDisplay="TOP" graphicTextGap="27.0" layoutX="244.0" layoutY="171.0" onAction="#setViewNodesButton" prefHeight="40.0" prefWidth="350.0" styleClass="jfx-button-admin-tools-main" stylesheets="@../css/background.css" text="Edit Nodes" textAlignment="CENTER" textFill="WHITE" wrapText="true">
                <font>
                   <Font name="System Bold" size="28.0" />
                </font>
                <graphic>
                   <ImageView fitHeight="110.0" fitWidth="110.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@icon/logotypes.png" />
+                        <Image url="@../images/logotypes.png" />
                      </image>
                   </ImageView>
                </graphic>
             </JFXButton>
-            <JFXButton alignment="BOTTOM_CENTER" buttonType="RAISED" contentDisplay="TOP" graphicTextGap="16.0" layoutX="445.0" layoutY="171.0" onAction="#setViewMapButton" prefHeight="40.0" prefWidth="350.0" styleClass="jfx-button-admin-tools-main" stylesheets="@background.css" text="Edit On Map" textAlignment="CENTER" textFill="WHITE" wrapText="true">
+            <JFXButton alignment="BOTTOM_CENTER" buttonType="RAISED" contentDisplay="TOP" graphicTextGap="16.0" layoutX="445.0" layoutY="171.0" onAction="#setViewMapButton" prefHeight="40.0" prefWidth="350.0" styleClass="jfx-button-admin-tools-main" stylesheets="@../css/background.css" text="Edit On Map" textAlignment="CENTER" textFill="WHITE" wrapText="true">
                <font>
                   <Font name="System Bold" size="28.0" />
                </font>
                <graphic>
                   <ImageView fitHeight="110.0" fitWidth="110.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@icon/map.png" />
+                        <Image url="@../images/map.png" />
                      </image>
                   </ImageView>
                </graphic>
             </JFXButton>
-            <JFXButton fx:id="viewUsersButton" alignment="BOTTOM_CENTER" buttonType="RAISED" contentDisplay="TOP" graphicTextGap="10.0" layoutX="646.0" layoutY="171.0" onAction="#setUsersButton" prefHeight="40.0" prefWidth="350.0" styleClass="jfx-button-admin-tools-main" stylesheets="@background.css" text="View Users" textAlignment="CENTER" textFill="WHITE" wrapText="true">
+            <JFXButton fx:id="viewUsersButton" alignment="BOTTOM_CENTER" buttonType="RAISED" contentDisplay="TOP" graphicTextGap="10.0" layoutX="646.0" layoutY="171.0" onAction="#setUsersButton" prefHeight="40.0" prefWidth="350.0" styleClass="jfx-button-admin-tools-main" stylesheets="@../css/background.css" text="View Users" textAlignment="CENTER" textFill="WHITE" wrapText="true">
                <font>
                   <Font name="System Bold" size="28.0" />
                </font>
                <graphic>
                   <ImageView fitHeight="130.0" fitWidth="130.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@icon/doctor.png" />
+                        <Image url="@../images/doctor.png" />
                      </image>
                      <effect>
                         <ColorAdjust brightness="0.25" />
@@ -100,38 +100,38 @@
                   </ImageView>
                </graphic>
             </JFXButton>
-            <JFXButton fx:id="viewServiceRequestsButton" alignment="BOTTOM_CENTER" buttonType="RAISED" contentDisplay="TOP" graphicTextGap="2.0" layoutX="43.0" layoutY="371.0" onAction="#setViewServiceRequestsButton" prefHeight="40.0" prefWidth="350.0" styleClass="jfx-button-admin-tools-main-horizontal" stylesheets="@background.css" text="View Service Requests" textAlignment="CENTER" textFill="WHITE" wrapText="true">
+            <JFXButton fx:id="viewServiceRequestsButton" alignment="BOTTOM_CENTER" buttonType="RAISED" contentDisplay="TOP" graphicTextGap="2.0" layoutX="43.0" layoutY="371.0" onAction="#setViewServiceRequestsButton" prefHeight="40.0" prefWidth="350.0" styleClass="jfx-button-admin-tools-main-horizontal" stylesheets="@../css/background.css" text="View Service Requests" textAlignment="CENTER" textFill="WHITE" wrapText="true">
                <font>
                   <Font name="System Bold" size="28.0" />
                </font>
                <graphic>
                   <ImageView fitHeight="110.0" fitWidth="110.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@icon/listing.png" />
+                        <Image url="@../images/listing.png" />
                      </image>
                   </ImageView>
                </graphic>
             </JFXButton>
-            <JFXButton fx:id="editReservationsButton" alignment="BOTTOM_CENTER" buttonType="RAISED" contentDisplay="TOP" graphicTextGap="2.0" layoutX="311.0" layoutY="371.0" onAction="#setEditReservationsButton" prefHeight="40.0" prefWidth="350.0" styleClass="jfx-button-admin-tools-main-horizontal" stylesheets="@background.css" text="Edit Reservations" textAlignment="CENTER" textFill="WHITE" wrapText="true">
+            <JFXButton fx:id="editReservationsButton" alignment="BOTTOM_CENTER" buttonType="RAISED" contentDisplay="TOP" graphicTextGap="2.0" layoutX="311.0" layoutY="371.0" onAction="#setEditReservationsButton" prefHeight="40.0" prefWidth="350.0" styleClass="jfx-button-admin-tools-main-horizontal" stylesheets="@../css/background.css" text="Edit Reservations" textAlignment="CENTER" textFill="WHITE" wrapText="true">
                <font>
                   <Font name="System Bold" size="28.0" />
                </font>
                <graphic>
                   <ImageView fitHeight="110.0" fitWidth="110.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@icon/web-site.png" />
+                        <Image url="@../images/web-site.png" />
                      </image>
                   </ImageView>
                </graphic>
             </JFXButton>
-            <JFXButton alignment="BOTTOM_CENTER" buttonType="RAISED" contentDisplay="TOP" graphicTextGap="2.0" layoutX="579.0" layoutY="371.0" onAction="#setAlgorithmButton" prefHeight="40.0" prefWidth="350.0" styleClass="jfx-button-admin-tools-main-horizontal" stylesheets="@background.css" text="Switch  Algorithm" textAlignment="CENTER" textFill="WHITE" wrapText="true">
+            <JFXButton alignment="BOTTOM_CENTER" buttonType="RAISED" contentDisplay="TOP" graphicTextGap="2.0" layoutX="579.0" layoutY="371.0" onAction="#setAlgorithmButton" prefHeight="40.0" prefWidth="350.0" styleClass="jfx-button-admin-tools-main-horizontal" stylesheets="@../css/background.css" text="Switch  Algorithm" textAlignment="CENTER" textFill="WHITE" wrapText="true">
                <font>
                   <Font name="System Bold" size="28.0" />
                </font>
                <graphic>
                   <ImageView fitHeight="110.0" fitWidth="110.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@icon/connected.png" />
+                        <Image url="@../images/connected.png" />
                      </image>
                      <effect>
                         <ColorAdjust contrast="-0.04" hue="-0.18" saturation="-0.3" />

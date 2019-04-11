@@ -21,16 +21,16 @@
 
 <AnchorPane prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="servicerequests.UIControllerSRFD">
     <children>
-          <AnchorPane prefHeight="400.0" prefWidth="600.0" styleClass="body-background" stylesheets="/background.css">
+          <AnchorPane prefHeight="400.0" prefWidth="600.0" styleClass="body-background" stylesheets="/css/background.css">
               <children>
                   <ImageView fitWidth="900.0" pickOnBounds="true" preserveRatio="true">
                       <image>
-                          <Image url="@Hospitalbackground.png" />
+                          <Image url="@../images/Hospitalbackground.png" />
                       </image>
                   </ImageView>
                   <BorderPane prefHeight="600.0" prefWidth="900.0" AnchorPane.leftAnchor="0.0">
                       <top>
-                          <MenuBar blendMode="ADD" prefWidth="600.0" style="-fx-background-color: white;" stylesheets="@background.css" BorderPane.alignment="CENTER">
+                          <MenuBar blendMode="ADD" prefWidth="600.0" style="-fx-background-color: white;" stylesheets="@../css/background.css" BorderPane.alignment="CENTER">
                               <menus>
                                   <Menu mnemonicParsing="false" onShowing="#setHomeButton" text="Home">
                            <items>
@@ -50,12 +50,12 @@
                <left>
                   <AnchorPane prefHeight="575.0" prefWidth="250.0" BorderPane.alignment="CENTER">
                      <children>
-                        <JFXButton fx:id="confirmButton" layoutX="86.0" layoutY="472.0" onAction="#setConfirmButton" styleClass="jfx-button_edit" stylesheets="@background.css" text="Confirm" />
-                        <JFXButton contentDisplay="CENTER" layoutX="102.0" layoutY="516.0" onMouseClicked="#setCancelButton" styleClass="jfx-button-cancel" stylesheets="@background.css" text=" ">
+                        <JFXButton fx:id="confirmButton" layoutX="86.0" layoutY="472.0" onAction="#setConfirmButton" styleClass="jfx-button_edit" stylesheets="@../css/background.css" text="Confirm" />
+                        <JFXButton contentDisplay="CENTER" layoutX="102.0" layoutY="516.0" onMouseClicked="#setCancelButton" styleClass="jfx-button-cancel" stylesheets="@../css/background.css" text=" ">
                            <graphic>
                               <ImageView fitHeight="25.0" fitWidth="25.0" onMouseClicked="#setCancelButton" pickOnBounds="true" preserveRatio="true">
                                  <image>
-                                    <Image url="@icon/cancel (1).png" />
+                                    <Image url="@../images/cancel (1).png" />
                                  </image>
                               </ImageView>
                            </graphic>
@@ -86,7 +86,7 @@
                               <Font name="System Bold" size="18.0" />
                            </font>
                         </Text>
-                        <Label fx:id="costLabel" layoutX="48.0" layoutY="107.0" styleClass="label1" stylesheets="@background.css" text="\$0.00" textFill="WHITE">
+                        <Label fx:id="costLabel" layoutX="48.0" layoutY="107.0" styleClass="label1" stylesheets="@../css/background.css" text="\$0.00" textFill="WHITE">
                            <font>
                               <Font name="System Bold" size="15.0" />
                            </font>
@@ -123,45 +123,45 @@
                      <children>
                         <ImageView fitHeight="150.0" fitWidth="200.0" onMouseClicked="#costPic2" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.halignment="CENTER">
                            <image>
-                              <Image url="@pictures/pic2.jpg" />
+                              <Image url="@../pictures/pic2.jpg" />
                            </image>
                         </ImageView>
                         <ImageView fitHeight="150.0" fitWidth="200.0" onMouseClicked="#costPic3" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.halignment="CENTER">
                            <image>
-                              <Image url="@pictures/pic5.jpg" />
+                              <Image url="@../pictures/pic5.jpg" />
                            </image></ImageView>
                         <ImageView fitHeight="150.0" fitWidth="200.0" onMouseClicked="#costPic4" pickOnBounds="true" preserveRatio="true" GridPane.halignment="CENTER" GridPane.rowIndex="1">
                            <image>
-                              <Image url="@pictures/pic6.jpg" />
+                              <Image url="@../pictures/pic6.jpg" />
                            </image></ImageView>
                         <ImageView fitHeight="150.0" fitWidth="200.0" onMouseClicked="#costPic5" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1">
                            <image>
-                              <Image url="@pictures/pic4.jpg" />
+                              <Image url="@../pictures/pic4.jpg" />
                            </image>
                         </ImageView>
                         <ImageView fitHeight="180.0" fitWidth="250.0" onMouseClicked="#costPic7" pickOnBounds="true" preserveRatio="true" GridPane.halignment="CENTER" GridPane.rowIndex="2">
                            <image>
-                              <Image url="@pictures/pic3.jpg" />
+                              <Image url="@../pictures/pic3.jpg" />
                            </image>
                         </ImageView>
                         <ImageView fitHeight="150.0" fitWidth="200.0" onMouseClicked="#costPic6" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="1">
                            <image>
-                              <Image url="@pictures/pic7.jpg" />
+                              <Image url="@../pictures/pic7.jpg" />
                            </image>
                         </ImageView>
                         <ImageView fitHeight="180.0" fitWidth="230.0" onMouseClicked="#costPic8" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2">
                            <image>
-                              <Image url="@pictures/pic8.jpg" />
+                              <Image url="@../pictures/pic8.jpg" />
                            </image>
                         </ImageView>
                         <ImageView fitHeight="150.0" fitWidth="200.0" onMouseClicked="#costPic9" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="2">
                            <image>
-                              <Image url="@pictures/pic9.jpg" />
+                              <Image url="@../pictures/pic9.jpg" />
                            </image>
                         </ImageView>
                         <ImageView fitHeight="150.0" fitWidth="200.0" onMouseClicked="#costPic1" pickOnBounds="true" preserveRatio="true" GridPane.halignment="CENTER">
                            <image>
-                              <Image url="@pictures/pic1.jpg" />
+                              <Image url="@../pictures/pic1.jpg" />
                            </image>
                         </ImageView>
                      </children>

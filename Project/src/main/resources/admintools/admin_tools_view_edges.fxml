@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import com.jfoenix.controls.JFXButton?>
 <?import java.lang.String?>
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
@@ -12,14 +13,15 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.text.Font?>
 
 <AnchorPane prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="admintools.UIControllerATVE">
    <children>
-      <AnchorPane prefHeight="600.0" prefWidth="900.0" styleClass="body-background" stylesheets="/background.css">
+      <AnchorPane prefHeight="600.0" prefWidth="900.0" styleClass="body-background" stylesheets="/css/background.css">
          <children>
             <ImageView fitWidth="900.0" opacity="0.6" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@Hospitalbackground.png" />
+                  <Image url="@../images/Hospitalbackground.png" />
                </image>
                <effect>
                   <ColorAdjust brightness="-0.15" hue="0.05" />
@@ -27,7 +29,7 @@
             </ImageView>
             <BorderPane>
                <top>
-                  <MenuBar blendMode="LIGHTEN" nodeOrientation="LEFT_TO_RIGHT" prefWidth="900.0" style="-fx-background-color: #ffffff;" stylesheets="@background.css" BorderPane.alignment="CENTER">
+                  <MenuBar blendMode="LIGHTEN" nodeOrientation="LEFT_TO_RIGHT" prefWidth="900.0" style="-fx-background-color: #ffffff;" stylesheets="@../css/background.css" BorderPane.alignment="CENTER">
                     <menus>
                       <Menu mnemonicParsing="false" text="Back">
                         <items>
@@ -45,11 +47,11 @@
                   </MenuBar>
                </top>
                <center>
-                  <TableView fx:id="edgeTable" maxWidth="800.0" prefHeight="530.0" prefWidth="800.0" stylesheets="@background.css" BorderPane.alignment="CENTER">
+                  <TableView fx:id="edgeTable" maxWidth="800.0" prefHeight="490.0" prefWidth="800.0" stylesheets="@../css/background.css" BorderPane.alignment="CENTER">
                     <columns>
-                      <TableColumn prefWidth="200.0" text="Reserved Date" />
-                      <TableColumn prefWidth="200.0" text="Reserved Time" />
-                        <TableColumn prefWidth="200.0" text="Reserved Room" />
+                      <TableColumn prefWidth="200.0" text="EdgeID" />
+                      <TableColumn prefWidth="200.0" text="StartNode" />
+                        <TableColumn prefWidth="200.0" text="EndNode" />
                         <TableColumn prefWidth="200.0" text="Remove" />
                     </columns>
                      <styleClass>
@@ -60,6 +62,11 @@
                   </TableView>
                </center>
             </BorderPane>
+            <JFXButton fx:id="addButton" buttonType="RAISED" layoutX="757.0" layoutY="536.0" onAction="#setAddButton" styleClass="jfx-button-add" stylesheets="@../css/background.css" text="Add Edge" textFill="WHITE">
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font>
+            </JFXButton>
          </children>
       </AnchorPane>
    </children>

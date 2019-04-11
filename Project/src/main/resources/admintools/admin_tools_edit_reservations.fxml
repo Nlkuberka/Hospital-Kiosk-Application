@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import com.jfoenix.controls.JFXButton?>
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
@@ -12,23 +11,22 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
-<?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="admintools.UIControllerATVU">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="admintools.UIControllerATER">
    <children>
-      <AnchorPane prefHeight="600.0" prefWidth="900.0" styleClass="body-background" stylesheets="/background.css">
+      <AnchorPane prefHeight="600.0" prefWidth="900.0" styleClass="body-background" stylesheets="/css/background.css">
          <children>
             <ImageView fitWidth="900.0" opacity="0.6" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@Hospitalbackground.png" />
+                  <Image url="@../images/Hospitalbackground.png" />
                </image>
                <effect>
                   <ColorAdjust brightness="-0.15" hue="0.05" />
                </effect>
             </ImageView>
-            <BorderPane stylesheets="@background.css">
+            <BorderPane stylesheets="@../css/background.css">
                <top>
-                  <MenuBar blendMode="LIGHTEN" nodeOrientation="LEFT_TO_RIGHT" prefWidth="900.0" style="-fx-background-color: #ffffff;" stylesheets="@background.css" BorderPane.alignment="CENTER">
+                  <MenuBar blendMode="LIGHTEN" nodeOrientation="LEFT_TO_RIGHT" prefWidth="900.0" style="-fx-background-color: #ffffff;" stylesheets="@../css/background.css" BorderPane.alignment="CENTER">
                     <menus>
                       <Menu mnemonicParsing="false" text="Back">
                         <items>
@@ -46,23 +44,19 @@
                   </MenuBar>
                </top>
                <center>
-                  <TableView fx:id="userTableView" maxWidth="850.0" prefHeight="520.0" prefWidth="850.0" BorderPane.alignment="CENTER">
+                  <TableView fx:id="reservationTable" maxWidth="850.0" prefHeight="520.0" prefWidth="850.0" BorderPane.alignment="CENTER">
                     <columns>
-                      <TableColumn prefWidth="60.0" text="UserID" />
-                      <TableColumn prefWidth="150.0" text="Username" />
-                        <TableColumn prefWidth="150.0" text="Password" />
-                        <TableColumn prefWidth="150.0" text="Permissions" />
-                        <TableColumn prefWidth="250.0" text="Service Requests" />
-                        <TableColumn text="Remove" />
+                      <TableColumn prefWidth="98.66668701171875" text="RSV ID" />
+                      <TableColumn prefWidth="137.33331298828125" text="Node ID" />
+                        <TableColumn minWidth="0.0" prefWidth="127.33334350585938" text="User ID" />
+                        <TableColumn minWidth="0.0" prefWidth="123.66668701171875" text="Date" />
+                        <TableColumn minWidth="0.0" prefWidth="141.33331298828125" text="Start Time" />
+                        <TableColumn minWidth="0.0" prefWidth="144.66668701171875" text="End Time" />
+                        <TableColumn prefWidth="65.66668701171875" />
                     </columns>
                   </TableView>
                </center>
             </BorderPane>
-            <JFXButton fx:id="addButton" buttonType="RAISED" layoutX="756.0" layoutY="553.0" onAction="#setAddButton" styleClass="jfx-button-add" stylesheets="@background.css" text="Add User" textFill="WHITE">
-               <font>
-                  <Font name="System Bold" size="14.0" />
-               </font>
-            </JFXButton>
          </children>
       </AnchorPane>
    </children>

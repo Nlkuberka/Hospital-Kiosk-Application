@@ -22,13 +22,13 @@
 <StackPane fx:id="parentPane" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="admintools.UIControllerATMV">
     <children>
         <ImageView fx:id="backgroundImage" pickOnBounds="true">
-            <Image url="@Hospitalbackground.png" />
+            <Image url="@../images/Hospitalbackground.png" />
             <effect>
                 <ColorAdjust brightness="0.41" />
             </effect>
         </ImageView>
         <VBox fillWidth="true">
-            <MenuBar blendMode="ADD" style="-fx-background-color: white;" stylesheets="@background.css">
+            <MenuBar blendMode="ADD" style="-fx-background-color: white;" stylesheets="@../css/background.css">
                 <Menu mnemonicParsing="false" onShowing="#setHomeButton" text="Home">
                     <MenuItem fx:id="backButton" mnemonicParsing="false" onAction="#goBack" text="Go back to previous page" />
                 </Menu>
@@ -62,26 +62,26 @@
                         </ScrollPane>
                         <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="140.0" prefWidth="75.0" StackPane.alignment="TOP_LEFT">
                             <children>
-                                <JFXButton fx:id="zoom_button" contentDisplay="CENTER" layoutX="4.0" layoutY="14.0" mnemonicParsing="false" onAction="#zoom" prefWidth="100.0" styleClass="jfx-button-zoom" stylesheets="@background.css" text=" " textFill="WHITE">
+                                <JFXButton fx:id="zoom_button" contentDisplay="CENTER" layoutX="4.0" layoutY="14.0" mnemonicParsing="false" onAction="#zoom" prefWidth="100.0" styleClass="jfx-button-zoom" stylesheets="@../css/background.css" text=" " textFill="WHITE">
                                     <font>
                                         <Font name="System Bold" size="14.0" />
                                     </font>
                                     <graphic>
                                         <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
                                             <image>
-                                                <Image url="@icon/zoom-in (1).png" />
+                                                <Image url="@../images/zoom-in (1).png" />
                                             </image>
                                         </ImageView>
                                     </graphic>
                                 </JFXButton>
-                                <JFXButton fx:id="unzoom_button" contentDisplay="CENTER" layoutX="4.0" layoutY="79.0" mnemonicParsing="false" onAction="#unZoom" prefWidth="100.0" styleClass="jfx-button-zoom" stylesheets="@background.css" text=" " textFill="WHITE">
+                                <JFXButton fx:id="unzoom_button" contentDisplay="CENTER" layoutX="4.0" layoutY="79.0" mnemonicParsing="false" onAction="#unZoom" prefWidth="100.0" styleClass="jfx-button-zoom" stylesheets="@../css/background.css" text=" " textFill="WHITE">
                                     <font>
                                         <Font name="System Bold" size="14.0" />
                                     </font>
                                     <graphic>
                                         <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
                                             <image>
-                                                <Image url="@icon/zoom-out (1).png" />
+                                                <Image url="@../images/zoom-out (1).png" />
                                             </image>
                                         </ImageView>
                                     </graphic>

@@ -16,16 +16,16 @@
    <children>
       <AnchorPane prefHeight="400.0" prefWidth="600.0">
          <children>
-            <AnchorPane prefHeight="400.0" prefWidth="600.0" styleClass="body-background" stylesheets="/background.css">
+            <AnchorPane prefHeight="400.0" prefWidth="600.0" styleClass="body-background" stylesheets="/css/background.css">
                <children>
                   <ImageView fitHeight="600.0" fitWidth="900.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@Hospitalbackground.png" />
+                        <Image url="@../images/Hospitalbackground.png" />
                      </image>
                   </ImageView>
                   <BorderPane>
                      <top>
-                        <MenuBar blendMode="ADD" prefWidth="900.0" style="-fx-background-color: white;" stylesheets="@background.css" BorderPane.alignment="CENTER">
+                        <MenuBar blendMode="ADD" prefWidth="900.0" style="-fx-background-color: white;" stylesheets="@../css/background.css" BorderPane.alignment="CENTER">
                           <menus>
                             <Menu mnemonicParsing="false" text="Back">
                               <items>
@@ -36,14 +36,14 @@
                         </MenuBar>
                      </top>
                   </BorderPane>
-                  <JFXButton fx:id="viewReservations" alignment="BOTTOM_CENTER" buttonType="RAISED" contentDisplay="TOP" graphicTextGap="20.0" layoutX="480.0" layoutY="200.0" maxHeight="240.0" onAction="#setViewReservations" prefHeight="40.0" prefWidth="400.0" styleClass="jfx-button-guest-main-menu" stylesheets="@background.css" text="View My Reservations" textFill="WHITE" AnchorPane.leftAnchor="480.0">
+                  <JFXButton fx:id="viewReservations" alignment="BOTTOM_CENTER" buttonType="RAISED" contentDisplay="TOP" graphicTextGap="20.0" layoutX="480.0" layoutY="200.0" maxHeight="240.0" onAction="#setViewReservations" prefHeight="40.0" prefWidth="400.0" styleClass="jfx-button-guest-main-menu" stylesheets="@../css/background.css" text="View My Reservations" textFill="WHITE" AnchorPane.leftAnchor="480.0">
                      <font>
                         <Font name="System Bold" size="25.0" />
                      </font>
                      <graphic>
                         <ImageView fitHeight="180.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@icon/briefing.png" />
+                              <Image url="@../images/briefing.png" />
                            </image>
                            <effect>
                               <ColorAdjust brightness="0.3" />
@@ -56,14 +56,14 @@
                         <Font name="System Bold Italic" size="45.0" />
                      </font>
                   </Text>
-                  <JFXButton fx:id="makeReservation" alignment="BOTTOM_CENTER" buttonType="RAISED" contentDisplay="TOP" graphicTextGap="15.0" layoutX="180.0" layoutY="200.0" maxHeight="240.0" onAction="#setMakeReservation" prefHeight="245.0" prefWidth="400.0" styleClass="jfx-button-guest-main-menu" stylesheets="@background.css" text="Make Reservation" textFill="WHITE" AnchorPane.leftAnchor="180.0" AnchorPane.topAnchor="200.0">
+                  <JFXButton fx:id="makeReservation" alignment="BOTTOM_CENTER" buttonType="RAISED" contentDisplay="TOP" graphicTextGap="15.0" layoutX="180.0" layoutY="200.0" maxHeight="240.0" onAction="#setMakeReservation" prefHeight="245.0" prefWidth="400.0" styleClass="jfx-button-guest-main-menu" stylesheets="@../css/background.css" text="Make Reservation" textFill="WHITE" AnchorPane.leftAnchor="180.0" AnchorPane.topAnchor="200.0">
                      <font>
                         <Font name="System Bold" size="25.0" />
                      </font>
                      <graphic>
                         <ImageView fitHeight="180.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@icon/reserved.png" />
+                              <Image url="@../images/reserved.png" />
                            </image>
                         </ImageView>
                      </graphic>

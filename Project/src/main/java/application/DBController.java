@@ -327,7 +327,7 @@ public class DBController {
     /**
      * updateServiceRequest
      *
-     * saves changes msde to a ServiceRequest object
+     * saves changes msde to a servicerequests object
      *
      * UP TO DATE
      * @param serviceRequest
@@ -549,7 +549,7 @@ public class DBController {
     /**
      * addServiceRequest
      *
-     * Enters ServiceRequest object to database
+     * Enters servicerequests object to database
      *
      * @param serviceRequest
      * @param connection

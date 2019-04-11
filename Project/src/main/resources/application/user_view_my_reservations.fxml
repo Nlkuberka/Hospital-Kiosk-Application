@@ -13,18 +13,21 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="admintools.UIControllerATVSR">
+<AnchorPane prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="admintools.UIControllerATVE">
    <children>
-      <AnchorPane prefHeight="600.0" prefWidth="900.0" styleClass="body-background" stylesheets="/background.css">
+      <AnchorPane prefHeight="600.0" prefWidth="900.0" styleClass="body-background" stylesheets="/css/background.css">
          <children>
             <ImageView fitWidth="900.0" opacity="0.6" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@Hospitalbackground.png" />
+                  <Image url="@../images/Hospitalbackground.png" />
                </image>
+               <effect>
+                  <ColorAdjust brightness="-0.15" hue="0.05" />
+               </effect>
             </ImageView>
             <BorderPane>
                <top>
-                  <MenuBar blendMode="LIGHTEN" nodeOrientation="LEFT_TO_RIGHT" prefWidth="900.0" style="-fx-background-color: #ffffff;" stylesheets="@background.css" BorderPane.alignment="CENTER">
+                  <MenuBar blendMode="LIGHTEN" nodeOrientation="LEFT_TO_RIGHT" prefWidth="900.0" style="-fx-background-color: #ffffff;" stylesheets="@../css/background.css" BorderPane.alignment="CENTER">
                     <menus>
                       <Menu mnemonicParsing="false" text="Back">
                         <items>
@@ -34,30 +37,24 @@
                       <Menu fx:id="homeButton" mnemonicParsing="false" onShowing="#setHomeButton" text="Home">
                            <items>
                               <MenuItem text="HOME" />
-                           </items>
-                        </Menu>
+                           </items></Menu>
                     </menus>
                      <effect>
-                        <ColorAdjust brightness="0.19" contrast="0.01" hue="0.01" saturation="-0.44">
-                           <input>
-                              <DropShadow />
-                           </input>
-                        </ColorAdjust>
+                        <DropShadow />
                      </effect>
                   </MenuBar>
                </top>
                <center>
-                  <TableView fx:id="serviceRequestTable" maxWidth="800.0" prefHeight="530.0" prefWidth="800.0" stylesheets="@background.css" BorderPane.alignment="CENTER">
+                  <TableView fx:id="edgeTable" maxWidth="800.0" prefHeight="530.0" prefWidth="800.0" stylesheets="@../css/background.css" BorderPane.alignment="CENTER">
                     <columns>
-                      <TableColumn prefWidth="130.0" text="Request Room" />
-                      <TableColumn prefWidth="130.0" text="Service Type" />
-                        <TableColumn prefWidth="100.0" text="UserID" />
-                        <TableColumn prefWidth="100.0" text="Resolved" />
-                        <TableColumn prefWidth="160.0" text="Resolver" />
-                        <TableColumn prefWidth="180.0" text="Additional Messages" />
+                      <TableColumn prefWidth="200.0" text="Reserved Date" />
+                      <TableColumn prefWidth="200.0" text="Reserved Time" />
+                        <TableColumn prefWidth="200.0" text="Reserved Room" />
+                        <TableColumn prefWidth="200.0" text="Remove" />
                     </columns>
                      <styleClass>
                         <String fx:value="table-view" />
+                        <String fx:value="cell-renderer" />
                         <String fx:value="table-row-cell" />
                      </styleClass>
                   </TableView>
