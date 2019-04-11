@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.UIControllerMMM">
+   <children>
+      <AnchorPane prefHeight="400.0" prefWidth="600.0">
+         <children>
+            <AnchorPane prefHeight="400.0" prefWidth="600.0" styleClass="body-background" stylesheets="/background.css">
+               <children>
+                  <ImageView fitHeight="600.0" fitWidth="900.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@Hospitalbackground.png" />
+                     </image>
+                  </ImageView>
+                  <BorderPane>
+                     <top>
+                        <MenuBar blendMode="ADD" prefWidth="900.0" style="-fx-background-color: white;" stylesheets="@background.css" BorderPane.alignment="CENTER">
+                          <menus>
+                            <Menu mnemonicParsing="false" text="Back">
+                              <items>
+                                <MenuItem fx:id="backMenuItem" mnemonicParsing="false" onAction="#setBackMenuItem" text="Go back to previous page" />
+                              </items>
+                            </Menu>
+                          </menus>
+                        </MenuBar>
+                     </top>
+                  </BorderPane>
+                  <JFXButton fx:id="serviceRequestButton" alignment="TOP_CENTER" buttonType="RAISED" contentDisplay="BOTTOM" layoutX="606.0" layoutY="195.0" maxHeight="240.0" onAction="#setServiceRequestButton" prefHeight="40.0" prefWidth="400.0" styleClass="jfx-button-main-menu" stylesheets="@background.css" text="Service Request" textFill="WHITE">
+                     <font>
+                        <Font name="System Bold" size="25.0" />
+                     </font>
+                     <graphic>
+                        <ImageView fitHeight="180.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@icon/024-doctor-1.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </JFXButton>
+                  <Text fill="WHITE" layoutX="316.0" layoutY="126.0" strokeType="OUTSIDE" strokeWidth="0.0" text="User's Home">
+                     <font>
+                        <Font name="System Bold" size="45.0" />
+                     </font>
+                  </Text>
+                  <JFXButton fx:id="reservationsButton" alignment="TOP_CENTER" buttonType="RAISED" contentDisplay="BOTTOM" layoutX="373.0" layoutY="195.0" maxHeight="240.0" maxWidth="180.0" onAction="#setReservationsButton" prefHeight="40.0" prefWidth="400.0" styleClass="jfx-button-main-menu" stylesheets="@background.css" text="Reserve a Room" textFill="WHITE">
+                     <font>
+                        <Font name="System Bold" size="25.0" />
+                     </font>
+                     <graphic>
+                        <ImageView fitHeight="180.0" fitWidth="150.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@icon/RoomReservation.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </JFXButton>
+                  <JFXButton fx:id="pathfindingButton" alignment="TOP_CENTER" buttonType="RAISED" contentDisplay="BOTTOM" layoutX="136.0" layoutY="195.0" maxHeight="240.0" onAction="#setPathfindingButton" prefHeight="245.0" prefWidth="400.0" styleClass="jfx-button-main-menu" stylesheets="@background.css" text="Find Path" textFill="WHITE">
+                     <font>
+                        <Font name="System Bold" size="25.0" />
+                     </font>
+                     <graphic>
+                        <ImageView fitHeight="180.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@icon/road-map.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </JFXButton>
+               </children>
+            </AnchorPane>
+         </children>
+      </AnchorPane>
+   </children>
+</AnchorPane>
