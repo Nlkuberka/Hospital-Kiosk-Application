@@ -17,8 +17,11 @@
     -fx-font-size: 20;
     -fx-font-weight: bold;
     -fx-text-fill: white;
-    -fx-pref-width: 180;
+    -fx-pref-width: 240;
+    -fx-max-width: 240;
     -fx-pref-height: 240;
+    -fx-max-height: 240;
+    -fx-content-display: bottom;
 }
 
 .jfx-button-admin-main-menu-main{
