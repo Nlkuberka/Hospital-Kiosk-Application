@@ -20,7 +20,7 @@
 
 <StackPane xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="admintools.UIControllerATM">
    <children>
-      <ImageView fitHeight="600.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="backgroundImage" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../images/Hospitalbackground.png" />
          </image>
@@ -47,22 +47,22 @@
          <center>
             <GridPane BorderPane.alignment="CENTER">
                <columnConstraints>
-                  <ColumnConstraints hgrow="ALWAYS" percentWidth="20" minWidth="10.0" />
-                  <ColumnConstraints hgrow="SOMETIMES" percentWidth="60" minWidth="10.0" />
+                  <ColumnConstraints hgrow="ALWAYS" percentWidth="10" minWidth="10.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" percentWidth="80" minWidth="10.0" />
                   <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" />
                </columnConstraints>
                <rowConstraints>
-                  <RowConstraints minHeight="10.0" percentHeight="20" vgrow="ALWAYS" />
-                  <RowConstraints minHeight="10.0" percentHeight="40" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" percentHeight="20" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" percentHeight="50" vgrow="SOMETIMES" />
                   <RowConstraints minHeight="10.0" vgrow="ALWAYS" />
                </rowConstraints>
                <children>
-                  <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Administrator Tools">
+                  <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Administrator Tools" GridPane.columnIndex="1" GridPane.rowIndex="0" GridPane.halignment="CENTER">
                      <font>
                         <Font name="System Bold" size="40.0" />
                      </font>
                   </Text>
-                  <FlowPane prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="1" GridPane.halignment="CENTER">
+                  <FlowPane GridPane.rowIndex="1" GridPane.columnIndex="1" GridPane.halignment="CENTER" alignment="CENTER">
                      <children>
                         <JFXButton fx:id="viewEdgesButton1" alignment="BOTTOM_CENTER" buttonType="RAISED" contentDisplay="TOP" graphicTextGap="27.0" onAction="#setViewNodesButton" prefHeight="40.0" prefWidth="350.0" styleClass="jfx-button-admin-tools-main" stylesheets="@../css/background.css" text="Edit Nodes" textAlignment="CENTER" textFill="WHITE" wrapText="true">
                            <font>

@@ -7,6 +7,7 @@ import com.jfoenix.controls.JFXButton;
 import javafx.fxml.FXML;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuItem;
+import javafx.scene.image.ImageView;
 
 /**
  * The UIController for the Admin Tools Main Menu
@@ -17,6 +18,8 @@ import javafx.scene.control.MenuItem;
  */
 public class UIControllerATM extends UIController {
 
+    @FXML
+    private ImageView backgroundImage;
     @FXML
     private Menu homeButton; /**< The Home Button*/
 
@@ -47,7 +50,7 @@ public class UIControllerATM extends UIController {
      */
     @FXML
     public void initialize() {
-
+        backgroundImage.setFitWidth(primaryStage.getWidth());
     }
 
 
