@@ -156,7 +156,7 @@
                            <graphic>
                               <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
-                                    <Image url="@../images/zoom-in (1).png" />
+                                    <Image url="@icon/zoom-in.png" />
                                  </image>
                               </ImageView>
                            </graphic>
@@ -168,7 +168,7 @@
                            <graphic>
                               <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
-                                    <Image url="@../images/zoom-out (1).png" />
+                                    <Image url="@icon/zoom-out.png" />
                                  </image>
                               </ImageView>
                            </graphic>
