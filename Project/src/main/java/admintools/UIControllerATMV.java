@@ -7,7 +7,6 @@ import entities.Node;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.geometry.Rectangle2D;
 import javafx.scene.Group;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -25,9 +24,7 @@ import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
 import javafx.scene.shape.Path;
 import javafx.stage.Modality;
-import javafx.stage.Screen;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 
 import java.io.IOException;
 import java.sql.Connection;
@@ -35,7 +32,6 @@ import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Objects;
 
 /**
  * Controller for the path_find_main.fxml file
@@ -249,7 +245,6 @@ public class UIControllerATMV extends UIController {
 
 
     public void addNodeOnClick(MouseEvent mouseEvent) throws IOException {
-        enablePopup();
         double x = mouseEvent.getX();
         double y = mouseEvent.getY();
 
@@ -258,6 +253,9 @@ public class UIControllerATMV extends UIController {
         testNode.setYcoord((int) (mouseEvent.getY() / getScale().get("scaleFy")));
         testNode.setFloor("2");
         testNode.setNodeID("TEST");
+
+        enablePopup(testNode);
+
         usefulNodes.add(testNode);
         Circle newNode = new Circle((float) x, (float) y, 3);
         newNode.setRadius(5);
@@ -267,12 +265,46 @@ public class UIControllerATMV extends UIController {
         nodesGroup.getChildren().add(newNode);
     }
 
-    private void enablePopup() throws IOException {
+    private void enablePopup(Node node) throws IOException {
+        //populateController(node);
+        setStage(node);
+        /*
         Stage stage = new Stage();
-        Parent root = FXMLLoader.load(getClass().getResource("/ATMV_addNode_popup.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/ATMV_addNode_popup.fxml"));
+        Parent root = loader.load();
+
+        UIControllerPUMVAN atmvAddNodePopupController = loader.getController();
+        atmvAddNodePopupController.setNode(node);
+
         stage.setScene(new Scene(root));
         stage.initModality(Modality.APPLICATION_MODAL);
        // stage.initStyle(StageStyle.UNIFIED);
+        stage.initOwner(parentPane.getScene().getWindow());
+        stage.setHeight(400);
+        stage.setWidth(600);
+        stage.setResizable(false);
+        stage.centerOnScreen();
+        stage.showAndWait();
+        */
+    }
+
+    private void populateController(Node node)
+    {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/admintools/ATMV_addNode_popup.fxml"));
+        UIControllerPUMVAN atmvAddNodePopupController = loader.getController();
+        atmvAddNodePopupController.setNode(node);
+    }
+
+    private void setStage(Node node) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/admintools/ATMV_addNode_popup.fxml"));
+        Parent root = loader.load();
+        UIControllerPUMVAN atmvAddNodePopupController = loader.getController();
+        atmvAddNodePopupController.setNode(node);
+
+        Stage stage = new Stage();
+        stage.setScene(new Scene(root));
+        stage.initModality(Modality.APPLICATION_MODAL);
+        // stage.initStyle(StageStyle.UNIFIED);
         stage.initOwner(parentPane.getScene().getWindow());
         stage.setHeight(400);
         stage.setWidth(600);
