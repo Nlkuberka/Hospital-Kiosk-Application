@@ -17,7 +17,7 @@ public class Main extends Application {
     public void start(Stage primaryStage) throws Exception {
         UIController controller = new UIController(primaryStage);
 
-        controller.goToScene(UIController.LOGIN_MAIN);
+        controller.goToScene(UIController.ADMIN_TOOLS_MAP_VIEW);
 
         System.out.println("Collaborator is " + "X");
 
