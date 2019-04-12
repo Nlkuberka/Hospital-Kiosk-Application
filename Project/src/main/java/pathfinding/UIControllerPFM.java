@@ -204,6 +204,8 @@ public class UIControllerPFM extends UIController {
         // set value to "true" to use zoom functionality
         setZoomOn(true);
 
+        mapHandler.setAllPaneSize(1920.0, mapHandler.getTopPane().getPrefHeight()*(1920.0/mapHandler.getTopPane().getPrefWidth()));
+
         floorSlider.valueProperty().addListener(new ChangeListener() {
 
             @Override
@@ -261,7 +263,7 @@ public class UIControllerPFM extends UIController {
         backgroundImage.fitHeightProperty().bind(parentPane.heightProperty());
         backgroundImage.fitWidthProperty().bind(parentPane.widthProperty());
 
-        interfaceGrid.prefHeightProperty().bind(hboxForMap.heightProperty());
+        //interfaceGrid.prefHeightProperty().bind(hboxForMap.heightProperty());
 
         scrollPane_pathfind.prefViewportWidthProperty().bind(hboxForMap.prefWidthProperty());
     }
