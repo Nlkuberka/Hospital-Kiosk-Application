@@ -25,6 +25,7 @@ import javafx.scene.shape.Line;
 import javafx.scene.shape.Path;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 import java.io.IOException;
 import java.sql.Connection;
@@ -266,36 +267,6 @@ public class UIControllerATMV extends UIController {
     }
 
     private void enablePopup(Node node) throws IOException {
-        //populateController(node);
-        setStage(node);
-        /*
-        Stage stage = new Stage();
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/ATMV_addNode_popup.fxml"));
-        Parent root = loader.load();
-
-        UIControllerPUMVAN atmvAddNodePopupController = loader.getController();
-        atmvAddNodePopupController.setNode(node);
-
-        stage.setScene(new Scene(root));
-        stage.initModality(Modality.APPLICATION_MODAL);
-       // stage.initStyle(StageStyle.UNIFIED);
-        stage.initOwner(parentPane.getScene().getWindow());
-        stage.setHeight(400);
-        stage.setWidth(600);
-        stage.setResizable(false);
-        stage.centerOnScreen();
-        stage.showAndWait();
-        */
-    }
-
-    private void populateController(Node node)
-    {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/admintools/ATMV_addNode_popup.fxml"));
-        UIControllerPUMVAN atmvAddNodePopupController = loader.getController();
-        atmvAddNodePopupController.setNode(node);
-    }
-
-    private void setStage(Node node) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/admintools/ATMV_addNode_popup.fxml"));
         Parent root = loader.load();
         UIControllerPUMVAN atmvAddNodePopupController = loader.getController();
@@ -304,7 +275,7 @@ public class UIControllerATMV extends UIController {
         Stage stage = new Stage();
         stage.setScene(new Scene(root));
         stage.initModality(Modality.APPLICATION_MODAL);
-        // stage.initStyle(StageStyle.UNIFIED);
+        stage.initStyle(StageStyle.UNDECORATED);
         stage.initOwner(parentPane.getScene().getWindow());
         stage.setHeight(400);
         stage.setWidth(600);

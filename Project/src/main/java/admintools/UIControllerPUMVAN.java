@@ -4,22 +4,26 @@ import application.UIController;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextField;
 import entities.Node;
-import javafx.fxml.FXML;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.StackPane;
 
 public class UIControllerPUMVAN extends UIController {
     public StackPane parentPane;
+
     public JFXButton button_cancel;
     public JFXButton button_save;
+
     public JFXTextField TextField_NodeID;
+    public JFXTextField TextField_XCoor;
+    public JFXTextField TextField_Building;
+    public JFXTextField TextField_LongName;
+    public JFXTextField TextField_NodeType;
+    public JFXTextField TextField_YCoor;
+    public JFXTextField TextField_Floor;
+    public JFXTextField TextField_ShortName;
     private Node node;
 
-    @Override
-    public void onShow()
-    {
 
-    }
 
     public void closeWindow(MouseEvent mouseEvent) {
         ((javafx.scene.Node)(mouseEvent.getSource())).getScene().getWindow().hide();
@@ -29,5 +33,7 @@ public class UIControllerPUMVAN extends UIController {
     {
         this.node = node;
         TextField_NodeID.setText(node.getNodeID());
+        TextField_XCoor.setText(Integer.toString(node.getXcoord()));
+        TextField_YCoor.setText(Integer.toString(node.getYcoord()));
     }
 }
