@@ -182,7 +182,7 @@ public class UIControllerPFM extends UIController {
         this.mapHandler = new MapHandler(p_002, p_001, p_00, p_01, p_02, p_03,
                 map_002, map_001, map_00, map_01, map_02, map_03,
                 pane_002, pane_001, pane_00, pane_01, pane_02, pane_03,
-                Floors.SECOND);
+                Floors.SECOND, primaryStage);
 
         initialBindings();
         setScene();
@@ -262,8 +262,6 @@ public class UIControllerPFM extends UIController {
         // ensures auto resize works
         backgroundImage.fitHeightProperty().bind(parentPane.heightProperty());
         backgroundImage.fitWidthProperty().bind(parentPane.widthProperty());
-
-        //interfaceGrid.prefHeightProperty().bind(hboxForMap.heightProperty());
 
         scrollPane_pathfind.prefViewportWidthProperty().bind(hboxForMap.prefWidthProperty());
     }
