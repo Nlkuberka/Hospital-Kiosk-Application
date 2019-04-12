@@ -39,7 +39,7 @@ public class UIControllerSRM extends UIController {
     }
 
     /**
-     * Redirects to IT ServiceRequest
+     * Redirects to IT servicerequests
      */
     @FXML
     public void setITButton() {

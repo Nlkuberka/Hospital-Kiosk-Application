@@ -123,91 +123,91 @@ public class UIController {
         sceneTitles = new HashMap<String, String>();
         sceneParents = new HashMap<String, Parent>();
 
-        sceneFiles.put(UIController.LOGIN_MAIN, "/login_main.fxml");
+        sceneFiles.put(UIController.LOGIN_MAIN, "/application/login_main.fxml");
         sceneTitles.put(UIController.LOGIN_MAIN, "Login Screen");
 
         // Main Menus
         sceneFiles.put(UIController.GUEST_MAIN_MENU_MAIN, "/guest_main_menu_main.fxml");
         sceneTitles.put(UIController.GUEST_MAIN_MENU_MAIN, "Main Menu");
 
-        sceneFiles.put(UIController.USER_MAIN_MENU_MAIN, "/user_main_menu_main.fxml");
+        sceneFiles.put(UIController.USER_MAIN_MENU_MAIN, "/application/user_main_menu_main.fxml");
         sceneTitles.put(UIController.USER_MAIN_MENU_MAIN, "Main Menu");
 
-        sceneFiles.put(UIController.ADMIN_MAIN_MENU_MAIN, "/admin_main_menu_main.fxml");
+        sceneFiles.put(UIController.ADMIN_MAIN_MENU_MAIN, "/admintools/admin_main_menu_main.fxml");
         sceneTitles.put(UIController.ADMIN_MAIN_MENU_MAIN, "Main Menu");
 
         // Admin Tools
-        sceneFiles.put(UIController.ADMIN_TOOLS_MAIN, "/admin_tools_main.fxml");
+        sceneFiles.put(UIController.ADMIN_TOOLS_MAIN, "/admintools/admin_tools_main.fxml");
         sceneTitles.put(UIController.ADMIN_TOOLS_MAIN, "Admin Tools - Main");
 
-        sceneFiles.put(UIController.ADMIN_TOOLS_VIEW_EDGES, "/admin_tools_view_edges.fxml");
+        sceneFiles.put(UIController.ADMIN_TOOLS_VIEW_EDGES, "/admintools/admin_tools_view_edges.fxml");
         sceneTitles.put(UIController.ADMIN_TOOLS_VIEW_EDGES, "Admin Tools - View Edges");
 
-        sceneFiles.put(UIController.ADMIN_TOOLS_VIEW_NODES, "/admin_tools_view_nodes.fxml");
+        sceneFiles.put(UIController.ADMIN_TOOLS_VIEW_NODES, "/admintools/admin_tools_view_nodes.fxml");
         sceneTitles.put(UIController.ADMIN_TOOLS_VIEW_NODES, "Admin Tools - View Nodes");
 
-        sceneFiles.put(UIController.ADMIN_TOOLS_VIEW_SERVICE_REQUESTS, "/admin_tools_view_service_request.fxml");
+        sceneFiles.put(UIController.ADMIN_TOOLS_VIEW_SERVICE_REQUESTS, "/admintools/admin_tools_view_service_request.fxml");
         sceneTitles.put(UIController.ADMIN_TOOLS_VIEW_SERVICE_REQUESTS, "Admin Tools - View Service Requests");
 
-        sceneFiles.put(UIController.ADMIN_TOOLS_VIEW_USERS, "/admin_tools_view_users.fxml");
+        sceneFiles.put(UIController.ADMIN_TOOLS_VIEW_USERS, "/admintools/admin_tools_view_users.fxml");
         sceneTitles.put(UIController.ADMIN_TOOLS_VIEW_USERS, "Admin Tools - View Users");
 
-        sceneFiles.put(UIController.ADMIN_TOOLS_CHANGE_ALGORITHM, "/admin_tools_switch_algorithm.fxml");
+        sceneFiles.put(UIController.ADMIN_TOOLS_CHANGE_ALGORITHM, "/admintools/admin_tools_switch_algorithm.fxml");
         sceneTitles.put(UIController.ADMIN_TOOLS_CHANGE_ALGORITHM, "Admin Tools - Change Algorithm");
-        sceneFiles.put((UIController.ADMIN_TOOLS_MAP_VIEW), "/admin_tools_map_view.fxml");
+        sceneFiles.put((UIController.ADMIN_TOOLS_MAP_VIEW), "/admintools/admin_tools_map_view.fxml");
         sceneTitles.put((UIController.ADMIN_TOOLS_MAP_VIEW), "Admin Tools ; Map View");
 
-        sceneFiles.put(UIController.ADMIN_TOOLS_EDIT_RESERVATIONS, "/admin_tools_edit_reservations.fxml");
+        sceneFiles.put(UIController.ADMIN_TOOLS_EDIT_RESERVATIONS, "/admintools/admin_tools_edit_reservations.fxml");
         sceneTitles.put(UIController.ADMIN_TOOLS_EDIT_RESERVATIONS, "Admin Tools - Edit Reservation");
 
 
         // Service Request
-        sceneFiles.put(UIController.SERVICE_REQUEST_MAIN, "/service_request_main.fxml");
+        sceneFiles.put(UIController.SERVICE_REQUEST_MAIN, "/servicerequests/service_request_main.fxml");
         sceneTitles.put(UIController.SERVICE_REQUEST_MAIN, "Service Request - Main");
 
-        sceneFiles.put(UIController.SERVICE_REQUEST_AV_EQUIPMENT, "/service_request_audio_visual.fxml");
+        sceneFiles.put(UIController.SERVICE_REQUEST_AV_EQUIPMENT, "/servicerequests/service_request_audio_visual.fxml");
         sceneTitles.put(UIController.SERVICE_REQUEST_AV_EQUIPMENT, "Service Request - Audio Visual");
 
-        sceneFiles.put(UIController.SERVICE_REQUEST_BABYSITTING, "/service_request_babysitting.fxml");
+        sceneFiles.put(UIController.SERVICE_REQUEST_BABYSITTING, "/servicerequests/service_request_babysitting.fxml");
         sceneTitles.put(UIController.SERVICE_REQUEST_BABYSITTING, "Service Request - Babysitting");
 
-        sceneFiles.put(UIController.SERVICE_REQUEST_IT, "/service_request_It.fxml");
+        sceneFiles.put(UIController.SERVICE_REQUEST_IT, "/servicerequests/service_request_It.fxml");
         sceneTitles.put(UIController.SERVICE_REQUEST_IT, "Service Request - IT");
 
-        sceneFiles.put(UIController.SERVICE_REQUEST_PRESCRIPTION_SERVICES_MAIN, "/service_request_prescription_services_main.fxml");
+        sceneFiles.put(UIController.SERVICE_REQUEST_PRESCRIPTION_SERVICES_MAIN, "/servicerequests/service_request_prescription_services_main.fxml");
         sceneTitles.put(UIController.SERVICE_REQUEST_PRESCRIPTION_SERVICES_MAIN, "Service Request - Prescription Services");
 
-        sceneFiles.put(UIController.SERVICE_REQUEST_FLOWER_DELIVERY, "/service_request_flower_delivery.fxml");
+        sceneFiles.put(UIController.SERVICE_REQUEST_FLOWER_DELIVERY, "/servicerequests/service_request_flower_delivery.fxml");
         sceneTitles.put(UIController.SERVICE_REQUEST_FLOWER_DELIVERY, "Service Request - Flower Delivery");
 
 
-        sceneFiles.put(UIController.SERVICE_REQUEST_SANITATION, "/service_request_sanitation.fxml");
+        sceneFiles.put(UIController.SERVICE_REQUEST_SANITATION, "/servicerequests/service_request_sanitation.fxml");
         sceneTitles.put(UIController.SERVICE_REQUEST_SANITATION, "Service Request - Sanitation");
 
-        sceneFiles.put(UIController.SERVICE_REQUEST_SECURITY, "/service_request_security.fxml");
+        sceneFiles.put(UIController.SERVICE_REQUEST_SECURITY, "/servicerequests/service_request_security.fxml");
         sceneTitles.put(UIController.SERVICE_REQUEST_SECURITY, "Service Request - Security");
 
-        sceneFiles.put(UIController.SERVICE_REQUEST_RELIGIOUS_SERVICES,"/service_request_religious_services.fxml");
+        sceneFiles.put(UIController.SERVICE_REQUEST_RELIGIOUS_SERVICES, "/servicerequests/service_request_religious_services.fxml");
         sceneTitles.put(UIController.SERVICE_REQUEST_RELIGIOUS_SERVICES, "Service Request - Religious Services");
 
-        sceneFiles.put(UIController.SERVICE_REQUEST_INTERPRETER, "/service_request_interpreter.fxml");
+        sceneFiles.put(UIController.SERVICE_REQUEST_INTERPRETER, "/servicerequests/service_request_interpreter.fxml");
         sceneTitles.put(UIController.SERVICE_REQUEST_INTERPRETER, "Service Request - Interpreter");
 
-        sceneFiles.put(UIController.SERVICE_REQUEST_TRANSPORT, "/service_request_transport.fxml");
+        sceneFiles.put(UIController.SERVICE_REQUEST_TRANSPORT, "/servicerequests/service_request_transport.fxml");
         sceneTitles.put(UIController.SERVICE_REQUEST_TRANSPORT, "Service Request - Transport");
 
         // Reservations
-        sceneFiles.put(UIController.RESERVATIONS_MAIN, "/reservations_main.fxml");
+        sceneFiles.put(UIController.RESERVATIONS_MAIN, "/reservations/reservations_main.fxml");
         sceneTitles.put(UIController.RESERVATIONS_MAIN, "Reservations - Main");
 
-        sceneFiles.put(UIController.RESERVATIONS_EDIT, "/reservations_edit.fxml");
+        sceneFiles.put(UIController.RESERVATIONS_EDIT, "/reservations/reservations_edit.fxml");
         sceneTitles.put(UIController.RESERVATIONS_EDIT, "Reservations - Edit");
 
-        sceneFiles.put(UIController.RESERVATIONS_MAIN_MENU, "/reservations_main_menu.fxml");
+        sceneFiles.put(UIController.RESERVATIONS_MAIN_MENU, "/reservations/reservations_main_menu.fxml");
         sceneTitles.put(UIController.RESERVATIONS_MAIN_MENU, "Reservations - Main Menu");
 
         // Pathfinding
-        sceneFiles.put(UIController.PATHFINDING_MAIN, "/path_find_main.fxml");
+        sceneFiles.put(UIController.PATHFINDING_MAIN, "/pathfinding/path_find_main.fxml");
         sceneTitles.put(UIController.PATHFINDING_MAIN, "Path Finding Main");
 
         // Popups

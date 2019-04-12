@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.effect.ColorAdjust?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="servicerequests.UIControllerSRM">
+   <children>
+      <AnchorPane prefHeight="600.0" prefWidth="900.0" styleClass="body-background" stylesheets="/css/background.css" AnchorPane.topAnchor="0" AnchorPane.leftAnchor="0">
+         <children>
+            <ImageView fitHeight="600.0" fitWidth="900.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../images/Hospitalbackground.png" />
+               </image>
+            </ImageView>
+            <BorderPane prefHeight="600.0" prefWidth="900.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+               <top>
+                  <MenuBar blendMode="ADD" prefWidth="900.0" style="-fx-background-color: #ffffff;" stylesheets="@../css/background.css" BorderPane.alignment="CENTER">
+                    <menus>
+                      <Menu fx:id="homeButton" mnemonicParsing="false" onShowing="#setHomeButton" text="Home">
+                           <items>
+                              <MenuItem mnemonicParsing="false" text="HOME" />
+                           </items></Menu>
+                    </menus>
+                     <effect>
+                        <ColorAdjust>
+                           <input>
+                              <DropShadow />
+                           </input>
+                        </ColorAdjust>
+                     </effect>
+                  </MenuBar>
+               </top>
+               <center>
+                  <AnchorPane prefHeight="570.0" prefWidth="900.0" BorderPane.alignment="CENTER">
+                     <children>
+                        <Text fill="WHITE" layoutX="276.0" layoutY="83.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Service Request">
+                           <font>
+                              <Font name="System Bold Italic" size="48.0" />
+                           </font>
+                        </Text>
+                        <JFXButton alignment="BOTTOM_CENTER" contentDisplay="TOP" graphicTextGap="20.0" layoutX="487.0" layoutY="296.0" onAction="#setReligiousServices" prefHeight="180.0" prefWidth="160.0" style="-fx-background-color: #ffc41e;" styleClass="jfx-button-SVmain" stylesheets="@../css/background.css" text="Religious Services" textFill="WHITE" AnchorPane.leftAnchor="487.0">
+                           <font>
+                              <Font name="System Bold" size="14.0" />
+                           </font>
+                           <graphic>
+                              <ImageView fitHeight="95.0" fitWidth="95.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../images/church.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                        </JFXButton>
+                        <JFXButton alignment="BOTTOM_CENTER" contentDisplay="TOP" graphicTextGap="20.0" layoutX="327.0" layoutY="116.0" onAction="#setFlowerButton" prefHeight="180.0" prefWidth="160.0" style="-fx-background-color: #ffc41e;" styleClass="jfx-button-SVmain" stylesheets="@../css/background.css" text="Flower Delievery" textFill="WHITE">
+                           <font>
+                              <Font name="System Bold" size="14.0" />
+                           </font>
+                           <graphic>
+                              <ImageView fitHeight="95.0" fitWidth="95.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../images/berries.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                        </JFXButton>
+                        <JFXButton fx:id="ITServices" alignment="BOTTOM_CENTER" contentDisplay="TOP" graphicTextGap="20.0" layoutX="487.0" layoutY="116.0" onMouseClicked="#setITButton" prefHeight="180.0" prefWidth="160.0" style="-fx-background-color: #ffc41e;" styleClass="jfx-button-SVmain" stylesheets="@../css/background.css" text="IT Services" textFill="WHITE">
+                           <font>
+                              <Font name="System Bold" size="14.0" />
+                           </font>
+                           <graphic>
+                              <ImageView fitHeight="95.0" fitWidth="95.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../images/settings.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                        </JFXButton>
+                        <JFXButton fx:id="sanitationButton" alignment="BOTTOM_CENTER" contentDisplay="TOP" graphicTextGap="20.0" layoutX="187.0" layoutY="296.0" onAction="#setSanitationButton" prefHeight="180.0" prefWidth="160.0" style="-fx-background-color: #ffc41e;" styleClass="jfx-button-SVmain2" stylesheets="@../css/background.css" text="Sanitation" textFill="WHITE">
+                           <font>
+                              <Font name="System Bold" size="14.0" />
+                           </font>
+                           <graphic>
+                              <ImageView fitHeight="95.0" fitWidth="95.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../images/hospital.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                        </JFXButton>
+                        <JFXButton alignment="BOTTOM_CENTER" contentDisplay="TOP" graphicTextGap="20.0" layoutX="327.0" layoutY="296.0" onAction="#setSecurityButton" prefHeight="180.0" prefWidth="160.0" style="-fx-background-color: #ffc41e;" styleClass="jfx-button-SVmain" stylesheets="@../css/background.css" text="Security Services" textFill="WHITE">
+                           <font>
+                              <Font name="System Bold" size="14.0" />
+                           </font>
+                           <graphic>
+                              <ImageView fitHeight="95.0" fitWidth="95.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@icon/login.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                        </JFXButton>
+                        <JFXButton alignment="BOTTOM_CENTER" contentDisplay="TOP" graphicTextGap="20.0" layoutX="47.0" layoutY="296.0" onAction="#setInterpreterButton" prefHeight="180.0" prefWidth="160.0" style="-fx-background-color: #ffc41e;" styleClass="jfx-button-SVmain2" stylesheets="@../css/background.css" text="Interperter" textFill="WHITE">
+                           <font>
+                              <Font name="System Bold" size="14.0" />
+                           </font>
+                           <graphic>
+                              <ImageView fitHeight="95.0" fitWidth="95.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../images/headset.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                        </JFXButton>
+                        <JFXButton fx:id="babysittingButton" alignment="BOTTOM_CENTER" contentDisplay="TOP" graphicTextGap="20.0" layoutX="187.0" layoutY="116.0" onAction="#setbabysittingButton" prefHeight="180.0" prefWidth="160.0" style="-fx-background-color: #ffc41e;" styleClass="jfx-button-SVmain2" stylesheets="@../css/background.css" text="Babysitter" textFill="WHITE">
+                           <font>
+                              <Font name="System Bold" size="14.0" />
+                           </font>
+                           <graphic>
+                              <ImageView fitHeight="95.0" fitWidth="95.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../images/old-baby-stroller.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                        </JFXButton>
+                        <JFXButton alignment="BOTTOM_CENTER" contentDisplay="TOP" graphicTextGap="20.0" layoutX="47.0" layoutY="116.0" prefHeight="180.0" onAction="#avButton" prefWidth="160.0" style="-fx-background-color: #ffc41e;" styleClass="jfx-button-SVmain2" stylesheets="@../css/background.css" text="Audio Visual" textFill="WHITE">
+                           <font>
+                              <Font name="System Bold" size="14.0" />
+                           </font>
+                           <graphic>
+                              <ImageView fitHeight="95.0" fitWidth="95.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../images/microphone.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                        </JFXButton>
+                        <JFXButton alignment="BOTTOM_CENTER" contentDisplay="TOP" graphicTextGap="20.0" layoutX="647.0" layoutY="116.0" onAction="#setTransportButton" prefHeight="180.0" prefWidth="160.0" style="-fx-background-color: #ffc41e;" styleClass="jfx-button-SVmain3" stylesheets="@../css/background.css" text="External Transportation" textFill="WHITE">
+                           <font>
+                              <Font name="System Bold" size="14.0" />
+                           </font>
+                           <graphic>
+                              <ImageView fitHeight="95.0" fitWidth="95.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../images/traffic-light.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                        </JFXButton>
+                        <JFXButton alignment="BOTTOM_CENTER" contentDisplay="TOP" graphicTextGap="20.0" layoutX="647.0" layoutY="296.0" onAction="#setPrescriptionServicesButton" prefHeight="180.0" prefWidth="160.0" style="-fx-background-color: #ffc41e;" styleClass="jfx-button-SVmain3" stylesheets="@../css/background.css" text="Prescription Services " textFill="WHITE">
+                           <font>
+                              <Font name="System Bold" size="14.0" />
+                           </font>
+                           <graphic>
+                              <ImageView fitHeight="95.0" fitWidth="95.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../images/list.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                        </JFXButton>
+                     </children>
+                  </AnchorPane>
+               </center>
+            </BorderPane>
+         </children>
+      </AnchorPane>
+   </children>
+</AnchorPane>
