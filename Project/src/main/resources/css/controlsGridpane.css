@@ -12,3 +12,14 @@
     /*-fx-max-height: 500;*/
     /*-fx-min-height: 500;*/
 }
+
+
+.jfx-text-field {
+    -fx-pref-width: 230;
+    -fx-max-width: 230;
+}
+
+.jfx-password-field {
+    -fx-pref-width: 230;
+    -fx-max-width: 230;
+}
