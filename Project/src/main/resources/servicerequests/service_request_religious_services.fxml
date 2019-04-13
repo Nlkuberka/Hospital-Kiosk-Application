@@ -15,6 +15,7 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.FlowPane?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.StackPane?>
@@ -23,7 +24,6 @@
 <?import javafx.scene.paint.Stop?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
-
 
 <StackPane minHeight="720.0" minWidth="1280.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="servicerequests.UIControllerSRRS">
    <children>
@@ -54,6 +54,7 @@
               <left>
             <GridPane>
                <columnConstraints>
+                  <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                   <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" />
                   <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
                </columnConstraints>
@@ -68,8 +69,8 @@
                   <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
                </rowConstraints>
                <children>
-                          <JFXButton fx:id="clearButton" onAction="#setClearButton" prefWidth="78.0" styleClass="jfx-button_edit" stylesheets="@../css/background.css" text="Clear" GridPane.rowIndex="6" />
-                          <JFXButton contentDisplay="CENTER" onAction="#setCancelButton" styleClass="jfx-button-cancel" stylesheets="@../css/background.css" text=" " GridPane.columnSpan="2" GridPane.rowIndex="7">
+                          <JFXButton fx:id="clearButton" onAction="#setClearButton" prefWidth="78.0" styleClass="jfx-button_edit" stylesheets="@../css/background.css" text="Clear" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+                          <JFXButton contentDisplay="CENTER" onAction="#setCancelButton" styleClass="jfx-button-cancel" stylesheets="@../css/background.css" text=" " GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="7">
                               <graphic>
                                   <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
                                       <image>
@@ -78,33 +79,33 @@
                                   </ImageView>
                               </graphic>
                           </JFXButton>
-                          <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Religious Services" GridPane.columnSpan="2">
+                          <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Religious Services" GridPane.columnIndex="1" GridPane.columnSpan="2">
                               <font>
                                   <Font name="System Bold Italic" size="24.0" />
                               </font>
                           </Text>
-                          <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Dimitri Berardi" GridPane.columnSpan="2" GridPane.rowIndex="1">
+                          <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Dimitri Berardi" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="1">
                               <font>
                                   <Font name="System Bold" size="12.0" />
                               </font>
                           </Text>
-                          <ChoiceBox fx:id="roomSelect" prefHeight="25.0" prefWidth="200.0" style="-fx-background-color: #ffffff;" GridPane.columnSpan="2" GridPane.rowIndex="3" />
-                          <TextArea fx:id="serviceMessage" editable="false" prefHeight="220.0" prefWidth="200.0" style="-fx-background-color: #ffffff;" wrapText="true" GridPane.columnSpan="2" GridPane.rowIndex="5">
+                          <ChoiceBox fx:id="roomSelect" prefHeight="25.0" prefWidth="200.0" style="-fx-background-color: #ffffff;" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="3" />
+                          <TextArea fx:id="serviceMessage" editable="false" prefHeight="220.0" prefWidth="200.0" style="-fx-background-color: #ffffff;" wrapText="true" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="5">
                               <padding>
                                   <Insets bottom="3.0" left="3.0" right="3.0" top="3.0" />
                               </padding>
                           </TextArea>
-                          <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Location" GridPane.columnSpan="2" GridPane.rowIndex="2">
+                          <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Location" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="2">
                               <font>
                                   <Font name="System Bold" size="18.0" />
                               </font>
                           </Text>
-                          <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Current Request" GridPane.columnSpan="2" GridPane.rowIndex="4">
+                          <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Current Request" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="4">
                               <font>
                                   <Font name="System Bold" size="18.0" />
                               </font>
                           </Text>
-                          <JFXButton fx:id="confirmButton" onAction="#setConfirmButton" styleClass="jfx-button_edit" stylesheets="@../css/background.css" text="Confirm" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+                          <JFXButton fx:id="confirmButton" onAction="#setConfirmButton" styleClass="jfx-button_edit" stylesheets="@../css/background.css" text="Confirm" GridPane.columnIndex="2" GridPane.rowIndex="6" />
                </children>
                <BorderPane.margin>
                   <Insets left="20.0" right="20.0" />
@@ -114,24 +115,26 @@
               <center>
                   <GridPane BorderPane.alignment="CENTER">
                       <columnConstraints>
-                          <ColumnConstraints hgrow="SOMETIMES" maxWidth="136.5" minWidth="10.0" prefWidth="49.5" />
-                          <ColumnConstraints hgrow="SOMETIMES" maxWidth="328.0" minWidth="10.0" prefWidth="260.0" />
-                          <ColumnConstraints hgrow="SOMETIMES" maxWidth="299.0" minWidth="10.0" prefWidth="253.0" />
+                          <ColumnConstraints hgrow="SOMETIMES" maxWidth="136.5" minWidth="10.0" percentWidth="10.0" prefWidth="49.5" />
+                          <ColumnConstraints hgrow="SOMETIMES" maxWidth="497.97747802734375" minWidth="10.0" prefWidth="497.97747802734375" />
+                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="346.43603515625" minWidth="10.0" percentWidth="8.0" prefWidth="346.43603515625" />
+                          <ColumnConstraints hgrow="SOMETIMES" maxWidth="512.7796630859375" minWidth="10.0" prefWidth="392.56396484375" />
                           <ColumnConstraints hgrow="SOMETIMES" maxWidth="200.5" minWidth="10.0" prefWidth="93.0" />
                       </columnConstraints>
                       <rowConstraints>
                           <RowConstraints maxHeight="105.5" minHeight="10.0" prefHeight="105.5" vgrow="SOMETIMES" />
                           <RowConstraints maxHeight="146.0" minHeight="10.0" prefHeight="131.5" vgrow="SOMETIMES" />
-                          <RowConstraints maxHeight="165.0" minHeight="10.0" prefHeight="147.0" vgrow="SOMETIMES" />
-                          <RowConstraints maxHeight="134.5" minHeight="10.0" prefHeight="125.0" vgrow="SOMETIMES" />
+                          <RowConstraints maxHeight="209.5626220703125" minHeight="10.0" prefHeight="190.90853881835938" vgrow="SOMETIMES" />
+                          <RowConstraints maxHeight="335.0" minHeight="10.0" prefHeight="335.0" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="134.5" minHeight="0.0" prefHeight="0.0" vgrow="SOMETIMES" />
                       </rowConstraints>
                       <children>
-                          <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Religious Denomination" textAlignment="CENTER" wrappingWidth="162.5" GridPane.columnIndex="1" GridPane.halignment="CENTER">
+                          <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Religious Denomination" textAlignment="CENTER" wrappingWidth="162.5" GridPane.columnIndex="3" GridPane.halignment="CENTER">
                               <font>
                                   <Font name="System Bold" size="18.0" />
                               </font>
                           </Text>
-                          <VBox prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="1" GridPane.rowIndex="1" GridPane.rowSpan="2">
+                          <VBox prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="3" GridPane.rowIndex="1" GridPane.rowSpan="2">
                               <children>
                                   <JFXCheckBox fx:id="denomCheckBox1" text="Roman Catholic" textFill="WHITE" unCheckedColor="RED">
                                       <font>
@@ -230,12 +233,12 @@
                                   </GridPane>
                               </children>
                           </VBox>
-                          <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Religious Services" textAlignment="CENTER" wrappingWidth="150.0" GridPane.columnIndex="2" GridPane.halignment="CENTER">
+                          <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Religious Services" textAlignment="CENTER" wrappingWidth="150.0" GridPane.columnIndex="1" GridPane.halignment="CENTER">
                               <font>
                                   <Font name="System Bold" size="18.0" />
                               </font>
                           </Text>
-                          <VBox prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="2" GridPane.rowIndex="1" GridPane.rowSpan="2">
+                          <VBox prefHeight="400.0" prefWidth="100.0" GridPane.columnIndex="1" GridPane.rowIndex="1" GridPane.rowSpan="2">
                               <children>
                                   <JFXCheckBox fx:id="serviceCheckBox1" text="General Support" textFill="WHITE" unCheckedColor="RED">
                                       <font>
@@ -329,19 +332,20 @@
                                   </GridPane>
                               </children>
                           </VBox>
-                          <TextArea fx:id="additionalCommentField" prefHeight="200.0" prefWidth="200.0" promptText="Max: 100 Characters" GridPane.columnIndex="2" GridPane.rowIndex="3">
-                              <padding>
-                                  <Insets bottom="3.0" left="3.0" right="3.0" top="3.0" />
-                              </padding>
-                              <GridPane.margin>
-                                  <Insets bottom="3.0" top="3.0" />
-                              </GridPane.margin>
-                          </TextArea>
-                          <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Additional Comments:" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="CENTER">
-                              <font>
-                                  <Font name="System Bold" size="18.0" />
-                              </font>
-                          </Text>
+                  <FlowPane orientation="VERTICAL" prefHeight="465.0" prefWidth="498.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
+                     <children>
+                                <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Additional Comments:" textAlignment="CENTER">
+                                    <font>
+                                        <Font name="System Bold" size="18.0" />
+                                    </font>
+                                </Text>
+                                <TextArea fx:id="additionalCommentField" prefHeight="200.0" prefWidth="200.0" promptText="Max: 100 Characters">
+                                    <padding>
+                                        <Insets bottom="3.0" left="3.0" right="3.0" top="3.0" />
+                                    </padding>
+                                </TextArea>
+                     </children>
+                  </FlowPane>
                       </children>
                   </GridPane>
               </center>
