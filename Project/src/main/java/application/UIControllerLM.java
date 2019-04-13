@@ -33,16 +33,11 @@ public class UIControllerLM extends UIController {
     private JFXTabPane tabs;
 
     @FXML
-    private Tab guest_tab;
-
-    @FXML
     private Tab user_tab;
 
     @FXML
     private Tab admin_tab;
 
-    @FXML
-    private JFXButton loginAsGuestButton;
     /**
      * < The Login As Guest Button
      */
@@ -85,7 +80,6 @@ public class UIControllerLM extends UIController {
         tabs.getSelectionModel().selectedItemProperty().addListener(param -> {
             setDefaultButton();
         });
-        loginAsGuestButton.setDefaultButton(true);
         backgroundImage.fitWidthProperty().bind(primaryStage.widthProperty());
         tabs.setPrefHeight(primaryStage.getHeight());
         tabs.setPrefWidth(primaryStage.getWidth());
@@ -102,16 +96,6 @@ public class UIControllerLM extends UIController {
         adminPasswordTextField.setText("");
     }
 
-    /**
-     * Goes to the Guest Main Menu
-     */
-    @FXML
-    private void setLoginAsGuestButton() {
-        Connection conn = DBController.dbConnect();
-        CurrentUser.user = DBControllerU.getGuestUser(conn);
-        DBController.closeConnection(conn);
-        this.goToScene(UIController.GUEST_MAIN_MENU_MAIN);
-    }
 
     /**
      * Goes to the User Main Menu
@@ -165,12 +149,9 @@ public class UIControllerLM extends UIController {
 
     private void setDefaultButton() {
         String tabName = tabs.getSelectionModel().getSelectedItem().getText();
-        loginAsGuestButton.setDefaultButton(false);
         loginAsUserButton.setDefaultButton(false);
         loginAsAdminButton.setDefaultButton(false);
-        if(tabName.equals("Guest")) {
-            loginAsGuestButton.setDefaultButton(true);
-        } else if(tabName.equals("User")) {
+        if(tabName.equals("User")) {
             loginAsUserButton.setDefaultButton(true);
         } else if(tabName.equals("Administrator")) {
             loginAsAdminButton.setDefaultButton(true);
