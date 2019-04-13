@@ -14,6 +14,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextFormatter;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 
 import java.sql.Connection;
@@ -38,6 +39,9 @@ public class UIControllerSRAVE extends UIController {
     private JFXButton confirmButton; /**< The confirm button*/
 
     @FXML
+    private ImageView backgroundImage;
+
+    @FXML
     public void initialize() {
         serviceMessage.setTextFormatter(new TextFormatter<String>(e ->
                 e.getControlNewText().length() <= 100 ? e : null
@@ -49,6 +53,10 @@ public class UIControllerSRAVE extends UIController {
         gridPane.setFillWidth(serviceMessage, true);
 
         confirmButton.setDisable(true);
+
+            backgroundImage.fitWidthProperty().bind(primaryStage.widthProperty());
+
+
     }
 
     @FXML
