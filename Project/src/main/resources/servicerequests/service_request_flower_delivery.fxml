@@ -14,14 +14,14 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.FlowPane?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-
-<StackPane xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="servicerequests.UIControllerSRFD">
+<StackPane minHeight="720.0" minWidth="1280.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="servicerequests.UIControllerSRFD">
    <children>
             <ImageView fx:id="backgroundImage" pickOnBounds="true" preserveRatio="true">
                 <image>
@@ -48,66 +48,73 @@
                     </MenuBar>
                 </top>
          <left>
-            <GridPane>
+            <GridPane prefWidth="250.0">
                <columnConstraints>
-                  <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" />
+                  <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="64.99298095703125" minWidth="0.0" prefWidth="29.972637176513672" />
+                  <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="230.0" minWidth="10.0" prefWidth="200.02736282348633" />
                </columnConstraints>
                <rowConstraints>
                   <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
-                  <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
-                  <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
-                  <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
-                  <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
-                  <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
-                  <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
-                  <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" percentHeight="2.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" percentHeight="5.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="5.0" percentHeight="5.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" percentHeight="5.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" percentHeight="5.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" percentHeight="5.0" vgrow="SOMETIMES" />
                   <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
                   <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
                </rowConstraints>
                <children>
-                  <JFXButton fx:id="confirmButton" onAction="#setConfirmButton" styleClass="jfx-button_edit" stylesheets="@../css/background.css" text="Confirm" GridPane.rowIndex="8" />
-                  <JFXButton contentDisplay="CENTER" onMouseClicked="#setCancelButton" styleClass="jfx-button-cancel" stylesheets="@../css/background.css" text=" " GridPane.rowIndex="9">
-                     <graphic>
-                        <ImageView fitHeight="25.0" fitWidth="25.0" onMouseClicked="#setCancelButton" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@icon/cancel2.png" />
-                           </image>
-                        </ImageView>
-                     </graphic>
-                  </JFXButton>
-                  <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Flower Delivery">
+                  <FlowPane alignment="CENTER" prefWidth="176.0" prefWrapLength="0.0" GridPane.columnIndex="1" GridPane.rowIndex="8">
+                     <children>
+                        <JFXButton fx:id="confirmButton" onAction="#setConfirmButton" styleClass="jfx-button_edit" stylesheets="@../css/background.css" text="Confirm" />
+                        <JFXButton contentDisplay="CENTER" onMouseClicked="#setCancelButton" styleClass="jfx-button-cancel" stylesheets="@../css/background.css" text=" ">
+                           <graphic>
+                              <ImageView fitHeight="25.0" fitWidth="25.0" onMouseClicked="#setCancelButton" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@icon/cancel2.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                        </JFXButton>
+                     </children>
+                     <opaqueInsets>
+                        <Insets right="10.0" top="5.0" />
+                     </opaqueInsets>
+                  </FlowPane>
+                  <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Flower Delivery" GridPane.columnIndex="1">
                      <font>
                         <Font name="System Bold Italic" size="24.0" />
                      </font>
                   </Text>
-                  <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Nicole Kuberka" GridPane.rowIndex="1">
+                  <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Nicole Kuberka" GridPane.columnIndex="1" GridPane.rowIndex="1">
                      <font>
                         <Font name="System Bold" size="12.0" />
                      </font>
                   </Text>
-                  <ChoiceBox fx:id="roomSelect" prefWidth="150.0" style="-fx-background-color: #ffffff;" GridPane.rowIndex="5" />
-                  <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Message" GridPane.rowIndex="6">
+                  <ChoiceBox fx:id="roomSelect" prefWidth="150.0" style="-fx-background-color: #ffffff;" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                  <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Message" GridPane.columnIndex="1" GridPane.rowIndex="6">
                      <font>
                         <Font name="System Bold" size="18.0" />
                      </font>
                   </Text>
-                  <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Location" GridPane.rowIndex="4">
+                  <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Location" GridPane.columnIndex="1" GridPane.rowIndex="4">
                      <font>
                         <Font name="System Bold" size="18.0" />
                      </font>
                   </Text>
-                  <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Cost" GridPane.rowIndex="2">
+                  <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Cost" GridPane.columnIndex="1" GridPane.rowIndex="2">
                      <font>
                         <Font name="System Bold" size="18.0" />
                      </font>
                   </Text>
-                  <Label fx:id="costLabel" styleClass="label1" stylesheets="@../css/background.css" text="\$0.00" textFill="WHITE" GridPane.rowIndex="3">
+                  <Label fx:id="costLabel" styleClass="label1" stylesheets="@../css/background.css" text="\$0.00" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="3">
                      <font>
                         <Font name="System Bold" size="15.0" />
                      </font>
                   </Label>
-                  <JFXTextArea fx:id="serviceMessage1" accessibleRole="TEXT_AREA" prefHeight="220.0" prefWidth="150.0" style="-fx-background-color: #ffffff;" GridPane.rowIndex="7" />
-                   <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Message" GridPane.rowIndex="6">
+                  <JFXTextArea fx:id="serviceMessage1" accessibleRole="TEXT_AREA" prefHeight="220.0" prefWidth="120.0" style="-fx-background-color: #ffffff;" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+                   <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Message" GridPane.columnIndex="1" GridPane.rowIndex="6">
                        <font>
                            <Font name="System Bold" size="18.0" />
                        </font>
