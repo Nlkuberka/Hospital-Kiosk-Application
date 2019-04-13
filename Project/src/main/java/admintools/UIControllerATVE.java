@@ -11,6 +11,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.scene.image.ImageView;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -26,7 +27,9 @@ public class UIControllerATVE extends UIController {
     private static final int[] lengthRequirements = {21, 10, 10};
     private static final String[] edgeSetters  = {"setEdgeID", "setNode1ID", "setNode2ID"};
     private static final String[] edgeGetters  = {"getEdgeID", "getNode1ID", "getNode2ID"};
-                                                /**< The Various Edge Columns used for cell factories */
+    @FXML
+    private ImageView backgroundImage;
+    /**< The Various Edge Columns used for cell factories */
 
     @FXML
     private MenuItem backButton; /**< The Back Button */
@@ -50,6 +53,8 @@ public class UIControllerATVE extends UIController {
      */
     @FXML
     public void initialize() {
+        backgroundImage.fitWidthProperty().bind(primaryStage.widthProperty());
+
         ObservableList<TableColumn<Edge, ?>> tableColumns = edgeTable.getColumns();
 
         // Initialize the cell factories of the edge field columns

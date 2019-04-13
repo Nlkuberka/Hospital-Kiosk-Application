@@ -50,7 +50,7 @@ public class UIControllerATM extends UIController {
      */
     @FXML
     public void initialize() {
-        backgroundImage.setFitWidth(primaryStage.getWidth());
+        backgroundImage.fitWidthProperty().bind(primaryStage.widthProperty());
     }
 
 

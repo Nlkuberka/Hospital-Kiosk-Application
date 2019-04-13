@@ -260,7 +260,7 @@ public class UIControllerPFM extends UIController {
     private void initialBindings() {
         // bind background image size to window size
         // ensures auto resize works
-        backgroundImage.setFitWidth(primaryStage.getWidth());
+        backgroundImage.fitWidthProperty().bind(primaryStage.widthProperty());
 
         scrollPane_pathfind.prefViewportWidthProperty().bind(hboxForMap.prefWidthProperty());
     }

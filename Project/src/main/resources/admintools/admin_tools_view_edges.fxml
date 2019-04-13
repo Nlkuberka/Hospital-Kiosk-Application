@@ -2,6 +2,7 @@
 
 <?import com.jfoenix.controls.JFXButton?>
 <?import java.lang.String?>
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
@@ -11,63 +12,66 @@
 <?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="admintools.UIControllerATVE">
+
+<StackPane xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="admintools.UIControllerATVE">
    <children>
-      <AnchorPane prefHeight="600.0" prefWidth="900.0" styleClass="body-background" stylesheets="/css/background.css">
-         <children>
-            <ImageView fitWidth="900.0" opacity="0.6" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../images/Hospitalbackground.png" />
-               </image>
+      <ImageView fx:id="backgroundImage" opacity="0.6" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/Hospitalbackground.png" />
+         </image>
+         <effect>
+            <ColorAdjust brightness="-0.15" hue="0.05" />
+         </effect>
+      </ImageView>
+      <BorderPane>
+         <top>
+            <MenuBar blendMode="LIGHTEN" nodeOrientation="LEFT_TO_RIGHT" prefWidth="900.0" style="-fx-background-color: #ffffff;" stylesheets="@../css/background.css" BorderPane.alignment="CENTER">
+              <menus>
+                <Menu mnemonicParsing="false" text="Back">
+                  <items>
+                    <MenuItem fx:id="backButton" mnemonicParsing="false" onAction="#setBackButton" text="Go back to previous page" />
+                  </items>
+                </Menu>
+                <Menu fx:id="homeButton" mnemonicParsing="false" onShowing="#setHomeButton" text="Home">
+                     <items>
+                        <MenuItem text="HOME" />
+                     </items>
+                  </Menu>
+              </menus>
                <effect>
-                  <ColorAdjust brightness="-0.15" hue="0.05" />
+                  <DropShadow />
                </effect>
-            </ImageView>
-            <BorderPane>
-               <top>
-                  <MenuBar blendMode="LIGHTEN" nodeOrientation="LEFT_TO_RIGHT" prefWidth="900.0" style="-fx-background-color: #ffffff;" stylesheets="@../css/background.css" BorderPane.alignment="CENTER">
-                    <menus>
-                      <Menu mnemonicParsing="false" text="Back">
-                        <items>
-                          <MenuItem fx:id="backButton" mnemonicParsing="false" onAction="#setBackButton" text="Go back to previous page" />
-                        </items>
-                      </Menu>
-                      <Menu fx:id="homeButton" mnemonicParsing="false" onShowing="#setHomeButton" text="Home">
-                           <items>
-                              <MenuItem text="HOME" />
-                           </items></Menu>
-                    </menus>
-                     <effect>
-                        <DropShadow />
-                     </effect>
-                  </MenuBar>
-               </top>
-               <center>
-                  <TableView fx:id="edgeTable" maxWidth="800.0" prefHeight="490.0" prefWidth="800.0" stylesheets="@../css/background.css" BorderPane.alignment="CENTER">
-                    <columns>
-                      <TableColumn prefWidth="200.0" text="EdgeID" />
-                      <TableColumn prefWidth="200.0" text="StartNode" />
-                        <TableColumn prefWidth="200.0" text="EndNode" />
-                        <TableColumn prefWidth="200.0" text="Remove" />
-                    </columns>
-                     <styleClass>
-                        <String fx:value="table-view" />
-                        <String fx:value="cell-renderer" />
-                        <String fx:value="table-row-cell" />
-                     </styleClass>
-                  </TableView>
-               </center>
-            </BorderPane>
-            <JFXButton fx:id="addButton" buttonType="RAISED" layoutX="757.0" layoutY="536.0" onAction="#setAddButton" styleClass="jfx-button-add" stylesheets="@../css/background.css" text="Add Edge" textFill="WHITE">
+            </MenuBar>
+         </top>
+         <center>
+            <TableView fx:id="edgeTable" maxWidth="800.0" prefHeight="490.0" prefWidth="800.0" stylesheets="@../css/background.css" BorderPane.alignment="CENTER">
+              <columns>
+                <TableColumn prefWidth="200.0" text="EdgeID" />
+                <TableColumn prefWidth="200.0" text="StartNode" />
+                  <TableColumn prefWidth="200.0" text="EndNode" />
+                  <TableColumn prefWidth="200.0" text="Remove" />
+              </columns>
+               <styleClass>
+                  <String fx:value="table-view" />
+                  <String fx:value="cell-renderer" />
+                  <String fx:value="table-row-cell" />
+               </styleClass>
+            </TableView>
+         </center>
+         <bottom>
+            <JFXButton fx:id="addButton" buttonType="RAISED" onAction="#setAddButton" styleClass="jfx-button-add" stylesheets="@../css/background.css" text="Add Edge" textFill="WHITE" BorderPane.alignment="CENTER_RIGHT">
                <font>
                   <Font name="System Bold" size="14.0" />
                </font>
+               <BorderPane.margin>
+                  <Insets bottom="10.0" right="10.0" top="10.0" />
+               </BorderPane.margin>
             </JFXButton>
-         </children>
-      </AnchorPane>
+         </bottom>
+      </BorderPane>
    </children>
-</AnchorPane>
+</StackPane>

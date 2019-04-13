@@ -11,6 +11,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.scene.image.ImageView;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -28,7 +29,9 @@ public class UIControllerATER extends UIController {
     private static final int[] lengthRequirements = {-1, 10, 10, 10, 8, 8};
     private static final String[] reservationSetters  = {"setNodeID", "setUserID", "setDate", "setStartTime", "setEndTime", ""};
     private static final String[] reservationGetters  = {"getRsvID", "getNodeID", "getUserID", "getDate", "getStartTime", "getEndTime"};
-                                                    /**< The Various Reservation Columns used for cell factories */
+    @FXML
+    private ImageView backgroundImage;
+    /**< The Various Reservation Columns used for cell factories */
     @FXML
     private MenuItem backButton; /**< The Back Button */
 
@@ -44,6 +47,8 @@ public class UIControllerATER extends UIController {
      */
     @FXML
     public void initialize() {
+        backgroundImage.fitWidthProperty().bind(primaryStage.widthProperty());
+
         List<TableColumn<Reservation, ?>> tableColumns = reservationTable.getColumns();
         // Initialize the cell factories of the reservation field columns
 
