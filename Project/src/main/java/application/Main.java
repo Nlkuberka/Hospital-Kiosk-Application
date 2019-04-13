@@ -2,6 +2,10 @@ package application;
 
 import database.DBController;
 
+import database.DBControllerNE;
+import entities.Edge;
+import entities.Graph;
+import entities.Node;
 import javafx.application.Application;
 import javafx.stage.Stage;
 
@@ -9,6 +13,8 @@ import javafx.stage.Stage;
 import java.sql.Connection;
 import java.sql.DatabaseMetaData;
 import java.sql.ResultSet;
+import java.util.LinkedList;
+import java.util.List;
 
 public class Main extends Application {
 
@@ -27,7 +33,22 @@ public class Main extends Application {
             DBController.initializeAppDB();
         }
 
-        CurrentUser.currentAlgorithm = CurrentUser.AALOGRITHM;
+        // Initialize the graph.
+        List<Node> allNodes = DBControllerNE.generateListOfNodes(conn,DBControllerNE.ALL_NODES);
+        for (Node node : allNodes) {
+            try {
+                Graph.getGraph().addNode(node);
+            } catch (IllegalArgumentException e) {
+            }
+        }
+        List<Edge> allEdges = DBControllerNE.generateListofEdges(conn);
+        for (Edge edge : allEdges) {
+            try {
+                Graph.getGraph().addBiEdge(edge.getNode1ID(), edge.getNode2ID());
+            } catch (IllegalArgumentException e) {
+            }
+        }
+
         //DBController.initializeAppDB();
     }
 

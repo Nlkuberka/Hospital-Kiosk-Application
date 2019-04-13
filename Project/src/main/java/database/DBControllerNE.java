@@ -24,12 +24,12 @@ public class DBControllerNE extends DBController{
     public static final String ALL_NODES_FLOOR_3 = "SELECT * FROM NODES WHERE FLOOR = '3'";
 
     public static final String ALL_ROOMS = "SELECT * FROM NODES WHERE NODETYPE != 'HALL' and NODETYPE != 'STAI' and NODETYPE != 'ELEV'";
-    public static final String ALL_ROOMS_FLOOR_L2 = "SELECT * FROM NODES WHERE FLOOR = 'L2', NODETYPE != 'HALL' and NODETYPE != 'STAI' and NODETYPE != 'ELEV'";
-    public static final String ALL_ROOMS_FLOOR_L1 = "SELECT * FROM NODES WHERE FLOOR = 'L1',NODETYPE != 'HALL' and NODETYPE != 'STAI' and NODETYPE != 'ELEV'";
-    public static final String ALL_ROOMS_FLOOR_G = "SELECT * FROM NODES WHERE FLOOR = 'G', NODETYPE != 'HALL' and NODETYPE != 'STAI' and NODETYPE != 'ELEV'";
-    public static final String ALL_ROOMS_FLOOR_1 = "SELECT * FROM NODES WHERE FLOOR = '1', NODETYPE != 'HALL' and NODETYPE != 'STAI' and NODETYPE != 'ELEV'";
-    public static final String ALL_ROOMS_FLOOR_2 = "SELECT * FROM NODES WHERE FLOOR = '2', NODETYPE != 'HALL' and NODETYPE != 'STAI' and NODETYPE != 'ELEV'";
-    public static final String ALL_ROOMS_FLOOR_3 = "SELECT * FROM NODES WHERE FLOOR = '3', NODETYPE != 'HALL' and NODETYPE != 'STAI' and NODETYPE != 'ELEV'";
+    public static final String ALL_ROOMS_FLOOR_L2 = "SELECT * FROM NODES WHERE FLOOR = 'L2' AND NODETYPE != 'HALL' and NODETYPE != 'STAI' and NODETYPE != 'ELEV'";
+    public static final String ALL_ROOMS_FLOOR_L1 = "SELECT * FROM NODES WHERE FLOOR = 'L1' AND NODETYPE != 'HALL' and NODETYPE != 'STAI' and NODETYPE != 'ELEV'";
+    public static final String ALL_ROOMS_FLOOR_G = "SELECT * FROM NODES WHERE FLOOR = 'G' AND NODETYPE != 'HALL' and NODETYPE != 'STAI' and NODETYPE != 'ELEV'";
+    public static final String ALL_ROOMS_FLOOR_1 = "SELECT * FROM NODES WHERE FLOOR = '1' AND NODETYPE != 'HALL' and NODETYPE != 'STAI' and NODETYPE != 'ELEV'";
+    public static final String ALL_ROOMS_FLOOR_2 = "SELECT * FROM NODES WHERE FLOOR = '2' AND NODETYPE != 'HALL' and NODETYPE != 'STAI' and NODETYPE != 'ELEV'";
+    public static final String ALL_ROOMS_FLOOR_3 = "SELECT * FROM NODES WHERE FLOOR = '3' AND NODETYPE != 'HALL' and NODETYPE != 'STAI' and NODETYPE != 'ELEV'";
 
 
 
