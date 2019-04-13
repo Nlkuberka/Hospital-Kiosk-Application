@@ -188,8 +188,7 @@ public class UIControllerATMV extends UIController {
         reset();
     }
 
-    private void set()
-    {
+    private void set() {
         setUsefulNodes();
         setUsefulEdges();
     }
@@ -199,8 +198,7 @@ public class UIControllerATMV extends UIController {
         resizeEdgesNodes();
     }
 
-    private void draw()
-    {
+    private void draw() {
         drawEdges();
         drawNodes();
     }
@@ -265,18 +263,13 @@ public class UIControllerATMV extends UIController {
         double x = mouseEvent.getX();
         double y = mouseEvent.getY();
 
-        Node testNode = new Node();
-        testNode.setXcoord((int) (mouseEvent.getX() / getScale().get("scaleFx")));
-        testNode.setYcoord((int) (mouseEvent.getY() / getScale().get("scaleFy")));
-        testNode.setFloor("2"); //TODO Make Auto Once Add MultiFloor Functionality
-        testNode.setNodeID("TEST");
-        enablePopup(testNode);
-        Circle newNode = new Circle((float) x, (float) y, 3);
-        newNode.setRadius(5);
-        newNode.setFill(Color.GREEN);
-        newNode.setStroke(Color.BLACK);
-        newNode.setStrokeWidth(2);
-        nodesGroup.getChildren().add(newNode);
+        Node tempNode = new Node();
+        tempNode.setXcoord((int) (mouseEvent.getX() / getScale().get("scaleFx")));
+        tempNode.setYcoord((int) (mouseEvent.getY() / getScale().get("scaleFy")));
+        tempNode.setFloor("2"); //TODO Make Auto Once Add MultiFloor Functionality
+        enablePopup(tempNode);
+        reset();
+        showAddedNode(tempNode);
     }
 
     private void enablePopup(Node node) throws IOException {
@@ -295,6 +288,20 @@ public class UIControllerATMV extends UIController {
         stage.setResizable(false);
         stage.centerOnScreen();
         stage.showAndWait();
+    }
+
+    private void showAddedNode(Node node)
+    {
+        for(javafx.scene.Node nodes : nodesGroup.getChildren())
+        {
+            if(nodes.getId().equals(node.getNodeID()))
+            {
+                ((Circle) nodes).setRadius(5);
+                ((Circle) nodes).setFill(Color.GREEN);
+                ((Circle) nodes).setStroke(Color.BLACK);
+                ((Circle) nodes).setStrokeWidth(2);
+            }
+        }
     }
 }
 
