@@ -164,12 +164,14 @@ public class UIControllerRVM extends UIController {
 
         if (!checkValidReservation()) {
             for (int i = 0; i < workplaceSelect.getItems().size(); i++) {
-                if (!DBController.isRoomAvailableString(workplaceSelect.getItems().get(i), getDateString(),
+                if (DBController.isRoomAvailableString(workplaceSelect.getItems().get(i), getDateString(),
                         getTimeString(startTimePicker), getTimeString(endTimePicker), connection)) {
 
                     shapes.get(i).setFill(javafx.scene.paint.Color.RED);
 
-                }
+                }else {
+//                    classroom6.setFill(javafx.scene.paint.Color.RED);
+                    shapes.get(i).setFill(javafx.scene.paint.Color.GREEN);}
             }
         }
     }
@@ -196,10 +198,11 @@ public class UIControllerRVM extends UIController {
         Connection conn = DBController.dbConnect();
         List<Reservation> reservations = DBController.getResForRoom(workplaceIDs.get((String) workplaceSelect.getValue()), dateString, conn);
         System.out.println(reservations);
-        Reservation r = new Reservation(workplaceIDs.get((String) workplaceSelect.getValue()),
+        Reservation r = new Reservation(workplaceIDs.get(workplaceSelect.getValue()),
                 CurrentUser.user.getUserID(), dateString, startString, endString);
 
         if (!r.isValid(reservations)) {
+//        if(DBController.isRoomAvailableString(r.getWkplaceID(), r.getDate(), r.getStartTime(), r.getEndTime() ,conn)) {
             popupMessage("This reservation conflicts with another.", true);
             return;
         }
