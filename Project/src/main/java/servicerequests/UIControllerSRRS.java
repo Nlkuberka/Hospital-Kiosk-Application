@@ -14,6 +14,7 @@ import javafx.scene.control.CheckBox;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextFormatter;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 
@@ -49,6 +50,8 @@ public class UIControllerSRRS extends UIController {
     public JFXButton clearButton;
     public JFXTextField OtherServiceField;
     public TextArea additionalCommentField;
+    @FXML
+    private ImageView backgroundImage;
     private String serviceType;
     private String finalMessage;
     private Map<String, String> nodeIDs;
@@ -69,6 +72,8 @@ public class UIControllerSRRS extends UIController {
 
     @FXML
     public void initialize() {
+        backgroundImage.fitWidthProperty().bind(primaryStage.widthProperty());
+
         serviceMessage.setTextFormatter(new TextFormatter<String>(e ->
                 e.getControlNewText().length() <= 150 ? e : null
         ));

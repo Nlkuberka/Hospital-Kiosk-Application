@@ -84,7 +84,7 @@ public class UIControllerLM extends UIController {
             setDefaultButton();
         });
         loginAsGuestButton.setDefaultButton(true);
-        backgroundImage.setFitWidth(primaryStage.getWidth());
+        backgroundImage.fitWidthProperty().bind(primaryStage.widthProperty());
         tabs.setPrefHeight(primaryStage.getHeight());
         tabs.setPrefWidth(primaryStage.getWidth());
     }

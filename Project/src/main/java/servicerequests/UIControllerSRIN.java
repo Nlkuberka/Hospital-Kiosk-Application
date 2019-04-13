@@ -12,6 +12,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextFormatter;
+import javafx.scene.image.ImageView;
 
 import javax.swing.*;
 import java.sql.Connection;
@@ -23,6 +24,8 @@ import java.util.List;
 import java.util.Map;
 
 public class UIControllerSRIN extends UIController {
+    @FXML
+    private ImageView backgroundImage;
     String serviceType;
     Map<String, String> nodeIDs; /**< Holds reference between node short name and nodeID*/
 
@@ -40,6 +43,8 @@ public class UIControllerSRIN extends UIController {
 
     @FXML
     public void initialize() {
+        backgroundImage.fitWidthProperty().bind(primaryStage.widthProperty());
+
         languageSelect.getItems().addAll("Spanish", "Mandarin", "Arabic", "French");
         serviceMessage.setTextFormatter(new TextFormatter<String>(e ->
                 e.getControlNewText().length() <= 100 ? e : null

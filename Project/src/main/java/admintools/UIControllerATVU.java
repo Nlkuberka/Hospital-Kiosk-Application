@@ -10,6 +10,7 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
@@ -36,6 +37,8 @@ public class UIControllerATVU extends UIController {
 
     private static final List<String> userPermissionNames = new LinkedList<String>() {{add("Guest"); add("User"); add("Administrator");}};
     private static final List<Integer> userPermissions = new LinkedList<Integer>(){{add(1); add(2); add(3);}};
+    @FXML
+    private ImageView backgroundImage;
 
     @FXML
     private TableView<User> userTableView;
@@ -48,6 +51,8 @@ public class UIControllerATVU extends UIController {
      */
     @FXML
     public void initialize() {
+        backgroundImage.fitWidthProperty().bind(primaryStage.widthProperty());
+
         List<TableColumn<User, ?>> tableColumns = userTableView.getColumns();
         // Initialize the UserID and username columns
         for(int i = 0; i < 2; i++) {

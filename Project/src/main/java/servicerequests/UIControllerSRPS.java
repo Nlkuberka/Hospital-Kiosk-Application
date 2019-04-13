@@ -14,6 +14,7 @@ import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TextFormatter;
+import javafx.scene.image.ImageView;
 import org.controlsfx.control.textfield.TextFields;
 
 import java.io.BufferedReader;
@@ -32,6 +33,8 @@ import java.util.*;
  * @version iteration2
  */
 public class UIControllerSRPS extends UIController {
+    @FXML
+    private ImageView backgroundImage;
     String serviceType;
     Map<String, String> nodeIDs; /**< Holds reference between node short name and nodeID*/
     String[] prescriptionArray;
@@ -60,6 +63,8 @@ public class UIControllerSRPS extends UIController {
      */
     @FXML
     public void initialize() {
+        backgroundImage.fitWidthProperty().bind(primaryStage.widthProperty());
+
         List<String> drugs = new LinkedList<String>();
         try {
             BufferedReader br = new BufferedReader(new FileReader("src/main/resources/textfiles/prescriptiondrugs.txt"));
