@@ -130,7 +130,6 @@ public class UIControllerPFM extends UIController {
     @FXML
     private StackPane parentPane;
 
-    private Graph graph;
     private String initialID;
     private String destID;
 
@@ -229,9 +228,7 @@ public class UIControllerPFM extends UIController {
     @Override
     public void onShow() {
         /*Connection conn = DBControllerNE.dbConnect();
-        LinkedList<Node> allNodes = DBControllerNE.generateListOfNodes(conn,DBControllerNE.ALL_NODES);
         LinkedList<Node> allRooms = DBControllerNE.generateListOfNodes(conn,DBControllerNE.ALL_ROOMS);
-        List<Edge> allEdges = DBControllerNE.generateListofEdges(conn);
 
         roomsAtEachFloor.add(DBControllerNE.generateListOfNodes(conn, DBControllerNE.ALL_ROOMS_FLOOR_L2));
         roomsAtEachFloor.add(DBControllerNE.generateListOfNodes(conn, DBControllerNE.ALL_ROOMS_FLOOR_L1));
@@ -252,14 +249,7 @@ public class UIControllerPFM extends UIController {
             destinationSelect.getItems().addAll(node.getLongName());
         }
 
-        this.graph = new AStarGraph(allNodes);
 
-        for (Edge edge : allEdges) {
-            try {
-                graph.addBiEdge(edge.getNode1ID(), edge.getNode2ID());
-            } catch (IllegalArgumentException e) {
-            }
-        }
 
         drawNodes(roomsAtEachFloor.get(mapHandler.currentFloor.getIndex()));
         */
@@ -366,13 +356,13 @@ public class UIControllerPFM extends UIController {
             return;
 
         List<String> pathIDs;
-        pathIDs = graph.shortestPath(initialID, destID);
+        pathIDs = Graph.getGraph().shortestPath(initialID, destID);
 
         Connection connection = DBController.dbConnect();
         Node initialNode = DBControllerNE.fetchNode(initialID, connection);
         DBController.closeConnection(connection);
 
-        mapHandler.displayNewPath(graph.separatePathByFloor(pathIDs), initialNode);
+        mapHandler.displayNewPath(Graph.getGraph().separatePathByFloor(pathIDs), initialNode);
     }
 
 
@@ -560,7 +550,7 @@ public class UIControllerPFM extends UIController {
 
     @FXML
     private void directionSelection() {
-        String direction = graph.textDirections(graph.shortestPath(initialID, destID));
+        String direction = Graph.getGraph().textDirections(Graph.getGraph().shortestPath(initialID, destID));
         try {
             FXMLLoader fxmlLoader = new FXMLLoader();
             fxmlLoader.setLocation(getClass().getResource("/directions_popup.fxml"));
