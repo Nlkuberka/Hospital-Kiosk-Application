@@ -19,6 +19,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 
+import javax.swing.*;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -233,4 +234,7 @@ public class UIControllerSRRS extends UIController {
             serviceCheckBox.setSelected(false);
         }
     }
+
+    @FXML
+    public void setCancelButton(ActionEvent actionEvent) {this.goToScene(UIController.SERVICE_REQUEST_MAIN); }
 }

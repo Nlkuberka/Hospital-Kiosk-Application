@@ -31,7 +31,7 @@
               <menus>
                 <Menu fx:id="homeButton" mnemonicParsing="false" onShowing="#setHomeButton" text="Home">
                      <items>
-                        <MenuItem mnemonicParsing="false" text="HOME" />
+                        <MenuItem mnemonicParsing="false" onAction="#setHomeButton" text="HOME" />
                      </items>
                   </Menu>
               </menus>
