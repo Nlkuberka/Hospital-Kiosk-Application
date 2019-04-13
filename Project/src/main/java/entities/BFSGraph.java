@@ -6,7 +6,7 @@ import java.util.Queue;
 public class BFSGraph extends Graph {
     private Queue<Integer> queue;
 
-    public BFSGraph(LinkedList<Node> storedNodes) {
+    protected BFSGraph(LinkedList<Node> storedNodes) {
         super(storedNodes);
     }
 
