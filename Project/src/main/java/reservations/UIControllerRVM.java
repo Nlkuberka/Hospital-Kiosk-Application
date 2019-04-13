@@ -3,6 +3,7 @@ package reservations;
 import application.CurrentUser;
 import database.DBController;
 import application.UIController;
+import database.DBControllerRW;
 import entities.Reservation;
 
 import com.jfoenix.controls.JFXButton;
@@ -113,7 +114,7 @@ public class UIControllerRVM extends UIController {
             return;
         }
         for(int i = 0; i < workplaceSelect.getItems().size(); i++) {
-            if(!DBController.isRoomAvailableString(workplaceSelect.getItems().get(i), getDateString(),
+            if(!DBControllerRW.isRoomAvailableString(workplaceSelect.getItems().get(i), getDateString(),
                     getTimeString(startTimePicker), getTimeString(endTimePicker), connection)) {
 
                 shapes[i].setFill(javafx.scene.paint.Color.RED);
@@ -161,7 +162,7 @@ public class UIControllerRVM extends UIController {
             return;
         }
 
-        DBController.addReservation(r,conn);
+        DBControllerRW.addReservation(r,conn);
         DBController.closeConnection(conn);
         popupMessage("Reservation Confirmed.", false);
     }
