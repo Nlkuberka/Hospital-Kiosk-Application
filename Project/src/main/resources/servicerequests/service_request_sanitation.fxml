@@ -28,7 +28,7 @@
                       <top>
                           <MenuBar blendMode="ADD" prefWidth="600.0" style="-fx-background-color: white;" stylesheets="@../css/background.css" BorderPane.alignment="CENTER">
                               <menus>
-                                  <Menu fx:id="homeButton" mnemonicParsing="false" onAction="#setHomeButton" onShowing="#setHomeButton" text="Home">
+                                  <Menu fx:id="homeButton" mnemonicParsing="false" onAction="#setHomeButton" onShowing="#setHomeButton" text="Back">
                            <items>
                               <MenuItem mnemonicParsing="false" text="HOME" />
                            </items>
@@ -46,7 +46,7 @@
                <right>
                   <ImageView fitHeight="575.0" fitWidth="650.0" pickOnBounds="true" preserveRatio="true" BorderPane.alignment="CENTER">
                      <image>
-                        <Image url="@02_thesecondfloor.png" />
+                        <Image url="@../maps/02_thesecondfloor.png" />
                      </image>
                   </ImageView>
                </right>
@@ -58,7 +58,7 @@
                            <graphic>
                               <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
-                                    <Image url="@icon/cancel2.png" />
+                                    <Image url="@../icon/cancel2.png" />
                                  </image>
                               </ImageView>
                            </graphic>
