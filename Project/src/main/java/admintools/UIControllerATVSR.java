@@ -17,6 +17,7 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.image.ImageView;
 
 import java.lang.reflect.Method;
 import java.sql.Connection;
@@ -32,7 +33,9 @@ import java.sql.SQLException;
 public class UIControllerATVSR extends UIController {
     private static final String[] serviceRequestSetters  = {"", "", "", "setResolved", "setResolverID", ""};
     private static final String[] serviceRequestGetters  = {"getNodeID", "getServiceType", "getUserID", "isResolved", "getResolverID", "getMessage"};
-                                                    /**< The Various ServiceRequest Columns used for cell factories */
+    @FXML
+    private ImageView backgroundImage;
+    /**< The Various servicerequests Columns used for cell factories */
     @FXML
     private MenuItem backButton; /**< The Back Button */
 
@@ -48,6 +51,8 @@ public class UIControllerATVSR extends UIController {
      */
     @FXML
     public void initialize() {
+        backgroundImage.fitWidthProperty().bind(primaryStage.widthProperty());
+
         ObservableList<TableColumn<ServiceRequest, ?>> tableColumns = serviceRequestTable.getColumns();
 
         // Set up the uneditable columns

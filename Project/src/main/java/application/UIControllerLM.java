@@ -12,6 +12,7 @@ import javafx.scene.control.Tab;
 
 import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;
+import javafx.scene.image.ImageView;
 
 import java.sql.Connection;
 
@@ -23,6 +24,8 @@ import java.sql.Connection;
  */
 public class UIControllerLM extends UIController {
 
+    @FXML
+    private ImageView backgroundImage;
     @FXML
     private JFXTabPane login_tabpane;
 
@@ -83,6 +86,9 @@ public class UIControllerLM extends UIController {
             setDefaultButton();
         });
         loginAsGuestButton.setDefaultButton(true);
+        backgroundImage.fitWidthProperty().bind(primaryStage.widthProperty());
+        tabs.setPrefHeight(primaryStage.getHeight());
+        tabs.setPrefWidth(primaryStage.getWidth());
     }
 
     /**

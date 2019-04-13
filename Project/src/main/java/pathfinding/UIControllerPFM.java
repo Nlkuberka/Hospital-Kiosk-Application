@@ -2,6 +2,7 @@ package pathfinding;
 
 import database.DBController;
 import application.UIController;
+import application.UIControllerPUD;
 import com.jfoenix.controls.JFXSlider;
 import database.DBControllerNE;
 import entities.AStarGraph;
@@ -11,6 +12,10 @@ import entities.Node;
 
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.layout.*;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -24,6 +29,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.shape.Path;
 
+import java.io.IOException;
 import java.sql.Connection;
 
 import com.jfoenix.controls.JFXButton;
@@ -41,6 +47,8 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * Controller for the path_find_main.fxml file
@@ -172,7 +180,7 @@ public class UIControllerPFM extends UIController {
         this.mapHandler = new MapHandler(p_002, p_001, p_00, p_01, p_02, p_03,
                 map_002, map_001, map_00, map_01, map_02, map_03,
                 pane_002, pane_001, pane_00, pane_01, pane_02, pane_03,
-                Floors.SECOND);
+                Floors.SECOND, primaryStage);
 
         initialBindings();
         setScene();
@@ -193,6 +201,8 @@ public class UIControllerPFM extends UIController {
 
         // set value to "true" to use zoom functionality
         setZoomOn(true);
+
+        mapHandler.setAllPaneSize(1920.0, mapHandler.getTopPane().getPrefHeight()*(1920.0/mapHandler.getTopPane().getPrefWidth()));
 
         floorSlider.valueProperty().addListener(new ChangeListener() {
 
@@ -248,10 +258,7 @@ public class UIControllerPFM extends UIController {
     private void initialBindings() {
         // bind background image size to window size
         // ensures auto resize works
-        backgroundImage.fitHeightProperty().bind(parentPane.heightProperty());
-        backgroundImage.fitWidthProperty().bind(parentPane.widthProperty());
-
-        interfaceGrid.prefHeightProperty().bind(hboxForMap.heightProperty());
+        backgroundImage.fitWidthProperty().bind(primaryStage.widthProperty());
 
         scrollPane_pathfind.prefViewportWidthProperty().bind(hboxForMap.prefWidthProperty());
     }
@@ -512,25 +519,22 @@ public class UIControllerPFM extends UIController {
         StackPane secondaryLayout = new StackPane();
         secondaryLayout.getChildren().add(secondLabel);
 
-        Scene secondScene = new Scene(secondaryLayout, 230, 100);
+            Scene popupScene = new Scene(fxmlLoader.load(), 600, 400);
+            Stage popupStage = new Stage();
 
-        // New window (Stage)
-        Stage newWindow = new Stage();
-        newWindow.setTitle("Second Stage");
-        newWindow.setScene(secondScene);
+            popupStage.initModality(Modality.WINDOW_MODAL);
+            popupStage.initOwner(this.primaryStage);
 
-        // Specifies the modality for new window.
-        newWindow.initModality(Modality.WINDOW_MODAL);
+            UIControllerPUD controller = (UIControllerPUD) fxmlLoader.getController();
+            controller.setDirections(direction);
 
-        // Specifies the owner Window (parent) for new window
-        newWindow.initOwner(primaryStage);
-
-        // Set position of second window, related to primary window.
-        newWindow.setX(primaryStage.getX() + 200);
-        newWindow.setY(primaryStage.getY() + 100);
-
-        newWindow.show();
-
+            popupStage.setTitle("Directions");
+            popupStage.setScene(popupScene);
+            popupStage.show();
+        } catch (IOException e) {
+            Logger logger = Logger.getLogger((getClass().getName()));
+            logger.log(Level.SEVERE, "Failed to create new window.", e);
+        }
     }
 
 }

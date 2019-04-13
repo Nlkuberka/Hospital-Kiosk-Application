@@ -8,6 +8,7 @@ import com.jfoenix.controls.JFXButton;
 import javafx.fxml.FXML;
 
 import javafx.event.ActionEvent;
+import javafx.scene.image.ImageView;
 
 /**
  * The UIController for the making and sending of service requests
@@ -16,6 +17,8 @@ import javafx.event.ActionEvent;
  */
 public class UIControllerSRM extends UIController {
 
+    @FXML
+    private ImageView backgroundImage;
     @FXML
     private JFXButton ITButton;
 
@@ -27,6 +30,7 @@ public class UIControllerSRM extends UIController {
      */
     @FXML
     public void initialize() {
+        backgroundImage.fitWidthProperty().bind(primaryStage.widthProperty());
     }
 
     /**
@@ -39,7 +43,7 @@ public class UIControllerSRM extends UIController {
     }
 
     /**
-     * Redirects to IT ServiceRequest
+     * Redirects to IT servicerequests
      */
     @FXML
     public void setITButton() {

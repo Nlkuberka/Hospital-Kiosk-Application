@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.effect.ColorAdjust?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.text.Font?>
+
+
+<StackPane xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="admintools.UIControllerATVU">
+   <children>
+      <ImageView fx:id="backgroundImage" opacity="0.6" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/Hospitalbackground.png" />
+         </image>
+         <effect>
+            <ColorAdjust brightness="-0.15" hue="0.05" />
+         </effect>
+      </ImageView>
+      <BorderPane stylesheets="@../css/background.css">
+         <top>
+            <MenuBar blendMode="LIGHTEN" nodeOrientation="LEFT_TO_RIGHT" prefWidth="900.0" style="-fx-background-color: #ffffff;" stylesheets="@../css/background.css" BorderPane.alignment="CENTER">
+              <menus>
+                <Menu mnemonicParsing="false" text="Back">
+                  <items>
+                    <MenuItem fx:id="backButton" mnemonicParsing="false" onAction="#setBackButton" text="Go back to previous page" />
+                  </items>
+                </Menu>
+                <Menu fx:id="homeButton" mnemonicParsing="false" onAction="#setHomeButton" onShowing="#setHomeButton" text="Home">
+                     <items>
+                        <MenuItem mnemonicParsing="false" text="HOME" />
+                     </items>
+                  </Menu>
+              </menus>
+               <effect>
+                  <DropShadow />
+               </effect>
+            </MenuBar>
+         </top>
+         <center>
+            <TableView fx:id="userTableView" BorderPane.alignment="CENTER">
+              <columns>
+                <TableColumn prefWidth="60.0" text="UserID" />
+                <TableColumn prefWidth="150.0" text="Username" />
+                  <TableColumn prefWidth="150.0" text="Password" />
+                  <TableColumn prefWidth="150.0" text="Permissions" />
+                  <TableColumn prefWidth="250.0" text="Service Requests" />
+                  <TableColumn text="Remove" />
+              </columns>
+            </TableView>
+         </center>
+         <bottom>
+            <JFXButton fx:id="addButton" buttonType="RAISED" onAction="#setAddButton" styleClass="jfx-button-add" stylesheets="@../css/background.css" text="Add User" textFill="WHITE" BorderPane.alignment="CENTER_RIGHT">
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font>
+               <BorderPane.margin>
+                  <Insets bottom="10.0" right="10.0" top="10.0" />
+               </BorderPane.margin>
+            </JFXButton>
+         </bottom>
+      </BorderPane>
+   </children>
+</StackPane>
