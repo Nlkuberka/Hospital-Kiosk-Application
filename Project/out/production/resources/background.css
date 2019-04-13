@@ -321,7 +321,6 @@
     -fx-background-insets:  2 3 2 2;
 }
 
-<<<<<<< HEAD
 /* ~~~~~~~~~ Floor Slider ~~~~~~~~ */
 
 .floor-slider {
@@ -335,7 +334,7 @@
 /* Styling the slider track */
 .floor-slider > .track {
     -fx-background-color: #FFC41E;
-=======
+}
 .paneBabysitting{
     -jfx-button-type: FLAT;
     -fx-background-color:#efffff;
@@ -348,7 +347,6 @@
     -fx-border-color: #015080;
     -fx-border-width: 1;
     -fx-background-radius: 10;
->>>>>>> aa80d13f412e79c39763d9fcbc8103a7bcb8e28e
 }
 
 /* Styling the slider thumb */
