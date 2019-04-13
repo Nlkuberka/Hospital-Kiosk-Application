@@ -514,10 +514,10 @@ public class UIControllerPFM extends UIController {
 
     @FXML
     private void directionSelection() {
-        Label secondLabel = new Label(graph.textDirections(graph.shortestPath(initialID, destID)));
-
-        StackPane secondaryLayout = new StackPane();
-        secondaryLayout.getChildren().add(secondLabel);
+        String direction = graph.textDirections(graph.shortestPath(initialID, destID));
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader();
+            fxmlLoader.setLocation(getClass().getResource("/directions_popup.fxml"));
 
             Scene popupScene = new Scene(fxmlLoader.load(), 600, 400);
             Stage popupStage = new Stage();
@@ -534,6 +534,7 @@ public class UIControllerPFM extends UIController {
         } catch (IOException e) {
             Logger logger = Logger.getLogger((getClass().getName()));
             logger.log(Level.SEVERE, "Failed to create new window.", e);
+
         }
     }
 

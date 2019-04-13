@@ -157,22 +157,19 @@ public class UIControllerRVM extends UIController {
     @FXML
     private void updateColorView() {
         Connection connection = DBController.dbConnect();
-        if(!checkValidReservation()) {
+        if (!checkValidReservation()) {
             return;
         }
-        for(int i = 0; i < workplaceSelect.getItems().size(); i++) {
-            if(!DBControllerRW.isRoomAvailableString(workplaceSelect.getItems().get(i), getDateString(),
-                    getTimeString(startTimePicker), getTimeString(endTimePicker), connection)) {
         colorAllGreen();
 
-        if (!checkValidReservation()) {
-            for (int i = 0; i < workplaceSelect.getItems().size(); i++) {
-                if (DBController.isRoomAvailableString(workplaceSelect.getItems().get(i), getDateString(),
-                        getTimeString(startTimePicker), getTimeString(endTimePicker), connection)) {
+                if (!checkValidReservation()) {
+                    for (int i = 0; i < workplaceSelect.getItems().size(); i++) {
+                        if (DBControllerRW.isRoomAvailableString(workplaceSelect.getItems().get(i), getDateString(),
+                                getTimeString(startTimePicker), getTimeString(endTimePicker), connection)) {
 
-                    shapes.get(i).setFill(javafx.scene.paint.Color.RED);
+                            shapes.get(i).setFill(javafx.scene.paint.Color.RED);
 
-                }else {
+                        } else {
 //                    classroom6.setFill(javafx.scene.paint.Color.RED);
                     shapes.get(i).setFill(javafx.scene.paint.Color.GREEN);}
             }
