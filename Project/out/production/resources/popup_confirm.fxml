@@ -15,13 +15,13 @@
       </ImageView>
       <AnchorPane layoutY="20.0" prefHeight="130.0" prefWidth="300.0" style="-fx-background-color: #ffffff;">
          <children>
-            <Label fx:id="warningLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="-1.0" layoutY="52.0" stylesheets="@background.css" text="Unfortunatlly, this room has already been booked." wrapText="true" AnchorPane.leftAnchor="-1.0" AnchorPane.rightAnchor="1.0" AnchorPane.topAnchor="52.0" />
+            <Label fx:id="warningLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="-1.0" layoutY="52.0" stylesheets="@css/background.css" text="Unfortunatlly, this room has already been booked." wrapText="true" AnchorPane.leftAnchor="-1.0" AnchorPane.rightAnchor="1.0" AnchorPane.topAnchor="52.0" />
             <ImageView fitHeight="40.0" fitWidth="40.0" layoutX="125.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@icon/confirm.png" />
+                  <Image url="@images/confirm.png" />
                </image>
             </ImageView>
-            <JFXButton fx:id="okButton" layoutX="95.0" layoutY="91.0" onAction="#setOkButton" styleClass="jfx-button-OK" stylesheets="@background.css" text="Ok" AnchorPane.bottomAnchor="14.0" AnchorPane.leftAnchor="95.0" AnchorPane.rightAnchor="105.0" />
+            <JFXButton fx:id="okButton" layoutX="95.0" layoutY="91.0" onAction="#setOkButton" styleClass="jfx-button-OK" stylesheets="@css/background.css" text="Ok" AnchorPane.bottomAnchor="14.0" AnchorPane.leftAnchor="95.0" AnchorPane.rightAnchor="105.0" />
          </children>
       </AnchorPane>
    </children>
