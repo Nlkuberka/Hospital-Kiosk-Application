@@ -174,19 +174,20 @@ public class UIControllerRVM extends UIController {
         }
         colorAllGreen();
 
-                if (!checkValidReservation()) {
+                if (checkValidReservation()) {
                     for (int i = 0; i < workplaceSelect.getItems().size(); i++) {
-                        if (workplaceIDs.get(workplaceSelect.getValue()).equals(roomToShape.get(shapes.get(i)))) {
-                            if (DBControllerRW.isRoomAvailableString(workplaceSelect.getItems().get(i), getDateString(),
+//                        if (workplaceIDs.get(workplaceSelect.getValue()).equals(roomToShape.get(shapes.get(i)))) {
+                            if (!DBControllerRW.isRoomAvailableString(workplaceSelect.getItems().get(i), getDateString(),
                                     getTimeString(startTimePicker), getTimeString(endTimePicker), connection)) {
-
+                                System.out.println(workplaceSelect.getItems().get(i));
                                 shapes.get(i).setFill(javafx.scene.paint.Color.RED);
 
                             } else {
 //                    classroom6.setFill(javafx.scene.paint.Color.RED);
                                 shapes.get(i).setFill(javafx.scene.paint.Color.GREEN);
+                                System.out.println("bad new bears");
                             }
-                        }
+//                        }
                     }
         }
     }

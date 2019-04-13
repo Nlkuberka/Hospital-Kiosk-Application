@@ -281,7 +281,7 @@ public class UIControllerATMV extends UIController {
     }
 
     private void drawNodes() {
-        getAllNodeAndEdges();
+//        getAllNodeAndEdges();
         float scaleFx = getScale().get("scaleFx");
         float scaleFy = getScale().get("scaleFy");
 
@@ -301,7 +301,7 @@ public class UIControllerATMV extends UIController {
     }
 
     private void setUsefulNodes() {
-        getAllNodeAndEdges();
+//        getAllNodeAndEdges();
         for (Node node : allNodes) {
             if (node.getFloor().equals("2")) {
                 usefulNodes.add(node);
