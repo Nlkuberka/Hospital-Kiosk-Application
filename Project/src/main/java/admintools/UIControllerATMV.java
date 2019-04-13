@@ -64,22 +64,49 @@ public class UIControllerATMV extends UIController {
     private LinkedList<Node> usefulNodes;
     private LinkedList<Edge> usefulEdges;
 
+    @FXML private ScrollPane lowerLevel2ScrollPane;
+    @FXML private ScrollPane lowerLevel1ScrollPane;
+    @FXML private ScrollPane groundFloorScrollPane;
+    @FXML private ScrollPane firstFloorScrollPane;
+    @FXML private ScrollPane secondFloorScrollPane;
+    @FXML private ScrollPane thirdFloorScrollPane;
+    private List<ScrollPane> scrollPanes;
+    
+    @FXML private AnchorPane lowerLevel2AnchorPane;
+    @FXML private AnchorPane lowerLevel1AnchorPane;
+    @FXML private AnchorPane groundFloorAnchorPane;
+    @FXML private AnchorPane firstFloorAnchorPane;
+    @FXML private AnchorPane secondFloorAnchorPane;
+    @FXML private AnchorPane thirdFloorAnchorPane;
+    private List<AnchorPane> anchorPanes;
+
+    @FXML private ImageView lowerLevel2ImageView;
+    @FXML private ImageView lowerLevel1ImageView;
+    @FXML private ImageView groundFloorImageView;
+    @FXML private ImageView firstFloorImageView;
+    @FXML private ImageView secondFloorImageView;
+    @FXML private ImageView thirdFloorImageView;
+    private List<ImageView> imageViews;
+    
     // The multiplication factor at which the map changes size
     private double zoomFactor = 1.2;
 
     @FXML
     public void initialize() {
-        initialBindings();
         setScene();
+        initialBindings();
+
 
         // Only show scroll bars if Image inside is bigger than ScrollPane
-        scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
-        scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
+        for(ScrollPane sp : scrollPanes) {
+            sp.setHbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
+            sp.setVbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
+        }
     }
 
     @Override
     public void onShow() {
-        usefulNodes = new LinkedList<>();
+        /*usefulNodes = new LinkedList<>();
         usefulEdges = new LinkedList<>();
         Connection conn = DBController.dbConnect();
         allNodes = DBControllerNE.generateListOfNodes(conn,DBControllerNE.ALL_NODES);
@@ -95,7 +122,7 @@ public class UIControllerATMV extends UIController {
         setUsefulNodes();
         setUsefulEdges();
         drawNodes();
-        drawEdges();
+        drawEdges();*/
     }
 
 
@@ -106,20 +133,49 @@ public class UIControllerATMV extends UIController {
         backgroundImage.fitWidthProperty().bind(parentPane.widthProperty());
 
         // bind Map to AnchorPane inside of ScrollPane
-        map_imageView.fitWidthProperty().bind(scroll_AnchorPane.prefWidthProperty());
-        map_imageView.fitHeightProperty().bind(scroll_AnchorPane.prefHeightProperty());
+        //map_imageView.fitWidthProperty().bind(scroll_AnchorPane.prefWidthProperty());
+        //map_imageView.fitHeightProperty().bind(scroll_AnchorPane.prefHeightProperty());
+        for(int i = 0; i < imageViews.size(); i++) {
+            imageViews.get(i).fitWidthProperty().bind(anchorPanes.get(i).prefWidthProperty());
+            imageViews.get(i).fitHeightProperty().bind(anchorPanes.get(i).prefHeightProperty());
+        }
 
-        interfaceGrid.prefHeightProperty().bind(hboxForMap.heightProperty());
+        //interfaceGrid.prefHeightProperty().bind(hboxForMap.heightProperty());
 
-        scrollPane.prefViewportWidthProperty().bind(hboxForMap.prefWidthProperty());
+        //scrollPane.prefViewportWidthProperty().bind(hboxForMap.prefWidthProperty());
     }
 
 
     private void setScene() {
         // set value to "true" to use zoom functionality
-        setZoomOn(true);
-        scroll_AnchorPane.getChildren().add(nodesGroup);
-        scroll_AnchorPane.getChildren().add(edgesGroup);
+        //setZoomOn(true);
+        //scroll_AnchorPane.getChildren().add(nodesGroup);
+        //scroll_AnchorPane.getChildren().add(edgesGroup);
+        
+        scrollPanes = new LinkedList<ScrollPane>();
+        scrollPanes.add(lowerLevel2ScrollPane);
+        scrollPanes.add(lowerLevel1ScrollPane);
+        scrollPanes.add(groundFloorScrollPane);
+        scrollPanes.add(firstFloorScrollPane);
+        scrollPanes.add(secondFloorScrollPane);
+        scrollPanes.add(thirdFloorScrollPane);
+
+        anchorPanes = new LinkedList<AnchorPane>();
+        anchorPanes.add(lowerLevel2AnchorPane);
+        anchorPanes.add(lowerLevel1AnchorPane);
+        anchorPanes.add(groundFloorAnchorPane);
+        anchorPanes.add(firstFloorAnchorPane);
+        anchorPanes.add(secondFloorAnchorPane);
+        anchorPanes.add(thirdFloorAnchorPane);
+
+        imageViews = new LinkedList<ImageView>();
+        imageViews.add(lowerLevel2ImageView);
+        imageViews.add(lowerLevel1ImageView);
+        imageViews.add(groundFloorImageView);
+        imageViews.add(firstFloorImageView);
+        imageViews.add(secondFloorImageView);
+        imageViews.add(thirdFloorImageView);
+        
     }
 
     private void drawEdges() {
@@ -166,8 +222,8 @@ public class UIControllerATMV extends UIController {
      * @param bool Set in initialize() to turn on/off zoom functionality
      */
     private void setZoomOn(boolean bool) {
-        zoom_button.setVisible(bool);
-        unzoom_button.setVisible(bool);
+        //zoom_button.setVisible(bool);
+        //unzoom_button.setVisible(bool);
     }
 
     /**
@@ -176,11 +232,13 @@ public class UIControllerATMV extends UIController {
      * @param actionEvent Triggered when zoom_button is pressed
      */
     public void zoom(ActionEvent actionEvent) {
-        if (scroll_AnchorPane.getPrefWidth() < scroll_AnchorPane.getMaxWidth()) {
-            scroll_AnchorPane.setPrefSize(scroll_AnchorPane.getPrefWidth() * zoomFactor, scroll_AnchorPane.getPrefHeight() * zoomFactor);
+        if (groundFloorAnchorPane.getPrefWidth() < groundFloorAnchorPane.getMaxWidth()) {
+            for(AnchorPane ap : anchorPanes) {
+                ap.setPrefSize(ap.getPrefWidth() * zoomFactor, ap.getPrefHeight() * zoomFactor);
+            }
         }
 
-        resizeEdgesNodes();
+        //resizeEdgesNodes();
     }
 
     /**
@@ -189,11 +247,13 @@ public class UIControllerATMV extends UIController {
      * @param actionEvent Triggered when zoom_button is pressed
      */
     public void unZoom(ActionEvent actionEvent) {
-        if (scroll_AnchorPane.getPrefWidth() > scroll_AnchorPane.getMinWidth()) {
-            scroll_AnchorPane.setPrefSize(scroll_AnchorPane.getPrefWidth() / zoomFactor, scroll_AnchorPane.getPrefHeight() / zoomFactor);
+        if (groundFloorAnchorPane.getPrefWidth() > groundFloorAnchorPane.getMinWidth()) {
+            for(AnchorPane ap : anchorPanes) {
+                ap.setPrefSize(ap.getPrefWidth() / zoomFactor, ap.getPrefHeight() / zoomFactor);
+            }
         }
 
-        resizeEdgesNodes();
+        //resizeEdgesNodes();
     }
 
     private void resizeEdgesNodes() {
