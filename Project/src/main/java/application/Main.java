@@ -18,6 +18,7 @@ public class Main extends Application {
 
         controller.goToScene(UIController.WELCOME_MAIN);
 
+
         System.out.println("Collaborator is " + "X");
 
         Connection conn = DBController.dbConnect();

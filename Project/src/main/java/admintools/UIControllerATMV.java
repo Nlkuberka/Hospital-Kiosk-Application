@@ -1,14 +1,13 @@
 package admintools;
 
-import database.DBController;
 import application.UIController;
+import database.DBController;
 import database.DBControllerNE;
 import entities.Edge;
 import entities.Node;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.geometry.Rectangle2D;
 import javafx.scene.Group;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -18,7 +17,6 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
@@ -26,7 +24,6 @@ import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
 import javafx.scene.shape.Path;
 import javafx.stage.Modality;
-import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
@@ -36,7 +33,6 @@ import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Objects;
 
 /**
  * Controller for the path_find_main.fxml file
@@ -47,7 +43,6 @@ import java.util.Objects;
 public class UIControllerATMV extends UIController {
 
     public HBox hboxForMap;
-    public GridPane interfaceGrid;
     public StackPane parentPane;
     public ImageView backgroundImage;
     public Path path;
@@ -81,8 +76,14 @@ public class UIControllerATMV extends UIController {
     public void onShow() {
         usefulNodes = new LinkedList<>();
         usefulEdges = new LinkedList<>();
+        getAllNodeAndEdges();
+        set();
+        draw();
+    }
+
+    private void getAllNodeAndEdges() {
         Connection conn = DBController.dbConnect();
-        allNodes = DBControllerNE.generateListOfNodes(conn,DBControllerNE.ALL_NODES);
+        allNodes = DBControllerNE.generateListOfNodes(conn, DBControllerNE.ALL_NODES);
         allEdges = DBControllerNE.generateListofEdges(conn);
         DBControllerNE.closeConnection(conn);
 
@@ -91,11 +92,6 @@ public class UIControllerATMV extends UIController {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
-        setUsefulNodes();
-        setUsefulEdges();
-        drawNodes();
-        drawEdges();
     }
 
 
@@ -108,8 +104,6 @@ public class UIControllerATMV extends UIController {
         // bind Map to AnchorPane inside of ScrollPane
         map_imageView.fitWidthProperty().bind(scroll_AnchorPane.prefWidthProperty());
         map_imageView.fitHeightProperty().bind(scroll_AnchorPane.prefHeightProperty());
-
-        interfaceGrid.prefHeightProperty().bind(hboxForMap.heightProperty());
 
         scrollPane.prefViewportWidthProperty().bind(hboxForMap.prefWidthProperty());
     }
@@ -179,8 +173,7 @@ public class UIControllerATMV extends UIController {
         if (scroll_AnchorPane.getPrefWidth() < scroll_AnchorPane.getMaxWidth()) {
             scroll_AnchorPane.setPrefSize(scroll_AnchorPane.getPrefWidth() * zoomFactor, scroll_AnchorPane.getPrefHeight() * zoomFactor);
         }
-
-        resizeEdgesNodes();
+        reset();
     }
 
     /**
@@ -192,18 +185,35 @@ public class UIControllerATMV extends UIController {
         if (scroll_AnchorPane.getPrefWidth() > scroll_AnchorPane.getMinWidth()) {
             scroll_AnchorPane.setPrefSize(scroll_AnchorPane.getPrefWidth() / zoomFactor, scroll_AnchorPane.getPrefHeight() / zoomFactor);
         }
+        reset();
+    }
 
+    private void set()
+    {
+        setUsefulNodes();
+        setUsefulEdges();
+    }
+
+    private void reset() {
+        set();
         resizeEdgesNodes();
+    }
+
+    private void draw()
+    {
+        drawEdges();
+        drawNodes();
     }
 
     private void resizeEdgesNodes() {
         nodesGroup.getChildren().clear();
         edgesGroup.getChildren().clear();
-        drawEdges();
-        drawNodes();
+
+        draw();
     }
 
     private void drawNodes() {
+        getAllNodeAndEdges();
         float scaleFx = getScale().get("scaleFx");
         float scaleFy = getScale().get("scaleFy");
 
@@ -223,6 +233,7 @@ public class UIControllerATMV extends UIController {
     }
 
     private void setUsefulNodes() {
+        getAllNodeAndEdges();
         for (Node node : allNodes) {
             if (node.getFloor().equals("2")) {
                 usefulNodes.add(node);
@@ -251,16 +262,15 @@ public class UIControllerATMV extends UIController {
 
 
     public void addNodeOnClick(MouseEvent mouseEvent) throws IOException {
-        enablePopup();
         double x = mouseEvent.getX();
         double y = mouseEvent.getY();
 
         Node testNode = new Node();
         testNode.setXcoord((int) (mouseEvent.getX() / getScale().get("scaleFx")));
         testNode.setYcoord((int) (mouseEvent.getY() / getScale().get("scaleFy")));
-        testNode.setFloor("2");
+        testNode.setFloor("2"); //TODO Make Auto Once Add MultiFloor Functionality
         testNode.setNodeID("TEST");
-        usefulNodes.add(testNode);
+        enablePopup(testNode);
         Circle newNode = new Circle((float) x, (float) y, 3);
         newNode.setRadius(5);
         newNode.setFill(Color.GREEN);
@@ -269,12 +279,16 @@ public class UIControllerATMV extends UIController {
         nodesGroup.getChildren().add(newNode);
     }
 
-    private void enablePopup() throws IOException {
+    private void enablePopup(Node node) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/admintools/ATMV_addNode_popup.fxml"));
+        Parent root = loader.load();
+        UIControllerPUMVAN atmvAddNodePopupController = loader.getController();
+        atmvAddNodePopupController.setNode(node);
+
         Stage stage = new Stage();
-        Parent root = FXMLLoader.load(getClass().getResource("/ATMV_addNode_popup.fxml"));
         stage.setScene(new Scene(root));
         stage.initModality(Modality.APPLICATION_MODAL);
-       // stage.initStyle(StageStyle.UNIFIED);
+        stage.initStyle(StageStyle.UNDECORATED);
         stage.initOwner(parentPane.getScene().getWindow());
         stage.setHeight(400);
         stage.setWidth(600);
