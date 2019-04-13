@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<VBox prefHeight="400.0" prefWidth="607.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.UIControllerPUD">
+  <children>
+    <AnchorPane maxHeight="400" maxWidth="600" prefHeight="400" prefWidth="640" VBox.vgrow="ALWAYS">
+      <children>
+            <Button fx:id="printDirections" layoutX="322.0" layoutY="25.0" mnemonicParsing="false" prefHeight="110.0" prefWidth="263.0" text="Print Me The Directions">
+               <font>
+                  <Font size="20.0" />
+               </font></Button>
+            <Button fx:id="textDirections" layoutX="322.0" layoutY="149.0" mnemonicParsing="false" prefHeight="110.0" prefWidth="263.0" text="Text Me The Directions">
+               <font>
+                  <Font size="20.0" />
+               </font></Button>
+            <Button fx:id="emailDirections" layoutX="322.0" layoutY="273.0" mnemonicParsing="false" prefHeight="110.0" prefWidth="263.0" text="Email Me The Directions">
+               <font>
+                  <Font size="20.0" />
+               </font></Button>
+            <Label fx:id="directions" layoutX="28.0" prefHeight="400.0" prefWidth="263.0" wrapText="true">
+               <font>
+                  <Font size="10.0" />
+               </font></Label>
+      </children>
+    </AnchorPane>
+  </children>
+</VBox>
