@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.effect.ColorAdjust?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="servicerequests.UIControllerSRSA">
+    <children>
+          <AnchorPane prefHeight="400.0" prefWidth="600.0" styleClass="body-background" stylesheets="/css/background.css">
+              <children>
+                  <ImageView fitWidth="900.0" pickOnBounds="true" preserveRatio="true">
+                      <image>
+                          <Image url="@../images/Hospitalbackground.png" />
+                      </image>
+                  </ImageView>
+                  <BorderPane prefHeight="600.0" prefWidth="900.0">
+                      <top>
+                          <MenuBar blendMode="ADD" prefWidth="600.0" style="-fx-background-color: white;" stylesheets="@../css/background.css" BorderPane.alignment="CENTER">
+                              <menus>
+                                  <Menu fx:id="homeButton" mnemonicParsing="false" onAction="#setHomeButton" onShowing="#setHomeButton" text="Home">
+                           <items>
+                              <MenuItem mnemonicParsing="false" text="HOME" />
+                           </items>
+                        </Menu>
+                              </menus>
+                              <effect>
+                                  <ColorAdjust>
+                                      <input>
+                                          <DropShadow />
+                                      </input>
+                                  </ColorAdjust>
+                              </effect>
+                          </MenuBar>
+                      </top>
+               <right>
+                  <ImageView fitHeight="575.0" fitWidth="650.0" pickOnBounds="true" preserveRatio="true" BorderPane.alignment="CENTER">
+                     <image>
+                        <Image url="@02_thesecondfloor.png" />
+                     </image>
+                  </ImageView>
+               </right>
+               <left>
+                  <AnchorPane prefHeight="575.0" prefWidth="250.0" BorderPane.alignment="CENTER">
+                     <children>
+                        <JFXButton fx:id="confirmButton" layoutX="86.0" layoutY="472.0" onAction="#setConfirmButton" styleClass="jfx-button_edit" stylesheets="@../css/background.css" text="Confirm" />
+                        <JFXButton fx:id="cancelButton" contentDisplay="CENTER" layoutX="102.0" layoutY="516.0" onAction="#setCancelButton" styleClass="jfx-button-cancel" stylesheets="@../css/background.css" text=" ">
+                           <graphic>
+                              <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@icon/cancel2.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                        </JFXButton>
+                        <Text fill="WHITE" layoutX="31.0" layoutY="44.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Sanitation">
+                           <font>
+                              <Font name="System Bold Italic" size="24.0" />
+                           </font>
+                        </Text>
+                        <Text fill="WHITE" layoutX="31.0" layoutY="63.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Joseph Niski">
+                           <font>
+                              <Font name="System Bold" size="12.0" />
+                           </font>
+                        </Text>
+                        <ChoiceBox fx:id="roomSelect" layoutX="48.0" layoutY="109.0" onMouseClicked="#setRoomSelect" prefWidth="150.0" style="-fx-background-color: #ffffff;" />
+                        <ChoiceBox fx:id="sanitationSelect" layoutX="48.0" layoutY="174.0" onMouseClicked="#setSanitationSelect" prefWidth="150.0" style="-fx-background-color: #ffffff;" />
+                        <JFXTextField fx:id="serviceMessage" alignment="CENTER" layoutX="48.0" layoutY="220.0" prefHeight="220.0" prefWidth="150.0" promptText="What is wrong?" style="-fx-background-color: #ffffff;" />
+                        <Text fill="WHITE" layoutX="49.0" layoutY="94.0" strokeType="OUTSIDE" strokeWidth="0.0" text="What room needs service?">
+                           <font>
+                              <Font name="System Bold" size="12.0" />
+                           </font>
+                        </Text>
+                        <Text fill="WHITE" layoutX="48.0" layoutY="163.0" strokeType="OUTSIDE" strokeWidth="0.0" text="What was spilled?" wrappingWidth="104.15625">
+                           <font>
+                              <Font name="System Bold" size="12.0" />
+                           </font>
+                        </Text>
+                     </children>
+                  </AnchorPane>
+               </left>
+                  </BorderPane>
+              </children>
+          </AnchorPane>
+    </children>
+</AnchorPane>

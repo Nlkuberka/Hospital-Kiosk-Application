@@ -33,6 +33,7 @@ public class UIController {
 
     // The various scenes that this UIController handles
     public static final String LOGIN_MAIN = "LM";
+    public static final String WELCOME_MAIN = "WM";
     public static final String GUEST_MAIN_MENU_MAIN = "GMMM";
     public static final String USER_MAIN_MENU_MAIN = "UMMM";
     public static final String ADMIN_MAIN_MENU_MAIN = "AMMM";
@@ -126,6 +127,9 @@ public class UIController {
 
         sceneFiles.put(UIController.LOGIN_MAIN, "/application/login_main.fxml");
         sceneTitles.put(UIController.LOGIN_MAIN, "Login Screen");
+
+        sceneFiles.put(UIController.WELCOME_MAIN, "/application/welcome_main.fxml");
+        sceneTitles.put(UIController.WELCOME_MAIN, "Welcome Screen");
 
         // Main Menus
         sceneFiles.put(UIController.GUEST_MAIN_MENU_MAIN, "/guest_main_menu_main.fxml");
