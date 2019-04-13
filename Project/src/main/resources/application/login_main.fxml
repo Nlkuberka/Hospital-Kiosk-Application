@@ -16,7 +16,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<StackPane xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.UIControllerLM">
+<StackPane style="-fx-background-color: #ffffff;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.UIControllerLM">
    <children>
       <ImageView fx:id="backgroundImage" pickOnBounds="true" preserveRatio="true">
          <image>
@@ -30,39 +30,6 @@
          <top>
             <JFXTabPane fx:id="tabs" stylesheets="@../css/background.css" BorderPane.alignment="CENTER">
                <tabs>
-                  <Tab text="Guest">
-                    <content>
-                        <GridPane>
-                           <columnConstraints>
-                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
-                           </columnConstraints>
-                           <rowConstraints>
-                              <RowConstraints percentHeight="20" vgrow="ALWAYS" />
-                              <RowConstraints percentHeight="20" vgrow="SOMETIMES" />
-                              <RowConstraints percentHeight="20" vgrow="SOMETIMES" />
-                              <RowConstraints percentHeight="20" vgrow="SOMETIMES" />
-                              <RowConstraints vgrow="ALWAYS" />
-                           </rowConstraints>
-                           <children>
-                              <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Welcome to Brigham &amp; Women’s Hospital! " textAlignment="CENTER" GridPane.halignment="CENTER" GridPane.rowIndex="2">
-                                 <font>
-                                    <Font name="System Bold Italic" size="36.0" />
-                                 </font>
-                              </Text>
-                              <JFXButton fx:id="loginAsGuestButton" onAction="#setLoginAsGuestButton" styleClass="jfx-button-login" stylesheets="@../css/background.css" text="Continue As A Guest" textFill="WHITE" GridPane.halignment="CENTER" GridPane.rowIndex="3">
-                                 <font>
-                                    <Font name="System Bold Italic" size="14.0" />
-                                 </font>
-                              </JFXButton>
-                              <ImageView fitHeight="150.0" fitWidth="300.0" pickOnBounds="true" preserveRatio="true" GridPane.halignment="CENTER" GridPane.rowIndex="1">
-                                 <image>
-                                    <Image url="@../images/BWH.JPG" />
-                                 </image>
-                              </ImageView>
-                           </children>
-                        </GridPane>
-                    </content>
-                  </Tab>
                   <Tab fx:id="user_tab" style="-fx-text-fill: #090a0f;" text="User">
                      <content>
                         <GridPane>
@@ -81,14 +48,14 @@
                               <RowConstraints vgrow="ALWAYS" />
                            </rowConstraints>
                            <children>
-                              <JFXTextField fx:id="userUsernameTextField" stylesheets="/css/controlsGridpane.css" opacity="0.8" prefHeight="35.0" prefWidth="200.0" promptText="Username" style="-fx-background-color: #ffffff;" GridPane.rowIndex="4" GridPane.halignment="CENTER" />
-                              <JFXPasswordField fx:id="userPasswordTextField" stylesheets="/css/controlsGridpane.css" opacity="0.8" prefHeight="35.0" prefWidth="200.0" promptText="Password" style="-fx-background-color: #ffffff;" GridPane.rowIndex="6" GridPane.halignment="CENTER" />
+                              <JFXTextField fx:id="userUsernameTextField" opacity="0.8" prefHeight="35.0" prefWidth="200.0" promptText="Username" style="-fx-background-color: #ffffff;" stylesheets="/css/controlsGridpane.css" GridPane.halignment="CENTER" GridPane.rowIndex="4" />
+                              <JFXPasswordField fx:id="userPasswordTextField" opacity="0.8" prefHeight="35.0" prefWidth="200.0" promptText="Password" style="-fx-background-color: #ffffff;" stylesheets="/css/controlsGridpane.css" GridPane.halignment="CENTER" GridPane.rowIndex="6" />
                               <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="User's Username" GridPane.halignment="CENTER" GridPane.rowIndex="3">
                                  <font>
                                     <Font size="25.0" />
                                  </font>
                               </Text>
-                              <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Password" GridPane.rowIndex="5" GridPane.halignment="CENTER">
+                              <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Password" GridPane.halignment="CENTER" GridPane.rowIndex="5">
                                  <font>
                                     <Font size="25.0" />
                                  </font>
@@ -99,7 +66,7 @@
                                  </font>
                               </Text>
                               <JFXButton fx:id="loginAsUserButton" onAction="#setLoginAsUserButton" styleClass="jfx-button-login" stylesheets="@../css/background.css" text="Login" textAlignment="CENTER" textFill="WHITE" GridPane.halignment="CENTER" GridPane.rowIndex="7" />
-                              <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" GridPane.halignment="CENTER" GridPane.rowIndex="2">
+                              <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" GridPane.halignment="LEFT">
                                  <image>
                                     <Image url="@../images/BWH.JPG" />
                                  </image>
@@ -126,9 +93,9 @@
                               <RowConstraints vgrow="ALWAYS" />
                            </rowConstraints>
                            <children>
-                              <JFXTextField fx:id="adminUsernameTextField" stylesheets="/css/controlsGridpane.css" opacity="0.8" prefHeight="35.0" prefWidth="200.0" promptText="Username" style="-fx-background-color: #ffffff;" GridPane.rowIndex="4" GridPane.halignment="CENTER"/>
-                              <JFXPasswordField fx:id="adminPasswordTextField" stylesheets="/css/controlsGridpane.css" opacity="0.8" prefHeight="35.0" prefWidth="200.0" promptText="Password" style="-fx-background-color: #ffffff;" GridPane.rowIndex="6" GridPane.halignment="CENTER"/>
-                              <JFXButton fx:id="loginAsAdminButton" onAction="#setLoginAsAdminButton" styleClass="jfx-button-login" stylesheets="@../css/background.css" text="Login" textAlignment="CENTER" textFill="WHITE" GridPane.rowIndex="7" GridPane.halignment="CENTER">
+                              <JFXTextField fx:id="adminUsernameTextField" opacity="0.8" prefHeight="35.0" prefWidth="200.0" promptText="Username" style="-fx-background-color: #ffffff;" stylesheets="/css/controlsGridpane.css" GridPane.halignment="CENTER" GridPane.rowIndex="4" />
+                              <JFXPasswordField fx:id="adminPasswordTextField" opacity="0.8" prefHeight="35.0" prefWidth="200.0" promptText="Password" style="-fx-background-color: #ffffff;" stylesheets="/css/controlsGridpane.css" GridPane.halignment="CENTER" GridPane.rowIndex="6" />
+                              <JFXButton fx:id="loginAsAdminButton" onAction="#setLoginAsAdminButton" styleClass="jfx-button-login" stylesheets="@../css/background.css" text="Login" textAlignment="CENTER" textFill="WHITE" GridPane.halignment="CENTER" GridPane.rowIndex="7">
                                  <font>
                                     <Font name="System Bold" size="15.0" />
                                  </font>
@@ -148,7 +115,7 @@
                                     <Font name="System Bold Italic" size="48.0" />
                                  </font>
                               </Text>
-                              <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" GridPane.halignment="CENTER" GridPane.rowIndex="2">
+                              <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" GridPane.halignment="LEFT">
                                  <image>
                                     <Image url="@../images/BWH.JPG" />
                                  </image>

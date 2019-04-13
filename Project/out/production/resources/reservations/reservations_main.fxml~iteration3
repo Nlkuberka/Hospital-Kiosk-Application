@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXTimePicker?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.effect.Blend?>
+<?import javafx.scene.effect.ColorAdjust?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.shape.Polygon?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="reservations.UIControllerRVM">
+    <children>
+        <AnchorPane prefHeight="600.0" prefWidth="900.0">
+            <children>
+                <AnchorPane prefHeight="400.0" prefWidth="600.0" styleClass="body-background" stylesheets="/css/background.css">
+                    <children>
+                        <ImageView fitWidth="900.0" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="@../images/Hospitalbackground.png" />
+                            </image>
+                        </ImageView>
+                        <BorderPane prefHeight="600.0" prefWidth="900.0">
+                            <top>
+                                <MenuBar blendMode="ADD" prefWidth="600.0" style="-fx-background-color: white;" stylesheets="@../css/background.css" BorderPane.alignment="CENTER">
+                                    <menus>
+                                        <Menu mnemonicParsing="false" onShowing="#setHomeButton" text="Home">
+                                 <items>
+                                    <MenuItem mnemonicParsing="false" text="HOME" />
+                                 </items></Menu>
+                                    </menus>
+                                    <effect>
+                                        <ColorAdjust>
+                                            <input>
+                                                <DropShadow />
+                                            </input>
+                                        </ColorAdjust>
+                                    </effect>
+                                </MenuBar>
+                            </top>
+                     <right>
+                        <ImageView fitHeight="575.0" fitWidth="700.0" pickOnBounds="true" preserveRatio="true" BorderPane.alignment="CENTER">
+                           <image>
+                              <Image url="@../images/OBC-4-Concept-Plan-Overview.jpg" />
+                           </image>
+                        </ImageView>
+                     </right>
+                        </BorderPane>
+                    </children>
+                </AnchorPane>
+                <ChoiceBox fx:id="workplaceSelect" prefWidth="170.0" style="-fx-background-color: #ffffff;" AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="270.0">
+                    <effect>
+                        <Blend mode="MULTIPLY" opacity="0.34" />
+                    </effect>
+                </ChoiceBox>
+                <Text fill="WHITE" layoutX="28.0" layoutY="46.0" smooth="false" strokeType="OUTSIDE" strokeWidth="0.0" text="Select Date" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="40.0">
+                    <font>
+                        <Font name="System Bold Italic" size="16.0" />
+                    </font>
+                </Text>
+                <DatePicker fx:id="datePicker" blendMode="LIGHTEN" onAction="#updateColorView" AnchorPane.leftAnchor="12.0" AnchorPane.topAnchor="65.0">
+                    <effect>
+                        <ColorAdjust brightness="0.05" />
+                    </effect>
+                </DatePicker>
+                <Text fill="WHITE" layoutX="38.0" layoutY="56.0" smooth="false" strokeType="OUTSIDE" strokeWidth="0.0" text="Start Time" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="105.0">
+                    <font>
+                        <Font name="System Bold Italic" size="16.0" />
+                    </font>
+                </Text>
+                <JFXTimePicker fx:id="startTimePicker" defaultColor="#5777c6" onAction="#updateColorView" style="-fx-background-color: white;" AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="130.0" />
+                <Text fill="WHITE" layoutX="48.0" layoutY="66.0" smooth="false" strokeType="OUTSIDE" strokeWidth="0.0" text="End Time" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="170.0">
+                    <font>
+                        <Font name="System Bold Italic" size="16.0" />
+                    </font>
+                </Text>
+                <JFXButton fx:id="confirmButton" buttonType="RAISED" onAction="#setConfirmButton" style="-fx-background-color: #ffc41e;" text="Confirm" textFill="WHITE" AnchorPane.leftAnchor="130.0" AnchorPane.topAnchor="320.0">
+                    <font>
+                        <Font name="System Bold" size="12.0" />
+                    </font>
+                </JFXButton>
+                <Text fill="WHITE" layoutX="38.0" layoutY="56.0" smooth="false" strokeType="OUTSIDE" strokeWidth="0.0" text="Select Your Room" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="245.0">
+                    <font>
+                        <Font name="System Bold Italic" size="16.0" />
+                    </font>
+                </Text>
+                <JFXTimePicker fx:id="endTimePicker" defaultColor="#5777c6" layoutX="10.0" layoutY="10.0" onAction="#updateColorView" style="-fx-background-color: white;" AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="195.0" />
+
+            <Rectangle fx:id="classroom8" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="66.0" layoutX="545.0" layoutY="70.0" opacity="0.15" stroke="BLACK" strokeType="INSIDE" width="62.0" />
+            <Rectangle fx:id="classroom6" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="66.0" layoutX="605.0" layoutY="70.0" opacity="0.15" stroke="BLACK" strokeType="INSIDE" width="62.0" />
+            <Rectangle fx:id="classroom7" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="60.0" layoutX="590.0" layoutY="180.0" opacity="0.15" stroke="BLACK" strokeType="INSIDE" width="42.0" />
+            <Rectangle fx:id="classroom5" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="60.0" layoutX="635.0" layoutY="180.0" opacity="0.15" stroke="BLACK" strokeType="INSIDE" width="55.0" />
+            <Rectangle fx:id="classroom9" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="33.0" layoutX="548.0" layoutY="175.0" opacity="0.15" stroke="BLACK" strokeType="INSIDE" width="35.0" />
+            <Rectangle fx:id="classroom1" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="43.0" layoutX="635.0" layoutY="345.0" opacity="0.15" stroke="BLACK" strokeType="INSIDE" width="78.0" />
+            <Rectangle fx:id="MHCR" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="33.0" layoutX="633.0" layoutY="393.0" opacity="0.15" stroke="BLACK" strokeType="INSIDE" width="78.0" />
+            <Rectangle fx:id="classroom2" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="33.0" layoutX="744.0" layoutY="266.0" opacity="0.15" rotate="70.0" stroke="BLACK" strokeType="INSIDE" width="69.0" />
+            <Rectangle fx:id="classroom3" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="33.0" layoutX="720.0" layoutY="190.0" opacity="0.15" rotate="70.0" stroke="BLACK" strokeType="INSIDE" width="69.0" />
+            <Rectangle fx:id="pantry" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="86.0" layoutX="640.0" layoutY="440.0" opacity="0.15" stroke="BLACK" strokeType="INSIDE" width="95.0" />
+            <Rectangle fx:id="classroom4" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="66.0" layoutX="665.0" layoutY="70.0" opacity="0.15" stroke="BLACK" strokeType="INSIDE" width="35.0" />
+            <Polygon fx:id="MHA" fill="DODGERBLUE" layoutX="785.0" layoutY="374.0" opacity="0.15" points="-50.0, 40.0, 39.0, 20.0, 18.8045654296875, -60.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
+            </children>
+        </AnchorPane>
+    </children>
+</AnchorPane>
