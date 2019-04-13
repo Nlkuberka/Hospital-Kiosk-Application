@@ -45,8 +45,11 @@ public class UIController {
     public static final String ADMIN_TOOLS_VIEW_NODES = "ATVN";
     public static final String ADMIN_TOOLS_VIEW_EDGES = "ATVE";
     public static final String ADMIN_TOOLS_VIEW_SERVICE_REQUESTS = "ATVSR";
+    public static final String POPUP_DIRECTIONS = "PUD";
     public static final String ADMIN_TOOLS_VIEW_USERS = "ATVU";
     public static final String ADMIN_TOOLS_CHANGE_ALGORITHM = "ATCA";
+    public static final String ADMIN_TOOLS_MAP_VIEW = "ATMV";
+    public static final String ADMIN_TOOLS_EDIT_RESERVATIONS = "ATER";
 
     public static final String SERVICE_REQUEST_MAIN = "SRM";
 //    public static final String SERVICE_REQUEST_BASE = "SRB";
@@ -96,6 +99,7 @@ public class UIController {
      */
     public UIController(Stage stage) {
         primaryStage = stage;
+        primaryStage.setResizable(false);
         rootPane = new BorderPane();
         rootScene = new Scene(rootPane, WIDTH, HEIGHT);
         primaryStage.setScene(rootScene);
@@ -150,6 +154,12 @@ public class UIController {
 
         sceneFiles.put(UIController.ADMIN_TOOLS_CHANGE_ALGORITHM, "/admin_tools_switch_algorithm.fxml");
         sceneTitles.put(UIController.ADMIN_TOOLS_CHANGE_ALGORITHM, "Admin Tools - Change Algorithm");
+        sceneFiles.put((UIController.ADMIN_TOOLS_MAP_VIEW), "/admin_tools_map_view.fxml");
+        sceneTitles.put((UIController.ADMIN_TOOLS_MAP_VIEW), "Admin Tools ; Map View");
+
+        sceneFiles.put(UIController.ADMIN_TOOLS_EDIT_RESERVATIONS, "/admin_tools_edit_reservations.fxml");
+        sceneTitles.put(UIController.ADMIN_TOOLS_EDIT_RESERVATIONS, "Admin Tools - Edit Reservation");
+
 
         // Service Request
         sceneFiles.put(UIController.SERVICE_REQUEST_MAIN, "/service_request_main.fxml");
@@ -199,6 +209,10 @@ public class UIController {
         // Pathfinding
         sceneFiles.put(UIController.PATHFINDING_MAIN, "/path_find_main.fxml");
         sceneTitles.put(UIController.PATHFINDING_MAIN, "Path Finding Main");
+
+        // Popups
+        sceneFiles.put(UIController.POPUP_DIRECTIONS, "/direction_popup.fxml");
+        sceneTitles.put(UIController.POPUP_DIRECTIONS, "Popup Window For Directions");
     }
 
     /**

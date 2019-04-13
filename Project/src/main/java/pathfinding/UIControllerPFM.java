@@ -2,9 +2,19 @@ package pathfinding;
 
 import application.DBController;
 import application.UIController;
+import application.UIControllerPUD;
+import com.jfoenix.controls.JFXSlider;
+import entities.AStarGraph;
 import entities.Edge;
 import entities.Graph;
 import entities.Node;
+
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.layout.*;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -20,65 +30,172 @@ import javafx.scene.shape.LineTo;
 import javafx.scene.shape.MoveTo;
 import javafx.scene.shape.Path;
 
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
+import com.jfoenix.controls.JFXButton;
+import javafx.animation.PathTransition;
+import javafx.scene.Group;
+import javafx.scene.Scene;
+import javafx.scene.control.*;
+import javafx.scene.image.ImageView;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.*;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
+import javafx.util.Duration;
+
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Random;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * Controller for the path_find_main.fxml file
+ *
  * @author panagiotisargyrakis, dimitriberardi, ryano647
  */
 
 public class UIControllerPFM extends UIController {
 
-    public HBox hboxForMap;
-    public GridPane interfaceGrid;
-    public StackPane parentPane;
+    public enum Floors {
+        FIRST("First Floor", "1", 3), GROUND("Ground Floor", "G", 2), LL1("Lower Level 1", "L1", 1),
+        LL2("Lower Level 2", "L2", 0), SECOND("Second Floor", "2", 4), THIRD("Third Floor", "3", 5);
+
+        private final String name;
+        private final String ID;
+        private final int index;
+
+        Floors(String name, String ID, int index) {
+            this.name = name;
+            this.ID = ID;
+            this.index = index;
+        }
+
+        public String getName() {
+            return this.name;
+        }
+
+        public String getID() {
+            return this.ID;
+        }
+
+        public int getIndex() {
+            return this.index;
+        }
+
+        public static Floors getByID(String ID) {
+            if(ID.equals("1")) {
+                return FIRST;
+            }
+            if(ID.equals("2")) {
+                return SECOND;
+            }
+            if(ID.equals("3")) {
+                return THIRD;
+            }
+            if(ID.equals("G")) {
+                return GROUND;
+            }
+            if(ID.equals("L1")) {
+                return LL1;
+            }
+            return LL2;
+        }
+
+        public static Floors getByIndex(int index) {
+            switch (index) {
+                case (0): {
+                    return LL2;
+                } case (1): {
+                    return LL1;
+                } case (2): {
+                    return GROUND;
+                } case (3): {
+                    return FIRST;
+                } case (4): {
+                    return SECOND;
+                }case (5): {
+                    return THIRD;
+                } default:
+                    return SECOND;
+            }
+        }
+    }
+
+    @FXML
+    private HBox hboxForMap;
+    @FXML
+    private GridPane interfaceGrid;
+    @FXML
+    private StackPane parentPane;
+    @FXML
+    private JFXSlider floorSlider;
+
     private Graph graph;
     private String initialID;
     private String destID;
 
     @FXML
     public ChoiceBox<String> initialLocationSelect;
-    //public VBox leftVBox;
-    public ChoiceBox<String> destinationSelect;
-    public ImageView backgroundImage;
-    public Path path;
-    public MenuItem backButton;
-    public ScrollPane scrollPane_pathfind;
-    public ImageView map_imageView;
-    public AnchorPane scroll_AnchorPane;
-    public Button zoom_button;
-    public Button unzoom_button;
+    @FXML
+    private Label floorLabel;
+    @FXML
+    private ChoiceBox<String> destinationSelect;
+    @FXML
+    private ImageView backgroundImage;
+    @FXML
+    private MenuItem backButton;
+    @FXML
+    private ScrollPane scrollPane_pathfind;
+    @FXML
+    private ImageView map_02, map_01, map_03, map_00, map_001, map_002;
+    @FXML
+    private Path p_002, p_001, p_00, p_01, p_02, p_03;
+    @FXML
+    private AnchorPane pane_002, pane_001, pane_00, pane_01, pane_02, pane_03;
+    @FXML
+    private Button zoom_button;
+    @FXML
+    private Button unzoom_button;
+
+    private Group circleGroup = new Group();
+    private Circle currentInitCircle;
+    private Circle currentDestCircle;
+    private PathTransition pathTransition;
+    private Random random = new Random(System.currentTimeMillis());
     private List<Node> currentPath;
+    // The multiplication factor at which the map changes size
+    private double zoomFactor = 1.2;
+    @FXML
+    private JFXButton directionsRequest;
+
+    private LinkedList<LinkedList<Node>> roomsAtEachFloor = new LinkedList<>();
+
+    private MapHandler mapHandler;
 
     @FXML
     public void initialize() {
 
-        // bind background image size to window size
-        // ensures auto resize works
-        backgroundImage.fitHeightProperty().bind(parentPane.heightProperty());
-        backgroundImage.fitWidthProperty().bind(parentPane.widthProperty());
+        this.mapHandler = new MapHandler(p_002, p_001, p_00, p_01, p_02, p_03,
+                map_002, map_001, map_00, map_01, map_02, map_03,
+                pane_002, pane_001, pane_00, pane_01, pane_02, pane_03,
+                Floors.SECOND);
 
-        // bind Map to AnchorPane inside of ScrollPane
-        map_imageView.fitWidthProperty().bind(scroll_AnchorPane.prefWidthProperty());
-        map_imageView.fitHeightProperty().bind(scroll_AnchorPane.prefHeightProperty());
+        initialBindings();
+        setScene();
 
-//        primaryStage.heightProperty().addListener((obs, oldVal, newVal) -> {
-//            primaryStage.show();
-//        });
-//
-//        primaryStage.widthProperty().addListener((obs, oldVal, newVal) -> {
-//            primaryStage.show();
-//        });
+
+        floorSlider.setMax(5.0); // number of floors - 1
+        floorSlider.setValue(2.0);
+        floorLabel.setText(Floors.getByIndex((int) floorSlider.getValue()).getName());
 
 
         // Only show scroll bars if Image inside is bigger than ScrollPane
         scrollPane_pathfind.setHbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
         scrollPane_pathfind.setVbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
-
-        interfaceGrid.prefHeightProperty().bind(hboxForMap.heightProperty());
 
 
         scrollPane_pathfind.prefViewportWidthProperty().bind(hboxForMap.prefWidthProperty());
@@ -87,145 +204,212 @@ public class UIControllerPFM extends UIController {
         // set value to "true" to use zoom functionality
         setZoomOn(true);
 
+        floorSlider.valueProperty().addListener(new ChangeListener() {
+
+            @Override
+            public void changed(ObservableValue arg0, Object arg1, Object arg2) {
+                floorLabel.setText(Floors.getByIndex((int) floorSlider.getValue()).getName());
+                circleGroup.getChildren().clear();
+                mapHandler.changeToFloor(floorSlider.getValue());
+                drawNodes(roomsAtEachFloor.get(mapHandler.currentFloor.getIndex()));
+                focusNodes();
+            }
+        });
     }
 
     @Override
     public void onShow() {
         Connection conn = DBController.dbConnect();
         LinkedList<Node> allNodes = DBController.generateListofNodes(conn);
+        LinkedList<Node> allRooms = DBController.fetchAllRooms(conn);
         List<Edge> allEdges = DBController.generateListofEdges(conn);
 
-        try {
-            conn.close();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+        roomsAtEachFloor.add(DBController.getRoomsforFloor(conn, Floors.LL2.getID()));
+        roomsAtEachFloor.add(DBController.getRoomsforFloor(conn, Floors.LL1.getID()));
+        roomsAtEachFloor.add(DBController.getRoomsforFloor(conn, Floors.GROUND.getID()));
+        roomsAtEachFloor.add(DBController.getRoomsforFloor(conn, Floors.FIRST.getID()));
+        roomsAtEachFloor.add(DBController.getRoomsforFloor(conn, Floors.SECOND.getID()));
+        roomsAtEachFloor.add(DBController.getRoomsforFloor(conn, Floors.THIRD.getID()));
+
+        DBController.closeConnection(conn);
 
         initialLocationSelect.getItems().clear();
         destinationSelect.getItems().clear();
 
-        LinkedList<Node> usefulNodes = new LinkedList<>();
-        for (Node node : allNodes) {
-            if (node.getFloor().equals("2") && node.getBuilding().equals("Tower")) {
-                // update choices for initial location
-                initialLocationSelect.getItems().add(node.getLongName());
-                // update choices for destination location
-                destinationSelect.getItems().addAll(node.getLongName());
-                usefulNodes.add(node);
-            }
+        for (Node node : allRooms) {
+            // update choices for initial location
+            initialLocationSelect.getItems().add(node.getLongName());
+            // update choices for destination location
+            destinationSelect.getItems().addAll(node.getLongName());
         }
 
-        DBController.closeConnection(conn);
-        this.graph = new Graph(allNodes);
+        this.graph = new AStarGraph(allNodes);
 
-        List<Edge> usefulEdges = new LinkedList<>();
         for (Edge edge : allEdges) {
             try {
                 graph.addBiEdge(edge.getNode1ID(), edge.getNode2ID());
-            }
-            catch(IllegalArgumentException e) {
-
+            } catch (IllegalArgumentException e) {
             }
         }
+
+        drawNodes(roomsAtEachFloor.get(mapHandler.currentFloor.getIndex()));
     }
 
+    private void initialBindings() {
+        // bind background image size to window size
+        // ensures auto resize works
+        backgroundImage.fitHeightProperty().bind(parentPane.heightProperty());
+        backgroundImage.fitWidthProperty().bind(parentPane.widthProperty());
 
+        interfaceGrid.prefHeightProperty().bind(hboxForMap.heightProperty());
+
+        scrollPane_pathfind.prefViewportWidthProperty().bind(hboxForMap.prefWidthProperty());
+    }
+
+    private void setScene() {
+        // set value to "true" to use zoom functionality
+        setZoomOn(true);
+        mapHandler.getTopPane().getChildren().add(circleGroup);
+    }
 
     @FXML
     public void initLocChanged(ActionEvent actionEvent) {
-        System.out.println("Initial location selected: " + initialLocationSelect.getValue());
+        if (!(pathTransition == null)) {
+            pathTransition.stop();
+            mapHandler.getTopPane().getChildren().remove(pathTransition.getNode());
+        }
+
+        //System.out.println("Initial location selected: " + initialLocationSelect.getValue());
         Connection connection = DBController.dbConnect();
         initialID = DBController.IDfromLongName(initialLocationSelect.getValue(), connection);
         DBController.closeConnection(connection);
+
+        focusNodes();
+
         getPath();
+
+        pathAnimation();
     }
 
     @FXML
     public void destLocChanged(ActionEvent actionEvent) {
-        System.out.println("Initial location: " + initialLocationSelect.getValue());
-        System.out.println("Destination selected: " + destinationSelect.getValue());
+        if (!(pathTransition == null)) {
+            pathTransition.stop();
+            mapHandler.getTopPane().getChildren().remove(pathTransition.getNode());
+        }
+
+        //System.out.println("Initial location: " + initialLocationSelect.getValue());
+        //System.out.println("Destination selected: " + destinationSelect.getValue());
 
         Connection connection = DBController.dbConnect();
+        System.out.println(destinationSelect.getValue());
         destID = DBController.IDfromLongName(destinationSelect.getValue(), connection);
         DBController.closeConnection(connection);
+
+        focusNodes();
+
         // call getPath if not null
         getPath();
-    }
 
+        pathAnimation();
+    }
 
     @FXML
     private void clearSelection(ActionEvent actionEvent) {
-        initialLocationSelect.getSelectionModel().selectFirst();
+        setNodesVisible(true);
+        setZoomOn(true);
+        initialLocationSelect.setDisable(false);
+        destinationSelect.setDisable(false);
+        currentPath = null;
         destinationSelect.getSelectionModel().clearSelection();
-        clearPathOnMap();
+        mapHandler.cancel();
     }
 
     private void getPath() {
-        String dest = destinationSelect.getValue();
-        String init = initialLocationSelect.getValue();
 
-        if(dest == null || dest.length() == 0 || init == null || init.length() == 0)
+        if(initialID == null || destID == null)
             return;
 
-        System.out.println("getPath called");
-        Connection connection = DBController.dbConnect();
         List<String> pathIDs;
         pathIDs = graph.shortestPath(initialID, destID);
-        LinkedList<Node> pathNodes = DBController.multiNodeFetch(pathIDs, connection);
-        drawPath(pathNodes);
+
+        Connection connection = DBController.dbConnect();
+        Node initialNode = DBController.fetchNode(initialID, connection);
         DBController.closeConnection(connection);
+
+        mapHandler.displayNewPath(graph.separatePathByFloor(pathIDs), initialNode);
     }
 
-    // TODO: list of all nodes that have: names, XY coords
-    private void drawPath(List<Node> nodes) {
-        this.currentPath = nodes;
-        drawPath();
+
+    private HashMap<String, Float> getScale() {
+        HashMap<String, Float> scales = new HashMap<>();
+        float scaleFx = (float) mapHandler.getCurrentMap().getFitWidth() / 5000.0f;
+        float scaleFy = (float) mapHandler.getCurrentMap().getFitHeight() / 3400.0f;
+        scales.put("scaleFx", scaleFx);
+        scales.put("scaleFy", scaleFy);
+        return scales;
     }
 
-    private void drawPath() {
-        float scaleFx = (float) map_imageView.getFitWidth() / 5000.0f;
-        float scaleFy = (float) map_imageView.getFitHeight() / 3400.0f;
+    private void pathAnimation() {
+        pathTransition = new PathTransition();
 
-        System.out.println("ScaleFx: " + scaleFx + "  ScaleFy: " + scaleFy);
+        //Setting the duration of the path transition
+        pathTransition.setDuration(Duration.seconds(4));
 
-        clearPathOnMap();
+        //Setting the node for the transition
+        Rectangle ant = new Rectangle(8, 3);
+        ant.setFill(Color.LIGHTGREEN);
+        mapHandler.getTopPane().getChildren().add(ant);
+        pathTransition.setNode(ant);
 
-        float x = (float) this.currentPath.get(0).getXcoord() * scaleFx;
-        float y = (float) this.currentPath.get(0).getYcoord() * scaleFy;
+        //Setting the path
+        pathTransition.setPath(mapHandler.getCurrentPath());
 
-        path.getElements().add(new MoveTo(x, y)); // move path to initLocation
+        //Setting the orientation of the path
+        pathTransition.setOrientation(PathTransition.OrientationType.ORTHOGONAL_TO_TANGENT);
 
-        // get all XY pairs and turn them into lines
-        for (int i = 1; i < this.currentPath.size() - 1; i++) {
-            Node node = this.currentPath.get(i);
+        //Setting auto reverse value to false
+        pathTransition.setAutoReverse(false);
 
-            x = (float) node.getXcoord() * scaleFx;
-            y = (float) node.getYcoord() * scaleFy;
+        pathTransition.setCycleCount(1);
 
-            System.out.println(node);
-            System.out.println("NodeX: " + x + "  NodeY: " + y);
+        pathTransition.setOnFinished(e -> {
+            mapHandler.getTopPane().getChildren().remove(ant);
+            setZoomOn(true);
+            setNodesVisible(true);
+            initialLocationSelect.setDisable(false);
+            destinationSelect.setDisable(false);
+        });
 
-            path.getElements().add(new LineTo(x, y));
+        if ((!(currentDestCircle == null)) && (!(currentInitCircle == null))) {
+            setZoomOn(false);
+            setNodesVisible(false);
+            initialLocationSelect.setDisable(true);
+            destinationSelect.setDisable(true);
+            pathTransition.play();
         }
-
-        // draw lines
-        path.setVisible(true); //must be the very last thing done once lines are drawn
     }
 
-    private void clearPathOnMap() {
-        path.getElements().clear();
-        path.setVisible(false);
+    private void setNodesVisible(boolean bool) {
+        for (javafx.scene.Node n : circleGroup.getChildren()) {
+            if(!(currentDestCircle == null) && !(currentInitCircle == null)) {
+                if (!currentDestCircle.equals(n) && !currentInitCircle.equals(n)) {
+                    n.setVisible(bool);
+                }
+            }
+        }
+        if (bool) {
+            focusNodes();
+        }
     }
+
+
 
     public void goBack(ActionEvent actionEvent) {
         this.goToScene(UIController.LOGIN_MAIN);
     }
 
-    // The multiplication factor at which the map changes size
-    private double zoomFactor = 1.2;
-
     /**
-     *
      * @param bool Set in initialize() to turn on/off zoom functionality
      */
     private void setZoomOn(boolean bool) {
@@ -235,27 +419,126 @@ public class UIControllerPFM extends UIController {
 
     /**
      * Allows the map to increase in size, up to scroll_AnchorPane.getMaxWidth
+     *
      * @param actionEvent Triggered when zoom_button is pressed
      */
     public void zoom(ActionEvent actionEvent) {
 
-        if (scroll_AnchorPane.getPrefWidth() < scroll_AnchorPane.getMaxWidth()) {
-            scroll_AnchorPane.setPrefSize(scroll_AnchorPane.getPrefWidth() * zoomFactor, scroll_AnchorPane.getPrefHeight() * zoomFactor);
-        }
-        if (this.currentPath != null)
-            drawPath();
+        mapHandler.zoomIn(zoomFactor);
+
+        circleGroup.getChildren().clear();
+        drawNodes(roomsAtEachFloor.get(mapHandler.currentFloor.getIndex()));
+        focusNodes();
     }
 
     /**
      * Allows the map to decrease in size, down to scroll_AnchorPane.getMinWidth
+     *
      * @param actionEvent Triggered when zoom_button is pressed
      */
     public void unZoom(ActionEvent actionEvent) {
 
-        if (scroll_AnchorPane.getPrefWidth() > scroll_AnchorPane.getMinWidth()) {
-            scroll_AnchorPane.setPrefSize(scroll_AnchorPane.getPrefWidth() / zoomFactor, scroll_AnchorPane.getPrefHeight() / zoomFactor);
-        }
-        if (this.currentPath != null)
-            drawPath();
+        mapHandler.zoomOut(zoomFactor);
+
+        circleGroup.getChildren().clear();
+        drawNodes(roomsAtEachFloor.get(mapHandler.currentFloor.getIndex()));
+        focusNodes();
     }
+
+    public void drawNodes(LinkedList<Node> nodes) {
+        float scaleFx = getScale().get("scaleFx");
+        float scaleFy = getScale().get("scaleFy");
+
+        float x;
+        float y;
+
+        // get all XY pairs and turn them into lines
+        for (Node tempNode : nodes) {
+
+            x = (float) tempNode.getXcoord() * scaleFx;
+            y = (float) tempNode.getYcoord() * scaleFy;
+
+
+            Circle circle = new Circle(x, y, 3);
+            circle.setId(tempNode.getNodeID());
+
+            circle.setOnMouseClicked(e -> {
+                if ((initialLocationSelect.getValue() == null)) {
+                    currentInitCircle = circle;
+                    currentInitCircle.setFill(Color.GREEN);
+                    currentInitCircle.setRadius(5);
+                    initialLocationSelect.setValue(tempNode.getLongName());
+                } else //if ((destinationSelect.getValue() == null))
+                {
+                    if (!(currentDestCircle == null)) {
+                        currentDestCircle.setFill(Color.BLACK);
+                        currentDestCircle.setRadius(3);
+                    }
+                    currentDestCircle = circle;
+                    currentDestCircle.setFill(Color.RED);
+                    currentDestCircle.setRadius(5);
+                    destinationSelect.setValue(tempNode.getLongName());
+                }
+            });
+
+            circleGroup.getChildren().add(circle);
+        }
+    }
+    //}
+
+    private void focusNodes() {
+        if (initialLocationSelect.getValue() == null && !(currentInitCircle == null)) {
+            currentInitCircle.setFill(Color.BLACK);
+            currentInitCircle.setRadius(3);
+            currentInitCircle = null;
+        }
+        if (destinationSelect.getValue() == null && !(currentDestCircle == null)) {
+            currentDestCircle.setFill(Color.BLACK);
+            currentDestCircle.setRadius(3);
+            currentDestCircle = null;
+        }
+
+        for (javafx.scene.Node n : circleGroup.getChildren()) {
+            //if (!(currentInitCircle == null)) {
+            if (n.getId().equals(initialID)) {
+                currentInitCircle = ((Circle) n);
+                currentInitCircle.setRadius(5);
+                currentInitCircle.setFill(Color.LIGHTGREEN);
+            } else if (n.getId().equals(destID)) {
+                currentDestCircle = ((Circle) n);
+                currentDestCircle.setRadius(5);
+                currentDestCircle.setFill(Color.RED);
+            } else {
+                ((Circle) n).setFill(Color.BLACK);
+                ((Circle) n).setRadius(3);
+            }
+        }
+    }
+
+    @FXML
+    private void directionSelection() {
+        String direction = graph.textDirections(graph.shortestPath(initialID, destID));
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader();
+            fxmlLoader.setLocation(getClass().getResource("/directions_popup.fxml"));
+
+            Scene popupScene = new Scene(fxmlLoader.load(), 600, 400);
+            Stage popupStage = new Stage();
+
+            popupStage.initModality(Modality.WINDOW_MODAL);
+            popupStage.initOwner(this.primaryStage);
+
+            UIControllerPUD controller = (UIControllerPUD) fxmlLoader.getController();
+            controller.setDirections(direction);
+
+            popupStage.setTitle("Directions");
+            popupStage.setScene(popupScene);
+            popupStage.show();
+        } catch (IOException e) {
+            Logger logger = Logger.getLogger((getClass().getName()));
+            logger.log(Level.SEVERE, "Failed to create new window.", e);
+
+        }
+    }
+
 }

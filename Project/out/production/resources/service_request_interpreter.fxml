@@ -77,9 +77,9 @@
                         <ChoiceBox fx:id="roomSelect" layoutX="48.0" layoutY="109.0" prefWidth="150.0" style="-fx-background-color: #ffffff;" />
                         <ChoiceBox fx:id="languageSelect" layoutX="48.0" layoutY="165.0" prefWidth="150.0" style="-fx-background-color: #ffffff;" />
                         <JFXTextField fx:id="serviceMessage" layoutX="48.0" layoutY="220.0" prefHeight="220.0" prefWidth="150.0" style="-fx-background-color: #ffffff;" />
-                        <Label layoutX="67.0" layoutY="92.0" text="Select your location." textFill="WHITE" />
-                        <Label layoutX="73.0" layoutY="148.0" text="Select a language." textFill="WHITE" />
-                        <Label layoutX="63.0" layoutY="203.0" text="Additional Comments" textFill="WHITE" />
+                        <Label layoutX="67.0" layoutY="92.0" style="-fx-text-fill: #ffffff;" styleClass="label2" stylesheets="@background.css" text="Select your location." textFill="WHITE" />
+                        <Label layoutX="73.0" layoutY="148.0" style="-fx-text-fill: #ffffff;" styleClass="label2" stylesheets="@background.css" text="Select a language." textFill="WHITE" />
+                        <Label layoutX="63.0" layoutY="203.0" style="-fx-text-fill: #ffffff;" styleClass="label2" stylesheets="@background.css" text="Additional Comments" textFill="WHITE" />
                      </children>
                   </AnchorPane>
                </left>

@@ -11,7 +11,6 @@
     -fx-font-weight: bold;
     -fx-text-fill: white;
 }
-
 .jfx-button-main-menu{
     -jfx-button-type: FLAT;
     -fx-background-color:#FFC41E;
@@ -159,6 +158,20 @@
     -fx-background-radius: 10;
 }
 
+.jfx-button-SRBaby{
+    -jfx-button-type: FLAT;
+    -fx-background-color:#efffff;
+    -fx-font-size: 16;
+    -fx-font-weight: bold;
+    -fx-text-fill: white;
+    -fx-wrap-text: #015080;
+    -fx-pref-width: 180;
+    -fx-pref-height: 200;
+    -fx-border-color: #015080;
+    -fx-border-width: 1;
+    -fx-background-radius: 10;
+}
+
 /* Tab pane styling*/
 .tab-pane{
     -fx-background-color: #FFC41E;
@@ -264,6 +277,14 @@
 
 }
 
+.label2{
+    -fx-font-size: 12;
+    -fx-font-weight: bold;
+    -fx-text-fill: #ffffff;
+
+
+}
+
 
 
 
@@ -289,13 +310,74 @@
 
 }
 
+.label1{
+    -fx-font-size: 12;
+    -fx-font-weight: bold;
+    -fx-text-fill: #fdfdff;
+
+}
 
 .cell-renderer{
     -fx-background-insets:  2 3 2 2;
 }
 
+<<<<<<< HEAD
+/* ~~~~~~~~~ Floor Slider ~~~~~~~~ */
 
+.floor-slider {
+    -fx-background-color: #00000040;
+    -fx-background-radius: 4;
+    -fx-major-tick-unit: 1.0;
+    -fx-minor-tick-count: 0;
+    -fx-orientation: vertical;
+}
 
+/* Styling the slider track */
+.floor-slider > .track {
+    -fx-background-color: #FFC41E;
+=======
+.paneBabysitting{
+    -jfx-button-type: FLAT;
+    -fx-background-color:#efffff;
+    -fx-font-size: 16;
+    -fx-font-weight: bold;
+    -fx-text-fill: white;
+    -fx-wrap-text: #015080;
+    -fx-pref-width: 180;
+    -fx-pref-height: 200;
+    -fx-border-color: #015080;
+    -fx-border-width: 1;
+    -fx-background-radius: 10;
+>>>>>>> aa80d13f412e79c39763d9fcbc8103a7bcb8e28e
+}
 
+/* Styling the slider thumb */
+.floor-slider > .thumb {
+    -fx-background-color: #FFC41E;
+}
 
+/* Styling the filled track */
+.floor-slider > .colored-track {
+    -fx-background-color: #FFC41E;
+}
 
+/* Styling the animated thumb */
+.floor-slider > .animated-thumb {
+    -fx-background-color: #FFC41E;
+}
+
+/* Styling the slider value text inside animated thumb */
+.floor-slider .slider-value {
+    -fx-fill: white;
+    -fx-stroke: white;
+}
+
+.titleLabel {
+    -fx-background-color: #00000040;
+    -fx-background-radius: 4;
+    -fx-font-family: -apple-system;
+    -fx-font-size: 24;
+    -fx-font-weight: bold;
+    -fx-text-fill: white;
+    -fx-alignment: center;
+}

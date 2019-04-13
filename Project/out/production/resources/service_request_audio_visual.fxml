@@ -29,9 +29,9 @@
                 <top>
                     <MenuBar blendMode="ADD" prefWidth="600.0" style="-fx-background-color: white;" stylesheets="@background.css" BorderPane.alignment="CENTER">
                         <menus>
-                            <Menu mnemonicParsing="false" onShowing="#setHomeButton" text="Home">
+                            <Menu fx:id="homeButton" mnemonicParsing="false" onAction="#setHomeButton" onShowing="#setHomeButton" text="Home">
                      <items>
-                        <MenuItem mnemonicParsing="false" text="HOME" />
+                        <MenuItem mnemonicParsing="false" onAction="#setHomeButton" text="HOME" />
                      </items>
                   </Menu>
                         </menus>
@@ -69,7 +69,7 @@
                      <graphic>
                         <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@icon/cancel (1).png" />
+                              <Image url="@icon/cancel%20(1).png" />
                            </image>
                         </ImageView>
                      </graphic>

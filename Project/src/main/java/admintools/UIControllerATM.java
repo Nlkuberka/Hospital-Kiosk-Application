@@ -90,6 +90,12 @@ public class UIControllerATM extends UIController {
 
     @FXML
     private void setEditReservationsButton() { this.goToScene(UIController.RESERVATIONS_EDIT);}
+
+    @FXML
+    private void setViewMapButton() {
+        this.goToScene(UIController.ADMIN_TOOLS_MAP_VIEW);
+    }
+
     /**
      * Goes back t0 the admin application Menu
      */
