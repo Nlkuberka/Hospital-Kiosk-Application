@@ -32,6 +32,7 @@ import java.util.List;
 public class UIControllerRVM extends UIController {
 
     private Map<String, String> workplaceIDs;
+    private HashMap<Shape, String> roomToShape = new HashMap<>();
     /**
      * < Holds the reference of the short names to nodeIDs
      */
@@ -85,11 +86,11 @@ public class UIControllerRVM extends UIController {
     @FXML
     private Shape classroom9;
     @FXML
-    private Shape pantry;
-    @FXML
     private Shape MHA;
     @FXML
     private Shape MHCR;
+    @FXML
+    private Shape pantry;
 
     @FXML
     private ArrayList<Shape> shapes = new ArrayList<>();
@@ -109,10 +110,21 @@ public class UIControllerRVM extends UIController {
         shapes.add(classroom7);
         shapes.add(classroom8);
         shapes.add(classroom9);
-        shapes.add(pantry);
         shapes.add(MHA);
         shapes.add(MHCR);
+        shapes.add(pantry);
 
+        int num = 0;
+        try {
+            Connection conn = DBController.dbConnect();
+            ResultSet rs = conn.createStatement().executeQuery("Select * From WORKPLACES");
+            while (rs.next()) {
+                roomToShape.put(shapes.get(num), rs.getString("ROOMNAME"));
+                num++;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     /**
@@ -164,15 +176,18 @@ public class UIControllerRVM extends UIController {
 
                 if (!checkValidReservation()) {
                     for (int i = 0; i < workplaceSelect.getItems().size(); i++) {
-                        if (DBControllerRW.isRoomAvailableString(workplaceSelect.getItems().get(i), getDateString(),
-                                getTimeString(startTimePicker), getTimeString(endTimePicker), connection)) {
+                        if (workplaceIDs.get(workplaceSelect.getValue()).equals(roomToShape.get(shapes.get(i)))) {
+                            if (DBControllerRW.isRoomAvailableString(workplaceSelect.getItems().get(i), getDateString(),
+                                    getTimeString(startTimePicker), getTimeString(endTimePicker), connection)) {
 
-                            shapes.get(i).setFill(javafx.scene.paint.Color.RED);
+                                shapes.get(i).setFill(javafx.scene.paint.Color.RED);
 
-                        } else {
+                            } else {
 //                    classroom6.setFill(javafx.scene.paint.Color.RED);
-                    shapes.get(i).setFill(javafx.scene.paint.Color.GREEN);}
-            }
+                                shapes.get(i).setFill(javafx.scene.paint.Color.GREEN);
+                            }
+                        }
+                    }
         }
     }
 
