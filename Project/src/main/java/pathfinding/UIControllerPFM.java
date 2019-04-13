@@ -158,6 +158,10 @@ public class UIControllerPFM extends UIController {
     private Button zoom_button;
     @FXML
     private Button unzoom_button;
+    @FXML
+    private JFXButton loginButton;
+    @FXML
+    private JFXButton serviceRequestButton;
 
     private Group circleGroup = new Group();
     private Circle currentInitCircle;
@@ -538,4 +542,16 @@ public class UIControllerPFM extends UIController {
         }
     }
 
+    @FXML
+    private void setLoginButton() {
+        this.goToScene(UIController.LOGIN_MAIN);
+    }
+
+    @FXML
+    private void setServiceRequestButton() {
+        this.goToScene(UIController.SERVICE_REQUEST_MAIN);
+    }
 }
+
+
+

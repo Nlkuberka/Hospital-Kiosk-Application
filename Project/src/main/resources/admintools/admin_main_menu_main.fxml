@@ -14,8 +14,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-
-<StackPane xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.UIControllerMMM">
+<StackPane minHeight="720.0" minWidth="1280.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.UIControllerMMM">
    <children>
       <ImageView fx:id="backgroundImage" pickOnBounds="true" preserveRatio="true">
          <image>
@@ -38,10 +37,10 @@
       <GridPane>
          <columnConstraints>
             <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" />
-            <ColumnConstraints hgrow="SOMETIMES" percentWidth="20" minWidth="10.0" />
-            <ColumnConstraints hgrow="SOMETIMES" percentWidth="20" minWidth="10.0" />
-            <ColumnConstraints hgrow="SOMETIMES" percentWidth="20" minWidth="10.0" />
-            <ColumnConstraints hgrow="SOMETIMES" percentWidth="20" minWidth="10.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="20" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="20" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="20" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="20" />
             <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" />
          </columnConstraints>
          <rowConstraints>
@@ -51,7 +50,7 @@
             <RowConstraints minHeight="10.0" vgrow="ALWAYS" />
          </rowConstraints>
          <children>
-            <JFXButton fx:id="serviceRequestButton" alignment="TOP_CENTER" onAction="#setServiceRequestButton" styleClass="jfx-button-main-menu" stylesheets="@../css/background.css" text="Service Request" GridPane.rowIndex="2" GridPane.columnIndex="2">
+            <JFXButton fx:id="serviceRequestButton" alignment="TOP_CENTER" onAction="#setServiceRequestButton" styleClass="jfx-button-main-menu" stylesheets="@../css/background.css" text="Service Request" GridPane.columnIndex="2" GridPane.rowIndex="2">
                <font>
                   <Font name="System Bold" size="25.0" />
                </font>
@@ -63,12 +62,12 @@
                   </ImageView>
                </graphic>
             </JFXButton>
-            <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Administrator's Home" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.columnIndex="1" GridPane.columnSpan="4">
+            <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Administrator's Home" GridPane.columnIndex="1" GridPane.columnSpan="4" GridPane.halignment="CENTER" GridPane.rowIndex="1">
                <font>
                   <Font name="System Bold" size="40.0" />
                </font>
             </Text>
-            <JFXButton fx:id="adminToolsButton" alignment="TOP_CENTER" onAction="#setAdminToolsButton" styleClass="jfx-button-admin-main-menu-main" stylesheets="@../css/background.css" text="Administrator Tools" GridPane.rowIndex="2" GridPane.columnIndex="3">
+            <JFXButton fx:id="adminToolsButton" alignment="TOP_CENTER" contentDisplay="BOTTOM" onAction="#setAdminToolsButton" styleClass="jfx-button-admin-main-menu-main" stylesheets="@../css/background.css" text="Administrator Tools" GridPane.columnIndex="3" GridPane.rowIndex="2">
                <font>
                   <Font name="System Bold" size="25.0" />
                </font>
@@ -80,7 +79,7 @@
                   </ImageView>
                </graphic>
             </JFXButton>
-            <JFXButton fx:id="reservationsButton" alignment="TOP_CENTER" onAction="#setReservationsButton" styleClass="jfx-button-main-menu" stylesheets="@../css/background.css" text="Reserve a Room" GridPane.rowIndex="2" GridPane.columnIndex="4">
+            <JFXButton fx:id="reservationsButton" alignment="TOP_CENTER" onAction="#setReservationsButton" styleClass="jfx-button-main-menu" stylesheets="@../css/background.css" text="Reserve a Room" GridPane.columnIndex="4" GridPane.rowIndex="2">
                <font>
                   <Font name="System Bold" size="25.0" />
                </font>
@@ -92,7 +91,7 @@
                   </ImageView>
                </graphic>
             </JFXButton>
-            <JFXButton fx:id="pathfindingButton" alignment="TOP_CENTER" onAction="#setPathfindingButton" styleClass="jfx-button-main-menu" stylesheets="@../css/background.css" text="Find Path" GridPane.rowIndex="2" GridPane.columnIndex="1">
+            <JFXButton fx:id="pathfindingButton" alignment="TOP_CENTER" onAction="#setPathfindingButton" styleClass="jfx-button-main-menu" stylesheets="@../css/background.css" text="Find Path" GridPane.columnIndex="1" GridPane.rowIndex="2">
                <font>
                   <Font name="System Bold" size="25.0" />
                </font>

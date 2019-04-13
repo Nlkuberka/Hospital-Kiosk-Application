@@ -1,15 +1,14 @@
 
 package tests;
 
+import entities.AStarGraph;
 import entities.Graph;
 import entities.Node;
 import junit.framework.TestCase;
 import org.junit.Test;
 import pathfinding.UIControllerPFM;
 
-import entities.AStarGraph;
 import entities.BFSGraph;
-import junit.framework.TestCase;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -103,17 +102,16 @@ public class GraphJUnit extends TestCase {
         assertEquals(expected, path);
     }
 
-    public void testMultipleNodes() {
+    @Test
+    public void testDistanceReplacement() {
         Node n0 = new Node("N0", 0, 0, "", "", "", "", "");
-        Node n1 = new Node("N1", 1, 1, "", "", "", "", "");
-        Node n2 = new Node("N2", 2, 2, "", "", "", "", "");
-        Node n3 = new Node("N3", 4, 1, "", "", "", "", "");
-        Node n4 = new Node("N4", 1, 4, "", "", "", "", "");
-        Node n5 = new Node("N5", 3, 2, "", "", "", "", "");
-        Node n6 = new Node("N6", 1, 0, "", "", "", "", "");
-        Node n7 = new Node("N7", 2, 0, "", "", "", "", "");
-        Node n8 = new Node("N8", 3, 0, "", "", "", "", "");
-        Node n9 = new Node("N9", 4, 0, "", "", "", "", "");
+        Node n1 = new Node("N1", 1, 0, "", "", "", "", "");
+        Node n2 = new Node("N2", 2, 0, "", "", "", "", "");
+        Node n3 = new Node("N3", 3, 0, "", "", "", "", "");
+        Node n4 = new Node("N4", 4, 0, "", "", "", "", "");
+        Node n5 = new Node("N5", 5, 0, "", "", "", "", "");
+        Node n6 = new Node("N6", 6, 0, "", "", "", "", "");
+        Node n7 = new Node("N7", 3, 1, "", "", "", "", "");
         LinkedList<Node> nodes = new LinkedList<>();
         nodes.add(n0);
         nodes.add(n1);
@@ -123,58 +121,31 @@ public class GraphJUnit extends TestCase {
         nodes.add(n5);
         nodes.add(n6);
         nodes.add(n7);
-        nodes.add(n8);
-        nodes.add(n9);
-        Graph g = new BFSGraph(nodes);
+        Graph g = new AStarGraph(nodes);
         g.addBiEdge("N0", "N1");
         g.addBiEdge("N1", "N2");
-        g.addBiEdge("N1", "N4");
-        g.addBiEdge("N2", "N4");
-        g.addBiEdge("N2", "N5");
-        g.addBiEdge("N3", "N5");
-        g.addBiEdge("N0", "N6");
-        g.addBiEdge("N6", "N7");
-        g.addBiEdge("N7", "N8");
-        g.addBiEdge("N8", "N9");
-        g.addBiEdge("N9", "N3");
-        List<String> path1 = g.shortestPath("N0", "N3");
-        List<String> path2 = g.shortestPath("N3", "N5");
-    }
-
-    @Test
-    public void testSeparatePathByFloor() {
-        Node n0 = new Node("N0", 0, 0, "1", "", "", "", "");
-        /*Node n1 = new Node("N1", 0, 0, "1", "", "", "", "");
-        Node n2 = new Node("N2", 0, 0, "G", "", "", "", "");
-        Node n3 = new Node("N3", 0, 0, "1", "", "", "", "");
-        Node n4 = new Node("N4", 0, 0, "2", "", "", "", "");
-        Node n5 = new Node("N5", 0, 0, "2", "", "", "", "");
-        Node n6 = new Node("N6", 0, 0, "2", "", "", "", "");
-        Node n7 = new Node("N7", 0, 0, "G", "", "", "", "");
-        Node n8 = new Node("N8", 0, 0, "1", "", "", "", "");
-        Node n9 = new Node("N9", 0, 0, "1", "", "", "", "");
-        List<String> expected1 = new LinkedList<>();
-        expected1.add("N0");
-        expected1.add("N6");
-        expected1.add("N7");
-        expected1.add("N8");
-        expected1.add("N9");
-        expected1.add("N3");
-        List<String> expected2 = new LinkedList<>();
-        expected2.add("N3");
-        expected2.add("N5");
-        assertEquals(expected1, path1);
-        assertEquals(expected2, path2);
+        g.addBiEdge("N2", "N3");
+        g.addBiEdge("N3", "N4");
+        g.addBiEdge("N4", "N5");
+        g.addBiEdge("N5", "N6");
+        g.addBiEdge("N1", "N7");
+        g.addBiEdge("N7", "N5");
+        List<String> expected = new LinkedList<>();
+        expected.add("N0");
+        expected.add("N1");
+        expected.add("N2");
+        expected.add("N3");
+        expected.add("N4");
+        expected.add("N5");
+        expected.add("N6");
+        List<String> actual = g.shortestPath("N0", "N6");
+        assertEquals(expected, actual);
+        g = g.toBFS();
+        actual = g.shortestPath("N0", "N6");
+        assertEquals(expected, actual);
         g = g.toDFS();
-        path1 = g.shortestPath("N0", "N3");
-        path2 = g.shortestPath("N3", "N5");
-        assertEquals(expected1, path1);
-        assertEquals(expected2, path2);
-        g = g.toAStar();
-        path1 = g.shortestPath("N0", "N3");
-        path2 = g.shortestPath("N3", "N5");
-        assertEquals(expected1, path1);
-        assertEquals(expected2, path2);*/
+        actual = g.shortestPath("N0", "N6");
+        assertEquals(expected, actual);
     }
 
     public void testDisconnectedGraph() {
@@ -206,6 +177,9 @@ public class GraphJUnit extends TestCase {
         expected.add("N1");
         List<String> actual = g.shortestPath("N0", "N1");
         assertEquals(expected, actual);
+        g = g.toDFS();
+        actual = g.shortestPath("N0", "N1");
+        assertEquals(expected, actual);
         g = g.toAStar();
         actual = g.shortestPath("N0", "N1");
         assertEquals(expected, actual);
@@ -221,15 +195,17 @@ public class GraphJUnit extends TestCase {
     }
 
     @Test
-    public void testDistanceReplacement() {
-        /*Node n0 = new Node("N0", 0, 0, "", "", "", "", "");
-        Node n1 = new Node("N1", 1, 0, "", "", "", "", "");
-        Node n2 = new Node("N2", 2, 0, "", "", "", "", "");
-        Node n3 = new Node("N3", 3, 0, "", "", "", "", "");
-        Node n4 = new Node("N4", 4, 0, "", "", "", "", "");
-        Node n5 = new Node("N5", 5, 0, "", "", "", "", "");
-        Node n6 = new Node("N6", 6, 0, "", "", "", "", "");
-        Node n7 = new Node("N7", 3, 1, "", "", "", "", "");
+    public void testSeparatePathByFloor() {
+        Node n0 = new Node("N0", 0, 0, "1", "", "", "", "");
+        Node n1 = new Node("N1", 1, 1, "1", "", "", "", "");
+        Node n2 = new Node("N2", 2, 2, "G", "", "", "", "");
+        Node n3 = new Node("N3", 4, 1, "1", "", "", "", "");
+        Node n4 = new Node("N4", 1, 4, "2", "", "", "", "");
+        Node n5 = new Node("N5", 3, 2, "2", "", "", "", "");
+        Node n6 = new Node("N6", 1, 0, "2", "", "", "", "");
+        Node n7 = new Node("N7", 2, 0, "G", "", "", "", "");
+        Node n8 = new Node("N8", 3, 0, "1", "", "", "", "");
+        Node n9 = new Node("N9", 4, 0, "1", "", "", "", "");
         LinkedList<Node> nodes = new LinkedList<>();
         nodes.add(n0);
         nodes.add(n1);
@@ -241,7 +217,7 @@ public class GraphJUnit extends TestCase {
         nodes.add(n7);
         nodes.add(n8);
         nodes.add(n9);
-        Graph g = new Graph(nodes);
+        Graph g = new AStarGraph(nodes);
         List<String> path = new LinkedList<>();
         path.add("N0");
         path.add("N1");
@@ -274,30 +250,6 @@ public class GraphJUnit extends TestCase {
         expected.get(UIControllerPFM.Floors.FIRST.ordinal()).get(2).add(n8);
         expected.get(UIControllerPFM.Floors.FIRST.ordinal()).get(2).add(n9);
         List<List<List<Node>>> actual = g.separatePathByFloor(path);
-        Graph g = new AStarGraph(nodes);
-        g.addBiEdge("N0", "N1");
-        g.addBiEdge("N1", "N2");
-        g.addBiEdge("N2", "N3");
-        g.addBiEdge("N3", "N4");
-        g.addBiEdge("N4", "N5");
-        g.addBiEdge("N5", "N6");
-        g.addBiEdge("N1", "N7");
-        g.addBiEdge("N7", "N5");
-        List<String> expected = new LinkedList<>();
-        expected.add("N0");
-        expected.add("N1");
-        expected.add("N2");
-        expected.add("N3");
-        expected.add("N4");
-        expected.add("N5");
-        expected.add("N6");
-        List<String> actual = g.shortestPath("N0", "N6");
         assertEquals(expected, actual);
-        g = g.toBFS();
-        actual = g.shortestPath("N0", "N6");
-        assertEquals(expected, actual);
-        g = g.toDFS();
-        actual = g.shortestPath("N0", "N6");
-        assertEquals(expected, actual);*/
     }
 }
