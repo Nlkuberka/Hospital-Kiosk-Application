@@ -28,13 +28,13 @@
             <BorderPane>
                 <top>
                     <MenuBar blendMode="ADD" prefWidth="600.0" style="-fx-background-color: white;" stylesheets="@../css/background.css" BorderPane.alignment="CENTER">
-                        <menus>
-                            <Menu fx:id="homeButton" mnemonicParsing="false" onAction="#setHomeButton" onShowing="#setHomeButton" text="Home">
-                     <items>
-                        <MenuItem mnemonicParsing="false" text="HOME" />
-                     </items>
-                  </Menu>
-                        </menus>
+                              <menus>
+                                  <Menu fx:id="homeButton" mnemonicParsing="false" onAction="#setHomeButton" onShowing="#setHomeButton" text="Back">
+                           <items>
+                              <MenuItem mnemonicParsing="false" text="HOME" />
+                           </items>
+                        </Menu>
+                            </menus>
                         <effect>
                             <ColorAdjust>
                                 <input>
