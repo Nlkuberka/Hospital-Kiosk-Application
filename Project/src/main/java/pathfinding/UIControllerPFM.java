@@ -3,48 +3,36 @@ package pathfinding;
 import application.DBController;
 import application.UIController;
 import application.UIControllerPUD;
+import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXSlider;
 import entities.AStarGraph;
 import entities.Edge;
 import entities.Graph;
 import entities.Node;
-
+import javafx.animation.PathTransition;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.layout.*;
-import javafx.event.ActionEvent;
-import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.MenuItem;
-import javafx.scene.control.ScrollPane;
+import javafx.scene.Group;
+import javafx.scene.Scene;
+import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
-import javafx.scene.shape.LineTo;
-import javafx.scene.shape.MoveTo;
-import javafx.scene.shape.Path;
-
-import java.io.IOException;
-import java.sql.Connection;
-import java.sql.SQLException;
-import com.jfoenix.controls.JFXButton;
-import javafx.animation.PathTransition;
-import javafx.scene.Group;
-import javafx.scene.Scene;
-import javafx.scene.control.*;
-import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.*;
+import javafx.scene.shape.Circle;
+import javafx.scene.shape.Path;
+import javafx.scene.shape.Rectangle;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
+import java.io.IOException;
+import java.sql.Connection;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -175,6 +163,7 @@ public class UIControllerPFM extends UIController {
     private LinkedList<LinkedList<Node>> roomsAtEachFloor = new LinkedList<>();
 
     private MapHandler mapHandler;
+    private PathHandler pathHandler;
 
     @FXML
     public void initialize() {
@@ -183,6 +172,8 @@ public class UIControllerPFM extends UIController {
                 map_002, map_001, map_00, map_01, map_02, map_03,
                 pane_002, pane_001, pane_00, pane_01, pane_02, pane_03,
                 Floors.SECOND);
+
+        this.pathHandler = new PathHandler(mapHandler);
 
         initialBindings();
         setScene();
@@ -206,16 +197,12 @@ public class UIControllerPFM extends UIController {
 
         mapHandler.setAllPaneSize(1920.0, mapHandler.getTopPane().getPrefHeight()*(1920.0/mapHandler.getTopPane().getPrefWidth()));
 
-        floorSlider.valueProperty().addListener(new ChangeListener() {
-
-            @Override
-            public void changed(ObservableValue arg0, Object arg1, Object arg2) {
-                floorLabel.setText(Floors.getByIndex((int) floorSlider.getValue()).getName());
-                circleGroup.getChildren().clear();
-                mapHandler.changeToFloor(floorSlider.getValue());
-                drawNodes(roomsAtEachFloor.get(mapHandler.currentFloor.getIndex()));
-                focusNodes();
-            }
+        floorSlider.valueProperty().addListener((ChangeListener) (arg0, arg1, arg2) -> {
+            floorLabel.setText(Floors.getByIndex((int) floorSlider.getValue()).getName());
+            circleGroup.getChildren().clear();
+            mapHandler.changeToFloor(floorSlider.getValue());
+            drawNodes(roomsAtEachFloor.get(mapHandler.currentFloor.getIndex()));
+            focusNodes();
         });
     }
 
@@ -313,7 +300,7 @@ public class UIControllerPFM extends UIController {
         // call getPath if not null
         getPath();
 
-        pathAnimation();
+        pathHandler.playPathAnimation();
     }
 
     @FXML
@@ -325,6 +312,7 @@ public class UIControllerPFM extends UIController {
         currentPath = null;
         destinationSelect.getSelectionModel().clearSelection();
         mapHandler.cancel();
+        pathHandler.cancel();
     }
 
     private void getPath() {

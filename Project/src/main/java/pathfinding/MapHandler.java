@@ -1,27 +1,31 @@
 package pathfinding;
 
 import entities.Node;
+import javafx.animation.PathTransition;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.paint.Color;
 import javafx.scene.shape.LineTo;
 import javafx.scene.shape.MoveTo;
 import javafx.scene.shape.Path;
+import javafx.scene.shape.Rectangle;
+import javafx.util.Duration;
 
 import java.util.LinkedList;
 import java.util.List;
 
-public class MapHandler {
+class MapHandler {
+    UIControllerPFM.Floors currentFloor;
     private LinkedList<Path> pathList = new LinkedList<>();
     private LinkedList<ImageView> mapList = new LinkedList<>();
     private LinkedList<AnchorPane> paneList = new LinkedList<>();
-    UIControllerPFM.Floors currentFloor;
     private List<List<List<Node>>> latestPath;
     private Node latestStartingNode;
 
-    public MapHandler(Path p1, Path p2, Path p3, Path p4, Path p5, Path p6,
-                      ImageView m1, ImageView m2, ImageView m3, ImageView m4, ImageView m5, ImageView m6,
-                      AnchorPane pa1, AnchorPane pa2, AnchorPane pa3, AnchorPane pa4, AnchorPane pa5, AnchorPane pa6,
-                      UIControllerPFM.Floors currentFloor) {
+    MapHandler(Path p1, Path p2, Path p3, Path p4, Path p5, Path p6,
+               ImageView m1, ImageView m2, ImageView m3, ImageView m4, ImageView m5, ImageView m6,
+               AnchorPane pa1, AnchorPane pa2, AnchorPane pa3, AnchorPane pa4, AnchorPane pa5, AnchorPane pa6,
+               UIControllerPFM.Floors currentFloor) {
         this.pathList.add(p1);
         this.pathList.add(p2);
         this.pathList.add(p3);
@@ -82,7 +86,7 @@ public class MapHandler {
         }
     }
 
-    AnchorPane getCurrentPane() {
+    private AnchorPane getCurrentPane() {
         return this.paneList.get(currentFloor.getIndex());
     }
 
@@ -153,6 +157,7 @@ public class MapHandler {
             pathList.get(i).setOpacity(opacity);
         }
         this.currentFloor = UIControllerPFM.Floors.getByIndex((int) floor);
+        pathAnimation();
     }
 
     void cancel() {
@@ -197,4 +202,45 @@ public class MapHandler {
     AnchorPane getTopPane() {
         return this.paneList.getLast();
     }
+
+    private void pathAnimation() {
+        PathTransition pathTransition = new PathTransition();
+
+        //Setting the duration of the path transition
+        pathTransition.setDuration(Duration.seconds(4));
+
+        //Setting the node for the transition
+        Rectangle ant = new Rectangle(8, 3);
+        ant.setFill(Color.LIGHTGREEN);
+        this.getTopPane().getChildren().add(ant);
+        pathTransition.setNode(ant);
+
+        //Setting the path
+        pathTransition.setPath(this.getCurrentPath());
+
+        //Setting the orientation of the path
+        pathTransition.setOrientation(PathTransition.OrientationType.ORTHOGONAL_TO_TANGENT);
+
+        //Setting auto reverse value to false
+        pathTransition.setAutoReverse(false);
+
+        pathTransition.setCycleCount(1);
+
+        pathTransition.setOnFinished(e -> {
+            this.getTopPane().getChildren().remove(ant);
+            //setZoomOn(true);
+            //setNodesVisible(true);
+            //initialLocationSelect.setDisable(false);
+            //destinationSelect.setDisable(false);
+        });
+
+
+        //setZoomOn(false);
+        //setNodesVisible(false);
+        //initialLocationSelect.setDisable(true);
+        //destinationSelect.setDisable(true);
+        if (this.getCurrentPath() != null)
+            pathTransition.play();
+    }
 }
+

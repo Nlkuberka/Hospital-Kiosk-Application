@@ -29,12 +29,12 @@
             <RowConstraints maxHeight="80.0" minHeight="10.0" percentHeight="15.0" prefHeight="80.0" vgrow="SOMETIMES" />
         </rowConstraints>
         <JFXButton fx:id="button_cancel" onMouseClicked="#closeWindow" styleClass="jfx-button-add" stylesheets="@../css/background.css" text="Cancel" GridPane.halignment="CENTER" GridPane.rowIndex="9" GridPane.valignment="CENTER" />
-        <JFXButton fx:id="button_save" styleClass="jfx-button-add" stylesheets="@../css/background.css" text="Save" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="9" />
+        <JFXButton fx:id="button_save" onMouseClicked="#saveNode" styleClass="jfx-button-add" stylesheets="@../css/background.css" text="Save" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="9" />
         <Text strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-fill: White; -fx-font-weight: Bold; -fx-font-size: 18;" text="NodeID" GridPane.halignment="CENTER" GridPane.rowIndex="0" />
         <Text strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-fill: White; -fx-font-weight: Bold; -fx-font-size: 18;" text="X-Coordinate" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
         <Text strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-fill: White; -fx-font-weight: Bold; -fx-font-size: 18;" text="Building" GridPane.halignment="CENTER" GridPane.rowIndex="4" />
         <Text strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-fill: White; -fx-font-weight: Bold; -fx-font-size: 18;" text="Long Name" GridPane.halignment="CENTER" GridPane.rowIndex="6" />
-        <Text strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-fill: White; -fx-font-weight: Bold; -fx-font-size: 18;" text="Node Type" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="0" />
+        <Text strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-fill: White; -fx-font-weight: Bold; -fx-font-size: 18;" text="Node Type" GridPane.columnIndex="1" GridPane.halignment="CENTER" />
         <Text strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-fill: White; -fx-font-weight: Bold; -fx-font-size: 18;" text="Y-Coordinate" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
         <Text strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-fill: White; -fx-font-weight: Bold; -fx-font-size: 18;" text="Floor" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="4" />
         <Text strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-fill: White; -fx-font-weight: Bold; -fx-font-size: 18;" text="Short Name" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="6" />
@@ -103,5 +103,10 @@
             <Font name="System Bold" size="14.0" />
          </font>
         </JFXTextField>
+      <Text fx:id="Text_FieldsRequired" fill="RED" strokeType="OUTSIDE" strokeWidth="0.0" text="All Fields Required" visible="false" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="9">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font>
+      </Text>
     </GridPane>
 </StackPane>

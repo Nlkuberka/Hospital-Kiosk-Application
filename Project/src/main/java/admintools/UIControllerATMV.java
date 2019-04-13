@@ -43,7 +43,6 @@ import java.util.List;
 public class UIControllerATMV extends UIController {
 
     public HBox hboxForMap;
-    public GridPane interfaceGrid;
     public StackPane parentPane;
     public ImageView backgroundImage;
     public Path path;
@@ -103,8 +102,6 @@ public class UIControllerATMV extends UIController {
         // bind Map to AnchorPane inside of ScrollPane
         map_imageView.fitWidthProperty().bind(scroll_AnchorPane.prefWidthProperty());
         map_imageView.fitHeightProperty().bind(scroll_AnchorPane.prefHeightProperty());
-
-        interfaceGrid.prefHeightProperty().bind(hboxForMap.heightProperty());
 
         scrollPane.prefViewportWidthProperty().bind(hboxForMap.prefWidthProperty());
     }
