@@ -1,5 +1,6 @@
 package application;
 
+import database.DBController;
 import entities.User;
 
 import com.jfoenix.controls.JFXButton;

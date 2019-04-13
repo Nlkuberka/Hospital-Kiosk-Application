@@ -1,27 +1,22 @@
 package reservations;
 
 import application.CurrentUser;
-import application.DBController;
+import database.DBController;
 import application.UIController;
-import entities.Node;
 import entities.Reservation;
 
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTimePicker;
 
-import entities.Workplace;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.shape.Shape;
-import sun.util.resources.cldr.shi.LocaleNames_shi_Tfng;
 
-import java.awt.*;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Time;
 import java.text.SimpleDateFormat;
 import java.time.*;
 

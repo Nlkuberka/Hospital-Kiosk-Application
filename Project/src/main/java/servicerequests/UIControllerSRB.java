@@ -7,25 +7,21 @@ package servicerequests;
  */
 
 import application.CurrentUser;
-import application.DBController;
+import database.DBController;
 import application.UIController;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextField;
+import database.DBControllerNE;
+import database.DBControllerSR;
 import entities.Node;
 import entities.ServiceRequest;
-import javafx.beans.binding.BooleanBinding;
 import javafx.collections.FXCollections;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.TextArea;
 import javafx.scene.control.TextFormatter;
 
 import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -66,9 +62,9 @@ public class UIControllerSRB extends UIController {
         List<String> nodeShortNames = new ArrayList<String>();
         nodeIDs = new HashMap<String, String>();
 
-        Connection conn = DBController.dbConnect();
-        List<Node> nodes = DBController.fetchAllRooms(conn);
-        DBController.closeConnection(conn);
+        Connection conn = DBControllerNE.dbConnect();
+        List<Node> nodes = DBControllerNE.generateListOfNodes(conn,DBControllerNE.ALL_ROOMS);
+        DBControllerNE.closeConnection(conn);
         for(int i = 0; i < nodes.size(); i++) {
             Node node = nodes.get(i);
             nodeShortNames.add(node.getShortName());
@@ -123,9 +119,9 @@ public class UIControllerSRB extends UIController {
             message = message.substring(0,149);
         }
         ServiceRequest sr = new ServiceRequest(nodeID, serviceType, message, CurrentUser.user.getUserID(), false, null);
-        Connection conn = DBController.dbConnect();
-        DBController.addServiceRequest(sr,conn);
-        DBController.closeConnection(conn);
+        Connection conn = DBControllerSR.dbConnect();
+        DBControllerSR.addServiceRequest(sr,conn);
+        DBControllerSR.closeConnection(conn);
         this.goToScene(UIController.SERVICE_REQUEST_MAIN);
     }
 

@@ -1,6 +1,6 @@
 package admintools;
 
-import application.DBController;
+import database.DBController;
 import application.UIController;
 import com.jfoenix.controls.JFXButton;
 import entities.User;
@@ -18,7 +18,6 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 
-import java.lang.reflect.Array;
 import java.sql.Connection;
 import java.util.Arrays;
 import java.util.LinkedList;

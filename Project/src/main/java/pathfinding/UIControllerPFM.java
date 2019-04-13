@@ -1,8 +1,9 @@
 package pathfinding;
 
-import application.DBController;
+import database.DBController;
 import application.UIController;
 import com.jfoenix.controls.JFXSlider;
+import database.DBControllerNE;
 import entities.AStarGraph;
 import entities.Edge;
 import entities.Graph;
@@ -10,9 +11,6 @@ import entities.Node;
 
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
-import javafx.event.ActionEvent;
-import javafx.fxml.FXML;
-import javafx.scene.layout.*;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -24,18 +22,15 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
-import javafx.scene.shape.LineTo;
-import javafx.scene.shape.MoveTo;
 import javafx.scene.shape.Path;
 
 import java.sql.Connection;
-import java.sql.SQLException;
+
 import com.jfoenix.controls.JFXButton;
 import javafx.animation.PathTransition;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.*;
 import javafx.stage.Modality;
@@ -214,19 +209,19 @@ public class UIControllerPFM extends UIController {
 
     @Override
     public void onShow() {
-        Connection conn = DBController.dbConnect();
-        LinkedList<Node> allNodes = DBController.generateListofNodes(conn);
-        LinkedList<Node> allRooms = DBController.fetchAllRooms(conn);
-        List<Edge> allEdges = DBController.generateListofEdges(conn);
+        Connection conn = DBControllerNE.dbConnect();
+        LinkedList<Node> allNodes = DBControllerNE.generateListOfNodes(conn,DBControllerNE.ALL_NODES);
+        LinkedList<Node> allRooms = DBControllerNE.generateListOfNodes(conn,DBControllerNE.ALL_ROOMS);
+        List<Edge> allEdges = DBControllerNE.generateListofEdges(conn);
 
-        roomsAtEachFloor.add(DBController.getRoomsforFloor(conn, Floors.LL2.getID()));
-        roomsAtEachFloor.add(DBController.getRoomsforFloor(conn, Floors.LL1.getID()));
-        roomsAtEachFloor.add(DBController.getRoomsforFloor(conn, Floors.GROUND.getID()));
-        roomsAtEachFloor.add(DBController.getRoomsforFloor(conn, Floors.FIRST.getID()));
-        roomsAtEachFloor.add(DBController.getRoomsforFloor(conn, Floors.SECOND.getID()));
-        roomsAtEachFloor.add(DBController.getRoomsforFloor(conn, Floors.THIRD.getID()));
+        roomsAtEachFloor.add(DBControllerNE.generateListOfNodes(conn, DBControllerNE.ALL_ROOMS_FLOOR_L2));
+        roomsAtEachFloor.add(DBControllerNE.generateListOfNodes(conn, DBControllerNE.ALL_ROOMS_FLOOR_L1));
+        roomsAtEachFloor.add(DBControllerNE.generateListOfNodes(conn, DBControllerNE.ALL_ROOMS_FLOOR_G));
+        roomsAtEachFloor.add(DBControllerNE.generateListOfNodes(conn, DBControllerNE.ALL_ROOMS_FLOOR_1));
+        roomsAtEachFloor.add(DBControllerNE.generateListOfNodes(conn, DBControllerNE.ALL_ROOMS_FLOOR_2));
+        roomsAtEachFloor.add(DBControllerNE.generateListOfNodes(conn, DBControllerNE.ALL_ROOMS_FLOOR_3));
 
-        DBController.closeConnection(conn);
+        DBControllerNE.closeConnection(conn);
 
         initialLocationSelect.getItems().clear();
         destinationSelect.getItems().clear();
@@ -329,7 +324,7 @@ public class UIControllerPFM extends UIController {
         pathIDs = graph.shortestPath(initialID, destID);
 
         Connection connection = DBController.dbConnect();
-        Node initialNode = DBController.fetchNode(initialID, connection);
+        Node initialNode = DBControllerNE.fetchNode(initialID, connection);
         DBController.closeConnection(connection);
 
         mapHandler.displayNewPath(graph.separatePathByFloor(pathIDs), initialNode);

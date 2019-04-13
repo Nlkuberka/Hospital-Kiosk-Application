@@ -1,8 +1,8 @@
-package application;
+package database;
 
+import application.Encryptor;
 import entities.*;
 
-import javax.jws.soap.SOAPBinding;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -27,7 +27,6 @@ import java.util.List;
  */
 public class DBController {
     // Connection connection;
-
 
     /**
      * initializeAppDB
@@ -101,8 +100,8 @@ public class DBController {
         createTable(workplaces, conn);
         createTable(reservations,conn);
 
-        loadNodeData(new File("nodesv4.csv"),conn);
-        loadEdgeData(new File("edgesv5.csv"),conn);
+        DBControllerNE.loadNodeData(new File("nodesv4.csv"),conn);
+        DBControllerNE.loadEdgeData(new File("edgesv5.csv"),conn);
         loadWorkplaceData(new File( "workplaces.csv"),conn);
 
         try {
@@ -116,7 +115,6 @@ public class DBController {
             e.printStackTrace();
         }
     }
-
 
     /**
      * dbConnect
@@ -154,48 +152,7 @@ public class DBController {
     }
 
 
-    /**
-     * loadNodeData
-     *
-     * reads and stores node data fro given csv file
-     *
-     * @param file
-     * @param connection
-     */
-    public static void loadNodeData(File file, Connection connection){
-        BufferedReader br = null;
-        String line = "";
-        String[] arr;
-        try{
-            br = new BufferedReader(new FileReader(file));
-            br.readLine(); // skip header
-            while((line = br.readLine()) != null){
-                arr = line.split(",");
-                connection.createStatement().execute("insert into NODES " +
-                        "values ('"+ arr[0] +"',"+ arr[1]+","+ arr[2]+",'"+ arr[3]+"','"+ arr[4]+"','"+ arr[5]+"','"+ arr[6]+"','"+ arr[7]+"')");
-            }
-        }catch(Exception e){
-            e.printStackTrace();
-        }
-    }
 
-    public static LinkedList<Node> fetchAllRooms(Connection connection) {
-        try{
-            Statement s = connection.createStatement();
-            LinkedList<Node> listOfRooms = new LinkedList<>();
-            ResultSet rs = s.executeQuery("SELECT * FROM NODES WHERE NODETYPE != 'HALL' and NODETYPE != 'STAI' and NODETYPE != 'ELEV'");
-            while(rs.next()) {
-                Node node = new Node(rs.getString(1), rs.getInt(2), rs.getInt(3),
-                        rs.getString(4), rs.getString(5), rs.getString(6),
-                        rs.getString(7), rs.getString(8));
-                listOfRooms.add(node);
-            }
-            return listOfRooms;
-        }catch(SQLException e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
 
     public static LinkedList<Reservation> getResForRoom(String ID, String Date, Connection conn){
         LinkedList<Reservation> list = new LinkedList<Reservation>();
@@ -214,30 +171,7 @@ public class DBController {
     }
 
 
-    /**
-     * loadEdgeData
-     *
-     * reads and stores edge data from given csv file
-     *
-     * @param file
-     * @param connection
-     */
-    public static void loadEdgeData(File file, Connection connection){
-        BufferedReader br = null;
-        String line = "";
-        String[] arr;
-        try{
-            br = new BufferedReader(new FileReader(file));
-            br.readLine(); // skip header
-            while((line = br.readLine()) != null){
-                arr = line.split(",");
-                connection.createStatement().execute("insert into EDGES " +
-                        "values ('"+ arr[0] + "','"+ arr[1]+"','"+ arr[2]+"')");
-            }
-        }catch(Exception e){
-            e.printStackTrace();
-        }
-    }
+
 
     /**
      * loadWorkplaceData
@@ -282,70 +216,10 @@ public class DBController {
 
 
 
-    /**
-     * updateNode
-     *
-     * updates node of given id, overriding all fields
-     * @param node desired node content -- Must have an existing ID --
-     */
-    public static void updateNode(Node node, Connection connection){
-        try{
-            Statement s = connection.createStatement();
-            s.execute("UPDATE NODES" +
-                    " SET XCOORD ="+ node.getXcoord() +","+
-                    "YCOORD ="+ node.getYcoord() + ","+
-                    "FLOOR = '"+ node.getFloor() + "',"+
-                    "BUILDING ='"+ node.getBuilding() + "',"+
-                    "NODETYPE = '"+ node.getNodeType() + "',"+
-                    "LONGNAME = '"+ node.getLongName() + "',"+
-                    "SHORTNAME = '"+ node.getShortName() +"'"+
-                    " where NODEID = '" + node.getNodeID() +"'");
-        }catch(SQLException e){
-            e.printStackTrace();
-        }
-    }
 
-    /**
-     * updateNode
-     *
-     * updates edge of given id, overriding all fields
-     * @param edge desired node content -- Must have an existing ID --
-     */
-    public static void updateEdge(Edge edge, Connection connection){
-        try{
-            Statement s = connection.createStatement();
-            s.execute("UPDATE EDGES" +
-                    " SET  STARTNODE ='"+ edge.getNode1ID() +"',"+
-                    "ENDNODE = '"+ edge.getNode2ID() + "'" +
-                    "where EDGEID = '" + edge.getEdgeID()+"'");
 
-        }catch(SQLException e){
-            e.printStackTrace();
-        }
-    }
 
-    /**
-     * updateServiceRequest
-     *
-     * saves changes msde to a ServiceRequest object
-     *
-     * UP TO DATE
-     * @param serviceRequest
-     * @param connection
-     */
-    public static void updateServiceRequest(ServiceRequest serviceRequest, Connection connection){
-        try{
-            Statement s = connection.createStatement();
-            s.execute("UPDATE SERVICEREQUEST SET  SERVICETYPE ='"+ serviceRequest.getServiceType() +"',"+
-                    "MESSAGE = '"+ serviceRequest.getMessage() + "'," +
-                    "RESOLVED = '" + serviceRequest.isResolved() + "'," +
-                    "RESOLVERID = '"+serviceRequest.getResolverID()+"' " +
-                    "where  SERVICEID = " + serviceRequest.getServiceID());
 
-        }catch(SQLException e){
-            e.printStackTrace();
-        }
-    }
     /**
      * fetchNode
      *
@@ -368,139 +242,12 @@ public class DBController {
         }
     }
 
-    public static LinkedList<Node> getRoomsforFloor(Connection connection, String floor){
-        LinkedList<Node> list = new LinkedList<Node>();
-        try{
-            ResultSet rs = connection.createStatement().executeQuery("Select * from NODES where FLOOR ='"+floor+"' and NODETYPE != 'HALL' and NODETYPE != 'STAI' and NODETYPE != 'ELEV'");
-            while (rs.next()){
-                list.add(new Node(rs.getString("NODEID"),rs.getInt("XCOORD"),
-                        rs.getInt("YCOORD"),rs.getString("FLOOR"),
-                        rs.getString("BUILDING"),rs.getString("NODETYPE"),
-                        rs.getString("LONGNAME"),rs.getString("SHORTNAME")));
-            }
-        }catch(SQLException e){
-            e.printStackTrace();
-        }
-        return list;
-    }
 
 
-    public static LinkedList<Node> getNodesforFloor(Connection connection, String floor){
-        LinkedList<Node> list = new LinkedList<Node>();
-        try{
-            ResultSet rs = connection.createStatement().executeQuery("Select * from NODES where FLOOR ='"+floor+"'");
-            while (rs.next()){
-                list.add(new Node(rs.getString("NODEID"),rs.getInt("XCOORD"),
-                        rs.getInt("YCOORD"),rs.getString("FLOOR"),
-                        rs.getString("BUILDING"),rs.getString("NODETYPE"),
-                        rs.getString("LONGNAME"),rs.getString("SHORTNAME")));
-            }
-        }catch(SQLException e){
-            e.printStackTrace();
-        }
-        return list;
-    }
 
-    /**
-     * fetchNode
-     *
-     * generates an node object from data under given ID
-     *
-     * @param ID
-     * @param connection
-     * @return
-     */
-    public static Node fetchNode(String ID,Connection connection ){
-        Node node = null;
-        try{
-            Statement s = connection.createStatement();
-            ResultSet rs = s.executeQuery("Select * from NODES where NODEID = '" + ID + "'");
-            rs.next();
-            node = new Node(rs.getString("NODEID"),rs.getInt("XCOORD"),
-                    rs.getInt("YCOORD"),rs.getString("FLOOR"),
-                    rs.getString("BUILDING"),rs.getString("NODETYPE"),
-                    rs.getString("SHORTNAME"),rs.getString("LONGNAME"));
-        }catch(SQLException e){
-            e.printStackTrace();
-        }
-        return node;
 
-    }
 
-    /**
-     * fetchEdge
-     *
-     * generates an edge object from data under given ID
-     *
-     * @param ID
-     * @param connection
-     * @return
-     */
-    public static Edge fetchEdge(String ID,Connection connection ){
-        Edge edge = null;
-        try{
-            Statement s = connection.createStatement();
-            ResultSet rs = s.executeQuery("Select from EDGES where EDGEID= '" + ID + "'");
-            rs.next();
-            edge = new Edge(rs.getString(1),rs.getString(2),rs.getString(3));
-        }catch(SQLException e){
-            e.printStackTrace();
-        }
-        return edge;
-    }
 
-    /**
-     * delete node
-     *
-     * deletes node of given ID
-     * @param ID of node to be deleted
-     */
-    public static void deleteNode(String ID, Connection connection){
-        try {
-            Statement s = connection.createStatement();
-            s.execute("DELETE from EDGES where ENDNODE = '"+ ID +"' OR STARTNODE ='"+ ID +"'");
-            s.execute("Delete from NODES where NODEID = '"+ ID +"'");
-
-        }catch(SQLException e){
-            e.printStackTrace();
-        } }
-
-    /**
-     * deleteEdge
-     *
-     * deletes edge of given id from the database
-     *
-     * @param ID
-     * @param connection
-     */
-    public static void deleteEdge(String ID, Connection connection){
-        try {
-            Statement s = connection.createStatement();
-            s.execute("DELETE from EDGES where EDGEID = '"+ ID +"'");
-
-        }catch(SQLException e){
-            e.printStackTrace();
-        }
-    }
-
-    /**
-     * deleteServiceRequest
-     *
-     * Not in use
-     *
-     *
-//     * @param NODEID
-//     * @param USERID
-     * @param connection
-     */
-//    public static void deleteServiceRequest(String NODEID,String USERID, Connection connection){
-//        try {
-//            Statement s = connection.createStatement();
-//            s.execute("delete  from SERVICEREQUEST where NODEID ='"+ NODEID +"' and USERID ='" + USERID + "'");
-//        }catch(SQLException e){
-//            e.printStackTrace();
-//        }
-//    }
 
     public static void deleteReservation(int reservationID,Connection connection){
         try {
@@ -511,72 +258,10 @@ public class DBController {
         }
     }
 
-    /**
-     * addNode
-     *
-     * lets user introduce a single node to the DB
-     * @param node new node object
-     */
-    public static void addNode(Node node, Connection connection){
-        try{
-            Statement s = connection.createStatement();
-            nodeInsert(s,node);
-        }catch(SQLException e){
-            e.printStackTrace();
-        }
-    }
-
-    /**
-     * addEdge
-     *
-     * lets user introduce a new edge to the DB
-     * @param edge
-     */
-    public static void addEdge(Edge edge, Connection connection){
-        try{
-            //connection = DriverManager.getConnection("jdbc:derby:myDB");
-            Statement s = connection.createStatement();
-            s.execute("INSERT into EDGES values ('" + edge.getNode2ID() +"_" + edge.getNode1ID() +
-                    "','"+ edge.getNode1ID() +"','"+ edge.getNode2ID() + "')");
-            //connection.close();
-        }catch(SQLException e){
-            e.printStackTrace();
-        }
-    }
 
 
 
-    /**
-     * addServiceRequest
-     *
-     * Enters ServiceRequest object to database
-     *
-     * @param serviceRequest
-     * @param connection
-     */
-    public static int addServiceRequest(ServiceRequest serviceRequest, Connection connection){
-        try{
-            PreparedStatement s;
-            if (serviceRequest.getNodeID() == null){
-                s = connection.prepareStatement("INSERT into SERVICEREQUEST (NODEID, SERVICETYPE, MESSAGE, USERID, RESOLVED, RESOLVERID)" +
-                        " values (" + serviceRequest.getNodeID() +
-                        ",'"+ serviceRequest.getServiceType() +"','"+ serviceRequest.getMessage() + "','"+
-                        serviceRequest.getUserID()+"',"+serviceRequest.isResolved()+","+ serviceRequest.getResolverID()+")");
-            }else{
-                s = connection.prepareStatement("INSERT into SERVICEREQUEST (NODEID, SERVICETYPE, MESSAGE, USERID, RESOLVED, RESOLVERID)" +
-                        " values ('" + serviceRequest.getNodeID() +
-                        "','"+ serviceRequest.getServiceType() +"','"+ serviceRequest.getMessage() + "','"+
-                        serviceRequest.getUserID()+"',"+serviceRequest.isResolved()+","+ serviceRequest.getResolverID()+")");
 
-            }
-            s.execute();
-            ResultSet rs = s.getGeneratedKeys();
-            return 1;
-        }catch(SQLException e){
-            e.printStackTrace();
-            return 0;
-        }
-    }
 
 
 
@@ -629,110 +314,11 @@ public class DBController {
     }
 
 
-    /**
-     * multiEdgeFetch
-     *
-     * gets multiple nodes from database using the edge object IDs
-     *
-     * @param IDList list of Edge IDs
-     * @param connection
-     * @return list of edges from the database
-     */
-    public static void multiFetchEdge(List<String> IDList, Connection connection) {
-        try{
-            Statement s = connection.createStatement();
-            LinkedList<Edge> listOfEdges = new LinkedList<>();
-            for(int x = 0; x < IDList.size(); x++) {
-                ResultSet rs = s.executeQuery("Select * from EDGES where EDGEID = '" + IDList.get(x) + "'");
-                rs.next();
-                Edge edge = new Edge(rs.getString(1), rs.getString(2), rs.getString(3));
-                listOfEdges.add(edge);
-            }
-        }catch(SQLException e) {
-            e.printStackTrace();
-        }
-    }
 
 
 
-    /**
-     * multiNodeFetch
-     *
-     * gets multiple nodes from database using the node object IDs
-     *
-     * @param IDList list of Node IDs
-     * @param connection
-     * @return list of nodes from the database
-     */
-    public static LinkedList<Node> multiNodeFetch(List<String> IDList, Connection connection) {
-        try{
-            Statement s = connection.createStatement();
-            LinkedList<Node> listOfNodes = new LinkedList<>();
-            for(int x = 0; x < IDList.size(); x++) {
-                ResultSet rs = s.executeQuery("SELECT * FROM NODES WHERE NODEID='" + IDList.get(x) + "'");
-                rs.next();
-                Node node = new Node(rs.getString(1), rs.getInt(2), rs.getInt(3),
-                        rs.getString(4), rs.getString(5), rs.getString(6),
-                        rs.getString(7), rs.getString(8));
-                listOfNodes.add(node);
-            }
-            return listOfNodes;
-        }catch(SQLException e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
 
 
-
-    /**
-     * generateListofNodes
-     *
-     * creates and returns a list of node objects
-     * @return LinkedList<Node>
-     */
-    public static LinkedList<Node> generateListofNodes(Connection connection){
-        try{
-            //connection = DriverManager.getConnection("jdbc:derby:myDB");
-            Statement s = connection.createStatement();
-            ResultSet rs = s.executeQuery("SELECT * from NODES");
-            LinkedList<Node> listOfNodes = new LinkedList<>();
-            while(rs.next()){
-                Node node = new Node(rs.getString(1),rs.getInt(2),rs.getInt(3),
-                        rs.getString(4),rs.getString(5),rs.getString(6),
-                        rs.getString(7),rs.getString(8));
-                listOfNodes.add(node);
-            }
-            //connection.close();
-            return listOfNodes;
-        }catch(SQLException e){
-            e.printStackTrace();
-        }
-        return null;
-    }
-
-    /**
-     * generateListofEdges
-     *
-     * generates a list of edge objects fetched from the database
-     * @param connection
-     * @return
-     */
-    public static LinkedList<Edge> generateListofEdges(Connection connection) {
-        try{
-            Statement s = connection.createStatement();
-            ResultSet rs = s.executeQuery("SELECT * from EDGES");
-            LinkedList<Edge> listofEdges = new LinkedList<>();
-            while(rs.next()){
-                Edge edge = new Edge(rs.getString(1), rs.getString(2), rs.getString(3));
-                listofEdges.add(edge);
-            }
-            return listofEdges;
-        }catch(SQLException e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
 
     /**
      * generateListOfUserReservations
@@ -758,27 +344,7 @@ public class DBController {
         return null;
     }
 
-    /**
-     * nodeInsert
-     *
-     * helper method, inserts nodes into existing table
-     * @param s existing statement
-     * @param node new node object
-     */
-    public static void nodeInsert(Statement s, Node node){
-        try {
-            s.execute("insert into NODES values ('"+node.getNodeID()+"',"+
-                    node.getXcoord()+","
-                    +node.getYcoord()+", '"+
-                    node.getFloor() + "' ," +
-                    " '" + node.getBuilding() + "'," +
-                    " '" + node.getNodeType() + "'," +
-                    " '" + node.getLongName() + "'," +
-                    " '" + node.getShortName() + "')");
-        }catch(SQLException e){
-            e.printStackTrace();
-        }
-    }
+
 
     /**
      * isRoomAvailable
@@ -1009,22 +575,6 @@ public class DBController {
         }
 
     }
-
-    /**
-     * ClearData
-     * Drops all data stored in Nodes and Edges
-     */
-    public void clearData(Connection connection) {
-        try {
-            Statement s = connection.createStatement();
-            s.execute("DELETE from NODES where 1=1");
-            s.execute("DELETE from EDGES where 1=1");
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
-
-
 
 
 }

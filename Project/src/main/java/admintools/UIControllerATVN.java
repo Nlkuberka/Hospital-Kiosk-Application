@@ -1,7 +1,8 @@
 package admintools;
 
-import application.DBController;
+import database.DBController;
 import application.UIController;
+import database.DBControllerNE;
 import entities.Node;
 
 import com.jfoenix.controls.JFXButton;
@@ -12,7 +13,6 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 
-import java.lang.reflect.Method;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -102,26 +102,20 @@ public class UIControllerATVN extends  UIController {
                             runSetter(node, nodeSetters[index], String.class, textField.getText());
                         }
                         System.out.println(node);
-
-                        try{
                             Connection conn = DBController.dbConnect();
                             if(index == 0) {
-                                DBController.deleteNode(label.getText(),conn);
-                                DBController.addNode(node,conn);
+                                DBControllerNE.deleteNode(label.getText(),conn);
+                                DBControllerNE.addNode(node,conn);
                             } else {
-                                DBController.updateNode(node, conn);
+                                DBControllerNE.updateNode(node, conn);
                             }
-                            conn.close();
-                        }catch(SQLException e){
-                            e.printStackTrace();
-                        }
+                            DBControllerNE.closeConnection(conn);
                         setGraphic(label);
                         label.setText(textField.getText());
                     });
                 }
             });
         }
-        // Initialize cell factories of the remove node column
         TableColumn<Node, Node> removeColumn = (TableColumn<Node, Node>) tableColumns.get(tableColumns.size() - 1);
         removeColumn.setCellValueFactory(param -> new ReadOnlyObjectWrapper<>(param.getValue()));
         removeColumn.setCellFactory(param -> new TableCell<Node, Node>() {
@@ -135,14 +129,10 @@ public class UIControllerATVN extends  UIController {
                 }
                 setGraphic(removeButton);
                 removeButton.setOnAction( e -> {
-                        try {
-                            Connection conn = DBController.dbConnect();
-                            DBController.deleteNode(node.getNodeID(), conn);
-                            conn.close();
-                        }catch(SQLException e1){
-                            e1.printStackTrace();
-                        }
-                            getTableView().getItems().remove(node);
+                            Connection conn = DBControllerNE.dbConnect();
+                            DBControllerNE.deleteNode(node.getNodeID(), conn);
+                            DBControllerNE.closeConnection(conn);
+                          getTableView().getItems().remove(node);
                         }
                 );
             }
@@ -157,18 +147,10 @@ public class UIControllerATVN extends  UIController {
      */
     @Override
     public void onShow() {
-        //DB get Nodes
-        Connection conn = DBController.dbConnect();
+        Connection conn = DBControllerNE.dbConnect();
         ObservableList<Node> nodeData = FXCollections.observableArrayList();
-        try{
-            ResultSet rs = conn.createStatement().executeQuery("Select * from NODES");
-            while (rs.next()){
-                nodeData.add(new Node(rs.getString(1),rs.getInt(2),rs.getInt(3),
-                        rs.getString(4),rs.getString(5),rs.getString(6),
-                        rs.getString(7),rs.getString(8)));
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
+        for(Node n : DBControllerNE.generateListOfNodes(conn,DBControllerNE.ALL_NODES)){
+            nodeData.add(n);
         }
         nodeTable.setItems(nodeData);
     }

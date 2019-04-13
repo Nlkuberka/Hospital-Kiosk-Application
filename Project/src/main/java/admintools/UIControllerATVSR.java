@@ -1,7 +1,8 @@
 package admintools;
 
-import application.DBController;
+import database.DBController;
 import application.UIController;
+import database.DBControllerSR;
 import entities.ServiceRequest;
 
 import com.jfoenix.controls.JFXCheckBox;
@@ -93,7 +94,7 @@ public class UIControllerATVSR extends UIController {
                 checkBox.setOnAction(et -> {
                     runSetter(serviceRequest, serviceRequestSetters[index], boolean.class, checkBox.isSelected());
                     Connection conn = DBController.dbConnect();
-                    DBController.updateServiceRequest(serviceRequest,conn);
+                    DBControllerSR.updateServiceRequest(serviceRequest,conn);
                     DBController.closeConnection(conn);
                 });
             }
@@ -119,7 +120,7 @@ public class UIControllerATVSR extends UIController {
                     }
                     runSetter(serviceRequest, serviceRequestSetters[index],String.class, textField.getText());
                     Connection conn = DBController.dbConnect();
-                    DBController.updateServiceRequest(serviceRequest,conn);
+                    DBControllerSR.updateServiceRequest(serviceRequest,conn);
                     DBController.closeConnection(conn);
                     setGraphic(label);
                     label.setText(textField.getText());

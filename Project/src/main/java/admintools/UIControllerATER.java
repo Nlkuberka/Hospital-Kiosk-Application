@@ -1,7 +1,7 @@
 package admintools;
 
 import application.CurrentUser;
-import application.DBController;
+import database.DBController;
 import application.UIController;
 import com.jfoenix.controls.JFXButton;
 import entities.Reservation;

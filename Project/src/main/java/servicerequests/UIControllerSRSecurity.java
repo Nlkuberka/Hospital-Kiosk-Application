@@ -1,8 +1,10 @@
 package servicerequests;
 
 import application.CurrentUser;
-import application.DBController;
+import database.DBController;
 import application.UIController;
+import database.DBControllerNE;
+import database.DBControllerSR;
 import entities.Node;
 
 import com.jfoenix.controls.JFXButton;
@@ -51,13 +53,13 @@ public class UIControllerSRSecurity extends UIController {
         nodeIDs = new HashMap<String, String>();
 
 
-        Connection conn = DBController.dbConnect();
-        LinkedList<Node> rooms = DBController.fetchAllRooms(conn);
+        Connection conn = DBControllerNE.dbConnect();
+        LinkedList<Node> rooms = DBControllerNE.generateListOfNodes(conn,DBControllerNE.ALL_ROOMS);
         for(Node n:rooms) {
             nodeIDs.put(n.getShortName(), n.getNodeID());
             nodeShortNames.add(n.getShortName());
         }
-
+        DBControllerNE.closeConnection(conn);
         roomSelect.setItems(FXCollections.observableList(nodeShortNames));
         roomSelect.getSelectionModel().selectFirst();
 
@@ -80,9 +82,9 @@ public class UIControllerSRSecurity extends UIController {
         serviceMessage.clear();
 
         ServiceRequest sr = new ServiceRequest(nodeID, serviceType, message, CurrentUser.user.getUserID(), false, null);
-        Connection conn = DBController.dbConnect();
-        DBController.addServiceRequest(sr,conn);
-        DBController.closeConnection(conn);
+        Connection conn = DBControllerSR.dbConnect();
+        DBControllerSR.addServiceRequest(sr,conn);
+        DBControllerSR.closeConnection(conn);
         this.goToScene(UIController.SERVICE_REQUEST_MAIN);
     }
 
