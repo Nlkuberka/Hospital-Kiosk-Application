@@ -6,8 +6,8 @@ public class Timer implements Runnable {
     private double waitTime;
     private Callback callback;
 
-    public Timer(float waitTimeInSeconds, Callback callback) {
-        waitTime = (double) waitTimeInSeconds * 1000L;
+    public Timer(double waitTimeInSeconds, Callback callback) {
+        waitTime = waitTimeInSeconds * 1000D;
         this.callback = callback;
         this.thread = new Thread(this);
         thread.start();

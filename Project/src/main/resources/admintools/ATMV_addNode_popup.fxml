@@ -3,6 +3,7 @@
 <?import com.jfoenix.controls.JFXButton?>
 <?import com.jfoenix.controls.JFXTextField?>
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.control.ProgressBar?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
@@ -87,7 +88,7 @@
             <Font name="System Bold" size="14.0" />
          </font>
         </JFXTextField>
-        <JFXTextField fx:id="TextField_Floor" alignment="CENTER" maxWidth="260.0" style="-fx-background-color: White;" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="5">
+        <JFXTextField fx:id="TextField_Floor" alignment="CENTER" editable="false" maxWidth="260.0" style="-fx-background-color: White;" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="5">
             <GridPane.margin>
                 <Insets left="20.0" right="20.0" />
             </GridPane.margin>
@@ -108,5 +109,6 @@
             <Font name="System Bold" size="14.0" />
          </font>
       </Text>
+      <ProgressBar fx:id="progressBar" prefHeight="18.0" prefWidth="159.0" progress="0.0" visible="false" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="9" />
     </GridPane>
 </StackPane>
