@@ -58,7 +58,7 @@
                         </BorderPane>
                     </children>
                 </AnchorPane>
-                <ChoiceBox fx:id="workplaceSelect" onMouseClicked="#updateColorView" prefWidth="170.0" style="-fx-background-color: #ffffff;" AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="270.0">
+                <ChoiceBox fx:id="workplaceSelect" prefWidth="170.0" style="-fx-background-color: #ffffff;" AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="270.0">
                     <effect>
                         <Blend mode="MULTIPLY" opacity="0.34" />
                     </effect>
