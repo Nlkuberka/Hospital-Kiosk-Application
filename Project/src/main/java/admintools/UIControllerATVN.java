@@ -11,6 +11,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.scene.image.ImageView;
 
 import java.lang.reflect.Method;
 import java.sql.Connection;
@@ -31,7 +32,9 @@ public class UIControllerATVN extends  UIController {
                                                     "setBuilding", "setNodeType", "setLongName", "setShortName"};
     private static final String[] nodeGetters  = {"getNodeID", "getXcoord", "getYcoord", "getFloor",
                                                 "getBuilding", "getNodeType", "getLongName", "getShortName"};
-                                                /**< The Various Node Columns used for cell factories */
+    @FXML
+    private ImageView backgroundImage;
+    /**< The Various Node Columns used for cell factories */
 
     @FXML
     private MenuItem backButton; /**< The Back Button */
@@ -55,6 +58,8 @@ public class UIControllerATVN extends  UIController {
      */
     @FXML
     public void initialize() {
+        backgroundImage.fitWidthProperty().bind(primaryStage.widthProperty());
+
         List<TableColumn<Node, ?>> tableColumns = nodeTable.getColumns();
 
         // Initialize the cell factories of the node field columns

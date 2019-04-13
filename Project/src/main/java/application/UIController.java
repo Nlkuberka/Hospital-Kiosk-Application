@@ -13,6 +13,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TextField;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -29,6 +30,7 @@ import java.util.HashMap;
  * @version interation 1
  */
 public class UIController {
+
     // The various scenes that this UIController handles
     public static final String LOGIN_MAIN = "LM";
     public static final String WELCOME_MAIN = "WM";

@@ -6,6 +6,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.shape.LineTo;
 import javafx.scene.shape.MoveTo;
 import javafx.scene.shape.Path;
+import javafx.stage.Stage;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -17,11 +18,12 @@ public class MapHandler {
     UIControllerPFM.Floors currentFloor;
     private List<List<List<Node>>> latestPath;
     private Node latestStartingNode;
+    private Stage primaryStage;
 
     public MapHandler(Path p1, Path p2, Path p3, Path p4, Path p5, Path p6,
                       ImageView m1, ImageView m2, ImageView m3, ImageView m4, ImageView m5, ImageView m6,
                       AnchorPane pa1, AnchorPane pa2, AnchorPane pa3, AnchorPane pa4, AnchorPane pa5, AnchorPane pa6,
-                      UIControllerPFM.Floors currentFloor) {
+                      UIControllerPFM.Floors currentFloor, Stage stage) {
         this.pathList.add(p1);
         this.pathList.add(p2);
         this.pathList.add(p3);
@@ -41,6 +43,7 @@ public class MapHandler {
         this.paneList.add(pa5);
         this.paneList.add(pa6);
         this.currentFloor = currentFloor;
+        this.primaryStage = stage;
 
         // bind Map to AnchorPane inside of ScrollPane
         for (int i = 0; i < this.mapList.size(); i++) {
@@ -48,6 +51,8 @@ public class MapHandler {
             AnchorPane pane = this.paneList.get(i);
             map.fitWidthProperty().bind(pane.prefWidthProperty());
             map.fitHeightProperty().bind(pane.prefHeightProperty());
+
+            pane.minHeightProperty().bind(this.primaryStage.heightProperty());
 
             this.pathList.get(i).setStrokeWidth(3);
         }

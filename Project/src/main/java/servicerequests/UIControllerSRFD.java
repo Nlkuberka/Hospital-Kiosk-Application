@@ -14,6 +14,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextFormatter;
+import javafx.scene.image.ImageView;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -26,6 +27,8 @@ import java.util.Map;
 
 
 public class UIControllerSRFD extends UIController {
+    @FXML
+    private ImageView backgroundImage;
     String flowerDelivery;
     Map<String, String> nodeIDs; /**< Holds reference between node short name and nodeID*/
 
@@ -45,6 +48,8 @@ public class UIControllerSRFD extends UIController {
 
     @FXML
     public void initialize() {
+        backgroundImage.fitWidthProperty().bind(primaryStage.widthProperty());
+
         serviceMessage1.setTextFormatter(new TextFormatter<String>(e ->
                 e.getControlNewText().length() <= 100 ? e : null
         ));
