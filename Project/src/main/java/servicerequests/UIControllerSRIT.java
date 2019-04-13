@@ -1,10 +1,11 @@
 package servicerequests;
 
 import application.CurrentUser;
-import application.DBController;
+import database.DBController;
 import application.UIController;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextField;
+import database.DBControllerSR;
 import entities.ServiceRequest;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -15,7 +16,6 @@ import javafx.scene.image.ImageView;
 import org.controlsfx.control.textfield.TextFields;
 
 import java.sql.Connection;
-import java.util.LinkedList;
 import java.util.Map;
 
 /**
@@ -82,9 +82,9 @@ public class UIControllerSRIT extends UIController{
         }
         ServiceRequest sr = new ServiceRequest(nodeID, serviceType, message, CurrentUser.user.getUserID(), false, null);
         //System.out.println(sr);
-        Connection conn = DBController.dbConnect();
-        sr.setServiceID(DBController.addServiceRequest(sr,conn));
-        DBController.closeConnection(conn);
+        Connection conn = DBControllerSR.dbConnect();
+        sr.setServiceID(DBControllerSR.addServiceRequest(sr,conn));
+        DBControllerSR.closeConnection(conn);
 
         this.goToScene(UIController.SERVICE_REQUEST_MAIN);
     }
