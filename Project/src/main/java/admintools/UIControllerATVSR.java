@@ -1,7 +1,8 @@
 package admintools;
 
-import application.DBController;
+import database.DBController;
 import application.UIController;
+import database.DBControllerSR;
 import entities.ServiceRequest;
 
 import com.jfoenix.controls.JFXCheckBox;
@@ -16,6 +17,7 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.image.ImageView;
 
 import java.lang.reflect.Method;
 import java.sql.Connection;
@@ -31,7 +33,9 @@ import java.sql.SQLException;
 public class UIControllerATVSR extends UIController {
     private static final String[] serviceRequestSetters  = {"", "", "", "setResolved", "setResolverID", ""};
     private static final String[] serviceRequestGetters  = {"getNodeID", "getServiceType", "getUserID", "isResolved", "getResolverID", "getMessage"};
-                                                    /**< The Various servicerequests Columns used for cell factories */
+    @FXML
+    private ImageView backgroundImage;
+    /**< The Various servicerequests Columns used for cell factories */
     @FXML
     private MenuItem backButton; /**< The Back Button */
 
@@ -47,6 +51,8 @@ public class UIControllerATVSR extends UIController {
      */
     @FXML
     public void initialize() {
+        backgroundImage.fitWidthProperty().bind(primaryStage.widthProperty());
+
         ObservableList<TableColumn<ServiceRequest, ?>> tableColumns = serviceRequestTable.getColumns();
 
         // Set up the uneditable columns
@@ -93,7 +99,7 @@ public class UIControllerATVSR extends UIController {
                 checkBox.setOnAction(et -> {
                     runSetter(serviceRequest, serviceRequestSetters[index], boolean.class, checkBox.isSelected());
                     Connection conn = DBController.dbConnect();
-                    DBController.updateServiceRequest(serviceRequest,conn);
+                    DBControllerSR.updateServiceRequest(serviceRequest,conn);
                     DBController.closeConnection(conn);
                 });
             }
@@ -119,7 +125,7 @@ public class UIControllerATVSR extends UIController {
                     }
                     runSetter(serviceRequest, serviceRequestSetters[index],String.class, textField.getText());
                     Connection conn = DBController.dbConnect();
-                    DBController.updateServiceRequest(serviceRequest,conn);
+                    DBControllerSR.updateServiceRequest(serviceRequest,conn);
                     DBController.closeConnection(conn);
                     setGraphic(label);
                     label.setText(textField.getText());

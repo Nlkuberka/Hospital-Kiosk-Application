@@ -1,7 +1,8 @@
 package admintools;
 
-import application.DBController;
+import database.DBController;
 import application.UIController;
+import database.DBControllerNE;
 import entities.Edge;
 import entities.Node;
 import javafx.event.ActionEvent;
@@ -77,8 +78,9 @@ public class UIControllerATMV extends UIController {
         usefulNodes = new LinkedList<>();
         usefulEdges = new LinkedList<>();
         Connection conn = DBController.dbConnect();
-        allNodes = DBController.generateListofNodes(conn);
-        allEdges = DBController.generateListofEdges(conn);
+        allNodes = DBControllerNE.generateListOfNodes(conn,DBControllerNE.ALL_NODES);
+        allEdges = DBControllerNE.generateListofEdges(conn);
+        DBControllerNE.closeConnection(conn);
 
         try {
             conn.close();

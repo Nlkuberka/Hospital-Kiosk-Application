@@ -4,6 +4,7 @@ import application.CurrentUser;
 import application.UIController;
 import com.jfoenix.controls.JFXTabPane;
 import javafx.fxml.FXML;
+import javafx.scene.image.ImageView;
 
 import java.util.HashMap;
 
@@ -24,12 +25,17 @@ public class UIControllerATCA extends UIController {
     }};
 
     @FXML
+    private ImageView backgroundImage;
+
+    @FXML
     private JFXTabPane tabs;
 
     @FXML
     public void initialize() {
         List<String> keys = new LinkedList<>();
         keys.addAll(algorithms.keySet());
+
+        backgroundImage.fitWidthProperty().bind(primaryStage.widthProperty());
     }
 
     @FXML

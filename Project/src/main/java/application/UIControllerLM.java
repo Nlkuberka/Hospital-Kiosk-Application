@@ -1,5 +1,7 @@
 package application;
 
+import database.DBController;
+import database.DBControllerU;
 import entities.User;
 
 import com.jfoenix.controls.JFXButton;
@@ -84,7 +86,7 @@ public class UIControllerLM extends UIController {
             setDefaultButton();
         });
         loginAsGuestButton.setDefaultButton(true);
-        backgroundImage.setFitWidth(primaryStage.getWidth());
+        backgroundImage.fitWidthProperty().bind(primaryStage.widthProperty());
         tabs.setPrefHeight(primaryStage.getHeight());
         tabs.setPrefWidth(primaryStage.getWidth());
     }
@@ -106,7 +108,7 @@ public class UIControllerLM extends UIController {
     @FXML
     private void setLoginAsGuestButton() {
         Connection conn = DBController.dbConnect();
-        CurrentUser.user = DBController.getGuestUser(conn);
+        CurrentUser.user = DBControllerU.getGuestUser(conn);
         DBController.closeConnection(conn);
         this.goToScene(UIController.GUEST_MAIN_MENU_MAIN);
     }
@@ -152,7 +154,7 @@ public class UIControllerLM extends UIController {
     private User checkLogin(String username, String password, int permissions) {
         User user = null;
         Connection conn = DBController.dbConnect();
-        user = DBController.loginCheck(username,password,conn,permissions);
+        user = DBControllerU.loginCheck(username,password,conn,permissions);
         DBController.closeConnection(conn);
         if(user == null) {
             return null;

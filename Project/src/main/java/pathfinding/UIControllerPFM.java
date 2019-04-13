@@ -1,38 +1,48 @@
 package pathfinding;
 
-import application.DBController;
+import database.DBController;
 import application.UIController;
 import application.UIControllerPUD;
-import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXSlider;
+import database.DBControllerNE;
 import entities.AStarGraph;
 import entities.Edge;
 import entities.Graph;
 import entities.Node;
-import javafx.animation.PathTransition;
+
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Group;
-import javafx.scene.Scene;
-import javafx.scene.control.*;
+import javafx.scene.layout.*;
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
+import javafx.scene.control.Button;
+import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.MenuItem;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Circle;
 import javafx.scene.shape.Path;
-import javafx.scene.shape.Rectangle;
+
+import java.io.IOException;
+import java.sql.Connection;
+
+import com.jfoenix.controls.JFXButton;
+import javafx.animation.PathTransition;
+import javafx.scene.Group;
+import javafx.scene.Scene;
+import javafx.scene.control.*;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.*;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
-import java.io.IOException;
-import java.sql.Connection;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -163,7 +173,6 @@ public class UIControllerPFM extends UIController {
     private LinkedList<LinkedList<Node>> roomsAtEachFloor = new LinkedList<>();
 
     private MapHandler mapHandler;
-    private PathHandler pathHandler;
 
     @FXML
     public void initialize() {
@@ -171,9 +180,7 @@ public class UIControllerPFM extends UIController {
         this.mapHandler = new MapHandler(p_002, p_001, p_00, p_01, p_02, p_03,
                 map_002, map_001, map_00, map_01, map_02, map_03,
                 pane_002, pane_001, pane_00, pane_01, pane_02, pane_03,
-                Floors.SECOND);
-
-        this.pathHandler = new PathHandler(mapHandler);
+                Floors.SECOND, primaryStage);
 
         initialBindings();
         setScene();
@@ -197,30 +204,34 @@ public class UIControllerPFM extends UIController {
 
         mapHandler.setAllPaneSize(1920.0, mapHandler.getTopPane().getPrefHeight()*(1920.0/mapHandler.getTopPane().getPrefWidth()));
 
-        floorSlider.valueProperty().addListener((ChangeListener) (arg0, arg1, arg2) -> {
-            floorLabel.setText(Floors.getByIndex((int) floorSlider.getValue()).getName());
-            circleGroup.getChildren().clear();
-            mapHandler.changeToFloor(floorSlider.getValue());
-            drawNodes(roomsAtEachFloor.get(mapHandler.currentFloor.getIndex()));
-            focusNodes();
+        floorSlider.valueProperty().addListener(new ChangeListener() {
+
+            @Override
+            public void changed(ObservableValue arg0, Object arg1, Object arg2) {
+                floorLabel.setText(Floors.getByIndex((int) floorSlider.getValue()).getName());
+                circleGroup.getChildren().clear();
+                mapHandler.changeToFloor(floorSlider.getValue());
+                drawNodes(roomsAtEachFloor.get(mapHandler.currentFloor.getIndex()));
+                focusNodes();
+            }
         });
     }
 
     @Override
     public void onShow() {
-        Connection conn = DBController.dbConnect();
-        LinkedList<Node> allNodes = DBController.generateListofNodes(conn);
-        LinkedList<Node> allRooms = DBController.fetchAllRooms(conn);
-        List<Edge> allEdges = DBController.generateListofEdges(conn);
+        Connection conn = DBControllerNE.dbConnect();
+        LinkedList<Node> allNodes = DBControllerNE.generateListOfNodes(conn,DBControllerNE.ALL_NODES);
+        LinkedList<Node> allRooms = DBControllerNE.generateListOfNodes(conn,DBControllerNE.ALL_ROOMS);
+        List<Edge> allEdges = DBControllerNE.generateListofEdges(conn);
 
-        roomsAtEachFloor.add(DBController.getRoomsforFloor(conn, Floors.LL2.getID()));
-        roomsAtEachFloor.add(DBController.getRoomsforFloor(conn, Floors.LL1.getID()));
-        roomsAtEachFloor.add(DBController.getRoomsforFloor(conn, Floors.GROUND.getID()));
-        roomsAtEachFloor.add(DBController.getRoomsforFloor(conn, Floors.FIRST.getID()));
-        roomsAtEachFloor.add(DBController.getRoomsforFloor(conn, Floors.SECOND.getID()));
-        roomsAtEachFloor.add(DBController.getRoomsforFloor(conn, Floors.THIRD.getID()));
+        roomsAtEachFloor.add(DBControllerNE.generateListOfNodes(conn, DBControllerNE.ALL_ROOMS_FLOOR_L2));
+        roomsAtEachFloor.add(DBControllerNE.generateListOfNodes(conn, DBControllerNE.ALL_ROOMS_FLOOR_L1));
+        roomsAtEachFloor.add(DBControllerNE.generateListOfNodes(conn, DBControllerNE.ALL_ROOMS_FLOOR_G));
+        roomsAtEachFloor.add(DBControllerNE.generateListOfNodes(conn, DBControllerNE.ALL_ROOMS_FLOOR_1));
+        roomsAtEachFloor.add(DBControllerNE.generateListOfNodes(conn, DBControllerNE.ALL_ROOMS_FLOOR_2));
+        roomsAtEachFloor.add(DBControllerNE.generateListOfNodes(conn, DBControllerNE.ALL_ROOMS_FLOOR_3));
 
-        DBController.closeConnection(conn);
+        DBControllerNE.closeConnection(conn);
 
         initialLocationSelect.getItems().clear();
         destinationSelect.getItems().clear();
@@ -247,10 +258,7 @@ public class UIControllerPFM extends UIController {
     private void initialBindings() {
         // bind background image size to window size
         // ensures auto resize works
-        backgroundImage.fitHeightProperty().bind(parentPane.heightProperty());
-        backgroundImage.fitWidthProperty().bind(parentPane.widthProperty());
-
-        //interfaceGrid.prefHeightProperty().bind(hboxForMap.heightProperty());
+        backgroundImage.fitWidthProperty().bind(primaryStage.widthProperty());
 
         scrollPane_pathfind.prefViewportWidthProperty().bind(hboxForMap.prefWidthProperty());
     }
@@ -300,7 +308,7 @@ public class UIControllerPFM extends UIController {
         // call getPath if not null
         getPath();
 
-        pathHandler.playPathAnimation();
+        pathAnimation();
     }
 
     @FXML
@@ -312,7 +320,6 @@ public class UIControllerPFM extends UIController {
         currentPath = null;
         destinationSelect.getSelectionModel().clearSelection();
         mapHandler.cancel();
-        pathHandler.cancel();
     }
 
     private void getPath() {
@@ -324,7 +331,7 @@ public class UIControllerPFM extends UIController {
         pathIDs = graph.shortestPath(initialID, destID);
 
         Connection connection = DBController.dbConnect();
-        Node initialNode = DBController.fetchNode(initialID, connection);
+        Node initialNode = DBControllerNE.fetchNode(initialID, connection);
         DBController.closeConnection(connection);
 
         mapHandler.displayNewPath(graph.separatePathByFloor(pathIDs), initialNode);
