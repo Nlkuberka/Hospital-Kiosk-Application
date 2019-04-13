@@ -14,6 +14,10 @@ import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.layout.*;
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.MenuItem;
@@ -27,12 +31,13 @@ import javafx.scene.shape.Path;
 
 import java.io.IOException;
 import java.sql.Connection;
-
+import java.sql.SQLException;
 import com.jfoenix.controls.JFXButton;
 import javafx.animation.PathTransition;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.*;
 import javafx.stage.Modality;
@@ -198,6 +203,9 @@ public class UIControllerPFM extends UIController {
         // set value to "true" to use zoom functionality
         setZoomOn(true);
 
+
+        mapHandler.setAllPaneSize(1920.0, mapHandler.getTopPane().getPrefHeight()*(1920.0/mapHandler.getTopPane().getPrefWidth()));
+
         floorSlider.valueProperty().addListener(new ChangeListener() {
 
             @Override
@@ -255,7 +263,7 @@ public class UIControllerPFM extends UIController {
         backgroundImage.fitHeightProperty().bind(parentPane.heightProperty());
         backgroundImage.fitWidthProperty().bind(parentPane.widthProperty());
 
-        interfaceGrid.prefHeightProperty().bind(hboxForMap.heightProperty());
+        //interfaceGrid.prefHeightProperty().bind(hboxForMap.heightProperty());
 
         scrollPane_pathfind.prefViewportWidthProperty().bind(hboxForMap.prefWidthProperty());
     }

@@ -31,7 +31,7 @@ import java.sql.SQLException;
 public class UIControllerATVSR extends UIController {
     private static final String[] serviceRequestSetters  = {"", "", "", "setResolved", "setResolverID", ""};
     private static final String[] serviceRequestGetters  = {"getNodeID", "getServiceType", "getUserID", "isResolved", "getResolverID", "getMessage"};
-                                                    /**< The Various ServiceRequest Columns used for cell factories */
+                                                    /**< The Various servicerequests Columns used for cell factories */
     @FXML
     private MenuItem backButton; /**< The Back Button */
 

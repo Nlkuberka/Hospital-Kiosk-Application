@@ -402,11 +402,4 @@ public abstract class Graph {
         returnValue.adjWeights = adjWeights;
         return returnValue;
     }
-
-    public AStarGraph toNewAStar() {
-        AStarGraph returnValue = new AStarGraph(storedNodes);
-        returnValue.adj = adj;
-        returnValue.adjWeights = adjWeights;
-        return returnValue;
-    }
 }

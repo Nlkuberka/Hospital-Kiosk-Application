@@ -1,4 +1,6 @@
+
 package tests;
+
 
 import entities.*;
 import junit.framework.TestCase;
@@ -8,6 +10,8 @@ import pathfinding.UIControllerPFM;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
+
+import static javax.swing.text.html.HTML.Tag.HEAD;
 
 public class GraphJUnit extends TestCase {
     public void testShortestPath() {

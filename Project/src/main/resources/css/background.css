@@ -17,8 +17,11 @@
     -fx-font-size: 20;
     -fx-font-weight: bold;
     -fx-text-fill: white;
-    -fx-pref-width: 180;
+    -fx-pref-width: 240;
+    -fx-max-width: 240;
     -fx-pref-height: 240;
+    -fx-max-height: 240;
+    -fx-content-display: bottom;
 }
 
 .jfx-button-admin-main-menu-main{
@@ -321,7 +324,6 @@
     -fx-background-insets:  2 3 2 2;
 }
 
-<<<<<<< HEAD
 /* ~~~~~~~~~ Floor Slider ~~~~~~~~ */
 
 .floor-slider {
@@ -335,7 +337,7 @@
 /* Styling the slider track */
 .floor-slider > .track {
     -fx-background-color: #FFC41E;
-=======
+}
 .paneBabysitting{
     -jfx-button-type: FLAT;
     -fx-background-color:#efffff;
@@ -348,7 +350,6 @@
     -fx-border-color: #015080;
     -fx-border-width: 1;
     -fx-background-radius: 10;
->>>>>>> aa80d13f412e79c39763d9fcbc8103a7bcb8e28e
 }
 
 /* Styling the slider thumb */
