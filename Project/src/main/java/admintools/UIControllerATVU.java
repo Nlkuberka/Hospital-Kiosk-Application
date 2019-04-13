@@ -1,8 +1,9 @@
 package admintools;
 
-import application.DBController;
+import database.DBController;
 import application.UIController;
 import com.jfoenix.controls.JFXButton;
+import database.DBControllerU;
 import entities.User;
 
 import javafx.beans.property.ReadOnlyObjectWrapper;
@@ -19,7 +20,6 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 
-import java.lang.reflect.Array;
 import java.sql.Connection;
 import java.util.Arrays;
 import java.util.LinkedList;
@@ -79,7 +79,7 @@ public class UIControllerATVU extends UIController {
                         if(index == 0) {
                             DBController.createTable("Delete From USERS WHERE USERID = '"+label.getText()+"'",conn);
                         }
-                        DBController.updateUser(label.getText(),user,conn);
+                        DBControllerU.updateUser(label.getText(),user,conn);
 
                         setGraphic(label);
                         label.setText(textField.getText());
@@ -166,7 +166,7 @@ public class UIControllerATVU extends UIController {
                     System.out.println(user);
                     System.out.println(user.getUserID());
                     Connection conn = DBController.dbConnect();
-                    DBController.updateUser(user.getUserID(),user,conn);
+                    DBControllerU.updateUser(user.getUserID(),user,conn);
                     DBController.closeConnection(conn);
                 });
                 setGraphic(choiceBox);
@@ -245,7 +245,7 @@ public class UIControllerATVU extends UIController {
                     }
                     user.setServiceRequestsFullfillment(getAllServiceRequests());
                     Connection conn = DBController.dbConnect();
-                    DBController.updateUser(user.getUserID(),user,conn);
+                    DBControllerU.updateUser(user.getUserID(),user,conn);
                     DBController.closeConnection(conn);
                 });
                 choiceBox.setMinWidth(225.0);
@@ -298,7 +298,7 @@ public class UIControllerATVU extends UIController {
     @Override
     public void onShow() {
         Connection conn = DBController.dbConnect();
-        List<User> userList = DBController.getUser(conn);
+        List<User> userList = DBControllerU.getUser(conn);
         DBController.closeConnection(conn);
         for(int i = 0; i < userList.size(); i++) {
             System.out.println(userList.get(i));

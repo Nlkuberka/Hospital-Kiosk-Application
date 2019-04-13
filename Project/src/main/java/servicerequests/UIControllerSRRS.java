@@ -1,11 +1,12 @@
 package servicerequests;
 
 import application.CurrentUser;
-import application.DBController;
+import database.DBController;
 import application.UIController;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXCheckBox;
 import com.jfoenix.controls.JFXTextField;
+import database.DBControllerSR;
 import entities.ServiceRequest;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
@@ -161,9 +162,9 @@ public class UIControllerSRRS extends UIController {
 
 
         ServiceRequest sr = new ServiceRequest(nodeID, serviceType, message, CurrentUser.user.getUserID(), false, null);
-        Connection conn = DBController.dbConnect();
-        DBController.addServiceRequest(sr, conn);
-        DBController.closeConnection(conn);
+        Connection conn = DBControllerSR.dbConnect();
+        DBControllerSR.addServiceRequest(sr, conn);
+        DBControllerSR.closeConnection(conn);
         this.goToScene(UIController.SERVICE_REQUEST_MAIN);
     }
 

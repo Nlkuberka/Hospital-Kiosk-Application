@@ -1,22 +1,19 @@
 package servicerequests;
 
 import application.CurrentUser;
-import application.DBController;
+import database.DBController;
 import application.UIController;
 import com.jfoenix.controls.JFXButton;
-import entities.Edge;
+import database.DBControllerNE;
+import database.DBControllerSR;
 import entities.Graph;
 import entities.Node;
 import entities.ServiceRequest;
 import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 
-import java.awt.event.ActionEvent;
 import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.*;
 
 public class UIControllerSRSA extends UIController {
@@ -51,13 +48,13 @@ public class UIControllerSRSA extends UIController {
 
     @FXML
     public void onShow() {
-        Connection conn = DBController.dbConnect();
+        Connection conn = DBControllerNE.dbConnect();
         List<String> nodeShortNames = new ArrayList<String>();
         nodeIDs = new HashMap<String, String>();
 
-        List<Node> nodes = DBController.fetchAllRooms(conn);
+        List<Node> nodes = DBControllerNE.generateListOfNodes(conn,DBControllerNE.ALL_ROOMS);
         System.out.println(nodes.size());
-        DBController.closeConnection(conn);
+        DBControllerNE.closeConnection(conn);
         for(int i = 0; i < nodes.size(); i++) {
             Node node = nodes.get(i);
             nodeShortNames.add(node.getShortName());
@@ -77,15 +74,15 @@ public class UIControllerSRSA extends UIController {
 
     @FXML
     private void setConfirmButton() {
-        Connection connection = DBController.dbConnect();
-        String roomShortName = DBController.IDfromLongName(roomSelect.getValue(), connection);
+        Connection connection = DBControllerSR.dbConnect();
+        String roomShortName = DBControllerSR.IDfromLongName(roomSelect.getValue(), connection);
         String nodeID = nodeIDs.get(roomShortName);
         String message = serviceMessage.getText();
 
         ServiceRequest sr = new ServiceRequest(nodeID, serviceType, message, CurrentUser.user.getUserID(), false, null);
         Connection conn = DBController.dbConnect();
-        DBController.addServiceRequest(sr,conn);
-        DBController.closeConnection(conn);
+        DBControllerSR.addServiceRequest(sr,conn);
+        DBControllerSR.closeConnection(conn);
 
         serviceMessage.setText("Thank you! We will get on this soon!");
         this.goToScene(UIController.SERVICE_REQUEST_MAIN);

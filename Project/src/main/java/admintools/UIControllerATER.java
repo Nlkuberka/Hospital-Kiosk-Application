@@ -1,9 +1,10 @@
 package admintools;
 
 import application.CurrentUser;
-import application.DBController;
+import database.DBController;
 import application.UIController;
 import com.jfoenix.controls.JFXButton;
+import database.DBControllerRW;
 import entities.Reservation;
 import entities.User;
 import javafx.beans.property.ReadOnlyObjectWrapper;
@@ -112,7 +113,7 @@ public class UIControllerATER extends UIController {
                         try{
                             Connection conn = DBController.dbConnect();
                             System.out.println(reservation.getRsvID());
-                            DBController.updateReservation(reservation, conn);
+                            DBControllerRW.updateReservation(reservation, conn);
                             conn.close();
                         }catch(SQLException e){
                             e.printStackTrace();
@@ -139,7 +140,7 @@ public class UIControllerATER extends UIController {
                 removeButton.setOnAction( e -> {
                             try {
                                 Connection conn = DBController.dbConnect();
-                                DBController.deleteReservation(reservation.getRsvID(), conn);
+                                DBControllerRW.deleteReservation(reservation.getRsvID(), conn);
                                 conn.close();
                             }catch(SQLException e1){
                                 e1.printStackTrace();

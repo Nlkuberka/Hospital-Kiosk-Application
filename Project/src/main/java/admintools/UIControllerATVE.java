@@ -1,7 +1,8 @@
 package admintools;
 
-import application.DBController;
+import database.DBController;
 import application.UIController;
+import database.DBControllerNE;
 import entities.Edge;
 
 import com.jfoenix.controls.JFXButton;
@@ -99,9 +100,9 @@ public class UIControllerATVE extends UIController {
                         System.out.println(edge);
                             Connection conn = DBController.dbConnect();
                             if (index == 0) {
-                                DBController.deleteEdge(label.getText(), conn);
+                                DBControllerNE.deleteEdge(label.getText(), conn);
                             }
-                            DBController.addEdge(edge,conn);
+                            DBControllerNE.addEdge(edge,conn);
                             DBController.closeConnection(conn);
 
                         setGraphic(label);
@@ -128,7 +129,7 @@ public class UIControllerATVE extends UIController {
                 setGraphic(removeButton);
                 removeButton.setOnAction( e -> {
                         Connection conn = DBController.dbConnect();
-                        DBController.deleteEdge(edge.getEdgeID(),conn);
+                        DBControllerNE.deleteEdge(edge.getEdgeID(),conn);
                         DBController.closeConnection(conn);
                         getTableView().getItems().remove(edge);
                     }
