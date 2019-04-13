@@ -3,17 +3,12 @@ package entities;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Queue;
 import pathfinding.UIControllerPFM;
-
-import java.util.*;
-
 import static java.lang.Math.*;
-
 
 public abstract class Graph {
     
-    protected LinkedList<LinkedList<Integer>> adj; //
+    protected LinkedList<LinkedList<Integer>> adj; // adjacency list
     protected LinkedList<LinkedList<Double>> adjWeights; //weights of the edges
     protected LinkedList<Node> storedNodes; //nodes that have been stored
 
@@ -90,7 +85,73 @@ public abstract class Graph {
      * @param targetID the String ID of the desired finish node
      * @return returns an LinkedList<List<String>> of the shortest path between those two points
      */
-    public abstract List<String> shortestPath(String startID, String targetID);
+    public List<String> shortestPath(String startID, String targetID) {
+        int startIndex = mapNodeIDToIndex(startID);
+        int targetIndex = mapNodeIDToIndex(targetID);
+        double [] distance = new double [storedNodes.size()]; // distance of shortest known path from start to all nodes
+        for(int i = 0; i < storedNodes.size(); i++) {
+            distance[i] = Double.MAX_VALUE;
+        }
+        distance[startIndex] = 0;
+        initialize();
+        addNodeToRelax(startIndex, distance[startIndex], targetIndex);
+
+        // Search nodes and get the distances of the shortest path from start to each node.
+        while(!finishedSearch()) {
+            int current = getNodeToRelax();
+            for(int i = 0; i < adj.get(current).size(); i++) {
+                int nextNode = adj.get(current).get(i);
+                double currentDistance = distance[current] + adjWeights.get(current).get(i);
+                if(currentDistance < distance[nextNode]) {
+                    distance[nextNode] = currentDistance;
+                    addNodeToRelax(nextNode, distance[nextNode], targetIndex);
+                }
+            }
+        }
+        if(distance[targetIndex] == Double.MAX_VALUE) { // if there is no path from start to target
+            return null;
+        }
+        // Backtrack from target to start to find the shortest path from start to target.
+        List<String> path = new LinkedList<>();
+        path.add(targetID);
+        int current = targetIndex;
+        while(current != startIndex) {
+            for (int i = 0; i < adj.get(current).size(); i++) {
+                int previousNode = adj.get(current).get(i);
+                if (adjWeights.get(current).get(i) + distance[previousNode] == distance[current]) {
+                    path.add(0, mapIndexToNode(previousNode).getNodeID());
+                    current = previousNode;
+                    break;
+                }
+            }
+        }
+        return path;
+    }
+
+    /**
+     * Performs any operations needed before beginning the search.
+     */
+    protected  abstract void initialize();
+
+    /**
+     * Adds a node to a set of nodes that need to be relaxed.
+     * @param node the node to be added
+     * @param distanceFromStart the distance of the shortest known path from start to the node to be added
+     * @param targetIndex the index in adj of the target node
+     */
+    protected abstract void addNodeToRelax(int node, double distanceFromStart, int targetIndex);
+
+    /**
+     * Removes a node from a set of nodes that need to be relaxed, and returns it.
+     * @return the node to be relaxed
+     */
+    protected abstract int getNodeToRelax();
+
+    /**
+     * Checks if the algorithm has already found the shortest path from start to target.
+     * @return true if the shortest path has been found, false otherwise
+     */
+    protected abstract boolean finishedSearch();
 
     /**
      * Divides a path into several lists of nodes based on which floor they are located.
@@ -124,19 +185,6 @@ public abstract class Graph {
             previousFloor = currentFloor;
         }
         return separatedPath;
-    }
-
-    /**
-     * Creates a deep copy of the given List
-     * @param original The original list to copy
-     * @return The deep copy of the list
-     */
-    private List<String> deepCopy(List<String> original) {
-        List<String> copy = new LinkedList<String>();
-        for(int i = 0 ; i < original.size(); i++) {
-            copy.add(original.get(i));
-        }
-        return copy;
     }
 
     /**
