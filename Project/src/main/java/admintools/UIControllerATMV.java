@@ -14,6 +14,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.control.TabPane;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
@@ -29,7 +30,6 @@ import javafx.stage.StageStyle;
 
 import java.io.IOException;
 import java.sql.Connection;
-import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -52,37 +52,56 @@ public class UIControllerATMV extends UIController {
     public AnchorPane scroll_AnchorPane;
     public Button zoom_button;
     public Button unzoom_button;
-    private LinkedList<Node> allNodes;
-    private List<Edge> allEdges;
+    public TabPane tabs;
     private Group edgesGroup = new Group();
     private Group nodesGroup = new Group();
-    private LinkedList<Node> usefulNodes;
-    private LinkedList<Edge> usefulEdges;
+    private LinkedList<Node> currentFloorNodes = new LinkedList<>();
+    private LinkedList<Edge> currentFloorEdges = new LinkedList<>();
+    private List<Edge> allEdges = new LinkedList<>();
+    private ImageView currentImageView;
 
-    @FXML private ScrollPane lowerLevel2ScrollPane;
-    @FXML private ScrollPane lowerLevel1ScrollPane;
-    @FXML private ScrollPane groundFloorScrollPane;
-    @FXML private ScrollPane firstFloorScrollPane;
-    @FXML private ScrollPane secondFloorScrollPane;
-    @FXML private ScrollPane thirdFloorScrollPane;
+    @FXML
+    private ScrollPane lowerLevel2ScrollPane;
+    @FXML
+    private ScrollPane lowerLevel1ScrollPane;
+    @FXML
+    private ScrollPane groundFloorScrollPane;
+    @FXML
+    private ScrollPane firstFloorScrollPane;
+    @FXML
+    private ScrollPane secondFloorScrollPane;
+    @FXML
+    private ScrollPane thirdFloorScrollPane;
     private List<ScrollPane> scrollPanes;
-    
-    @FXML private AnchorPane lowerLevel2AnchorPane;
-    @FXML private AnchorPane lowerLevel1AnchorPane;
-    @FXML private AnchorPane groundFloorAnchorPane;
-    @FXML private AnchorPane firstFloorAnchorPane;
-    @FXML private AnchorPane secondFloorAnchorPane;
-    @FXML private AnchorPane thirdFloorAnchorPane;
+
+    @FXML
+    private AnchorPane lowerLevel2AnchorPane;
+    @FXML
+    private AnchorPane lowerLevel1AnchorPane;
+    @FXML
+    private AnchorPane groundFloorAnchorPane;
+    @FXML
+    private AnchorPane firstFloorAnchorPane;
+    @FXML
+    private AnchorPane secondFloorAnchorPane;
+    @FXML
+    private AnchorPane thirdFloorAnchorPane;
     private List<AnchorPane> anchorPanes;
 
-    @FXML private ImageView lowerLevel2ImageView;
-    @FXML private ImageView lowerLevel1ImageView;
-    @FXML private ImageView groundFloorImageView;
-    @FXML private ImageView firstFloorImageView;
-    @FXML private ImageView secondFloorImageView;
-    @FXML private ImageView thirdFloorImageView;
+    @FXML
+    private ImageView lowerLevel2ImageView;
+    @FXML
+    private ImageView lowerLevel1ImageView;
+    @FXML
+    private ImageView groundFloorImageView;
+    @FXML
+    private ImageView firstFloorImageView;
+    @FXML
+    private ImageView secondFloorImageView;
+    @FXML
+    private ImageView thirdFloorImageView;
     private List<ImageView> imageViews;
-    
+
     // The multiplication factor at which the map changes size
     private double zoomFactor = 1.2;
 
@@ -93,97 +112,129 @@ public class UIControllerATMV extends UIController {
 
 
         // Only show scroll bars if Image inside is bigger than ScrollPane
-        for(ScrollPane sp : scrollPanes) {
+        for (ScrollPane sp : scrollPanes) {
             sp.setHbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
             sp.setVbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
         }
+
+        tabs.getSelectionModel().selectedItemProperty().addListener(param -> {
+            set();
+        });
     }
+
 
     @Override
     public void onShow() {
-        /*usefulNodes = new LinkedList<>();
-        usefulEdges = new LinkedList<>();
-        getAllNodeAndEdges();
         set();
-        draw();
     }
 
-    private void getAllNodeAndEdges() {
+    private void setCurrentScene() {
         Connection conn = DBController.dbConnect();
-        allNodes = DBControllerNE.generateListOfNodes(conn, DBControllerNE.ALL_NODES);
-        allEdges = DBControllerNE.generateListofEdges(conn);
+        switch (tabs.getSelectionModel().getSelectedItem().getId()) {
+            case "L2":
+                currentFloorNodes = DBControllerNE.generateListOfNodes(conn, DBControllerNE.ALL_NODES_FLOOR_L2);
+                setCurrentAnchorPane(lowerLevel2AnchorPane);
+                currentImageView = lowerLevel2ImageView;
+                break;
+            case "L1":
+                currentFloorNodes = DBControllerNE.generateListOfNodes(conn, DBControllerNE.ALL_NODES_FLOOR_L1);
+                setCurrentAnchorPane(lowerLevel1AnchorPane);
+                currentImageView = lowerLevel1ImageView;
+                break;
+            case "G":
+                currentFloorNodes = DBControllerNE.generateListOfNodes(conn, DBControllerNE.ALL_NODES_FLOOR_G);
+                setCurrentAnchorPane(groundFloorAnchorPane);
+                currentImageView = groundFloorImageView;
+                break;
+            case "1":
+                currentFloorNodes = DBControllerNE.generateListOfNodes(conn, DBControllerNE.ALL_NODES_FLOOR_1);
+                setCurrentAnchorPane(firstFloorAnchorPane);
+                currentImageView = firstFloorImageView;
+                break;
+            case "2":
+                currentFloorNodes = DBControllerNE.generateListOfNodes(conn, DBControllerNE.ALL_NODES_FLOOR_2);
+                setCurrentAnchorPane(secondFloorAnchorPane);
+                currentImageView = secondFloorImageView;
+                break;
+            case "3":
+                currentFloorNodes = DBControllerNE.generateListOfNodes(conn, DBControllerNE.ALL_NODES_FLOOR_3);
+                setCurrentAnchorPane(thirdFloorAnchorPane);
+                currentImageView = thirdFloorImageView;
+                break;
+        }
+        //TODO find a better spot for this if statement
+        if (allEdges.isEmpty()) {
+            allEdges = DBControllerNE.generateListofEdges(conn);
+        }
+
         DBControllerNE.closeConnection(conn);
+        setCurrentEdges();
+    }
 
-        try {
-            conn.close();
-        } catch (SQLException e) {
-            e.printStackTrace();
+    private void setCurrentAnchorPane(AnchorPane anchorPane)
+    {
+        if ((!anchorPane.getChildren().contains(edgesGroup)) && (!anchorPane.getChildren().contains(nodesGroup)))
+        {
+            anchorPane.getChildren().add(edgesGroup);
+            anchorPane.getChildren().add(nodesGroup);
         }
-
-        setUsefulNodes();
-        setUsefulEdges();
-        drawNodes();
-        drawEdges();*/
     }
 
+    private void setCurrentEdges() {
+        currentFloorEdges.clear();
+        for (Edge edge : allEdges) {
+            String tempNode1 = edge.getNode1ID();
+            String tempNode2 = edge.getNode2ID();
 
-    private void initialBindings() {
-        // bind background image size to window size
-        // ensures auto resize works
-        backgroundImage.fitHeightProperty().bind(parentPane.heightProperty());
-        backgroundImage.fitWidthProperty().bind(parentPane.widthProperty());
+            boolean Node1Bool = false;
+            boolean Node2Bool = false;
 
-        // bind Map to AnchorPane inside of ScrollPane
-        //map_imageView.fitWidthProperty().bind(scroll_AnchorPane.prefWidthProperty());
-        //map_imageView.fitHeightProperty().bind(scroll_AnchorPane.prefHeightProperty());
-        for(int i = 0; i < imageViews.size(); i++) {
-            imageViews.get(i).fitWidthProperty().bind(anchorPanes.get(i).prefWidthProperty());
-            imageViews.get(i).fitHeightProperty().bind(anchorPanes.get(i).prefHeightProperty());
+            for (Node node : currentFloorNodes) {
+                if (node.getNodeID().equals(tempNode1)) Node1Bool = true;
+                if (node.getNodeID().equals(tempNode2)) Node2Bool = true;
+            }
+
+            if (Node1Bool && Node2Bool) {
+                currentFloorEdges.add(edge);
+            }
         }
-
-        //interfaceGrid.prefHeightProperty().bind(hboxForMap.heightProperty());
-
-        //scrollPane.prefViewportWidthProperty().bind(hboxForMap.prefWidthProperty());
     }
 
-
-    private void setScene() {
-        // set value to "true" to use zoom functionality
-        //setZoomOn(true);
-        //scroll_AnchorPane.getChildren().add(nodesGroup);
-        //scroll_AnchorPane.getChildren().add(edgesGroup);
-        
-        scrollPanes = new LinkedList<ScrollPane>();
-        scrollPanes.add(lowerLevel2ScrollPane);
-        scrollPanes.add(lowerLevel1ScrollPane);
-        scrollPanes.add(groundFloorScrollPane);
-        scrollPanes.add(firstFloorScrollPane);
-        scrollPanes.add(secondFloorScrollPane);
-        scrollPanes.add(thirdFloorScrollPane);
-
-        anchorPanes = new LinkedList<AnchorPane>();
-        anchorPanes.add(lowerLevel2AnchorPane);
-        anchorPanes.add(lowerLevel1AnchorPane);
-        anchorPanes.add(groundFloorAnchorPane);
-        anchorPanes.add(firstFloorAnchorPane);
-        anchorPanes.add(secondFloorAnchorPane);
-        anchorPanes.add(thirdFloorAnchorPane);
-
-        imageViews = new LinkedList<ImageView>();
-        imageViews.add(lowerLevel2ImageView);
-        imageViews.add(lowerLevel1ImageView);
-        imageViews.add(groundFloorImageView);
-        imageViews.add(firstFloorImageView);
-        imageViews.add(secondFloorImageView);
-        imageViews.add(thirdFloorImageView);
-        
-    }
-
-    private void drawEdges() {
+    private void draw() {
+        nodesGroup.getChildren().clear();
         float scaleFx = getScale().get("scaleFx");
         float scaleFy = getScale().get("scaleFy");
 
-        for (Edge e : usefulEdges) {
+        float x;
+        float y;
+
+        // get all XY pairs and turn them into lines
+        for (Node tempNode : currentFloorNodes) {
+            x = (float) tempNode.getXcoord() * scaleFx;
+            y = (float) tempNode.getYcoord() * scaleFy;
+
+            Circle circle = new Circle(x, y, 3);
+            circle.setId(tempNode.getNodeID());
+
+            circle.setOnMouseClicked(event -> {
+                try {
+                    editNodeOnClick(tempNode);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            });
+
+            nodesGroup.getChildren().add(circle);
+        }
+        drawEdges();
+    }
+
+    private void drawEdges() {
+        edgesGroup.getChildren().clear();
+        float scaleFx = getScale().get("scaleFx");
+        float scaleFy = getScale().get("scaleFy");
+
+        for (Edge e : currentFloorEdges) {
             Node tempNode1 = getNodeFromID(e.getNode1ID());
             Node tempNode2 = getNodeFromID(e.getNode2ID());
             float Node1x = (float) tempNode1.getXcoord() * scaleFx;
@@ -196,8 +247,53 @@ public class UIControllerATMV extends UIController {
         }
     }
 
+
+    private void initialBindings() {
+        // bind background image size to window size
+        // ensures auto resize works
+        backgroundImage.fitHeightProperty().bind(parentPane.heightProperty());
+        backgroundImage.fitWidthProperty().bind(parentPane.widthProperty());
+
+        // bind Map to AnchorPane inside of ScrollPane
+        for (int i = 0; i < imageViews.size(); i++) {
+            imageViews.get(i).fitWidthProperty().bind(anchorPanes.get(i).prefWidthProperty());
+            imageViews.get(i).fitHeightProperty().bind(anchorPanes.get(i).prefHeightProperty());
+        }
+    }
+
+    //TODO add groups dynamically
+    private void setScene() {
+        //scroll_AnchorPane.getChildren().add(nodesGroup);
+        //scroll_AnchorPane.getChildren().add(edgesGroup);
+
+        scrollPanes = new LinkedList<>();
+        scrollPanes.add(lowerLevel2ScrollPane);
+        scrollPanes.add(lowerLevel1ScrollPane);
+        scrollPanes.add(groundFloorScrollPane);
+        scrollPanes.add(firstFloorScrollPane);
+        scrollPanes.add(secondFloorScrollPane);
+        scrollPanes.add(thirdFloorScrollPane);
+
+        anchorPanes = new LinkedList<>();
+        anchorPanes.add(lowerLevel2AnchorPane);
+        anchorPanes.add(lowerLevel1AnchorPane);
+        anchorPanes.add(groundFloorAnchorPane);
+        anchorPanes.add(firstFloorAnchorPane);
+        anchorPanes.add(secondFloorAnchorPane);
+        anchorPanes.add(thirdFloorAnchorPane);
+
+        imageViews = new LinkedList<>();
+        imageViews.add(lowerLevel2ImageView);
+        imageViews.add(lowerLevel1ImageView);
+        imageViews.add(groundFloorImageView);
+        imageViews.add(firstFloorImageView);
+        imageViews.add(secondFloorImageView);
+        imageViews.add(thirdFloorImageView);
+
+    }
+
     private Node getNodeFromID(String nodeID) {
-        for (Node n : usefulNodes) {
+        for (Node n : currentFloorNodes) {
             if (n.getNodeID().equals(nodeID)) {
                 return n;
             }
@@ -208,23 +304,16 @@ public class UIControllerATMV extends UIController {
 
     private HashMap<String, Float> getScale() {
         HashMap<String, Float> scales = new HashMap<>();
-        float scaleFx = (float) map_imageView.getFitWidth() / 5000.0f;
-        float scaleFy = (float) map_imageView.getFitHeight() / 3400.0f;
+        float scaleFx = (float) currentImageView.getFitWidth() / 5000.0f;
+        float scaleFy = (float) currentImageView.getFitHeight() / 3400.0f;
         scales.put("scaleFx", scaleFx);
         scales.put("scaleFy", scaleFy);
         return scales;
     }
 
+    @FXML
     public void goBack(ActionEvent actionEvent) {
         this.goToScene(UIController.LOGIN_MAIN);
-    }
-
-    /**
-     * @param bool Set in initialize() to turn on/off zoom functionality
-     */
-    private void setZoomOn(boolean bool) {
-        //zoom_button.setVisible(bool);
-        //unzoom_button.setVisible(bool);
     }
 
     /**
@@ -234,12 +323,11 @@ public class UIControllerATMV extends UIController {
      */
     public void zoom(ActionEvent actionEvent) {
         if (groundFloorAnchorPane.getPrefWidth() < groundFloorAnchorPane.getMaxWidth()) {
-            for(AnchorPane ap : anchorPanes) {
+            for (AnchorPane ap : anchorPanes) {
                 ap.setPrefSize(ap.getPrefWidth() * zoomFactor, ap.getPrefHeight() * zoomFactor);
             }
         }
-
-        //resizeEdgesNodes();
+        draw();
     }
 
     /**
@@ -249,34 +337,10 @@ public class UIControllerATMV extends UIController {
      */
     public void unZoom(ActionEvent actionEvent) {
         if (groundFloorAnchorPane.getPrefWidth() > groundFloorAnchorPane.getMinWidth()) {
-            for(AnchorPane ap : anchorPanes) {
+            for (AnchorPane ap : anchorPanes) {
                 ap.setPrefSize(ap.getPrefWidth() / zoomFactor, ap.getPrefHeight() / zoomFactor);
             }
         }
-        reset();
-    }
-
-    private void set()
-    {
-        setUsefulNodes();
-        setUsefulEdges();
-    }
-
-    private void reset() {
-        set();
-        resizeEdgesNodes();
-    }
-
-    private void draw()
-    {
-        drawEdges();
-        drawNodes();
-    }
-
-    private void resizeEdgesNodes() {
-        nodesGroup.getChildren().clear();
-        edgesGroup.getChildren().clear();
-
         draw();
     }
 
@@ -307,44 +371,27 @@ public class UIControllerATMV extends UIController {
                 usefulNodes.add(node);
             }
         }
-    }
-
-    private void setUsefulEdges() {
-        for (Edge edge : allEdges) {
-            String tempNode1 = edge.getNode1ID();
-            String tempNode2 = edge.getNode2ID();
-
-            boolean Node1Bool = false;
-            boolean Node2Bool = false;
-
-            for (Node node : usefulNodes) {
-                if (node.getNodeID().equals(tempNode1)) Node1Bool = true;
-                if (node.getNodeID().equals(tempNode2)) Node2Bool = true;
-            }
-
-            if (Node1Bool && Node2Bool) {
-                usefulEdges.add(edge);
-            }
-        }
+    private void set() {
+        setCurrentScene();
+        draw();
     }
 
 
+    @FXML
     public void addNodeOnClick(MouseEvent mouseEvent) throws IOException {
-        double x = mouseEvent.getX();
-        double y = mouseEvent.getY();
+        Node tempNode = new Node();
+        tempNode.setXcoord((int) (mouseEvent.getX() / getScale().get("scaleFx")));
+        tempNode.setYcoord((int) (mouseEvent.getY() / getScale().get("scaleFy")));
+        tempNode.setFloor(tabs.getSelectionModel().getSelectedItem().getId()); //TODO Make Auto Once Add MultiFloor Functionality
+        enablePopup(tempNode);
+        set();
+        showAddedNode(tempNode);
+    }
 
-        Node testNode = new Node();
-        testNode.setXcoord((int) (mouseEvent.getX() / getScale().get("scaleFx")));
-        testNode.setYcoord((int) (mouseEvent.getY() / getScale().get("scaleFy")));
-        testNode.setFloor("2"); //TODO Make Auto Once Add MultiFloor Functionality
-        testNode.setNodeID("TEST");
-        enablePopup(testNode);
-        Circle newNode = new Circle((float) x, (float) y, 3);
-        newNode.setRadius(5);
-        newNode.setFill(Color.GREEN);
-        newNode.setStroke(Color.BLACK);
-        newNode.setStrokeWidth(2);
-        nodesGroup.getChildren().add(newNode);
+    private void editNodeOnClick(Node node) throws IOException {
+        enablePopup(node);
+        //set();
+        //showAddedNode(tempNode);
     }
 
     private void enablePopup(Node node) throws IOException {
@@ -363,6 +410,17 @@ public class UIControllerATMV extends UIController {
         stage.setResizable(false);
         stage.centerOnScreen();
         stage.showAndWait();
+    }
+
+    private void showAddedNode(Node node) {
+        for (javafx.scene.Node nodes : nodesGroup.getChildren()) {
+            if (nodes.getId().equals(node.getNodeID())) {
+                ((Circle) nodes).setRadius(5);
+                ((Circle) nodes).setFill(Color.GREEN);
+                ((Circle) nodes).setStroke(Color.BLACK);
+                ((Circle) nodes).setStrokeWidth(2);
+            }
+        }
     }
 }
 

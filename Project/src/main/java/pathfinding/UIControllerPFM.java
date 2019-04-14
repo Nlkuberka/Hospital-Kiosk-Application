@@ -129,16 +129,12 @@ public class UIControllerPFM extends UIController {
     private GridPane interfaceGrid;
     @FXML
     private StackPane parentPane;
-    @FXML
-    private JFXSlider floorSlider;
 
     private String initialID;
     private String destID;
 
     @FXML
     public ChoiceBox<String> initialLocationSelect;
-    @FXML
-    private Label floorLabel;
     @FXML
     private ChoiceBox<String> destinationSelect;
     @FXML
@@ -162,6 +158,30 @@ public class UIControllerPFM extends UIController {
     @FXML
     private JFXButton serviceRequestButton;
 
+    @FXML private ScrollPane lowerLevel2ScrollPane;
+    @FXML private ScrollPane lowerLevel1ScrollPane;
+    @FXML private ScrollPane groundFloorScrollPane;
+    @FXML private ScrollPane firstFloorScrollPane;
+    @FXML private ScrollPane secondFloorScrollPane;
+    @FXML private ScrollPane thirdFloorScrollPane;
+    private List<ScrollPane> scrollPanes;
+
+    @FXML private AnchorPane lowerLevel2AnchorPane;
+    @FXML private AnchorPane lowerLevel1AnchorPane;
+    @FXML private AnchorPane groundFloorAnchorPane;
+    @FXML private AnchorPane firstFloorAnchorPane;
+    @FXML private AnchorPane secondFloorAnchorPane;
+    @FXML private AnchorPane thirdFloorAnchorPane;
+    private List<AnchorPane> anchorPanes;
+
+    @FXML private ImageView lowerLevel2ImageView;
+    @FXML private ImageView lowerLevel1ImageView;
+    @FXML private ImageView groundFloorImageView;
+    @FXML private ImageView firstFloorImageView;
+    @FXML private ImageView secondFloorImageView;
+    @FXML private ImageView thirdFloorImageView;
+    private List<ImageView> imageViews;
+
     private Group circleGroup = new Group();
     private Circle currentInitCircle;
     private Circle currentDestCircle;
@@ -180,49 +200,34 @@ public class UIControllerPFM extends UIController {
     @FXML
     public void initialize() {
 
-        this.mapHandler = new MapHandler(p_002, p_001, p_00, p_01, p_02, p_03,
+        /*this.mapHandler = new MapHandler(p_002, p_001, p_00, p_01, p_02, p_03,
                 map_002, map_001, map_00, map_01, map_02, map_03,
                 pane_002, pane_001, pane_00, pane_01, pane_02, pane_03,
                 Floors.SECOND, primaryStage);
-
-        initialBindings();
+        */
         setScene();
-
-
-        floorSlider.setMax(5.0); // number of floors - 1
-        floorSlider.setValue(2.0);
-        floorLabel.setText(Floors.getByIndex((int) floorSlider.getValue()).getName());
+        initialBindings();
 
 
         // Only show scroll bars if Image inside is bigger than ScrollPane
-        scrollPane_pathfind.setHbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
-        scrollPane_pathfind.setVbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
+        // Only show scroll bars if Image inside is bigger than ScrollPane
+        for(ScrollPane sp : scrollPanes) {
+            sp.setHbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
+            sp.setVbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
+        }
 
-
-        scrollPane_pathfind.prefViewportWidthProperty().bind(hboxForMap.prefWidthProperty());
-//        scrollPane_pathfind.prefViewportHeightProperty().bind(hboxForMap.prefHeightProperty());
+        //scrollPane_pathfind.prefViewportWidthProperty().bind(hboxForMap.prefWidthProperty());
+        //scrollPane_pathfind.prefViewportHeightProperty().bind(hboxForMap.prefHeightProperty());
 
         // set value to "true" to use zoom functionality
-        setZoomOn(true);
+        //setZoomOn(true);
 
-        mapHandler.setAllPaneSize(1920.0, mapHandler.getTopPane().getPrefHeight()*(1920.0/mapHandler.getTopPane().getPrefWidth()));
-
-        floorSlider.valueProperty().addListener(new ChangeListener() {
-
-            @Override
-            public void changed(ObservableValue arg0, Object arg1, Object arg2) {
-                floorLabel.setText(Floors.getByIndex((int) floorSlider.getValue()).getName());
-                circleGroup.getChildren().clear();
-                mapHandler.changeToFloor(floorSlider.getValue());
-                drawNodes(roomsAtEachFloor.get(mapHandler.currentFloor.getIndex()));
-                focusNodes();
-            }
-        });
+        //mapHandler.setAllPaneSize(1920.0, mapHandler.getTopPane().getPrefHeight()*(1920.0/mapHandler.getTopPane().getPrefWidth()));
     }
 
     @Override
     public void onShow() {
-        Connection conn = DBControllerNE.dbConnect();
+        /*Connection conn = DBControllerNE.dbConnect();
         LinkedList<Node> allRooms = DBControllerNE.generateListOfNodes(conn,DBControllerNE.ALL_ROOMS);
 
         roomsAtEachFloor.add(DBControllerNE.generateListOfNodes(conn, DBControllerNE.ALL_ROOMS_FLOOR_L2));
@@ -247,6 +252,7 @@ public class UIControllerPFM extends UIController {
 
 
         drawNodes(roomsAtEachFloor.get(mapHandler.currentFloor.getIndex()));
+        */
     }
 
     private void initialBindings() {
@@ -254,13 +260,41 @@ public class UIControllerPFM extends UIController {
         // ensures auto resize works
         backgroundImage.fitWidthProperty().bind(primaryStage.widthProperty());
 
-        scrollPane_pathfind.prefViewportWidthProperty().bind(hboxForMap.prefWidthProperty());
+        for(int i = 0; i < imageViews.size(); i++) {
+            imageViews.get(i).fitWidthProperty().bind(anchorPanes.get(i).prefWidthProperty());
+            imageViews.get(i).fitHeightProperty().bind(anchorPanes.get(i).prefHeightProperty());
+        }
+        //scrollPane_pathfind.prefViewportWidthProperty().bind(hboxForMap.prefWidthProperty());
     }
 
     private void setScene() {
         // set value to "true" to use zoom functionality
-        setZoomOn(true);
-        mapHandler.getTopPane().getChildren().add(circleGroup);
+        //setZoomOn(true);
+        //mapHandler.getTopPane().getChildren().add(circleGroup);
+
+        scrollPanes = new LinkedList<ScrollPane>();
+        scrollPanes.add(lowerLevel2ScrollPane);
+        scrollPanes.add(lowerLevel1ScrollPane);
+        scrollPanes.add(groundFloorScrollPane);
+        scrollPanes.add(firstFloorScrollPane);
+        scrollPanes.add(secondFloorScrollPane);
+        scrollPanes.add(thirdFloorScrollPane);
+
+        anchorPanes = new LinkedList<AnchorPane>();
+        anchorPanes.add(lowerLevel2AnchorPane);
+        anchorPanes.add(lowerLevel1AnchorPane);
+        anchorPanes.add(groundFloorAnchorPane);
+        anchorPanes.add(firstFloorAnchorPane);
+        anchorPanes.add(secondFloorAnchorPane);
+        anchorPanes.add(thirdFloorAnchorPane);
+
+        imageViews = new LinkedList<ImageView>();
+        imageViews.add(lowerLevel2ImageView);
+        imageViews.add(lowerLevel1ImageView);
+        imageViews.add(groundFloorImageView);
+        imageViews.add(firstFloorImageView);
+        imageViews.add(secondFloorImageView);
+        imageViews.add(thirdFloorImageView);
     }
 
     @FXML
@@ -414,12 +448,16 @@ public class UIControllerPFM extends UIController {
      * @param actionEvent Triggered when zoom_button is pressed
      */
     public void zoom(ActionEvent actionEvent) {
-
-        mapHandler.zoomIn(zoomFactor);
+        if (groundFloorAnchorPane.getPrefWidth() < groundFloorAnchorPane.getMaxWidth()) {
+            for(AnchorPane ap : anchorPanes) {
+                ap.setPrefSize(ap.getPrefWidth() * zoomFactor, ap.getPrefHeight() * zoomFactor);
+            }
+        }
+        /*mapHandler.zoomIn(zoomFactor);
 
         circleGroup.getChildren().clear();
         drawNodes(roomsAtEachFloor.get(mapHandler.currentFloor.getIndex()));
-        focusNodes();
+        focusNodes();*/
     }
 
     /**
@@ -428,12 +466,16 @@ public class UIControllerPFM extends UIController {
      * @param actionEvent Triggered when zoom_button is pressed
      */
     public void unZoom(ActionEvent actionEvent) {
-
-        mapHandler.zoomOut(zoomFactor);
+        if (groundFloorAnchorPane.getPrefWidth() > groundFloorAnchorPane.getMinWidth()) {
+            for(AnchorPane ap : anchorPanes) {
+                ap.setPrefSize(ap.getPrefWidth() / zoomFactor, ap.getPrefHeight() / zoomFactor);
+            }
+        }
+        /*mapHandler.zoomOut(zoomFactor);
 
         circleGroup.getChildren().clear();
         drawNodes(roomsAtEachFloor.get(mapHandler.currentFloor.getIndex()));
-        focusNodes();
+        focusNodes();*/
     }
 
     public void drawNodes(LinkedList<Node> nodes) {
