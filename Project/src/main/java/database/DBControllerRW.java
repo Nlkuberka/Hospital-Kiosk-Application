@@ -180,9 +180,6 @@ public class DBControllerRW extends DBController {
         }catch(SQLException e){
             e.printStackTrace();
         }
-//        catch(ParseException e) {
-//            e.printStackTrace();
-//        }
         return false;
     }
 
