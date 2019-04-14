@@ -9,6 +9,7 @@ import database.DBControllerNE;
 import database.DBControllerSR;
 import entities.Node;
 import entities.ServiceRequest;
+import helper.RoomCategoryFilterHelper;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.control.ChoiceBox;
@@ -28,10 +29,13 @@ public class UIControllerSRFD extends UIController {
     @FXML
     private ImageView backgroundImage;
     String flowerDelivery;
-    Map<String, String> nodeIDs; /**< Holds reference between node short name and nodeID*/
+    private RoomCategoryFilterHelper filterHelper;
 
     @FXML
-    private ChoiceBox roomSelect;
+    private ChoiceBox<String> roomCategory;
+
+    @FXML
+    private ChoiceBox<String> roomSelect;
 
     @FXML
     private JFXTextArea serviceMessage1;
@@ -55,20 +59,7 @@ public class UIControllerSRFD extends UIController {
 
     @FXML
     public void onShow() {
-        List<String> nodeShortNames = new ArrayList<String>();
-        nodeIDs = new HashMap<String, String>();
-
-        Connection conn = DBControllerNE.dbConnect();
-        List<Node> nodes = DBControllerNE.generateListOfNodes(conn,DBControllerNE.ALL_ROOMS);
-        DBControllerNE.closeConnection(conn);
-        for(int i = 0; i < nodes.size(); i++) {
-            Node node = nodes.get(i);
-            nodeShortNames.add(node.getShortName());
-            nodeIDs.put(node.getShortName(), node.getNodeID());
-        }
-
-        roomSelect.setItems(FXCollections.observableList(nodeShortNames));
-        roomSelect.getSelectionModel().selectFirst();
+        filterHelper = new RoomCategoryFilterHelper(roomCategory, roomSelect, null, true);
         serviceMessage1.setText("");
     }
 
@@ -79,7 +70,7 @@ public class UIControllerSRFD extends UIController {
     @FXML
     private void setConfirmButton() {
         String roomShortName = (String) roomSelect.getValue();
-        String nodeID = nodeIDs.get(roomShortName);
+        String nodeID = filterHelper.getNodeID();
         String message = serviceMessage1.getText();
 
         ServiceRequest sr = new ServiceRequest(nodeID, flowerDelivery, message + costLabel.getText(), CurrentUser.user.getUserID(), false, null);

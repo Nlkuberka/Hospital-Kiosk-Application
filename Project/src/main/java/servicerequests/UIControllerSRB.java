@@ -15,6 +15,7 @@ import database.DBControllerNE;
 import database.DBControllerSR;
 import entities.Node;
 import entities.ServiceRequest;
+import helper.RoomCategoryFilterHelper;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.control.CheckBox;
@@ -32,7 +33,7 @@ public class UIControllerSRB extends UIController {
     @FXML
     private ImageView backgroundImage;
     String serviceType;
-    Map<String, String> nodeIDs; /**< Holds reference between node short name and nodeID*/
+    private RoomCategoryFilterHelper filterHelper;
     @FXML private CheckBox feeder;
     @FXML private CheckBox diaper;
     @FXML private CheckBox bath;
@@ -42,7 +43,10 @@ public class UIControllerSRB extends UIController {
     String BabysittingServices = "";
 
     @FXML
-    private ChoiceBox roomSelect; /**< The room choice box*/
+    private ChoiceBox<String> roomCategory;
+
+    @FXML
+    private ChoiceBox<String> roomSelect; /**< The room choice box*/
 
     @FXML
     private JFXTextField serviceMessage; /**< The additional message field*/
@@ -64,20 +68,7 @@ public class UIControllerSRB extends UIController {
 
     @FXML
     public void onShow() {
-        List<String> nodeShortNames = new ArrayList<String>();
-        nodeIDs = new HashMap<String, String>();
-
-        Connection conn = DBControllerNE.dbConnect();
-        List<Node> nodes = DBControllerNE.generateListOfNodes(conn,DBControllerNE.ALL_ROOMS);
-        DBControllerNE.closeConnection(conn);
-        for(int i = 0; i < nodes.size(); i++) {
-            Node node = nodes.get(i);
-            nodeShortNames.add(node.getShortName());
-            nodeIDs.put(node.getShortName(), node.getNodeID());
-        }
-
-        roomSelect.setItems(FXCollections.observableList(nodeShortNames));
-        roomSelect.getSelectionModel().selectFirst();
+        filterHelper = new RoomCategoryFilterHelper(roomCategory, roomSelect, null, false);
         serviceMessage.setText("");
     }
 
@@ -116,7 +107,7 @@ public class UIControllerSRB extends UIController {
     @FXML
     private void setConfirmButton() {
         String roomShortName = (String) roomSelect.getValue();
-        String nodeID = nodeIDs.get(roomShortName);
+        String nodeID = filterHelper.getNodeID();
         setServiceType("Babysitting");
         checkEvent();
         String message = "Help with: "+ BabysittingServices + " Room: "+ roomShortName + serviceMessage.getText();

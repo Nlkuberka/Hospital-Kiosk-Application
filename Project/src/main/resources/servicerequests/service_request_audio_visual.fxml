@@ -57,6 +57,8 @@
                   <RowConstraints maxHeight="168.0" minHeight="8.0" prefHeight="30.0" vgrow="SOMETIMES" />
                   <RowConstraints maxHeight="168.0" minHeight="10.0" prefHeight="40.0" vgrow="SOMETIMES" />
                   <RowConstraints maxHeight="168.0" minHeight="10.0" prefHeight="44.0" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="168.0" minHeight="10.0" prefHeight="44.0" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="168.0" minHeight="10.0" prefHeight="44.0" vgrow="SOMETIMES" />
                   <RowConstraints maxHeight="176.0" minHeight="10.0" prefHeight="63.0" vgrow="SOMETIMES" />
                   <RowConstraints maxHeight="176.0" minHeight="10.0" prefHeight="38.0" vgrow="SOMETIMES" />
                   <RowConstraints maxHeight="206.0" minHeight="158.0" percentHeight="30.0" prefHeight="168.0" />
@@ -64,8 +66,8 @@
                   <RowConstraints maxHeight="53.0" minHeight="10.0" prefHeight="52.0" vgrow="SOMETIMES" />
                </rowConstraints>
                <children>
-                  <JFXButton fx:id="confirmButton" onAction="#setConfirmButton" styleClass="jfx-button_edit" stylesheets="@../css/background.css" text="Confirm" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="8" />
-                  <JFXButton contentDisplay="CENTER" onAction="#setCancelButton" styleClass="jfx-button-cancel" stylesheets="@../css/background.css" text=" " GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="9">
+                  <JFXButton fx:id="confirmButton" onAction="#setConfirmButton" styleClass="jfx-button_edit" stylesheets="@../css/background.css" text="Confirm" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="10" />
+                  <JFXButton contentDisplay="CENTER" onAction="#setCancelButton" styleClass="jfx-button-cancel" stylesheets="@../css/background.css" text=" " GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="11">
                      <graphic>
                         <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -84,9 +86,9 @@
                         <Font name="System Bold" size="12.0" />
                      </font>
                   </Text>
-                  <ChoiceBox fx:id="roomSelect" onAction="#validate" style="-fx-background-color: #ffffff;" GridPane.columnIndex="1" GridPane.fillWidth="true" GridPane.rowIndex="5" />
-                  <JFXTextField fx:id="serviceMessage" alignment="TOP_LEFT" prefHeight="200.0" style="-fx-background-color: #ffffff;" GridPane.columnIndex="1" GridPane.fillHeight="true" GridPane.fillWidth="true" GridPane.rowIndex="7" />
-                  <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Select Room" GridPane.columnIndex="1" GridPane.rowIndex="4" GridPane.valignment="BOTTOM">
+                  <ChoiceBox fx:id="roomSelect" onAction="#validate" style="-fx-background-color: #ffffff;" GridPane.columnIndex="1" GridPane.fillWidth="true" GridPane.rowIndex="7" />
+                  <JFXTextField fx:id="serviceMessage" alignment="TOP_LEFT" prefHeight="200.0" style="-fx-background-color: #ffffff;" GridPane.columnIndex="1" GridPane.fillHeight="true" GridPane.fillWidth="true" GridPane.rowIndex="9" />
+                  <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Select Room" GridPane.columnIndex="1" GridPane.rowIndex="6" GridPane.valignment="BOTTOM">
                      <font>
                         <Font name="System Bold" size="12.0" />
                      </font>
@@ -97,7 +99,13 @@
                      </font>
                   </Text>
                   <ChoiceBox fx:id="serviceSelect" onAction="#validate" prefWidth="150.0" style="-fx-background-color: #ffffff;" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                  <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Message (optional)" GridPane.columnIndex="1" GridPane.rowIndex="6">
+                  <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Message (optional)" GridPane.columnIndex="1" GridPane.rowIndex="8">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                  </Text>
+                  <ChoiceBox fx:id="roomCategory" onAction="#validate" prefWidth="150.0" style="-fx-background-color: #ffffff;" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                  <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Select Room Category" GridPane.columnIndex="1" GridPane.rowIndex="4">
                      <font>
                         <Font name="System Bold" size="12.0" />
                      </font>
