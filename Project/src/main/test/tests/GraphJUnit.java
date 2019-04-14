@@ -1,6 +1,7 @@
 
 package tests;
 
+import database.DBControllerNE;
 import entities.AStarGraph;
 import entities.Graph;
 import entities.Node;
@@ -12,6 +13,8 @@ import pathfinding.UIControllerPFM;
 
 import entities.BFSGraph;
 
+import java.sql.Connection;
+import java.time.Clock;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
@@ -30,6 +33,18 @@ public class GraphJUnit extends TestCase {
         Node n7 = new Node("N7", 2, 0, "", "", "", "", "");
         Node n8 = new Node("N8", 3, 0, "", "", "", "", "");
         Node n9 = new Node("N9", 4, 0, "", "", "", "", "");
+        Connection conn = DBControllerNE.dbConnect();
+        DBControllerNE.addNode(n0, conn);
+        DBControllerNE.addNode(n1, conn);
+        DBControllerNE.addNode(n2, conn);
+        DBControllerNE.addNode(n3, conn);
+        DBControllerNE.addNode(n4, conn);
+        DBControllerNE.addNode(n5, conn);
+        DBControllerNE.addNode(n6, conn);
+        DBControllerNE.addNode(n7, conn);
+        DBControllerNE.addNode(n8, conn);
+        DBControllerNE.addNode(n9, conn);
+        DBControllerNE.closeConnection(conn);
         Graph.getGraph().addNode(n0);
         Graph.getGraph().addNode(n1);
         Graph.getGraph().addNode(n2);
@@ -51,7 +66,7 @@ public class GraphJUnit extends TestCase {
         Graph.getGraph().addBiEdge("N7", "N8");
         Graph.getGraph().addBiEdge("N8", "N9");
         Graph.getGraph().addBiEdge("N9", "N3");
-        List<String> path = Graph.getGraph().shortestPath("N0", "N3");
+
         //g.checkEdges();
         List<String> expected = new LinkedList<>();
         expected.add("N0");
@@ -60,10 +75,14 @@ public class GraphJUnit extends TestCase {
         expected.add("N8");
         expected.add("N9");
         expected.add("N3");
+
+        List<String> path = Graph.getGraph().shortestPath("N0", "N3");
         assertEquals(expected, path);
-        Graph.toDFS();
+
+        Graph.toAStar();
         path = Graph.getGraph().shortestPath("N0", "N3");
         assertEquals(expected, path);
+
         Graph.toBFS();
         path = Graph.getGraph().shortestPath("N0", "N3");
         assertEquals(expected, path);
@@ -78,6 +97,18 @@ public class GraphJUnit extends TestCase {
         Graph.getGraph().removeNode("N7");
         Graph.getGraph().removeNode("N8");
         Graph.getGraph().removeNode("N9");
+        conn = DBControllerNE.dbConnect();
+        DBControllerNE.deleteNode("N0", conn);
+        DBControllerNE.deleteNode("N1", conn);
+        DBControllerNE.deleteNode("N2", conn);
+        DBControllerNE.deleteNode("N3", conn);
+        DBControllerNE.deleteNode("N4", conn);
+        DBControllerNE.deleteNode("N5", conn);
+        DBControllerNE.deleteNode("N6", conn);
+        DBControllerNE.deleteNode("N7", conn);
+        DBControllerNE.deleteNode("N8", conn);
+        DBControllerNE.deleteNode("N9", conn);
+        DBControllerNE.closeConnection(conn);
     }
 
     @Test
@@ -88,6 +119,14 @@ public class GraphJUnit extends TestCase {
         Node n3 = new Node("N3", 1591, 2560, "", "", "", "", "");
         Node n4 = new Node("N4", 1590, 2604, "", "", "", "", "");
         Node n5 = new Node("N5", 1590, 2745, "", "", "", "", "");
+        Connection conn = DBControllerNE.dbConnect();
+        DBControllerNE.addNode(n0, conn);
+        DBControllerNE.addNode(n1, conn);
+        DBControllerNE.addNode(n2, conn);
+        DBControllerNE.addNode(n3, conn);
+        DBControllerNE.addNode(n4, conn);
+        DBControllerNE.addNode(n5, conn);
+        DBControllerNE.closeConnection(conn);
         Graph.getGraph().addNode(n0);
         Graph.getGraph().addNode(n1);
         Graph.getGraph().addNode(n2);
@@ -100,15 +139,18 @@ public class GraphJUnit extends TestCase {
         Graph.getGraph().addBiEdge("N2", "N3");
         Graph.getGraph().addBiEdge("N4", "N1");
         Graph.getGraph().addBiEdge("N3", "N0");
-        List<String> path = Graph.getGraph().shortestPath("N5", "N0");
         List<String> expected = new LinkedList<>();
         expected.add("N5");
         expected.add("N1");
         expected.add("N0");
+
+        List<String> path = Graph.getGraph().shortestPath("N5", "N0");
         assertEquals(expected, path);
-        Graph.toDFS();
+
+        Graph.toAStar();
         path = Graph.getGraph().shortestPath("N5", "N0");
         assertEquals(expected, path);
+
         Graph.toBFS();
         path = Graph.getGraph().shortestPath("N5", "N0");
         assertEquals(expected, path);
@@ -120,6 +162,14 @@ public class GraphJUnit extends TestCase {
         Graph.getGraph().removeNode("N4");
         Graph.getGraph().removeNode("N5");
 
+        conn = DBControllerNE.dbConnect();
+        DBControllerNE.deleteNode("N0", conn);
+        DBControllerNE.deleteNode("N1", conn);
+        DBControllerNE.deleteNode("N2", conn);
+        DBControllerNE.deleteNode("N3", conn);
+        DBControllerNE.deleteNode("N4", conn);
+        DBControllerNE.deleteNode("N5", conn);
+        DBControllerNE.closeConnection(conn);
     }
 
     @Test
@@ -132,6 +182,16 @@ public class GraphJUnit extends TestCase {
         Node n5 = new Node("N5", 5, 0, "", "", "", "", "");
         Node n6 = new Node("N6", 6, 0, "", "", "", "", "");
         Node n7 = new Node("N7", 3, 1, "", "", "", "", "");
+        Connection conn = DBControllerNE.dbConnect();
+        DBControllerNE.addNode(n0, conn);
+        DBControllerNE.addNode(n1, conn);
+        DBControllerNE.addNode(n2, conn);
+        DBControllerNE.addNode(n3, conn);
+        DBControllerNE.addNode(n4, conn);
+        DBControllerNE.addNode(n5, conn);
+        DBControllerNE.addNode(n6, conn);
+        DBControllerNE.addNode(n7, conn);
+        DBControllerNE.closeConnection(conn);
         Graph.getGraph().addNode(n0);
         Graph.getGraph().addNode(n1);
         Graph.getGraph().addNode(n2);
@@ -156,12 +216,15 @@ public class GraphJUnit extends TestCase {
         expected.add("N4");
         expected.add("N5");
         expected.add("N6");
+
         List<String> actual = Graph.getGraph().shortestPath("N0", "N6");
         assertEquals(expected, actual);
-        Graph.toBFS();
+
+        Graph.toAStar();
         actual = Graph.getGraph().shortestPath("N0", "N6");
         assertEquals(expected, actual);
-        Graph.toDFS();
+
+        Graph.toBFS();
         actual = Graph.getGraph().shortestPath("N0", "N6");
         assertEquals(expected, actual);
 
@@ -173,6 +236,16 @@ public class GraphJUnit extends TestCase {
         Graph.getGraph().removeNode("N5");
         Graph.getGraph().removeNode("N6");
         Graph.getGraph().removeNode("N7");
+        conn = DBControllerNE.dbConnect();
+        DBControllerNE.deleteNode("N0", conn);
+        DBControllerNE.deleteNode("N1", conn);
+        DBControllerNE.deleteNode("N2", conn);
+        DBControllerNE.deleteNode("N3", conn);
+        DBControllerNE.deleteNode("N4", conn);
+        DBControllerNE.deleteNode("N5", conn);
+        DBControllerNE.deleteNode("N6", conn);
+        DBControllerNE.deleteNode("N7", conn);
+        DBControllerNE.closeConnection(conn);
     }
 
     @Test
@@ -184,6 +257,15 @@ public class GraphJUnit extends TestCase {
         Node n4 = new Node("N4", 5, 0, "", "", "", "", "");
         Node n5 = new Node("N5", 0, 5, "", "", "", "", "");
         Node n6 = new Node("N6", 5, 5, "", "", "", "", "");
+        Connection conn = DBControllerNE.dbConnect();
+        DBControllerNE.addNode(n0, conn);
+        DBControllerNE.addNode(n1, conn);
+        DBControllerNE.addNode(n2, conn);
+        DBControllerNE.addNode(n3, conn);
+        DBControllerNE.addNode(n4, conn);
+        DBControllerNE.addNode(n5, conn);
+        DBControllerNE.addNode(n6, conn);
+        DBControllerNE.closeConnection(conn);
         Graph.getGraph().addNode(n0);
         Graph.getGraph().addNode(n1);
         Graph.getGraph().addNode(n2);
@@ -205,7 +287,7 @@ public class GraphJUnit extends TestCase {
         List<String> actual = Graph.getGraph().shortestPath("N0", "N1");
         assertEquals(expected, actual);
 
-        Graph.toDFS();
+        Graph.toAStar();
         actual = Graph.getGraph().shortestPath("N0", "N1");
         assertEquals(expected, actual);
 
@@ -231,6 +313,15 @@ public class GraphJUnit extends TestCase {
         Graph.getGraph().removeNode("N4");
         Graph.getGraph().removeNode("N5");
         Graph.getGraph().removeNode("N6");
+        conn = DBControllerNE.dbConnect();
+        DBControllerNE.deleteNode("N0", conn);
+        DBControllerNE.deleteNode("N1", conn);
+        DBControllerNE.deleteNode("N2", conn);
+        DBControllerNE.deleteNode("N3", conn);
+        DBControllerNE.deleteNode("N4", conn);
+        DBControllerNE.deleteNode("N5", conn);
+        DBControllerNE.deleteNode("N6", conn);
+        DBControllerNE.closeConnection(conn);
     }
 
     @Test
@@ -245,6 +336,18 @@ public class GraphJUnit extends TestCase {
         Node n7 = new Node("N7", 2, 0, "G", "", "", "", "");
         Node n8 = new Node("N8", 3, 0, "1", "", "", "", "");
         Node n9 = new Node("N9", 4, 0, "1", "", "", "", "");
+        Connection conn = DBControllerNE.dbConnect();
+        DBControllerNE.addNode(n0, conn);
+        DBControllerNE.addNode(n1, conn);
+        DBControllerNE.addNode(n2, conn);
+        DBControllerNE.addNode(n3, conn);
+        DBControllerNE.addNode(n4, conn);
+        DBControllerNE.addNode(n5, conn);
+        DBControllerNE.addNode(n6, conn);
+        DBControllerNE.addNode(n7, conn);
+        DBControllerNE.addNode(n8, conn);
+        DBControllerNE.addNode(n9, conn);
+        DBControllerNE.closeConnection(conn);
         Graph.getGraph().addNode(n0);
         Graph.getGraph().addNode(n1);
         Graph.getGraph().addNode(n2);
@@ -287,7 +390,17 @@ public class GraphJUnit extends TestCase {
         expected.get(UIControllerPFM.Floors.FIRST.ordinal()).get(2).add(n8);
         expected.get(UIControllerPFM.Floors.FIRST.ordinal()).get(2).add(n9);
         List<List<List<Node>>> actual = Graph.getGraph().separatePathByFloor(path);
-        assertEquals(expected, actual);
+
+        assertEquals(expected.size(), actual.size());
+        for(int i = 0; i < actual.size(); i++) {
+            assertEquals(expected.get(i).size(), actual.get(i).size());
+            for(int j = 0; j < actual.get(i).size(); j++) {
+                assertEquals(expected.get(i).get(j).size(), actual.get(i).get(j).size());
+                for(int k = 0; k < actual.get(i).get(j).size(); k++) {
+                    assertEquals(expected.get(i).get(j).get(k).getNodeID(), actual.get(i).get(j).get(k).getNodeID());
+                }
+            }
+        }
 
         Graph.getGraph().removeNode("N0");
         Graph.getGraph().removeNode("N1");
@@ -299,6 +412,17 @@ public class GraphJUnit extends TestCase {
         Graph.getGraph().removeNode("N7");
         Graph.getGraph().removeNode("N8");
         Graph.getGraph().removeNode("N9");
-
+        conn = DBControllerNE.dbConnect();
+        DBControllerNE.deleteNode("N0", conn);
+        DBControllerNE.deleteNode("N1", conn);
+        DBControllerNE.deleteNode("N2", conn);
+        DBControllerNE.deleteNode("N3", conn);
+        DBControllerNE.deleteNode("N4", conn);
+        DBControllerNE.deleteNode("N5", conn);
+        DBControllerNE.deleteNode("N6", conn);
+        DBControllerNE.deleteNode("N7", conn);
+        DBControllerNE.deleteNode("N8", conn);
+        DBControllerNE.deleteNode("N9", conn);
+        DBControllerNE.closeConnection(conn);
     }
 }
