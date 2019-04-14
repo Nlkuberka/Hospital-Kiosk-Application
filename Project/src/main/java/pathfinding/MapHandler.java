@@ -1,6 +1,7 @@
 package pathfinding;
 
 import entities.Node;
+import javafx.collections.FXCollections;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.shape.LineTo;
@@ -8,6 +9,8 @@ import javafx.scene.shape.MoveTo;
 import javafx.scene.shape.Path;
 import javafx.stage.Stage;
 
+import java.lang.reflect.Array;
+import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -42,6 +45,8 @@ public class MapHandler {
         this.paneList.add(pa4);
         this.paneList.add(pa5);
         this.paneList.add(pa6);
+        //AnchorPane[] aps = {pa1, pa2, pa3, pa4, pa5, pa6};
+        //this.paneList.addAll(Arrays.asList(aps));
         this.currentFloor = currentFloor;
         this.primaryStage = stage;
 

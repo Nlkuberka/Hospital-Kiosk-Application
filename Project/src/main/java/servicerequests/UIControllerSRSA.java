@@ -9,6 +9,7 @@ import database.DBControllerSR;
 import entities.Graph;
 import entities.Node;
 import entities.ServiceRequest;
+import helper.RoomCategoryFilterHelper;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -19,7 +20,7 @@ import java.util.*;
 
 public class UIControllerSRSA extends UIController {
     String serviceType;
-    Map<String, String> nodeIDs; /**< Holds reference between node short name and nodeID*/
+    RoomCategoryFilterHelper filterHelper;
     private Graph graph;
 
     @FXML
@@ -33,6 +34,9 @@ public class UIControllerSRSA extends UIController {
 
     @FXML
     private Menu homeButton; /**< The home button*/
+
+    @FXML
+    private ChoiceBox<String> roomCategory; /**< The room select dropdown*/
 
     @FXML
     private ChoiceBox<String> roomSelect; /**< The room select dropdown*/
@@ -53,20 +57,7 @@ public class UIControllerSRSA extends UIController {
 
     @FXML
     public void onShow() {
-        Connection conn = DBControllerNE.dbConnect();
-        List<String> nodeShortNames = new ArrayList<String>();
-        nodeIDs = new HashMap<String, String>();
-
-        List<Node> nodes = DBControllerNE.generateListOfNodes(conn,DBControllerNE.ALL_ROOMS);
-        System.out.println(nodes.size());
-        DBControllerNE.closeConnection(conn);
-        for(int i = 0; i < nodes.size(); i++) {
-            Node node = nodes.get(i);
-            nodeShortNames.add(node.getShortName());
-            nodeIDs.put(node.getShortName(), node.getNodeID());
-        }
-
-        roomSelect.setItems(FXCollections.observableList(nodeShortNames));
+        filterHelper = new RoomCategoryFilterHelper(roomCategory, roomSelect, null, false);
 
         serviceMessage.setText("");
 
@@ -81,7 +72,7 @@ public class UIControllerSRSA extends UIController {
     private void setConfirmButton() {
         Connection connection = DBControllerSR.dbConnect();
         String roomShortName = DBControllerSR.IDfromLongName(roomSelect.getValue(), connection);
-        String nodeID = nodeIDs.get(roomShortName);
+        String nodeID = filterHelper.getNodeID();
         String message = serviceMessage.getText();
 
         ServiceRequest sr = new ServiceRequest(nodeID, serviceType, message, CurrentUser.user.getUserID(), false, null);
