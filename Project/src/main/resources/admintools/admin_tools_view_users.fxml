@@ -47,7 +47,7 @@
             </MenuBar>
          </top>
          <center>
-            <TableView fx:id="userTableView" BorderPane.alignment="CENTER">
+            <TableView fx:id="userTableView" maxWidth="1000.0" prefWidth="1000.0" BorderPane.alignment="CENTER">
               <columns>
                 <TableColumn prefWidth="60.0" text="UserID" />
                 <TableColumn prefWidth="150.0" text="Username" />

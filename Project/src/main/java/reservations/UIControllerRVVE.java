@@ -12,6 +12,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.scene.image.ImageView;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -39,12 +40,16 @@ public class UIControllerRVVE extends UIController {
     @FXML
     private TableView<Reservation> reservationTable; /**< The table that holds all of the reservations */
 
+    @FXML
+    private ImageView backgroundImage;
+
     /**
      * Called when the scene is first created
      * Sets up all the cell factories
      */
     @FXML
     public void initialize() {
+        backgroundImage.fitWidthProperty().bind(primaryStage.widthProperty());
         List<TableColumn<Reservation, ?>> tableColumns = reservationTable.getColumns();
         // Initialize the cell factories of the reservation field columns
 

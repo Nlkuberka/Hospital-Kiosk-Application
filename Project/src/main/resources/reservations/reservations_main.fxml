@@ -12,103 +12,127 @@
 <?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.shape.Polygon?>
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane minHeight="720.0" minWidth="1280.0" prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="reservations.UIControllerRVM">
-    <children>
-        <AnchorPane prefHeight="600.0" prefWidth="900.0">
-            <children>
-                <AnchorPane prefHeight="400.0" prefWidth="600.0" styleClass="body-background" stylesheets="/css/background.css">
-                    <children>
-                        <ImageView fitWidth="900.0" pickOnBounds="true" preserveRatio="true">
-                            <image>
-                                <Image url="@../images/Hospitalbackground.png" />
-                            </image>
-                        </ImageView>
-                        <BorderPane prefHeight="600.0" prefWidth="900.0">
-                            <top>
-                                <MenuBar blendMode="ADD" prefWidth="600.0" style="-fx-background-color: white;" stylesheets="@../css/background.css" BorderPane.alignment="CENTER">
-                                    <menus>
-                                        <Menu mnemonicParsing="false" onShowing="#setHomeButton" text="Home">
-                                 <items>
-                                    <MenuItem mnemonicParsing="false" text="HOME" />
-                                 </items></Menu>
-                                    </menus>
-                                    <effect>
-                                        <ColorAdjust>
-                                            <input>
-                                                <DropShadow />
-                                            </input>
-                                        </ColorAdjust>
-                                    </effect>
-                                </MenuBar>
-                            </top>
-                     <right>
-                        <ImageView fitHeight="575.0" fitWidth="700.0" pickOnBounds="true" preserveRatio="true" BorderPane.alignment="CENTER">
-                           <image>
-                              <Image url="@../images/OBC-4-Concept-Plan-Overview.jpg" />
-                           </image>
-                        </ImageView>
-                     </right>
-                        </BorderPane>
-                    </children>
-                </AnchorPane>
-                <ChoiceBox fx:id="workplaceSelect" onMouseClicked="#updateColorView" prefWidth="170.0" style="-fx-background-color: #ffffff;" AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="270.0">
-                    <effect>
-                        <Blend mode="MULTIPLY" opacity="0.34" />
-                    </effect>
-                </ChoiceBox>
-                <Text fill="WHITE" layoutX="28.0" layoutY="46.0" smooth="false" strokeType="OUTSIDE" strokeWidth="0.0" text="Select Date" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="40.0">
-                    <font>
-                        <Font name="System Bold Italic" size="16.0" />
-                    </font>
-                </Text>
-                <DatePicker fx:id="datePicker" blendMode="LIGHTEN" onAction="#updateColorView" AnchorPane.leftAnchor="12.0" AnchorPane.topAnchor="65.0">
-                    <effect>
-                        <ColorAdjust brightness="0.05" />
-                    </effect>
-                </DatePicker>
-                <Text fill="WHITE" layoutX="38.0" layoutY="56.0" smooth="false" strokeType="OUTSIDE" strokeWidth="0.0" text="Start Time" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="105.0">
-                    <font>
-                        <Font name="System Bold Italic" size="16.0" />
-                    </font>
-                </Text>
-                <JFXTimePicker fx:id="startTimePicker" defaultColor="#5777c6" onAction="#updateColorView" style="-fx-background-color: white;" AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="130.0" />
-                <Text fill="WHITE" layoutX="48.0" layoutY="66.0" smooth="false" strokeType="OUTSIDE" strokeWidth="0.0" text="End Time" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="170.0">
-                    <font>
-                        <Font name="System Bold Italic" size="16.0" />
-                    </font>
-                </Text>
-                <JFXButton fx:id="confirmButton" buttonType="RAISED" onAction="#setConfirmButton" style="-fx-background-color: #ffc41e;" text="Confirm" textFill="WHITE" AnchorPane.leftAnchor="130.0" AnchorPane.topAnchor="320.0">
-                    <font>
-                        <Font name="System Bold" size="12.0" />
-                    </font>
-                </JFXButton>
-                <Text fill="WHITE" layoutX="38.0" layoutY="56.0" smooth="false" strokeType="OUTSIDE" strokeWidth="0.0" text="Select Your Room" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="245.0">
-                    <font>
-                        <Font name="System Bold Italic" size="16.0" />
-                    </font>
-                </Text>
-                <JFXTimePicker fx:id="endTimePicker" defaultColor="#5777c6" layoutX="10.0" layoutY="10.0" onAction="#updateColorView" style="-fx-background-color: white;" AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="195.0" />
-
-            <Rectangle fx:id="classroom8" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="66.0" layoutX="545.0" layoutY="70.0" opacity="0.15" stroke="BLACK" strokeType="INSIDE" width="62.0" />
-            <Rectangle fx:id="classroom6" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="66.0" layoutX="605.0" layoutY="70.0" opacity="0.15" stroke="BLACK" strokeType="INSIDE" width="62.0" />
-            <Rectangle fx:id="classroom7" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="60.0" layoutX="590.0" layoutY="180.0" opacity="0.15" stroke="BLACK" strokeType="INSIDE" width="42.0" />
-            <Rectangle fx:id="classroom5" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="60.0" layoutX="635.0" layoutY="180.0" opacity="0.15" stroke="BLACK" strokeType="INSIDE" width="55.0" />
-            <Rectangle fx:id="classroom9" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="33.0" layoutX="548.0" layoutY="175.0" opacity="0.15" stroke="BLACK" strokeType="INSIDE" width="35.0" />
-            <Rectangle fx:id="classroom1" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="43.0" layoutX="635.0" layoutY="345.0" opacity="0.15" stroke="BLACK" strokeType="INSIDE" width="78.0" />
-            <Rectangle fx:id="MHCR" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="33.0" layoutX="633.0" layoutY="393.0" opacity="0.15" stroke="BLACK" strokeType="INSIDE" width="78.0" />
-            <Rectangle fx:id="classroom2" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="33.0" layoutX="744.0" layoutY="266.0" opacity="0.15" rotate="70.0" stroke="BLACK" strokeType="INSIDE" width="69.0" />
-            <Rectangle fx:id="classroom3" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="33.0" layoutX="720.0" layoutY="190.0" opacity="0.15" rotate="70.0" stroke="BLACK" strokeType="INSIDE" width="69.0" />
-            <Rectangle fx:id="pantry" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="86.0" layoutX="640.0" layoutY="440.0" opacity="0.15" stroke="BLACK" strokeType="INSIDE" width="95.0" />
-            <Rectangle fx:id="classroom4" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="66.0" layoutX="665.0" layoutY="70.0" opacity="0.15" stroke="BLACK" strokeType="INSIDE" width="35.0" />
-            <Polygon fx:id="MHA" fill="DODGERBLUE" layoutX="785.0" layoutY="374.0" opacity="0.15" points="-50.0, 40.0, 39.0, 20.0, 18.8045654296875, -60.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
-            </children>
-        </AnchorPane>
-    </children>
-</AnchorPane>
+<Pane xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="reservations.UIControllerRVM">
+   <children>
+            <ImageView fx:id="backgroundImage" fitHeight="1600.0" fitWidth="2415.0" onDragDetected="#initialize" pickOnBounds="true" preserveRatio="true">
+                <image>
+                    <Image url="@../images/Hospitalbackground.png" />
+                </image>
+            </ImageView>
+              <MenuBar blendMode="ADD" prefWidth="2400.0" style="-fx-background-color: white;" stylesheets="@../css/background.css">
+                  <menus>
+                      <Menu mnemonicParsing="false" onShowing="#setHomeButton" text="Home">
+               <items>
+                  <MenuItem mnemonicParsing="false" text="HOME" />
+               </items>
+            </Menu>
+                  </menus>
+                  <effect>
+                      <ColorAdjust>
+                          <input>
+                              <DropShadow />
+                          </input>
+                      </ColorAdjust>
+                  </effect>
+              </MenuBar>
+      <GridPane layoutX="15.0" layoutY="11.0" prefHeight="700.0" prefWidth="1197.0">
+         <columnConstraints>
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="160.4593963623047" minWidth="10.0" prefWidth="62.94464874267578" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="280.75816345214844" minWidth="10.0" prefWidth="270.0553512573242" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
+         </columnConstraints>
+         <rowConstraints>
+            <RowConstraints maxHeight="86.27015686035156" minHeight="10.0" prefHeight="36.918190002441406" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="663.0818099975586" minHeight="10.0" prefHeight="663.0818099975586" vgrow="SOMETIMES" />
+         </rowConstraints>
+         <children>
+            <GridPane maxWidth="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+               <columnConstraints>
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
+               </columnConstraints>
+               <rowConstraints>
+                  <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" percentHeight="5.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" percentHeight="5.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" percentHeight="5.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" percentHeight="20.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+               </rowConstraints>
+               <children>
+                      <ChoiceBox fx:id="workplaceSelect" onMouseClicked="#updateColorView" prefWidth="170.0" style="-fx-background-color: #ffffff;" GridPane.rowIndex="7" GridPane.valignment="TOP">
+                          <effect>
+                              <Blend mode="MULTIPLY" opacity="0.34" />
+                          </effect>
+                      </ChoiceBox>
+                      <Text fill="WHITE" smooth="false" strokeType="OUTSIDE" strokeWidth="0.0" text="Select Date">
+                          <font>
+                              <Font name="System Bold Italic" size="16.0" />
+                          </font>
+                      </Text>
+                      <DatePicker fx:id="datePicker" blendMode="LIGHTEN" onAction="#updateColorView" style="-fx-background-color: #ffffff;" GridPane.rowIndex="1" GridPane.valignment="TOP">
+                          <effect>
+                              <ColorAdjust brightness="0.05" />
+                          </effect>
+                      </DatePicker>
+                      <Text fill="WHITE" smooth="false" strokeType="OUTSIDE" strokeWidth="0.0" text="Start Time" GridPane.rowIndex="2">
+                          <font>
+                              <Font name="System Bold Italic" size="16.0" />
+                          </font>
+                      </Text>
+                      <JFXTimePicker fx:id="startTimePicker" defaultColor="#5777c6" onAction="#updateColorView" style="-fx-background-color: white;" GridPane.rowIndex="3" GridPane.valignment="TOP" />
+                      <Text fill="WHITE" smooth="false" strokeType="OUTSIDE" strokeWidth="0.0" text="End Time" GridPane.rowIndex="4">
+                          <font>
+                              <Font name="System Bold Italic" size="16.0" />
+                          </font>
+                      </Text>
+                      <JFXButton fx:id="confirmButton" buttonType="RAISED" onAction="#setConfirmButton" style="-fx-background-color: #ffc41e;" text="Confirm" textFill="WHITE" GridPane.rowIndex="8">
+                          <font>
+                              <Font name="System Bold" size="12.0" />
+                          </font>
+                      </JFXButton>
+                      <Text fill="WHITE" smooth="false" strokeType="OUTSIDE" strokeWidth="0.0" text="Select Your Room" GridPane.rowIndex="6">
+                          <font>
+                              <Font name="System Bold Italic" size="16.0" />
+                          </font>
+                      </Text>
+                      <JFXTimePicker fx:id="endTimePicker" defaultColor="#5777c6" onAction="#updateColorView" style="-fx-background-color: white;" GridPane.rowIndex="5" GridPane.valignment="TOP" />
+               </children>
+            </GridPane>
+            <ImageView fitHeight="575.0" fitWidth="700.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+               <image>
+                  <Image url="@../images/OBC-4-Concept-Plan-Overview.jpg" />
+               </image>
+            </ImageView>
+            <Pane GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.rowIndex="1" GridPane.valignment="BOTTOM">
+               <children>
+            
+                                                      <Rectangle fx:id="classroom8" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="66.0" layoutX="380.0" layoutY="88.0" opacity="0.15" stroke="BLACK" strokeType="INSIDE" width="62.0" />
+                  <Rectangle fx:id="classroom6" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="66.0" layoutX="442.0" layoutY="89.0" opacity="0.15" stroke="BLACK" strokeType="INSIDE" width="62.0" />
+                  <Rectangle fx:id="classroom7" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="60.0" layoutX="427.0" layoutY="199.0" opacity="0.15" stroke="BLACK" strokeType="INSIDE" width="42.0" />
+                  <Rectangle fx:id="classroom5" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="60.0" layoutX="471.0" layoutY="200.0" opacity="0.15" stroke="BLACK" strokeType="INSIDE" width="55.0" />
+                  <Rectangle fx:id="classroom9" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="33.0" layoutX="383.0" layoutY="195.0" opacity="0.15" stroke="BLACK" strokeType="INSIDE" width="35.0" />
+                  <Rectangle fx:id="classroom1" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="43.0" layoutX="468.0" layoutY="367.0" opacity="0.15" stroke="BLACK" strokeType="INSIDE" width="78.0" />
+                  <Rectangle fx:id="MHCR" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="33.0" layoutX="469.0" layoutY="412.0" opacity="0.15" stroke="BLACK" strokeType="INSIDE" width="78.0" />
+                  <Rectangle fx:id="classroom2" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="33.0" layoutX="580.0" layoutY="278.0" opacity="0.15" rotate="70.0" stroke="BLACK" strokeType="INSIDE" width="69.0" />
+                  <Rectangle fx:id="classroom3" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="33.0" layoutX="552.0" layoutY="211.0" opacity="0.15" rotate="70.0" stroke="BLACK" strokeType="INSIDE" width="69.0" />
+                  <Rectangle fx:id="pantry" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="86.0" layoutX="478.0" layoutY="464.0" opacity="0.15" stroke="BLACK" strokeType="INSIDE" width="95.0" />
+                  <Rectangle fx:id="classroom4" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="66.0" layoutX="508.0" layoutY="88.0" opacity="0.15" stroke="BLACK" strokeType="INSIDE" width="35.0" />
+                  <Polygon fx:id="MHA" fill="DODGERBLUE" layoutX="626.0" layoutY="398.0" opacity="0.15" points="-50.0, 40.0, 39.0, 20.0, 18.8045654296875, -60.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
+               </children>
+            </Pane>
+         </children>
+      </GridPane>
+   </children>
+</Pane>

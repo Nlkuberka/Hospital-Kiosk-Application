@@ -31,7 +31,7 @@
                 <top>
                     <MenuBar blendMode="ADD" prefWidth="600.0" style="-fx-background-color: white;" stylesheets="@../css/background.css" BorderPane.alignment="CENTER">
                         <menus>
-                            <Menu mnemonicParsing="false" onShowing="#setHomeButton" text="Home">
+                            <Menu mnemonicParsing="false" onAction="#setCancelButton" onShowing="#setHomeButton" text="Back">
                      <items>
                         <MenuItem mnemonicParsing="false" text="HOME" />
                      </items>
@@ -49,7 +49,7 @@
          <right>
             <ImageView fitHeight="623.0" fitWidth="1000.0" pickOnBounds="true" preserveRatio="true" BorderPane.alignment="CENTER">
                <image>
-                  <Image url="@../maps/00_thelowerlevel2.png" />
+                  <Image url="@../maps/02_thesecondfloor.png" />
                </image>
             </ImageView>
          </right>
