@@ -95,6 +95,8 @@ public class UIControllerRVM extends UIController {
     @FXML
     private ArrayList<Shape> shapes = new ArrayList<>();
 
+    private List<String> IDs = new LinkedList<String>();
+
     /**
      * Run when the scene is first loaded
      */
@@ -144,6 +146,7 @@ public class UIControllerRVM extends UIController {
             while (rs.next()) {
                 workplaceIDs.put(rs.getString("ROOMNAME"), rs.getString("WKPLACEID"));
                 workplaces.add(rs.getString("ROOMNAME"));
+                IDs.add(rs.getString("WKPLACEID"));
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -177,9 +180,10 @@ public class UIControllerRVM extends UIController {
                 if (checkValidReservation()) {
                     for (int i = 0; i < workplaceSelect.getItems().size(); i++) {
 //                        if (workplaceIDs.get(workplaceSelect.getValue()).equals(roomToShape.get(shapes.get(i)))) {
-                            if (!DBControllerRW.isRoomAvailableString(workplaceSelect.getItems().get(i), getDateString(),
+                            if (!DBControllerRW.isRoomAvailableString(IDs.get(i), getDateString(),
                                     getTimeString(startTimePicker), getTimeString(endTimePicker), connection)) {
                                 System.out.println(workplaceSelect.getItems().get(i));
+                                System.out.println("Good news *animal starting with g*");
                                 shapes.get(i).setFill(javafx.scene.paint.Color.RED);
 
                             } else {
@@ -217,8 +221,8 @@ public class UIControllerRVM extends UIController {
         Reservation r = new Reservation(workplaceIDs.get(workplaceSelect.getValue()),
                 CurrentUser.user.getUserID(), dateString, startString, endString);
 
-        if (!r.isValid(reservations)) {
-//        if(DBController.isRoomAvailableString(r.getWkplaceID(), r.getDate(), r.getStartTime(), r.getEndTime() ,conn)) {
+//        if (!r.isValid(reservations)) {
+        if(!DBControllerRW.isRoomAvailableString(r.getWkplaceID(), r.getDate(), r.getStartTime(), r.getEndTime(), conn)) {
             popupMessage("This reservation conflicts with another.", true);
             return;
         }
