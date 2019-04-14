@@ -90,7 +90,7 @@ public class DBControllerRW extends DBController {
             Time endTime = Time.valueOf(reservation.getEndTime());
             Date date = new SimpleDateFormat("yyyy-MM-dd").parse(reservation.getDate());
 
-            if(isRoomAvailable(reservation.getWkplaceID(), date, startTime, endTime, connection)) {
+            if(isRoomAvailableString(reservation.getWkplaceID(), reservation.getDate(), reservation.getStartTime(), reservation.getEndTime(), connection)) {
                 //connection = DriverManager.getConnection("jdbc:derby:myDB");
                 PreparedStatement s = connection.prepareStatement("INSERT into RESERVATIONS (WKPLACEID, USERID, DAY, STARTTIME, ENDTIME) values ('" + reservation.getWkplaceID() +"','" + reservation.getUserID() +
                         "','"+ reservation.getDate() +"','"+ reservation.getStartTime() + "','" + reservation.getEndTime() + "')",Statement.RETURN_GENERATED_KEYS);
@@ -167,19 +167,17 @@ public class DBControllerRW extends DBController {
             //Four cases to check:
             //Reservation within the given times, starts before and ends during, starts during and ends after, or room is booked for the whole duration or more
 
-            Time startTime = Time.valueOf(startTimeSTR);
-            Time endTime = Time.valueOf(endTimeSTR);
-            Date date = new SimpleDateFormat("yyyy-MM-dd").parse(dateSTR);
+//            Time startTime = Time.valueOf(startTimeSTR);
+//            Time endTime = Time.valueOf(endTimeSTR);
+//            Date date = new SimpleDateFormat("yyyy-MM-dd").parse(dateSTR);
 
             Statement s = connection.createStatement();
-            ResultSet rs = s.executeQuery("select * from RESERVATIONS where WKPLACEID = '" + wkplaceID + "' and DAY = '" + date + "' and " +
-                    "((STARTTIME >= '" + startTime + "' and ENDTIME <= '" + endTime + "') " +
-                    "OR (STARTTIME < '" + startTime + "' and ENDTIME > '" + startTime + "') " +
-                    "OR (STARTTIME < '" + endTime + "' and ENDTIME > '" + endTime + "'))");
+            ResultSet rs = s.executeQuery("select * from RESERVATIONS where WKPLACEID = '" + wkplaceID + "' and DAY = '" + dateSTR + "' and " +
+                    "((STARTTIME >= '" + startTimeSTR + "' and ENDTIME <= '" + endTimeSTR + "') " +
+                    "OR (STARTTIME < '" + startTimeSTR + "' and ENDTIME > '" + startTimeSTR + "') " +
+                    "OR (STARTTIME < '" + endTimeSTR + "' and ENDTIME > '" + endTimeSTR + "'))");
             return !rs.next();
         }catch(SQLException e){
-            e.printStackTrace();
-        }catch(ParseException e) {
             e.printStackTrace();
         }
         return false;

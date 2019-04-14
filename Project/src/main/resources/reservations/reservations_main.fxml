@@ -108,6 +108,21 @@
             <Rectangle fx:id="pantry" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="86.0" layoutX="640.0" layoutY="440.0" opacity="0.15" stroke="BLACK" strokeType="INSIDE" width="95.0" />
             <Rectangle fx:id="classroom4" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="66.0" layoutX="665.0" layoutY="70.0" opacity="0.15" stroke="BLACK" strokeType="INSIDE" width="35.0" />
             <Polygon fx:id="MHA" fill="DODGERBLUE" layoutX="785.0" layoutY="374.0" opacity="0.15" points="-50.0, 40.0, 39.0, 20.0, 18.8045654296875, -60.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="25.0" layoutX="287.0" layoutY="106.0" opacity="0.29" stroke="BLACK" strokeType="INSIDE" width="19.0" />
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="25.0" layoutX="297.0" layoutY="116.0" opacity="0.29" stroke="BLACK" strokeType="INSIDE" width="19.0" />
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="21.0" layoutX="307.0" layoutY="126.0" opacity="0.29" stroke="BLACK" strokeType="INSIDE" width="19.0" />
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="21.0" layoutX="317.0" layoutY="136.0" opacity="0.29" stroke="BLACK" strokeType="INSIDE" width="19.0" />
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="21.0" layoutX="327.0" layoutY="146.0" opacity="0.29" stroke="BLACK" strokeType="INSIDE" width="19.0" />
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="21.0" layoutX="337.0" layoutY="156.0" opacity="0.29" stroke="BLACK" strokeType="INSIDE" width="19.0" />
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="21.0" layoutX="347.0" layoutY="166.0" opacity="0.29" stroke="BLACK" strokeType="INSIDE" width="19.0" />
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="21.0" layoutX="357.0" layoutY="176.0" opacity="0.29" stroke="BLACK" strokeType="INSIDE" width="19.0" />
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="21.0" layoutX="367.0" layoutY="186.0" opacity="0.29" stroke="BLACK" strokeType="INSIDE" width="19.0" />
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="21.0" layoutX="377.0" layoutY="196.0" opacity="0.29" stroke="BLACK" strokeType="INSIDE" width="19.0" />
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="21.0" layoutX="387.0" layoutY="206.0" opacity="0.29" stroke="BLACK" strokeType="INSIDE" width="19.0" />
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="21.0" layoutX="397.0" layoutY="216.0" opacity="0.29" stroke="BLACK" strokeType="INSIDE" width="19.0" />
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="21.0" layoutX="407.0" layoutY="226.0" opacity="0.29" stroke="BLACK" strokeType="INSIDE" width="19.0" />
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="21.0" layoutX="417.0" layoutY="236.0" opacity="0.29" stroke="BLACK" strokeType="INSIDE" width="19.0" />
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="21.0" layoutX="427.0" layoutY="246.0" opacity="0.29" stroke="BLACK" strokeType="INSIDE" width="19.0" />
             </children>
         </AnchorPane>
     </children>
