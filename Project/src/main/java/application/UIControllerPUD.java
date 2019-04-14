@@ -28,7 +28,6 @@ public class UIControllerPUD extends UIController{
 
     @FXML
     public void setDirections(String message){
-        directions.setText(message);
+        directions.setText(message); //  sets the text received from the pathfinding
     }
-
 }
