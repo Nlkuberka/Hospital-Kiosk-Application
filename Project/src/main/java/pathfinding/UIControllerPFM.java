@@ -227,8 +227,7 @@ public class UIControllerPFM extends UIController {
 
     @Override
     public void onShow() {
-        /*Connection conn = DBControllerNE.dbConnect();
-        LinkedList<Node> allRooms = DBControllerNE.generateListOfNodes(conn,DBControllerNE.ALL_ROOMS);
+        Connection conn = DBControllerNE.dbConnect();
 
         roomsAtEachFloor.add(DBControllerNE.generateListOfNodes(conn, DBControllerNE.ALL_ROOMS_FLOOR_L2));
         roomsAtEachFloor.add(DBControllerNE.generateListOfNodes(conn, DBControllerNE.ALL_ROOMS_FLOOR_L1));
@@ -242,17 +241,18 @@ public class UIControllerPFM extends UIController {
         initialLocationSelect.getItems().clear();
         destinationSelect.getItems().clear();
 
-        for (Node node : allRooms) {
-            // update choices for initial location
-            initialLocationSelect.getItems().add(node.getLongName());
-            // update choices for destination location
-            destinationSelect.getItems().addAll(node.getLongName());
+        for (LinkedList<Node> list : this.roomsAtEachFloor) {
+            for (Node node : list) {
+                // update choices for initial location
+                initialLocationSelect.getItems().add(node.getLongName());
+                // update choices for destination location
+                destinationSelect.getItems().addAll(node.getLongName());
+            }
         }
 
 
 
-        drawNodes(roomsAtEachFloor.get(mapHandler.currentFloor.getIndex()));
-        */
+        //drawNodes(roomsAtEachFloor.get(mapHandler.currentFloor.getIndex()));
     }
 
     private void initialBindings() {
