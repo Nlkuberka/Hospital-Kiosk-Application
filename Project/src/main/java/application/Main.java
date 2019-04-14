@@ -9,11 +9,9 @@ import entities.Node;
 import javafx.application.Application;
 import javafx.stage.Stage;
 
-
 import java.sql.Connection;
 import java.sql.DatabaseMetaData;
 import java.sql.ResultSet;
-import java.util.LinkedList;
 import java.util.List;
 
 public class Main extends Application {
@@ -22,7 +20,7 @@ public class Main extends Application {
     public void start(Stage primaryStage) throws Exception {
         UIController controller = new UIController(primaryStage);
 
-        controller.goToScene(UIController.LOGIN_MAIN);
+        controller.goToScene(UIController.WELCOME_MAIN);
 
 
         System.out.println("Collaborator is " + "X");
