@@ -137,16 +137,13 @@ public class UIControllerPUMVAN extends UIController {
             node.setLongName(TextField_LongName.getText());
             node.setShortName(TextField_ShortName.getText());
             Connection conn = DBController.dbConnect();
-            if(action.equals("ADD"))
-            {
-                if(!DBControllerNE.addNode(node, conn))
-                {
+            if(action.equals("ADD")){
+                if(!DBControllerNE.addNode(node, conn)){
                     TextField_NodeID.clear();
                     return;
                 }
             }
-            else if(action.equals("EDIT"))
-            {
+            else if(action.equals("EDIT")){
                 DBControllerNE.updateNode(node, conn);
             }
             DBControllerNE.closeConnection(conn);
