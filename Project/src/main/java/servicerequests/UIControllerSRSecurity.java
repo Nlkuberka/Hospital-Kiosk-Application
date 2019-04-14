@@ -9,6 +9,7 @@ import entities.Node;
 
 import com.jfoenix.controls.JFXButton;
 import entities.ServiceRequest;
+import helper.RoomCategoryFilterHelper;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.control.ChoiceBox;
@@ -24,7 +25,10 @@ Security Service Request
  */
 public class UIControllerSRSecurity extends UIController {
     String serviceType;
-    Map<String, String> nodeIDs; /**< Holds reference between node short name and nodeID*/
+    RoomCategoryFilterHelper filterHelper;
+
+    @FXML
+    private ChoiceBox roomCategory;
 
     @FXML
     private ChoiceBox roomSelect;
@@ -54,19 +58,7 @@ public class UIControllerSRSecurity extends UIController {
 
     @FXML
     public void onShow() {
-        List<String> nodeShortNames = new ArrayList<String>();
-        nodeIDs = new HashMap<String, String>();
-
-
-        Connection conn = DBControllerNE.dbConnect();
-        LinkedList<Node> rooms = DBControllerNE.generateListOfNodes(conn,DBControllerNE.ALL_ROOMS);
-        for(Node n:rooms) {
-            nodeIDs.put(n.getShortName(), n.getNodeID());
-            nodeShortNames.add(n.getShortName());
-        }
-        DBControllerNE.closeConnection(conn);
-        roomSelect.setItems(FXCollections.observableList(nodeShortNames));
-        roomSelect.getSelectionModel().selectFirst();
+        filterHelper = new RoomCategoryFilterHelper(roomCategory, roomSelect, null, false);
 
         String[] priorities = {"1","2","3","4","5"};
         prioritySelect.setItems(FXCollections.observableList(Arrays.asList(priorities)));
@@ -82,7 +74,7 @@ public class UIControllerSRSecurity extends UIController {
     @FXML
     private void setConfirmButton() {
         String roomShortName = (String) roomSelect.getValue();
-        String nodeID = nodeIDs.get(roomShortName);
+        String nodeID = filterHelper.getNodeID();
         String message = prioritySelect.getValue() + " - " + serviceMessage.getText();
         serviceMessage.clear();
 

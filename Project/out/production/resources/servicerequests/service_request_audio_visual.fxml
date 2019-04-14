@@ -29,7 +29,7 @@
                 <top>
                     <MenuBar blendMode="ADD" prefWidth="600.0" style="-fx-background-color: white;" stylesheets="@../css/background.css" BorderPane.alignment="CENTER">
                         <menus>
-                            <Menu fx:id="homeButton" mnemonicParsing="false" onAction="#setHomeButton" onShowing="#setHomeButton" text="Home">
+                            <Menu fx:id="homeButton" mnemonicParsing="false" onAction="#setCancelButton" onShowing="#setHomeButton" text="Home">
                      <items>
                         <MenuItem mnemonicParsing="false" onAction="#setHomeButton" text="HOME" />
                      </items>
@@ -73,30 +73,30 @@
                         </ImageView>
                      </graphic>
                   </JFXButton>
-                  <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Request Audio Visual Equipment" GridPane.columnIndex="1" GridPane.halignment="LEFT">
+                  <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Request Audio Visual Equipment" GridPane.columnIndex="1" GridPane.halignment="CENTER">
                      <font>
                         <Font name="System Bold Italic" size="24.0" />
                      </font>
                   </Text>
-                  <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Panagiotis Argyrakis" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="1" GridPane.valignment="TOP">
+                  <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Panagiotis Argyrakis" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="TOP">
                      <font>
                         <Font name="System Bold" size="12.0" />
                      </font>
                   </Text>
-                  <ChoiceBox fx:id="roomSelect" onAction="#validate" style="-fx-background-color: #ffffff;" GridPane.columnIndex="1" GridPane.fillWidth="true" GridPane.rowIndex="5" />
-                  <JFXTextField fx:id="serviceMessage" alignment="TOP_LEFT" prefHeight="200.0" style="-fx-background-color: #ffffff;" GridPane.columnIndex="1" GridPane.fillHeight="true" GridPane.fillWidth="true" GridPane.rowIndex="7" />
-                  <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Select Room" GridPane.columnIndex="1" GridPane.rowIndex="4" GridPane.valignment="BOTTOM">
+                  <ChoiceBox fx:id="roomSelect" onAction="#validate" style="-fx-background-color: #ffffff;" GridPane.columnIndex="1" GridPane.fillWidth="true" GridPane.halignment="CENTER" GridPane.rowIndex="5" />
+                  <JFXTextField fx:id="serviceMessage" alignment="TOP_LEFT" prefHeight="200.0" style="-fx-background-color: #ffffff;" GridPane.columnIndex="1" GridPane.fillHeight="true" GridPane.fillWidth="true" GridPane.halignment="CENTER" GridPane.rowIndex="7" />
+                  <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Select Room" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="BOTTOM">
                      <font>
                         <Font name="System Bold" size="12.0" />
                      </font>
                   </Text>
-                  <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Select Service Type" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                  <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Select Service Type" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2">
                      <font>
                         <Font name="System Bold" size="12.0" />
                      </font>
                   </Text>
-                  <ChoiceBox fx:id="serviceSelect" onAction="#validate" prefWidth="150.0" style="-fx-background-color: #ffffff;" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                  <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Message (optional)" GridPane.columnIndex="1" GridPane.rowIndex="6">
+                  <ChoiceBox fx:id="serviceSelect" onAction="#validate" prefWidth="150.0" style="-fx-background-color: #ffffff;" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="3" />
+                  <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Message (optional)" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="6">
                      <font>
                         <Font name="System Bold" size="12.0" />
                      </font>
@@ -108,7 +108,7 @@
          <center>
             <ImageView fitWidth="575.0" pickOnBounds="true" preserveRatio="true" BorderPane.alignment="CENTER">
                     <image>
-                        <Image url="@../maps/00_thelowerlevel2.png" />
+                        <Image url="@../maps/02_thesecondfloor.png" />
                     </image>
             </ImageView>
          </center>

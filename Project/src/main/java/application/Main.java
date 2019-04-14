@@ -9,11 +9,9 @@ import entities.Node;
 import javafx.application.Application;
 import javafx.stage.Stage;
 
-
 import java.sql.Connection;
 import java.sql.DatabaseMetaData;
 import java.sql.ResultSet;
-import java.util.LinkedList;
 import java.util.List;
 
 public class Main extends Application {

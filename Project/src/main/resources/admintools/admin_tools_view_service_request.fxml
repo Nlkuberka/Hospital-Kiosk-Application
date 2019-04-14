@@ -46,7 +46,7 @@
             </MenuBar>
          </top>
          <center>
-            <TableView fx:id="serviceRequestTable" stylesheets="@../css/background.css" BorderPane.alignment="CENTER">
+            <TableView fx:id="serviceRequestTable" maxWidth="1000.0" prefHeight="490.0" prefWidth="1000.0" stylesheets="@../css/background.css" BorderPane.alignment="CENTER">
               <columns>
                 <TableColumn prefWidth="130.0" text="Request Room" />
                 <TableColumn prefWidth="130.0" text="Service Type" />

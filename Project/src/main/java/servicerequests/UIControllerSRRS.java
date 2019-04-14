@@ -8,6 +8,7 @@ import com.jfoenix.controls.JFXCheckBox;
 import com.jfoenix.controls.JFXTextField;
 import database.DBControllerSR;
 import entities.ServiceRequest;
+import helper.RoomCategoryFilterHelper;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -56,7 +57,7 @@ public class UIControllerSRRS extends UIController {
     private ImageView backgroundImage;
     private String serviceType;
     private String finalMessage;
-    private Map<String, String> nodeIDs;
+    private RoomCategoryFilterHelper filterHelper;
 
     private HashMap<String, String> denomAbrev;
     private HashMap<String, String> servAbrev;
@@ -66,7 +67,9 @@ public class UIControllerSRRS extends UIController {
     private LinkedList<CheckBox> denomCheckBoxes;
     private LinkedList<CheckBox> serviceCheckBoxes;
     @FXML
-    private ChoiceBox roomSelect;
+    private ChoiceBox<String> roomCategory;
+    @FXML
+    private ChoiceBox<String> roomSelect;
     @FXML
     private TextArea serviceMessage;
     @FXML
@@ -126,22 +129,7 @@ public class UIControllerSRRS extends UIController {
 
     @FXML
     public void onShow() {
-        List<String> nodeShortNames = new ArrayList<String>();
-        nodeIDs = new HashMap<String, String>();
-
-        // DB Get all Nodes
-        try {
-            Connection conn = DBController.dbConnect();
-            ResultSet rs = conn.createStatement().executeQuery("Select * From NODES where FLOOR = '2' AND BUILDING = 'Tower'");
-            while (rs.next()) {
-                nodeIDs.put(rs.getString("SHORTNAME"), rs.getString("NODEID"));
-                nodeShortNames.add(rs.getString("SHORTNAME"));
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        roomSelect.setItems(FXCollections.observableList(nodeShortNames));
-        roomSelect.getSelectionModel().selectFirst();
+        filterHelper = new RoomCategoryFilterHelper(roomCategory, roomSelect, null, true);
         serviceMessage.setText("");
     }
 
@@ -152,7 +140,7 @@ public class UIControllerSRRS extends UIController {
     @FXML
     private void setConfirmButton() {
         String roomShortName = (String) roomSelect.getValue();
-        String nodeID = nodeIDs.get(roomShortName);
+        String nodeID = filterHelper.getNodeID();
         String message = finalMessage + "\n" + additionalCommentField.getText();
 
         if(message.length() > 149)

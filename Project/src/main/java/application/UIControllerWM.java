@@ -26,6 +26,8 @@ public class UIControllerWM extends UIController{
      */
     @FXML
     public void initialize() {
+
         backgroundImage.fitWidthProperty().bind(primaryStage.widthProperty());
+       backgroundImage.fitHeightProperty().bind(primaryStage.heightProperty());
     }
 }

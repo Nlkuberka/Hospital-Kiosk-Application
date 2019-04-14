@@ -92,7 +92,6 @@ public class DBController {
 
 
 
-
         createTable(nodes,conn);
         createTable(edges,conn);
         createTable(user,conn);
@@ -100,7 +99,7 @@ public class DBController {
         createTable(workplaces, conn);
         createTable(reservations,conn);
 
-        DBControllerNE.loadNodeData(new File("nodesv4.csv"),conn);
+        DBControllerNE.loadNodeData(new File("nodesv5.csv"),conn);
         DBControllerNE.loadEdgeData(new File("edgesv5.csv"),conn);
         DBControllerRW.loadWorkplaceData(new File( "workplaces.csv"),conn);
 
