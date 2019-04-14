@@ -40,7 +40,7 @@
         <Text strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-fill: White; -fx-font-weight: Bold; -fx-font-size: 18;" text="Floor" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="4" />
         <Text strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-fill: White; -fx-font-weight: Bold; -fx-font-size: 18;" text="Short Name" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="6" />
 
-        <JFXTextField fx:id="TextField_NodeID" alignment="CENTER" maxWidth="260.0" style="-fx-background-color: White;" GridPane.halignment="CENTER" GridPane.rowIndex="1">
+        <JFXTextField fx:id="TextField_NodeID" alignment="CENTER" maxWidth="260.0" promptText="Max Characters: 10 " style="-fx-background-color: White; -fx-prompt-text-fill: derive(-fx-control-inner-background,-30%);" GridPane.halignment="CENTER" GridPane.rowIndex="1">
             <GridPane.margin>
                 <Insets left="20.0" right="20.0" />
             </GridPane.margin>
@@ -48,7 +48,7 @@
             <Font name="System Bold" size="14.0" />
          </font>
         </JFXTextField>
-        <JFXTextField fx:id="TextField_XCoor" alignment="CENTER" maxWidth="260.0" style="-fx-background-color: White;" GridPane.halignment="CENTER" GridPane.rowIndex="3">
+        <JFXTextField fx:id="TextField_XCoor" alignment="CENTER" editable="false" maxWidth="260.0" style="-fx-background-color: White;" GridPane.halignment="CENTER" GridPane.rowIndex="3">
             <GridPane.margin>
                 <Insets left="20.0" right="20.0" />
             </GridPane.margin>
@@ -56,7 +56,7 @@
             <Font name="System Bold" size="14.0" />
          </font>
         </JFXTextField>
-        <JFXTextField fx:id="TextField_Building" alignment="CENTER" maxWidth="260.0" style="-fx-background-color: White;" GridPane.halignment="CENTER" GridPane.rowIndex="5">
+        <JFXTextField fx:id="TextField_Building" alignment="CENTER" maxWidth="260.0" promptText="Max Characters: 15" style="-fx-background-color: White; -fx-prompt-text-fill: derive(-fx-control-inner-background,-30%);" GridPane.halignment="CENTER" GridPane.rowIndex="5">
             <GridPane.margin>
                 <Insets left="20.0" right="20.0" />
             </GridPane.margin>
@@ -64,7 +64,7 @@
             <Font name="System Bold" size="14.0" />
          </font>
         </JFXTextField>
-        <JFXTextField fx:id="TextField_LongName" alignment="CENTER" maxWidth="260.0" style="-fx-background-color: White;" GridPane.halignment="CENTER" GridPane.rowIndex="7">
+        <JFXTextField fx:id="TextField_LongName" alignment="CENTER" maxWidth="260.0" promptText="Max Characters: 49" style="-fx-background-color: White; -fx-prompt-text-fill: derive(-fx-control-inner-background,-30%);" GridPane.halignment="CENTER" GridPane.rowIndex="7">
             <GridPane.margin>
                 <Insets left="20.0" right="20.0" />
             </GridPane.margin>
@@ -72,7 +72,7 @@
             <Font name="System Bold" size="14.0" />
          </font>
         </JFXTextField>
-        <JFXTextField fx:id="TextField_NodeType" alignment="CENTER" maxWidth="260.0" style="-fx-background-color: White;" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1">
+        <JFXTextField fx:id="TextField_NodeType" alignment="CENTER" maxWidth="260.0" promptText="Max Characters: 4" style="-fx-background-color: White; -fx-prompt-text-fill: derive(-fx-control-inner-background,-30%);" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1">
             <GridPane.margin>
                 <Insets left="20.0" right="20.0" />
             </GridPane.margin>
@@ -80,7 +80,7 @@
             <Font name="System Bold" size="14.0" />
          </font>
         </JFXTextField>
-        <JFXTextField fx:id="TextField_YCoor" alignment="CENTER" maxWidth="260.0" style="-fx-background-color: White;" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="3">
+        <JFXTextField fx:id="TextField_YCoor" alignment="CENTER" editable="false" maxWidth="260.0" style="-fx-background-color: White;" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="3">
             <GridPane.margin>
                 <Insets left="20.0" right="20.0" />
             </GridPane.margin>
@@ -96,7 +96,7 @@
             <Font name="System Bold" size="14.0" />
          </font>
         </JFXTextField>
-        <JFXTextField fx:id="TextField_ShortName" alignment="CENTER" maxWidth="260.0" style="-fx-background-color: White;" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="7">
+        <JFXTextField fx:id="TextField_ShortName" alignment="CENTER" maxWidth="260.0" promptText="Max Characters: 49" style="-fx-background-color: White; -fx-prompt-text-fill: derive(-fx-control-inner-background,-30%);" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="7">
             <GridPane.margin>
                 <Insets left="20.0" right="20.0" />
             </GridPane.margin>
