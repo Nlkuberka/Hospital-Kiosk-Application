@@ -162,8 +162,8 @@ public class DBControllerNE extends DBController{
             ps.setString(5,node.getNodeType());
             ps.setString(6,node.getLongName());
             ps.setString(7,node.getShortName());
-            ps.setString(6,node.getNodeID());
-
+            ps.setString(8,node.getNodeID());
+            ps.execute();
         }catch(SQLException e){
             e.printStackTrace();
         }

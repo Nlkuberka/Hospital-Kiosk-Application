@@ -6,8 +6,10 @@ import database.DBControllerNE;
 import entities.Edge;
 import entities.Node;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Cursor;
 import javafx.scene.Group;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -104,6 +106,8 @@ public class UIControllerATMV extends UIController {
 
     // The multiplication factor at which the map changes size
     private double zoomFactor = 1.2;
+    private double mouseX;
+    private double mouseY;
 
     @FXML
     public void initialize() {
@@ -221,6 +225,36 @@ public class UIControllerATMV extends UIController {
                     editNodeOnClick(tempNode);
                 } catch (IOException e) {
                     e.printStackTrace();
+                }
+            });
+
+            circle.setOnMousePressed(new EventHandler<MouseEvent>() {
+                @Override
+                public void handle(MouseEvent mouseEvent) {
+                    mouseX = circle.getLayoutX() - mouseEvent.getSceneX();
+                    mouseY = circle.getLayoutY() - mouseEvent.getSceneY();
+                    circle.setCursor(Cursor.MOVE);
+                }
+            });
+
+            circle.setOnMouseDragged(new EventHandler<MouseEvent>() {
+                @Override
+                public void handle(MouseEvent mouseEvent) {
+                    circle.setLayoutX(mouseEvent.getSceneX() + mouseX);
+                    circle.setLayoutY(mouseEvent.getSceneY() + mouseY);
+
+                }
+            });
+
+            circle.setOnMouseReleased(new EventHandler<MouseEvent>() {
+                @Override
+                public void handle(MouseEvent mouseEvent) {
+                    tempNode.setXcoord(tempNode.getXcoord() + (int) Math.round(circle.getLayoutX() / scaleFx));
+                    tempNode.setYcoord(tempNode.getYcoord() + (int) Math.round(circle.getLayoutY() / scaleFy));
+                    Connection conn = DBController.dbConnect();
+                    DBControllerNE.updateNode(tempNode, conn);
+                    DBController.closeConnection(conn);
+                    draw();
                 }
             });
 
