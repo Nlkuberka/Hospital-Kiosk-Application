@@ -193,14 +193,12 @@ public class UIControllerRVM extends UIController {
 //                        if (workplaceIDs.get(workplaceSelect.getValue()).equals(roomToShape.get(shapes.get(i)))) {
                             if (!DBControllerRW.isRoomAvailableString(IDs.get(i), getDateString(),
                                     getTimeString(startTimePicker), getTimeString(endTimePicker), connection)) {
-                                System.out.println(workplaceSelect.getItems().get(i));
-                                System.out.println("Good news *animal starting with g*");
+                                System.out.println(workplaceSelect.getItems().get(i) + "is reserved at this time");
                                 shapes.get(i).setFill(javafx.scene.paint.Color.RED);
 
                             } else {
 //                    classroom6.setFill(javafx.scene.paint.Color.RED);
                                 shapes.get(i).setFill(javafx.scene.paint.Color.GREEN);
-                                System.out.println("bad new bears");
                             }
 //                        }
                     }
