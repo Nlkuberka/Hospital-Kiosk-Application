@@ -6,7 +6,7 @@ import java.util.Stack;
 public class DFSGraph extends Graph {
     private Stack<Integer> stack;
 
-    public DFSGraph(LinkedList<Node> storedNodes) {
+    protected DFSGraph(LinkedList<Node> storedNodes) {
         super(storedNodes);
     }
 

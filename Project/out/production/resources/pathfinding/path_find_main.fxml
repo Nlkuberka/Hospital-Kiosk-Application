@@ -23,7 +23,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<StackPane fx:id="parentPane" prefHeight="1080.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pathfinding.UIControllerPFM">
+<StackPane minHeight="720.0" minWidth="1280.0" fx:id="parentPane" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pathfinding.UIControllerPFM">
      <children>
          <ImageView fx:id="backgroundImage" pickOnBounds="true">
              <Image url="@/images/Hospitalbackground.png" />
@@ -109,11 +109,7 @@
                            <graphic>
                               <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
-<<<<<<< HEAD
-                                    <Image url="@/icon/zoom-in.png" />
-=======
                                     <Image url="@../icon/zoom-in.png" />
->>>>>>> iteration3
                                  </image>
                               </ImageView>
                            </graphic>
@@ -125,11 +121,7 @@
                            <graphic>
                               <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
-<<<<<<< HEAD
-                                    <Image url="@/icon/zoom-out.png" />
-=======
                                     <Image url="@../icon/zoom-out.png" />
->>>>>>> iteration3
                                  </image>
                               </ImageView>
                            </graphic>
@@ -142,15 +134,9 @@
             </StackPane>
              </HBox>
          </VBox>
-<<<<<<< HEAD
-      <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" StackPane.alignment="TOP_LEFT" stylesheets="/css/controlsGridpane.css" style=".controls-anchor">
-         <children>
-            <GridPane fx:id="interfaceGrid" stylesheets="/css/controlsGridpane.css" style=".controls-grid">
-=======
       <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" style=".controls-anchor" stylesheets="/css/controlsGridpane.css" StackPane.alignment="TOP_LEFT">
          <children>
             <GridPane fx:id="interfaceGrid" style=".controls-grid" stylesheets="/css/controlsGridpane.css">
->>>>>>> iteration3
                <columnConstraints>
                   <ColumnConstraints fillWidth="true" hgrow="ALWAYS" minWidth="200.0" />
                </columnConstraints>
@@ -158,19 +144,14 @@
                   <RowConstraints percentHeight="5.0" vgrow="ALWAYS" />
                   <RowConstraints percentHeight="5.0" vgrow="ALWAYS" />
                   <RowConstraints percentHeight="10.0" vgrow="ALWAYS" />
-                  <RowConstraints percentHeight="10.0" vgrow="ALWAYS" />
+                  <RowConstraints percentHeight="5.0" vgrow="ALWAYS" />
                   <RowConstraints percentHeight="5.0" vgrow="ALWAYS" />
                   <RowConstraints percentHeight="10.0" vgrow="ALWAYS" />
-                  <RowConstraints percentHeight="20.0" vgrow="ALWAYS" />
+                  <RowConstraints percentHeight="10.0" vgrow="ALWAYS" />
                   <RowConstraints percentHeight="15.0" vgrow="ALWAYS" />
                   <RowConstraints percentHeight="20.0" vgrow="ALWAYS" />
-<<<<<<< HEAD
-=======
-                  <RowConstraints minHeight="10.0" percentHeight="20.0" prefHeight="30.0" vgrow="ALWAYS" />
-                  <RowConstraints minHeight="10.0" percentHeight="20.0" prefHeight="30.0" vgrow="ALWAYS" />
-                  <RowConstraints minHeight="10.0" percentHeight="20.0" prefHeight="30.0" vgrow="ALWAYS" />
-                  <RowConstraints minHeight="10.0" percentHeight="20.0" prefHeight="30.0" vgrow="ALWAYS" />
->>>>>>> iteration3
+                  <RowConstraints minHeight="0.0" percentHeight="20.0" prefHeight="30.0" vgrow="ALWAYS" />
+                  <RowConstraints minHeight="0.0" percentHeight="15.0" prefHeight="30.0" vgrow="ALWAYS" />
                </rowConstraints>
                <children>
                          <Text fill="WHITE" smooth="false" strokeType="OUTSIDE" strokeWidth="0.0" text="Initial Location" textAlignment="CENTER" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
@@ -200,11 +181,8 @@
                         <Font name="System Bold" size="14.0" />
                      </font>
                   </JFXButton>
-<<<<<<< HEAD
-=======
-                  <JFXButton fx:id="loginButton" onAction="#setLoginButton" styleClass="jfx-button-login" stylesheets="@../css/background.css" text="Login" GridPane.halignment="CENTER" GridPane.rowIndex="11" GridPane.valignment="CENTER" />
-                  <JFXButton fx:id="serviceRequestButton" onAction="#setServiceRequestButton" styleClass="jfx-button-login" stylesheets="@../css/background.css" text="Service Request" GridPane.halignment="CENTER" GridPane.rowIndex="12" />
->>>>>>> iteration3
+                  <JFXButton fx:id="loginButton" onAction="#setLoginButton" styleClass="jfx-button-login" stylesheets="@../css/background.css" text="Login" GridPane.halignment="CENTER" GridPane.rowIndex="9" GridPane.valignment="CENTER" />
+                  <JFXButton fx:id="serviceRequestButton" onAction="#setServiceRequestButton" styleClass="jfx-button-login" stylesheets="@../css/background.css" text="Service Request" GridPane.halignment="CENTER" GridPane.rowIndex="10" />
                </children>
             </GridPane>
          </children>

@@ -48,6 +48,9 @@ public class UIControllerSRIT extends UIController{
     @FXML
     private JFXButton confirmButton; /**< The confirm button*/
 
+    @FXML
+    private JFXButton homeButton;
+
 
     @FXML
     public void initialize() {

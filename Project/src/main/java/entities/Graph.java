@@ -17,7 +17,7 @@ public abstract class Graph {
      * Constructor
      * Initalizes the graph with the given number of nodes
      */
-    public Graph(LinkedList<Node> storedNodes) {
+    protected Graph(LinkedList<Node> storedNodes) {
         this.storedNodes = storedNodes;
         if(storedNodes.size() < 0) {
             throw new IllegalArgumentException("Number of nodes must be greater than or equal to 0");
@@ -29,6 +29,48 @@ public abstract class Graph {
             this.adj.add(new LinkedList<Integer>());
             this.adjWeights.add(new LinkedList<>());
         }
+    }
+
+    private static class GraphGetter {
+        private static Graph graph = new AStarGraph(new LinkedList<>());
+    }
+
+    /**
+     * Gets the graph from the singleton design pattern.
+     * @return the graph for the hospital
+     */
+    public static Graph getGraph() {
+        return GraphGetter.graph;
+    }
+
+    /**
+     * Replaces the graph with a new graph that computes shortest path by A* algorithm.
+     */
+    public static void toAStar() {
+        Graph newGraph = new AStarGraph(GraphGetter.graph.storedNodes);
+        newGraph.adj = GraphGetter.graph.adj;
+        newGraph.adjWeights = GraphGetter.graph.adjWeights;
+        GraphGetter.graph = newGraph;
+    }
+
+    /**
+     * Replaces the graph with a new graph that computes shortest path by breadth first search algorithm.
+     */
+    public static void toBFS() {
+        Graph newGraph = new BFSGraph(GraphGetter.graph.storedNodes);
+        newGraph.adj = GraphGetter.graph.adj;
+        newGraph.adjWeights = GraphGetter.graph.adjWeights;
+        GraphGetter.graph = newGraph;
+    }
+
+    /**
+     * Replaces the graph with a new graph that computes shortest path by depth first search algorithm.
+     */
+    public static void toDFS() {
+        Graph newGraph = new DFSGraph(GraphGetter.graph.storedNodes);
+        newGraph.adj = GraphGetter.graph.adj;
+        newGraph.adjWeights = GraphGetter.graph.adjWeights;
+        GraphGetter.graph = newGraph;
     }
 
     /**
@@ -62,10 +104,12 @@ public abstract class Graph {
      * @return the index of the node in the LinkedList or -1 for failure
      */
     public int mapNodeIDToIndex(String desiredNodeID){
+        int index = 0;
         for(Node n: storedNodes){
             if(n.getNodeID().equals(desiredNodeID)) {
-                return storedNodes.indexOf(n);
+                return index;
             }
+            index++;
         }
         return -1;
     }
@@ -201,16 +245,18 @@ public abstract class Graph {
      * @param desiredNodeID is the ID of the desired ID to remove
      */
     public void removeNode(String desiredNodeID) {
-        int storedNodesLength = storedNodes.size();
-        for(int i = 0; i < storedNodesLength; i++) {
+        int nodeIndex = mapNodeIDToIndex(desiredNodeID);
+        if(nodeIndex == -1) {
+            return;
+        }
+        for(int i = 0; i < storedNodes.size(); i++) {
             removeBiEdge(desiredNodeID, mapIndexToNode(i).getNodeID());
         }
-        int nodeIndex = mapNodeIDToIndex(desiredNodeID);
         adj.remove(nodeIndex);
         adjWeights.remove(nodeIndex);
-        storedNodesLength--;
+        storedNodes.remove(nodeIndex);
 
-        for(int i = 0; i < storedNodesLength; i++) {
+        for(int i = 0; i < storedNodes.size(); i++) {
             List<Integer> adjList = adj.get(i);
             for(int j = 0; j < adjList.size(); j++) {
                 if(adjList.get(j) > nodeIndex) {
@@ -263,10 +309,12 @@ public abstract class Graph {
      * @param nodeID2 is the second node to be checked for an edge
      */
     public void removeEdge(String nodeID1, String nodeID2) {
-        if(mapNodeIDToIndex(nodeID1) == mapNodeIDToIndex(nodeID2)) {
+        int nodeIndex1 = mapNodeIDToIndex(nodeID1);
+        int nodeIndex2 = mapNodeIDToIndex(nodeID2);
+        if(nodeIndex1 == nodeIndex2 || nodeIndex1 == -1 || nodeIndex2 == -1) {
             return;
         }
-        int edgeIndex = adj.get(mapNodeIDToIndex(nodeID1)).indexOf(mapNodeIDToIndex(nodeID2));
+        int edgeIndex = adj.get(nodeIndex1).indexOf(nodeIndex2);
         if(edgeIndex >= 0) {
             //edgeNum--;  TODO: Fix error I do not know what this does or where it comes from
             adj.get(mapNodeIDToIndex(nodeID1)).remove(edgeIndex);
@@ -302,26 +350,7 @@ public abstract class Graph {
         return adj.get(n).size();
     }
 
-    /**
-     * Creates a graph with the same nodes and edges as the object this method is called on.
-     * The new graph computes shortest paths using a breadth-first-search algorithm.
-     */
-    public BFSGraph toBFS() {
-        BFSGraph returnValue = new BFSGraph(storedNodes);
-        returnValue.adj = adj;
-        returnValue.adjWeights = adjWeights;
-        return returnValue;
-    }
-    /**
-     * Creates a graph with the same nodes and edges as the object this method is called on.
-     * The new graph computes shortest paths using a depth-first-search algorithm.
-     */
-    public DFSGraph toDFS() {
-        DFSGraph returnValue = new DFSGraph(storedNodes);
-        returnValue.adj = adj;
-        returnValue.adjWeights = adjWeights;
-        return returnValue;
-    }
+
     /**
      * Deterines the angle of any edge
      * @param ID1: the nodeID of the first node
@@ -390,16 +419,5 @@ public abstract class Graph {
                     + commaOrPeriod;
         }
         return directions;
-    }
-
-    /**
-     * Creates a graph with the same nodes and edges as the object this method is called on.
-     * The new graph computes shortest paths using an A* algorithm.
-     */
-    public AStarGraph toAStar() {
-        AStarGraph returnValue = new AStarGraph(storedNodes);
-        returnValue.adj = adj;
-        returnValue.adjWeights = adjWeights;
-        return returnValue;
     }
 }
