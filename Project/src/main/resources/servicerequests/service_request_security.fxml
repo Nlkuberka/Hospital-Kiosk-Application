@@ -65,12 +65,12 @@
                               <Font name="System Bold" size="12.0" />
                            </font>
                         </Text>
-                        <Text fill="WHITE" layoutX="20.0" layoutY="109.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Where do you need security?">
+                        <Text fill="WHITE" layoutX="250.0" layoutY="109.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Where do you need security?">
                            <font>
                               <Font size="16.0" />
                            </font>
                         </Text>
-                        <ChoiceBox fx:id="roomSelect" layoutX="18.0" layoutY="115.0" prefHeight="29.0" prefWidth="212.0" style="-fx-background-color: #ffffff;" />
+                        <ChoiceBox fx:id="roomSelect" layoutX="250.0" layoutY="115.0" prefHeight="29.0" prefWidth="212.0" style="-fx-background-color: #ffffff;" />
                         <Text fill="WHITE" layoutX="18.0" layoutY="344.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Describe the issue">
                            <font>
                               <Font size="16.0" />
@@ -83,6 +83,12 @@
                            </font>
                         </Text>
                         <ChoiceBox fx:id="prioritySelect" layoutX="18.0" layoutY="226.0" prefHeight="31.0" prefWidth="546.0" style="-fx-background-color: #ffffff;" />
+                        <Text fill="WHITE" layoutX="20.0" layoutY="109.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Secuirty Location Category">
+                           <font>
+                              <Font size="16.0" />
+                           </font>
+                        </Text>
+                        <ChoiceBox fx:id="roomCategory" layoutX="20.0" layoutY="115.0" prefHeight="29.0" prefWidth="212.0" style="-fx-background-color: #ffffff;" />
                      </children>
                   </AnchorPane>
                </left>
