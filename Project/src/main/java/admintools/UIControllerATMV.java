@@ -344,6 +344,7 @@ public class UIControllerATMV extends UIController {
         draw();
     }
 
+
     private void set() {
         setCurrentScene();
         draw();

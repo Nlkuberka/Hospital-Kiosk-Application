@@ -28,14 +28,14 @@
             </ImageView>
             <BorderPane prefHeight="600.0" prefWidth="900.0">
                 <top>
-                    <MenuBar blendMode="ADD" prefWidth="600.0" style="-fx-background-color: white;" stylesheets="@../css/background.css" BorderPane.alignment="CENTER">
-                        <menus>
-                            <Menu mnemonicParsing="false" onShowing="#setHomeButton" text="Home">
-                     <items>
-                        <MenuItem mnemonicParsing="false" text="HOME" />
-                     </items>
-                  </Menu>
-                        </menus>
+                     <MenuBar blendMode="ADD" prefWidth="600.0" style="-fx-background-color: white;" stylesheets="@../css/background.css" BorderPane.alignment="CENTER">
+                              <menus>
+                                  <Menu mnemonicParsing="false" onAction="#setCancelButton" onShowing="#setHomeButton" text="Back">
+                           <items>
+                              <MenuItem mnemonicParsing="false" text="HOME" />
+                           </items>
+                        </Menu>
+                              </menus>
                         <effect>
                             <ColorAdjust>
                                 <input>
