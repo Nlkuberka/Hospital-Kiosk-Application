@@ -3,7 +3,6 @@ package admintools;
 import application.UIController;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextField;
-import com.sun.istack.internal.Nullable;
 import database.DBController;
 import database.DBControllerNE;
 import entities.Node;
@@ -48,6 +47,7 @@ public class UIControllerPUMVAN extends UIController {
     private Boolean isFading = false;
     private List<JFXTextField> textFields = new LinkedList<>();
     private Node node;
+    private String action = "";
 
     @FXML
     public void initialize() {
@@ -110,11 +110,20 @@ public class UIControllerPUMVAN extends UIController {
         parentPane.getScene().getWindow().hide();
     }
 
-    public void setNode(Node node) {
+    public void setNode(Node node, String action) {
         this.node = node;
+        this.action = action;
         TextField_XCoor.setText(Integer.toString(node.getXcoord()));
         TextField_YCoor.setText(Integer.toString(node.getYcoord()));
         TextField_Floor.setText(node.getFloor());
+        if(action.equals("EDIT"))
+        {
+            TextField_NodeID.setText(node.getNodeID());
+            TextField_Building.setText(node.getBuilding());
+            TextField_ShortName.setText(node.getShortName());
+            TextField_LongName.setText(node.getLongName());
+            TextField_NodeType.setText(node.getNodeType());
+        }
     }
 
     // TODO After multi-floor have
@@ -127,7 +136,14 @@ public class UIControllerPUMVAN extends UIController {
             node.setLongName(TextField_LongName.getText());
             node.setShortName(TextField_ShortName.getText());
             Connection conn = DBController.dbConnect();
-            DBControllerNE.addNode(node, conn);
+            if(action.equals("ADD"))
+            {
+                DBControllerNE.addNode(node, conn);
+            }
+            else if(action.equals("EDIT"))
+            {
+                DBControllerNE.updateNode(node, conn);
+            }
             DBControllerNE.closeConnection(conn);
             //noinspection unused
             Timer timer = new Timer(2, new Callback() {
