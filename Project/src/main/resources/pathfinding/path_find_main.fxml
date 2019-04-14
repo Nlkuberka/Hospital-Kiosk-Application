@@ -34,9 +34,9 @@
             <center>
             <StackPane BorderPane.alignment="CENTER">
                <children>
-                      <JFXTabPane tabClosingPolicy="UNAVAILABLE">
+                      <JFXTabPane fx:id="mapTabPane" tabClosingPolicy="UNAVAILABLE">
                           <Tab text="Lower Level 2">
-                              <GesturePane fitHeight="true" fitWidth="true" minScale="0.1" maxScale="9.0" prefWidth="1920.0">
+                              <GesturePane fx:id="lowerLevel2GesturePane" fitHeight="false" fitWidth="false" prefWidth="1920.0">
                                   <ImageView pickOnBounds="true" preserveRatio="true">
                                       <image>
                                           <Image url="@/maps/00_thelowerlevel2.png" />
@@ -45,7 +45,7 @@
                               </GesturePane>
                           </Tab>
                           <Tab text="Lower Level 1">
-                              <GesturePane fitHeight="true" fitWidth="true" minScale="0.1" maxScale="9.0" prefWidth="1920.0">
+                              <GesturePane fx:id="lowerLevel1GesturePane" fitHeight="false" fitWidth="false" prefWidth="1920.0">
                                   <ImageView pickOnBounds="true" preserveRatio="true">
                                       <image>
                                           <Image url="@/maps/00_thelowerlevel1.png" />
@@ -54,7 +54,7 @@
                               </GesturePane>
                           </Tab>
                           <Tab text="Ground Floor">
-                              <GesturePane fitHeight="true" fitWidth="true" minScale="0.1" maxScale="9.0" prefWidth="1920.0">
+                              <GesturePane fx:id="groundFloorGesturePane" fitHeight="false" fitWidth="false" prefWidth="1920.0">
                                   <ImageView pickOnBounds="true" preserveRatio="true">
                                       <image>
                                           <Image url="@/maps/00_thegroundfloor.png" />
@@ -63,7 +63,7 @@
                               </GesturePane>
                           </Tab>
                           <Tab text="First Floor">
-                              <GesturePane fitHeight="true" fitWidth="true" minScale="0.1" maxScale="9.0" prefWidth="1920.0">
+                              <GesturePane fx:id="firstFloorGesturePane" fitHeight="false" fitWidth="false" prefWidth="1920.0">
                                   <ImageView pickOnBounds="true" preserveRatio="true">
                                       <image>
                                           <Image url="@/maps/01_thefirstfloor.png" />
@@ -72,7 +72,7 @@
                               </GesturePane>
                           </Tab>
                           <Tab text="Second Floor">
-                              <GesturePane fitHeight="true" fitWidth="true" minScale="0.1" maxScale="9.0" prefWidth="1920.0">
+                              <GesturePane fx:id="secondFloorGesturePane" fitHeight="false" fitWidth="false" prefWidth="1920.0">
                                   <ImageView pickOnBounds="true" preserveRatio="true">
                                       <image>
                                           <Image url="@/maps/02_thesecondfloor.png" />
@@ -81,7 +81,7 @@
                               </GesturePane>
                           </Tab>
                           <Tab text="Third Floor">
-                              <GesturePane fitHeight="true" fitWidth="true" minScale="0.1" maxScale="9.0" prefWidth="1920.0">
+                              <GesturePane fx:id="thirdFloorGesturePane" fitHeight="false" fitWidth="false" prefWidth="1920.0">
                                   <ImageView pickOnBounds="true" preserveRatio="true">
                                       <image>
                                           <Image url="@/maps/03_thethirdfloor.png" />
