@@ -357,7 +357,7 @@ public abstract class Graph {
      * @param ID2: the nodeID of the second node
      * @return the cardinal direction of the edge
      */
-    public String returnAngle(String ID1, String ID2) {
+    public String returnAngle(String ID1, String ID2, String pastDirection) {
 
         String direction = "N";
         int node1Index = mapNodeIDToIndex(ID1);
@@ -390,6 +390,39 @@ public abstract class Graph {
             direction = "NW";
         }
 
+        switch (direction) {
+            case ("N"):
+                if (pastDirection.equals("N")) {
+                    direction = "Go straight for";
+                } else if (pastDirection.equals("S")) {
+                    direction = "Turn around and go straight for";
+                } else if (pastDirection.equals("E")) {
+                    direction = "Turn right and go";
+                } else if (pastDirection.equals("W")) {
+                    direction = "Turn left and go";
+                } else if (pastDirection.equals("NW")) {
+                    direction = "Veer right and go";
+                } else if (pastDirection.equals("NE")) {
+                    direction = "Veer left and go";
+                } else if(pastDirection.equals("SE")) {
+                    direction = "Turn around, veer left and go";
+                } else if(pastDirection.equals("SW")) {
+                    direction = "Turn around, veer right and go";
+                }
+                break;
+            case ("E"):
+            case ("S"):
+            case ("W"):
+            case ("NE"):
+            case ("NW"):
+            case ("SE"):
+            case ("SW"):
+
+
+
+        }
+
+
         return direction;
     }
 
@@ -411,7 +444,7 @@ public abstract class Graph {
             int currentNodeIndex = mapNodeIDToIndex(NodeIDS.get(i));
             int nextNodeIndex = mapNodeIDToIndex(NodeIDS.get(i+1));
             //System.out.println(returnAngle(NodeIDS.get(i), NodeIDS.get(i+1)));
-                    directions += returnAngle(NodeIDS.get(i), NodeIDS.get(i+1))
+                    directions += returnAngle(NodeIDS.get(i), NodeIDS.get(i+1), directions)
                     + " "
                     +  Math.round(adjWeights.get(currentNodeIndex).getFirst())
                     + " pixels to "
