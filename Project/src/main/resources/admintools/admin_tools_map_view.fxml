@@ -33,298 +33,265 @@
       <center>
             <TabPane tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER">
                 <Tab text="Lower Level 2">
-                   <content>
-                  <StackPane>
-                     <children>
-                            <ScrollPane fx:id="lowerLevel2ScrollPane">
-                              <content>
-                                <AnchorPane fx:id="lowerLevel2AnchorPane" maxHeight="3400.0" maxWidth="5000.0" minHeight="0.0" minWidth="0.0" prefHeight="3400.0" prefWidth="5000.0">
-                                     <children>
-                                        <ImageView fx:id="lowerLevel2ImageView" fitHeight="999" fitWidth="999" pickOnBounds="true" preserveRatio="true">
-                                           <image>
-                                              <Image url="@/maps/00_thelowerlevel2.png" />
-                                           </image>
-                                        </ImageView>
-                                     </children>
-                                  </AnchorPane>
-                              </content>
-                            </ScrollPane>
+                    <StackPane>
+                        <ScrollPane fx:id="lowerLevel2ScrollPane">
+                            <AnchorPane fx:id="lowerLevel2AnchorPane" maxHeight="3400.0" maxWidth="5000.0"
+                                        minHeight="0.0" minWidth="0.0" prefHeight="3400.0" prefWidth="5000.0">
+                                <ImageView fx:id="lowerLevel2ImageView" fitHeight="999" fitWidth="999"
+                                           pickOnBounds="true" preserveRatio="true">
+                                    <Image url="@/maps/00_thelowerlevel2.png"/>
+                                </ImageView>
+                            </AnchorPane>
+                        </ScrollPane>
                         <AnchorPane minHeight="-Infinity" minWidth="-Infinity">
-                           <children>
-                               <JFXButton contentDisplay="CENTER" layoutX="4.0" layoutY="14.0" mnemonicParsing="false" onAction="#zoom" prefWidth="100.0" styleClass="jfx-button-zoom" stylesheets="@../css/background.css" text=" " textFill="WHITE">
-                                   <font>
-                                       <Font name="System Bold" size="14.0" />
-                                   </font>
-                                   <graphic>
-                                       <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
-                                           <image>
-                                               <Image url="@/icon/zoom-in.png" />
-                                           </image>
-                                       </ImageView>
-                                   </graphic>
-                               </JFXButton>
-                               <JFXButton contentDisplay="CENTER" layoutX="4.0" layoutY="79.0" mnemonicParsing="false" onAction="#unZoom" prefWidth="100.0" styleClass="jfx-button-zoom" stylesheets="@../css/background.css" text=" " textFill="WHITE">
-                                   <font>
-                                       <Font name="System Bold" size="14.0" />
-                                   </font>
-                                   <graphic>
-                                       <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
-                                           <image>
-                                               <Image url="@/icon/zoom-out.png" />
-                                           </image>
-                                       </ImageView>
-                                   </graphic>
-                               </JFXButton>
-                           </children>
+                            <JFXButton contentDisplay="CENTER" layoutX="4.0" layoutY="14.0" mnemonicParsing="false"
+                                       onAction="#zoom" prefWidth="100.0" styleClass="jfx-button-zoom"
+                                       stylesheets="@../css/background.css" text=" " textFill="WHITE">
+                                <font>
+                                    <Font name="System Bold" size="14.0"/>
+                                </font>
+                                <graphic>
+                                    <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true"
+                                               preserveRatio="true">
+                                        <Image url="@/icon/zoom-in.png"/>
+                                    </ImageView>
+                                </graphic>
+                            </JFXButton>
+                            <JFXButton contentDisplay="CENTER" layoutX="4.0" layoutY="79.0" mnemonicParsing="false"
+                                       onAction="#unZoom" prefWidth="100.0" styleClass="jfx-button-zoom"
+                                       stylesheets="@../css/background.css" text=" " textFill="WHITE">
+                                <font>
+                                    <Font name="System Bold" size="14.0"/>
+                                </font>
+                                <graphic>
+                                    <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true"
+                                               preserveRatio="true">
+                                        <Image url="@/icon/zoom-out.png"/>
+                                    </ImageView>
+                                </graphic>
+                            </JFXButton>
                         </AnchorPane>
-                     </children>
-                  </StackPane>
-                   </content>
+                    </StackPane>
                 </Tab>
                 <Tab text="Lower Level 1">
-                    <content>
-                        <StackPane>
-                            <children>
-                                <ScrollPane fx:id="lowerLevel1ScrollPane">
-                                    <content>
-                                        <AnchorPane fx:id="lowerLevel1AnchorPane" maxHeight="3400.0" maxWidth="5000.0" minHeight="0.0" minWidth="0.0" prefHeight="3400.0" prefWidth="5000.0">
-                                            <children>
-                                                <ImageView fx:id="lowerLevel1ImageView" fitHeight="999" fitWidth="999" pickOnBounds="true" preserveRatio="true">
-                                                    <image>
-                                                        <Image url="@../maps/00_thelowerlevel1.png" />
-                                                    </image>
-                                                </ImageView>
-                                            </children>
-                                        </AnchorPane>
-                                    </content>
-                                </ScrollPane>
-                                <AnchorPane minHeight="-Infinity" minWidth="-Infinity">
-                                    <children>
-                                        <JFXButton contentDisplay="CENTER" layoutX="4.0" layoutY="14.0" mnemonicParsing="false" onAction="#zoom" prefWidth="100.0" styleClass="jfx-button-zoom" stylesheets="@../css/background.css" text=" " textFill="WHITE">
-                                            <font>
-                                                <Font name="System Bold" size="14.0" />
-                                            </font>
-                                            <graphic>
-                                                <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
-                                                    <image>
-                                                        <Image url="@/icon/zoom-in.png" />
-                                                    </image>
-                                                </ImageView>
-                                            </graphic>
-                                        </JFXButton>
-                                        <JFXButton contentDisplay="CENTER" layoutX="4.0" layoutY="79.0" mnemonicParsing="false" onAction="#unZoom" prefWidth="100.0" styleClass="jfx-button-zoom" stylesheets="@../css/background.css" text=" " textFill="WHITE">
-                                            <font>
-                                                <Font name="System Bold" size="14.0" />
-                                            </font>
-                                            <graphic>
-                                                <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
-                                                    <image>
-                                                        <Image url="@/icon/zoom-out.png" />
-                                                    </image>
-                                                </ImageView>
-                                            </graphic>
-                                        </JFXButton>
-                                    </children>
-                                </AnchorPane>
-                            </children>
-                        </StackPane>
-                    </content>
+                    <StackPane>
+                        <ScrollPane fx:id="lowerLevel1ScrollPane">
+                            <AnchorPane fx:id="lowerLevel1AnchorPane" maxHeight="3400.0" maxWidth="5000.0"
+                                        minHeight="0.0" minWidth="0.0" prefHeight="3400.0"
+                                        prefWidth="5000.0">
+                                <ImageView fx:id="lowerLevel1ImageView" fitHeight="999" fitWidth="999"
+                                           pickOnBounds="true" preserveRatio="true">
+                                    <Image url="@../maps/00_thelowerlevel1.png"/>
+                                </ImageView>
+                            </AnchorPane>
+                        </ScrollPane>
+                        <AnchorPane minHeight="-Infinity" minWidth="-Infinity">
+                            <JFXButton contentDisplay="CENTER" layoutX="4.0" layoutY="14.0"
+                                       mnemonicParsing="false" onAction="#zoom" prefWidth="100.0"
+                                       styleClass="jfx-button-zoom" stylesheets="@../css/background.css"
+                                       text=" " textFill="WHITE">
+                                <font>
+                                    <Font name="System Bold" size="14.0"/>
+                                </font>
+                                <graphic>
+                                    <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true"
+                                               preserveRatio="true">
+                                        <Image url="@/icon/zoom-in.png"/>
+                                    </ImageView>
+                                </graphic>
+                            </JFXButton>
+                            <JFXButton contentDisplay="CENTER" layoutX="4.0" layoutY="79.0"
+                                       mnemonicParsing="false" onAction="#unZoom" prefWidth="100.0"
+                                       styleClass="jfx-button-zoom" stylesheets="@../css/background.css"
+                                       text=" " textFill="WHITE">
+                                <font>
+                                    <Font name="System Bold" size="14.0"/>
+                                </font>
+                                <graphic>
+                                    <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true"
+                                               preserveRatio="true">
+                                        <Image url="@/icon/zoom-out.png"/>
+                                    </ImageView>
+                                </graphic>
+                            </JFXButton>
+                        </AnchorPane>
+                    </StackPane>
                 </Tab>
                 <Tab text="Ground Floor">
-                    <content>
-                        <StackPane>
-                            <children>
-                                <ScrollPane fx:id="groundFloorScrollPane">
-                                    <content>
-                                        <AnchorPane fx:id="groundFloorAnchorPane" maxHeight="3400.0" maxWidth="5000.0" minHeight="0.0" minWidth="0.0" prefHeight="3400.0" prefWidth="5000.0">
-                                            <children>
-                                                <ImageView fx:id="groundFloorImageView" fitHeight="999" fitWidth="999" pickOnBounds="true" preserveRatio="true">
-                                                    <image>
-                                                        <Image url="@../maps/00_thegroundfloor.png" />
-                                                    </image>
-                                                </ImageView>
-                                            </children>
-                                        </AnchorPane>
-                                    </content>
-                                </ScrollPane>
-                                <AnchorPane minHeight="-Infinity" minWidth="-Infinity">
-                                    <children>
-                                        <JFXButton contentDisplay="CENTER" layoutX="4.0" layoutY="14.0" mnemonicParsing="false" onAction="#zoom" prefWidth="100.0" styleClass="jfx-button-zoom" stylesheets="@../css/background.css" text=" " textFill="WHITE">
-                                            <font>
-                                                <Font name="System Bold" size="14.0" />
-                                            </font>
-                                            <graphic>
-                                                <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
-                                                    <image>
-                                                        <Image url="@/icon/zoom-in.png" />
-                                                    </image>
-                                                </ImageView>
-                                            </graphic>
-                                        </JFXButton>
-                                        <JFXButton contentDisplay="CENTER" layoutX="4.0" layoutY="79.0" mnemonicParsing="false" onAction="#unZoom" prefWidth="100.0" styleClass="jfx-button-zoom" stylesheets="@../css/background.css" text=" " textFill="WHITE">
-                                            <font>
-                                                <Font name="System Bold" size="14.0" />
-                                            </font>
-                                            <graphic>
-                                                <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
-                                                    <image>
-                                                        <Image url="@/icon/zoom-out.png" />
-                                                    </image>
-                                                </ImageView>
-                                            </graphic>
-                                        </JFXButton>
-                                    </children>
-                                </AnchorPane>
-                            </children>
-                        </StackPane>
-                    </content>
+                    <StackPane>
+                        <ScrollPane fx:id="groundFloorScrollPane">
+                            <AnchorPane fx:id="groundFloorAnchorPane" maxHeight="3400.0" maxWidth="5000.0"
+                                        minHeight="0.0" minWidth="0.0" prefHeight="3400.0"
+                                        prefWidth="5000.0">
+                                <ImageView fx:id="groundFloorImageView" fitHeight="999" fitWidth="999"
+                                           pickOnBounds="true" preserveRatio="true">
+                                    <Image url="@../maps/00_thegroundfloor.png"/>
+                                </ImageView>
+                            </AnchorPane>
+                        </ScrollPane>
+                        <AnchorPane minHeight="-Infinity" minWidth="-Infinity">
+                            <JFXButton contentDisplay="CENTER" layoutX="4.0" layoutY="14.0"
+                                       mnemonicParsing="false" onAction="#zoom" prefWidth="100.0"
+                                       styleClass="jfx-button-zoom" stylesheets="@../css/background.css"
+                                       text=" " textFill="WHITE">
+                                <font>
+                                    <Font name="System Bold" size="14.0"/>
+                                </font>
+                                <graphic>
+                                    <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true"
+                                               preserveRatio="true">
+                                        <Image url="@/icon/zoom-in.png"/>
+                                    </ImageView>
+                                </graphic>
+                            </JFXButton>
+                            <JFXButton contentDisplay="CENTER" layoutX="4.0" layoutY="79.0"
+                                       mnemonicParsing="false" onAction="#unZoom" prefWidth="100.0"
+                                       styleClass="jfx-button-zoom" stylesheets="@../css/background.css"
+                                       text=" " textFill="WHITE">
+                                <font>
+                                    <Font name="System Bold" size="14.0"/>
+                                </font>
+                                <graphic>
+                                    <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true"
+                                               preserveRatio="true">
+                                        <Image url="@/icon/zoom-out.png"/>
+                                    </ImageView>
+                                </graphic>
+                            </JFXButton>
+                        </AnchorPane>
+                    </StackPane>
                 </Tab>
                 <Tab text="First Floor">
-                    <content>
-                        <StackPane>
-                            <children>
-                                <ScrollPane fx:id="firstFloorScrollPane">
-                                    <content>
-                                        <AnchorPane fx:id="firstFloorAnchorPane" maxHeight="3400.0" maxWidth="5000.0" minHeight="0.0" minWidth="0.0" prefHeight="3400.0" prefWidth="5000.0">
-                                            <children>
-                                                <ImageView fx:id="firstFloorImageView" fitHeight="999" fitWidth="999" pickOnBounds="true" preserveRatio="true">
-                                                    <image>
-                                                        <Image url="@../maps/01_thefirstfloor.png" />
-                                                    </image>
-                                                </ImageView>
-                                            </children>
-                                        </AnchorPane>
-                                    </content>
-                                </ScrollPane>
-                                <AnchorPane minHeight="-Infinity" minWidth="-Infinity">
-                                    <children>
-                                        <JFXButton contentDisplay="CENTER" layoutX="4.0" layoutY="14.0" mnemonicParsing="false" onAction="#zoom" prefWidth="100.0" styleClass="jfx-button-zoom" stylesheets="@../css/background.css" text=" " textFill="WHITE">
-                                            <font>
-                                                <Font name="System Bold" size="14.0" />
-                                            </font>
-                                            <graphic>
-                                                <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
-                                                    <image>
-                                                        <Image url="@/icon/zoom-in.png" />
-                                                    </image>
-                                                </ImageView>
-                                            </graphic>
-                                        </JFXButton>
-                                        <JFXButton contentDisplay="CENTER" layoutX="4.0" layoutY="79.0" mnemonicParsing="false" onAction="#unZoom" prefWidth="100.0" styleClass="jfx-button-zoom" stylesheets="@../css/background.css" text=" " textFill="WHITE">
-                                            <font>
-                                                <Font name="System Bold" size="14.0" />
-                                            </font>
-                                            <graphic>
-                                                <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
-                                                    <image>
-                                                        <Image url="@/icon/zoom-out.png" />
-                                                    </image>
-                                                </ImageView>
-                                            </graphic>
-                                        </JFXButton>
-                                    </children>
-                                </AnchorPane>
-                            </children>
-                        </StackPane>
-                    </content>
+                    <StackPane>
+                        <ScrollPane fx:id="firstFloorScrollPane">
+                            <AnchorPane fx:id="firstFloorAnchorPane" maxHeight="3400.0" maxWidth="5000.0"
+                                        minHeight="0.0" minWidth="0.0" prefHeight="3400.0"
+                                        prefWidth="5000.0">
+                                <ImageView fx:id="firstFloorImageView" fitHeight="999" fitWidth="999"
+                                           pickOnBounds="true" preserveRatio="true">
+                                    <Image url="@../maps/01_thefirstfloor.png"/>
+                                </ImageView>
+                            </AnchorPane>
+                        </ScrollPane>
+                        <AnchorPane minHeight="-Infinity" minWidth="-Infinity">
+                            <JFXButton contentDisplay="CENTER" layoutX="4.0" layoutY="14.0"
+                                       mnemonicParsing="false" onAction="#zoom" prefWidth="100.0"
+                                       styleClass="jfx-button-zoom" stylesheets="@../css/background.css"
+                                       text=" " textFill="WHITE">
+                                <font>
+                                    <Font name="System Bold" size="14.0"/>
+                                </font>
+                                <graphic>
+                                    <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true"
+                                               preserveRatio="true">
+                                        <Image url="@/icon/zoom-in.png"/>
+                                    </ImageView>
+                                </graphic>
+                            </JFXButton>
+                            <JFXButton contentDisplay="CENTER" layoutX="4.0" layoutY="79.0"
+                                       mnemonicParsing="false" onAction="#unZoom" prefWidth="100.0"
+                                       styleClass="jfx-button-zoom" stylesheets="@../css/background.css"
+                                       text=" " textFill="WHITE">
+                                <font>
+                                    <Font name="System Bold" size="14.0"/>
+                                </font>
+                                <graphic>
+                                    <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true"
+                                               preserveRatio="true">
+                                        <Image url="@/icon/zoom-out.png"/>
+                                    </ImageView>
+                                </graphic>
+                            </JFXButton>
+                        </AnchorPane>
+                    </StackPane>
                 </Tab>
                 <Tab text="Second Floor">
-                    <content>
-                        <StackPane>
-                            <children>
-                                <ScrollPane fx:id="secondFloorScrollPane">
-                                    <content>
-                                        <AnchorPane fx:id="secondFloorAnchorPane" maxHeight="3400.0" maxWidth="5000.0" minHeight="0.0" minWidth="0.0" prefHeight="3400.0" prefWidth="5000.0">
-                                            <children>
-                                                <ImageView fx:id="secondFloorImageView" fitHeight="999" fitWidth="999" pickOnBounds="true" preserveRatio="true">
-                                                    <image>
-                                                        <Image url="@../maps/02_thesecondfloor.png" />
-                                                    </image>
-                                                </ImageView>
-                                            </children>
-                                        </AnchorPane>
-                                    </content>
-                                </ScrollPane>
-                                <AnchorPane minHeight="-Infinity" minWidth="-Infinity">
-                                    <children>
-                                        <JFXButton contentDisplay="CENTER" layoutX="4.0" layoutY="14.0" mnemonicParsing="false" onAction="#zoom" prefWidth="100.0" styleClass="jfx-button-zoom" stylesheets="@../css/background.css" text=" " textFill="WHITE">
-                                            <font>
-                                                <Font name="System Bold" size="14.0" />
-                                            </font>
-                                            <graphic>
-                                                <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
-                                                    <image>
-                                                        <Image url="@/icon/zoom-in.png" />
-                                                    </image>
-                                                </ImageView>
-                                            </graphic>
-                                        </JFXButton>
-                                        <JFXButton contentDisplay="CENTER" layoutX="4.0" layoutY="79.0" mnemonicParsing="false" onAction="#unZoom" prefWidth="100.0" styleClass="jfx-button-zoom" stylesheets="@../css/background.css" text=" " textFill="WHITE">
-                                            <font>
-                                                <Font name="System Bold" size="14.0" />
-                                            </font>
-                                            <graphic>
-                                                <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
-                                                    <image>
-                                                        <Image url="@/icon/zoom-out.png" />
-                                                    </image>
-                                                </ImageView>
-                                            </graphic>
-                                        </JFXButton>
-                                    </children>
-                                </AnchorPane>
-                            </children>
-                        </StackPane>
-                    </content>
+                    <StackPane>
+                        <ScrollPane fx:id="secondFloorScrollPane">
+                            <AnchorPane fx:id="secondFloorAnchorPane" maxHeight="3400.0" maxWidth="5000.0"
+                                        minHeight="0.0" minWidth="0.0" prefHeight="3400.0"
+                                        prefWidth="5000.0">
+                                <ImageView fx:id="secondFloorImageView" fitHeight="999" fitWidth="999"
+                                           pickOnBounds="true" preserveRatio="true">
+                                    <Image url="@../maps/02_thesecondfloor.png"/>
+                                </ImageView>
+                            </AnchorPane>
+                        </ScrollPane>
+                        <AnchorPane minHeight="-Infinity" minWidth="-Infinity">
+                            <JFXButton contentDisplay="CENTER" layoutX="4.0" layoutY="14.0"
+                                       mnemonicParsing="false" onAction="#zoom" prefWidth="100.0"
+                                       styleClass="jfx-button-zoom" stylesheets="@../css/background.css"
+                                       text=" " textFill="WHITE">
+                                <font>
+                                    <Font name="System Bold" size="14.0"/>
+                                </font>
+                                <graphic>
+                                    <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true"
+                                               preserveRatio="true">
+                                        <Image url="@/icon/zoom-in.png"/>
+                                    </ImageView>
+                                </graphic>
+                            </JFXButton>
+                            <JFXButton contentDisplay="CENTER" layoutX="4.0" layoutY="79.0"
+                                       mnemonicParsing="false" onAction="#unZoom" prefWidth="100.0"
+                                       styleClass="jfx-button-zoom" stylesheets="@../css/background.css"
+                                       text=" " textFill="WHITE">
+                                <font>
+                                    <Font name="System Bold" size="14.0"/>
+                                </font>
+                                <graphic>
+                                    <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true"
+                                               preserveRatio="true">
+                                        <Image url="@/icon/zoom-out.png"/>
+                                    </ImageView>
+                                </graphic>
+                            </JFXButton>
+                        </AnchorPane>
+                    </StackPane>
                 </Tab>
                 <Tab text="Third Floor">
-                    <content>
-                        <StackPane>
-                            <children>
-                                <ScrollPane fx:id="thirdFloorScrollPane">
-                                    <content>
-                                        <AnchorPane fx:id="thirdFloorAnchorPane" maxHeight="3400.0" maxWidth="5000.0" minHeight="0.0" minWidth="0.0" prefHeight="3400.0" prefWidth="5000.0">
-                                            <children>
-                                                <ImageView fx:id="thirdFloorImageView" fitHeight="999" fitWidth="999" pickOnBounds="true" preserveRatio="true">
-                                                    <image>
-                                                        <Image url="@../maps/03_thethirdfloor.png" />
-                                                    </image>
-                                                </ImageView>
-                                            </children>
-                                        </AnchorPane>
-                                    </content>
-                                </ScrollPane>
-                                <AnchorPane minHeight="-Infinity" minWidth="-Infinity">
-                                    <children>
-                                        <JFXButton contentDisplay="CENTER" layoutX="4.0" layoutY="14.0" mnemonicParsing="false" onAction="#zoom" prefWidth="100.0" styleClass="jfx-button-zoom" stylesheets="@../css/background.css" text=" " textFill="WHITE">
-                                            <font>
-                                                <Font name="System Bold" size="14.0" />
-                                            </font>
-                                            <graphic>
-                                                <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
-                                                    <image>
-                                                        <Image url="@/icon/zoom-in.png" />
-                                                    </image>
-                                                </ImageView>
-                                            </graphic>
-                                        </JFXButton>
-                                        <JFXButton contentDisplay="CENTER" layoutX="4.0" layoutY="79.0" mnemonicParsing="false" onAction="#unZoom" prefWidth="100.0" styleClass="jfx-button-zoom" stylesheets="@../css/background.css" text=" " textFill="WHITE">
-                                            <font>
-                                                <Font name="System Bold" size="14.0" />
-                                            </font>
-                                            <graphic>
-                                                <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
-                                                    <image>
-                                                        <Image url="@/icon/zoom-out.png" />
-                                                    </image>
-                                                </ImageView>
-                                            </graphic>
-                                        </JFXButton>
-                                    </children>
-                                </AnchorPane>
-                            </children>
-                        </StackPane>
-                    </content>
+                    <StackPane>
+                        <ScrollPane fx:id="thirdFloorScrollPane">
+                            <AnchorPane fx:id="thirdFloorAnchorPane" maxHeight="3400.0" maxWidth="5000.0"
+                                        minHeight="0.0" minWidth="0.0" prefHeight="3400.0"
+                                        prefWidth="5000.0">
+                                <ImageView fx:id="thirdFloorImageView" fitHeight="999" fitWidth="999"
+                                           pickOnBounds="true" preserveRatio="true">
+                                    <Image url="@../maps/03_thethirdfloor.png"/>
+                                </ImageView>
+                            </AnchorPane>
+                        </ScrollPane>
+                        <AnchorPane minHeight="-Infinity" minWidth="-Infinity">
+                            <JFXButton contentDisplay="CENTER" layoutX="4.0" layoutY="14.0"
+                                       mnemonicParsing="false" onAction="#zoom" prefWidth="100.0"
+                                       styleClass="jfx-button-zoom" stylesheets="@../css/background.css"
+                                       text=" " textFill="WHITE">
+                                <font>
+                                    <Font name="System Bold" size="14.0"/>
+                                </font>
+                                <graphic>
+                                    <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true"
+                                               preserveRatio="true">
+                                        <Image url="@/icon/zoom-in.png"/>
+                                    </ImageView>
+                                </graphic>
+                            </JFXButton>
+                            <JFXButton contentDisplay="CENTER" layoutX="4.0" layoutY="79.0"
+                                       mnemonicParsing="false" onAction="#unZoom" prefWidth="100.0"
+                                       styleClass="jfx-button-zoom" stylesheets="@../css/background.css"
+                                       text=" " textFill="WHITE">
+                                <font>
+                                    <Font name="System Bold" size="14.0"/>
+                                </font>
+                                <graphic>
+                                    <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true"
+                                               preserveRatio="true">
+                                        <Image url="@/icon/zoom-out.png"/>
+                                    </ImageView>
+                                </graphic>
+                            </JFXButton>
+                        </AnchorPane>
+                    </StackPane>
                 </Tab>
             </TabPane>
       </center>
