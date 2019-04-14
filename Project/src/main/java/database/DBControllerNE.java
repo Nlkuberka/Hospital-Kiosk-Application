@@ -31,6 +31,14 @@ public class DBControllerNE extends DBController{
     public static final String ALL_ROOMS_FLOOR_2 = "SELECT * FROM NODES WHERE FLOOR = '2' AND NODETYPE != 'HALL' and NODETYPE != 'STAI' and NODETYPE != 'ELEV'";
     public static final String ALL_ROOMS_FLOOR_3 = "SELECT * FROM NODES WHERE FLOOR = '3' AND NODETYPE != 'HALL' and NODETYPE != 'STAI' and NODETYPE != 'ELEV'";
 
+    public static final String ALL_BUT_ROOMS_L2 = "SELECT * FROM NODES WHERE FLOOR = 'L2' AND (NODETYPE = 'STAI' OR NODETYPE = 'ELEV')";
+    public static final String ALL_BUT_ROOMS_L1 = "SELECT * FROM NODES WHERE FLOOR = 'L1' AND (NODETYPE = 'STAI' OR NODETYPE = 'ELEV')";
+    public static final String ALL_BUT_ROOMS_G = "SELECT * FROM NODES WHERE FLOOR = 'G' AND (NODETYPE = 'STAI' OR NODETYPE = 'ELEV')";
+    public static final String ALL_BUT_ROOMS_1 = "SELECT * FROM NODES WHERE FLOOR = '1' AND (NODETYPE = 'STAI' OR NODETYPE = 'ELEV')";
+    public static final String ALL_BUT_ROOMS_2 = "SELECT * FROM NODES WHERE FLOOR = '2' AND (NODETYPE = 'STAI' OR NODETYPE = 'ELEV')";
+    public static final String ALL_BUT_ROOMS_3 = "SELECT * FROM NODES WHERE FLOOR = '3' AND (NODETYPE = 'STAI' OR NODETYPE = 'ELEV')";
+
+
     public static final String ALL_BATHROOMS = "SELECT * FROM NODES WHERE NODETYPE = 'BATH'";
     public static final String ALL_EXITS = "SELECT * FROM NODES WHERE NODETYPE = 'EXIT";
     public static final String ALL_CONFERENCE_ROOMS = "SELECT * FROM NODES WHERE NODETYPE = 'CONF'";
@@ -39,26 +47,26 @@ public class DBControllerNE extends DBController{
     public static final String ALL_INFOROMATION_DESKS = "SELECT * FROM NODES WHERE NODETYPE = 'INFO'";
     public static final String ALL_LABS = "SELECT * FROM NODES WHERE NODETYPE = 'LABS'";
 
-    public static final String ALL_HALLS_FLOOR_L2 = "SELECT * FROM NODES WHERE FLOOR = 'L2', NODETYPE = 'HALL'";
-    public static final String ALL_HALLS_FLOOR_L1 = "SELECT * FROM NODES WHERE FLOOR = 'L1', NODETYPE = 'HALL'";
-    public static final String ALL_HALLS_FLOOR_G = "SELECT * FROM NODES WHERE FLOOR = 'G', NODETYPE = 'HALL'";
-    public static final String ALL_HALLS_FLOOR_1 = "SELECT * FROM NODES WHERE FLOOR = '1', NODETYPE = 'HALL'";
-    public static final String ALL_HALLS_FLOOR_2 = "SELECT * FROM NODES WHERE FLOOR = '2', NODETYPE = 'HALL'";
-    public static final String ALL_HALLS_FLOOR_3 = "SELECT * FROM NODES WHERE FLOOR = '3', NODETYPE = 'HALL'";
+    public static final String ALL_HALLS_FLOOR_L2 = "SELECT * FROM NODES WHERE FLOOR = 'L2' AND NODETYPE = 'HALL'";
+    public static final String ALL_HALLS_FLOOR_L1 = "SELECT * FROM NODES WHERE FLOOR = 'L1' AND NODETYPE = 'HALL'";
+    public static final String ALL_HALLS_FLOOR_G = "SELECT * FROM NODES WHERE FLOOR = 'G' AND NODETYPE = 'HALL'";
+    public static final String ALL_HALLS_FLOOR_1 = "SELECT * FROM NODES WHERE FLOOR = '1' AND NODETYPE = 'HALL'";
+    public static final String ALL_HALLS_FLOOR_2 = "SELECT * FROM NODES WHERE FLOOR = '2' AND NODETYPE = 'HALL'";
+    public static final String ALL_HALLS_FLOOR_3 = "SELECT * FROM NODES WHERE FLOOR = '3' AND NODETYPE = 'HALL'";
 
-    public static final String ALL_DEPARTMENT_ROOMS_FLOOR_L2 = "SELECT * FROM NODES WHERE FLOOR = 'L2', NODETYPE = 'DEPT'";
-    public static final String ALL_DEPARTMENT_ROOMS_FLOOR_L1 = "SELECT * FROM NODES WHERE FLOOR = 'L1', NODETYPE = 'DEPT'";
-    public static final String ALL_DEPARTMENT_ROOMS_FLOOR_G = "SELECT * FROM NODES WHERE FLOOR = 'G', NODETYPE = 'DEPT'";
-    public static final String ALL_DEPARTMENT_ROOMS_FLOOR_1 = "SELECT * FROM NODES WHERE FLOOR = '1', NODETYPE = 'DEPT'";
-    public static final String ALL_DEPARTMENT_ROOMS_FLOOR_2 = "SELECT * FROM NODES WHERE FLOOR = '2', NODETYPE = 'DEPT'";
-    public static final String ALL_DEPARTMENT_ROOMS_FLOOR_3 = "SELECT * FROM NODES WHERE FLOOR = '3', NODETYPE = 'DEPT'";
+    public static final String ALL_DEPARTMENT_ROOMS_FLOOR_L2 = "SELECT * FROM NODES WHERE FLOOR = 'L2' AND NODETYPE = 'DEPT'";
+    public static final String ALL_DEPARTMENT_ROOMS_FLOOR_L1 = "SELECT * FROM NODES WHERE FLOOR = 'L1' AND NODETYPE = 'DEPT'";
+    public static final String ALL_DEPARTMENT_ROOMS_FLOOR_G = "SELECT * FROM NODES WHERE FLOOR = 'G' AND NODETYPE = 'DEPT'";
+    public static final String ALL_DEPARTMENT_ROOMS_FLOOR_1 = "SELECT * FROM NODES WHERE FLOOR = '1' AND NODETYPE = 'DEPT'";
+    public static final String ALL_DEPARTMENT_ROOMS_FLOOR_2 = "SELECT * FROM NODES WHERE FLOOR = '2' AND NODETYPE = 'DEPT'";
+    public static final String ALL_DEPARTMENT_ROOMS_FLOOR_3 = "SELECT * FROM NODES WHERE FLOOR = '3' AND NODETYPE = 'DEPT'";
 
-    public static final String ALL_ELEVATORS_FLOOR_L2 = "SELECT * FROM NODES WHERE FLOOR = 'L2', NODETYPE = 'ELEV'";
-    public static final String ALL_ELEVATORS_FLOOR_L1 = "SELECT * FROM NODES WHERE FLOOR = 'L1', NODETYPE = 'ELEV'";
-    public static final String ALL_ELEVATORS_FLOOR_G = "SELECT * FROM NODES WHERE FLOOR = 'G', NODETYPE = 'ELEV'";
-    public static final String ALL_ELEVATORS_FLOOR_1 = "SELECT * FROM NODES WHERE FLOOR = '1', NODETYPE = 'ELEV'";
-    public static final String ALL_ELEVATORS_FLOOR_2 = "SELECT * FROM NODES WHERE FLOOR = '2', NODETYPE = 'ELEV'";
-    public static final String ALL_ELEVATORS_FLOOR_3 = "SELECT * FROM NODES WHERE FLOOR = '3', NODETYPE = 'ELEV'";
+    public static final String ALL_ELEVATORS_FLOOR_L2 = "SELECT * FROM NODES WHERE FLOOR = 'L2' AND NODETYPE = 'ELEV'";
+    public static final String ALL_ELEVATORS_FLOOR_L1 = "SELECT * FROM NODES WHERE FLOOR = 'L1' AND NODETYPE = 'ELEV'";
+    public static final String ALL_ELEVATORS_FLOOR_G = "SELECT * FROM NODES WHERE FLOOR = 'G' AND NODETYPE = 'ELEV'";
+    public static final String ALL_ELEVATORS_FLOOR_1 = "SELECT * FROM NODES WHERE FLOOR = '1' AND NODETYPE = 'ELEV'";
+    public static final String ALL_ELEVATORS_FLOOR_2 = "SELECT * FROM NODES WHERE FLOOR = '2' AND NODETYPE = 'ELEV'";
+    public static final String ALL_ELEVATORS_FLOOR_3 = "SELECT * FROM NODES WHERE FLOOR = '3' AND NODETYPE = 'ELEV'";
 
     /**
      * loadNodeData
