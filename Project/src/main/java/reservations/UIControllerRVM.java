@@ -13,6 +13,7 @@ import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.DatePicker;
+import javafx.scene.image.ImageView;
 import javafx.scene.shape.Shape;
 
 import java.sql.Connection;
@@ -95,7 +96,13 @@ public class UIControllerRVM extends UIController {
     @FXML
     private ArrayList<Shape> shapes = new ArrayList<>();
 
+
+    @FXML
+    private ImageView backgroundImage;
+  
+  @FXML
     private List<String> IDs = new LinkedList<String>();
+
 
     /**
      * Run when the scene is first loaded
@@ -115,6 +122,10 @@ public class UIControllerRVM extends UIController {
         shapes.add(MHA);
         shapes.add(MHCR);
         shapes.add(pantry);
+
+            backgroundImage.fitWidthProperty().bind(primaryStage.widthProperty());
+
+
 
         int num = 0;
         try {

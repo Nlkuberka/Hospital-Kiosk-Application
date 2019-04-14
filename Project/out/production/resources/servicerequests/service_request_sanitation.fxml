@@ -18,7 +18,6 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-
 <StackPane minHeight="720.0" minWidth="1280.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="servicerequests.UIControllerSRSA">
    <children>
             <ImageView fx:id="backgroundImage" fitWidth="900.0" pickOnBounds="true" preserveRatio="true">
@@ -29,13 +28,13 @@
             <BorderPane>
                 <top>
                     <MenuBar blendMode="ADD" prefWidth="600.0" style="-fx-background-color: white;" stylesheets="@../css/background.css" BorderPane.alignment="CENTER">
-                        <menus>
-                            <Menu fx:id="homeButton" mnemonicParsing="false" onAction="#setHomeButton" onShowing="#setHomeButton" text="Home">
-                     <items>
-                        <MenuItem mnemonicParsing="false" text="HOME" />
-                     </items>
-                  </Menu>
-                        </menus>
+                              <menus>
+                                  <Menu fx:id="homeButton" mnemonicParsing="false" onAction="#setHomeButton" onShowing="#setHomeButton" text="Back">
+                           <items>
+                              <MenuItem mnemonicParsing="false" text="HOME" />
+                           </items>
+                        </Menu>
+                            </menus>
                         <effect>
                             <ColorAdjust>
                                 <input>

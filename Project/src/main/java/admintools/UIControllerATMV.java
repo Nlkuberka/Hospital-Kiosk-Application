@@ -344,33 +344,6 @@ public class UIControllerATMV extends UIController {
         draw();
     }
 
-    private void drawNodes() {
-        //getAllNodeAndEdges();
-        float scaleFx = getScale().get("scaleFx");
-        float scaleFy = getScale().get("scaleFy");
-
-        float x;
-        float y;
-
-        // get all XY pairs and turn them into lines
-        for (Node tempNode : usefulNodes) {
-            x = (float) tempNode.getXcoord() * scaleFx;
-            y = (float) tempNode.getYcoord() * scaleFy;
-
-            Circle circle = new Circle(x, y, 3);
-            circle.setId(tempNode.getNodeID());
-
-            nodesGroup.getChildren().add(circle);
-        }
-    }
-
-    private void setUsefulNodes() {
-        //getAllNodeAndEdges();
-        for (Node node : allNodes) {
-            if (node.getFloor().equals("2")) {
-                usefulNodes.add(node);
-            }
-        }
     private void set() {
         setCurrentScene();
         draw();
