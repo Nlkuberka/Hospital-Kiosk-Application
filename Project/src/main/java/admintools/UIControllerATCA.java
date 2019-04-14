@@ -3,6 +3,7 @@ package admintools;
 import application.CurrentUser;
 import application.UIController;
 import com.jfoenix.controls.JFXTabPane;
+import entities.Graph;
 import javafx.fxml.FXML;
 import javafx.scene.image.ImageView;
 
@@ -32,16 +33,23 @@ public class UIControllerATCA extends UIController {
 
     @FXML
     public void initialize() {
-        List<String> keys = new LinkedList<>();
-        keys.addAll(algorithms.keySet());
-
         backgroundImage.fitWidthProperty().bind(primaryStage.widthProperty());
     }
 
     @FXML
     private void changeAlgorithm() {
         String algorithm = tabs.getSelectionModel().getSelectedItem().getText();
-        CurrentUser.currentAlgorithm = algorithms.get(algorithm);
+        switch(algorithms.get(algorithm)) {
+            case CurrentUser.AALOGRITHM:
+                Graph.toAStar();
+                break;
+            case CurrentUser.BFSEARCH:
+                Graph.toBFS();
+                break;
+            case CurrentUser.DFSEARCH:
+                Graph.toDFS();
+                break;
+        }
         popupMessage("Algorithm changed to " + algorithm, false);
     }
 

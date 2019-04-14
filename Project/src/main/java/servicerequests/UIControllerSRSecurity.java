@@ -14,6 +14,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextFormatter;
+import javafx.scene.image.ImageView;
 
 import java.sql.Connection;
 import java.util.*;
@@ -41,7 +42,11 @@ public class UIControllerSRSecurity extends UIController {
     private JFXButton cancelButton;
 
     @FXML
+    private ImageView backgroundImage;
+
+    @FXML
     public void initialize() {
+        backgroundImage.fitWidthProperty().bind(primaryStage.widthProperty());
         serviceMessage.setTextFormatter(new TextFormatter<String>(e ->
                 e.getControlNewText().length() <= 100 ? e : null
         ));

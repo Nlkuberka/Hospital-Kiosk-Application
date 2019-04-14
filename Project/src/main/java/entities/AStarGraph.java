@@ -9,7 +9,7 @@ public class AStarGraph extends Graph {
     private List<Integer> priorityQueue;
     private boolean finishedSearch;
 
-    public AStarGraph(LinkedList<Node> storedNodes) {
+    protected AStarGraph(LinkedList<Node> storedNodes) {
         super(storedNodes);
     }
 

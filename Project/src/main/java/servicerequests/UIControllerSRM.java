@@ -42,8 +42,11 @@ public class UIControllerSRM extends UIController {
 
     }
 
+    @FXML
+    private void setHomeButton() { this.goToScene(UIController.PATHFINDING_MAIN); }
+
     /**
-     * Redirects to IT servicerequests
+     * Redirects to IT service requests
      */
     @FXML
     public void setITButton() {

@@ -11,5 +11,4 @@ public class CurrentUser {
     public static final int BFSEARCH = 3;
 
     public static User user;
-    public static int currentAlgorithm;
 }
