@@ -356,22 +356,22 @@ public class UIControllerATMV extends UIController {
         tempNode.setXcoord((int) (mouseEvent.getX() / getScale().get("scaleFx")));
         tempNode.setYcoord((int) (mouseEvent.getY() / getScale().get("scaleFy")));
         tempNode.setFloor(tabs.getSelectionModel().getSelectedItem().getId()); //TODO Make Auto Once Add MultiFloor Functionality
-        enablePopup(tempNode);
+        enablePopup(tempNode, "ADD");
         set();
         showAddedNode(tempNode);
     }
 
     private void editNodeOnClick(Node node) throws IOException {
-        enablePopup(node);
+        enablePopup(node, "EDIT");
         //set();
         //showAddedNode(tempNode);
     }
 
-    private void enablePopup(Node node) throws IOException {
+    private void enablePopup(Node node, String action) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/admintools/ATMV_addNode_popup.fxml"));
         Parent root = loader.load();
         UIControllerPUMVAN atmvAddNodePopupController = loader.getController();
-        atmvAddNodePopupController.setNode(node);
+        atmvAddNodePopupController.setNode(node, action);
 
         Stage stage = new Stage();
         stage.setScene(new Scene(root));
