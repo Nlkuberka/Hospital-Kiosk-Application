@@ -8,9 +8,10 @@ public class AStarGraph extends Graph {
     private List<Double> totalPathDistance;
     private List<Integer> priorityQueue;
     private boolean finishedSearch;
+    private Node targetNode;
 
-    protected AStarGraph(LinkedList<Node> storedNodes) {
-        super(storedNodes);
+    protected AStarGraph() {
+        super();
     }
 
     /**
@@ -18,12 +19,13 @@ public class AStarGraph extends Graph {
      */
     @Override
     protected void initialize() {
-        totalPathDistance = new ArrayList<>(storedNodes.size());
-        for(int i = 0; i < storedNodes.size(); i++) {
+        totalPathDistance = new ArrayList<>(nodeIDs.size());
+        for(int i = 0; i < nodeIDs.size(); i++) {
             totalPathDistance.add(Double.MAX_VALUE);
         }
         priorityQueue = new LinkedList<>();
         finishedSearch = false;
+        targetNode = null;
     }
 
     /**
@@ -74,8 +76,10 @@ public class AStarGraph extends Graph {
      * @return the estimated distance between these nodes
      */
     private double getDistanceToTarget(int nodeIndex, int targetIndex) {
-        Node startNode = storedNodes.get(nodeIndex);
-        Node targetNode = storedNodes.get(targetIndex);
+        Node startNode = mapIndexToNode(nodeIndex);
+        if(targetNode == null) {
+            targetNode = mapIndexToNode(targetIndex);
+        }
         double xDifference = startNode.getXcoord() - targetNode.getXcoord();
         double yDifference = startNode.getYcoord() - targetNode.getYcoord();
         return Math.sqrt(xDifference * xDifference + yDifference * yDifference);
