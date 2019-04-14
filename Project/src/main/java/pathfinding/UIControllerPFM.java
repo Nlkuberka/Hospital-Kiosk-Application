@@ -1,33 +1,29 @@
 package pathfinding;
 
+import com.jfoenix.controls.JFXTabPane;
 import database.DBController;
 import application.UIController;
 import application.UIControllerPUD;
-import com.jfoenix.controls.JFXSlider;
 import database.DBControllerNE;
-import entities.AStarGraph;
-import entities.Edge;
 import entities.Graph;
 import entities.Node;
 
+import javafx.animation.Interpolator;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.layout.*;
-import javafx.event.ActionEvent;
-import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.MenuItem;
-import javafx.scene.control.ScrollPane;
+import javafx.geometry.Dimension2D;
+import javafx.geometry.Point2D;
+import javafx.scene.control.*;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseButton;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
-import javafx.scene.shape.Path;
 
 import java.io.IOException;
 import java.sql.Connection;
@@ -36,12 +32,12 @@ import com.jfoenix.controls.JFXButton;
 import javafx.animation.PathTransition;
 import javafx.scene.Group;
 import javafx.scene.Scene;
-import javafx.scene.control.*;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.*;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+import net.kurobako.gesturefx.GesturePane;
 
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -57,6 +53,10 @@ import java.util.logging.Logger;
  */
 
 public class UIControllerPFM extends UIController {
+
+    static final Duration DURATION = Duration.millis(300);
+    @FXML
+    private JFXTabPane mapTabPane;
 
     public enum Floors {
         FIRST("First Floor", "1", 3), GROUND("Ground Floor", "G", 2), LL1("Lower Level 1", "L1", 1),
@@ -103,6 +103,25 @@ public class UIControllerPFM extends UIController {
             return LL2;
         }
 
+        public static Floors getByName(String ID) {
+            if(ID.equals(FIRST.name)) {
+                return FIRST;
+            }
+            if(ID.equals(SECOND.name)) {
+                return SECOND;
+            }
+            if(ID.equals(THIRD.name)) {
+                return THIRD;
+            }
+            if(ID.equals(GROUND.name)) {
+                return GROUND;
+            }
+            if(ID.equals(LL1.name)) {
+                return LL1;
+            }
+            return LL2;
+        }
+
         public static Floors getByIndex(int index) {
             switch (index) {
                 case (0): {
@@ -144,12 +163,6 @@ public class UIControllerPFM extends UIController {
     @FXML
     private ScrollPane scrollPane_pathfind;
     @FXML
-    private ImageView map_02, map_01, map_03, map_00, map_001, map_002;
-    @FXML
-    private Path p_002, p_001, p_00, p_01, p_02, p_03;
-    @FXML
-    private AnchorPane pane_002, pane_001, pane_00, pane_01, pane_02, pane_03;
-    @FXML
     private Button zoom_button;
     @FXML
     private Button unzoom_button;
@@ -158,29 +171,14 @@ public class UIControllerPFM extends UIController {
     @FXML
     private JFXButton serviceRequestButton;
 
-    @FXML private ScrollPane lowerLevel2ScrollPane;
-    @FXML private ScrollPane lowerLevel1ScrollPane;
-    @FXML private ScrollPane groundFloorScrollPane;
-    @FXML private ScrollPane firstFloorScrollPane;
-    @FXML private ScrollPane secondFloorScrollPane;
-    @FXML private ScrollPane thirdFloorScrollPane;
-    private List<ScrollPane> scrollPanes;
 
-    @FXML private AnchorPane lowerLevel2AnchorPane;
-    @FXML private AnchorPane lowerLevel1AnchorPane;
-    @FXML private AnchorPane groundFloorAnchorPane;
-    @FXML private AnchorPane firstFloorAnchorPane;
-    @FXML private AnchorPane secondFloorAnchorPane;
-    @FXML private AnchorPane thirdFloorAnchorPane;
-    private List<AnchorPane> anchorPanes;
-
-    @FXML private ImageView lowerLevel2ImageView;
-    @FXML private ImageView lowerLevel1ImageView;
-    @FXML private ImageView groundFloorImageView;
-    @FXML private ImageView firstFloorImageView;
-    @FXML private ImageView secondFloorImageView;
-    @FXML private ImageView thirdFloorImageView;
-    private List<ImageView> imageViews;
+    @FXML private GesturePane lowerLevel2GesturePane;
+    @FXML private GesturePane lowerLevel1GesturePane;
+    @FXML private GesturePane groundFloorGesturePane;
+    @FXML private GesturePane firstFloorGesturePane;
+    @FXML private GesturePane secondFloorGesturePane;
+    @FXML private GesturePane thirdFloorGesturePane;
+    private List<GesturePane> gesturePanes;
 
     private Group circleGroup = new Group();
     private Circle currentInitCircle;
@@ -197,38 +195,42 @@ public class UIControllerPFM extends UIController {
 
     private MapHandler mapHandler;
 
+    private int currentPaneIndex = 0;
+
     @FXML
     public void initialize() {
 
         /*this.mapHandler = new MapHandler(p_002, p_001, p_00, p_01, p_02, p_03,
                 map_002, map_001, map_00, map_01, map_02, map_03,
                 pane_002, pane_001, pane_00, pane_01, pane_02, pane_03,
-                Floors.SECOND, primaryStage);
-        */
-        setScene();
+                Floors.SECOND, primaryStage); */
+
+
+        setupGesturePanes();
         initialBindings();
 
-
-        // Only show scroll bars if Image inside is bigger than ScrollPane
-        // Only show scroll bars if Image inside is bigger than ScrollPane
-        for(ScrollPane sp : scrollPanes) {
-            sp.setHbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
-            sp.setVbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
-        }
-
-        //scrollPane_pathfind.prefViewportWidthProperty().bind(hboxForMap.prefWidthProperty());
-        //scrollPane_pathfind.prefViewportHeightProperty().bind(hboxForMap.prefHeightProperty());
+        // ensures new tab has same x,y on the map
+        mapTabPane.getSelectionModel().selectedItemProperty().addListener(
+                new ChangeListener<Tab>() {
+                    @Override
+                    public void changed(ObservableValue<? extends Tab> ov, Tab t, Tab t1) {
+                        currentPaneIndex = Floors.getByName(t1.getText()).getIndex();
+                        int indexOld = Floors.getByName(t.getText()).getIndex();
+                        GesturePane pane = gesturePanes.get(currentPaneIndex);
+                        GesturePane oldPane = gesturePanes.get(indexOld);
+                        pane.centreOn(oldPane.targetPointAtViewportCentre());
+                    }
+                }
+        );
 
         // set value to "true" to use zoom functionality
         //setZoomOn(true);
 
-        //mapHandler.setAllPaneSize(1920.0, mapHandler.getTopPane().getPrefHeight()*(1920.0/mapHandler.getTopPane().getPrefWidth()));
     }
 
     @Override
     public void onShow() {
-        /*Connection conn = DBControllerNE.dbConnect();
-        LinkedList<Node> allRooms = DBControllerNE.generateListOfNodes(conn,DBControllerNE.ALL_ROOMS);
+        Connection conn = DBControllerNE.dbConnect();
 
         roomsAtEachFloor.add(DBControllerNE.generateListOfNodes(conn, DBControllerNE.ALL_ROOMS_FLOOR_L2));
         roomsAtEachFloor.add(DBControllerNE.generateListOfNodes(conn, DBControllerNE.ALL_ROOMS_FLOOR_L1));
@@ -242,17 +244,65 @@ public class UIControllerPFM extends UIController {
         initialLocationSelect.getItems().clear();
         destinationSelect.getItems().clear();
 
-        for (Node node : allRooms) {
-            // update choices for initial location
-            initialLocationSelect.getItems().add(node.getLongName());
-            // update choices for destination location
-            destinationSelect.getItems().addAll(node.getLongName());
+        for (LinkedList<Node> list : this.roomsAtEachFloor) {
+            for (Node node : list) {
+                // update choices for initial location
+                initialLocationSelect.getItems().add(node.getLongName());
+                // update choices for destination location
+                destinationSelect.getItems().addAll(node.getLongName());
+            }
         }
 
 
 
-        drawNodes(roomsAtEachFloor.get(mapHandler.currentFloor.getIndex()));
-        */
+        //drawNodes(roomsAtEachFloor.get(mapHandler.currentFloor.getIndex()));
+    }
+
+    private void setupGesturePanes() {
+        this.gesturePanes = new LinkedList<GesturePane>();
+        gesturePanes.add(lowerLevel2GesturePane);
+        gesturePanes.add(lowerLevel1GesturePane);
+        gesturePanes.add(groundFloorGesturePane);
+        gesturePanes.add(firstFloorGesturePane);
+        gesturePanes.add(secondFloorGesturePane);
+        gesturePanes.add(thirdFloorGesturePane);
+
+        for(int i = 0; i < this.gesturePanes.size(); i++) {
+            GesturePane pane = this.gesturePanes.get(i);
+            pane.setMaxScale(1.3);
+            pane.setMinScale(0.1);
+            pane.setScrollBarEnabled(true);
+            pane.setHBarEnabled(true);
+        }
+
+        for(int i = 0; i < this.gesturePanes.size()-1; i++) {
+            GesturePane pane = this.gesturePanes.get(i);
+            GesturePane next = this.gesturePanes.get(i+1);
+            pane.currentScaleProperty().bindBidirectional(next.currentScaleProperty());
+        }
+
+
+        // zoom*2 on double-click
+        for (GesturePane pane : this.gesturePanes) {
+            pane.setOnMouseClicked(e -> {
+                Point2D pivotOnTarget = pane.targetPointAt(new Point2D(e.getX(), e.getY()))
+                        .orElse(pane.targetPointAtViewportCentre());
+                if (e.getButton() == MouseButton.PRIMARY && e.getClickCount() == 2) {
+                    // increment of scale makes more sense exponentially instead of linearly
+                    pane.animate(DURATION)
+                            .interpolateWith(Interpolator.EASE_BOTH)
+                            .zoomBy(pane.getCurrentScale(), pivotOnTarget);
+                } else if (e.getButton() == MouseButton.SECONDARY && e.getClickCount() == 1) {
+                    pane.animate(DURATION)
+                            .interpolateWith(Interpolator.EASE_BOTH)
+                            .zoomTo(pane.getMinScale(), pivotOnTarget);
+                }
+            });
+        }
+
+        GesturePane pane = this.gesturePanes.get(currentPaneIndex);
+        pane.zoomTo(0.3, pane.viewportCentre());
+        pane.translateBy(new Dimension2D(500.0, 400.0));
     }
 
     private void initialBindings() {
@@ -260,42 +310,9 @@ public class UIControllerPFM extends UIController {
         // ensures auto resize works
         backgroundImage.fitWidthProperty().bind(primaryStage.widthProperty());
 
-        for(int i = 0; i < imageViews.size(); i++) {
-            imageViews.get(i).fitWidthProperty().bind(anchorPanes.get(i).prefWidthProperty());
-            imageViews.get(i).fitHeightProperty().bind(anchorPanes.get(i).prefHeightProperty());
-        }
         //scrollPane_pathfind.prefViewportWidthProperty().bind(hboxForMap.prefWidthProperty());
     }
 
-    private void setScene() {
-        // set value to "true" to use zoom functionality
-        //setZoomOn(true);
-        //mapHandler.getTopPane().getChildren().add(circleGroup);
-
-        scrollPanes = new LinkedList<ScrollPane>();
-        scrollPanes.add(lowerLevel2ScrollPane);
-        scrollPanes.add(lowerLevel1ScrollPane);
-        scrollPanes.add(groundFloorScrollPane);
-        scrollPanes.add(firstFloorScrollPane);
-        scrollPanes.add(secondFloorScrollPane);
-        scrollPanes.add(thirdFloorScrollPane);
-
-        anchorPanes = new LinkedList<AnchorPane>();
-        anchorPanes.add(lowerLevel2AnchorPane);
-        anchorPanes.add(lowerLevel1AnchorPane);
-        anchorPanes.add(groundFloorAnchorPane);
-        anchorPanes.add(firstFloorAnchorPane);
-        anchorPanes.add(secondFloorAnchorPane);
-        anchorPanes.add(thirdFloorAnchorPane);
-
-        imageViews = new LinkedList<ImageView>();
-        imageViews.add(lowerLevel2ImageView);
-        imageViews.add(lowerLevel1ImageView);
-        imageViews.add(groundFloorImageView);
-        imageViews.add(firstFloorImageView);
-        imageViews.add(secondFloorImageView);
-        imageViews.add(thirdFloorImageView);
-    }
 
     @FXML
     public void initLocChanged(ActionEvent actionEvent) {
@@ -448,16 +465,12 @@ public class UIControllerPFM extends UIController {
      * @param actionEvent Triggered when zoom_button is pressed
      */
     public void zoom(ActionEvent actionEvent) {
-        if (groundFloorAnchorPane.getPrefWidth() < groundFloorAnchorPane.getMaxWidth()) {
-            for(AnchorPane ap : anchorPanes) {
-                ap.setPrefSize(ap.getPrefWidth() * zoomFactor, ap.getPrefHeight() * zoomFactor);
-            }
-        }
-        /*mapHandler.zoomIn(zoomFactor);
-
-        circleGroup.getChildren().clear();
-        drawNodes(roomsAtEachFloor.get(mapHandler.currentFloor.getIndex()));
-        focusNodes();*/
+        GesturePane pane = this.gesturePanes.get(this.currentPaneIndex);
+        Point2D pivotOnTarget = pane.targetPointAtViewportCentre();
+        // increment of scale makes more sense exponentially instead of linearly
+        pane.animate(DURATION)
+                .interpolateWith(Interpolator.EASE_BOTH)
+                .zoomBy(pane.getCurrentScale()/1.66, pivotOnTarget);
     }
 
     /**
@@ -466,16 +479,11 @@ public class UIControllerPFM extends UIController {
      * @param actionEvent Triggered when zoom_button is pressed
      */
     public void unZoom(ActionEvent actionEvent) {
-        if (groundFloorAnchorPane.getPrefWidth() > groundFloorAnchorPane.getMinWidth()) {
-            for(AnchorPane ap : anchorPanes) {
-                ap.setPrefSize(ap.getPrefWidth() / zoomFactor, ap.getPrefHeight() / zoomFactor);
-            }
-        }
-        /*mapHandler.zoomOut(zoomFactor);
-
-        circleGroup.getChildren().clear();
-        drawNodes(roomsAtEachFloor.get(mapHandler.currentFloor.getIndex()));
-        focusNodes();*/
+        GesturePane pane = this.gesturePanes.get(this.currentPaneIndex);
+        Point2D pivotOnTarget = pane.targetPointAtViewportCentre();
+        pane.animate(DURATION)
+                .interpolateWith(Interpolator.EASE_BOTH)
+                .zoomBy(-0.33, pivotOnTarget);
     }
 
     public void drawNodes(LinkedList<Node> nodes) {
