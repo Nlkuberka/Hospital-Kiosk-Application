@@ -144,7 +144,7 @@ public class UIControllerPFM extends UIController {
     @FXML
     private ScrollPane scrollPane_pathfind;
     @FXML
-    private ImageView map_02, map_01, map_03, map_00, map_001, map_002;
+    private ImageView map_01, map_03, map_00, map_001, map_002;
     @FXML
     private Path p_002, p_001, p_00, p_01, p_02, p_03;
     @FXML
@@ -273,28 +273,28 @@ public class UIControllerPFM extends UIController {
         //mapHandler.getTopPane().getChildren().add(circleGroup);
 
         scrollPanes = new LinkedList<ScrollPane>();
-        scrollPanes.add(lowerLevel2ScrollPane);
-        scrollPanes.add(lowerLevel1ScrollPane);
-        scrollPanes.add(groundFloorScrollPane);
-        scrollPanes.add(firstFloorScrollPane);
-        scrollPanes.add(secondFloorScrollPane);
-        scrollPanes.add(thirdFloorScrollPane);
+        //scrollPanes.add(lowerLevel2ScrollPane);
+//        scrollPanes.add(lowerLevel1ScrollPane);
+//        scrollPanes.add(groundFloorScrollPane);
+//        scrollPanes.add(firstFloorScrollPane);
+//        scrollPanes.add(secondFloorScrollPane);
+//        scrollPanes.add(thirdFloorScrollPane);
 
         anchorPanes = new LinkedList<AnchorPane>();
-        anchorPanes.add(lowerLevel2AnchorPane);
-        anchorPanes.add(lowerLevel1AnchorPane);
-        anchorPanes.add(groundFloorAnchorPane);
-        anchorPanes.add(firstFloorAnchorPane);
-        anchorPanes.add(secondFloorAnchorPane);
-        anchorPanes.add(thirdFloorAnchorPane);
+        //anchorPanes.add(lowerLevel2AnchorPane);
+//        anchorPanes.add(lowerLevel1AnchorPane);
+//        anchorPanes.add(groundFloorAnchorPane);
+//        anchorPanes.add(firstFloorAnchorPane);
+//        anchorPanes.add(secondFloorAnchorPane);
+//        anchorPanes.add(thirdFloorAnchorPane);
 
         imageViews = new LinkedList<ImageView>();
-        imageViews.add(lowerLevel2ImageView);
-        imageViews.add(lowerLevel1ImageView);
-        imageViews.add(groundFloorImageView);
-        imageViews.add(firstFloorImageView);
-        imageViews.add(secondFloorImageView);
-        imageViews.add(thirdFloorImageView);
+        //imageViews.add(lowerLevel2ImageView);
+//        imageViews.add(lowerLevel1ImageView);
+//        imageViews.add(groundFloorImageView);
+//        imageViews.add(firstFloorImageView);
+//        imageViews.add(secondFloorImageView);
+//        imageViews.add(thirdFloorImageView);
     }
 
     @FXML
@@ -466,11 +466,11 @@ public class UIControllerPFM extends UIController {
      * @param actionEvent Triggered when zoom_button is pressed
      */
     public void unZoom(ActionEvent actionEvent) {
-        if (groundFloorAnchorPane.getPrefWidth() > groundFloorAnchorPane.getMinWidth()) {
-            for(AnchorPane ap : anchorPanes) {
-                ap.setPrefSize(ap.getPrefWidth() / zoomFactor, ap.getPrefHeight() / zoomFactor);
-            }
-        }
+//        if (groundFloorAnchorPane.getPrefWidth() > groundFloorAnchorPane.getMinWidth()) {
+//            for(AnchorPane ap : anchorPanes) {
+//                ap.setPrefSize(ap.getPrefWidth() / zoomFactor, ap.getPrefHeight() / zoomFactor);
+//            }
+//        }
         /*mapHandler.zoomOut(zoomFactor);
 
         circleGroup.getChildren().clear();
