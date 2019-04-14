@@ -20,7 +20,7 @@ public class Main extends Application {
     public void start(Stage primaryStage) throws Exception {
         UIController controller = new UIController(primaryStage);
 
-        controller.goToScene(UIController.SERVICE_REQUEST_SECURITY);
+        controller.goToScene(UIController.WELCOME_MAIN);
 
 
         System.out.println("Collaborator is " + "X");
