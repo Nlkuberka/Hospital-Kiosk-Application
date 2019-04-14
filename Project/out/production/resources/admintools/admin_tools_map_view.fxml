@@ -31,18 +31,17 @@
            </MenuBar>
       </top>
       <center>
-
             <TabPane fx:id="tabs" tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER">
                 <Tab id="L2" text="Lower Level 2">
                     <StackPane>
                         <ScrollPane fx:id="lowerLevel2ScrollPane">
                             <AnchorPane fx:id="lowerLevel2AnchorPane" maxHeight="3400.0" maxWidth="5000.0" minHeight="0.0" minWidth="0.0" prefHeight="3400.0" prefWidth="5000.0">
-                                <ImageView fx:id="lowerLevel2ImageView" fitHeight="999" fitWidth="999" pickOnBounds="true" preserveRatio="true">
+                                <ImageView fx:id="lowerLevel2ImageView" fitHeight="999" fitWidth="999" onMouseClicked="#addNodeOnClick" pickOnBounds="true" preserveRatio="true">
                                     <Image url="@../maps/00_thelowerlevel2.png" />
                                 </ImageView>
                             </AnchorPane>
                         </ScrollPane>
-                        <AnchorPane minHeight="-Infinity" minWidth="-Infinity">
+                        <AnchorPane minHeight="-Infinity" minWidth="-Infinity" pickOnBounds="false">
                             <JFXButton contentDisplay="CENTER" layoutX="4.0" layoutY="14.0" mnemonicParsing="false" onAction="#zoom" prefWidth="100.0" styleClass="jfx-button-zoom" stylesheets="@../css/background.css" text=" " textFill="WHITE">
                                 <font>
                                     <Font name="System Bold" size="14.0" />
@@ -70,12 +69,12 @@
                     <StackPane>
                         <ScrollPane fx:id="lowerLevel1ScrollPane">
                             <AnchorPane fx:id="lowerLevel1AnchorPane" maxHeight="3400.0" maxWidth="5000.0" minHeight="0.0" minWidth="0.0" prefHeight="3400.0" prefWidth="5000.0">
-                                <ImageView fx:id="lowerLevel1ImageView" fitHeight="999" fitWidth="999" pickOnBounds="true" preserveRatio="true">
+                                <ImageView fx:id="lowerLevel1ImageView" fitHeight="999" fitWidth="999" onMouseClicked="#addNodeOnClick" pickOnBounds="true" preserveRatio="true">
                                     <Image url="@../maps/00_thelowerlevel1.png" />
                                 </ImageView>
                             </AnchorPane>
                         </ScrollPane>
-                        <AnchorPane minHeight="-Infinity" minWidth="-Infinity">
+                        <AnchorPane minHeight="-Infinity" minWidth="-Infinity" pickOnBounds="false">
                             <JFXButton contentDisplay="CENTER" layoutX="4.0" layoutY="14.0" mnemonicParsing="false" onAction="#zoom" prefWidth="100.0" styleClass="jfx-button-zoom" stylesheets="@../css/background.css" text=" " textFill="WHITE">
                                 <font>
                                     <Font name="System Bold" size="14.0" />
@@ -103,12 +102,12 @@
                     <StackPane>
                         <ScrollPane fx:id="groundFloorScrollPane">
                             <AnchorPane fx:id="groundFloorAnchorPane" maxHeight="3400.0" maxWidth="5000.0" minHeight="0.0" minWidth="0.0" prefHeight="3400.0" prefWidth="5000.0">
-                                <ImageView fx:id="groundFloorImageView" fitHeight="999" fitWidth="999" pickOnBounds="true" preserveRatio="true">
+                                <ImageView fx:id="groundFloorImageView" fitHeight="999" fitWidth="999" onMouseClicked="#addNodeOnClick" pickOnBounds="true" preserveRatio="true">
                                     <Image url="@../maps/00_thegroundfloor.png" />
                                 </ImageView>
                             </AnchorPane>
                         </ScrollPane>
-                        <AnchorPane minHeight="-Infinity" minWidth="-Infinity">
+                        <AnchorPane minHeight="-Infinity" minWidth="-Infinity" pickOnBounds="false">
                             <JFXButton contentDisplay="CENTER" layoutX="4.0" layoutY="14.0" mnemonicParsing="false" onAction="#zoom" prefWidth="100.0" styleClass="jfx-button-zoom" stylesheets="@../css/background.css" text=" " textFill="WHITE">
                                 <font>
                                     <Font name="System Bold" size="14.0" />
@@ -136,12 +135,12 @@
                     <StackPane>
                         <ScrollPane fx:id="firstFloorScrollPane">
                             <AnchorPane fx:id="firstFloorAnchorPane" maxHeight="3400.0" maxWidth="5000.0" minHeight="0.0" minWidth="0.0" prefHeight="3400.0" prefWidth="5000.0">
-                                <ImageView fx:id="firstFloorImageView" fitHeight="999" fitWidth="999" pickOnBounds="true" preserveRatio="true">
+                                <ImageView fx:id="firstFloorImageView" fitHeight="999" fitWidth="999" onMouseClicked="#addNodeOnClick" pickOnBounds="true" preserveRatio="true">
                                     <Image url="@../maps/01_thefirstfloor.png" />
                                 </ImageView>
                             </AnchorPane>
                         </ScrollPane>
-                        <AnchorPane minHeight="-Infinity" minWidth="-Infinity">
+                        <AnchorPane minHeight="-Infinity" minWidth="-Infinity" pickOnBounds="false">
                             <JFXButton contentDisplay="CENTER" layoutX="4.0" layoutY="14.0" mnemonicParsing="false" onAction="#zoom" prefWidth="100.0" styleClass="jfx-button-zoom" stylesheets="@../css/background.css" text=" " textFill="WHITE">
                                 <font>
                                     <Font name="System Bold" size="14.0" />
@@ -169,12 +168,12 @@
                     <StackPane>
                         <ScrollPane fx:id="secondFloorScrollPane">
                             <AnchorPane fx:id="secondFloorAnchorPane" maxHeight="3400.0" maxWidth="5000.0" minHeight="0.0" minWidth="0.0" prefHeight="3400.0" prefWidth="5000.0">
-                                <ImageView fx:id="secondFloorImageView" fitHeight="999" fitWidth="999" pickOnBounds="true" preserveRatio="true">
+                                <ImageView fx:id="secondFloorImageView" fitHeight="999" fitWidth="999" onMouseClicked="#addNodeOnClick" pickOnBounds="true" preserveRatio="true">
                                     <Image url="@../maps/02_thesecondfloor.png" />
                                 </ImageView>
                             </AnchorPane>
                         </ScrollPane>
-                        <AnchorPane minHeight="-Infinity" minWidth="-Infinity">
+                        <AnchorPane minHeight="-Infinity" minWidth="-Infinity" pickOnBounds="false">
                             <JFXButton contentDisplay="CENTER" layoutX="4.0" layoutY="14.0" mnemonicParsing="false" onAction="#zoom" prefWidth="100.0" styleClass="jfx-button-zoom" stylesheets="@../css/background.css" text=" " textFill="WHITE">
                                 <font>
                                     <Font name="System Bold" size="14.0" />
@@ -202,12 +201,12 @@
                     <StackPane>
                         <ScrollPane fx:id="thirdFloorScrollPane">
                             <AnchorPane fx:id="thirdFloorAnchorPane" maxHeight="3400.0" maxWidth="5000.0" minHeight="0.0" minWidth="0.0" prefHeight="3400.0" prefWidth="5000.0">
-                                <ImageView fx:id="thirdFloorImageView" fitHeight="999" fitWidth="999" pickOnBounds="true" preserveRatio="true">
+                                <ImageView fx:id="thirdFloorImageView" fitHeight="999" fitWidth="999" onMouseClicked="#addNodeOnClick" pickOnBounds="true" preserveRatio="true">
                                     <Image url="@../maps/03_thethirdfloor.png" />
                                 </ImageView>
                             </AnchorPane>
                         </ScrollPane>
-                        <AnchorPane minHeight="-Infinity" minWidth="-Infinity">
+                        <AnchorPane minHeight="-Infinity" minWidth="-Infinity" pickOnBounds="false">
                             <JFXButton contentDisplay="CENTER" layoutX="4.0" layoutY="14.0" mnemonicParsing="false" onAction="#zoom" prefWidth="100.0" styleClass="jfx-button-zoom" stylesheets="@../css/background.css" text=" " textFill="WHITE">
                                 <font>
                                     <Font name="System Bold" size="14.0" />

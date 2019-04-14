@@ -3,6 +3,7 @@ package application;
 import database.DBController;
 
 import database.DBControllerNE;
+import database.DBControllerU;
 import entities.Edge;
 import entities.Graph;
 import entities.Node;
@@ -48,6 +49,8 @@ public class Main extends Application {
             }
         }
 
+        CurrentUser.user = DBControllerU.getGuestUser(conn);
+        DBController.closeConnection(conn);
         //DBController.initializeAppDB();
     }
 
