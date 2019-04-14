@@ -3,12 +3,14 @@ package admintools;
 import application.UIController;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextField;
+import com.sun.istack.internal.Nullable;
 import database.DBController;
 import database.DBControllerNE;
 import entities.Node;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.ProgressBar;
+import javafx.scene.control.TextFormatter;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.StackPane;
 import javafx.scene.text.Text;
@@ -56,6 +58,47 @@ public class UIControllerPUMVAN extends UIController {
         textFields.add(TextField_LongName);
         textFields.add(TextField_ShortName);
         textFields.add(TextField_NodeID);
+        textFields.add(TextField_NodeType);
+
+        TextField_NodeType.textProperty().addListener((ov, oldValue, newValue) -> {
+            if (newValue.length() > 4) {
+                TextField_NodeType.setText(oldValue);
+            }
+        });
+
+        TextField_NodeID.textProperty().addListener((ov, oldValue, newValue) -> {
+            if (newValue.length() > 10) {
+                TextField_NodeID.setText(oldValue);
+            }
+        });
+
+        TextField_Building.textProperty().addListener((ov, oldValue, newValue) -> {
+            if (newValue.length() > 15) {
+                TextField_Building.setText(oldValue);
+            }
+        });
+
+        TextField_LongName.textProperty().addListener((ov, oldValue, newValue) -> {
+            if (newValue.length() > 49) {
+                TextField_LongName.setText(oldValue);
+            }
+        });
+
+        TextField_ShortName.textProperty().addListener((ov, oldValue, newValue) -> {
+            if (newValue.length() > 49) {
+                TextField_ShortName.setText(oldValue);
+            }
+        });
+
+        TextField_NodeType.setTextFormatter(new TextFormatter<>((change) -> {
+            change.setText(change.getText().toUpperCase());
+            return change;
+        }));
+
+        TextField_NodeID.setTextFormatter(new TextFormatter<>((change) -> {
+            change.setText(change.getText().toUpperCase());
+            return change;
+        }));
     }
 
     @FXML
@@ -69,7 +112,6 @@ public class UIControllerPUMVAN extends UIController {
 
     public void setNode(Node node) {
         this.node = node;
-        TextField_NodeID.setText(node.getNodeID());
         TextField_XCoor.setText(Integer.toString(node.getXcoord()));
         TextField_YCoor.setText(Integer.toString(node.getYcoord()));
         TextField_Floor.setText(node.getFloor());
@@ -117,8 +159,11 @@ public class UIControllerPUMVAN extends UIController {
                         Text_FieldsRequired.setVisible(true);
                         isFading = true;
                     }
+
                     @Override
-                    public void update(double delta) {}
+                    public void update(double delta) {
+                    }
+
                     @Override
                     public void onEnd() {
                         Text_FieldsRequired.setVisible(false);
@@ -133,7 +178,9 @@ public class UIControllerPUMVAN extends UIController {
     private boolean validateInput() {
         boolean isValid = true;
         for (JFXTextField jfxTextField : textFields) {
-            if (jfxTextField.getText().isEmpty()) isValid = false;
+            if (jfxTextField.getText().isEmpty()) {
+                isValid = false;
+            }
         }
         return isValid;
     }
