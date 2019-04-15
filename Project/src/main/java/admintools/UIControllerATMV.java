@@ -1,5 +1,6 @@
 package admintools;
 
+import application.CurrentUser;
 import application.UIController;
 import database.DBController;
 import database.DBControllerNE;
@@ -218,20 +219,18 @@ public class UIControllerATMV extends UIController {
             Circle circle = new Circle(x, y, 7);
             circle.setId(tempNode.getNodeID());
 
-            circle.setOnMouseClicked(event -> {
-                try {
-                    enableChoicePopup(tempNode);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            });
-
             circle.setOnMousePressed(new EventHandler<MouseEvent>() {
                 @Override
                 public void handle(MouseEvent mouseEvent) {
                     mouseX = circle.getLayoutX() - mouseEvent.getSceneX();
                     mouseY = circle.getLayoutY() - mouseEvent.getSceneY();
-                    circle.setCursor(Cursor.MOVE);
+                    if (mouseEvent.getClickCount() == 2) {
+                        try {
+                            enableChoicePopup(tempNode);
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    }
                 }
             });
 
@@ -240,7 +239,7 @@ public class UIControllerATMV extends UIController {
                 public void handle(MouseEvent mouseEvent) {
                     circle.setLayoutX(mouseEvent.getSceneX() + mouseX);
                     circle.setLayoutY(mouseEvent.getSceneY() + mouseY);
-
+                    circle.setCursor(Cursor.MOVE);
                 }
             });
 
@@ -393,16 +392,23 @@ public class UIControllerATMV extends UIController {
         showAddedNode(tempNode);
     }
 
-    private void editNode(Node node) throws IOException {
+    void editNode(Node node) throws IOException {
         enableAddAndEditPopup(node, "EDIT");
     }
 
-    private void deleteNode(Node node)
-    {
+    void deleteNode(Node node) {
         Connection conn = DBControllerNE.dbConnect();
         DBControllerNE.deleteNode(node.getNodeID(), conn);
         DBControllerNE.closeConnection(conn);
         set();
+    }
+
+    void setKiosk(Node node) {
+        if (node.getNodeType().equals("HALL") || node.getNodeType().equals("REST") || node.getNodeType().equals("ELEV")) {
+            popupMessage("Invalid Kiosk Location", true);
+        } else {
+            CurrentUser.startingLocation = node.getLongName();
+        }
     }
 
     private void enableAddAndEditPopup(Node node, String action) throws IOException {
@@ -411,6 +417,10 @@ public class UIControllerATMV extends UIController {
         UIControllerPUMVAN atmvAddNodePopupController = loader.getController();
         atmvAddNodePopupController.setNode(node, action);
 
+        setStage(root);
+    }
+
+    private void setStage(Parent root) {
         Stage stage = new Stage();
         stage.setScene(new Scene(root));
         stage.initModality(Modality.APPLICATION_MODAL);
@@ -427,35 +437,8 @@ public class UIControllerATMV extends UIController {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/admintools/ATMV_selectedNodeOptions_popup.fxml"));
         Parent root = loader.load();
         UIControllerPUMVNO uiControllerPUMVNO = loader.getController();
-        Stage stage = new Stage();
-        stage.setScene(new Scene(root));
-        stage.initModality(Modality.APPLICATION_MODAL);
-        stage.initStyle(StageStyle.UNDECORATED);
-        stage.initOwner(parentPane.getScene().getWindow());
-        stage.setHeight(400);
-        stage.setWidth(600);
-        stage.setResizable(false);
-        stage.centerOnScreen();
-        stage.showAndWait();
-
-        // TODO switch to listeners if there is time
-        switch (uiControllerPUMVNO.getStatus()) {
-            case "EDIT-NODE":
-                editNode(node);
-                break;
-            case "SET-KIOSK":
-                System.out.println("SET-KIOSK CALLED");
-                break;
-            case "ADD-EDGE":
-                break;
-            case "DELETE-NODE":
-                deleteNode(node);
-                break;
-            case "DELETE-EDGE":
-                break;
-            default:
-                break;
-        }
+        uiControllerPUMVNO.setUiControllerATMV(this, node);
+        setStage(root);
     }
 
     private void showAddedNode(Node node) {

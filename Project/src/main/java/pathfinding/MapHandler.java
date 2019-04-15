@@ -75,6 +75,14 @@ public class MapHandler {
         return result;
     }
 
+    List<Path> getPaths() {
+        return this.pathList;
+    }
+
+    boolean isActive() {
+        return latestPath != null;
+    }
+
     private void updatePaths(List<List<List<Node>>> list) {
         if (list.size() != UIControllerPFM.Floors.values().length)
             System.out.println("WARNING: Did not receive a node list for each floor");
@@ -144,4 +152,17 @@ public class MapHandler {
         result.add(new Point2D(maxX, maxY));
         return result;
     }
+
+    List<Integer> getFloorsUsed() {
+        List<Integer> result = new LinkedList<>();
+        int i = 0;
+        for (List<List<Node>> floor : this.latestPath) {
+            if (floor.size() > 0)
+                result.add(i);
+            i++;
+        }
+        return result;
+    }
+
+
 }
