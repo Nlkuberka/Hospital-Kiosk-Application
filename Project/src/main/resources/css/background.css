@@ -176,15 +176,14 @@
 }
 
 /* Tab pane styling*/
-.tab-pane{
+.jfx-tab-pane{
     -fx-background-color: #FFC41E;
     -fx-pref-width: 900;
     -webkit-fx-pref-height:50;
 }
-.tab .tab-label{
+.tab .text{
     -fx-text-fill: #090a0f;
     -fx-pref-height: 30;
-    -fx-text-fill: #090a0f;
     -fx-font-weight: Bold;
     -fx-font-size: 14;
     -fx-text-alignment: CENTER;
