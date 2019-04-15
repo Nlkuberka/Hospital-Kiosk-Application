@@ -147,11 +147,6 @@
             </StackPane>
             </center>
             <top>
-                <MenuBar blendMode="ADD" style="-fx-background-color: white;" stylesheets="@/css/background.css" BorderPane.alignment="CENTER_LEFT">
-                    <Menu mnemonicParsing="false" onShowing="#setHomeButton" text="Home">
-                        <MenuItem fx:id="backButton" mnemonicParsing="false" onAction="#goBack" text="Go back to previous page" />
-                    </Menu>
-                </MenuBar>
             </top>
          <left>
                 <GridPane fx:id="interfaceGrid" prefWidth="200.0" style=".controls-grid" stylesheets="/css/controlsGridpane.css">
