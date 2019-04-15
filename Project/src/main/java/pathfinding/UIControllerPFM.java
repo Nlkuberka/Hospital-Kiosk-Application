@@ -445,6 +445,9 @@ public class UIControllerPFM extends UIController {
         Node initialNode = DBControllerNE.fetchNode(initialID, connection);
         DBController.closeConnection(connection);
 
+        clearPathTransition(); // reset stuff
+        mapHandler.cancel(); // reset stuff
+
         // change tab based on initial node -- order here is important! Do not move below.
         mapTabPane.getSelectionModel().select(Floors.getByID(initialNode.getFloor()).getIndex());
 
