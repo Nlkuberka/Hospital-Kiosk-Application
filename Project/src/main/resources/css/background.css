@@ -211,6 +211,18 @@
    -fx-border-color: #FFC41E;
     -fx-border-width: 6;
 }
+/*Login_main tab*/
+.jfx-tab-pane-login{
+    -fx-background-color: #FFC41E;
+    -fx-pref-width: 900;
+    -webkit-fx-pref-height:50;
+}
+
+
+.tab-header-background-login{
+    -fx-background-color: #FFC41E;
+}
+
 
 
 

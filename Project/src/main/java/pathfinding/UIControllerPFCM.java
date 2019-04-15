@@ -8,7 +8,7 @@ import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
-public class UIControllerCM extends UIController {
+public class UIControllerPFCM extends UIController {
     @FXML
     private JFXButton startButton;
     @FXML

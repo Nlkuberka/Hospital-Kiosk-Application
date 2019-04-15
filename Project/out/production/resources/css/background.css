@@ -188,15 +188,14 @@
 }
 
 /* Tab pane styling*/
-.tab-pane{
+.jfx-tab-pane{
     -fx-background-color: #FFC41E;
     -fx-pref-width: 900;
     -webkit-fx-pref-height:50;
 }
-.tab .tab-label{
+.tab .text{
     -fx-text-fill: #090a0f;
     -fx-pref-height: 30;
-    -fx-text-fill: #090a0f;
     -fx-font-weight: Bold;
     -fx-font-size: 14;
     -fx-text-alignment: CENTER;
@@ -212,6 +211,24 @@
    -fx-border-color: #FFC41E;
     -fx-border-width: 6;
 }
+/*Login_main tab*/
+.jfx-tab-pane-login{
+    -fx-background-color: #FFC41E;
+    -fx-pref-width: 900;
+    -webkit-fx-pref-height:50;
+}
+.tab .text{
+    -fx-text-fill: #090a0f;
+    -fx-pref-height: 30;
+    -fx-font-weight: Bold;
+    -fx-font-size: 14;
+    -fx-text-alignment: CENTER;
+}
+
+.tab-header-background-login{
+    -fx-background-color: #FFC41E;
+}
+
 
 
 

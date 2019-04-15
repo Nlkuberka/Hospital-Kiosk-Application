@@ -11,7 +11,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<StackPane prefHeight="250.0" prefWidth="350.0" style="-fx-border-color: #ffc41e; -fx-border-width: 5; -fx-background-color: #015080;" stylesheets="@../css/background.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pathfinding.UIControllerCM">
+<StackPane prefHeight="250.0" prefWidth="350.0" style="-fx-border-color: #ffc41e; -fx-border-width: 5; -fx-background-color: #015080;" stylesheets="@../css/background.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pathfinding.UIControllerPFCM">
    <styleClass>
       <String fx:value="stack_pane_context" />
       <String fx:value="root_context" />
