@@ -45,6 +45,8 @@ import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import static application.CurrentUser.startingLocation;
+
 /**
  * Controller for the path_find_main.fxml file
  *
@@ -227,6 +229,7 @@ public class UIControllerPFM extends UIController {
 
     @Override
     public void onShow() {
+        System.out.println(startingLocation);
         Connection conn = DBControllerNE.dbConnect();
 
         LinkedList<LinkedList<Node>> roomsAtEachFloor = new LinkedList<>();
@@ -279,6 +282,7 @@ public class UIControllerPFM extends UIController {
                     }
                 });
 
+        setUpDefaultStartingLocation(startingLocation);
 
                 group.getChildren().add(circle);
             }
@@ -353,6 +357,9 @@ public class UIControllerPFM extends UIController {
 
     }
 
+    private void setUpDefaultStartingLocation(String longName){
+        initialLocationSelect.setValue(longName);
+    }
 
     @FXML
     public void initLocChanged(ActionEvent actionEvent) {
