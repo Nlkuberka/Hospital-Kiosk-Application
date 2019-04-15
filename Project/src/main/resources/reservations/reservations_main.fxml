@@ -30,7 +30,12 @@
             </ImageView>
               <MenuBar blendMode="ADD" prefWidth="2400.0" style="-fx-background-color: white;" stylesheets="@../css/background.css">
                   <menus>
-                      <Menu mnemonicParsing="false" onShowing="#setHomeButton" text="Home">
+            <Menu fx:id="backButton" mnemonicParsing="false" text="Back">
+              <items>
+                <MenuItem mnemonicParsing="false" onAction="#setBackButton" text="Go back to previous page" />
+              </items>
+            </Menu>
+                      <Menu fx:id="homeButton" mnemonicParsing="false" onShowing="#setHomeButton" text="Home">
                <items>
                   <MenuItem mnemonicParsing="false" text="HOME" />
                </items>
