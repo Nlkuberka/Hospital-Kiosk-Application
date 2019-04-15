@@ -11,4 +11,5 @@ public class CurrentUser {
     public static final int BFSEARCH = 3;
 
     public static User user;
+    public static String startingLocation = "Shattuck Street Lobby ATM";
 }
