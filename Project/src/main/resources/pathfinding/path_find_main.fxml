@@ -184,7 +184,7 @@
                             </font>
                         </Text>
                         <ChoiceBox fx:id="initialLocationSelect" onAction="#initLocChanged" prefWidth="150.0" style="-fx-background-color: #ffffff;" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
-                        <JFXButton onAction="#clearSelection" prefWidth="100.0" styleClass="jfx-button-login" stylesheets="@/css/background.css" text="Cancel" textFill="WHITE" GridPane.halignment="CENTER" GridPane.rowIndex="6" GridPane.valignment="CENTER">
+                        <JFXButton onAction="#cancel" prefWidth="100.0" styleClass="jfx-button-login" stylesheets="@/css/background.css" text="Cancel" textFill="WHITE" GridPane.halignment="CENTER" GridPane.rowIndex="6" GridPane.valignment="CENTER">
                             <font>
                                 <Font name="System Bold" size="14.0" />
                             </font>

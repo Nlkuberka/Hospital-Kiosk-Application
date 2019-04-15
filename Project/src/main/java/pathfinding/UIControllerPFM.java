@@ -57,8 +57,9 @@ public class UIControllerPFM extends UIController {
     @FXML private JFXTabPane mapTabPane;
 
     public enum Floors {
-        FIRST("First Floor", "1", 3), GROUND("Ground Floor", "G", 2), LL1("Lower Level 1", "L1", 1),
-        LL2("Lower Level 2", "L2", 0), SECOND("Second Floor", "2", 4), THIRD("Third Floor", "3", 5);
+        LL2("Lower Level 2", "L2", 0), LL1("Lower Level 1", "L1", 1),
+        GROUND("Ground Floor", "G", 2), FIRST("First Floor", "1", 3),
+        SECOND("Second Floor", "2", 4), THIRD("Third Floor", "3", 5);
 
         private final String name;
         private final String ID;
@@ -342,19 +343,11 @@ public class UIControllerPFM extends UIController {
     }
 
     @FXML
-    private void clearSelection(ActionEvent actionEvent) {
-        setNodesVisible(true);
-        setZoomOn(true);
-        initialLocationSelect.setDisable(false);
-        destinationSelect.setDisable(false);
-        currentPath = null;
-        destinationSelect.getSelectionModel().clearSelection();
+    private void cancel(ActionEvent actionEvent) {
         mapHandler.cancel();
     }
 
     private void getPath() {
-        System.out.println(this.gesturePanes.get(currentFloorIndex).getViewportBound());
-        System.out.println(this.gesturePanes.get(currentFloorIndex).getViewportWidth());
 
         if(initialID == null || destID == null)
             return;
@@ -366,7 +359,41 @@ public class UIControllerPFM extends UIController {
         Node initialNode = DBControllerNE.fetchNode(initialID, connection);
         DBController.closeConnection(connection);
 
+        // update paths
         mapHandler.displayNewPath(Graph.getGraph().separatePathByFloor(pathIDs), initialNode);
+
+        // change tab based on initial node
+        mapTabPane.getSelectionModel().select(Floors.getByID(initialNode.getFloor()).getIndex());
+
+        // center on initial node
+        List<Point2D> extremaMinMax = mapHandler.getPathExtremaOnInitFloor(); // get extrema
+        double centerX = (extremaMinMax.get(0).getX() + extremaMinMax.get(1).getX()) / 2; // find average
+        double centerY = (extremaMinMax.get(0).getY() + extremaMinMax.get(1).getY()) / 2;
+
+        GesturePane pane = getCurrentPane(); // save pane for efficiency
+
+        double ySpan = extremaMinMax.get(1).getY() - extremaMinMax.get(0).getY();
+        ySpan = map(ySpan, 0, 3400, pane.getMaxScale(), pane.getMinScale());
+
+        Point2D center = new Point2D(centerX, centerY); // animate to that point
+        pane.animate(DURATION)
+                .interpolateWith(Interpolator.EASE_BOTH)
+                .zoomTo(ySpan / 2.0,  center);
+
+        pane.centreOn(center);
+
+//        pane.animate(DURATION)
+//                .interpolateWith(Interpolator.EASE_BOTH)
+//                .centreOn(center);
+
+    }
+
+    private double map(double x, double in_min, double in_max, double out_min, double out_max) {
+        return (x - in_min) * (out_max - out_min) / (in_max - in_min) + out_min;
+    }
+
+    private GesturePane getCurrentPane() {
+        return this.gesturePanes.get(currentFloorIndex);
     }
 
 

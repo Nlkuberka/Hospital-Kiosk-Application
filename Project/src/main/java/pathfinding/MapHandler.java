@@ -1,7 +1,9 @@
 package pathfinding;
 
+import application.UIController;
 import entities.Node;
 import javafx.collections.FXCollections;
+import javafx.geometry.Point2D;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.shape.Circle;
@@ -51,8 +53,8 @@ public class MapHandler {
             x = (float) node.getXcoord();
             y = (float) node.getYcoord();
 
-            System.out.println(node);
-            System.out.println("NodeX: " + x + "  NodeY: " + y);
+            //System.out.println(node);
+            //System.out.println("NodeX: " + x + "  NodeY: " + y);
 
             path.getElements().add(new LineTo(x, y));
         }
@@ -117,5 +119,29 @@ public class MapHandler {
         updatePaths(list);
 
         showPaths();
+    }
+
+    Point2D getinitialNodeCoord() {
+        return new Point2D(latestStartingNode.getXcoord(), latestStartingNode.getYcoord());
+    }
+
+    List<Point2D> getPathExtremaOnInitFloor() {
+        double minX = 6000, maxX = 0, minY = 6000, maxY = 0;
+        int currentFloorIndex = UIControllerPFM.Floors.getByID(this.latestStartingNode.getFloor()).getIndex();
+        List<List<Node>> list = this.latestPath.get(currentFloorIndex);
+        for (List<Node> nodeList : list) {
+            for (Node node : nodeList) {
+                double nodeX = node.getXcoord();
+                double nodeY = node.getYcoord();
+                minX = minX > nodeX ? nodeX : minX; // update bounds
+                maxX = maxX < nodeX ? nodeX : maxX;
+                minY = minY > nodeY ? nodeY : minY;
+                maxY = maxY < nodeY ? nodeY : maxY;
+            }
+        }
+        List<Point2D> result = new LinkedList<>();
+        result.add(new Point2D(minX, minY));
+        result.add(new Point2D(maxX, maxY));
+        return result;
     }
 }
