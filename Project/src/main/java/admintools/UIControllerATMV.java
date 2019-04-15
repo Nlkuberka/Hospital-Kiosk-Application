@@ -56,6 +56,8 @@ public class UIControllerATMV extends UIController {
     public Button zoom_button;
     public Button unzoom_button;
     public TabPane tabs;
+    public String previousNodeID;
+    public boolean isAddingEdge;
     private Group edgesGroup = new Group();
     private Group nodesGroup = new Group();
     private LinkedList<Node> currentFloorNodes = new LinkedList<>();
@@ -222,13 +224,27 @@ public class UIControllerATMV extends UIController {
             circle.setOnMousePressed(new EventHandler<MouseEvent>() {
                 @Override
                 public void handle(MouseEvent mouseEvent) {
-                    mouseX = circle.getLayoutX() - mouseEvent.getSceneX();
-                    mouseY = circle.getLayoutY() - mouseEvent.getSceneY();
-                    if (mouseEvent.getClickCount() == 2) {
-                        try {
-                            enableChoicePopup(tempNode);
-                        } catch (IOException e) {
-                            e.printStackTrace();
+                    if(previousNodeID != null){
+                        if(isAddingEdge){
+                            addEdge(null, previousNodeID, tempNode.getNodeID());
+                            Connection conn = DBController.dbConnect();
+                            currentFloorEdges.add(DBControllerNE.fetchEdge(previousNodeID + "_" + tempNode.getNodeID(), conn));
+                            DBController.closeConnection(conn);
+                        }else{
+                            deleteEdge(previousNodeID, tempNode.getNodeID());
+                            currentFloorEdges.remove(getEdgeFrom(currentFloorEdges, previousNodeID, tempNode.getNodeID()));
+                        }
+                        previousNodeID = null;
+                        draw();
+                    }else{
+                        mouseX = circle.getLayoutX() - mouseEvent.getSceneX();
+                        mouseY = circle.getLayoutY() - mouseEvent.getSceneY();
+                        if (mouseEvent.getClickCount() == 2) {
+                            try {
+                                enableChoicePopup(tempNode);
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
                         }
                     }
                 }
@@ -258,6 +274,17 @@ public class UIControllerATMV extends UIController {
             nodesGroup.getChildren().add(circle);
         }
         drawEdges();
+    }
+
+    private Edge getEdgeFrom(LinkedList<Edge> edges, String nodeID1, String nodeID2){
+        String edgeID1 = nodeID1 + "_" + nodeID2;
+        String edgeID2 = nodeID2 + "_" + nodeID1;
+        for(Edge e:edges){
+            if(e.getEdgeID().equals(edgeID1) || e.getEdgeID().equals(edgeID2)){
+                return e;
+            }
+        }
+        return null;
     }
 
     private void drawEdges() {
@@ -401,6 +428,19 @@ public class UIControllerATMV extends UIController {
         DBControllerNE.deleteNode(node.getNodeID(), conn);
         DBControllerNE.closeConnection(conn);
         set();
+    }
+
+    void addEdge(String edgeID, String node1ID, String node2ID) {
+        Connection conn = DBControllerNE.dbConnect();
+        Edge newEdge = new Edge(edgeID, node1ID, node2ID);
+        DBControllerNE.addEdge(newEdge,conn);
+        DBControllerNE.closeConnection(conn);
+    }
+
+    void deleteEdge(String nodeID1, String nodeID2){
+        Connection conn = DBControllerNE.dbConnect();
+        DBControllerNE.deleteEdge(nodeID1, nodeID2, conn);
+        DBControllerNE.closeConnection(conn);
     }
 
     void setKiosk(Node node) {
