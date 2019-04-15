@@ -205,6 +205,8 @@ public class UIControllerPFM extends UIController {
     private PathTransition currentAnimation = null;
     private Rectangle currentAnt = null;
 
+    private HashMap<String, Circle> circleFromName;
+
     @FXML
     public void initialize() {
         backgroundImage.fitWidthProperty().bind(primaryStage.widthProperty());
@@ -262,6 +264,8 @@ public class UIControllerPFM extends UIController {
             }
         }
 
+        this.circleFromName = new HashMap<>();
+
         // setup circles for nodes
         for (int i = 0; i < this.groupsForNodes.size(); i++) {
             Group group = this.groupsForNodes.get(i);
@@ -273,6 +277,7 @@ public class UIControllerPFM extends UIController {
                 Circle circle = new Circle(x, y, 13);
                 circle.setId(node.getNodeID());
 
+                this.circleFromName.put(node.getLongName(), circle); // setup hashmap
 
                 circle.setOnMouseClicked(e -> {
                     if ((initialLocationSelect.getValue() == null)) {
@@ -379,6 +384,8 @@ public class UIControllerPFM extends UIController {
         initialID = DBController.IDfromLongName(initialLocationSelect.getValue(), connection);
         DBController.closeConnection(connection);
 
+        this.currentInitCircle = circleFromName.get(initialLocationSelect.getValue());
+
         getPath();
     }
 
@@ -392,6 +399,8 @@ public class UIControllerPFM extends UIController {
         System.out.println(destinationSelect.getValue());
         destID = DBController.IDfromLongName(destinationSelect.getValue(), connection);
         DBController.closeConnection(connection);
+
+        this.currentDestCircle = circleFromName.get(destinationSelect.getValue());
 
         // call getPath if not null
         getPath();
