@@ -144,4 +144,17 @@ public class MapHandler {
         result.add(new Point2D(maxX, maxY));
         return result;
     }
+
+    List<Integer> getFloorsUsed() {
+        List<Integer> result = new LinkedList<>();
+        int i = 0;
+        for (List<List<Node>> floor : this.latestPath) {
+            if (floor.size() > 0)
+                result.add(i);
+            i++;
+        }
+        return result;
+    }
+
+
 }
