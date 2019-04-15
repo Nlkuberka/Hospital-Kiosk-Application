@@ -35,10 +35,10 @@
             <center>
             <StackPane BorderPane.alignment="CENTER">
                <children>
-                      <JFXTabPane fx:id="mapTabPane" tabClosingPolicy="UNAVAILABLE">
+                      <JFXTabPane fx:id="mapTabPane" stylesheets="/css/background.css" tabClosingPolicy="UNAVAILABLE">
                           <Tab text="Lower Level 2">
                                   <GesturePane fx:id="lowerLevel2GesturePane" fitHeight="false" fitWidth="false" prefWidth="1920.0">
-                                      <AnchorPane>
+                                      <AnchorPane fx:id="lowerLevel2AnchorPane">
                                           <children>
                                           <ImageView pickOnBounds="true" preserveRatio="true">
                                               <image>
@@ -52,7 +52,7 @@
                           </Tab>
                           <Tab text="Lower Level 1">
                               <GesturePane fx:id="lowerLevel1GesturePane" fitHeight="false" fitWidth="false" prefWidth="1920.0">
-                                  <AnchorPane>
+                                  <AnchorPane fx:id="lowerLevel1AnchorPane">
                                       <children>
                                       <ImageView pickOnBounds="true" preserveRatio="true">
                                           <image>
@@ -66,7 +66,7 @@
                           </Tab>
                           <Tab text="Ground Floor">
                               <GesturePane fx:id="groundFloorGesturePane" fitHeight="false" fitWidth="false" prefWidth="1920.0">
-                                  <AnchorPane>
+                                  <AnchorPane fx:id="groundFloorAnchorPane">
                                       <children>
                                       <ImageView pickOnBounds="true" preserveRatio="true">
                                           <image>
@@ -80,7 +80,7 @@
                           </Tab>
                           <Tab text="First Floor">
                               <GesturePane fx:id="firstFloorGesturePane" fitHeight="false" fitWidth="false" prefWidth="1920.0">
-                                  <AnchorPane>
+                                  <AnchorPane fx:id="firstFloorAnchorPane">
                                       <children>
                                       <ImageView pickOnBounds="true" preserveRatio="true">
                                           <image>
@@ -94,7 +94,7 @@
                           </Tab>
                           <Tab text="Second Floor">
                               <GesturePane fx:id="secondFloorGesturePane" fitHeight="false" fitWidth="false" prefWidth="1920.0">
-                                  <AnchorPane>
+                                  <AnchorPane fx:id="secondFloorAnchorPane">
                                       <children>
                                       <ImageView pickOnBounds="true" preserveRatio="true">
                                           <image>
@@ -108,7 +108,7 @@
                           </Tab>
                           <Tab text="Third Floor">
                               <GesturePane fx:id="thirdFloorGesturePane" fitHeight="false" fitWidth="false" prefWidth="1920.0">
-                                  <AnchorPane>
+                                  <AnchorPane fx:id="thirdFloorAnchorPane">
                                       <children>
                                       <ImageView pickOnBounds="true" preserveRatio="true">
                                           <image>
