@@ -361,6 +361,9 @@ public class UIControllerPFM extends UIController {
 //            mapHandler.getTopPane().getChildren().remove(pathTransition.getNode());
         }
 
+        if (initialLocationSelect.getValue() == null)
+            return;
+
         //System.out.println("Initial location selected: " + initialLocationSelect.getValue());
         Connection connection = DBController.dbConnect();
         initialID = DBController.IDfromLongName(initialLocationSelect.getValue(), connection);
@@ -380,6 +383,9 @@ public class UIControllerPFM extends UIController {
 
         //System.out.println("Initial location: " + initialLocationSelect.getValue());
         //System.out.println("Destination selected: " + destinationSelect.getValue());
+
+        if (destinationSelect.getValue() == null)
+            return;
 
         Connection connection = DBController.dbConnect();
         System.out.println(destinationSelect.getValue());
