@@ -109,7 +109,7 @@ public class DBControllerU extends DBController {
         addUser(new User("TM0006","Dimitri","dimitri",4095),conn); // adding Dimitri
         addUser(new User("TM0007","rakesh","rakesh",4095),conn); // adding Rakesh
         addUser(new User("TM0008","henry","henry",4095),conn); // adding Henry
-        addUser(new User("TM0009","ianos","panos",4095),conn); // adding Panos
+        addUser(new User("TM0009","panos","panos",4095),conn); // adding Panos
         addUser(new User("TM0010","isabel","isabel",4095),conn); // adding Isabel
     }
 
