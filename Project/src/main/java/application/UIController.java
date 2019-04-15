@@ -43,6 +43,7 @@ public class UIController {
     public static final String RESERVATIONS_MAIN = "RVM";
     public static final String RESERVATIONS_EDIT = "RVE";
     public static final String RESERVATIONS_MAIN_MENU = "RVMM";
+    public static final String RESERVATIONS_CALENDAR_VIEW = "RVCV";
 
     public static final String ADMIN_TOOLS_MAIN = "ATM";
     public static final String ADMIN_TOOLS_VIEW_NODES = "ATVN";
@@ -210,6 +211,9 @@ public class UIController {
 
         sceneFiles.put(UIController.RESERVATIONS_MAIN_MENU, "/reservations/reservations_main_menu.fxml");
         sceneTitles.put(UIController.RESERVATIONS_MAIN_MENU, "Reservations - Main Menu");
+
+        sceneFiles.put(UIController.RESERVATIONS_CALENDAR_VIEW, "/reservations/reservations_calendar_view.fxml");
+        sceneTitles.put(UIController.RESERVATIONS_CALENDAR_VIEW, "Reservations - Calendar View");
 
         // Pathfinding
         sceneFiles.put(UIController.PATHFINDING_MAIN, "/pathfinding/path_find_main.fxml");
