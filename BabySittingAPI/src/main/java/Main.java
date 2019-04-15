@@ -7,6 +7,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 
+import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -14,7 +15,9 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception{
-
+        Connection conn = DBControllerAPI.dbConnect();
+        DBControllerAPI.initializeAppDB(conn);
+        DBControllerAPI.closeConnection(conn);
     }
 
 

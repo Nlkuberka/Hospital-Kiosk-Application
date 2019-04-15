@@ -2,6 +2,7 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.sql.*;
+import java.util.LinkedList;
 
 
 /**
@@ -62,7 +63,19 @@ public class DBControllerAPI {
                 "  RESOLVERID VARCHAR(10) REFERENCES USERS(USERID), \n" +
                 "  CONSTRAINT SERVICE_PK PRIMARY KEY(SERVICEID)\n" +
                 ")\n";
+
+
+
+        createTable(nodes,conn);
+        createTable(user,conn);
+        createTable(servicerequest,conn);
+
+        loadNodeData(new File("nodes5.csv"),conn);
+
     }
+
+
+
 
     /**
      * loadNodeData
@@ -121,6 +134,42 @@ public class DBControllerAPI {
         }
     }
 
+
+
+    /**
+     * generateListofNodes
+     *
+     * creates and returns a list of node objects
+     * @return LinkedList<Node>
+     */
+    public static LinkedList<Node> generateListOfNodes(Connection connection, String query){
+        try{
+            Statement s = connection.createStatement();
+            ResultSet rs = s.executeQuery(query);
+            LinkedList<Node> listOfNodes = new LinkedList<>();
+            while(rs.next()){
+                listOfNodes.add(buildNode(rs));
+            }
+            return listOfNodes;
+        }catch(SQLException e){
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+
+
+    private static Node buildNode(ResultSet rs){
+        try {
+            Node node = new Node(rs.getString("NODEID"), rs.getInt("XCOORD"), rs.getInt("YCOORD"),
+                    rs.getString("FLOOR"), rs.getString("BUILDING"), rs.getString("NODETYPE"),
+                    rs.getString("LONGNAME"), rs.getString("SHORTNAME"));
+            return node;
+        }catch(SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
 
     /**
      * addServiceRequest

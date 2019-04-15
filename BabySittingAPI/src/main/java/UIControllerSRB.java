@@ -60,9 +60,9 @@ public class UIControllerSRB extends UIController {
         List<String> nodeShortNames = new ArrayList<String>();
         nodeIDs = new HashMap<String, String>();
 
-        Connection conn = DBControllerNE.dbConnect();
-        List<Node> nodes = DBControllerNE.generateListOfNodes(conn,DBControllerNE.ALL_ROOMS);
-        DBControllerNE.closeConnection(conn);
+        Connection conn = DBControllerAPI.dbConnect();
+        List<Node> nodes = DBControllerAPI.generateListOfNodes(conn,DBControllerAPI.ALL_ROOMS);
+        DBControllerAPI.closeConnection(conn);
         for(int i = 0; i < nodes.size(); i++) {
             Node node = nodes.get(i);
             nodeShortNames.add(node.getShortName());
