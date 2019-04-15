@@ -110,7 +110,7 @@ public class UIControllerPUMVAN extends UIController {
         parentPane.getScene().getWindow().hide();
     }
 
-    public void setNode(Node node, String action) {
+    void setNode(Node node, String action) {
         this.node = node;
         this.action = action;
         TextField_XCoor.setText(Integer.toString(node.getXcoord()));
@@ -123,6 +123,7 @@ public class UIControllerPUMVAN extends UIController {
             TextField_ShortName.setText(node.getShortName());
             TextField_LongName.setText(node.getLongName());
             TextField_NodeType.setText(node.getNodeType());
+            TextField_NodeID.setEditable(false);
         }
     }
 
@@ -136,12 +137,13 @@ public class UIControllerPUMVAN extends UIController {
             node.setLongName(TextField_LongName.getText());
             node.setShortName(TextField_ShortName.getText());
             Connection conn = DBController.dbConnect();
-            if(action.equals("ADD"))
-            {
-                DBControllerNE.addNode(node, conn);
+            if(action.equals("ADD")){
+                if(!DBControllerNE.addNode(node, conn)){
+                    TextField_NodeID.clear();
+                    return;
+                }
             }
-            else if(action.equals("EDIT"))
-            {
+            else if(action.equals("EDIT")){
                 DBControllerNE.updateNode(node, conn);
             }
             DBControllerNE.closeConnection(conn);

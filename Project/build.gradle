@@ -13,6 +13,9 @@ targetCompatibility = 1.8
 
 repositories {
     mavenCentral()
+    jcenter {
+        url 'https://jcenter.bintray.com/'
+    }
 }
 
 // You'll need to create an integration-test folder with the same structure as your test or application folders
@@ -51,7 +54,8 @@ dependencies {
             [group: 'org.apache.derby', name: 'derby', version: '10.11.1.1'],
             [group: 'org.apache.derby', name: 'derbyclient', version: '10.11.1.1'],
             [group: 'org.apache.derby', name: 'derbytools', version: '10.11.1.1'],
-            [group: 'org.controlsfx', name: 'controlsfx', version: '8.40.14']
+            [group: 'org.controlsfx', name: 'controlsfx', version: '8.40.14'],
+            [group: 'net.kurobako', name: 'gesturefx', version: '0.3.0']
     )
     compile(
             [group: 'junit', name: 'junit', version: '4.12'],
@@ -60,7 +64,7 @@ dependencies {
             [group: 'org.apache.derby', name: 'derbyclient', version: '10.11.1.1'],
             [group: 'org.apache.derby', name: 'derbytools', version: '10.11.1.1'],
             [group: 'org.controlsfx', name: 'controlsfx', version: '8.40.14'],
-
+            [group: 'net.kurobako', name: 'gesturefx', version: '0.3.0']
     )
 }
 
