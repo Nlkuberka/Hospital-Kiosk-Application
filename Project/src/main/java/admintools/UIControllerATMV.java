@@ -220,20 +220,18 @@ public class UIControllerATMV extends UIController {
             Circle circle = new Circle(x, y, 7);
             circle.setId(tempNode.getNodeID());
 
-            circle.setOnMouseClicked(event -> {
-                try {
-                    enableChoicePopup(tempNode);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            });
-
             circle.setOnMousePressed(new EventHandler<MouseEvent>() {
                 @Override
                 public void handle(MouseEvent mouseEvent) {
                     mouseX = circle.getLayoutX() - mouseEvent.getSceneX();
                     mouseY = circle.getLayoutY() - mouseEvent.getSceneY();
-                    circle.setCursor(Cursor.MOVE);
+                    if(mouseEvent.getClickCount() == 2) {
+                        try {
+                            enableChoicePopup(tempNode);
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    }
                 }
             });
 
@@ -242,7 +240,7 @@ public class UIControllerATMV extends UIController {
                 public void handle(MouseEvent mouseEvent) {
                     circle.setLayoutX(mouseEvent.getSceneX() + mouseX);
                     circle.setLayoutY(mouseEvent.getSceneY() + mouseY);
-
+                    circle.setCursor(Cursor.MOVE);
                 }
             });
 
