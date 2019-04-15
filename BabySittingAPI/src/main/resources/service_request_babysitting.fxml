@@ -22,7 +22,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<StackPane minHeight="720.0" minWidth="1280.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="servicerequests.UIControllerSRB">
+<StackPane minHeight="720.0" minWidth="1280.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="servicerequests.UIControllerSRB">
    <children>
             <ImageView fx:id="backgroundImage" pickOnBounds="true" preserveRatio="true">
                 <image>
@@ -78,11 +78,6 @@
                   <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="BabySitting" GridPane.columnIndex="1">
                      <font>
                         <Font name="System Bold Italic" size="36.0" />
-                     </font>
-                  </Text>
-                  <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Shiyi Liu" GridPane.columnIndex="1" GridPane.rowIndex="1">
-                     <font>
-                        <Font name="System Bold" size="14.0" />
                      </font>
                   </Text>
                   <JFXTextField fx:id="serviceMessage" alignment="TOP_LEFT" prefHeight="254.0" prefWidth="150.0" style="-fx-background-color: #ffffff;" GridPane.columnIndex="1" GridPane.rowIndex="5" />
