@@ -19,6 +19,7 @@ import javafx.geometry.Point2D;
 import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseButton;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
@@ -164,10 +165,6 @@ public class UIControllerPFM extends UIController {
     @FXML
     private ScrollPane scrollPane_pathfind;
     @FXML
-    private Button zoom_button;
-    @FXML
-    private Button unzoom_button;
-    @FXML
     private JFXButton loginButton;
     @FXML
     private JFXButton serviceRequestButton;
@@ -180,6 +177,15 @@ public class UIControllerPFM extends UIController {
     @FXML private GesturePane secondFloorGesturePane;
     @FXML private GesturePane thirdFloorGesturePane;
     private List<GesturePane> gesturePanes;
+
+    @FXML private AnchorPane lowerLevel2AnchorPane;
+    @FXML private AnchorPane lowerLevel1AnchorPane;
+    @FXML private AnchorPane groundFloorAnchorPane;
+    @FXML private AnchorPane firstFloorAnchorPane;
+    @FXML private AnchorPane secondFloorAnchorPane;
+    @FXML private AnchorPane thirdFloorAnchorPane;
+    private List<AnchorPane> anchorPanes;
+    private List<Group> groupsForNodes;
 
     private Group circleGroup = new Group();
     private Circle currentInitCircle;
@@ -200,9 +206,8 @@ public class UIControllerPFM extends UIController {
     public void initialize() {
         backgroundImage.fitWidthProperty().bind(primaryStage.widthProperty());
 
-
         setupGesturePanes();
-
+        setupAnchorPanes();
 
         // ensures new tab has same x,y on the map
         mapTabPane.getSelectionModel().selectedItemProperty().addListener(
@@ -250,7 +255,39 @@ public class UIControllerPFM extends UIController {
             }
         }
 
+        // setup circles for nodes
+        for (int i = 0; i < this.groupsForNodes.size(); i++) {
+            Group group = this.groupsForNodes.get(i);
+
+            for (Node node : roomsAtEachFloor.get(i)) {
+                float x = (float) node.getXcoord();
+                float y = (float) node.getYcoord();
+
+                Circle circle = new Circle(x, y, 13);
+                circle.setId(node.getNodeID());
+
+
+                circle.setOnMouseClicked(e -> {
+                    if ((initialLocationSelect.getValue() == null)) {
+                        currentInitCircle = circle;
+                        currentInitCircle.setFill(Color.GREEN);
+                        currentInitCircle.setRadius(16);
+                        initialLocationSelect.setValue(node.getLongName());
+                    } else if ((destinationSelect.getValue() == null))
+                    {
+                        currentDestCircle = circle;
+                        currentDestCircle.setFill(Color.RED);
+                        currentDestCircle.setRadius(16);
+                        destinationSelect.setValue(node.getLongName());
+                    }
+                });
+
         setUpDefaultStartingLocation(startingLocation);
+
+                group.getChildren().add(circle);
+            }
+            group.setVisible(true);
+        }
 
         //drawNodes(roomsAtEachFloor.get(mapHandler.currentFloor.getIndex()));
     }
@@ -302,6 +339,24 @@ public class UIControllerPFM extends UIController {
         pane.translateBy(new Dimension2D(500.0, 400.0));
     }
 
+    private void setupAnchorPanes() {
+        this.anchorPanes = new LinkedList<AnchorPane>();
+        anchorPanes.add(lowerLevel2AnchorPane);
+        anchorPanes.add(lowerLevel1AnchorPane);
+        anchorPanes.add(groundFloorAnchorPane);
+        anchorPanes.add(firstFloorAnchorPane);
+        anchorPanes.add(secondFloorAnchorPane);
+        anchorPanes.add(thirdFloorAnchorPane);
+
+        this.groupsForNodes = new LinkedList<>(); // add groups for circles
+        for (AnchorPane anchorPane : this.anchorPanes) {
+            Group group = new Group();
+            this.groupsForNodes.add(group);
+            anchorPane.getChildren().add(group);
+        }
+
+    }
+
     private void setUpDefaultStartingLocation(String longName){
         initialLocationSelect.setValue(longName);
     }
@@ -313,16 +368,17 @@ public class UIControllerPFM extends UIController {
 //            mapHandler.getTopPane().getChildren().remove(pathTransition.getNode());
         }
 
+        if (initialLocationSelect.getValue() == null)
+            return;
+
         //System.out.println("Initial location selected: " + initialLocationSelect.getValue());
         Connection connection = DBController.dbConnect();
         initialID = DBController.IDfromLongName(initialLocationSelect.getValue(), connection);
         DBController.closeConnection(connection);
 
-        focusNodes();
-
         getPath();
 
-        pathAnimation();
+        // pathAnimation();
     }
 
     @FXML
@@ -335,12 +391,15 @@ public class UIControllerPFM extends UIController {
         //System.out.println("Initial location: " + initialLocationSelect.getValue());
         //System.out.println("Destination selected: " + destinationSelect.getValue());
 
+        if (destinationSelect.getValue() == null)
+            return;
+
         Connection connection = DBController.dbConnect();
         System.out.println(destinationSelect.getValue());
         destID = DBController.IDfromLongName(destinationSelect.getValue(), connection);
         DBController.closeConnection(connection);
 
-        focusNodes();
+        // focusNodes();
 
         // call getPath if not null
         getPath();
@@ -351,6 +410,18 @@ public class UIControllerPFM extends UIController {
     @FXML
     private void cancel(ActionEvent actionEvent) {
         mapHandler.cancel();
+        clearNodes();
+        clearTabColors();
+
+        initialLocationSelect.getSelectionModel().clearSelection();
+        destinationSelect.getSelectionModel().clearSelection();
+    }
+
+    private void clearNodes() {
+        currentInitCircle.setFill(Color.BLACK);
+        currentInitCircle.setRadius(13);
+        currentDestCircle.setFill(Color.BLACK);
+        currentDestCircle.setRadius(13);
     }
 
     private void getPath() {
@@ -392,6 +463,12 @@ public class UIControllerPFM extends UIController {
 //                .interpolateWith(Interpolator.EASE_BOTH)
 //                .centreOn(center);
 
+        List<Integer> floorsUsed = mapHandler.getFloorsUsed();
+        clearTabColors();
+        for (Integer floor : floorsUsed) {
+            this.mapTabPane.getTabs().get(floor).setStyle("-fx-background-color: #015080");
+        }
+
     }
 
     private double map(double x, double in_min, double in_max, double out_min, double out_max) {
@@ -400,6 +477,12 @@ public class UIControllerPFM extends UIController {
 
     private GesturePane getCurrentPane() {
         return this.gesturePanes.get(currentFloorIndex);
+    }
+
+    private void clearTabColors() {
+        for (Tab tab : this.mapTabPane.getTabs()) {
+            tab.setStyle("-fx-background-color: #FFC41E");
+        }
     }
 
 
@@ -437,14 +520,12 @@ public class UIControllerPFM extends UIController {
 
         pathTransition.setOnFinished(e -> {
 //            mapHandler.getTopPane().getChildren().remove(ant);
-            setZoomOn(true);
             setNodesVisible(true);
             initialLocationSelect.setDisable(false);
             destinationSelect.setDisable(false);
         });
 
         if ((!(currentDestCircle == null)) && (!(currentInitCircle == null))) {
-            setZoomOn(false);
             setNodesVisible(false);
             initialLocationSelect.setDisable(true);
             destinationSelect.setDisable(true);
@@ -461,7 +542,7 @@ public class UIControllerPFM extends UIController {
             }
         }
         if (bool) {
-            focusNodes();
+            // focusNodes();
         }
     }
 
@@ -469,14 +550,6 @@ public class UIControllerPFM extends UIController {
 
     public void goBack(ActionEvent actionEvent) {
         this.goToScene(UIController.LOGIN_MAIN);
-    }
-
-    /**
-     * @param bool Set in initialize() to turn on/off zoom functionality
-     */
-    private void setZoomOn(boolean bool) {
-        zoom_button.setVisible(bool);
-        unzoom_button.setVisible(bool);
     }
 
     /**
@@ -507,8 +580,6 @@ public class UIControllerPFM extends UIController {
     }
 
     public void drawNodes(LinkedList<Node> nodes) {
-        float scaleFx = getScale().get("scaleFx");
-        float scaleFy = getScale().get("scaleFy");
 
         float x;
         float y;
@@ -516,8 +587,8 @@ public class UIControllerPFM extends UIController {
         // get all XY pairs and turn them into lines
         for (Node tempNode : nodes) {
 
-            x = (float) tempNode.getXcoord() * scaleFx;
-            y = (float) tempNode.getYcoord() * scaleFy;
+            x = (float) tempNode.getXcoord();
+            y = (float) tempNode.getYcoord();
 
 
             Circle circle = new Circle(x, y, 3);
@@ -547,34 +618,34 @@ public class UIControllerPFM extends UIController {
     }
     //}
 
-    private void focusNodes() {
-        if (initialLocationSelect.getValue() == null && !(currentInitCircle == null)) {
-            currentInitCircle.setFill(Color.BLACK);
-            currentInitCircle.setRadius(3);
-            currentInitCircle = null;
-        }
-        if (destinationSelect.getValue() == null && !(currentDestCircle == null)) {
-            currentDestCircle.setFill(Color.BLACK);
-            currentDestCircle.setRadius(3);
-            currentDestCircle = null;
-        }
-
-        for (javafx.scene.Node n : circleGroup.getChildren()) {
-            //if (!(currentInitCircle == null)) {
-            if (n.getId().equals(initialID)) {
-                currentInitCircle = ((Circle) n);
-                currentInitCircle.setRadius(5);
-                currentInitCircle.setFill(Color.LIGHTGREEN);
-            } else if (n.getId().equals(destID)) {
-                currentDestCircle = ((Circle) n);
-                currentDestCircle.setRadius(5);
-                currentDestCircle.setFill(Color.RED);
-            } else {
-                ((Circle) n).setFill(Color.BLACK);
-                ((Circle) n).setRadius(3);
-            }
-        }
-    }
+//    private void focusNodes() {
+//        if (initialLocationSelect.getValue() == null && !(currentInitCircle == null)) {
+//            currentInitCircle.setFill(Color.BLACK);
+//            currentInitCircle.setRadius(3);
+//            currentInitCircle = null;
+//        }
+//        if (destinationSelect.getValue() == null && !(currentDestCircle == null)) {
+//            currentDestCircle.setFill(Color.BLACK);
+//            currentDestCircle.setRadius(3);
+//            currentDestCircle = null;
+//        }
+//
+//        for (javafx.scene.Node n : circleGroup.getChildren()) {
+//            //if (!(currentInitCircle == null)) {
+//            if (n.getId().equals(initialID)) {
+//                currentInitCircle = ((Circle) n);
+//                currentInitCircle.setRadius(5);
+//                currentInitCircle.setFill(Color.LIGHTGREEN);
+//            } else if (n.getId().equals(destID)) {
+//                currentDestCircle = ((Circle) n);
+//                currentDestCircle.setRadius(5);
+//                currentDestCircle.setFill(Color.RED);
+//            } else {
+//                ((Circle) n).setFill(Color.BLACK);
+//                ((Circle) n).setRadius(3);
+//            }
+//        }
+//    }
 
     @FXML
     private void directionSelection() {
