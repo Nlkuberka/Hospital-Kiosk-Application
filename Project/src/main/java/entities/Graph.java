@@ -368,14 +368,15 @@ public abstract class Graph {
 
 
     /**
-     * Deterines the angle of any edge
+     * Deterines the angle of any edge and how to proceed through the path
      * @param ID1: the nodeID of the first node
      * @param ID2: the nodeID of the second node
-     * @return the cardinal direction of the edge
+     * @return a command for how to move in the path
      */
-    public String returnAngle(String ID1, String ID2, String pastDirection) {
+    public String returnAngle(String ID1, String ID2) {
 
-        String direction = "N";
+        String cardinalDirection = "N";
+        String direction = "";
         int node1Index = mapNodeIDToIndex(ID1);
         int node2Index = mapNodeIDToIndex(ID2);
 
@@ -385,28 +386,46 @@ public abstract class Graph {
         double xWeight = abs(node1.getXcoord() - node2.getXcoord());
         double yWeight = abs(node1.getYcoord() - node2.getYcoord());
 
+        //converts angle to degrees
         double angle = Math.atan2(yWeight, xWeight) * 180;
         //System.out.println(angle);
 
+        //splits cartesian plane into 8 sections
         if (angle <= 15 || angle >= 345) {
-            direction = "N";
+            cardinalDirection = "N";
         } else if (angle > 15 && angle <= 75) {
-            direction = "NE";
+            cardinalDirection = "NE";
         } else if (angle > 75 && angle <= 105) {
-            direction = "E";
+            cardinalDirection = "E";
         } else if (angle > 105 && angle <= 165) {
-            direction = "SE";
+            cardinalDirection = "SE";
         } else if (angle > 165 && angle <= 195) {
-            direction = "S";
+            cardinalDirection = "S";
         } else if (angle > 195 && angle <= 255) {
-            direction = "SW";
+            cardinalDirection = "SW";
         } else if (angle > 255 && angle <= 285) {
-            direction = "W";
+            cardinalDirection = "W";
         } else if (angle > 285 && angle <= 345) {
-            direction = "NW";
+            cardinalDirection = "NW";
+        }
+        return cardinalDirection;
+    }
+
+    /**
+     * Returns the actual movement a user should take to move towards their destination
+     * @param cardinalDirection the current cardinal direction the user takes
+     * @param pastDirection the past cardinal direction the user took
+     * @return a descriptive way to move from one point to another
+     */
+    public String returnDirection(String cardinalDirection, String pastDirection){
+
+        String direction = "BLAHHHHHH";
+
+        if(cardinalDirection.equals("")){
+            cardinalDirection = "N";
         }
 
-        switch (direction) {
+        switch (cardinalDirection) {
             case ("N"):
                 if (pastDirection.equals("N")) {
                     direction = "Go straight for";
@@ -420,25 +439,153 @@ public abstract class Graph {
                     direction = "Veer right and go";
                 } else if (pastDirection.equals("NE")) {
                     direction = "Veer left and go";
-                } else if(pastDirection.equals("SE")) {
+                } else if (pastDirection.equals("SE")) {
                     direction = "Turn around, veer left and go";
-                } else if(pastDirection.equals("SW")) {
+                } else if (pastDirection.equals("SW")) {
                     direction = "Turn around, veer right and go";
                 }
-                break;
+                return direction;
+            //break;
             case ("E"):
+                if (pastDirection.equals("E")) {
+                    direction = "Go straight for";
+                } else if (pastDirection.equals("W")) {
+                    direction = "Turn around and go straight for";
+                } else if (pastDirection.equals("S")) {
+                    direction = "Turn right and go";
+                } else if (pastDirection.equals("N")) {
+                    direction = "Turn left and go";
+                } else if (pastDirection.equals("SE")) {
+                    direction = "Veer right and go";
+                } else if (pastDirection.equals("NE")) {
+                    direction = "Veer left and go";
+                } else if (pastDirection.equals("SW")) {
+                    direction = "Turn around, veer left and go";
+                } else if (pastDirection.equals("NW")) {
+                    direction = "Turn around, veer right and go";
+                }
+                return direction;
+            //break;
             case ("S"):
+                if (pastDirection.equals("S")) {
+                    direction = "Go straight for";
+                } else if (pastDirection.equals("N")) {
+                    direction = "Turn around and go straight for";
+                } else if (pastDirection.equals("W")) {
+                    direction = "Turn right and go";
+                } else if (pastDirection.equals("E")) {
+                    direction = "Turn left and go";
+                } else if (pastDirection.equals("SW")) {
+                    direction = "Veer right and go";
+                } else if (pastDirection.equals("SE")) {
+                    direction = "Veer left and go";
+                } else if (pastDirection.equals("NW")) {
+                    direction = "Turn around, veer left and go";
+                } else if (pastDirection.equals("NE")) {
+                    direction = "Turn around, veer right and go";
+                }
+                return direction;
+            //break;
             case ("W"):
+                if (pastDirection.equals("W")) {
+                    direction = "Go straight for";
+                } else if (pastDirection.equals("E")) {
+                    direction = "Turn around and go straight for";
+                } else if (pastDirection.equals("N")) {
+                    direction = "Turn right and go";
+                } else if (pastDirection.equals("S")) {
+                    direction = "Turn left and go";
+                } else if (pastDirection.equals("NW")) {
+                    direction = "Veer right and go";
+                } else if (pastDirection.equals("SW")) {
+                    direction = "Veer left and go";
+                } else if (pastDirection.equals("NE")) {
+                    direction = "Turn around, veer left and go";
+                } else if (pastDirection.equals("SE")) {
+                    direction = "Turn around, veer right and go";
+                }
+                return direction;
+            //break;
             case ("NE"):
+                if (pastDirection.equals("NE")) {
+                    direction = "Go straight for";
+                } else if (pastDirection.equals("SW")) {
+                    direction = "Turn around and go straight for";
+                } else if (pastDirection.equals("SE")) {
+                    direction = "Turn right and go";
+                } else if (pastDirection.equals("NW")) {
+                    direction = "Turn left and go";
+                } else if (pastDirection.equals("E")) {
+                    direction = "Veer right and go";
+                } else if (pastDirection.equals("N")) {
+                    direction = "Veer left and go";
+                } else if (pastDirection.equals("S")) {
+                    direction = "Turn around, veer left and go";
+                } else if (pastDirection.equals("W")) {
+                    direction = "Turn around, veer right and go";
+                }
+                return direction;
+            //break;
             case ("NW"):
+                if (pastDirection.equals("NW")) {
+                    direction = "Go straight for";
+                } else if (pastDirection.equals("SE")) {
+                    direction = "Turn around and go straight for";
+                } else if (pastDirection.equals("SW")) {
+                    direction = "Turn right and go";
+                } else if (pastDirection.equals("NE")) {
+                    direction = "Turn left and go";
+                } else if (pastDirection.equals("N")) {
+                    direction = "Veer right and go";
+                } else if (pastDirection.equals("W")) {
+                    direction = "Veer left and go";
+                } else if (pastDirection.equals("E")) {
+                    direction = "Turn around, veer left and go";
+                } else if (pastDirection.equals("S")) {
+                    direction = "Turn around, veer right and go";
+                }
+                return direction;
+            //break;
             case ("SE"):
+                if (pastDirection.equals("SE")) {
+                    direction = "Go straight for";
+                } else if (pastDirection.equals("NW")) {
+                    direction = "Turn around and go straight for";
+                } else if (pastDirection.equals("SW")) {
+                    direction = "Turn right and go";
+                } else if (pastDirection.equals("NE")) {
+                    direction = "Turn left and go";
+                } else if (pastDirection.equals("S")) {
+                    direction = "Veer right and go";
+                } else if (pastDirection.equals("E")) {
+                    direction = "Veer left and go";
+                } else if (pastDirection.equals("W")) {
+                    direction = "Turn around, veer left and go";
+                } else if (pastDirection.equals("N")) {
+                    direction = "Turn around, veer right and go";
+                }
+                return direction;
+            //break;
             case ("SW"):
-
-
-
+                if (pastDirection.equals("SW")) {
+                    direction = "Go straight for";
+                } else if (pastDirection.equals("NE")) {
+                    direction = "Turn around and go straight for";
+                } else if (pastDirection.equals("NW")) {
+                    direction = "Turn right and go";
+                } else if (pastDirection.equals("SE")) {
+                    direction = "Turn left and go";
+                } else if (pastDirection.equals("W")) {
+                    direction = "Veer right and go";
+                } else if (pastDirection.equals("S")) {
+                    direction = "Veer left and go";
+                } else if (pastDirection.equals("N")) {
+                    direction = "Turn around, veer left and go";
+                } else if (pastDirection.equals("E")) {
+                    direction = "Turn around, veer right and go";
+                }
+                return direction;
         }
-
-
         return direction;
     }
 
@@ -449,8 +596,17 @@ public abstract class Graph {
      */
     public String textDirections(List<String> NodeIDS){
         String directions = "";
-        String commaOrPeriod = ",";
+        String commaOrPeriod;
+        String currentDirection;
+
         for(int i = 0; i < NodeIDS.size()-1; i++){
+            String pastDirection = returnAngle(NodeIDS.get(i), NodeIDS.get(i+1));
+            if(i <= NodeIDS.size() - 3){
+                currentDirection = returnAngle(NodeIDS.get(i+1), NodeIDS.get(i+2));
+            } else {
+                currentDirection = pastDirection;
+            }
+
             if(i == NodeIDS.size()-2) {
                 commaOrPeriod = ".";
             }
@@ -459,8 +615,8 @@ public abstract class Graph {
             }
             int currentNodeIndex = mapNodeIDToIndex(NodeIDS.get(i));
             int nextNodeIndex = mapNodeIDToIndex(NodeIDS.get(i+1));
-            //System.out.println(returnAngle(NodeIDS.get(i), NodeIDS.get(i+1)));
-                    directions += returnAngle(NodeIDS.get(i), NodeIDS.get(i+1), directions)
+            //System.out.println(returnAngle(NodeIDS.get(i), NodeIDS.get(i+1), directions));
+                    directions += returnDirection(currentDirection, pastDirection)
                     + " "
                     +  Math.round(adjWeights.get(currentNodeIndex).getFirst())
                     + " pixels to "
