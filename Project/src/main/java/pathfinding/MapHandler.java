@@ -4,6 +4,7 @@ import entities.Node;
 import javafx.collections.FXCollections;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.shape.Circle;
 import javafx.scene.shape.LineTo;
 import javafx.scene.shape.MoveTo;
 import javafx.scene.shape.Path;
@@ -37,11 +38,9 @@ public class MapHandler {
     }
 
     private void addToPath(Path path, List<Node> nodes) {
-        float transX = 0;
-        float transY = 0;
 
-        float x = (float) nodes.get(0).getXcoord() + transX;
-        float y = (float) nodes.get(0).getYcoord() + transY;
+        float x = (float) nodes.get(0).getXcoord();
+        float y = (float) nodes.get(0).getYcoord();
 
         path.getElements().add(new MoveTo(x, y)); // move path to initLocation
 
@@ -49,8 +48,8 @@ public class MapHandler {
         for (int i = 1; i < nodes.size(); i++) {
             Node node = nodes.get(i);
 
-            x = (float) node.getXcoord() + transX;
-            y = (float) node.getYcoord() + transY;
+            x = (float) node.getXcoord();
+            y = (float) node.getYcoord();
 
             System.out.println(node);
             System.out.println("NodeX: " + x + "  NodeY: " + y);
