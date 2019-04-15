@@ -70,7 +70,7 @@ public class DBControllerAPI {
         createTable(user,conn);
         createTable(servicerequest,conn);
 
-        loadNodeData(new File("nodes5.csv"),conn);
+        loadNodeData(new File("nodesv5.csv"),conn);
 
     }
 

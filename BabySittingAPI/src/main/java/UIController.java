@@ -106,6 +106,7 @@ public class UIController {
                 sceneParents.put(sceneString, root);
                 sceneControllers.put(sceneString, fxmlLoader.getController());
                 scenes.put(sceneString, new Scene(root, WIDTH, HEIGHT));
+
             } catch(Exception e) {
                 e.printStackTrace();
             }

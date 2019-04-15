@@ -16,8 +16,12 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception{
         Connection conn = DBControllerAPI.dbConnect();
-        DBControllerAPI.initializeAppDB(conn);
+        //DBControllerAPI.initializeAppDB(conn);
         DBControllerAPI.closeConnection(conn);
+
+
+        run(0,0,600,600,"default.css");
+
     }
 
 
@@ -29,6 +33,7 @@ public class Main extends Application {
         primaryStage.setTitle("Service Request - Babysitter");
 
         UIController controller = new UIController(primaryStage,windowWidth,windowLength);
+        controller.goToScene(UIController.SERVICE_REQUEST_BABYSITTING);
 
     }
 
