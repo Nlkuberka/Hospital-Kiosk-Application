@@ -13,6 +13,8 @@ import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.DatePicker;
+import javafx.scene.control.Menu;
+import javafx.scene.control.MenuItem;
 import javafx.scene.image.ImageView;
 import javafx.scene.shape.Shape;
 
@@ -102,6 +104,12 @@ public class UIControllerRVM extends UIController {
   
   @FXML
     private List<String> IDs = new LinkedList<String>();
+
+    @FXML
+    private MenuItem backButton; /**< The Back Button */
+
+    @FXML
+    private Menu homeButton; /**< The Home Button */
 
 
     /**
@@ -303,5 +311,13 @@ public class UIControllerRVM extends UIController {
         for (int x = 0; x < shapes.size(); x++) {
             shapes.get(x).setFill(javafx.scene.paint.Color.GREEN);
         }
+    }
+
+    /**
+     * Goes back to the admin tools application menu
+     */
+    @FXML
+    private void setBackButton() {
+        this.goToScene(UIController.RESERVATIONS_MAIN_MENU);
     }
 }
