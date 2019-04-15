@@ -175,10 +175,8 @@ public class UIControllerATMV extends UIController {
         setCurrentEdges();
     }
 
-    private void setCurrentAnchorPane(AnchorPane anchorPane)
-    {
-        if ((!anchorPane.getChildren().contains(edgesGroup)) && (!anchorPane.getChildren().contains(nodesGroup)))
-        {
+    private void setCurrentAnchorPane(AnchorPane anchorPane) {
+        if ((!anchorPane.getChildren().contains(edgesGroup)) && (!anchorPane.getChildren().contains(nodesGroup))) {
             anchorPane.getChildren().add(edgesGroup);
             anchorPane.getChildren().add(nodesGroup);
         }
@@ -217,12 +215,12 @@ public class UIControllerATMV extends UIController {
             x = (float) tempNode.getXcoord() * scaleFx;
             y = (float) tempNode.getYcoord() * scaleFy;
 
-            Circle circle = new Circle(x, y, 3);
+            Circle circle = new Circle(x, y, 7);
             circle.setId(tempNode.getNodeID());
 
             circle.setOnMouseClicked(event -> {
                 try {
-                    editNodeOnClick(tempNode);
+                    enableChoicePopup(tempNode);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -390,18 +388,24 @@ public class UIControllerATMV extends UIController {
         tempNode.setXcoord((int) (mouseEvent.getX() / getScale().get("scaleFx")));
         tempNode.setYcoord((int) (mouseEvent.getY() / getScale().get("scaleFy")));
         tempNode.setFloor(tabs.getSelectionModel().getSelectedItem().getId()); //TODO Make Auto Once Add MultiFloor Functionality
-        enablePopup(tempNode, "ADD");
+        enableAddAndEditPopup(tempNode, "ADD");
         set();
         showAddedNode(tempNode);
     }
 
-    private void editNodeOnClick(Node node) throws IOException {
-        enablePopup(node, "EDIT");
-        //set();
-        //showAddedNode(tempNode);
+    private void editNode(Node node) throws IOException {
+        enableAddAndEditPopup(node, "EDIT");
     }
 
-    private void enablePopup(Node node, String action) throws IOException {
+    private void deleteNode(Node node)
+    {
+        Connection conn = DBControllerNE.dbConnect();
+        DBControllerNE.deleteNode(node.getNodeID(), conn);
+        DBControllerNE.closeConnection(conn);
+        set();
+    }
+
+    private void enableAddAndEditPopup(Node node, String action) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/admintools/ATMV_addNode_popup.fxml"));
         Parent root = loader.load();
         UIControllerPUMVAN atmvAddNodePopupController = loader.getController();
@@ -419,10 +423,45 @@ public class UIControllerATMV extends UIController {
         stage.showAndWait();
     }
 
+    private void enableChoicePopup(Node node) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/admintools/ATMV_selectedNodeOptions_popup.fxml"));
+        Parent root = loader.load();
+        UIControllerPUMVNO uiControllerPUMVNO = loader.getController();
+        Stage stage = new Stage();
+        stage.setScene(new Scene(root));
+        stage.initModality(Modality.APPLICATION_MODAL);
+        stage.initStyle(StageStyle.UNDECORATED);
+        stage.initOwner(parentPane.getScene().getWindow());
+        stage.setHeight(400);
+        stage.setWidth(600);
+        stage.setResizable(false);
+        stage.centerOnScreen();
+        stage.showAndWait();
+
+        // TODO switch to listeners if there is time
+        switch (uiControllerPUMVNO.getStatus()) {
+            case "EDIT-NODE":
+                editNode(node);
+                break;
+            case "SET-KIOSK":
+                System.out.println("SET-KIOSK CALLED");
+                break;
+            case "ADD-EDGE":
+                break;
+            case "DELETE-NODE":
+                deleteNode(node);
+                break;
+            case "DELETE-EDGE":
+                break;
+            default:
+                break;
+        }
+    }
+
     private void showAddedNode(Node node) {
         for (javafx.scene.Node nodes : nodesGroup.getChildren()) {
             if (nodes.getId().equals(node.getNodeID())) {
-                ((Circle) nodes).setRadius(5);
+                ((Circle) nodes).setRadius(10);
                 ((Circle) nodes).setFill(Color.GREEN);
                 ((Circle) nodes).setStroke(Color.BLACK);
                 ((Circle) nodes).setStrokeWidth(2);

@@ -1,8 +1,11 @@
 package entities;
 
+import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
+
+import database.DBControllerNE;
 import pathfinding.UIControllerPFM;
 import static java.lang.Math.*;
 
@@ -10,29 +13,21 @@ public abstract class Graph {
     
     protected LinkedList<LinkedList<Integer>> adj; // adjacency list
     protected LinkedList<LinkedList<Double>> adjWeights; //weights of the edges
-    protected LinkedList<Node> storedNodes; //nodes that have been stored
+    protected LinkedList<String> nodeIDs; //nodes that have been stored
 
 
     /**
      * Constructor
      * Initalizes the graph with the given number of nodes
      */
-    protected Graph(LinkedList<Node> storedNodes) {
-        this.storedNodes = storedNodes;
-        if(storedNodes.size() < 0) {
-            throw new IllegalArgumentException("Number of nodes must be greater than or equal to 0");
-        }
-        //this.storedNodes.size() = storedNodes.size();
-        this.adj = new LinkedList<LinkedList<Integer>>();
+    protected Graph() {
+        this.adj = new LinkedList<>();
         this.adjWeights = new LinkedList<>();
-        for(int i = 0; i < storedNodes.size(); i++) {
-            this.adj.add(new LinkedList<Integer>());
-            this.adjWeights.add(new LinkedList<>());
-        }
+        this.nodeIDs = new LinkedList<>();
     }
 
     private static class GraphGetter {
-        private static Graph graph = new AStarGraph(new LinkedList<>());
+        private static Graph graph = new DFSGraph();
     }
 
     /**
@@ -47,9 +42,10 @@ public abstract class Graph {
      * Replaces the graph with a new graph that computes shortest path by A* algorithm.
      */
     public static void toAStar() {
-        Graph newGraph = new AStarGraph(GraphGetter.graph.storedNodes);
+        Graph newGraph = new AStarGraph();
         newGraph.adj = GraphGetter.graph.adj;
         newGraph.adjWeights = GraphGetter.graph.adjWeights;
+        newGraph.nodeIDs = GraphGetter.graph.nodeIDs;
         GraphGetter.graph = newGraph;
     }
 
@@ -57,9 +53,10 @@ public abstract class Graph {
      * Replaces the graph with a new graph that computes shortest path by breadth first search algorithm.
      */
     public static void toBFS() {
-        Graph newGraph = new BFSGraph(GraphGetter.graph.storedNodes);
+        Graph newGraph = new BFSGraph();
         newGraph.adj = GraphGetter.graph.adj;
         newGraph.adjWeights = GraphGetter.graph.adjWeights;
+        newGraph.nodeIDs = GraphGetter.graph.nodeIDs;
         GraphGetter.graph = newGraph;
     }
 
@@ -67,9 +64,10 @@ public abstract class Graph {
      * Replaces the graph with a new graph that computes shortest path by depth first search algorithm.
      */
     public static void toDFS() {
-        Graph newGraph = new DFSGraph(GraphGetter.graph.storedNodes);
+        Graph newGraph = new DFSGraph();
         newGraph.adj = GraphGetter.graph.adj;
         newGraph.adjWeights = GraphGetter.graph.adjWeights;
+        newGraph.nodeIDs = GraphGetter.graph.nodeIDs;
         GraphGetter.graph = newGraph;
     }
 
@@ -85,15 +83,32 @@ public abstract class Graph {
     }
 
     /**
+     * fetchNode
+     *
+     * generates an node object from data under given ID
+     *
+     * @param nodeID the ID of the desired node
+     * @return the node object that contains nodeID
+     */
+    protected Node fetchNode(String nodeID) {
+        Connection conn = DBControllerNE.dbConnect();
+        Node n = DBControllerNE.fetchNode(nodeID, conn);
+        DBControllerNE.closeConnection(conn);
+        return n;
+    }
+
+    /**
      * Maps a node to its index
      * @param desiredNode the node the user is looking to find the index of
      * @return the index of the desired node or -1 for failure
      */
     public int mapNodeToIndex(Node desiredNode){
-        for(Node n: storedNodes){
-            if(desiredNode.equals(storedNodes.indexOf(n))) {
-                return storedNodes.indexOf(n);
+        int index = 0;
+        for(String id: nodeIDs){
+            if(desiredNode.getNodeID().equals(id)) {
+                return index;
             }
+            index++;
         }
         return -1;
     }
@@ -105,8 +120,8 @@ public abstract class Graph {
      */
     public int mapNodeIDToIndex(String desiredNodeID){
         int index = 0;
-        for(Node n: storedNodes){
-            if(n.getNodeID().equals(desiredNodeID)) {
+        for(String id: nodeIDs){
+            if(id.equals(desiredNodeID)) {
                 return index;
             }
             index++;
@@ -120,7 +135,7 @@ public abstract class Graph {
      * @return the node at the desired index
      */
     public Node mapIndexToNode(int desiredIndex) {
-        return storedNodes.get(desiredIndex);
+        return fetchNode(nodeIDs.get(desiredIndex));
     }
 
     /**
@@ -132,8 +147,8 @@ public abstract class Graph {
     public List<String> shortestPath(String startID, String targetID) {
         int startIndex = mapNodeIDToIndex(startID);
         int targetIndex = mapNodeIDToIndex(targetID);
-        double [] distance = new double [storedNodes.size()]; // distance of shortest known path from start to all nodes
-        for(int i = 0; i < storedNodes.size(); i++) {
+        double [] distance = new double [nodeIDs.size()]; // distance of shortest known path from start to all nodes
+        for(int i = 0; i < nodeIDs.size(); i++) {
             distance[i] = Double.MAX_VALUE;
         }
         distance[startIndex] = 0;
@@ -218,7 +233,7 @@ public abstract class Graph {
         // Analyze the nodes in the order that they appear in the path, looking for when the path jumps between floors.
         UIControllerPFM.Floors previousFloor = null; // the floor of the node previously analyzed
         for(String nodeID : path) {
-            Node node = storedNodes.get(mapNodeIDToIndex(nodeID));
+            Node node = fetchNode(nodeID);
             UIControllerPFM.Floors currentFloor = UIControllerPFM.Floors.getByID(node.getFloor());
             // If the current node is on a different floor than the previous node,
             // then put the current node in a different list.
@@ -235,9 +250,11 @@ public abstract class Graph {
      * Adds a single node to the graph
      */
     public void addNode(Node newNode) {
-        storedNodes.add(newNode);
-        adj.add(new LinkedList<Integer>());
-        adjWeights.add(new LinkedList<>());
+        if(mapNodeIDToIndex(newNode.getNodeID()) == -1) {
+            nodeIDs.add(newNode.getNodeID());
+            adj.add(new LinkedList<Integer>());
+            adjWeights.add(new LinkedList<>());
+        }
     }
 
     /**
@@ -249,15 +266,14 @@ public abstract class Graph {
         if(nodeIndex == -1) {
             return;
         }
-        for(int i = 0; i < storedNodes.size(); i++) {
-            removeBiEdge(desiredNodeID, mapIndexToNode(i).getNodeID());
+        for(String nodeID : nodeIDs) {
+            removeBiEdge(desiredNodeID, nodeID);
         }
         adj.remove(nodeIndex);
         adjWeights.remove(nodeIndex);
-        storedNodes.remove(nodeIndex);
+        nodeIDs.remove(nodeIndex);
 
-        for(int i = 0; i < storedNodes.size(); i++) {
-            List<Integer> adjList = adj.get(i);
+        for(List<Integer> adjList : adj) {
             for(int j = 0; j < adjList.size(); j++) {
                 if(adjList.get(j) > nodeIndex) {
                     adjList.set(j, adjList.get(j) - 1);
@@ -281,8 +297,8 @@ public abstract class Graph {
             throw new IllegalArgumentException("Node does not exist");
         }
 
-        Node node1 = storedNodes.get(node1Index);
-        Node node2 = storedNodes.get(node2Index);
+        Node node1 = mapIndexToNode(node1Index);
+        Node node2 = mapIndexToNode(node2Index);
         //calculate weight
         double xWeight = abs(node1.getXcoord() - node2.getXcoord());
         double yWeight = abs(node1.getYcoord() - node2.getYcoord());
@@ -363,8 +379,8 @@ public abstract class Graph {
         int node1Index = mapNodeIDToIndex(ID1);
         int node2Index = mapNodeIDToIndex(ID2);
 
-        Node node1 = storedNodes.get(node1Index);
-        Node node2 = storedNodes.get(node2Index);
+        Node node1 = mapIndexToNode(node1Index);
+        Node node2 = mapIndexToNode(node2Index);
         //calculate weight
         double xWeight = abs(node1.getXcoord() - node2.getXcoord());
         double yWeight = abs(node1.getYcoord() - node2.getYcoord());
@@ -448,7 +464,7 @@ public abstract class Graph {
                     + " "
                     +  Math.round(adjWeights.get(currentNodeIndex).getFirst())
                     + " pixels to "
-                    + storedNodes.get(nextNodeIndex).getLongName()
+                    + mapIndexToNode(nextNodeIndex).getLongName()
                     + commaOrPeriod;
         }
         return directions;

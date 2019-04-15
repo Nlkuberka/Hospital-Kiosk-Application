@@ -1,5 +1,6 @@
 package database;
 
+import application.UIController;
 import entities.Edge;
 import entities.Node;
 
@@ -279,12 +280,17 @@ public class DBControllerNE extends DBController{
      * lets user introduce a single node to the DB
      * @param node new node object
      */
-    public static void addNode(Node node, Connection connection){
+    public static boolean addNode(Node node, Connection connection){
         try{
             Statement s = connection.createStatement();
-            nodeInsert(s,node);
+            if(nodeInsert(s,node)){
+                return true;
+            }else{
+                return false;
+            }
         }catch(SQLException e){
             e.printStackTrace();
+            return false;
         }
     }
 
@@ -356,7 +362,7 @@ public class DBControllerNE extends DBController{
      * @param s existing statement
      * @param node new node object
      */
-    public static void nodeInsert(Statement s, Node node){
+    public static boolean nodeInsert(Statement s, Node node){
         try {
             s.execute("insert into NODES values ('"+node.getNodeID()+"',"+
                     node.getXcoord()+","
@@ -367,8 +373,12 @@ public class DBControllerNE extends DBController{
                     " '" + node.getLongName() + "'," +
                     " '" + node.getShortName() + "')");
         }catch(SQLException e){
-            e.printStackTrace();
+            UIController ui = new UIController();
+            ui.popupMessage("Duplicate NodeID", true);
+            return false;
+            //e.printStackTrace();
         }
+        return true;
     }
 
 
