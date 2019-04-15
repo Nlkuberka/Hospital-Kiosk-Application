@@ -202,6 +202,9 @@ public class UIControllerPFM extends UIController {
 
     private int currentFloorIndex = 0;
 
+    private PathTransition currentAnimation = null;
+    private Rectangle currentAnt = null;
+
     @FXML
     public void initialize() {
         backgroundImage.fitWidthProperty().bind(primaryStage.widthProperty());
@@ -214,11 +217,15 @@ public class UIControllerPFM extends UIController {
                 new ChangeListener<Tab>() {
                     @Override
                     public void changed(ObservableValue<? extends Tab> ov, Tab t, Tab t1) {
+                        clearPathTransition();
                         currentFloorIndex = Floors.getByName(t1.getText()).getIndex();
                         int indexOld = Floors.getByName(t.getText()).getIndex();
                         GesturePane pane = gesturePanes.get(currentFloorIndex);
                         GesturePane oldPane = gesturePanes.get(indexOld);
                         pane.centreOn(oldPane.targetPointAtViewportCentre());
+                        if (mapHandler.isActive()) {
+                            newAnimation(mapHandler.getPaths().get(currentFloorIndex), anchorPanes.get(currentFloorIndex));
+                        }
                     }
                 }
         );
@@ -358,15 +365,11 @@ public class UIControllerPFM extends UIController {
     }
 
     private void setUpDefaultStartingLocation(String longName){
-        initialLocationSelect.setValue(longName);
+        //initialLocationSelect.setValue(longName);
     }
 
     @FXML
     public void initLocChanged(ActionEvent actionEvent) {
-        if (!(pathTransition == null)) {
-            pathTransition.stop();
-//            mapHandler.getTopPane().getChildren().remove(pathTransition.getNode());
-        }
 
         if (initialLocationSelect.getValue() == null)
             return;
@@ -377,19 +380,10 @@ public class UIControllerPFM extends UIController {
         DBController.closeConnection(connection);
 
         getPath();
-
-        // pathAnimation();
     }
 
     @FXML
     public void destLocChanged(ActionEvent actionEvent) {
-//        if (!(pathTransition == null)) {
-//            pathTransition.stop();
-//            mapHandler.getTopPane().getChildren().remove(pathTransition.getNode());
-//        }
-
-        //System.out.println("Initial location: " + initialLocationSelect.getValue());
-        //System.out.println("Destination selected: " + destinationSelect.getValue());
 
         if (destinationSelect.getValue() == null)
             return;
@@ -399,12 +393,22 @@ public class UIControllerPFM extends UIController {
         destID = DBController.IDfromLongName(destinationSelect.getValue(), connection);
         DBController.closeConnection(connection);
 
-        // focusNodes();
-
         // call getPath if not null
         getPath();
+    }
 
-        pathAnimation();
+    private void clearPathTransition() {
+        // remove animation
+        if (currentAnimation != null) {
+            currentAnimation.stop();
+            currentAnimation = null;
+        }
+
+        // remove ant
+        if (this.currentAnt != null) {
+            this.anchorPanes.get(currentFloorIndex).getChildren().removeAll(this.currentAnt);
+            this.currentAnt = null;
+        }
     }
 
     @FXML
@@ -412,6 +416,11 @@ public class UIControllerPFM extends UIController {
         mapHandler.cancel();
         clearNodes();
         clearTabColors();
+
+        initialID = null;
+        destID = null;
+
+        clearPathTransition();
 
         initialLocationSelect.getSelectionModel().clearSelection();
         destinationSelect.getSelectionModel().clearSelection();
@@ -436,11 +445,11 @@ public class UIControllerPFM extends UIController {
         Node initialNode = DBControllerNE.fetchNode(initialID, connection);
         DBController.closeConnection(connection);
 
-        // update paths
-        mapHandler.displayNewPath(Graph.getGraph().separatePathByFloor(pathIDs), initialNode);
-
-        // change tab based on initial node
+        // change tab based on initial node -- order here is important! Do not move below.
         mapTabPane.getSelectionModel().select(Floors.getByID(initialNode.getFloor()).getIndex());
+
+        // update paths -- order here is important! Do not move above change tab.
+        mapHandler.displayNewPath(Graph.getGraph().separatePathByFloor(pathIDs), initialNode);
 
         // center on initial node
         List<Point2D> extremaMinMax = mapHandler.getPathExtremaOnInitFloor(); // get extrema
@@ -453,21 +462,23 @@ public class UIControllerPFM extends UIController {
         ySpan = map(ySpan, 0, 3400, pane.getMaxScale(), pane.getMinScale());
 
         Point2D center = new Point2D(centerX, centerY); // animate to that point
-        pane.animate(DURATION)
-                .interpolateWith(Interpolator.EASE_BOTH)
-                .zoomTo(ySpan / 2.0,  center);
-
-        pane.centreOn(center);
-
 //        pane.animate(DURATION)
 //                .interpolateWith(Interpolator.EASE_BOTH)
-//                .centreOn(center);
+//                .zoomTo(ySpan / 2.0,  center);
+
+//        pane.centreOn(center);
+
+        pane.animate(DURATION)
+                .interpolateWith(Interpolator.EASE_BOTH)
+                .centreOn(center);
 
         List<Integer> floorsUsed = mapHandler.getFloorsUsed();
         clearTabColors();
         for (Integer floor : floorsUsed) {
             this.mapTabPane.getTabs().get(floor).setStyle("-fx-background-color: #015080");
         }
+
+        newAnimation(mapHandler.getPaths().get(currentFloorIndex), anchorPanes.get(currentFloorIndex));
 
     }
 
@@ -486,29 +497,20 @@ public class UIControllerPFM extends UIController {
     }
 
 
-    private HashMap<String, Float> getScale() {
-        HashMap<String, Float> scales = new HashMap<>();
-//        float scaleFx = (float) mapHandler.getCurrentMap().getFitWidth() / 5000.0f;
-//        float scaleFy = (float) mapHandler.getCurrentMap().getFitHeight() / 3400.0f;
-//        scales.put("scaleFx", scaleFx);
-//        scales.put("scaleFy", scaleFy);
-        return scales;
-    }
-
-    private void pathAnimation() {
+    private void newAnimation(Path path, AnchorPane pane) {
         pathTransition = new PathTransition();
 
         //Setting the duration of the path transition
-        pathTransition.setDuration(Duration.seconds(4));
+        pathTransition.setDuration(Duration.seconds(3));
 
         //Setting the node for the transition
-        Rectangle ant = new Rectangle(8, 3);
-        ant.setFill(Color.LIGHTGREEN);
-//        mapHandler.getTopPane().getChildren().add(ant);
-        pathTransition.setNode(ant);
+        this.currentAnt = new Rectangle(55, 20);
+        this.currentAnt.setFill(Color.LIGHTGREEN);
+        this.anchorPanes.get(currentFloorIndex).getChildren().add(this.currentAnt);
+        pathTransition.setNode(this.currentAnt);
 
         //Setting the path
-//        pathTransition.setPath(mapHandler.getCurrentPath());
+        pathTransition.setPath(mapHandler.getPaths().get(currentFloorIndex));
 
         //Setting the orientation of the path
         pathTransition.setOrientation(PathTransition.OrientationType.ORTHOGONAL_TO_TANGENT);
@@ -516,21 +518,17 @@ public class UIControllerPFM extends UIController {
         //Setting auto reverse value to false
         pathTransition.setAutoReverse(false);
 
-        pathTransition.setCycleCount(1);
+        pathTransition.setCycleCount(50);
 
         pathTransition.setOnFinished(e -> {
-//            mapHandler.getTopPane().getChildren().remove(ant);
-            setNodesVisible(true);
-            initialLocationSelect.setDisable(false);
-            destinationSelect.setDisable(false);
+            clearPathTransition();
         });
 
         if ((!(currentDestCircle == null)) && (!(currentInitCircle == null))) {
-            setNodesVisible(false);
-            initialLocationSelect.setDisable(true);
-            destinationSelect.setDisable(true);
             pathTransition.play();
         }
+
+        this.currentAnimation = pathTransition;
     }
 
     private void setNodesVisible(boolean bool) {
@@ -540,9 +538,6 @@ public class UIControllerPFM extends UIController {
                     n.setVisible(bool);
                 }
             }
-        }
-        if (bool) {
-            // focusNodes();
         }
     }
 
@@ -579,43 +574,6 @@ public class UIControllerPFM extends UIController {
                 .zoomBy(-0.33, pivotOnTarget);
     }
 
-    public void drawNodes(LinkedList<Node> nodes) {
-
-        float x;
-        float y;
-
-        // get all XY pairs and turn them into lines
-        for (Node tempNode : nodes) {
-
-            x = (float) tempNode.getXcoord();
-            y = (float) tempNode.getYcoord();
-
-
-            Circle circle = new Circle(x, y, 3);
-            circle.setId(tempNode.getNodeID());
-
-            circle.setOnMouseClicked(e -> {
-                if ((initialLocationSelect.getValue() == null)) {
-                    currentInitCircle = circle;
-                    currentInitCircle.setFill(Color.GREEN);
-                    currentInitCircle.setRadius(5);
-                    initialLocationSelect.setValue(tempNode.getLongName());
-                } else //if ((destinationSelect.getValue() == null))
-                {
-                    if (!(currentDestCircle == null)) {
-                        currentDestCircle.setFill(Color.BLACK);
-                        currentDestCircle.setRadius(3);
-                    }
-                    currentDestCircle = circle;
-                    currentDestCircle.setFill(Color.RED);
-                    currentDestCircle.setRadius(5);
-                    destinationSelect.setValue(tempNode.getLongName());
-                }
-            });
-
-            circleGroup.getChildren().add(circle);
-        }
-    }
     //}
 
 //    private void focusNodes() {
