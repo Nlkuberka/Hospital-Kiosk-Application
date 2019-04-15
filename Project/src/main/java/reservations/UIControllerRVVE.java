@@ -197,7 +197,4 @@ public class UIControllerRVVE extends UIController {
     }
 
 
-    @FXML
-    private void setHomeButton() { this.goToScene(UIController.USER_MAIN_MENU_MAIN); }
-
 }

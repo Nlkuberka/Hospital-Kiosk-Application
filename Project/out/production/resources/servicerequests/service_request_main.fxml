@@ -29,9 +29,9 @@
          <top>
             <MenuBar blendMode="ADD" prefWidth="900.0" style="-fx-background-color: #ffffff;" stylesheets="@../css/background.css" BorderPane.alignment="CENTER">
               <menus>
-                <Menu fx:id="homeButton" mnemonicParsing="false" onShowing="#setHomeButton" text="Home">
+                <Menu fx:id="Home" mnemonicParsing="false" onAction="#setHomeButton" onShowing="#setHomeButton" text="Home">
                      <items>
-                        <MenuItem mnemonicParsing="false" onAction="#setHomeButton" text="HOME" />
+                        <MenuItem fx:id="HOME" mnemonicParsing="false" onAction="#setHomeButton" text="HOME" />
                      </items>
                   </Menu>
               </menus>

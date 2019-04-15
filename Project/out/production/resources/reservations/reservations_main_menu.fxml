@@ -26,7 +26,7 @@
          <top>
             <MenuBar blendMode="ADD" prefWidth="900.0" style="-fx-background-color: white;" stylesheets="@../css/background.css" BorderPane.alignment="CENTER">
               <menus>
-                <Menu mnemonicParsing="false" text="Back">
+                <Menu mnemonicParsing="false" onShowing="#setBackMenuItem" text="Back">
                   <items>
                     <MenuItem fx:id="backMenuItem" mnemonicParsing="false" onAction="#setBackMenuItem" text="Go back to previous page" />
                   </items>
