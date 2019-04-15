@@ -30,7 +30,6 @@ import javafx.scene.shape.Path;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
-import pathfinding.UIControllerPFM;
 
 import java.io.IOException;
 import java.sql.Connection;
@@ -225,7 +224,7 @@ public class UIControllerATMV extends UIController {
                 public void handle(MouseEvent mouseEvent) {
                     mouseX = circle.getLayoutX() - mouseEvent.getSceneX();
                     mouseY = circle.getLayoutY() - mouseEvent.getSceneY();
-                    if(mouseEvent.getClickCount() == 2) {
+                    if (mouseEvent.getClickCount() == 2) {
                         try {
                             enableChoicePopup(tempNode);
                         } catch (IOException e) {
@@ -393,19 +392,19 @@ public class UIControllerATMV extends UIController {
         showAddedNode(tempNode);
     }
 
-    private void editNode(Node node) throws IOException {
+    void editNode(Node node) throws IOException {
         enableAddAndEditPopup(node, "EDIT");
     }
 
-    private void deleteNode(Node node) {
+    void deleteNode(Node node) {
         Connection conn = DBControllerNE.dbConnect();
         DBControllerNE.deleteNode(node.getNodeID(), conn);
         DBControllerNE.closeConnection(conn);
         set();
     }
 
-    private void setKiosk(Node node) {
-        if (node.getNodeType().equals("HALL") || node.getNodeType().equals("REST") || node.getNodeType().equals("ELEV")){
+    void setKiosk(Node node) {
+        if (node.getNodeType().equals("HALL") || node.getNodeType().equals("REST") || node.getNodeType().equals("ELEV")) {
             popupMessage("Invalid Kiosk Location", true);
         } else {
             CurrentUser.startingLocation = node.getLongName();
@@ -438,26 +437,8 @@ public class UIControllerATMV extends UIController {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/admintools/ATMV_selectedNodeOptions_popup.fxml"));
         Parent root = loader.load();
         UIControllerPUMVNO uiControllerPUMVNO = loader.getController();
+        uiControllerPUMVNO.setUiControllerATMV(this, node);
         setStage(root);
-
-        // TODO switch to listeners if there is time
-        switch (uiControllerPUMVNO.getStatus()) {
-            case "EDIT-NODE":
-                editNode(node);
-                break;
-            case "SET-KIOSK":
-                setKiosk(node);
-                break;
-            case "ADD-EDGE":
-                break;
-            case "DELETE-NODE":
-                deleteNode(node);
-                break;
-            case "DELETE-EDGE":
-                break;
-            default:
-                break;
-        }
     }
 
     private void showAddedNode(Node node) {
