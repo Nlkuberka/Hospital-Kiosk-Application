@@ -518,7 +518,7 @@ public class UIControllerPFM extends UIController {
         //Setting auto reverse value to false
         pathTransition.setAutoReverse(false);
 
-        pathTransition.setCycleCount(50);
+        pathTransition.setCycleCount(99);
 
         pathTransition.setOnFinished(e -> {
             clearPathTransition();
