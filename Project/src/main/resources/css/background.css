@@ -188,7 +188,7 @@
 }
 
 /* Tab pane styling*/
-.jfx-tab-pane{
+.jfx-tab-pane-other{
     -fx-background-color: #FFC41E;
     -fx-pref-width: 900;
     -webkit-fx-pref-height:50;
@@ -213,7 +213,6 @@
 }
 /*Login_main tab*/
 .jfx-tab-pane-login{
-    -fx-background-color: #FFC41E;
     -fx-pref-width: 900;
     -webkit-fx-pref-height:50;
 }
@@ -247,7 +246,7 @@
      -fx-text-fill:  #FFC41E;
 
 
-     /* -fx-background-image: url("\purple-orange-gradient.jpg");*/
+
  }
  .menu{
      -fx-text-fill:  #FFC41E;
