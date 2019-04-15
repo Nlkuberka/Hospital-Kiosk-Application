@@ -4,6 +4,7 @@
 <?import com.jfoenix.controls.JFXPasswordField?>
 <?import com.jfoenix.controls.JFXTabPane?>
 <?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.effect.Blend?>
 <?import javafx.scene.image.Image?>
@@ -23,7 +24,7 @@
             <Image url="@../images/MainMenu.png" />
          </image>
       </ImageView>
-      <BorderPane>
+      <BorderPane StackPane.alignment="BOTTOM_CENTER">
          <effect>
             <Blend />
          </effect>
@@ -129,6 +130,9 @@
                </tabs>
             </JFXTabPane>
          </top>
+         <StackPane.margin>
+            <Insets />
+         </StackPane.margin>
       </BorderPane>
    </children>
 </StackPane>
