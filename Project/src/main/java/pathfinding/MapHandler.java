@@ -1,9 +1,12 @@
 package pathfinding;
 
+import application.UIController;
 import entities.Node;
 import javafx.collections.FXCollections;
+import javafx.geometry.Point2D;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.shape.Circle;
 import javafx.scene.shape.LineTo;
 import javafx.scene.shape.MoveTo;
 import javafx.scene.shape.Path;
@@ -16,65 +19,30 @@ import java.util.List;
 
 public class MapHandler {
     private LinkedList<Path> pathList = new LinkedList<>();
-    private LinkedList<ImageView> mapList = new LinkedList<>();
-    private LinkedList<AnchorPane> paneList = new LinkedList<>();
-    UIControllerPFM.Floors currentFloor;
     private List<List<List<Node>>> latestPath;
     private Node latestStartingNode;
     private Stage primaryStage;
 
-    public MapHandler(Path p1, Path p2, Path p3, Path p4, Path p5, Path p6,
-                      ImageView m1, ImageView m2, ImageView m3, ImageView m4, ImageView m5, ImageView m6,
-                      AnchorPane pa1, AnchorPane pa2, AnchorPane pa3, AnchorPane pa4, AnchorPane pa5, AnchorPane pa6,
-                      UIControllerPFM.Floors currentFloor, Stage stage) {
+    public MapHandler(Path p1, Path p2, Path p3, Path p4, Path p5, Path p6, Stage stage) {
         this.pathList.add(p1);
         this.pathList.add(p2);
         this.pathList.add(p3);
         this.pathList.add(p4);
         this.pathList.add(p5);
         this.pathList.add(p6);
-        this.mapList.add(m1);
-        this.mapList.add(m2);
-        this.mapList.add(m3);
-        this.mapList.add(m4);
-        this.mapList.add(m5);
-        this.mapList.add(m6);
-        this.paneList.add(pa1);
-        this.paneList.add(pa2);
-        this.paneList.add(pa3);
-        this.paneList.add(pa4);
-        this.paneList.add(pa5);
-        this.paneList.add(pa6);
-        //AnchorPane[] aps = {pa1, pa2, pa3, pa4, pa5, pa6};
-        //this.paneList.addAll(Arrays.asList(aps));
-        this.currentFloor = currentFloor;
         this.primaryStage = stage;
 
-        // bind Map to AnchorPane inside of ScrollPane
-        for (int i = 0; i < this.mapList.size(); i++) {
-            ImageView map = this.mapList.get(i);
-            AnchorPane pane = this.paneList.get(i);
-            map.fitWidthProperty().bind(pane.prefWidthProperty());
-            map.fitHeightProperty().bind(pane.prefHeightProperty());
-
-            pane.minHeightProperty().bind(this.primaryStage.heightProperty());
-
-            this.pathList.get(i).setStrokeWidth(3);
+        // set stroke width
+        for (int i = 0; i < this.pathList.size(); i++) {
+            this.pathList.get(i).setStrokeWidth(10);
         }
 
-        changeToFloor(currentFloor.getIndex());
     }
 
     private void addToPath(Path path, List<Node> nodes) {
-        AnchorPane pane = getCurrentPane();
 
-        float scaleFx = (float) pane.getPrefWidth() / 5000.0f;
-        float scaleFy = (float) pane.getPrefHeight() / 3400.0f;
-
-//        clearPathOnMap();
-
-        float x = (float) nodes.get(0).getXcoord() * scaleFx;
-        float y = (float) nodes.get(0).getYcoord() * scaleFy;
+        float x = (float) nodes.get(0).getXcoord();
+        float y = (float) nodes.get(0).getYcoord();
 
         path.getElements().add(new MoveTo(x, y)); // move path to initLocation
 
@@ -82,26 +50,14 @@ public class MapHandler {
         for (int i = 1; i < nodes.size(); i++) {
             Node node = nodes.get(i);
 
-            x = (float) node.getXcoord() * scaleFx;
-            y = (float) node.getYcoord() * scaleFy;
+            x = (float) node.getXcoord();
+            y = (float) node.getYcoord();
 
-            System.out.println(node);
-            System.out.println("NodeX: " + x + "  NodeY: " + y);
+            //System.out.println(node);
+            //System.out.println("NodeX: " + x + "  NodeY: " + y);
 
             path.getElements().add(new LineTo(x, y));
         }
-    }
-
-    AnchorPane getCurrentPane() {
-        return this.paneList.get(currentFloor.getIndex());
-    }
-
-    ImageView getCurrentMap() {
-        return this.mapList.get(currentFloor.getIndex());
-    }
-
-    Path getCurrentPath() {
-        return this.pathList.get(currentFloor.getIndex());
     }
 
     private void clearLatestPath() {
@@ -112,12 +68,6 @@ public class MapHandler {
     private void clearAndHidePath(Path path) {
         path.getElements().clear();
         path.setVisible(false);
-    }
-
-    void setAllPaneSize(double width, double height) {
-        for (AnchorPane pane : this.paneList) {
-            pane.setPrefSize(width, height);
-        }
     }
 
     private double calculateOpacity(double a, double b) {
@@ -144,25 +94,16 @@ public class MapHandler {
         }
     }
 
-    private void disablePaths() {
+    private void hidePaths() {
         for (Path path : this.pathList) {
             path.setVisible(false);
         }
     }
 
-    private void enablePaths() {
+    private void showPaths() {
         for (Path path : this.pathList) {
             path.setVisible(true);
         }
-    }
-
-    void changeToFloor(double floor) {
-        for (int i = 0; i < mapList.size(); i++) {
-            double opacity = calculateOpacity((double) i, floor);
-            mapList.get(i).setOpacity(opacity);
-            pathList.get(i).setOpacity(opacity);
-        }
-        this.currentFloor = UIControllerPFM.Floors.getByIndex((int) floor);
     }
 
     void cancel() {
@@ -170,41 +111,37 @@ public class MapHandler {
         clearLatestPath();
     }
 
-    void zoomIn(double zoomFactor) {
-        if (getCurrentPane().getPrefWidth() < getCurrentPane().getMaxWidth()) {
-            this.setAllPaneSize(getCurrentPane().getPrefWidth() * zoomFactor,
-                    getCurrentPane().getPrefHeight() * zoomFactor);
-        }
-        this.redrawPathIfNeeded();
-    }
-
-    void zoomOut(double zoomFactor) {
-        if (getCurrentPane().getPrefWidth() > getCurrentPane().getMinWidth()) {
-            this.setAllPaneSize(getCurrentPane().getPrefWidth() / zoomFactor,
-                    getCurrentPane().getPrefHeight() / zoomFactor);
-        }
-        this.redrawPathIfNeeded();
-    }
-
-    private void redrawPathIfNeeded() {
-        if (this.latestPath != null) {
-            updatePaths(this.latestPath);
-            changeToFloor(this.currentFloor.getIndex());
-            this.enablePaths();
-        }
-    }
-
     void displayNewPath(List<List<List<Node>>> list, Node startingNode) {
-        updatePaths(list);
         this.latestPath = list;
         this.latestStartingNode = startingNode;
 
-        UIControllerPFM.Floors floor = UIControllerPFM.Floors.getByID(startingNode.getFloor());
-        changeToFloor(floor.getIndex());
-        enablePaths();
+        // update the paths
+        updatePaths(list);
+
+        showPaths();
     }
 
-    AnchorPane getTopPane() {
-        return this.paneList.getLast();
+    Point2D getinitialNodeCoord() {
+        return new Point2D(latestStartingNode.getXcoord(), latestStartingNode.getYcoord());
+    }
+
+    List<Point2D> getPathExtremaOnInitFloor() {
+        double minX = 6000, maxX = 0, minY = 6000, maxY = 0;
+        int currentFloorIndex = UIControllerPFM.Floors.getByID(this.latestStartingNode.getFloor()).getIndex();
+        List<List<Node>> list = this.latestPath.get(currentFloorIndex);
+        for (List<Node> nodeList : list) {
+            for (Node node : nodeList) {
+                double nodeX = node.getXcoord();
+                double nodeY = node.getYcoord();
+                minX = minX > nodeX ? nodeX : minX; // update bounds
+                maxX = maxX < nodeX ? nodeX : maxX;
+                minY = minY > nodeY ? nodeY : minY;
+                maxY = maxY < nodeY ? nodeY : maxY;
+            }
+        }
+        List<Point2D> result = new LinkedList<>();
+        result.add(new Point2D(minX, minY));
+        result.add(new Point2D(maxX, maxY));
+        return result;
     }
 }

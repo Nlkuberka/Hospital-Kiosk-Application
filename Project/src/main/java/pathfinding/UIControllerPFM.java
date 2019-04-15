@@ -17,10 +17,8 @@ import javafx.fxml.FXMLLoader;
 import javafx.geometry.Dimension2D;
 import javafx.geometry.Point2D;
 import javafx.scene.control.*;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseButton;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
@@ -55,12 +53,13 @@ import java.util.logging.Logger;
 public class UIControllerPFM extends UIController {
 
     static final Duration DURATION = Duration.millis(300);
-    @FXML
-    private JFXTabPane mapTabPane;
+    @FXML private Path pathLL2, pathLL1, pathG, path1, path2, path3;
+    @FXML private JFXTabPane mapTabPane;
 
     public enum Floors {
-        FIRST("First Floor", "1", 3), GROUND("Ground Floor", "G", 2), LL1("Lower Level 1", "L1", 1),
-        LL2("Lower Level 2", "L2", 0), SECOND("Second Floor", "2", 4), THIRD("Third Floor", "3", 5);
+        LL2("Lower Level 2", "L2", 0), LL1("Lower Level 1", "L1", 1),
+        GROUND("Ground Floor", "G", 2), FIRST("First Floor", "1", 3),
+        SECOND("Second Floor", "2", 4), THIRD("Third Floor", "3", 5);
 
         private final String name;
         private final String ID;
@@ -191,46 +190,41 @@ public class UIControllerPFM extends UIController {
     @FXML
     private JFXButton directionsRequest;
 
-    private LinkedList<LinkedList<Node>> roomsAtEachFloor = new LinkedList<>();
-
     private MapHandler mapHandler;
 
-    private int currentPaneIndex = 0;
+    private int currentFloorIndex = 0;
 
     @FXML
     public void initialize() {
-
-        /*this.mapHandler = new MapHandler(p_002, p_001, p_00, p_01, p_02, p_03,
-                map_002, map_001, map_00, map_01, map_02, map_03,
-                pane_002, pane_001, pane_00, pane_01, pane_02, pane_03,
-                Floors.SECOND, primaryStage); */
+        backgroundImage.fitWidthProperty().bind(primaryStage.widthProperty());
 
 
         setupGesturePanes();
-        initialBindings();
+
 
         // ensures new tab has same x,y on the map
         mapTabPane.getSelectionModel().selectedItemProperty().addListener(
                 new ChangeListener<Tab>() {
                     @Override
                     public void changed(ObservableValue<? extends Tab> ov, Tab t, Tab t1) {
-                        currentPaneIndex = Floors.getByName(t1.getText()).getIndex();
+                        currentFloorIndex = Floors.getByName(t1.getText()).getIndex();
                         int indexOld = Floors.getByName(t.getText()).getIndex();
-                        GesturePane pane = gesturePanes.get(currentPaneIndex);
+                        GesturePane pane = gesturePanes.get(currentFloorIndex);
                         GesturePane oldPane = gesturePanes.get(indexOld);
                         pane.centreOn(oldPane.targetPointAtViewportCentre());
                     }
                 }
         );
 
-        // set value to "true" to use zoom functionality
-        //setZoomOn(true);
+        mapHandler = new MapHandler(pathLL2, pathLL1, pathG, path1, path2, path3, primaryStage);
 
     }
 
     @Override
     public void onShow() {
         Connection conn = DBControllerNE.dbConnect();
+
+        LinkedList<LinkedList<Node>> roomsAtEachFloor = new LinkedList<>();
 
         roomsAtEachFloor.add(DBControllerNE.generateListOfNodes(conn, DBControllerNE.ALL_ROOMS_FLOOR_L2));
         roomsAtEachFloor.add(DBControllerNE.generateListOfNodes(conn, DBControllerNE.ALL_ROOMS_FLOOR_L1));
@@ -244,7 +238,7 @@ public class UIControllerPFM extends UIController {
         initialLocationSelect.getItems().clear();
         destinationSelect.getItems().clear();
 
-        for (LinkedList<Node> list : this.roomsAtEachFloor) {
+        for (LinkedList<Node> list : roomsAtEachFloor) {
             for (Node node : list) {
                 // update choices for initial location
                 initialLocationSelect.getItems().add(node.getLongName());
@@ -300,17 +294,9 @@ public class UIControllerPFM extends UIController {
             });
         }
 
-        GesturePane pane = this.gesturePanes.get(currentPaneIndex);
+        GesturePane pane = this.gesturePanes.get(currentFloorIndex);
         pane.zoomTo(0.3, pane.viewportCentre());
         pane.translateBy(new Dimension2D(500.0, 400.0));
-    }
-
-    private void initialBindings() {
-        // bind background image size to window size
-        // ensures auto resize works
-        backgroundImage.fitWidthProperty().bind(primaryStage.widthProperty());
-
-        //scrollPane_pathfind.prefViewportWidthProperty().bind(hboxForMap.prefWidthProperty());
     }
 
 
@@ -318,7 +304,7 @@ public class UIControllerPFM extends UIController {
     public void initLocChanged(ActionEvent actionEvent) {
         if (!(pathTransition == null)) {
             pathTransition.stop();
-            mapHandler.getTopPane().getChildren().remove(pathTransition.getNode());
+//            mapHandler.getTopPane().getChildren().remove(pathTransition.getNode());
         }
 
         //System.out.println("Initial location selected: " + initialLocationSelect.getValue());
@@ -335,10 +321,10 @@ public class UIControllerPFM extends UIController {
 
     @FXML
     public void destLocChanged(ActionEvent actionEvent) {
-        if (!(pathTransition == null)) {
-            pathTransition.stop();
-            mapHandler.getTopPane().getChildren().remove(pathTransition.getNode());
-        }
+//        if (!(pathTransition == null)) {
+//            pathTransition.stop();
+//            mapHandler.getTopPane().getChildren().remove(pathTransition.getNode());
+//        }
 
         //System.out.println("Initial location: " + initialLocationSelect.getValue());
         //System.out.println("Destination selected: " + destinationSelect.getValue());
@@ -357,13 +343,7 @@ public class UIControllerPFM extends UIController {
     }
 
     @FXML
-    private void clearSelection(ActionEvent actionEvent) {
-        setNodesVisible(true);
-        setZoomOn(true);
-        initialLocationSelect.setDisable(false);
-        destinationSelect.setDisable(false);
-        currentPath = null;
-        destinationSelect.getSelectionModel().clearSelection();
+    private void cancel(ActionEvent actionEvent) {
         mapHandler.cancel();
     }
 
@@ -379,16 +359,50 @@ public class UIControllerPFM extends UIController {
         Node initialNode = DBControllerNE.fetchNode(initialID, connection);
         DBController.closeConnection(connection);
 
+        // update paths
         mapHandler.displayNewPath(Graph.getGraph().separatePathByFloor(pathIDs), initialNode);
+
+        // change tab based on initial node
+        mapTabPane.getSelectionModel().select(Floors.getByID(initialNode.getFloor()).getIndex());
+
+        // center on initial node
+        List<Point2D> extremaMinMax = mapHandler.getPathExtremaOnInitFloor(); // get extrema
+        double centerX = (extremaMinMax.get(0).getX() + extremaMinMax.get(1).getX()) / 2; // find average
+        double centerY = (extremaMinMax.get(0).getY() + extremaMinMax.get(1).getY()) / 2;
+
+        GesturePane pane = getCurrentPane(); // save pane for efficiency
+
+        double ySpan = extremaMinMax.get(1).getY() - extremaMinMax.get(0).getY();
+        ySpan = map(ySpan, 0, 3400, pane.getMaxScale(), pane.getMinScale());
+
+        Point2D center = new Point2D(centerX, centerY); // animate to that point
+        pane.animate(DURATION)
+                .interpolateWith(Interpolator.EASE_BOTH)
+                .zoomTo(ySpan / 2.0,  center);
+
+        pane.centreOn(center);
+
+//        pane.animate(DURATION)
+//                .interpolateWith(Interpolator.EASE_BOTH)
+//                .centreOn(center);
+
+    }
+
+    private double map(double x, double in_min, double in_max, double out_min, double out_max) {
+        return (x - in_min) * (out_max - out_min) / (in_max - in_min) + out_min;
+    }
+
+    private GesturePane getCurrentPane() {
+        return this.gesturePanes.get(currentFloorIndex);
     }
 
 
     private HashMap<String, Float> getScale() {
         HashMap<String, Float> scales = new HashMap<>();
-        float scaleFx = (float) mapHandler.getCurrentMap().getFitWidth() / 5000.0f;
-        float scaleFy = (float) mapHandler.getCurrentMap().getFitHeight() / 3400.0f;
-        scales.put("scaleFx", scaleFx);
-        scales.put("scaleFy", scaleFy);
+//        float scaleFx = (float) mapHandler.getCurrentMap().getFitWidth() / 5000.0f;
+//        float scaleFy = (float) mapHandler.getCurrentMap().getFitHeight() / 3400.0f;
+//        scales.put("scaleFx", scaleFx);
+//        scales.put("scaleFy", scaleFy);
         return scales;
     }
 
@@ -401,11 +415,11 @@ public class UIControllerPFM extends UIController {
         //Setting the node for the transition
         Rectangle ant = new Rectangle(8, 3);
         ant.setFill(Color.LIGHTGREEN);
-        mapHandler.getTopPane().getChildren().add(ant);
+//        mapHandler.getTopPane().getChildren().add(ant);
         pathTransition.setNode(ant);
 
         //Setting the path
-        pathTransition.setPath(mapHandler.getCurrentPath());
+//        pathTransition.setPath(mapHandler.getCurrentPath());
 
         //Setting the orientation of the path
         pathTransition.setOrientation(PathTransition.OrientationType.ORTHOGONAL_TO_TANGENT);
@@ -416,7 +430,7 @@ public class UIControllerPFM extends UIController {
         pathTransition.setCycleCount(1);
 
         pathTransition.setOnFinished(e -> {
-            mapHandler.getTopPane().getChildren().remove(ant);
+//            mapHandler.getTopPane().getChildren().remove(ant);
             setZoomOn(true);
             setNodesVisible(true);
             initialLocationSelect.setDisable(false);
@@ -465,7 +479,7 @@ public class UIControllerPFM extends UIController {
      * @param actionEvent Triggered when zoom_button is pressed
      */
     public void zoom(ActionEvent actionEvent) {
-        GesturePane pane = this.gesturePanes.get(this.currentPaneIndex);
+        GesturePane pane = this.gesturePanes.get(this.currentFloorIndex);
         Point2D pivotOnTarget = pane.targetPointAtViewportCentre();
         // increment of scale makes more sense exponentially instead of linearly
         pane.animate(DURATION)
@@ -479,7 +493,7 @@ public class UIControllerPFM extends UIController {
      * @param actionEvent Triggered when zoom_button is pressed
      */
     public void unZoom(ActionEvent actionEvent) {
-        GesturePane pane = this.gesturePanes.get(this.currentPaneIndex);
+        GesturePane pane = this.gesturePanes.get(this.currentFloorIndex);
         Point2D pivotOnTarget = pane.targetPointAtViewportCentre();
         pane.animate(DURATION)
                 .interpolateWith(Interpolator.EASE_BOTH)
