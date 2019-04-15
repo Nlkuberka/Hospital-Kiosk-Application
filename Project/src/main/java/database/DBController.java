@@ -103,16 +103,12 @@ public class DBController {
         DBControllerNE.loadEdgeData(new File("edgesv5.csv"),conn);
         DBControllerRW.loadWorkplaceData(new File( "workplaces.csv"),conn);
 
-        try {
-            Statement s = conn.createStatement();
-            DBControllerU.addUser(new User("USER0001","user","user",3071),conn);
-            DBControllerU.addUser(new User("GUEST0001","guest","guest",1024),conn);
-            DBControllerU.addUser(new User("ADMIN00001","admin","admin",4095),conn);
-            DBControllerU.addUser(new User("WWONG2","staff","staff",4095),conn);
+        DBControllerU.addUser(new User("USER0001","user","user",3071),conn);
+        DBControllerU.addUser(new User("GUEST0001","guest","guest",1024),conn);
+        DBControllerU.addUser(new User("ADMIN00001","admin","admin",4095),conn);
+        DBControllerU.addUser(new User("WWONG2","staff","staff",4095),conn);
 
-        }catch(SQLException e){
-            e.printStackTrace();
-        }
+        DBControllerU.loadTeam(conn);
     }
 
     /**
