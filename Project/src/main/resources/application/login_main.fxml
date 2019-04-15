@@ -4,8 +4,8 @@
 <?import com.jfoenix.controls.JFXPasswordField?>
 <?import com.jfoenix.controls.JFXTabPane?>
 <?import com.jfoenix.controls.JFXTextField?>
-<?import javafx.scene.Cursor?>
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.effect.Blend?>
 <?import javafx.scene.image.Image?>
@@ -45,6 +45,8 @@
                               <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                               <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                               <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                               <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                               <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
@@ -52,12 +54,12 @@
                             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                           </rowConstraints>
                            <children>
-                              <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+                              <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="1">
                                  <image>
                                     <Image url="@../pictures/BWH.JPG" />
                                  </image>
                               </ImageView>
-                              <Text fill="#090a0f" strokeType="OUTSIDE" strokeWidth="0.0" text="Hi, User!" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+                              <Text fill="#090a0f" strokeType="OUTSIDE" strokeWidth="0.0" text="Hi, User!" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
                                  <font>
                                     <Font name="System Bold Italic" size="48.0" />
                                  </font>
@@ -65,19 +67,19 @@
                                     <Cursor fx:constant="DEFAULT" />
                                  </cursor>
                               </Text>
-                              <JFXTextField fx:id="adminUsernameTextField1" opacity="0.8" prefHeight="35.0" prefWidth="200.0" promptText="Username" style="-fx-background-color: #ffffff;" stylesheets="/css/controlsGridpane.css" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-                              <JFXPasswordField fx:id="adminPasswordTextField1" opacity="0.8" prefHeight="35.0" prefWidth="200.0" promptText="Password" style="-fx-background-color: #ffffff;" stylesheets="/css/controlsGridpane.css" GridPane.columnIndex="1" GridPane.rowIndex="6" />
-                              <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Password" GridPane.columnIndex="1" GridPane.rowIndex="5">
+                              <JFXTextField fx:id="userUsernameTextField" opacity="0.8" prefHeight="35.0" prefWidth="300.0" promptText="Username" style="-fx-background-color: #ffffff;" stylesheets="/css/controlsGridpane.css" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="6" GridPane.valignment="CENTER" />
+                              <JFXPasswordField fx:id="userPasswordTextField" opacity="0.8" prefHeight="35.0" prefWidth="300.0" promptText="Password" style="-fx-background-color: #ffffff;" stylesheets="/css/controlsGridpane.css" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="8" GridPane.valignment="CENTER" />
+                              <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Password" GridPane.columnIndex="1" GridPane.rowIndex="7">
                                  <font>
                                     <Font size="25.0" />
                                  </font>
                               </Text>
-                              <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="User's Username" GridPane.columnIndex="1" GridPane.rowIndex="3">
+                              <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="User's Username" GridPane.columnIndex="1" GridPane.rowIndex="5">
                                  <font>
                                     <Font size="25.0" />
                                  </font>
                               </Text>
-                              <JFXButton fx:id="loginAsAdminButton1" onAction="#setLoginAsAdminButton" styleClass="jfx-button-login" stylesheets="@../css/background.css" text="Login" textAlignment="CENTER" textFill="WHITE" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="7" GridPane.valignment="CENTER">
+                              <JFXButton fx:id="loginAsUserButton" onAction="#setLoginAsUserButton" styleClass="jfx-button-login" stylesheets="@../css/background.css" text="Login" textAlignment="CENTER" textFill="WHITE" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="9" GridPane.valignment="CENTER">
                                  <font>
                                     <Font name="System Bold" size="15.0" />
                                  </font>
@@ -104,14 +106,16 @@
                               <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                               <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                               <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                            </rowConstraints>
                            <children>
-                              <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+                              <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="1">
                                  <image>
                                     <Image url="@../pictures/BWH.JPG" />
                                  </image>
                               </ImageView>
-                              <Text fill="#090a0f" strokeType="OUTSIDE" strokeWidth="0.0" text="Hi, Administrator!" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+                              <Text fill="#090a0f" strokeType="OUTSIDE" strokeWidth="0.0" text="Hi, Administrator!" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
                                  <font>
                                     <Font name="System Bold Italic" size="48.0" />
                                  </font>
@@ -119,19 +123,19 @@
                                     <Cursor fx:constant="DEFAULT" />
                                  </cursor>
                               </Text>
-                              <JFXTextField fx:id="adminUsernameTextField11" opacity="0.8" prefHeight="35.0" prefWidth="200.0" promptText="Username" style="-fx-background-color: #ffffff;" stylesheets="/css/controlsGridpane.css" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-                              <JFXPasswordField fx:id="adminPasswordTextField11" opacity="0.8" prefHeight="35.0" prefWidth="200.0" promptText="Password" style="-fx-background-color: #ffffff;" stylesheets="/css/controlsGridpane.css" GridPane.columnIndex="1" GridPane.rowIndex="6" />
-                              <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Password" GridPane.columnIndex="1" GridPane.rowIndex="5">
+                              <JFXTextField fx:id="adminUsernameTextField" opacity="0.8" prefHeight="35.0" prefWidth="300.0" promptText="Username" style="-fx-background-color: #ffffff;" stylesheets="/css/controlsGridpane.css" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="6" GridPane.valignment="CENTER" />
+                              <JFXPasswordField fx:id="adminPasswordTextField" opacity="0.8" prefHeight="35.0" prefWidth="300.0" promptText="Password" style="-fx-background-color: #ffffff;" stylesheets="/css/controlsGridpane.css" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="8" GridPane.valignment="CENTER" />
+                              <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Password" GridPane.columnIndex="1" GridPane.rowIndex="7">
                                  <font>
                                     <Font size="25.0" />
                                  </font>
                               </Text>
-                              <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Administrator's Username" GridPane.columnIndex="1" GridPane.rowIndex="3">
+                              <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Administrator's Username" GridPane.columnIndex="1" GridPane.rowIndex="5">
                                  <font>
                                     <Font size="25.0" />
                                  </font>
                               </Text>
-                              <JFXButton fx:id="loginAsAdminButton11" onAction="#setLoginAsAdminButton" styleClass="jfx-button-login" stylesheets="@../css/background.css" text="Login" textAlignment="CENTER" textFill="WHITE" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="7" GridPane.valignment="CENTER">
+                              <JFXButton fx:id="loginAsAdminButton" onAction="#setLoginAsAdminButton" styleClass="jfx-button-login" stylesheets="@../css/background.css" text="Login" textAlignment="CENTER" textFill="WHITE" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="9" GridPane.valignment="CENTER">
                                  <font>
                                     <Font name="System Bold" size="15.0" />
                                  </font>

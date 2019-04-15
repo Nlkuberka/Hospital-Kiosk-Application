@@ -32,7 +32,7 @@
                   <menus>
             <Menu fx:id="backButton" mnemonicParsing="false" text="Back">
               <items>
-                <MenuItem mnemonicParsing="false" text="Go back to previous page" />
+                <MenuItem mnemonicParsing="false" onAction="#setBackButton" text="Go back to previous page" />
               </items>
             </Menu>
                       <Menu fx:id="homeButton" mnemonicParsing="false" onShowing="#setHomeButton" text="Home">
