@@ -54,10 +54,10 @@ public class UIController {
      * Sets the primary stage to the given stage and initializes the file lists
      * @param stage
      */
-    public UIController(Stage stage) {
+    public UIController(Stage stage, int width, int height) {
         primaryStage = stage;
         rootPane = new BorderPane();
-        rootScene = new Scene(rootPane, WIDTH, HEIGHT);
+        rootScene = new Scene(rootPane, width, height);
         primaryStage.setScene(rootScene);
         primaryStage.show();
 
@@ -79,7 +79,7 @@ public class UIController {
         sceneTitles = new HashMap<String, String>();
         sceneParents = new HashMap<String, Parent>();
 
-        sceneFiles.put(UIController.SERVICE_REQUEST_BABYSITTING, "/servicerequests/service_request_babysitting.fxml");
+        sceneFiles.put(UIController.SERVICE_REQUEST_BABYSITTING, "/service_request_babysitting.fxml");
         sceneTitles.put(UIController.SERVICE_REQUEST_BABYSITTING, "Service Request - Babysitting");
 
         // Popups

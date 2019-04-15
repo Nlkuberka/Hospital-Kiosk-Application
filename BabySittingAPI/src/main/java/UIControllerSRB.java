@@ -1,17 +1,13 @@
 /**
  * The UIController for the babysitting service request
- * @author Shiyi Liu
+ * @author Shiyi Liu, imoralessirgo
  * @version iteration2
  */
 
-import application.CurrentUser;
-import application.UIController;
+
+
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextField;
-import database.DBControllerNE;
-import database.DBControllerSR;
-import entities.Node;
-import entities.ServiceRequest;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.control.CheckBox;
@@ -110,6 +106,8 @@ public class UIControllerSRB extends UIController {
 
     }
 
+
+
     @FXML
     private void setConfirmButton() {
         String roomShortName = (String) roomSelect.getValue();
@@ -120,10 +118,10 @@ public class UIControllerSRB extends UIController {
         if(message.length() >= 151){
             message = message.substring(0,149);
         }
-        ServiceRequest sr = new ServiceRequest(nodeID, serviceType, message, CurrentUser.user.getUserID(), false, null);
-        Connection conn = DBControllerSR.dbConnect();
-        DBControllerSR.addServiceRequest(sr,conn);
-        DBControllerSR.closeConnection(conn);
+        ServiceRequest sr = new ServiceRequest(nodeID, serviceType, message, "DEFAULT", false, null);
+        Connection conn = DBControllerAPI.dbConnect();
+        DBControllerAPI.addServiceRequest(sr,conn);
+        DBControllerAPI.closeConnection(conn);
         this.goToScene(UIController.SERVICE_REQUEST_MAIN);
     }
 

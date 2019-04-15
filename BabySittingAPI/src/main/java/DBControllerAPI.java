@@ -1,10 +1,7 @@
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 
 
 /**
@@ -92,6 +89,70 @@ public class DBControllerAPI {
         }
     }
 
+    /**
+     * CreateTable
+     *
+     * executes the given query
+     *
+     * @param createStatement
+     * @param conn
+     */
+    public static void createTable(String createStatement, Connection conn){
+        try {
+            conn.createStatement().execute(createStatement);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * closeConnection
+     *
+     * Terminates connection to database after use
+     * ensures proper functionality during query execution
+     *
+     * @param connection
+     */
+    public static void closeConnection(Connection connection) {
+        try {
+            connection.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+
+    /**
+     * addServiceRequest
+     *
+     * Enters ServiceRequest object to database
+     *
+     * @param serviceRequest
+     * @param connection
+     */
+    public static int addServiceRequest(ServiceRequest serviceRequest, Connection connection){
+        try{
+            PreparedStatement s;
+            if (serviceRequest.getNodeID() == null){
+                s = connection.prepareStatement("INSERT into SERVICEREQUEST (NODEID, SERVICETYPE, MESSAGE, USERID, RESOLVED, RESOLVERID)" +
+                        " values (" + serviceRequest.getNodeID() +
+                        ",'"+ serviceRequest.getServiceType() +"','"+ serviceRequest.getMessage() + "','"+
+                        serviceRequest.getUserID()+"',"+serviceRequest.isResolved()+","+ serviceRequest.getResolverID()+")");
+            }else{
+                s = connection.prepareStatement("INSERT into SERVICEREQUEST (NODEID, SERVICETYPE, MESSAGE, USERID, RESOLVED, RESOLVERID)" +
+                        " values ('" + serviceRequest.getNodeID() +
+                        "','"+ serviceRequest.getServiceType() +"','"+ serviceRequest.getMessage() + "','"+
+                        serviceRequest.getUserID()+"',"+serviceRequest.isResolved()+","+ serviceRequest.getResolverID()+")");
+
+            }
+            s.execute();
+            ResultSet rs = s.getGeneratedKeys();
+            return 1;
+        }catch(SQLException e){
+            e.printStackTrace();
+            return 0;
+        }
+    }
 
 
 
