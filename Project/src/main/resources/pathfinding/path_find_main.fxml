@@ -154,10 +154,14 @@
                         <ColumnConstraints fillWidth="true" hgrow="ALWAYS" minWidth="200.0" />
                     </columnConstraints>
                     <rowConstraints>
-                        <RowConstraints percentHeight="5.0" vgrow="ALWAYS" />
+                        <RowConstraints percentHeight="2.5" vgrow="ALWAYS" />
                         <RowConstraints percentHeight="5.0" vgrow="ALWAYS" />
                         <RowConstraints percentHeight="10.0" vgrow="ALWAYS" />
                         <RowConstraints percentHeight="5.0" vgrow="ALWAYS" />
+                        <RowConstraints percentHeight="10.0" vgrow="ALWAYS" />
+                        <RowConstraints percentHeight="2.5" vgrow="ALWAYS" />
+                        <RowConstraints percentHeight="5.0" vgrow="ALWAYS" />
+                        <RowConstraints percentHeight="10.0" vgrow="ALWAYS" />
                         <RowConstraints percentHeight="5.0" vgrow="ALWAYS" />
                         <RowConstraints percentHeight="10.0" vgrow="ALWAYS" />
                         <RowConstraints percentHeight="10.0" vgrow="ALWAYS" />
@@ -172,30 +176,42 @@
                                 <Font name="System Bold Italic" size="16.0" />
                             </font>
                         </Text>
-                        <ChoiceBox fx:id="destinationSelect" onAction="#destLocChanged" prefWidth="150.0" style="-fx-background-color: #ffffff;" GridPane.halignment="CENTER" GridPane.rowIndex="5" GridPane.valignment="CENTER" />
-                        <Text fill="WHITE" smooth="false" strokeType="OUTSIDE" strokeWidth="0.0" text="Destination" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="CENTER">
+                        <ChoiceBox fx:id="initialLocationCategorySelect" prefWidth="150.0" style="-fx-background-color: #ffffff;" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
+                        <Text fill="WHITE" smooth="false" strokeType="OUTSIDE" strokeWidth="0.0" text="Initial Location" textAlignment="CENTER" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="CENTER">
                             <font>
                                 <Font name="System Bold Italic" size="16.0" />
                             </font>
                         </Text>
-                        <ChoiceBox fx:id="initialLocationSelect" onAction="#initLocChanged" prefWidth="150.0" style="-fx-background-color: #ffffff;" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
-                        <JFXButton onAction="#cancel" prefWidth="100.0" styleClass="jfx-button-login" stylesheets="@/css/background.css" text="Cancel" textFill="WHITE" GridPane.halignment="CENTER" GridPane.rowIndex="6" GridPane.valignment="CENTER">
+                        <ChoiceBox fx:id="initialLocationSelect" prefWidth="150.0" style="-fx-background-color: #ffffff;" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="CENTER" />
+                        <Text fill="WHITE" smooth="false" strokeType="OUTSIDE" strokeWidth="0.0" text="Destination" GridPane.halignment="CENTER" GridPane.rowIndex="6" GridPane.valignment="CENTER">
+                            <font>
+                                <Font name="System Bold Italic" size="16.0" />
+                            </font>
+                        </Text>
+                        <ChoiceBox fx:id="destinationCategorySelect" prefWidth="150.0" style="-fx-background-color: #ffffff;" GridPane.halignment="CENTER" GridPane.rowIndex="7" GridPane.valignment="CENTER" />
+                        <Text fill="WHITE" smooth="false" strokeType="OUTSIDE" strokeWidth="0.0" text="Destination" GridPane.halignment="CENTER" GridPane.rowIndex="8" GridPane.valignment="CENTER">
+                            <font>
+                                <Font name="System Bold Italic" size="16.0" />
+                            </font>
+                        </Text>
+                        <ChoiceBox fx:id="destinationSelect" prefWidth="150.0" style="-fx-background-color: #ffffff;" GridPane.halignment="CENTER" GridPane.rowIndex="9" GridPane.valignment="CENTER" />
+                        <JFXButton onAction="#cancel" prefWidth="100.0" styleClass="jfx-button-login" stylesheets="@/css/background.css" text="Cancel" textFill="WHITE" GridPane.halignment="CENTER" GridPane.rowIndex="10" GridPane.valignment="CENTER">
                             <font>
                                 <Font name="System Bold" size="14.0" />
                             </font>
                         </JFXButton>
-                        <JFXToggleButton prefHeight="30.0" style="-fx-background-color: #ffffff;" stylesheets="@/css/background.css" text="NO STAIRS" textAlignment="CENTER" wrapText="true" GridPane.halignment="CENTER" GridPane.rowIndex="8" GridPane.valignment="CENTER">
+                        <JFXToggleButton prefHeight="30.0" style="-fx-background-color: #ffffff;" stylesheets="@/css/background.css" text="NO STAIRS" textAlignment="CENTER" wrapText="true" GridPane.halignment="CENTER" GridPane.rowIndex="11" GridPane.valignment="CENTER">
                             <font>
                                 <Font name="System Bold" size="14.0" />
                             </font>
                         </JFXToggleButton>
-                        <JFXButton fx:id="directionsRequest" onAction="#directionSelection" prefHeight="88.0" prefWidth="177.0" styleClass="jfx-button-login" stylesheets="@/css/background.css" text="Do you want directions?" textAlignment="CENTER" textFill="WHITE" wrapText="true" GridPane.halignment="CENTER" GridPane.rowIndex="7" GridPane.valignment="CENTER">
+                        <JFXButton fx:id="directionsRequest" onAction="#directionSelection" prefHeight="88.0" prefWidth="177.0" styleClass="jfx-button-login" stylesheets="@/css/background.css" text="Do you want directions?" textAlignment="CENTER" textFill="WHITE" wrapText="true" GridPane.halignment="CENTER" GridPane.rowIndex="12" GridPane.valignment="CENTER">
                             <font>
                                 <Font name="System Bold" size="14.0" />
                             </font>
                         </JFXButton>
-                        <JFXButton fx:id="loginButton" onAction="#setLoginButton" styleClass="jfx-button-login" stylesheets="@../css/background.css" text="Login" GridPane.halignment="CENTER" GridPane.rowIndex="9" GridPane.valignment="CENTER" />
-                        <JFXButton fx:id="serviceRequestButton" onAction="#setServiceRequestButton" styleClass="jfx-button-login" stylesheets="@../css/background.css" text="Service Request" GridPane.halignment="CENTER" GridPane.rowIndex="10" />
+                        <JFXButton fx:id="loginButton" onAction="#setLoginButton" styleClass="jfx-button-login" stylesheets="@../css/background.css" text="Login" GridPane.halignment="CENTER" GridPane.rowIndex="13" GridPane.valignment="CENTER" />
+                        <JFXButton fx:id="serviceRequestButton" onAction="#setServiceRequestButton" styleClass="jfx-button-login" stylesheets="@../css/background.css" text="Service Request" GridPane.halignment="CENTER" GridPane.rowIndex="14" />
                     </children>
                 </GridPane>
          </left>

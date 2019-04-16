@@ -8,6 +8,7 @@ import database.DBControllerNE;
 import entities.Graph;
 import entities.Node;
 
+import helper.RoomCategoryFilterHelper;
 import javafx.animation.Interpolator;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -26,6 +27,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 
+import java.beans.EventHandler;
 import java.io.IOException;
 import java.lang.reflect.Field;
 import java.sql.Connection;
@@ -158,9 +160,15 @@ public class UIControllerPFM extends UIController {
     private String destID;
 
     @FXML
+    public ChoiceBox<String> initialLocationCategorySelect;
+    @FXML
     public ChoiceBox<String> initialLocationSelect;
     @FXML
+    private ChoiceBox<String> destinationCategorySelect;
+    @FXML
     private ChoiceBox<String> destinationSelect;
+    private RoomCategoryFilterHelper initialFilterHelper;
+    private RoomCategoryFilterHelper destiationFilterHelper;
     @FXML
     private ImageView backgroundImage;
     @FXML
@@ -262,6 +270,26 @@ public class UIControllerPFM extends UIController {
 
         DBControllerNE.closeConnection(conn);
 
+        initialFilterHelper = new RoomCategoryFilterHelper(initialLocationCategorySelect, initialLocationSelect, param -> {
+            if (initialLocationSelect.getValue() == null)
+                return;
+
+            initialID = initialFilterHelper.getNodeID();
+
+            this.currentInitCircle = circleFromName.get(initialLocationSelect.getValue());
+            getPath();
+        }, false);
+        destiationFilterHelper = new RoomCategoryFilterHelper(destinationCategorySelect, destinationSelect, param -> {
+            if (destinationSelect.getValue() == null)
+                return;
+
+            destID = destiationFilterHelper.getNodeID();
+
+            this.currentDestCircle = circleFromName.get(destinationSelect.getValue());
+
+            // call getPath if not null
+            getPath();
+        }, false);
         initialLocationSelect.getItems().clear();
         destinationSelect.getItems().clear();
 
@@ -405,47 +433,6 @@ public class UIControllerPFM extends UIController {
      */
     private void setUpDefaultStartingLocation(String longName){
 //        initialLocationSelect.setValue(longName);
-    }
-
-    /**
-     * Call back for change in init location drop down
-     * @param actionEvent
-     */
-    @FXML
-    public void initLocChanged(ActionEvent actionEvent) {
-
-        if (initialLocationSelect.getValue() == null)
-            return;
-
-        //System.out.println("Initial location selected: " + initialLocationSelect.getValue());
-        Connection connection = DBController.dbConnect();
-        initialID = DBController.IDfromLongName(initialLocationSelect.getValue(), connection);
-        DBController.closeConnection(connection);
-
-        this.currentInitCircle = circleFromName.get(initialLocationSelect.getValue());
-
-        getPath();
-    }
-
-    /**
-     * Call back for change in dest location drop down
-     * @param actionEvent
-     */
-    @FXML
-    public void destLocChanged(ActionEvent actionEvent) {
-
-        if (destinationSelect.getValue() == null)
-            return;
-
-        Connection connection = DBController.dbConnect();
-        System.out.println(destinationSelect.getValue());
-        destID = DBController.IDfromLongName(destinationSelect.getValue(), connection);
-        DBController.closeConnection(connection);
-
-        this.currentDestCircle = circleFromName.get(destinationSelect.getValue());
-
-        // call getPath if not null
-        getPath();
     }
 
     /**
