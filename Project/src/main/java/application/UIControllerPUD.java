@@ -109,14 +109,61 @@ public class UIControllerPUD extends UIController {
     public void sendText(ActionEvent event){
         String number = phoneNumber.getText();
 
-        Twilio.init(ACCOUNT_SID, AUTH_TOKEN);
-        Message message = Message.creator(
-                new com.twilio.type.PhoneNumber("+1" + number),
-                new com.twilio.type.PhoneNumber("+17472290044"),
-                directions.getText())
-                .create();
+        if (number.length() != 10) {
+            try {
+                FXMLLoader fxmlLoader = new FXMLLoader();
+                fxmlLoader.setLocation(getClass().getResource("/no_number_entered_popup.fxml"));
 
-        System.out.println("it sent");
+                Scene popupScene = new Scene(fxmlLoader.load(), 300, 150);
+                Stage popupStage = new Stage();
+
+                popupStage.initModality(Modality.APPLICATION_MODAL);
+                popupStage.initOwner(this.primaryStage);
+
+                UIControllerPUD controller = (UIControllerPUD) fxmlLoader.getController();
+
+                popupStage.setTitle("Phone Number Error");
+                popupStage.setScene(popupScene);
+                popupStage.show();
+
+            } catch (IOException e) {
+                Logger logger = Logger.getLogger((getClass().getName()));
+                logger.log(Level.SEVERE, "Failed to create new window.", e);
+
+            }
+
+        } else {
+            Twilio.init(ACCOUNT_SID, AUTH_TOKEN);
+            Message message = Message.creator(
+                    new com.twilio.type.PhoneNumber("+1" + number),
+                    new com.twilio.type.PhoneNumber("+17472290044"),
+                    directions.getText())
+                    .create();
+
+            System.out.println("it sent");
+
+            try {
+                FXMLLoader fxmlLoader = new FXMLLoader();
+                fxmlLoader.setLocation(getClass().getResource("/popup_confirm_text.fxml"));
+
+                Scene popupScene = new Scene(fxmlLoader.load(), 300, 150);
+                Stage popupStage = new Stage();
+
+                popupStage.initModality(Modality.APPLICATION_MODAL);
+                popupStage.initOwner(this.primaryStage);
+
+                UIControllerPUD controller = (UIControllerPUD) fxmlLoader.getController();
+
+                popupStage.setTitle("Text Confirmation");
+                popupStage.setScene(popupScene);
+                popupStage.show();
+
+            } catch (IOException e) {
+                Logger logger = Logger.getLogger((getClass().getName()));
+                logger.log(Level.SEVERE, "Failed to create new window.", e);
+
+            }
+        }
 
     }
 
