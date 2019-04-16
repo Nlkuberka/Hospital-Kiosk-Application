@@ -6,17 +6,16 @@ import database.DBController;
 import database.DBControllerNE;
 import entities.Node;
 import javafx.collections.FXCollections;
-import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.scene.control.ChoiceBox;
 import javafx.event.EventHandler;
-import javafx.scene.input.MouseButton;
-import javafx.scene.input.MouseEvent;
 import org.controlsfx.control.textfield.TextFields;
 
-import java.sql.Array;
 import java.sql.Connection;
-import java.util.*;
+import java.util.Map;
+import java.util.HashMap;
+import java.util.List;
+import java.util.LinkedList;
 import java.util.stream.Collectors;
 
 /**
