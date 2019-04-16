@@ -1,14 +1,17 @@
 package application;
 
-import com.jfoenix.controls.JFXButton;
-import com.jfoenix.controls.JFXPasswordField;
-import com.jfoenix.controls.JFXTabPane;
-import com.jfoenix.controls.JFXTextField;
 import database.DBController;
 import database.DBControllerU;
 import entities.User;
+
+import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXTabPane;
+
 import javafx.fxml.FXML;
 import javafx.scene.control.Tab;
+
+import com.jfoenix.controls.JFXPasswordField;
+import com.jfoenix.controls.JFXTextField;
 import javafx.scene.image.ImageView;
 
 import java.sql.Connection;

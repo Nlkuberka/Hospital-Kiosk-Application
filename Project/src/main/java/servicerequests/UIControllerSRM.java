@@ -1,12 +1,19 @@
 package servicerequests;
 
+import application.CurrentUser;
 import application.UIController;
+import com.jfoenix.controls.JFXTextField;
+import entities.ServiceRequest;
+
 import com.jfoenix.controls.JFXButton;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+
+import javafx.event.ActionEvent;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuItem;
 import javafx.scene.image.ImageView;
+
+import java.awt.*;
 
 /**
  * The UIController for the making and sending of service requests

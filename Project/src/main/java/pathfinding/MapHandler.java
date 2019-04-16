@@ -1,12 +1,19 @@
 package pathfinding;
 
+import application.UIController;
 import entities.Node;
+import javafx.collections.FXCollections;
 import javafx.geometry.Point2D;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.shape.Circle;
 import javafx.scene.shape.LineTo;
 import javafx.scene.shape.MoveTo;
 import javafx.scene.shape.Path;
 import javafx.stage.Stage;
 
+import java.lang.reflect.Array;
+import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 

@@ -2,13 +2,19 @@
 package tests;
 
 import database.DBControllerNE;
+import entities.AStarGraph;
 import entities.Graph;
 import entities.Node;
 import junit.framework.TestCase;
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
 import pathfinding.UIControllerPFM;
 
+import entities.BFSGraph;
+
 import java.sql.Connection;
+import java.time.Clock;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
