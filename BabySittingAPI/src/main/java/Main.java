@@ -20,7 +20,7 @@ public class Main extends Application {
         DBControllerAPI.closeConnection(conn);
 
 
-        run(0,0,600,600,"default.css");
+        run(0,0,600,600,"background.css");
 
     }
 
