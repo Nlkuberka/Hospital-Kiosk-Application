@@ -14,11 +14,9 @@ import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.geometry.Dimension2D;
 import javafx.geometry.Point2D;
 import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseButton;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
@@ -29,7 +27,6 @@ import java.sql.Connection;
 
 import com.jfoenix.controls.JFXButton;
 import javafx.animation.PathTransition;
-import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.*;
@@ -40,7 +37,6 @@ import net.kurobako.gesturefx.GesturePane;
 
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -52,7 +48,6 @@ import java.util.logging.Logger;
 
 public class UIControllerPFM extends UIController {
 
-    static final Duration DURATION = Duration.millis(300);
     @FXML private Path pathLL2, pathLL1, pathG, path1, path2, path3;
     @FXML private JFXTabPane mapTabPane;
 
@@ -173,7 +168,6 @@ public class UIControllerPFM extends UIController {
     @FXML private GesturePane firstFloorGesturePane;
     @FXML private GesturePane secondFloorGesturePane;
     @FXML private GesturePane thirdFloorGesturePane;
-    private List<GesturePane> gesturePanes;
 
     @FXML private AnchorPane lowerLevel2AnchorPane;
     @FXML private AnchorPane lowerLevel1AnchorPane;
@@ -182,19 +176,15 @@ public class UIControllerPFM extends UIController {
     @FXML private AnchorPane secondFloorAnchorPane;
     @FXML private AnchorPane thirdFloorAnchorPane;
 
-    private Group circleGroup = new Group();
-    private PathTransition pathTransition;
-    private Random random = new Random(System.currentTimeMillis());
     // The multiplication factor at which the map changes size
-    private double zoomFactor = 1.2;
     @FXML
     private JFXButton directionsRequest;
 
     private PathHandler pathHandler;
 
     private AnchorPaneHandler anchorPaneHandler;
-
     private CurrentObjects currentObjects;
+    private GesturePaneHandler gesturePaneHandler;
 
     /**
      * Initialize various componets, especially panes, tabs and pathHandler
@@ -203,33 +193,30 @@ public class UIControllerPFM extends UIController {
     public void initialize() {
         backgroundImage.fitWidthProperty().bind(primaryStage.widthProperty());
 
-        setupGesturePanes();
-
-        anchorPaneHandler = new AnchorPaneHandler(lowerLevel2AnchorPane, lowerLevel1AnchorPane,
-                groundFloorAnchorPane, firstFloorAnchorPane, secondFloorAnchorPane, thirdFloorAnchorPane);
-
         // ensures new tab has same x,y on the map and path animation changes between floors
         mapTabPane.getSelectionModel().selectedItemProperty().addListener(
                 new ChangeListener<Tab>() {
                     @Override
                     public void changed(ObservableValue<? extends Tab> ov, Tab t, Tab t1) {
-                        clearPathTransition();
-                        currentObjects.setFloorIndex(Floors.getByName(t1.getText()).getIndex());
-                        int indexOld = Floors.getByName(t.getText()).getIndex();
-                        GesturePane pane = gesturePanes.get(currentObjects.getFloorIndex());
-                        GesturePane oldPane = gesturePanes.get(indexOld);
-                        pane.centreOn(oldPane.targetPointAtViewportCentre());
-                        if (pathHandler.isActive()) {
-                            newAnimation(pathHandler.getPaths().get(currentFloorIndex), anchorPanes.get(currentFloorIndex));
-                        }
+                        gesturePaneHandler.changeTabs(pathHandler,
+                                UIControllerPFM.Floors.getByName(t1.getText()).getIndex());
                     }
                 }
         );
 
         pathHandler = new PathHandler(pathLL2, pathLL1, pathG, path1, path2, path3, primaryStage);
 
+        gesturePaneHandler = new GesturePaneHandler(lowerLevel2GesturePane, lowerLevel1GesturePane,
+                groundFloorGesturePane, firstFloorGesturePane, secondFloorGesturePane, thirdFloorGesturePane);
+
+        anchorPaneHandler = new AnchorPaneHandler(lowerLevel2AnchorPane, lowerLevel1AnchorPane,
+                groundFloorAnchorPane, firstFloorAnchorPane, secondFloorAnchorPane, thirdFloorAnchorPane);
+
         currentObjects = new CurrentObjects(0, null, null, null, null,
-                pathHandler, anchorPaneHandler);
+                pathHandler, anchorPaneHandler, gesturePaneHandler);
+
+        gesturePaneHandler.setCurrentObjects(currentObjects);
+        anchorPaneHandler.setCurrentObjects(currentObjects);
 
     }
 
@@ -265,7 +252,7 @@ public class UIControllerPFM extends UIController {
             }
         }
 
-        anchorPaneHandler.initCircles(roomsAtEachFloor);
+        anchorPaneHandler.initCircles(roomsAtEachFloor, initialLocationSelect, destinationSelect);
 
     }
 
@@ -274,60 +261,7 @@ public class UIControllerPFM extends UIController {
 //        Rectangle rectangle = new Rectangle();
 //    }
 
-    /**
-     * Sets up gesture panes. 1) adds gesture panes to list 2) sets minscale, maxscale and scroll-bar
-     * 3) applies zoom bindings 4) sets event handlers for zoom 4) sets initial zoom
-     *
-     */
-    private void setupGesturePanes() {
-        this.gesturePanes = new LinkedList<GesturePane>();
-        gesturePanes.add(lowerLevel2GesturePane);
-        gesturePanes.add(lowerLevel1GesturePane);
-        gesturePanes.add(groundFloorGesturePane);
-        gesturePanes.add(firstFloorGesturePane);
-        gesturePanes.add(secondFloorGesturePane);
-        gesturePanes.add(thirdFloorGesturePane);
 
-        // setup properties
-        for(int i = 0; i < this.gesturePanes.size(); i++) {
-            GesturePane pane = this.gesturePanes.get(i);
-            pane.setMaxScale(1.3);
-            pane.setMinScale(0.1);
-            pane.setScrollBarEnabled(true);
-            pane.setHBarEnabled(true);
-        }
-
-        // setup scale bindings
-        for(int i = 0; i < this.gesturePanes.size()-1; i++) {
-            GesturePane pane = this.gesturePanes.get(i);
-            GesturePane next = this.gesturePanes.get(i+1);
-            pane.currentScaleProperty().bindBidirectional(next.currentScaleProperty());
-        }
-
-
-        // zoom*2 on double-click
-        for (GesturePane pane : this.gesturePanes) {
-            pane.setOnMouseClicked(e -> {
-                Point2D pivotOnTarget = pane.targetPointAt(new Point2D(e.getX(), e.getY()))
-                        .orElse(pane.targetPointAtViewportCentre());
-                if (e.getButton() == MouseButton.PRIMARY && e.getClickCount() == 2) {
-                    // increment of scale makes more sense exponentially instead of linearly
-                    pane.animate(DURATION)
-                            .interpolateWith(Interpolator.EASE_BOTH)
-                            .zoomBy(pane.getCurrentScale(), pivotOnTarget);
-                } else if (e.getButton() == MouseButton.SECONDARY && e.getClickCount() == 1) {
-                    pane.animate(DURATION)
-                            .interpolateWith(Interpolator.EASE_BOTH)
-                            .zoomTo(pane.getMinScale(), pivotOnTarget);
-                }
-            });
-        }
-
-        // zoom so that it looks good
-        GesturePane pane = this.gesturePanes.get(currentFloorIndex);
-        pane.zoomTo(0.3, pane.viewportCentre());
-        pane.translateBy(new Dimension2D(500.0, 400.0));
-    }
 
     /**
      * Allows for a default starting location
@@ -352,7 +286,7 @@ public class UIControllerPFM extends UIController {
         initialID = DBController.IDfromLongName(initialLocationSelect.getValue(), connection);
         DBController.closeConnection(connection);
 
-        this.currentInitCircle = circleFromName.get(initialLocationSelect.getValue());
+        currentObjects.setInitCircle(initialLocationSelect.getValue());
 
         getPath();
     }
@@ -372,28 +306,12 @@ public class UIControllerPFM extends UIController {
         destID = DBController.IDfromLongName(destinationSelect.getValue(), connection);
         DBController.closeConnection(connection);
 
-        this.currentDestCircle = circleFromName.get(destinationSelect.getValue());
+        currentObjects.setDestCircle(destinationSelect.getValue());
 
         // call getPath if not null
         getPath();
     }
 
-    /**
-     * Clears currentAnimation and currentAnt attributes and removes ant from anchorPane
-     */
-    private void clearPathTransition() {
-        // remove animation
-        if (currentAnimation != null) {
-            currentAnimation.stop();
-            currentAnimation = null;
-        }
-
-        // remove ant
-        if (this.currentAnt != null) {
-            this.anchorPanes.get(currentFloorIndex).getChildren().removeAll(this.currentAnt);
-            this.currentAnt = null;
-        }
-    }
 
     /**
      * Callback for cancel. Clears path, animation, node selection and drop down menus
@@ -402,26 +320,16 @@ public class UIControllerPFM extends UIController {
     @FXML
     private void cancel(ActionEvent actionEvent) {
         pathHandler.cancel();
-        clearNodes();
+        currentObjects.clearNodeStyle();
         clearTabColors();
 
         initialID = null;
         destID = null;
 
-        clearPathTransition();
+        currentObjects.clearAnimation();
 
         initialLocationSelect.getSelectionModel().clearSelection();
         destinationSelect.getSelectionModel().clearSelection();
-    }
-
-    /**
-     * Clear style of currently selected circles
-     */
-    private void clearNodes() {
-        currentInitCircle.setFill(Color.BLACK);
-        currentInitCircle.setRadius(13);
-        currentDestCircle.setFill(Color.BLACK);
-        currentDestCircle.setRadius(13);
     }
 
     /**
@@ -439,7 +347,7 @@ public class UIControllerPFM extends UIController {
         Node initialNode = DBControllerNE.fetchNode(initialID, connection);
         DBController.closeConnection(connection);
 
-        clearPathTransition(); // reset stuff
+        currentObjects.clearAnimation(); // reset stuff
         pathHandler.cancel(); // reset stuff
 
         // change tab based on initial node -- order here is important! Do not move below.
@@ -448,26 +356,7 @@ public class UIControllerPFM extends UIController {
         // update paths -- order here is important! Do not move above change tab.
         pathHandler.displayNewPath(Graph.getGraph().separatePathByFloor(pathIDs), initialNode);
 
-        // center on initial node
-        List<Point2D> extremaMinMax = pathHandler.getPathExtremaOnInitFloor(); // get extrema
-        double centerX = (extremaMinMax.get(0).getX() + extremaMinMax.get(1).getX()) / 2; // find average
-        double centerY = (extremaMinMax.get(0).getY() + extremaMinMax.get(1).getY()) / 2;
-
-        GesturePane pane = getCurrentPane(); // save pane for efficiency
-
-        double ySpan = extremaMinMax.get(1).getY() - extremaMinMax.get(0).getY();
-        ySpan = map(ySpan, 0, 3400, pane.getMaxScale(), pane.getMinScale());
-
-        Point2D center = new Point2D(centerX, centerY); // animate to that point
-//        pane.animate(DURATION)
-//                .interpolateWith(Interpolator.EASE_BOTH)
-//                .zoomTo(ySpan / 2.0,  center);
-
-//        pane.centreOn(center);
-
-        pane.animate(DURATION)
-                .interpolateWith(Interpolator.EASE_BOTH)
-                .centreOn(center);
+        gesturePaneHandler.centerOnInitialNode(pathHandler);
 
         List<Integer> floorsUsed = pathHandler.getFloorsUsed();
         clearTabColors();
@@ -475,29 +364,8 @@ public class UIControllerPFM extends UIController {
             this.mapTabPane.getTabs().get(floor).setStyle("-fx-background-color: #015080");
         }
 
-        newAnimation(pathHandler.getPaths().get(currentFloorIndex), anchorPanes.get(currentFloorIndex));
+        gesturePaneHandler.newAnimation();
 
-    }
-
-    /**
-     * Linearly map a variable from one range to another
-     * @param x
-     * @param in_min
-     * @param in_max
-     * @param out_min
-     * @param out_max
-     * @return
-     */
-    private double map(double x, double in_min, double in_max, double out_min, double out_max) {
-        return (x - in_min) * (out_max - out_min) / (in_max - in_min) + out_min;
-    }
-
-    /**
-     * Returns gesture pane of current floor
-     * @return
-     */
-    private GesturePane getCurrentPane() {
-        return this.gesturePanes.get(currentFloorIndex);
     }
 
     /**
@@ -507,46 +375,6 @@ public class UIControllerPFM extends UIController {
         for (Tab tab : this.mapTabPane.getTabs()) {
             tab.setStyle("-fx-background-color: #FFC41E");
         }
-    }
-
-
-    /**
-     * Generates new animation based on given path. Sets the currentAnt and currentAnimation attributes
-     * @param path the path to be animated
-     * @param pane the pane on which to animate
-     */
-    private void newAnimation(Path path, AnchorPane pane) {
-        pathTransition = new PathTransition();
-
-        //Setting the duration of the path transition
-        pathTransition.setDuration(Duration.seconds(3));
-
-        //Setting the node for the transition
-        this.currentAnt = new Rectangle(55, 20);
-        this.currentAnt.setFill(Color.LIGHTGREEN);
-        this.anchorPanes.get(currentFloorIndex).getChildren().add(this.currentAnt);
-        pathTransition.setNode(this.currentAnt);
-
-        //Setting the path
-        pathTransition.setPath(pathHandler.getPaths().get(currentFloorIndex));
-
-        //Setting the orientation of the path
-        pathTransition.setOrientation(PathTransition.OrientationType.ORTHOGONAL_TO_TANGENT);
-
-        //Setting auto reverse value to false
-        pathTransition.setAutoReverse(false);
-
-        pathTransition.setCycleCount(99);
-
-        pathTransition.setOnFinished(e -> {
-            clearPathTransition();
-        });
-
-        if ((!(currentDestCircle == null)) && (!(currentInitCircle == null))) {
-            pathTransition.play();
-        }
-
-        this.currentAnimation = pathTransition;
     }
 
     public void goBack(ActionEvent actionEvent) {
@@ -559,12 +387,7 @@ public class UIControllerPFM extends UIController {
      * @param actionEvent Triggered when zoom_button is pressed
      */
     public void zoom(ActionEvent actionEvent) {
-        GesturePane pane = this.gesturePanes.get(this.currentFloorIndex);
-        Point2D pivotOnTarget = pane.targetPointAtViewportCentre();
-        // increment of scale makes more sense exponentially instead of linearly
-        pane.animate(DURATION)
-                .interpolateWith(Interpolator.EASE_BOTH)
-                .zoomBy(pane.getCurrentScale()/1.66, pivotOnTarget);
+        gesturePaneHandler.zoom();
     }
 
     /**
@@ -573,11 +396,7 @@ public class UIControllerPFM extends UIController {
      * @param actionEvent Triggered when zoom_button is pressed
      */
     public void unZoom(ActionEvent actionEvent) {
-        GesturePane pane = this.gesturePanes.get(this.currentFloorIndex);
-        Point2D pivotOnTarget = pane.targetPointAtViewportCentre();
-        pane.animate(DURATION)
-                .interpolateWith(Interpolator.EASE_BOTH)
-                .zoomBy(-0.33, pivotOnTarget);
+        gesturePaneHandler.zoom();
     }
 
     @FXML

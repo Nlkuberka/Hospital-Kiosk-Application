@@ -1,12 +1,13 @@
 package pathfinding;
 
 import javafx.scene.Group;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.layout.AnchorPane;
 
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
-import entities.Node
+import entities.Node;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 
@@ -16,6 +17,7 @@ public class AnchorPaneHandler {
     List<AnchorPane> anchorPanes;
     private List<Group> groupsForNodes;
     private HashMap<String, Circle> circleFromName;
+    private CurrentObjects currentObjects;
 
     /**
      * Setup anchor panes such that they are in a list and have groups for the node circles
@@ -37,11 +39,20 @@ public class AnchorPaneHandler {
         }
     }
 
+    void setCurrentObjects(CurrentObjects currentObjects) {
+        this.currentObjects = currentObjects;
+    }
+
     AnchorPane getAnchorPaneAtFloor(int floor) {
         return this.anchorPanes.get(floor);
     }
 
-    void initCircles(LinkedList<LinkedList<Node>> roomsAtEachFloor) {
+    Circle getCircleFromName(String string) {
+        return this.circleFromName.get(string);
+    }
+
+    void initCircles(LinkedList<LinkedList<Node>> roomsAtEachFloor, ChoiceBox initialLocationSelect,
+                     ChoiceBox destinationSelect) {
         // ~~~~~~ init circles
 
         this.circleFromName = new HashMap<>(); // map to get corresponding circles from longnames
@@ -61,15 +72,15 @@ public class AnchorPaneHandler {
 
                 circle.setOnMouseClicked(e -> {
                     if ((initialLocationSelect.getValue() == null)) {
-                        currentInitCircle = circle;
-                        currentInitCircle.setFill(Color.GREEN);
-                        currentInitCircle.setRadius(16);
+                        circle.setFill(Color.GREEN);
+                        circle.setRadius(16);
+                        this.currentObjects.setInitCircle(circle);
                         initialLocationSelect.setValue(node.getLongName());
                     }
                     else if ((destinationSelect.getValue() == null)) {
-                        currentDestCircle = circle;
-                        currentDestCircle.setFill(Color.RED);
-                        currentDestCircle.setRadius(16);
+                        circle.setFill(Color.RED);
+                        circle.setRadius(16);
+                        this.currentObjects.setDestCircle(circle);
                         destinationSelect.setValue(node.getLongName());
                     }
                 });
