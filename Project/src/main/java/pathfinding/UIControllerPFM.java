@@ -1,6 +1,8 @@
 package pathfinding;
 
+import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTabPane;
+import com.jfoenix.controls.JFXTextField;
 import database.DBController;
 import application.UIController;
 import application.UIControllerPUD;
@@ -8,7 +10,10 @@ import database.DBControllerNE;
 import entities.Graph;
 import entities.Node;
 
+import helper.RoomCategoryFilterHelper;
 import javafx.animation.Interpolator;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
@@ -24,7 +29,9 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 
+import java.beans.EventHandler;
 import java.io.IOException;
+import java.lang.reflect.Field;
 import java.sql.Connection;
 
 import com.jfoenix.controls.JFXButton;
@@ -154,10 +161,11 @@ public class UIControllerPFM extends UIController {
     private String initialID;
     private String destID;
 
-    @FXML
-    public ChoiceBox<String> initialLocationSelect;
-    @FXML
-    private ChoiceBox<String> destinationSelect;
+    @FXML private JFXComboBox<String> initialLocationCombo;
+    @FXML private JFXComboBox<String> destinationCombo;
+    private RoomCategoryFilterHelper initialFilterHelper;
+    private RoomCategoryFilterHelper destiationFilterHelper;
+
     @FXML
     private ImageView backgroundImage;
     @FXML
@@ -259,17 +267,35 @@ public class UIControllerPFM extends UIController {
 
         DBControllerNE.closeConnection(conn);
 
-        initialLocationSelect.getItems().clear();
-        destinationSelect.getItems().clear();
+        /*initialFilterHelper = new RoomCategoryFilterHelper(initialLocationCategorySelect, initialLocationSelect, param -> {
+            if (initialLocationSelect.getValue() == null)
+                return;
 
-        for (LinkedList<Node> list : roomsAtEachFloor) {
-            for (Node node : list) {
-                // update choices for initial location
-                initialLocationSelect.getItems().add(node.getLongName());
-                // update choices for destination location
-                destinationSelect.getItems().addAll(node.getLongName());
-            }
-        }
+            initialID = initialFilterHelper.getNodeID();
+
+            this.currentInitCircle = circleFromName.get(initialLocationSelect.getValue());
+            getPath();
+        }, true);*/
+        destiationFilterHelper = new RoomCategoryFilterHelper(destinationCombo, param -> {
+            if (destiationFilterHelper.getLongName() == null)
+                return;
+
+            destID = destiationFilterHelper.getNodeID();
+
+            this.currentDestCircle = circleFromName.get(destiationFilterHelper.getLongName());
+
+            // call getPath if not null
+            getPath();
+        }, true);
+        initialFilterHelper = new RoomCategoryFilterHelper(initialLocationCombo, param -> {
+            if (initialFilterHelper.getLongName() == null)
+                return;
+
+            initialID = initialFilterHelper.getNodeID();
+
+            this.currentInitCircle = circleFromName.get(initialFilterHelper.getLongName());
+            getPath();
+        }, true);
 
         // ~~~~~~ init circles
 
@@ -285,21 +311,23 @@ public class UIControllerPFM extends UIController {
 
                 Circle circle = new Circle(x, y, 13);
                 circle.setId(node.getNodeID());
+                Tooltip tooltip = new Tooltip(node.getShortName());
+                hackTooltipStartTiming(tooltip);
+                Tooltip.install(circle, tooltip);
 
                 this.circleFromName.put(node.getLongName(), circle); // setup hashmap
 
                 circle.setOnMouseClicked(e -> {
-                    if ((initialLocationSelect.getValue() == null)) {
+                    if ((initialLocationCombo.getValue() == null)) {
                         currentInitCircle = circle;
                         currentInitCircle.setFill(Color.GREEN);
                         currentInitCircle.setRadius(16);
-                        initialLocationSelect.setValue(node.getLongName());
-                    } else if ((destinationSelect.getValue() == null))
-                    {
+                        initialLocationCombo.getSelectionModel().select(node.getLongName());
+                    } else if ((destinationCombo.getValue() == null)) {
                         currentDestCircle = circle;
                         currentDestCircle.setFill(Color.RED);
                         currentDestCircle.setRadius(16);
-                        destinationSelect.setValue(node.getLongName());
+                        destinationCombo.getSelectionModel().select(node.getLongName());
                     }
                 });
 
@@ -402,47 +430,6 @@ public class UIControllerPFM extends UIController {
     }
 
     /**
-     * Call back for change in init location drop down
-     * @param actionEvent
-     */
-    @FXML
-    public void initLocChanged(ActionEvent actionEvent) {
-
-        if (initialLocationSelect.getValue() == null)
-            return;
-
-        //System.out.println("Initial location selected: " + initialLocationSelect.getValue());
-        Connection connection = DBController.dbConnect();
-        initialID = DBController.IDfromLongName(initialLocationSelect.getValue(), connection);
-        DBController.closeConnection(connection);
-
-        this.currentInitCircle = circleFromName.get(initialLocationSelect.getValue());
-
-        getPath();
-    }
-
-    /**
-     * Call back for change in dest location drop down
-     * @param actionEvent
-     */
-    @FXML
-    public void destLocChanged(ActionEvent actionEvent) {
-
-        if (destinationSelect.getValue() == null)
-            return;
-
-        Connection connection = DBController.dbConnect();
-        System.out.println(destinationSelect.getValue());
-        destID = DBController.IDfromLongName(destinationSelect.getValue(), connection);
-        DBController.closeConnection(connection);
-
-        this.currentDestCircle = circleFromName.get(destinationSelect.getValue());
-
-        // call getPath if not null
-        getPath();
-    }
-
-    /**
      * Clears currentAnimation and currentAnt attributes and removes ant from anchorPane
      */
     private void clearPathTransition() {
@@ -474,8 +461,8 @@ public class UIControllerPFM extends UIController {
 
         clearPathTransition();
 
-        initialLocationSelect.getSelectionModel().clearSelection();
-        destinationSelect.getSelectionModel().clearSelection();
+        initialLocationCombo.getSelectionModel().clearSelection();
+        destinationCombo.getSelectionModel().clearSelection();
     }
 
     /**
@@ -678,6 +665,23 @@ public class UIControllerPFM extends UIController {
     @FXML
     private void setServiceRequestButton() {
         this.goToScene(UIController.SERVICE_REQUEST_MAIN);
+    }
+
+    private static void hackTooltipStartTiming(Tooltip tooltip) {
+        try {
+            Field fieldBehavior = tooltip.getClass().getDeclaredField("BEHAVIOR");
+            fieldBehavior.setAccessible(true);
+            Object objBehavior = fieldBehavior.get(tooltip);
+
+            Field fieldTimer = objBehavior.getClass().getDeclaredField("activationTimer");
+            fieldTimer.setAccessible(true);
+            Timeline objTimer = (Timeline) fieldTimer.get(objBehavior);
+
+            objTimer.getKeyFrames().clear();
+            objTimer.getKeyFrames().add(new KeyFrame(new Duration(0)));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }
 
