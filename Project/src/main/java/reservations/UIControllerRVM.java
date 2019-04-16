@@ -26,6 +26,7 @@ import java.time.*;
 
 import java.util.*;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 /**
  * The UIController that handles the creation and sending of reservations
@@ -41,6 +42,7 @@ public class UIControllerRVM extends UIController {
     private ArrayList<Shape> workZone3= new ArrayList<>();
     private ArrayList<Shape> workZone4= new ArrayList<>();
     private ArrayList<Shape> workZone5= new ArrayList<>();
+    private Boolean colorShift = true;
 
     /**
      * < Holds the reference of the short names to nodeIDs
@@ -125,7 +127,7 @@ public class UIControllerRVM extends UIController {
     @FXML
     private ImageView backgroundImage;
   
-  @FXML
+    @FXML
     private List<String> IDs = new LinkedList<String>();
 
     @FXML
@@ -147,12 +149,14 @@ public class UIControllerRVM extends UIController {
 
         backgroundImage.fitWidthProperty().bind(primaryStage.widthProperty());
 
-
+        colorShapeRed(workzone1_d5); colorShapeRed(workzone1_d16); colorShapeRed(workzone3_d8);
+        colorShapeRed(workzone3_r3); colorShapeRed(workzone2_d7); colorShapeRed(workzone4_t2);
+        colorShapeRed(workzone5_r2); colorShapeRed(workzone5_d4); colorShapeRed(workzone5_t2);
 
         int num = 0;
         try {
             Connection conn = DBController.dbConnect();
-            ResultSet rs = conn.createStatement().executeQuery("Select * From WORKPLACES");
+            ResultSet rs = conn.createStatement().executeQuery("Select * From WORKPLACES WHERE OUTLINE = '1'");
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -188,6 +192,7 @@ public class UIControllerRVM extends UIController {
         startTimePicker.setValue(LocalTime.now());
         endTimePicker.setValue(LocalTime.now());
         workplaceSelect.getSelectionModel().selectFirst();
+
     }
 
     /**
@@ -201,6 +206,16 @@ public class UIControllerRVM extends UIController {
     @FXML
     private void updateColorView() {
         Connection connection = DBController.dbConnect();
+
+        if(colorShift) {
+            colorShapeGreen(workzone3_r3); colorShapeGreen(workzone5_d4); colorShapeGreen(workzone1_d5);
+            colorShapeRed(workzone2_d2); colorShapeRed(workzone3_d2); colorShapeRed(workzone5_d7);
+        } else {
+            colorShapeRed(workzone3_r3); colorShapeRed(workzone5_d4); colorShapeRed(workzone1_d5);
+            colorShapeGreen(workzone2_d2); colorShapeGreen(workzone3_d2); colorShapeGreen(workzone5_d7);
+        }
+        colorShift = !colorShift;
+
         if (!checkValidReservation()) {
             return;
         }
@@ -212,11 +227,13 @@ public class UIControllerRVM extends UIController {
                             if (!DBControllerRW.isRoomAvailableString(IDs.get(i), getDateString(),
                                     getTimeString(startTimePicker), getTimeString(endTimePicker), connection)) {
                                 System.out.println(workplaceSelect.getItems().get(i) + "is reserved at this time");
-                                shapes.get(i).setFill(javafx.scene.paint.Color.RED);
+//                                shapes.get(i).setFill(javafx.scene.paint.Color.RED);
+                                colorShapeRed(shapes.get(i));
 
                             } else {
 //                    classroom6.setFill(javafx.scene.paint.Color.RED);
                                 shapes.get(i).setFill(javafx.scene.paint.Color.GREEN);
+                                colorShapeGreen(shapes.get(i));
                             }
 //                        }
                     }
@@ -321,6 +338,14 @@ public class UIControllerRVM extends UIController {
         for (int x = 0; x < shapes.size(); x++) {
             shapes.get(x).setFill(javafx.scene.paint.Color.GREEN);
         }
+    }
+
+    private void colorShapeRed(Shape shape) {
+        shape.setFill(javafx.scene.paint.Color.RED);
+    }
+
+    private void colorShapeGreen(Shape shape) {
+        shape.setFill(javafx.scene.paint.Color.GREEN);
     }
 
     /**

@@ -1,16 +1,16 @@
 ID,Name,Capacity,Outline
-CL001,Classroom 1,18,0
-CL002,Classroom 2,16,0
-CL003,Classroom 3,16,0
-CL004,Classroom 4,18,0
-CL005,Classroom 5,24,0
-CL006,Classroom 6,18,0
-CL007,Classroom 7,16,0
-CL008,Classroom 8,14,0
-CL009,Classroom 9,8,0
-MHA001,Mission Hill Auditorium,90,0
-MHCR001,Mission Hill Conference Room,16,0
-PNTRY,Pantry,64,0
+CL001,Classroom 1,18,1
+CL002,Classroom 2,16,1
+CL003,Classroom 3,16,1
+CL004,Classroom 4,18,1
+CL005,Classroom 5,24,1
+CL006,Classroom 6,18,1
+CL007,Classroom 7,16,1
+CL008,Classroom 8,14,1
+CL009,Classroom 9,8,1
+MHA001,Mission Hill Auditorium,90,1
+MHCR001,Mission Hill Conference Room,16,1
+PNTRY,Pantry,64,1
 WZ4D01,Work Zone 4 Desk 1,3,0
 WZ4D02,Work Zone 4 Desk 2,4,0
 WZ3T01,Work Zone 3 Table 1,3,0
