@@ -212,14 +212,6 @@ public class UIControllerPFM extends UIController {
     private MapHandler mapHandler;
 
     private int currentFloorIndex = 0;
-    private static final List<String> floorCategories = new LinkedList<String>() {{
-        add("Lower Level 2 - Rooms");
-        add("Lower Level 1 - Rooms");
-        add("Ground Floor - Rooms");
-        add("First Floor - Rooms");
-        add("Second Floor - Rooms");
-        add("Third Floor - Rooms");
-    }};
 
     private PathTransition currentAnimation = null;
     private Rectangle currentAnt = null;
@@ -335,13 +327,13 @@ public class UIControllerPFM extends UIController {
                         currentInitCircle = circle;
                         currentInitCircle.setFill(Color.GREEN);
                         currentInitCircle.setRadius(16);
-                        initialLocationCategorySelect.getSelectionModel().select(floorCategories.get(currentFloorIndex));
+                        initialLocationCategorySelect.getSelectionModel().select(RoomCategoryFilterHelper.floorCategories.get(currentFloorIndex));
                         initialLocationSelect.getSelectionModel().select(node.getLongName());
                     } else if ((destinationSelect.getValue() == null)) {
                         currentDestCircle = circle;
                         currentDestCircle.setFill(Color.RED);
                         currentDestCircle.setRadius(16);
-                        destinationCategorySelect.getSelectionModel().select(floorCategories.get(currentFloorIndex));
+                        destinationCategorySelect.getSelectionModel().select(RoomCategoryFilterHelper.floorCategories.get(currentFloorIndex));
                         destinationSelect.getSelectionModel().select(node.getLongName());
                     }
                 });

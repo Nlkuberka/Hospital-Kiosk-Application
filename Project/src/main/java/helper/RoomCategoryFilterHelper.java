@@ -42,6 +42,15 @@ public class RoomCategoryFilterHelper {
         put("Third Floor - Other", DBControllerNE.ALL_BUT_ROOMS_3);
     }};
 
+    public static final List<String> floorCategories = new LinkedList<String>() {{
+        add("Lower Level 2 - Rooms");
+        add("Lower Level 1 - Rooms");
+        add("Ground Floor - Rooms");
+        add("First Floor - Rooms");
+        add("Second Floor - Rooms");
+        add("Third Floor - Rooms");
+    }};
+
     private Map<String, String> nodeIDs;
 
     /**
