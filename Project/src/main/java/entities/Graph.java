@@ -27,7 +27,7 @@ public abstract class Graph {
     }
 
     private static class GraphGetter {
-        private static Graph graph = new DFSGraph();
+        private static Graph graph = new DijkstraGraph();
     }
 
     /**
@@ -39,36 +39,50 @@ public abstract class Graph {
     }
 
     /**
-     * Replaces the graph with a new graph that computes shortest path by A* algorithm.
+     * Replaces the singleton graph with a new graph that computes shortest path by a different algorithm.
+     * The new graph will have the same adjacency list, edge weights, and node IDs as the old graph.
+     * @param newGraph the new graph object
      */
-    public static void toAStar() {
-        Graph newGraph = new AStarGraph();
+    private static void swapGraph(Graph newGraph) {
         newGraph.adj = GraphGetter.graph.adj;
         newGraph.adjWeights = GraphGetter.graph.adjWeights;
         newGraph.nodeIDs = GraphGetter.graph.nodeIDs;
         GraphGetter.graph = newGraph;
+    }
+
+    /**
+     * Replaces the graph with a new graph that computes shortest path by A* algorithm.
+     */
+    public static void toAStar() {
+        swapGraph(new AStarGraph());
     }
 
     /**
      * Replaces the graph with a new graph that computes shortest path by breadth first search algorithm.
      */
     public static void toBFS() {
-        Graph newGraph = new BFSGraph();
-        newGraph.adj = GraphGetter.graph.adj;
-        newGraph.adjWeights = GraphGetter.graph.adjWeights;
-        newGraph.nodeIDs = GraphGetter.graph.nodeIDs;
-        GraphGetter.graph = newGraph;
+        swapGraph(new BFSGraph());
     }
 
     /**
      * Replaces the graph with a new graph that computes shortest path by depth first search algorithm.
      */
     public static void toDFS() {
-        Graph newGraph = new DFSGraph();
-        newGraph.adj = GraphGetter.graph.adj;
-        newGraph.adjWeights = GraphGetter.graph.adjWeights;
-        newGraph.nodeIDs = GraphGetter.graph.nodeIDs;
-        GraphGetter.graph = newGraph;
+        swapGraph(new DFSGraph());
+    }
+
+    /**
+     * Replaces the graph with a new graph that computes shortest path by the Bellman-Ford algorithm.
+     */
+    public static void toBellmanFord() {
+        swapGraph(new BellmanFordGraph());
+    }
+
+    /**
+     * Replaces the graph with a new graph that computes shortest path by Dijkstra's algorithm.
+     */
+    public static void toDijkstra() {
+        swapGraph(new DijkstraGraph());
     }
 
     /**
@@ -144,35 +158,22 @@ public abstract class Graph {
      * @param targetID the String ID of the desired finish node
      * @return returns an LinkedList<List<String>> of the shortest path between those two points
      */
-    public List<String> shortestPath(String startID, String targetID) {
-        int startIndex = mapNodeIDToIndex(startID);
-        int targetIndex = mapNodeIDToIndex(targetID);
-        double [] distance = new double [nodeIDs.size()]; // distance of shortest known path from start to all nodes
-        for(int i = 0; i < nodeIDs.size(); i++) {
-            distance[i] = Double.MAX_VALUE;
-        }
-        distance[startIndex] = 0;
-        initialize();
-        addNodeToRelax(startIndex, distance[startIndex], targetIndex);
+    public abstract List<String> shortestPath(String startID, String targetID);
 
-        // Search nodes and get the distances of the shortest path from start to each node.
-        while(!finishedSearch()) {
-            int current = getNodeToRelax();
-            for(int i = 0; i < adj.get(current).size(); i++) {
-                int nextNode = adj.get(current).get(i);
-                double currentDistance = distance[current] + adjWeights.get(current).get(i);
-                if(currentDistance < distance[nextNode]) {
-                    distance[nextNode] = currentDistance;
-                    addNodeToRelax(nextNode, distance[nextNode], targetIndex);
-                }
-            }
-        }
+    /**
+     * Finds the shortest path from a given start node to the given target node
+     * @param distance the exact distances of the shortest path from start to each node in the graph
+     * @param startIndex the index in nodeIDs of the start node
+     * @param targetIndex the index in nodeIDs of the target node
+     * @return the shortest path from start to target
+     */
+    protected List<String> backtrack(double[] distance, int startIndex, int targetIndex) {
         if(distance[targetIndex] == Double.MAX_VALUE) { // if there is no path from start to target
             return null;
         }
         // Backtrack from target to start to find the shortest path from start to target.
         List<String> path = new LinkedList<>();
-        path.add(targetID);
+        path.add(nodeIDs.get(targetIndex));
         int current = targetIndex;
         while(current != startIndex) {
             for (int i = 0; i < adj.get(current).size(); i++) {
@@ -186,31 +187,6 @@ public abstract class Graph {
         }
         return path;
     }
-
-    /**
-     * Performs any operations needed before beginning the search.
-     */
-    protected  abstract void initialize();
-
-    /**
-     * Adds a node to a set of nodes that need to be relaxed.
-     * @param node the node to be added
-     * @param distanceFromStart the distance of the shortest known path from start to the node to be added
-     * @param targetIndex the index in adj of the target node
-     */
-    protected abstract void addNodeToRelax(int node, double distanceFromStart, int targetIndex);
-
-    /**
-     * Removes a node from a set of nodes that need to be relaxed, and returns it.
-     * @return the node to be relaxed
-     */
-    protected abstract int getNodeToRelax();
-
-    /**
-     * Checks if the algorithm has already found the shortest path from start to target.
-     * @return true if the shortest path has been found, false otherwise
-     */
-    protected abstract boolean finishedSearch();
 
     /**
      * Divides a path into several lists of nodes based on which floor they are located.

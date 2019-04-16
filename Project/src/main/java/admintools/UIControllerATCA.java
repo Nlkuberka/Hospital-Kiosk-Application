@@ -23,6 +23,8 @@ public class UIControllerATCA extends UIController {
         put("A* Algorithm", CurrentUser.AALOGRITHM);
         put("Depth First Algorithm", CurrentUser.DFSEARCH);
         put("Breath First Algorithm", CurrentUser.BFSEARCH);
+        put("Bellman-Ford Algorithm", CurrentUser.BELLMAN_FORD);
+        put("Dijkstra's Algorithm", CurrentUser.DIJKSTRA);
     }};
 
     @FXML
@@ -48,6 +50,12 @@ public class UIControllerATCA extends UIController {
                 break;
             case CurrentUser.DFSEARCH:
                 Graph.toDFS();
+                break;
+            case CurrentUser.BELLMAN_FORD:
+                Graph.toBellmanFord();
+                break;
+            case CurrentUser.DIJKSTRA:
+                Graph.toDijkstra();
                 break;
         }
         popupMessage("Algorithm changed to " + algorithm, false);

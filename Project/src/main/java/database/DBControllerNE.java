@@ -259,16 +259,19 @@ public class DBControllerNE extends DBController{
     /**
      * deleteEdge
      *
-     * deletes edge of given id from the database
+     * deletes edge between given nodes from the database
      *
-     * @param ID
+     * @param nodeID1
+     * @param nodeID2
      * @param connection
      */
-    public static void deleteEdge(String ID, Connection connection){
+    public static void deleteEdge(String nodeID1, String nodeID2, Connection connection){
         try {
-            PreparedStatement ps = connection.prepareStatement("DELETE from EDGES where EDGEID = ?");
-            ps.setString(1,ID);
-            ps.execute();
+            String edgeID1 = nodeID1 + "_" + nodeID2;
+            String edgeID2 = nodeID2 + "_" + nodeID1;
+            Statement s = connection.createStatement();
+            s.execute("DELETE from EDGES where EDGEID = '" + edgeID1 +
+                    "' OR EDGEID = '" + edgeID2 + "'");
         }catch(SQLException e){
             e.printStackTrace();
         }
@@ -302,10 +305,14 @@ public class DBControllerNE extends DBController{
      */
     public static void addEdge(Edge edge, Connection connection){
         try{
+            System.out.println(edge.getNode1ID());
+            System.out.println(edge.getNode2ID());
             //connection = DriverManager.getConnection("jdbc:derby:myDB");
             Statement s = connection.createStatement();
-            s.execute("INSERT into EDGES values ('" + edge.getNode2ID() +"_" + edge.getNode1ID() +
-                    "','"+ edge.getNode1ID() +"','"+ edge.getNode2ID() + "')");
+            s.execute("INSERT into EDGES values ('" + edge.getNode2ID() + "_" + edge.getNode1ID() +
+                        "','" + edge.getNode1ID() + "','" + edge.getNode2ID() + "')");
+            s.execute("INSERT into EDGES values ('" + edge.getNode1ID() + "_" + edge.getNode2ID() +
+                    "','" + edge.getNode2ID() + "','" + edge.getNode1ID() + "')");
             //connection.close();
         }catch(SQLException e){
             e.printStackTrace();

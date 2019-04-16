@@ -3,11 +3,31 @@ package admintools;
 import application.UIController;
 import com.jfoenix.controls.JFXButton;
 import entities.Node;
+import javafx.animation.KeyFrame;
+import javafx.animation.KeyValue;
+import javafx.animation.PathTransition;
+import javafx.animation.Timeline;
 import javafx.fxml.FXML;
+import javafx.geometry.Bounds;
+import javafx.scene.Group;
+import javafx.scene.Scene;
+import javafx.scene.effect.BlendMode;
+import javafx.scene.effect.BoxBlur;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.StackPane;
+import javafx.scene.paint.Color;
+import javafx.scene.paint.CycleMethod;
+import javafx.scene.paint.LinearGradient;
+import javafx.scene.paint.Stop;
+import javafx.scene.shape.*;
+import javafx.scene.shape.Rectangle;
+import javafx.stage.Window;
+import javafx.util.Duration;
 
+import java.awt.*;
 import java.io.IOException;
+
+import static java.lang.Math.random;
 
 public class UIControllerPUMVNO extends UIController {
     public JFXButton button_cancel;
@@ -17,50 +37,52 @@ public class UIControllerPUMVNO extends UIController {
     public JFXButton button_deleteNode;
     public JFXButton button_deleteEdge;
     public StackPane parentPane;
-    private String status = "";
-
+    private UIControllerATMV uiControllerATMV;
+    private Node node;
+    
     @FXML
     void closeWindow(MouseEvent mouseEvent) {
         parentPane.getScene().getWindow().hide();
     }
 
-    private void closeWindow() {
+    void closeWindow() {
         parentPane.getScene().getWindow().hide();
     }
 
     @FXML
     private void editNode(MouseEvent mouseEvent) throws IOException {
-        status = "EDIT-NODE";
         closeWindow();
+        uiControllerATMV.editNode(node);
     }
 
     @FXML
     private void setKiosk(MouseEvent mouseEvent) throws IOException {
-        status = "SET-KIOSK";
         closeWindow();
+        uiControllerATMV.setKiosk(node);
     }
 
     @FXML
     private void addEdge(MouseEvent mouseEvent) throws IOException {
-        status = "ADD-EDGE";
         closeWindow();
+        uiControllerATMV.isAddingEdge = true;
+        uiControllerATMV.previousNodeID = node.getNodeID();
     }
 
     @FXML
     private void deleteNode(MouseEvent mouseEvent) throws IOException {
-        status = "DELETE-NODE";
         closeWindow();
+        uiControllerATMV.deleteNode(node);
     }
 
     @FXML
     private void deleteEdge(MouseEvent mouseEvent) throws IOException {
-        status = "DELETE-EDGE";
         closeWindow();
+        uiControllerATMV.isAddingEdge = false;
+        uiControllerATMV.previousNodeID = node.getNodeID();
     }
 
-    String getStatus()
-    {
-        return status;
+    void setUiControllerATMV(UIControllerATMV uiControllerATMV, Node node) {
+        this.uiControllerATMV = uiControllerATMV;
+        this.node = node;
     }
-
 }
