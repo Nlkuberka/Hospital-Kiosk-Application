@@ -2,38 +2,34 @@ package admintools;
 
 import application.CurrentUser;
 import application.UIController;
-import com.sun.javafx.scene.control.skin.TooltipSkin;
 import database.DBController;
 import database.DBControllerNE;
 import entities.Edge;
 import entities.Node;
-import javafx.animation.KeyFrame;
-import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Cursor;
 import javafx.scene.Group;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.*;
+import javafx.scene.control.MenuItem;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.control.TabPane;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
 import javafx.scene.shape.Path;
+import javafx.scene.text.TextAlignment;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
-import javafx.util.Duration;
 
 import java.io.IOException;
-import java.lang.reflect.Field;
 import java.sql.Connection;
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -47,19 +43,20 @@ import java.util.List;
 
 public class UIControllerATMV extends UIController {
 
-    public HBox hboxForMap;
     public StackPane parentPane;
     public ImageView backgroundImage;
     public Path path;
     public MenuItem backButton;
-    public ScrollPane scrollPane;
-    public ImageView map_imageView;
-    public AnchorPane scroll_AnchorPane;
-    public Button zoom_button;
-    public Button unzoom_button;
     public TabPane tabs;
-    public String previousNodeID;
-    public boolean isAddingEdge;
+    public ImageView questionMarkF2;
+    public ImageView questionMarkF3;
+    public ImageView questionMarkF1;
+    public ImageView questionMarkGF;
+    public ImageView questionMarkL1;
+    public ImageView questionMarkL2;
+    private LinkedList<ImageView> helperIcons;
+    String previousNodeID;
+    boolean isAddingEdge;
     private Group edgesGroup = new Group();
     private Group nodesGroup = new Group();
     private LinkedList<Node> currentFloorNodes = new LinkedList<>();
@@ -129,8 +126,15 @@ public class UIControllerATMV extends UIController {
         tabs.getSelectionModel().selectedItemProperty().addListener(param -> {
             set();
         });
-    }
 
+        for (ImageView icon : helperIcons) {
+            String helper = "Click & Drag: Move Node\n" +
+                    "Double Click: Select Node\n\n" +
+                    "If Adding Or Deleting Edge:\n" +
+                    "Click Again (Once) to Execute\n";
+            new utilities.Tooltip(icon, helper, TextAlignment.LEFT);
+        }
+    }
 
     @Override
     public void onShow() {
@@ -222,24 +226,23 @@ public class UIControllerATMV extends UIController {
 
             Circle circle = new Circle(x, y, 7);
             circle.setId(tempNode.getNodeID());
-            Tooltip tooltip = new Tooltip(tempNode.getShortName());
-            hackTooltipStartTiming(tooltip);
-            Tooltip.install(circle, tooltip);
+            new utilities.Tooltip(circle, tempNode.getShortName());
+
 
             circle.setOnMousePressed(mouseEvent -> {
-                if(previousNodeID != null){
-                    if(isAddingEdge){
-                        addEdge(null, previousNodeID, tempNode.getNodeID());
+                if (previousNodeID != null) {
+                    if (isAddingEdge) {
+                        addEdge(previousNodeID, tempNode.getNodeID());
                         Connection conn = DBController.dbConnect();
                         currentFloorEdges.add(DBControllerNE.fetchEdge(previousNodeID + "_" + tempNode.getNodeID(), conn));
                         DBController.closeConnection(conn);
-                    }else{
+                    } else {
                         deleteEdge(previousNodeID, tempNode.getNodeID());
                         currentFloorEdges.remove(getEdgeFrom(currentFloorEdges, previousNodeID, tempNode.getNodeID()));
                     }
                     previousNodeID = null;
                     draw();
-                }else{
+                } else {
                     mouseX = circle.getLayoutX() - mouseEvent.getSceneX();
                     mouseY = circle.getLayoutY() - mouseEvent.getSceneY();
                     if (mouseEvent.getClickCount() == 2) {
@@ -272,11 +275,11 @@ public class UIControllerATMV extends UIController {
         drawEdges();
     }
 
-    private Edge getEdgeFrom(LinkedList<Edge> edges, String nodeID1, String nodeID2){
+    private Edge getEdgeFrom(LinkedList<Edge> edges, String nodeID1, String nodeID2) {
         String edgeID1 = nodeID1 + "_" + nodeID2;
         String edgeID2 = nodeID2 + "_" + nodeID1;
-        for(Edge e:edges){
-            if(e.getEdgeID().equals(edgeID1) || e.getEdgeID().equals(edgeID2)){
+        for (Edge e : edges) {
+            if (e.getEdgeID().equals(edgeID1) || e.getEdgeID().equals(edgeID2)) {
                 return e;
             }
         }
@@ -300,7 +303,6 @@ public class UIControllerATMV extends UIController {
             edgesGroup.getChildren().add(tempLine);
         }
     }
-
 
     private void initialBindings() {
         // bind background image size to window size
@@ -343,6 +345,14 @@ public class UIControllerATMV extends UIController {
         imageViews.add(firstFloorImageView);
         imageViews.add(secondFloorImageView);
         imageViews.add(thirdFloorImageView);
+
+        helperIcons = new LinkedList<>();
+        helperIcons.add(questionMarkF1);
+        helperIcons.add(questionMarkF2);
+        helperIcons.add(questionMarkF3);
+        helperIcons.add(questionMarkGF);
+        helperIcons.add(questionMarkL1);
+        helperIcons.add(questionMarkL2);
 
     }
 
@@ -403,7 +413,6 @@ public class UIControllerATMV extends UIController {
         draw();
     }
 
-
     @FXML
     public void addNodeOnClick(MouseEvent mouseEvent) throws IOException {
         Node tempNode = new Node();
@@ -426,14 +435,14 @@ public class UIControllerATMV extends UIController {
         set();
     }
 
-    void addEdge(String edgeID, String node1ID, String node2ID) {
+    private void addEdge(String node1ID, String node2ID) {
         Connection conn = DBControllerNE.dbConnect();
-        Edge newEdge = new Edge(edgeID, node1ID, node2ID);
-        DBControllerNE.addEdge(newEdge,conn);
+        Edge newEdge = new Edge(null, node1ID, node2ID);
+        DBControllerNE.addEdge(newEdge, conn);
         DBControllerNE.closeConnection(conn);
     }
 
-    void deleteEdge(String nodeID1, String nodeID2){
+    private void deleteEdge(String nodeID1, String nodeID2) {
         Connection conn = DBControllerNE.dbConnect();
         DBControllerNE.deleteEdge(nodeID1, nodeID2, conn);
         DBControllerNE.closeConnection(conn);
@@ -463,7 +472,7 @@ public class UIControllerATMV extends UIController {
         stage.initStyle(StageStyle.UNDECORATED);
         stage.initOwner(parentPane.getScene().getWindow());
         stage.setHeight(400);
-        stage.setWidth(600);
+        stage.setWidth(400);
         stage.setResizable(false);
         stage.centerOnScreen();
         stage.showAndWait();
@@ -477,7 +486,7 @@ public class UIControllerATMV extends UIController {
         setStage(root);
     }
 
-    private void showAddedNode(Node node) {
+    void showAddedNode(Node node) {
         for (javafx.scene.Node nodes : nodesGroup.getChildren()) {
             if (nodes.getId().equals(node.getNodeID())) {
                 ((Circle) nodes).setRadius(10);
@@ -485,23 +494,6 @@ public class UIControllerATMV extends UIController {
                 ((Circle) nodes).setStroke(Color.BLACK);
                 ((Circle) nodes).setStrokeWidth(2);
             }
-        }
-    }
-
-    private static void hackTooltipStartTiming(Tooltip tooltip) {
-        try {
-            Field fieldBehavior = tooltip.getClass().getDeclaredField("BEHAVIOR");
-            fieldBehavior.setAccessible(true);
-            Object objBehavior = fieldBehavior.get(tooltip);
-
-            Field fieldTimer = objBehavior.getClass().getDeclaredField("activationTimer");
-            fieldTimer.setAccessible(true);
-            Timeline objTimer = (Timeline) fieldTimer.get(objBehavior);
-
-            objTimer.getKeyFrames().clear();
-            objTimer.getKeyFrames().add(new KeyFrame(new Duration(0)));
-        } catch (Exception e) {
-            e.printStackTrace();
         }
     }
 }
