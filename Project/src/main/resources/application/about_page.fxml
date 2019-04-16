@@ -1,0 +1,338 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXTabPane?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<StackPane alignment="TOP_RIGHT" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="720.0" minWidth="1280.0" style="-fx-background-color: #ffffff;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.UIControllerAP">
+   <cursor>
+      <Cursor fx:constant="DEFAULT" />
+   </cursor>
+   <children>
+      <BorderPane>
+         <top>
+            <MenuBar fx:id="back" style="-fx-background-color: #ffffff;" stylesheets="@../css/background.css" BorderPane.alignment="CENTER">
+              <menus>
+                <Menu fx:id="back" mnemonicParsing="false" onAction="#setBack" onShowing="#setBack" text="Back">
+                  <items>
+                    <MenuItem fx:id="backMenuItem" mnemonicParsing="false" text="Go back to previous page" />
+                  </items>
+                </Menu>
+              </menus>
+            </MenuBar>
+         </top>
+         <left>
+            <GridPane style="-fx-background-color: #ffc41e;" BorderPane.alignment="CENTER">
+              <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+              </columnConstraints>
+              <rowConstraints>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+              </rowConstraints>
+            </GridPane>
+         </left>
+         <center>
+            <JFXTabPane stylesheets="@../css/background.css" BorderPane.alignment="CENTER">
+               <tabs>
+                  <Tab style="-fx-background-color: #015080;" text="Special Thanks">
+                     <content>
+                        <GridPane>
+                          <columnConstraints>
+                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                          </columnConstraints>
+                          <rowConstraints>
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                            <RowConstraints minHeight="10.0" percentHeight="20.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="10.0" percentHeight="5.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                          </rowConstraints>
+                           <children>
+                              <ImageView fitHeight="150.0" fitWidth="300.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../pictures/BWH.JPG" />
+                                 </image>
+                              </ImageView>
+                              <Text fill="#015080" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-weight: Bold Italic; -fx-font-size: 48;" text="Special Thanks" GridPane.rowIndex="1">
+                                 <font>
+                                    <Font size="36.0" />
+                                 </font>
+                                 <GridPane.margin>
+                                    <Insets bottom="40.0" left="80.0" />
+                                 </GridPane.margin>
+                              </Text>
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Thanks to Brigham and Women’s Faulkner Hospital and the representative, " GridPane.rowIndex="2" GridPane.valignment="TOP">
+                                 <font>
+                                    <Font size="24.0" />
+                                 </font>
+                                 <GridPane.margin>
+                                    <Insets left="50.0" />
+                                 </GridPane.margin>
+                              </Text>
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Andrew Shinn, for all of their time and input." GridPane.rowIndex="3" GridPane.valignment="TOP">
+                                 <font>
+                                    <Font size="24.0" />
+                                 </font>
+                                 <GridPane.margin>
+                                    <Insets left="50.0" />
+                                 </GridPane.margin>
+                              </Text>
+                           </children>
+                           <padding>
+                              <Insets left="20.0" />
+                           </padding>
+                        </GridPane>
+                     </content>
+                  </Tab>
+                  <Tab style="-fx-background-color: #015080;" text="About Us">
+                     <content>
+                        <GridPane>
+                           <columnConstraints>
+                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="10.0" prefWidth="100.0" />
+                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="10.0" prefWidth="100.0" />
+                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                           </columnConstraints>
+                           <rowConstraints>
+                              <RowConstraints minHeight="10.0" percentHeight="5.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="10.0" percentHeight="0.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="10.0" percentHeight="5.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="10.0" percentHeight="6.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                           </rowConstraints>
+                           <children>
+                              <Text fill="#015080" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-weight: Bold Italic;" text="About Us" GridPane.rowIndex="1" GridPane.valignment="BOTTOM">
+                                 <font>
+                                    <Font size="48.0" />
+                                 </font>
+                                 <GridPane.margin>
+                                    <Insets left="70.0" />
+                                 </GridPane.margin>
+                              </Text>
+                              <Text fill="#090a0f" strokeType="OUTSIDE" strokeWidth="0.0" text="Team: Diamond Dobhar-chu" GridPane.columnIndex="1" GridPane.rowIndex="2" GridPane.valignment="BOTTOM">
+                                 <GridPane.margin>
+                                    <Insets left="30.0" />
+                                 </GridPane.margin>
+                                 <font>
+                                    <Font name="System Bold" size="24.0" />
+                                 </font>
+                              </Text>
+                              <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" GridPane.halignment="RIGHT" GridPane.rowIndex="2" GridPane.valignment="TOP">
+                                 <image>
+                                    <Image url="@../pictures/526369e4-4781-4f00-a4f0-5f98df9d48ab.png" />
+                                 </image>
+                                 <GridPane.margin>
+                                    <Insets top="10.0" />
+                                 </GridPane.margin>
+                              </ImageView>
+                              <Text fill="#090a0f" strokeType="OUTSIDE" strokeWidth="0.0" text="WPI Computer Science Department" GridPane.columnIndex="1" GridPane.rowIndex="3" GridPane.valignment="CENTER">
+                                 <font>
+                                    <Font name="System Bold" size="24.0" />
+                                 </font>
+                                 <GridPane.margin>
+                                    <Insets left="30.0" />
+                                 </GridPane.margin>
+                              </Text>
+                              <Text fill="#090a0f" strokeType="OUTSIDE" strokeWidth="0.0" text="CS3733-D19 Software Engineering" GridPane.columnIndex="1" GridPane.rowIndex="4" GridPane.valignment="TOP">
+                                 <font>
+                                    <Font name="System Bold" size="24.0" />
+                                 </font>
+                                 <GridPane.margin>
+                                    <Insets left="30.0" />
+                                 </GridPane.margin>
+                              </Text>
+                              <Text fill="#015080" strokeType="OUTSIDE" strokeWidth="0.0" text=" Lead Software Engineer" GridPane.columnIndex="1" GridPane.rowIndex="7">
+                                 <font>
+                                    <Font name="System Italic" size="20.0" />
+                                 </font>
+                              </Text>
+                              <Text fill="#015080" strokeType="OUTSIDE" strokeWidth="0.0" text="Jonathan Chang" GridPane.columnIndex="1" GridPane.rowIndex="8">
+                                 <font>
+                                    <Font name="System Bold" size="24.0" />
+                                 </font>
+                                 <GridPane.margin>
+                                    <Insets left="15.0" />
+                                 </GridPane.margin>
+                              </Text>
+                              <Text fill="#015080" strokeType="OUTSIDE" strokeWidth="0.0" text="Assistant Lead Software Engineer" GridPane.columnIndex="2" GridPane.rowIndex="7">
+                                 <font>
+                                    <Font name="System Italic" size="20.0" />
+                                 </font>
+                                 <GridPane.margin>
+                                    <Insets left="80.0" />
+                                 </GridPane.margin>
+                              </Text>
+                              <Text fill="#015080" strokeType="OUTSIDE" strokeWidth="0.0" text="Isabel Morales Sirgo" GridPane.columnIndex="2" GridPane.rowIndex="8">
+                                 <font>
+                                    <Font name="System Bold" size="24.0" />
+                                 </font>
+                                 <GridPane.margin>
+                                    <Insets left="105.0" />
+                                 </GridPane.margin>
+                              </Text>
+                              <Text fill="#015080" strokeType="OUTSIDE" strokeWidth="0.0" text="Henry Poskanzer" GridPane.columnIndex="2" GridPane.rowIndex="9" GridPane.valignment="TOP">
+                                 <font>
+                                    <Font name="System Bold" size="24.0" />
+                                 </font>
+                                 <GridPane.margin>
+                                    <Insets left="120.0" />
+                                 </GridPane.margin>
+                              </Text>
+                              <Text fill="#015080" strokeType="OUTSIDE" strokeWidth="0.0" text="Project Manager" GridPane.columnIndex="5" GridPane.rowIndex="10">
+                                 <font>
+                                    <Font name="System Italic" size="20.0" />
+                                 </font>
+                                 <GridPane.margin>
+                                    <Insets left="30.0" />
+                                 </GridPane.margin>
+                              </Text>
+                              <Text fill="#015080" stroke="#015080" strokeType="OUTSIDE" strokeWidth="0.0" text="Ryan O’Brien" GridPane.columnIndex="5" GridPane.rowIndex="11" GridPane.valignment="TOP">
+                                 <font>
+                                    <Font name="System Bold" size="24.0" />
+                                 </font>
+                                 <GridPane.margin>
+                                    <Insets left="30.0" />
+                                 </GridPane.margin>
+                              </Text>
+                              <Text fill="#015080" strokeType="OUTSIDE" strokeWidth="0.0" text="Scrum Master " GridPane.columnIndex="1" GridPane.rowIndex="10">
+                                 <font>
+                                    <Font name="System Italic" size="20.0" />
+                                 </font>
+                                 <GridPane.margin>
+                                    <Insets left="25.0" />
+                                 </GridPane.margin>
+                              </Text>
+                              <Text fill="#015080" strokeType="OUTSIDE" strokeWidth="0.0" text="Dimitri Berardi" GridPane.columnIndex="1" GridPane.rowIndex="11" GridPane.valignment="TOP">
+                                 <font>
+                                    <Font name="System Bold" size="24.0" />
+                                 </font>
+                              </Text>
+                              <Text fill="#015080" strokeType="OUTSIDE" strokeWidth="0.0" text="Documentation Analyst" GridPane.columnIndex="2" GridPane.rowIndex="10">
+                                 <font>
+                                    <Font name="System Italic" size="20.0" />
+                                 </font>
+                                 <GridPane.margin>
+                                    <Insets left="100.0" />
+                                 </GridPane.margin>
+                              </Text>
+                              <Text fill="#015080" strokeType="OUTSIDE" strokeWidth="0.0" text="Nicole Kuberka" GridPane.columnIndex="2" GridPane.rowIndex="11" GridPane.valignment="TOP">
+                                 <font>
+                                    <Font name="System Bold" size="24.0" />
+                                 </font>
+                                 <GridPane.margin>
+                                    <Insets left="115.0" />
+                                 </GridPane.margin>
+                              </Text>
+                              <Text fill="#015080" strokeType="OUTSIDE" strokeWidth="0.0" text="Software Engineers" GridPane.columnIndex="5" GridPane.rowIndex="7">
+                                 <font>
+                                    <Font name="System Italic" size="20.0" />
+                                 </font>
+                                 <GridPane.margin>
+                                    <Insets left="30.0" />
+                                 </GridPane.margin>
+                              </Text>
+                              <Text fill="#015080" strokeType="OUTSIDE" strokeWidth="0.0" text="Panagiotis Argyrakis " GridPane.columnIndex="5" GridPane.rowIndex="8" GridPane.valignment="CENTER">
+                                 <font>
+                                    <Font name="System Bold" size="24.0" />
+                                 </font>
+                              </Text>
+                              <Text fill="#015080" strokeType="OUTSIDE" strokeWidth="0.0" text="Product Owner" GridPane.columnIndex="1" GridPane.rowIndex="12">
+                                 <font>
+                                    <Font name="System Italic" size="20.0" />
+                                 </font>
+                                 <GridPane.margin>
+                                    <Insets left="20.0" />
+                                 </GridPane.margin>
+                              </Text>
+                              <Text fill="#015080" strokeType="OUTSIDE" strokeWidth="0.0" text="Shiyi Liu" GridPane.columnIndex="1" GridPane.rowIndex="13" GridPane.valignment="TOP">
+                                 <font>
+                                    <Font name="System Bold" size="24.0" />
+                                 </font>
+                                 <GridPane.margin>
+                                    <Insets left="35.0" />
+                                 </GridPane.margin>
+                              </Text>
+                              <Text fill="#015080" strokeType="OUTSIDE" strokeWidth="0.0" text="Test Engineer" GridPane.columnIndex="3" GridPane.rowIndex="12">
+                                 <font>
+                                    <Font name="System Italic" size="20.0" />
+                                 </font>
+                                 <GridPane.margin>
+                                    <Insets left="40.0" />
+                                 </GridPane.margin>
+                              </Text>
+                              <Text fill="#015080" strokeType="OUTSIDE" strokeWidth="0.0" text="Joseph Niski " GridPane.columnIndex="3" GridPane.rowIndex="13" GridPane.valignment="TOP">
+                                 <font>
+                                    <Font name="System Bold" size="24.0" />
+                                 </font>
+                                 <GridPane.margin>
+                                    <Insets left="30.0" />
+                                 </GridPane.margin>
+                              </Text>
+                              <Text fill="#015080" strokeType="OUTSIDE" strokeWidth="0.0" text="Rakesh Veetekat" GridPane.columnIndex="5" GridPane.rowIndex="9" GridPane.valignment="TOP">
+                                 <font>
+                                    <Font name="System Bold" size="24.0" />
+                                 </font>
+                                 <GridPane.margin>
+                                    <Insets left="20.0" />
+                                 </GridPane.margin>
+                              </Text>
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Team Coach" GridPane.columnIndex="5" GridPane.rowIndex="12">
+                                 <font>
+                                    <Font name="System Italic" size="20.0" />
+                                 </font>
+                                 <GridPane.margin>
+                                    <Insets left="50.0" />
+                                 </GridPane.margin>
+                              </Text>
+                              <Text fill="#f6ad03" strokeType="INSIDE" strokeWidth="2.0" text="Bailey Sostek" GridPane.columnIndex="5" GridPane.rowIndex="13" GridPane.valignment="TOP">
+                                 <font>
+                                    <Font name="System Bold" size="24.0" />
+                                 </font>
+                                 <GridPane.margin>
+                                    <Insets left="32.0" />
+                                 </GridPane.margin>
+                              </Text>
+                           </children>
+                           <padding>
+                              <Insets left="20.0" />
+                           </padding>
+                        </GridPane>
+                     </content>
+                  </Tab>
+               </tabs>
+            </JFXTabPane>
+         </center>
+      </BorderPane>
+   </children>
+</StackPane>

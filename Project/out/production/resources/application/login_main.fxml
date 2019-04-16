@@ -30,9 +30,9 @@
             <Blend />
          </effect>
          <top>
-            <JFXTabPane fx:id="tabs" stylesheets="@../css/background.css" BorderPane.alignment="CENTER">
+            <JFXTabPane fx:id="tabs" style="-fx-text-fill: #090a0f;" stylesheets="@../css/background.css" BorderPane.alignment="CENTER">
                <tabs>
-                  <Tab fx:id="user_tab" style="-fx-text-fill: #090a0f;" text="User">
+                  <Tab fx:id="user_tab" text="User">
                      <content>
                         <GridPane alignment="CENTER" prefHeight="690.0" prefWidth="1280.0">
                           <columnConstraints>
