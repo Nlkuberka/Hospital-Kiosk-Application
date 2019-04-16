@@ -1,6 +1,9 @@
 package application;
 
 import com.jfoenix.controls.JFXButton;
+import com.twilio.Twilio;
+import com.twilio.rest.api.v2010.account.Message;
+import com.twilio.type.PhoneNumber;
 import entities.Graph;
 import entities.emailDirection;
 import javafx.fxml.FXML;
@@ -100,6 +103,24 @@ public class UIControllerPUD extends UIController {
 
             }
         }
+    }
+
+    public static final String ACCOUNT_SID = "AC176f9cd821ffa8dcad559ceecad9ecf1";
+    public static final String AUTH_TOKEN = "ab7f1a58335f47c98bac61b471920dfe";
+
+    @FXML
+    public void sendText(ActionEvent event){
+        String number = phoneNumber.getText();
+
+        Twilio.init(ACCOUNT_SID, AUTH_TOKEN);
+        Message message = Message.creator(
+                new com.twilio.type.PhoneNumber("+1" + number),
+                new com.twilio.type.PhoneNumber("+17472290044"),
+                directions.getText())
+                .create();
+
+        System.out.println("it sent");
+
     }
 
     @FXML

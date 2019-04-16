@@ -18,10 +18,6 @@ import java.time.Clock;
 import java.util.Arrays;
 import java.util.List;
 
-import com.twilio.Twilio;
-import com.twilio.rest.api.v2010.account.Message;
-import com.twilio.type.PhoneNumber;
-
 public class Main extends Application {
 
     @Override
@@ -63,21 +59,11 @@ public class Main extends Application {
 
     }
 
-    public static final String ACCOUNT_SID = "AC176f9cd821ffa8dcad559ceecad9ecf1";
-    public static final String AUTH_TOKEN = "ab7f1a58335f47c98bac61b471920dfe";
+
 
     public static void main(String[] args) throws IOException {
 
-        Twilio.init(ACCOUNT_SID, AUTH_TOKEN);
-        Message message = Message.creator(
-                new com.twilio.type.PhoneNumber("+15089834963"),
-                new com.twilio.type.PhoneNumber("+17472290044"),
-                "body")
-                .create();
-
-        System.out.println(message.getSid());
-
-        //launch(args);
+        launch(args);
     }
 
 }
