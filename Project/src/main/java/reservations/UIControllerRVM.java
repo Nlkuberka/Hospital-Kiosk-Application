@@ -76,30 +76,51 @@ public class UIControllerRVM extends UIController {
      * < The picker for the end time
      */
 
-    @FXML
-    private Shape classroom1;
-    @FXML
-    private Shape classroom2;
-    @FXML
-    private Shape classroom3;
-    @FXML
-    private Shape classroom4;
-    @FXML
-    private Shape classroom5;
-    @FXML
-    private Shape classroom6;
-    @FXML
-    private Shape classroom7;
-    @FXML
-    private Shape classroom8;
-    @FXML
-    private Shape classroom9;
-    @FXML
-    private Shape MHA;
-    @FXML
-    private Shape MHCR;
-    @FXML
-    private Shape pantry;
+    /**
+     * < Shape objects for reservable workplaces
+     */
+    @FXML private Shape classroom1; @FXML private Shape classroom2; @FXML private Shape classroom3;
+    @FXML private Shape classroom4; @FXML private Shape classroom5; @FXML private Shape classroom6;
+    @FXML private Shape classroom7; @FXML private Shape classroom8; @FXML private Shape classroom9;
+    @FXML private Shape MHA; @FXML private Shape MHCR; @FXML private Shape pantry;
+
+    /**
+     *  < Shape objects for flexible work stations
+     */
+    @FXML private Shape workzone4_t1; @FXML private Shape workzone4_t2;
+
+    @FXML private Shape workzone3_t1; @FXML private Shape workzone3_t2; @FXML private Shape workzone3_t3;
+    @FXML private Shape workzone3_d4; @FXML private Shape workzone3_r1; @FXML private Shape workzone3_r2;
+    @FXML private Shape workzone3_r4; @FXML private Shape workzone3_r3; @FXML private Shape workzone3_r5;
+    @FXML private Shape workzone3_r6; @FXML private Shape workzone3_d3; @FXML private Shape workzone3_d2;
+    @FXML private Shape workzone3_d1; @FXML private Shape workzone3_d5; @FXML private Shape workzone3_d6;
+    @FXML private Shape workzone3_d7; @FXML private Shape workzone3_d8; @FXML private Shape workzone3_d9;
+    @FXML private Shape workzone3_d10; @FXML private Shape workzone3_d11; @FXML private Shape workzone3_d12;
+    @FXML private Shape workzone3_d13; @FXML private Shape workzone3_d14; @FXML private Shape workzone3_d15;
+    @FXML private Shape workzone3_d16;
+
+    @FXML private Shape workzone1_d17; @FXML private Shape workzone1_d18; @FXML private Shape workzone1_d19;
+    @FXML private Shape workzone1_d11; @FXML private Shape workzone1_d12; @FXML private Shape workzone1_d13;
+    @FXML private Shape workzone1_d20; @FXML private Shape workzone1_d21; @FXML private Shape workzone1_d22;
+    @FXML private Shape workzone1_d14; @FXML private Shape workzone1_d15; @FXML private Shape workzone1_d16;
+    @FXML private Shape workzone1_d1; @FXML private Shape workzone1_d3; @FXML private Shape workzone1_d5;
+    @FXML private Shape workzone1_d7; @FXML private Shape workzone1_d9; @FXML private Shape workzone1_d10;
+    @FXML private Shape workzone1_d8; @FXML private Shape workzone1_d6; @FXML private Shape workzone1_d4;
+    @FXML private Shape workzone1_d2; @FXML private Shape workzone1_r3; @FXML private Shape workzone1_r2;
+    @FXML private Shape workzone1_r1;@FXML private Shape workzone1_r4;
+
+    @FXML private Shape workzone2_d9; @FXML private Shape workzone2_d7; @FXML private Shape workzone2_d5;
+    @FXML private Shape workzone2_d3; @FXML private Shape workzone2_d1; @FXML private Shape workzone2_d8;
+    @FXML private Shape workzone2_d6; @FXML private Shape workzone2_d4; @FXML private Shape workzone2_d2;
+
+    @FXML private Shape workzone5_d13; @FXML private Shape workzone5_d9; @FXML private Shape workzone5_d5;
+    @FXML private Shape workzone5_d1; @FXML private Shape workzone5_r1; @FXML private Shape workzone5_t1;
+    @FXML private Shape workzone5_r5; @FXML private Shape workzone5_r4; @FXML private Shape workzone5_r3;
+    @FXML private Shape workzone5_r2; @FXML private Shape workzone5_d14; @FXML private Shape workzone5_d10;
+    @FXML private Shape workzone5_d6; @FXML private Shape workzone5_d2; @FXML private Shape workzone5_d15;
+    @FXML private Shape workzone5_d11; @FXML private Shape workzone5_d7; @FXML private Shape workzone5_d16;
+    @FXML private Shape workzone5_d12; @FXML private Shape workzone5_d4; @FXML private Shape workzone5_d8;
+    @FXML private Shape workzone5_d3; @FXML private Shape workzone5_t2; @FXML private Shape workzone5_t3;
 
     @FXML
     private ImageView backgroundImage;
@@ -120,20 +141,11 @@ public class UIControllerRVM extends UIController {
     @FXML
     public void initialize() {
 
-        shapes.add(classroom1);
-        shapes.add(classroom2);
-        shapes.add(classroom3);
-        shapes.add(classroom4);
-        shapes.add(classroom5);
-        shapes.add(classroom6);
-        shapes.add(classroom7);
-        shapes.add(classroom8);
-        shapes.add(classroom9);
-        shapes.add(MHA);
-        shapes.add(MHCR);
-        shapes.add(pantry);
+        shapes.add(classroom1); shapes.add(classroom2); shapes.add(classroom3); shapes.add(classroom4); shapes.add(classroom5);
+        shapes.add(classroom6); shapes.add(classroom7); shapes.add(classroom8); shapes.add(classroom9);
+        shapes.add(MHA); shapes.add(MHCR); shapes.add(pantry);
 
-            backgroundImage.fitWidthProperty().bind(primaryStage.widthProperty());
+        backgroundImage.fitWidthProperty().bind(primaryStage.widthProperty());
 
 
 

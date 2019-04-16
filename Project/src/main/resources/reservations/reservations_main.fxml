@@ -135,8 +135,8 @@
                   <Rectangle fx:id="pantry" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="86.0" layoutX="478.0" layoutY="464.0" opacity="0.15" stroke="BLACK" strokeType="INSIDE" width="95.0" />
                   <Rectangle fx:id="classroom4" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="66.0" layoutX="508.0" layoutY="88.0" opacity="0.15" stroke="BLACK" strokeType="INSIDE" width="35.0" />
                   <Polygon fx:id="MHA" fill="DODGERBLUE" layoutX="626.0" layoutY="398.0" opacity="0.15" points="-50.0, 40.0, 39.0, 20.0, 18.8045654296875, -60.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
-                  <Rectangle fx:id="workzone4_1" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="15.0" layoutX="87.0" layoutY="296.0" opacity="0.15" stroke="BLACK" strokeType="INSIDE" width="15.0" />
-                  <Rectangle fx:id="workzone4_2" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="18.0" layoutX="156.0" layoutY="304.0" opacity="0.15" stroke="BLACK" strokeType="INSIDE" width="14.0" />
+                  <Rectangle fx:id="workzone4_t1" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="15.0" layoutX="87.0" layoutY="296.0" opacity="0.15" stroke="BLACK" strokeType="INSIDE" width="15.0" />
+                  <Rectangle fx:id="workzone4_t2" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="18.0" layoutX="156.0" layoutY="304.0" opacity="0.15" stroke="BLACK" strokeType="INSIDE" width="14.0" />
                   <Rectangle fx:id="workzone3_t1" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="23.0" layoutX="77.0" layoutY="97.0" opacity="0.15" stroke="BLACK" strokeType="INSIDE" width="11.0" />
                   <Rectangle fx:id="workzone3_t2" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="23.0" layoutX="77.0" layoutY="132.0" opacity="0.15" stroke="BLACK" strokeType="INSIDE" width="11.0" />
                   <Rectangle fx:id="workzone3_t3" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="25.0" layoutX="77.0" layoutY="166.0" opacity="0.15" stroke="BLACK" strokeType="INSIDE" width="11.0" />
