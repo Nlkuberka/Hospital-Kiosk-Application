@@ -1,7 +1,6 @@
 package servicerequests;
 
 import application.CurrentUser;
-import database.DBController;
 import application.UIController;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextField;
@@ -11,7 +10,6 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.TextArea;
 import javafx.scene.image.ImageView;
 import org.controlsfx.control.textfield.TextFields;
 

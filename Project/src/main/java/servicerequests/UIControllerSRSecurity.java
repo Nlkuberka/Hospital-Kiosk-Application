@@ -1,13 +1,9 @@
 package servicerequests;
 
 import application.CurrentUser;
-import database.DBController;
 import application.UIController;
-import database.DBControllerNE;
-import database.DBControllerSR;
-import entities.Node;
-
 import com.jfoenix.controls.JFXButton;
+import database.DBControllerSR;
 import entities.ServiceRequest;
 import helper.RoomCategoryFilterHelper;
 import javafx.collections.FXCollections;
@@ -18,7 +14,7 @@ import javafx.scene.control.TextFormatter;
 import javafx.scene.image.ImageView;
 
 import java.sql.Connection;
-import java.util.*;
+import java.util.Arrays;
 
 /*
 Security Service Request

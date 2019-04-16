@@ -1,14 +1,11 @@
 package servicerequests;
 
 import application.CurrentUser;
-import database.DBController;
 import application.UIController;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextArea;
 import com.jfoenix.controls.JFXTextField;
-import database.DBControllerNE;
 import database.DBControllerSR;
-import entities.Node;
 import entities.ServiceRequest;
 import helper.RoomCategoryFilterHelper;
 import javafx.collections.FXCollections;
@@ -21,7 +18,9 @@ import org.controlsfx.control.textfield.TextFields;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.sql.Connection;
-import java.util.*;
+import java.util.Arrays;
+import java.util.LinkedList;
+import java.util.List;
 
 /**
  * UIController for the prescription services service request

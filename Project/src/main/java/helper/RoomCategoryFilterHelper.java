@@ -4,9 +4,9 @@ import database.DBController;
 import database.DBControllerNE;
 import entities.Node;
 import javafx.collections.FXCollections;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.ChoiceBox;
-import javafx.event.EventHandler;
 
 import java.sql.Connection;
 import java.util.HashMap;

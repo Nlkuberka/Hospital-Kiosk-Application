@@ -1,16 +1,12 @@
 package servicerequests;
 
 import application.CurrentUser;
-import database.DBController;
 import application.UIController;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextArea;
-import database.DBControllerNE;
 import database.DBControllerSR;
-import entities.Node;
 import entities.ServiceRequest;
 import helper.RoomCategoryFilterHelper;
-import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
@@ -18,10 +14,6 @@ import javafx.scene.control.TextFormatter;
 import javafx.scene.image.ImageView;
 
 import java.sql.Connection;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 
 

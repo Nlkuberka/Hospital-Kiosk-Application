@@ -1,22 +1,21 @@
 package servicerequests;
 
 import application.CurrentUser;
-import database.DBController;
 import application.UIController;
 import com.jfoenix.controls.JFXButton;
-import database.DBControllerNE;
+import database.DBController;
 import database.DBControllerSR;
 import entities.Graph;
-import entities.Node;
 import entities.ServiceRequest;
 import helper.RoomCategoryFilterHelper;
-import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
-import javafx.scene.control.*;
+import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.Menu;
+import javafx.scene.control.TextField;
+import javafx.scene.control.TextFormatter;
 import javafx.scene.image.ImageView;
 
 import java.sql.Connection;
-import java.util.*;
 
 public class UIControllerSRSA extends UIController {
     String serviceType;

@@ -1,10 +1,10 @@
 package servicerequests;
 
 import application.CurrentUser;
-import database.DBController;
 import application.UIController;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextArea;
+import database.DBController;
 import database.DBControllerSR;
 import entities.ServiceRequest;
 import javafx.collections.FXCollections;
