@@ -64,7 +64,8 @@ public class UIControllerPUMVNO extends UIController {
     @FXML
     private void addEdge(MouseEvent mouseEvent) throws IOException {
         closeWindow();
-        //status = "ADD-EDGE";
+        uiControllerATMV.isAddingEdge = true;
+        uiControllerATMV.previousNodeID = node.getNodeID();
     }
 
     @FXML
@@ -76,7 +77,8 @@ public class UIControllerPUMVNO extends UIController {
     @FXML
     private void deleteEdge(MouseEvent mouseEvent) throws IOException {
         closeWindow();
-        //status = "DELETE-EDGE";
+        uiControllerATMV.isAddingEdge = false;
+        uiControllerATMV.previousNodeID = node.getNodeID();
     }
 
     void setUiControllerATMV(UIControllerATMV uiControllerATMV, Node node) {

@@ -4,6 +4,18 @@
  * @author Shiyi Liu
  * @version iteration2
  */
+.stack_pane_context {
+    -fx-background-radius: 30;
+    -fx-border-radius: 30;
+    -webkit-fx-background-color: #015080;
+}
+.root_context{
+    -fx-background-color: transparent;
+}
+
+.image_view_context{
+    -fx-background-radius: 10;
+}
 .jfx-button-login{
     -jfx-button-type: FLAT;
     -fx-background-color:#FFC41E;
@@ -176,7 +188,7 @@
 }
 
 /* Tab pane styling*/
-.jfx-tab-pane{
+.jfx-tab-pane-other{
     -fx-background-color: #FFC41E;
     -fx-pref-width: 900;
     -webkit-fx-pref-height:50;
@@ -199,6 +211,17 @@
    -fx-border-color: #FFC41E;
     -fx-border-width: 6;
 }
+/*Login_main tab*/
+.jfx-tab-pane-login{
+    -fx-pref-width: 900;
+    -webkit-fx-pref-height:50;
+}
+
+
+.tab-header-background-login{
+    -fx-background-color: #FFC41E;
+}
+
 
 
 
