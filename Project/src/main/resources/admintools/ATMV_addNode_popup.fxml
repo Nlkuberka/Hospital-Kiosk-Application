@@ -165,7 +165,7 @@
          <Font name="System Bold Italic" size="17.0" />
       </font>
       <StackPane.margin>
-         <Insets top="8.0" />
+         <Insets top="4.0" />
       </StackPane.margin>
    </Text>
 </StackPane>

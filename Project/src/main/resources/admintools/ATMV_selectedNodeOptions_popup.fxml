@@ -30,7 +30,13 @@
           <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="CENTER" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <AnchorPane maxWidth="0.0" minHeight="400.0" minWidth="400.0" style="-fx-background-color: #ffffff;" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.valignment="TOP" />
+            <AnchorPane maxWidth="0.0" minHeight="390.0" minWidth="390.0" style="-fx-background-color: #ffffff;" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.valignment="TOP">
+               <padding>
+                  <Insets left="5.0" top="5.0" />
+               </padding>
+               <GridPane.margin>
+                  <Insets left="5.0" top="5.0" />
+               </GridPane.margin></AnchorPane>
             <JFXButton fx:id="button_cancel" alignment="CENTER" contentDisplay="TOP" graphicTextGap="0.0" onMouseClicked="#closeWindow" prefHeight="79.0" prefWidth="217.0" scaleX="1.5" scaleY="1.5" styleClass="jfx-button-add" stylesheets="@../css/background.css" text="Cancel" textAlignment="CENTER" GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="2">
                <graphic>
                   <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
