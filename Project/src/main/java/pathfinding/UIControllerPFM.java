@@ -38,14 +38,11 @@ import javafx.stage.Stage;
 import javafx.util.Duration;
 import net.kurobako.gesturefx.GesturePane;
 
-import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
-import static application.CurrentUser.startingLocation;
 
 /**
  * Controller for the path_find_main.fxml file
@@ -184,38 +181,32 @@ public class UIControllerPFM extends UIController {
     @FXML private AnchorPane firstFloorAnchorPane;
     @FXML private AnchorPane secondFloorAnchorPane;
     @FXML private AnchorPane thirdFloorAnchorPane;
-    private List<AnchorPane> anchorPanes;
-    private List<Group> groupsForNodes;
 
     private Group circleGroup = new Group();
-    private Circle currentInitCircle;
-    private Circle currentDestCircle;
     private PathTransition pathTransition;
     private Random random = new Random(System.currentTimeMillis());
-    private List<Node> currentPath;
     // The multiplication factor at which the map changes size
     private double zoomFactor = 1.2;
     @FXML
     private JFXButton directionsRequest;
 
-    private MapHandler mapHandler;
+    private PathHandler pathHandler;
 
-    private int currentFloorIndex = 0;
+    private AnchorPaneHandler anchorPaneHandler;
 
-    private PathTransition currentAnimation = null;
-    private Rectangle currentAnt = null;
-
-    private HashMap<String, Circle> circleFromName;
+    private CurrentObjects currentObjects;
 
     /**
-     * Initialize various componets, especially panes, tabs and mapHandler
+     * Initialize various componets, especially panes, tabs and pathHandler
      */
     @FXML
     public void initialize() {
         backgroundImage.fitWidthProperty().bind(primaryStage.widthProperty());
 
         setupGesturePanes();
-        setupAnchorPanes();
+
+        anchorPaneHandler = new AnchorPaneHandler(lowerLevel2AnchorPane, lowerLevel1AnchorPane,
+                groundFloorAnchorPane, firstFloorAnchorPane, secondFloorAnchorPane, thirdFloorAnchorPane);
 
         // ensures new tab has same x,y on the map and path animation changes between floors
         mapTabPane.getSelectionModel().selectedItemProperty().addListener(
@@ -223,19 +214,22 @@ public class UIControllerPFM extends UIController {
                     @Override
                     public void changed(ObservableValue<? extends Tab> ov, Tab t, Tab t1) {
                         clearPathTransition();
-                        currentFloorIndex = Floors.getByName(t1.getText()).getIndex();
+                        currentObjects.setFloorIndex(Floors.getByName(t1.getText()).getIndex());
                         int indexOld = Floors.getByName(t.getText()).getIndex();
-                        GesturePane pane = gesturePanes.get(currentFloorIndex);
+                        GesturePane pane = gesturePanes.get(currentObjects.getFloorIndex());
                         GesturePane oldPane = gesturePanes.get(indexOld);
                         pane.centreOn(oldPane.targetPointAtViewportCentre());
-                        if (mapHandler.isActive()) {
-                            newAnimation(mapHandler.getPaths().get(currentFloorIndex), anchorPanes.get(currentFloorIndex));
+                        if (pathHandler.isActive()) {
+                            newAnimation(pathHandler.getPaths().get(currentFloorIndex), anchorPanes.get(currentFloorIndex));
                         }
                     }
                 }
         );
 
-        mapHandler = new MapHandler(pathLL2, pathLL1, pathG, path1, path2, path3, primaryStage);
+        pathHandler = new PathHandler(pathLL2, pathLL1, pathG, path1, path2, path3, primaryStage);
+
+        currentObjects = new CurrentObjects(0, null, null, null, null,
+                pathHandler, anchorPaneHandler);
 
     }
 
@@ -271,44 +265,7 @@ public class UIControllerPFM extends UIController {
             }
         }
 
-        // ~~~~~~ init circles
-
-        this.circleFromName = new HashMap<>(); // map to get corresponding circles from longnames
-
-        // setup circles for nodes
-        for (int i = 0; i < this.groupsForNodes.size(); i++) {
-            Group group = this.groupsForNodes.get(i);
-
-            for (Node node : roomsAtEachFloor.get(i)) {
-                float x = (float) node.getXcoord();
-                float y = (float) node.getYcoord();
-
-                Circle circle = new Circle(x, y, 13);
-                circle.setId(node.getNodeID());
-
-                this.circleFromName.put(node.getLongName(), circle); // setup hashmap
-
-                circle.setOnMouseClicked(e -> {
-                    if ((initialLocationSelect.getValue() == null)) {
-                        currentInitCircle = circle;
-                        currentInitCircle.setFill(Color.GREEN);
-                        currentInitCircle.setRadius(16);
-                        initialLocationSelect.setValue(node.getLongName());
-                    } else if ((destinationSelect.getValue() == null))
-                    {
-                        currentDestCircle = circle;
-                        currentDestCircle.setFill(Color.RED);
-                        currentDestCircle.setRadius(16);
-                        destinationSelect.setValue(node.getLongName());
-                    }
-                });
-
-                setUpDefaultStartingLocation(startingLocation);
-
-                group.getChildren().add(circle);
-            }
-            group.setVisible(true);
-        }
+        anchorPaneHandler.initCircles(roomsAtEachFloor);
 
     }
 
@@ -370,27 +327,6 @@ public class UIControllerPFM extends UIController {
         GesturePane pane = this.gesturePanes.get(currentFloorIndex);
         pane.zoomTo(0.3, pane.viewportCentre());
         pane.translateBy(new Dimension2D(500.0, 400.0));
-    }
-
-    /**
-     * Setup anchor panes such that they are in a list and have groups for the node circles
-     */
-    private void setupAnchorPanes() {
-        this.anchorPanes = new LinkedList<AnchorPane>();
-        anchorPanes.add(lowerLevel2AnchorPane);
-        anchorPanes.add(lowerLevel1AnchorPane);
-        anchorPanes.add(groundFloorAnchorPane);
-        anchorPanes.add(firstFloorAnchorPane);
-        anchorPanes.add(secondFloorAnchorPane);
-        anchorPanes.add(thirdFloorAnchorPane);
-
-        this.groupsForNodes = new LinkedList<>(); // add groups for circles
-        for (AnchorPane anchorPane : this.anchorPanes) {
-            Group group = new Group();
-            this.groupsForNodes.add(group);
-            anchorPane.getChildren().add(group);
-        }
-
     }
 
     /**
@@ -465,7 +401,7 @@ public class UIControllerPFM extends UIController {
      */
     @FXML
     private void cancel(ActionEvent actionEvent) {
-        mapHandler.cancel();
+        pathHandler.cancel();
         clearNodes();
         clearTabColors();
 
@@ -504,16 +440,16 @@ public class UIControllerPFM extends UIController {
         DBController.closeConnection(connection);
 
         clearPathTransition(); // reset stuff
-        mapHandler.cancel(); // reset stuff
+        pathHandler.cancel(); // reset stuff
 
         // change tab based on initial node -- order here is important! Do not move below.
         mapTabPane.getSelectionModel().select(Floors.getByID(initialNode.getFloor()).getIndex());
 
         // update paths -- order here is important! Do not move above change tab.
-        mapHandler.displayNewPath(Graph.getGraph().separatePathByFloor(pathIDs), initialNode);
+        pathHandler.displayNewPath(Graph.getGraph().separatePathByFloor(pathIDs), initialNode);
 
         // center on initial node
-        List<Point2D> extremaMinMax = mapHandler.getPathExtremaOnInitFloor(); // get extrema
+        List<Point2D> extremaMinMax = pathHandler.getPathExtremaOnInitFloor(); // get extrema
         double centerX = (extremaMinMax.get(0).getX() + extremaMinMax.get(1).getX()) / 2; // find average
         double centerY = (extremaMinMax.get(0).getY() + extremaMinMax.get(1).getY()) / 2;
 
@@ -533,13 +469,13 @@ public class UIControllerPFM extends UIController {
                 .interpolateWith(Interpolator.EASE_BOTH)
                 .centreOn(center);
 
-        List<Integer> floorsUsed = mapHandler.getFloorsUsed();
+        List<Integer> floorsUsed = pathHandler.getFloorsUsed();
         clearTabColors();
         for (Integer floor : floorsUsed) {
             this.mapTabPane.getTabs().get(floor).setStyle("-fx-background-color: #015080");
         }
 
-        newAnimation(mapHandler.getPaths().get(currentFloorIndex), anchorPanes.get(currentFloorIndex));
+        newAnimation(pathHandler.getPaths().get(currentFloorIndex), anchorPanes.get(currentFloorIndex));
 
     }
 
@@ -592,7 +528,7 @@ public class UIControllerPFM extends UIController {
         pathTransition.setNode(this.currentAnt);
 
         //Setting the path
-        pathTransition.setPath(mapHandler.getPaths().get(currentFloorIndex));
+        pathTransition.setPath(pathHandler.getPaths().get(currentFloorIndex));
 
         //Setting the orientation of the path
         pathTransition.setOrientation(PathTransition.OrientationType.ORTHOGONAL_TO_TANGENT);
