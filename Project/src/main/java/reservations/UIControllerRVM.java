@@ -153,13 +153,6 @@ public class UIControllerRVM extends UIController {
         colorShapeRed(workzone3_r3); colorShapeRed(workzone2_d7); colorShapeRed(workzone4_t2);
         colorShapeRed(workzone5_r2); colorShapeRed(workzone5_d4); colorShapeRed(workzone5_t2);
 
-        int num = 0;
-        try {
-            Connection conn = DBController.dbConnect();
-            ResultSet rs = conn.createStatement().executeQuery("Select * From WORKPLACES WHERE OUTLINE = '1'");
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
     }
 
     /**
@@ -175,7 +168,7 @@ public class UIControllerRVM extends UIController {
         //DB Get nodes
         try {
             Connection conn = DBController.dbConnect();
-            ResultSet rs = conn.createStatement().executeQuery("Select * From WORKPLACES");
+            ResultSet rs = conn.createStatement().executeQuery("Select * From WORKPLACES WHERE OUTLINE = '1'");
             while (rs.next()) {
                 workplaceIDs.put(rs.getString("ROOMNAME"), rs.getString("WKPLACEID"));
                 workplaces.add(rs.getString("ROOMNAME"));
