@@ -1,7 +1,7 @@
 package application;
 
+import com.twilio.exception.RestException;
 import database.DBController;
-
 import database.DBControllerNE;
 import database.DBControllerU;
 import entities.Edge;
@@ -10,10 +10,12 @@ import entities.Node;
 import javafx.application.Application;
 import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DatabaseMetaData;
 import java.sql.ResultSet;
 import java.time.Clock;
+import java.util.Arrays;
 import java.util.List;
 
 public class Main extends Application {
@@ -50,11 +52,14 @@ public class Main extends Application {
         CurrentUser.user = DBControllerU.getGuestUser(conn);
         DBController.closeConnection(conn);
 
-
         controller.goToScene(UIController.WELCOME_MAIN);
     }
 
-    public static void main(String[] args) {
+
+
+    public static void main(String[] args) throws IOException {
+
         launch(args);
     }
+
 }
