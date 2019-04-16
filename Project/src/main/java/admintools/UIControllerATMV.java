@@ -2,10 +2,13 @@ package admintools;
 
 import application.CurrentUser;
 import application.UIController;
+import com.sun.javafx.scene.control.skin.TooltipSkin;
 import database.DBController;
 import database.DBControllerNE;
 import entities.Edge;
 import entities.Node;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -14,10 +17,7 @@ import javafx.scene.Cursor;
 import javafx.scene.Group;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.MenuItem;
-import javafx.scene.control.ScrollPane;
-import javafx.scene.control.TabPane;
+import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
@@ -30,8 +30,10 @@ import javafx.scene.shape.Path;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import javafx.util.Duration;
 
 import java.io.IOException;
+import java.lang.reflect.Field;
 import java.sql.Connection;
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -220,55 +222,49 @@ public class UIControllerATMV extends UIController {
 
             Circle circle = new Circle(x, y, 7);
             circle.setId(tempNode.getNodeID());
+            Tooltip tooltip = new Tooltip(tempNode.getShortName());
+            hackTooltipStartTiming(tooltip);
+            Tooltip.install(circle, tooltip);
 
-            circle.setOnMousePressed(new EventHandler<MouseEvent>() {
-                @Override
-                public void handle(MouseEvent mouseEvent) {
-                    if(previousNodeID != null){
-                        if(isAddingEdge){
-                            addEdge(null, previousNodeID, tempNode.getNodeID());
-                            Connection conn = DBController.dbConnect();
-                            currentFloorEdges.add(DBControllerNE.fetchEdge(previousNodeID + "_" + tempNode.getNodeID(), conn));
-                            DBController.closeConnection(conn);
-                        }else{
-                            deleteEdge(previousNodeID, tempNode.getNodeID());
-                            currentFloorEdges.remove(getEdgeFrom(currentFloorEdges, previousNodeID, tempNode.getNodeID()));
-                        }
-                        previousNodeID = null;
-                        draw();
+            circle.setOnMousePressed(mouseEvent -> {
+                if(previousNodeID != null){
+                    if(isAddingEdge){
+                        addEdge(null, previousNodeID, tempNode.getNodeID());
+                        Connection conn = DBController.dbConnect();
+                        currentFloorEdges.add(DBControllerNE.fetchEdge(previousNodeID + "_" + tempNode.getNodeID(), conn));
+                        DBController.closeConnection(conn);
                     }else{
-                        mouseX = circle.getLayoutX() - mouseEvent.getSceneX();
-                        mouseY = circle.getLayoutY() - mouseEvent.getSceneY();
-                        if (mouseEvent.getClickCount() == 2) {
-                            try {
-                                enableChoicePopup(tempNode);
-                            } catch (IOException e) {
-                                e.printStackTrace();
-                            }
+                        deleteEdge(previousNodeID, tempNode.getNodeID());
+                        currentFloorEdges.remove(getEdgeFrom(currentFloorEdges, previousNodeID, tempNode.getNodeID()));
+                    }
+                    previousNodeID = null;
+                    draw();
+                }else{
+                    mouseX = circle.getLayoutX() - mouseEvent.getSceneX();
+                    mouseY = circle.getLayoutY() - mouseEvent.getSceneY();
+                    if (mouseEvent.getClickCount() == 2) {
+                        try {
+                            enableChoicePopup(tempNode);
+                        } catch (IOException e) {
+                            e.printStackTrace();
                         }
                     }
                 }
             });
 
-            circle.setOnMouseDragged(new EventHandler<MouseEvent>() {
-                @Override
-                public void handle(MouseEvent mouseEvent) {
-                    circle.setLayoutX(mouseEvent.getSceneX() + mouseX);
-                    circle.setLayoutY(mouseEvent.getSceneY() + mouseY);
-                    circle.setCursor(Cursor.MOVE);
-                }
+            circle.setOnMouseDragged(mouseEvent -> {
+                circle.setLayoutX(mouseEvent.getSceneX() + mouseX);
+                circle.setLayoutY(mouseEvent.getSceneY() + mouseY);
+                circle.setCursor(Cursor.MOVE);
             });
 
-            circle.setOnMouseReleased(new EventHandler<MouseEvent>() {
-                @Override
-                public void handle(MouseEvent mouseEvent) {
-                    tempNode.setXcoord(tempNode.getXcoord() + (int) Math.round(circle.getLayoutX() / scaleFx));
-                    tempNode.setYcoord(tempNode.getYcoord() + (int) Math.round(circle.getLayoutY() / scaleFy));
-                    Connection conn = DBController.dbConnect();
-                    DBControllerNE.updateNode(tempNode, conn);
-                    DBController.closeConnection(conn);
-                    draw();
-                }
+            circle.setOnMouseReleased(mouseEvent -> {
+                tempNode.setXcoord(tempNode.getXcoord() + (int) Math.round(circle.getLayoutX() / scaleFx));
+                tempNode.setYcoord(tempNode.getYcoord() + (int) Math.round(circle.getLayoutY() / scaleFy));
+                Connection conn = DBController.dbConnect();
+                DBControllerNE.updateNode(tempNode, conn);
+                DBController.closeConnection(conn);
+                draw();
             });
 
             nodesGroup.getChildren().add(circle);
@@ -489,6 +485,23 @@ public class UIControllerATMV extends UIController {
                 ((Circle) nodes).setStroke(Color.BLACK);
                 ((Circle) nodes).setStrokeWidth(2);
             }
+        }
+    }
+
+    private static void hackTooltipStartTiming(Tooltip tooltip) {
+        try {
+            Field fieldBehavior = tooltip.getClass().getDeclaredField("BEHAVIOR");
+            fieldBehavior.setAccessible(true);
+            Object objBehavior = fieldBehavior.get(tooltip);
+
+            Field fieldTimer = objBehavior.getClass().getDeclaredField("activationTimer");
+            fieldTimer.setAccessible(true);
+            Timeline objTimer = (Timeline) fieldTimer.get(objBehavior);
+
+            objTimer.getKeyFrames().clear();
+            objTimer.getKeyFrames().add(new KeyFrame(new Duration(0)));
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 }
