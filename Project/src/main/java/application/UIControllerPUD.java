@@ -1,5 +1,6 @@
 package application;
 
+import com.jfoenix.controls.JFXButton;
 import entities.emailDirection;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -11,13 +12,13 @@ public class UIControllerPUD extends UIController{
     private TextArea directions; //the actual directions
 
     @FXML
-    private Button printDirections; //the option to print a receipt
+    private JFXButton printDirections; //the option to print a receipt
 
     @FXML
-    private Button textDirections; //the option to text the directions to a cell phone
+    private JFXButton textDirections; //the option to text the directions to a cell phone
 
     @FXML
-    private Button emailDirections; //the option to email the directions
+    private JFXButton emailDirections; //the option to email the directions
 
     @FXML
     private ScrollPane directionsBox; //gives the ability to sroll with directionsS

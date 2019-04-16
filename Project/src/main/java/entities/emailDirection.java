@@ -44,7 +44,7 @@ public class emailDirection {
             msg.setRecipients(Message.RecipientType.TO, address);
 
             String timeStamp = new SimpleDateFormat("yyyy/mm/dd_hh:mm:ss").format(new Date());
-            msg.setSubject("Sample Mail : " + timeStamp);
+            msg.setSubject("Directions : " + timeStamp);
             msg.setSentDate(new Date());
             msg.setText(message);
             msg.setHeader("XPriority", "1");
