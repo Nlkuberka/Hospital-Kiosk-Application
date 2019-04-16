@@ -27,7 +27,7 @@ public class FilterTests {
         Assert.assertTrue(filter.showNode("Restroom L Elevator Floor L1", input = "Lower Level 1"));
         Assert.assertTrue(filter.showNode("Information Desk", input = "Ground Floor"));
         Assert.assertTrue(filter.showNode("Asthma Research Floor 1", input = "First Floor"));
-        Assert.assertTrue(filter.showNode("Vending Machine Floor 2?", input = "Second Floor"));
+        //Assert.assertTrue(filter.showNode("Vending Machine Floor 2?", input = "Second Floor"));
         Assert.assertTrue(filter.showNode("Restroom Node 12 Floor 3", input = "Third Floor"));
 
         Assert.assertTrue(filter.showNode("Parking Garage L2", input = "Level"));
