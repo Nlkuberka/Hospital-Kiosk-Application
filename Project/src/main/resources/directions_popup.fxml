@@ -3,6 +3,7 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
@@ -11,15 +12,15 @@
   <children>
     <AnchorPane maxHeight="400" maxWidth="600" prefHeight="400" prefWidth="640" VBox.vgrow="ALWAYS">
       <children>
-            <Button fx:id="printDirections" layoutX="322.0" layoutY="25.0" mnemonicParsing="false" prefHeight="110.0" prefWidth="263.0" text="Print Me The Directions">
+            <Button fx:id="printDirections" layoutX="322.0" layoutY="14.0" mnemonicParsing="false" prefHeight="110.0" prefWidth="263.0" text="Print Me The Directions">
                <font>
                   <Font size="20.0" />
                </font></Button>
-            <Button fx:id="textDirections" layoutX="322.0" layoutY="149.0" mnemonicParsing="false" prefHeight="110.0" prefWidth="263.0" text="Text Me The Directions">
+            <Button fx:id="textDirections" layoutX="322.0" layoutY="135.0" mnemonicParsing="false" prefHeight="90.0" prefWidth="263.0" text="Text Me The Directions">
                <font>
                   <Font size="20.0" />
                </font></Button>
-            <Button fx:id="emailDirections" layoutX="322.0" layoutY="273.0" mnemonicParsing="false" prefHeight="110.0" prefWidth="263.0" text="Email Me The Directions">
+            <Button fx:id="emailDirections" layoutX="322.0" layoutY="269.0" mnemonicParsing="false" onAction="#sendEmail" prefHeight="90.0" prefWidth="263.0" text="Email Me The Directions">
                <font>
                   <Font size="20.0" />
                </font></Button>
@@ -32,6 +33,8 @@
                   </AnchorPane>
               </content>
             </ScrollPane>
+            <TextField fx:id="phoneNumber" alignment="CENTER" layoutX="322.0" layoutY="233.0" prefHeight="25.0" prefWidth="263.0" promptText="Enter your phone number" />
+            <TextField fx:id="email" alignment="CENTER" layoutX="322.0" layoutY="366.0" prefHeight="25.0" prefWidth="263.0" promptText="Enter your email" />
       </children>
     </AnchorPane>
   </children>

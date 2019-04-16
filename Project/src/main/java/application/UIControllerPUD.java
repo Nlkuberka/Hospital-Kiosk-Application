@@ -1,15 +1,11 @@
 package application;
 
+import entities.emailDirection;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.ScrollPane;
-import javafx.scene.control.TextArea;
-import javafx.scene.text.Text;
+import javafx.scene.control.*;
+import javafx.event.ActionEvent;
 
 public class UIControllerPUD extends UIController{
-
-    String message = "";
 
     @FXML
     private TextArea directions; //the actual directions
@@ -27,7 +23,23 @@ public class UIControllerPUD extends UIController{
     private ScrollPane directionsBox; //gives the ability to sroll with directionsS
 
     @FXML
+    private TextField phoneNumber; //the prompt box for a phone number
+
+    @FXML
+    private TextField email; //the prompt box for an email
+
+    @FXML
     public void setDirections(String message){
         directions.setText(message); //  sets the text received from the pathfinding
+    }
+
+    @FXML
+    public void sendEmail(ActionEvent event){
+        System.out.println("an email is sent");
+        emailDirection sendDirections = new emailDirection();
+
+        String receivingEmail = email.getText();
+
+        sendDirections.sendEmail(directions.getText(), receivingEmail);
     }
 }
