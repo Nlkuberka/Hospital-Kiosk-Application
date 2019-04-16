@@ -26,6 +26,7 @@ import java.time.*;
 
 import java.util.*;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 /**
  * The UIController that handles the creation and sending of reservations
@@ -35,7 +36,14 @@ import java.util.List;
 public class UIControllerRVM extends UIController {
 
     private Map<String, String> workplaceIDs;
-    private HashMap<Shape, String> roomToShape = new HashMap<>();
+    private ArrayList<Shape> shapes = new ArrayList<>();
+    private ArrayList<Shape> workZone1= new ArrayList<>();
+    private ArrayList<Shape> workZone2= new ArrayList<>();
+    private ArrayList<Shape> workZone3= new ArrayList<>();
+    private ArrayList<Shape> workZone4= new ArrayList<>();
+    private ArrayList<Shape> workZone5= new ArrayList<>();
+    private Boolean colorShift = true;
+
     /**
      * < Holds the reference of the short names to nodeIDs
      */
@@ -70,39 +78,56 @@ public class UIControllerRVM extends UIController {
      * < The picker for the end time
      */
 
-    @FXML
-    private Shape classroom1;
-    @FXML
-    private Shape classroom2;
-    @FXML
-    private Shape classroom3;
-    @FXML
-    private Shape classroom4;
-    @FXML
-    private Shape classroom5;
-    @FXML
-    private Shape classroom6;
-    @FXML
-    private Shape classroom7;
-    @FXML
-    private Shape classroom8;
-    @FXML
-    private Shape classroom9;
-    @FXML
-    private Shape MHA;
-    @FXML
-    private Shape MHCR;
-    @FXML
-    private Shape pantry;
+    /**
+     * < Shape objects for reservable workplaces
+     */
+    @FXML private Shape classroom1; @FXML private Shape classroom2; @FXML private Shape classroom3;
+    @FXML private Shape classroom4; @FXML private Shape classroom5; @FXML private Shape classroom6;
+    @FXML private Shape classroom7; @FXML private Shape classroom8; @FXML private Shape classroom9;
+    @FXML private Shape MHA; @FXML private Shape MHCR; @FXML private Shape pantry;
 
-    @FXML
-    private ArrayList<Shape> shapes = new ArrayList<>();
+    /**
+     *  < Shape objects for flexible work stations
+     */
+    @FXML private Shape workzone4_t1; @FXML private Shape workzone4_t2;
 
+    @FXML private Shape workzone3_t1; @FXML private Shape workzone3_t2; @FXML private Shape workzone3_t3;
+    @FXML private Shape workzone3_d4; @FXML private Shape workzone3_r1; @FXML private Shape workzone3_r2;
+    @FXML private Shape workzone3_r4; @FXML private Shape workzone3_r3; @FXML private Shape workzone3_r5;
+    @FXML private Shape workzone3_r6; @FXML private Shape workzone3_d3; @FXML private Shape workzone3_d2;
+    @FXML private Shape workzone3_d1; @FXML private Shape workzone3_d5; @FXML private Shape workzone3_d6;
+    @FXML private Shape workzone3_d7; @FXML private Shape workzone3_d8; @FXML private Shape workzone3_d9;
+    @FXML private Shape workzone3_d10; @FXML private Shape workzone3_d11; @FXML private Shape workzone3_d12;
+    @FXML private Shape workzone3_d13; @FXML private Shape workzone3_d14; @FXML private Shape workzone3_d15;
+    @FXML private Shape workzone3_d16;
+
+    @FXML private Shape workzone1_d17; @FXML private Shape workzone1_d18; @FXML private Shape workzone1_d19;
+    @FXML private Shape workzone1_d11; @FXML private Shape workzone1_d12; @FXML private Shape workzone1_d13;
+    @FXML private Shape workzone1_d20; @FXML private Shape workzone1_d21; @FXML private Shape workzone1_d22;
+    @FXML private Shape workzone1_d14; @FXML private Shape workzone1_d15; @FXML private Shape workzone1_d16;
+    @FXML private Shape workzone1_d1; @FXML private Shape workzone1_d3; @FXML private Shape workzone1_d5;
+    @FXML private Shape workzone1_d7; @FXML private Shape workzone1_d9; @FXML private Shape workzone1_d10;
+    @FXML private Shape workzone1_d8; @FXML private Shape workzone1_d6; @FXML private Shape workzone1_d4;
+    @FXML private Shape workzone1_d2; @FXML private Shape workzone1_r3; @FXML private Shape workzone1_r2;
+    @FXML private Shape workzone1_r1;@FXML private Shape workzone1_r4;
+
+    @FXML private Shape workzone2_d9; @FXML private Shape workzone2_d7; @FXML private Shape workzone2_d5;
+    @FXML private Shape workzone2_d3; @FXML private Shape workzone2_d1; @FXML private Shape workzone2_d8;
+    @FXML private Shape workzone2_d6; @FXML private Shape workzone2_d4; @FXML private Shape workzone2_d2;
+
+    @FXML private Shape workzone5_d13; @FXML private Shape workzone5_d9; @FXML private Shape workzone5_d5;
+    @FXML private Shape workzone5_d1; @FXML private Shape workzone5_r1; @FXML private Shape workzone5_t1;
+    @FXML private Shape workzone5_r5; @FXML private Shape workzone5_r4; @FXML private Shape workzone5_r3;
+    @FXML private Shape workzone5_r2; @FXML private Shape workzone5_d14; @FXML private Shape workzone5_d10;
+    @FXML private Shape workzone5_d6; @FXML private Shape workzone5_d2; @FXML private Shape workzone5_d15;
+    @FXML private Shape workzone5_d11; @FXML private Shape workzone5_d7; @FXML private Shape workzone5_d16;
+    @FXML private Shape workzone5_d12; @FXML private Shape workzone5_d4; @FXML private Shape workzone5_d8;
+    @FXML private Shape workzone5_d3; @FXML private Shape workzone5_t2; @FXML private Shape workzone5_t3;
 
     @FXML
     private ImageView backgroundImage;
   
-  @FXML
+    @FXML
     private List<String> IDs = new LinkedList<String>();
 
     @FXML
@@ -118,34 +143,16 @@ public class UIControllerRVM extends UIController {
     @FXML
     public void initialize() {
 
-        shapes.add(classroom1);
-        shapes.add(classroom2);
-        shapes.add(classroom3);
-        shapes.add(classroom4);
-        shapes.add(classroom5);
-        shapes.add(classroom6);
-        shapes.add(classroom7);
-        shapes.add(classroom8);
-        shapes.add(classroom9);
-        shapes.add(MHA);
-        shapes.add(MHCR);
-        shapes.add(pantry);
+        shapes.add(classroom1); shapes.add(classroom2); shapes.add(classroom3); shapes.add(classroom4); shapes.add(classroom5);
+        shapes.add(classroom6); shapes.add(classroom7); shapes.add(classroom8); shapes.add(classroom9);
+        shapes.add(MHA); shapes.add(MHCR); shapes.add(pantry);
 
-            backgroundImage.fitWidthProperty().bind(primaryStage.widthProperty());
+        backgroundImage.fitWidthProperty().bind(primaryStage.widthProperty());
 
+        colorShapeRed(workzone1_d5); colorShapeRed(workzone1_d16); colorShapeRed(workzone3_d8);
+        colorShapeRed(workzone3_r3); colorShapeRed(workzone2_d7); colorShapeRed(workzone4_t2);
+        colorShapeRed(workzone5_r2); colorShapeRed(workzone5_d4); colorShapeRed(workzone5_t2);
 
-
-        int num = 0;
-        try {
-            Connection conn = DBController.dbConnect();
-            ResultSet rs = conn.createStatement().executeQuery("Select * From WORKPLACES");
-            while (rs.next()) {
-                roomToShape.put(shapes.get(num), rs.getString("ROOMNAME"));
-                num++;
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
     }
 
     /**
@@ -161,7 +168,7 @@ public class UIControllerRVM extends UIController {
         //DB Get nodes
         try {
             Connection conn = DBController.dbConnect();
-            ResultSet rs = conn.createStatement().executeQuery("Select * From WORKPLACES");
+            ResultSet rs = conn.createStatement().executeQuery("Select * From WORKPLACES WHERE OUTLINE = '1'");
             while (rs.next()) {
                 workplaceIDs.put(rs.getString("ROOMNAME"), rs.getString("WKPLACEID"));
                 workplaces.add(rs.getString("ROOMNAME"));
@@ -178,6 +185,7 @@ public class UIControllerRVM extends UIController {
         startTimePicker.setValue(LocalTime.now());
         endTimePicker.setValue(LocalTime.now());
         workplaceSelect.getSelectionModel().selectFirst();
+
     }
 
     /**
@@ -191,6 +199,16 @@ public class UIControllerRVM extends UIController {
     @FXML
     private void updateColorView() {
         Connection connection = DBController.dbConnect();
+
+        if(colorShift) {
+            colorShapeGreen(workzone3_r3); colorShapeGreen(workzone5_d4); colorShapeGreen(workzone1_d5);
+            colorShapeRed(workzone2_d2); colorShapeRed(workzone3_d2); colorShapeRed(workzone5_d7);
+        } else {
+            colorShapeRed(workzone3_r3); colorShapeRed(workzone5_d4); colorShapeRed(workzone1_d5);
+            colorShapeGreen(workzone2_d2); colorShapeGreen(workzone3_d2); colorShapeGreen(workzone5_d7);
+        }
+        colorShift = !colorShift;
+
         if (!checkValidReservation()) {
             return;
         }
@@ -202,11 +220,13 @@ public class UIControllerRVM extends UIController {
                             if (!DBControllerRW.isRoomAvailableString(IDs.get(i), getDateString(),
                                     getTimeString(startTimePicker), getTimeString(endTimePicker), connection)) {
                                 System.out.println(workplaceSelect.getItems().get(i) + "is reserved at this time");
-                                shapes.get(i).setFill(javafx.scene.paint.Color.RED);
+//                                shapes.get(i).setFill(javafx.scene.paint.Color.RED);
+                                colorShapeRed(shapes.get(i));
 
                             } else {
 //                    classroom6.setFill(javafx.scene.paint.Color.RED);
                                 shapes.get(i).setFill(javafx.scene.paint.Color.GREEN);
+                                colorShapeGreen(shapes.get(i));
                             }
 //                        }
                     }
@@ -311,6 +331,14 @@ public class UIControllerRVM extends UIController {
         for (int x = 0; x < shapes.size(); x++) {
             shapes.get(x).setFill(javafx.scene.paint.Color.GREEN);
         }
+    }
+
+    private void colorShapeRed(Shape shape) {
+        shape.setFill(javafx.scene.paint.Color.RED);
+    }
+
+    private void colorShapeGreen(Shape shape) {
+        shape.setFill(javafx.scene.paint.Color.GREEN);
     }
 
     /**
