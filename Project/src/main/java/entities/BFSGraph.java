@@ -3,7 +3,7 @@ package entities;
 import java.util.LinkedList;
 import java.util.Queue;
 
-public class BFSGraph extends Graph {
+public class BFSGraph extends SearchGraph {
     private Queue<Integer> queue;
 
     protected BFSGraph() {

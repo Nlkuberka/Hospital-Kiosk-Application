@@ -17,7 +17,6 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-
 <StackPane minHeight="720.0" minWidth="1280.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="admintools.UIControllerATCA">
    <children>
       <ImageView fx:id="backgroundImage" pickOnBounds="true" preserveRatio="true">
@@ -115,6 +114,44 @@
                                  </children>
                               </AnchorPane>
                           </content>
+                        </Tab>
+                        <Tab text="Bellman-Ford Algorithm">
+                           <content>
+                              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="413.0" prefWidth="900.0" style="-fx-background-color: #ffffff;">
+                                 <children>
+                                    <Text fill="#015080" layoutX="132.0" layoutY="82.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Bellman-Ford Algorithm" AnchorPane.leftAnchor="110.0" AnchorPane.topAnchor="40.0">
+                                       <font>
+                                          <Font name="System Bold" size="30.0" />
+                                       </font>
+                                    </Text>
+                                    <Text fill="#015080" layoutX="110.0" layoutY="124.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Introduction: Iterates over all edges until the shortest path is found." AnchorPane.leftAnchor="110.0" AnchorPane.topAnchor="105.0">
+                                       <font>
+                                          <Font size="18.0" />
+                                       </font>
+                                    </Text>
+                                    <JFXButton layoutX="356.0" layoutY="322.0" onAction="#changeAlgorithm" styleClass="jfx-button-login" stylesheets="@../css/background.css" text="Set Bellman-Ford Algorithm" AnchorPane.leftAnchor="356.0" AnchorPane.topAnchor="322.0" />
+                                 </children>
+                              </AnchorPane>
+                           </content>
+                        </Tab>
+                        <Tab text="Dijkstra's Algorithm">
+                           <content>
+                              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="413.0" prefWidth="900.0" style="-fx-background-color: #ffffff;">
+                                 <children>
+                                    <Text fill="#015080" layoutX="132.0" layoutY="82.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Dijkstra's Algorithm" AnchorPane.leftAnchor="110.0" AnchorPane.topAnchor="40.0">
+                                       <font>
+                                          <Font name="System Bold" size="30.0" />
+                                       </font>
+                                    </Text>
+                                    <Text fill="#015080" layoutX="110.0" layoutY="124.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Introduction: Prioritizes nodes to search base on their distance from the start node." AnchorPane.leftAnchor="110.0" AnchorPane.topAnchor="105.0">
+                                       <font>
+                                          <Font size="18.0" />
+                                       </font>
+                                    </Text>
+                                    <JFXButton layoutX="356.0" layoutY="322.0" onAction="#changeAlgorithm" styleClass="jfx-button-login" stylesheets="@../css/background.css" text="Set Dijkstra's Algorithm" AnchorPane.leftAnchor="356.0" AnchorPane.topAnchor="322.0" />
+                                 </children>
+                              </AnchorPane>
+                           </content>
                         </Tab>
                      </tabs>
                   </JFXTabPane>

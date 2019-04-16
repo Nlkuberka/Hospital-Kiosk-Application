@@ -3,7 +3,7 @@ package entities;
 import java.util.LinkedList;
 import java.util.Stack;
 
-public class DFSGraph extends Graph {
+public class DFSGraph extends SearchGraph {
     private Stack<Integer> stack;
 
     protected DFSGraph() {

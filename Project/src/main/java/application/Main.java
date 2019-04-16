@@ -49,50 +49,7 @@ public class Main extends Application {
             }
         }
 
-        testShortestPathTimes();
-
         //DBController.initializeAppDB();
-    }
-
-    private static void testShortestPathTimes() {
-        final String nodeID1 = "BSTAI00602";
-        final String nodeID2 = "DSTAI00302";
-        for(int algo = 0; algo < 5; algo++) {
-            long totalTime = 0;
-            switch (algo) {
-                case 0:
-                    Graph.toAStar();
-                    System.out.println("Algorithm: A*");
-                    break;
-                case 1:
-                    Graph.toBellmanFord();
-                    System.out.println("Algorithm: Bellman-Ford");
-                    break;
-                case 2:
-                    Graph.toDijkstra();
-                    System.out.println("Algorithm: Dijkstra");
-                    break;
-                case 3:
-                    Graph.toBFS();
-                    System.out.println("Algorithm: BFS");
-                    break;
-                case 4:
-                    Graph.toDFS();
-                    System.out.println("Algorithm: DFS");
-                    break;
-            }
-            List<String> path = null;
-            for(int i = 0; i < 100; i++) {
-
-                Clock clock = Clock.systemDefaultZone();
-                final long startTime = clock.millis();
-                path = Graph.getGraph().shortestPath(nodeID1, nodeID2);
-                final long endTime = clock.millis();
-                totalTime += endTime - startTime;
-            }
-            System.out.println("Path: " + path);
-            System.out.println("Average Time: " + (totalTime / 100));
-        }
     }
 
     public static void main(String[] args) {

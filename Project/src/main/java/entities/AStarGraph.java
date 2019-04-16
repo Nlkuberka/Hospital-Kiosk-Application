@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
-public class AStarGraph extends Graph {
+public class AStarGraph extends SearchGraph {
     private List<Double> totalPathDistance;
     private List<Integer> priorityQueue;
     private boolean finishedSearch;
