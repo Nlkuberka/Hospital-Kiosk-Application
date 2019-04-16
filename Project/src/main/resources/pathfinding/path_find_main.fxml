@@ -171,7 +171,7 @@
                         <RowConstraints minHeight="0.0" percentHeight="15.0" prefHeight="30.0" vgrow="ALWAYS" />
                     </rowConstraints>
                     <children>
-                        <Text fill="WHITE" smooth="false" strokeType="OUTSIDE" strokeWidth="0.0" text="Initial Location" textAlignment="CENTER" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+                        <Text fill="WHITE" smooth="false" strokeType="OUTSIDE" strokeWidth="0.0" text="Initial Location Category" textAlignment="CENTER" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
                             <font>
                                 <Font name="System Bold Italic" size="16.0" />
                             </font>
@@ -183,7 +183,7 @@
                             </font>
                         </Text>
                         <ChoiceBox fx:id="initialLocationSelect" prefWidth="150.0" style="-fx-background-color: #ffffff;" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="CENTER" />
-                        <Text fill="WHITE" smooth="false" strokeType="OUTSIDE" strokeWidth="0.0" text="Destination" GridPane.halignment="CENTER" GridPane.rowIndex="6" GridPane.valignment="CENTER">
+                        <Text fill="WHITE" smooth="false" strokeType="OUTSIDE" strokeWidth="0.0" text="Destination Category" GridPane.halignment="CENTER" GridPane.rowIndex="6" GridPane.valignment="CENTER">
                             <font>
                                 <Font name="System Bold Italic" size="16.0" />
                             </font>

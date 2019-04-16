@@ -212,6 +212,14 @@ public class UIControllerPFM extends UIController {
     private MapHandler mapHandler;
 
     private int currentFloorIndex = 0;
+    private static final List<String> floorCategories = new LinkedList<String>() {{
+        add("Lower Level 2 - Rooms");
+        add("Lower Level 1 - Rooms");
+        add("Ground Floor - Rooms");
+        add("First Floor - Rooms");
+        add("Second Floor - Rooms");
+        add("Third Floor - Rooms");
+    }};
 
     private PathTransition currentAnimation = null;
     private Rectangle currentAnt = null;
@@ -278,7 +286,7 @@ public class UIControllerPFM extends UIController {
 
             this.currentInitCircle = circleFromName.get(initialLocationSelect.getValue());
             getPath();
-        }, false);
+        }, true);
         destiationFilterHelper = new RoomCategoryFilterHelper(destinationCategorySelect, destinationSelect, param -> {
             if (destinationSelect.getValue() == null)
                 return;
@@ -289,7 +297,7 @@ public class UIControllerPFM extends UIController {
 
             // call getPath if not null
             getPath();
-        }, false);
+        }, true);
         initialLocationSelect.getItems().clear();
         destinationSelect.getItems().clear();
 
@@ -327,13 +335,14 @@ public class UIControllerPFM extends UIController {
                         currentInitCircle = circle;
                         currentInitCircle.setFill(Color.GREEN);
                         currentInitCircle.setRadius(16);
-                        initialLocationSelect.setValue(node.getLongName());
-                    } else if ((destinationSelect.getValue() == null))
-                    {
+                        initialLocationCategorySelect.getSelectionModel().select(floorCategories.get(currentFloorIndex));
+                        initialLocationSelect.getSelectionModel().select(node.getLongName());
+                    } else if ((destinationSelect.getValue() == null)) {
                         currentDestCircle = circle;
                         currentDestCircle.setFill(Color.RED);
                         currentDestCircle.setRadius(16);
-                        destinationSelect.setValue(node.getLongName());
+                        destinationCategorySelect.getSelectionModel().select(floorCategories.get(currentFloorIndex));
+                        destinationSelect.getSelectionModel().select(node.getLongName());
                     }
                 });
 
