@@ -1,3 +1,4 @@
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -94,7 +95,7 @@ public class UIController {
      * @return The UIController for that particular new scene
      */
     @FXML
-    protected UIController goToScene(String sceneString) {
+    protected UIController goToScene(String sceneString, String cssPath) {
         Scene scene = scenes.get(sceneString);
 
         // If the scene has not yet been created
@@ -106,6 +107,8 @@ public class UIController {
                 sceneParents.put(sceneString, root);
                 sceneControllers.put(sceneString, fxmlLoader.getController());
                 scenes.put(sceneString, new Scene(root, WIDTH, HEIGHT));
+                final ObservableList<String> stylesheets = scene.getStylesheets();
+                stylesheets.addAll(getClass().getResource(cssPath).toExternalForm());
 
             } catch(Exception e) {
                 e.printStackTrace();

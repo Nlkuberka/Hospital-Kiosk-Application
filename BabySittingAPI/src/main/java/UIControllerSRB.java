@@ -48,7 +48,7 @@ public class UIControllerSRB extends UIController {
 
     @FXML
     public void initialize() {
-        backgroundImage.fitWidthProperty().bind(primaryStage.widthProperty());
+//        backgroundImage.fitWidthProperty().bind(primaryStage.widthProperty());
 
         serviceMessage.setTextFormatter(new TextFormatter<String>(e ->
                 e.getControlNewText().length() <= 100 ? e : null
@@ -67,6 +67,7 @@ public class UIControllerSRB extends UIController {
             Node node = nodes.get(i);
             nodeShortNames.add(node.getShortName());
             nodeIDs.put(node.getShortName(), node.getNodeID());
+            System.out.println(nodes.get(i));
         }
 
         roomSelect.setItems(FXCollections.observableList(nodeShortNames));
@@ -108,6 +109,7 @@ public class UIControllerSRB extends UIController {
 
 
 
+
     @FXML
     private void setConfirmButton() {
         String roomShortName = (String) roomSelect.getValue();
@@ -122,11 +124,11 @@ public class UIControllerSRB extends UIController {
         Connection conn = DBControllerAPI.dbConnect();
         DBControllerAPI.addServiceRequest(sr,conn);
         DBControllerAPI.closeConnection(conn);
-        this.goToScene(UIController.SERVICE_REQUEST_MAIN);
+        this.goToScene(UIController.SERVICE_REQUEST_MAIN,"");
     }
 
     @FXML
     private void setCancelButton() {
-        this.goToScene(UIController.SERVICE_REQUEST_MAIN);
+        this.goToScene(UIController.SERVICE_REQUEST_MAIN,"");
     }
 }

@@ -44,12 +44,12 @@
                   <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
                </rowConstraints>
                <children>
-                  <JFXButton fx:id="confirmButton" onAction="#setConfirmButton" styleClass="jfx-button_edit" stylesheets="@../css/background.css" text="Confirm" GridPane.columnIndex="1" GridPane.rowIndex="6" />
-                  <JFXButton fx:id="cancelButton" contentDisplay="CENTER" onAction="#setCancelButton" styleClass="jfx-button-cancel" stylesheets="@../css/background.css" text=" " GridPane.columnIndex="1" GridPane.rowIndex="7">
+                  <JFXButton fx:id="confirmButton" onAction="#setConfirmButton" styleClass="jfx-button_edit" stylesheets="/css/background.css" text="Confirm" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+                  <JFXButton fx:id="cancelButton" contentDisplay="CENTER" onAction="#setCancelButton" styleClass="jfx-button-cancel" stylesheets="/css/background.css" text=" " GridPane.columnIndex="1" GridPane.rowIndex="7">
                      <graphic>
                         <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@icon/cancel%20(1).png" />
+                              <Image url="cancel2.png" />
                            </image>
                         </ImageView>
                      </graphic>
@@ -92,7 +92,7 @@
                <children>
                   <FlowPane alignment="CENTER" hgap="20.0" vgap="20.0" GridPane.rowIndex="1">
                      <children>
-                        <Pane prefHeight="200.0" prefWidth="200.0" styleClass="paneBabysitting" stylesheets="@../css/background.css">
+                        <Pane prefHeight="200.0" prefWidth="200.0" styleClass="paneBabysitting" stylesheets="/css/background.css">
                            <children>
                               <ImageView fitHeight="130.0" fitWidth="120.0" layoutX="30.0" layoutY="34.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
@@ -102,7 +102,7 @@
                               <CheckBox fx:id="feeder" layoutX="50.0" layoutY="161.0" mnemonicParsing="false" text="Feeder" textFill="#015080" />
                            </children>
                         </Pane>
-                        <Pane prefHeight="200.0" prefWidth="200.0" styleClass="paneBabysitting" stylesheets="@../css/background.css">
+                        <Pane prefHeight="200.0" prefWidth="200.0" styleClass="paneBabysitting" stylesheets="/css/background.css">
                            <children>
                               <ImageView fitHeight="130.0" fitWidth="120.0" layoutX="30.0" layoutY="40.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
@@ -112,7 +112,7 @@
                               <CheckBox fx:id="diaper" layoutX="18.0" layoutY="160.0" mnemonicParsing="false" text="Change diapers" textFill="#015080" />
                            </children>
                         </Pane>
-                        <Pane prefHeight="200.0" prefWidth="200.0" styleClass="paneBabysitting" stylesheets="@../css/background.css">
+                        <Pane prefHeight="200.0" prefWidth="200.0" styleClass="paneBabysitting" stylesheets="/css/background.css">
                            <children>
                               <ImageView fitHeight="130.0" fitWidth="120.0" layoutX="30.0" layoutY="32.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
@@ -126,7 +126,7 @@
                   </FlowPane>
                   <FlowPane alignment="CENTER" hgap="20.0" vgap="20.0" GridPane.rowIndex="3">
                      <children>
-                        <Pane prefHeight="200.0" prefWidth="200.0" styleClass="paneBabysitting" stylesheets="@../css/background.css">
+                        <Pane prefHeight="200.0" prefWidth="200.0" styleClass="paneBabysitting" stylesheets="/css/background.css">
                            <children>
                               <ImageView fitHeight="130.0" fitWidth="120.0" layoutX="30.0" layoutY="26.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
@@ -136,7 +136,7 @@
                               <CheckBox fx:id="toy" layoutX="58.0" layoutY="161.0" mnemonicParsing="false" text="Toys" textFill="#015080" />
                            </children>
                         </Pane>
-                        <Pane prefHeight="200.0" prefWidth="200.0" styleClass="paneBabysitting" stylesheets="@../css/background.css">
+                        <Pane prefHeight="200.0" prefWidth="200.0" styleClass="paneBabysitting" stylesheets="/css/background.css">
                            <children>
                               <ImageView fitHeight="130.0" fitWidth="120.0" layoutX="31.0" layoutY="29.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
@@ -146,7 +146,7 @@
                               <CheckBox fx:id="babyStroller" layoutX="26.0" layoutY="161.0" mnemonicParsing="false" text="Baby Stroller" textFill="#015080" />
                            </children>
                         </Pane>
-                        <Pane prefHeight="200.0" prefWidth="200.0" styleClass="paneBabysitting" stylesheets="@../css/background.css">
+                        <Pane prefHeight="200.0" prefWidth="200.0" styleClass="paneBabysitting" stylesheets="/css/background.css">
                            <children>
                               <ImageView fitHeight="130.0" fitWidth="120.0" layoutX="30.0" layoutY="25.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
