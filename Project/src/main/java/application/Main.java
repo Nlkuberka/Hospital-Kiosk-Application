@@ -22,9 +22,6 @@ public class Main extends Application {
     public void start(Stage primaryStage) throws Exception {
         UIController controller = new UIController(primaryStage);
 
-        controller.goToScene(UIController.WELCOME_MAIN);
-
-
         System.out.println("Collaborator is " + "X");
 
         Connection conn = DBController.dbConnect();
@@ -52,7 +49,9 @@ public class Main extends Application {
 
         CurrentUser.user = DBControllerU.getGuestUser(conn);
         DBController.closeConnection(conn);
-        //DBController.initializeAppDB();
+
+
+        controller.goToScene(UIController.WELCOME_MAIN);
     }
 
     public static void main(String[] args) {
