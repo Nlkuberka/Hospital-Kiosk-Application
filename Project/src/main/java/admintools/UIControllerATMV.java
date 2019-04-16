@@ -226,30 +226,27 @@ public class UIControllerATMV extends UIController {
             hackTooltipStartTiming(tooltip);
             Tooltip.install(circle, tooltip);
 
-            circle.setOnMousePressed(new EventHandler<MouseEvent>() {
-                @Override
-                public void handle(MouseEvent mouseEvent) {
-                    if(previousNodeID != null){
-                        if(isAddingEdge){
-                            addEdge(null, previousNodeID, tempNode.getNodeID());
-                            Connection conn = DBController.dbConnect();
-                            currentFloorEdges.add(DBControllerNE.fetchEdge(previousNodeID + "_" + tempNode.getNodeID(), conn));
-                            DBController.closeConnection(conn);
-                        }else{
-                            deleteEdge(previousNodeID, tempNode.getNodeID());
-                            currentFloorEdges.remove(getEdgeFrom(currentFloorEdges, previousNodeID, tempNode.getNodeID()));
-                        }
-                        previousNodeID = null;
-                        draw();
+            circle.setOnMousePressed(mouseEvent -> {
+                if(previousNodeID != null){
+                    if(isAddingEdge){
+                        addEdge(null, previousNodeID, tempNode.getNodeID());
+                        Connection conn = DBController.dbConnect();
+                        currentFloorEdges.add(DBControllerNE.fetchEdge(previousNodeID + "_" + tempNode.getNodeID(), conn));
+                        DBController.closeConnection(conn);
                     }else{
-                        mouseX = circle.getLayoutX() - mouseEvent.getSceneX();
-                        mouseY = circle.getLayoutY() - mouseEvent.getSceneY();
-                        if (mouseEvent.getClickCount() == 2) {
-                            try {
-                                enableChoicePopup(tempNode);
-                            } catch (IOException e) {
-                                e.printStackTrace();
-                            }
+                        deleteEdge(previousNodeID, tempNode.getNodeID());
+                        currentFloorEdges.remove(getEdgeFrom(currentFloorEdges, previousNodeID, tempNode.getNodeID()));
+                    }
+                    previousNodeID = null;
+                    draw();
+                }else{
+                    mouseX = circle.getLayoutX() - mouseEvent.getSceneX();
+                    mouseY = circle.getLayoutY() - mouseEvent.getSceneY();
+                    if (mouseEvent.getClickCount() == 2) {
+                        try {
+                            enableChoicePopup(tempNode);
+                        } catch (IOException e) {
+                            e.printStackTrace();
                         }
                     }
                 }

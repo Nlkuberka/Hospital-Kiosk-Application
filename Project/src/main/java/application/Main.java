@@ -21,7 +21,7 @@ public class Main extends Application {
     public void start(Stage primaryStage) throws Exception {
         UIController controller = new UIController(primaryStage);
 
-        controller.goToScene(UIController.WELCOME_MAIN);
+        controller.goToScene(UIController.PATHFINDING_MAIN);
 
 
         System.out.println("Collaborator is " + "X");

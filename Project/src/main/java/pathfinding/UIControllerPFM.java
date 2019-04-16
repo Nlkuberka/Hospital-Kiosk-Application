@@ -9,6 +9,8 @@ import entities.Graph;
 import entities.Node;
 
 import javafx.animation.Interpolator;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
@@ -25,6 +27,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 
 import java.io.IOException;
+import java.lang.reflect.Field;
 import java.sql.Connection;
 
 import com.jfoenix.controls.JFXButton;
@@ -285,6 +288,9 @@ public class UIControllerPFM extends UIController {
 
                 Circle circle = new Circle(x, y, 13);
                 circle.setId(node.getNodeID());
+                Tooltip tooltip = new Tooltip(node.getShortName());
+                hackTooltipStartTiming(tooltip);
+                Tooltip.install(circle, tooltip);
 
                 this.circleFromName.put(node.getLongName(), circle); // setup hashmap
 
@@ -678,6 +684,23 @@ public class UIControllerPFM extends UIController {
     @FXML
     private void setServiceRequestButton() {
         this.goToScene(UIController.SERVICE_REQUEST_MAIN);
+    }
+
+    private static void hackTooltipStartTiming(Tooltip tooltip) {
+        try {
+            Field fieldBehavior = tooltip.getClass().getDeclaredField("BEHAVIOR");
+            fieldBehavior.setAccessible(true);
+            Object objBehavior = fieldBehavior.get(tooltip);
+
+            Field fieldTimer = objBehavior.getClass().getDeclaredField("activationTimer");
+            fieldTimer.setAccessible(true);
+            Timeline objTimer = (Timeline) fieldTimer.get(objBehavior);
+
+            objTimer.getKeyFrames().clear();
+            objTimer.getKeyFrames().add(new KeyFrame(new Duration(0)));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }
 
