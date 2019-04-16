@@ -34,6 +34,12 @@ public class CurrentObjects {
         this.initialID = null;
     }
 
+    void cancel() {
+        this.clearNodeStyle();
+        this.clearInitDestIDs();
+        this.clearAnimation();
+    }
+
     void clearInitDestIDs() {
         this.destID = null;
         this.initialID = null;
@@ -64,9 +70,9 @@ public class CurrentObjects {
      */
     void clearNodeStyle() {
         initCircle.setFill(Color.BLACK);
-        initCircle.setRadius(13);
+        initCircle.setRadius(AnchorPaneHandler.nodeSizeIdle);
         destCircle.setFill(Color.BLACK);
-        destCircle.setRadius(13);
+        destCircle.setRadius(AnchorPaneHandler.nodeSizeIdle);
     }
 
 

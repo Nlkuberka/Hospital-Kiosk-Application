@@ -31,7 +31,6 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import pathfinding.Floors;
 
 /**
  * Controller for the path_find_main.fxml file
@@ -198,7 +197,6 @@ public class UIControllerPFM extends UIController {
 
         currentObjects.setDestCircle(destinationSelect.getValue());
 
-        // call getPath if not null
         getPath();
     }
 
@@ -210,12 +208,9 @@ public class UIControllerPFM extends UIController {
     @FXML
     private void cancel(ActionEvent actionEvent) {
         pathHandler.cancel();
-        currentObjects.clearNodeStyle();
         clearTabColors();
 
-        currentObjects.clearInitDestIDs();
-
-        currentObjects.clearAnimation();
+        currentObjects.cancel();
 
         initialLocationSelect.getSelectionModel().clearSelection();
         destinationSelect.getSelectionModel().clearSelection();

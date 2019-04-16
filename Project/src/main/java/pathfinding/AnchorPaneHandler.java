@@ -11,9 +11,10 @@ import entities.Node;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 
-import static application.CurrentUser.startingLocation;
 
 public class AnchorPaneHandler {
+    static double nodeSizeIdle = 16;
+    static double getNodeSizeHighlited = 19;
     List<AnchorPane> anchorPanes;
     private List<Group> groupsForNodes;
     private HashMap<String, Circle> circleFromName;
@@ -65,7 +66,7 @@ public class AnchorPaneHandler {
                 float x = (float) node.getXcoord();
                 float y = (float) node.getYcoord();
 
-                Circle circle = new Circle(x, y, 13);
+                Circle circle = new Circle(x, y, nodeSizeIdle);
                 circle.setId(node.getNodeID());
 
                 this.circleFromName.put(node.getLongName(), circle); // setup hashmap
@@ -73,13 +74,13 @@ public class AnchorPaneHandler {
                 circle.setOnMouseClicked(e -> {
                     if ((initialLocationSelect.getValue() == null)) {
                         circle.setFill(Color.GREEN);
-                        circle.setRadius(16);
+                        circle.setRadius(getNodeSizeHighlited);
                         this.currentObjects.setInitCircle(circle);
                         initialLocationSelect.setValue(node.getLongName());
                     }
                     else if ((destinationSelect.getValue() == null)) {
                         circle.setFill(Color.RED);
-                        circle.setRadius(16);
+                        circle.setRadius(getNodeSizeHighlited);
                         this.currentObjects.setDestCircle(circle);
                         destinationSelect.setValue(node.getLongName());
                     }
