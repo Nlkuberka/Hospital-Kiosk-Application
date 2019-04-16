@@ -17,6 +17,8 @@ public class CurrentObjects {
     private PathHandler pathHandler;
     private AnchorPaneHandler anchorPaneHandler;
     private GesturePaneHandler gesturePaneHandler;
+    private String initialID;
+    private String destID;
 
     public CurrentObjects(int floorIndex, Circle initCircle, Circle destCircle, PathTransition animation, Rectangle currentAnt,
                           PathHandler pathHandler, AnchorPaneHandler anchorPaneHandler, GesturePaneHandler gesturePaneHandler) {
@@ -28,6 +30,33 @@ public class CurrentObjects {
         this.pathHandler = pathHandler;
         this.anchorPaneHandler = anchorPaneHandler;
         this.gesturePaneHandler = gesturePaneHandler;
+        this.destID = null;
+        this.initialID = null;
+    }
+
+    void clearInitDestIDs() {
+        this.destID = null;
+        this.initialID = null;
+    }
+
+    void setInitialID(String initialID) {
+        this.initialID = initialID;
+    }
+
+    void setDestID(String destID) {
+        this.destID = destID;
+    }
+
+    String getInitialID() {
+        return initialID;
+    }
+
+    String getDestID() {
+        return destID;
+    }
+
+    boolean anyNullEndNodes() {
+        return destID == null || initialID == null;
     }
 
     /**

@@ -8,37 +8,30 @@ import database.DBControllerNE;
 import entities.Graph;
 import entities.Node;
 
-import javafx.animation.Interpolator;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.geometry.Point2D;
 import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.StackPane;
 
 import java.io.IOException;
 import java.sql.Connection;
 
 import com.jfoenix.controls.JFXButton;
-import javafx.animation.PathTransition;
 import javafx.scene.Scene;
-import javafx.scene.paint.Color;
 import javafx.scene.shape.*;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import javafx.util.Duration;
 import net.kurobako.gesturefx.GesturePane;
 
 import java.util.LinkedList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import pathfinding.Floors;
 
 /**
  * Controller for the path_find_main.fxml file
@@ -51,115 +44,12 @@ public class UIControllerPFM extends UIController {
     @FXML private Path pathLL2, pathLL1, pathG, path1, path2, path3;
     @FXML private JFXTabPane mapTabPane;
 
-    public enum Floors {
-        LL2("Lower Level 2", "L2", 0), LL1("Lower Level 1", "L1", 1),
-        GROUND("Ground Floor", "G", 2), FIRST("First Floor", "1", 3),
-        SECOND("Second Floor", "2", 4), THIRD("Third Floor", "3", 5);
-
-        private final String name;
-        private final String ID;
-        private final int index;
-
-        Floors(String name, String ID, int index) {
-            this.name = name;
-            this.ID = ID;
-            this.index = index;
-        }
-
-        public String getName() {
-            return this.name;
-        }
-
-        public String getID() {
-            return this.ID;
-        }
-
-        public int getIndex() {
-            return this.index;
-        }
-
-        public static Floors getByID(String ID) {
-            if(ID.equals("1")) {
-                return FIRST;
-            }
-            if(ID.equals("2")) {
-                return SECOND;
-            }
-            if(ID.equals("3")) {
-                return THIRD;
-            }
-            if(ID.equals("G")) {
-                return GROUND;
-            }
-            if(ID.equals("L1")) {
-                return LL1;
-            }
-            return LL2;
-        }
-
-        public static Floors getByName(String ID) {
-            if(ID.equals(FIRST.name)) {
-                return FIRST;
-            }
-            if(ID.equals(SECOND.name)) {
-                return SECOND;
-            }
-            if(ID.equals(THIRD.name)) {
-                return THIRD;
-            }
-            if(ID.equals(GROUND.name)) {
-                return GROUND;
-            }
-            if(ID.equals(LL1.name)) {
-                return LL1;
-            }
-            return LL2;
-        }
-
-        public static Floors getByIndex(int index) {
-            switch (index) {
-                case (0): {
-                    return LL2;
-                } case (1): {
-                    return LL1;
-                } case (2): {
-                    return GROUND;
-                } case (3): {
-                    return FIRST;
-                } case (4): {
-                    return SECOND;
-                }case (5): {
-                    return THIRD;
-                } default:
-                    return SECOND;
-            }
-        }
-    }
-
-    @FXML
-    private HBox hboxForMap;
-    @FXML
-    private GridPane interfaceGrid;
-    @FXML
-    private StackPane parentPane;
-
-    private String initialID;
-    private String destID;
-
     @FXML
     public ChoiceBox<String> initialLocationSelect;
     @FXML
     private ChoiceBox<String> destinationSelect;
     @FXML
     private ImageView backgroundImage;
-    @FXML
-    private MenuItem backButton;
-    @FXML
-    private ScrollPane scrollPane_pathfind;
-    @FXML
-    private JFXButton loginButton;
-    @FXML
-    private JFXButton serviceRequestButton;
 
 
     @FXML private GesturePane lowerLevel2GesturePane;
@@ -199,7 +89,7 @@ public class UIControllerPFM extends UIController {
                     @Override
                     public void changed(ObservableValue<? extends Tab> ov, Tab t, Tab t1) {
                         gesturePaneHandler.changeTabs(pathHandler,
-                                UIControllerPFM.Floors.getByName(t1.getText()).getIndex());
+                                Floors.getByName(t1.getText()).getIndex());
                     }
                 }
         );
@@ -283,7 +173,7 @@ public class UIControllerPFM extends UIController {
 
         //System.out.println("Initial location selected: " + initialLocationSelect.getValue());
         Connection connection = DBController.dbConnect();
-        initialID = DBController.IDfromLongName(initialLocationSelect.getValue(), connection);
+        currentObjects.setInitialID(DBController.IDfromLongName(initialLocationSelect.getValue(), connection));
         DBController.closeConnection(connection);
 
         currentObjects.setInitCircle(initialLocationSelect.getValue());
@@ -303,7 +193,7 @@ public class UIControllerPFM extends UIController {
 
         Connection connection = DBController.dbConnect();
         System.out.println(destinationSelect.getValue());
-        destID = DBController.IDfromLongName(destinationSelect.getValue(), connection);
+        currentObjects.setDestID(DBController.IDfromLongName(destinationSelect.getValue(), connection));
         DBController.closeConnection(connection);
 
         currentObjects.setDestCircle(destinationSelect.getValue());
@@ -323,8 +213,7 @@ public class UIControllerPFM extends UIController {
         currentObjects.clearNodeStyle();
         clearTabColors();
 
-        initialID = null;
-        destID = null;
+        currentObjects.clearInitDestIDs();
 
         currentObjects.clearAnimation();
 
@@ -337,14 +226,14 @@ public class UIControllerPFM extends UIController {
      */
     private void getPath() {
 
-        if(initialID == null || destID == null)
+        if(currentObjects.anyNullEndNodes())
             return;
 
         List<String> pathIDs;
-        pathIDs = Graph.getGraph().shortestPath(initialID, destID);
+        pathIDs = Graph.getGraph().shortestPath(currentObjects.getInitialID(), currentObjects.getDestID());
 
         Connection connection = DBController.dbConnect();
-        Node initialNode = DBControllerNE.fetchNode(initialID, connection);
+        Node initialNode = DBControllerNE.fetchNode(currentObjects.getInitialID(), connection);
         DBController.closeConnection(connection);
 
         currentObjects.clearAnimation(); // reset stuff
@@ -401,7 +290,8 @@ public class UIControllerPFM extends UIController {
 
     @FXML
     private void directionSelection() {
-        String direction = Graph.getGraph().textDirections(Graph.getGraph().shortestPath(initialID, destID));
+        String direction = Graph.getGraph().textDirections(Graph.getGraph().shortestPath(currentObjects.getInitialID(),
+                currentObjects.getDestID()));
         try {
             FXMLLoader fxmlLoader = new FXMLLoader();
             fxmlLoader.setLocation(getClass().getResource("/directions_popup.fxml"));

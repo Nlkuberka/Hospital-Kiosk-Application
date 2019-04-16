@@ -84,7 +84,7 @@ public class PathHandler {
     }
 
     private void updatePaths(List<List<List<Node>>> list) {
-        if (list.size() != UIControllerPFM.Floors.values().length)
+        if (list.size() != Floors.values().length)
             System.out.println("WARNING: Did not receive a node list for each floor");
 
         clearAndHideAllPaths();
@@ -135,7 +135,7 @@ public class PathHandler {
 
     List<Point2D> getPathExtremaOnInitFloor() {
         double minX = 6000, maxX = 0, minY = 6000, maxY = 0;
-        int currentFloorIndex = UIControllerPFM.Floors.getByID(this.latestStartingNode.getFloor()).getIndex();
+        int currentFloorIndex = Floors.getByID(this.latestStartingNode.getFloor()).getIndex();
         List<List<Node>> list = this.latestPath.get(currentFloorIndex);
         for (List<Node> nodeList : list) {
             for (Node node : nodeList) {
