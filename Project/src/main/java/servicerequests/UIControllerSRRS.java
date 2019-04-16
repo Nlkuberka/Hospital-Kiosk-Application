@@ -1,6 +1,7 @@
 package servicerequests;
 
 import application.CurrentUser;
+import database.DBController;
 import application.UIController;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXCheckBox;
@@ -8,6 +9,7 @@ import com.jfoenix.controls.JFXTextField;
 import database.DBControllerSR;
 import entities.ServiceRequest;
 import helper.RoomCategoryFilterHelper;
+import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.CheckBox;
@@ -18,9 +20,11 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 
+import javax.swing.*;
 import java.sql.Connection;
-import java.util.HashMap;
-import java.util.LinkedList;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.*;
 
 public class UIControllerSRRS extends UIController {
     /**

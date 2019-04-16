@@ -1,10 +1,12 @@
 package admintools;
 
-import application.UIController;
-import com.jfoenix.controls.JFXButton;
 import database.DBController;
+import application.UIController;
 import database.DBControllerNE;
 import entities.Edge;
+
+import com.jfoenix.controls.JFXButton;
+
 import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;

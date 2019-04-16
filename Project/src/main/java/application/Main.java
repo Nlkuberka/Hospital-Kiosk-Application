@@ -1,6 +1,7 @@
 package application;
 
 import database.DBController;
+
 import database.DBControllerNE;
 import database.DBControllerU;
 import entities.Edge;
@@ -12,6 +13,7 @@ import javafx.stage.Stage;
 import java.sql.Connection;
 import java.sql.DatabaseMetaData;
 import java.sql.ResultSet;
+import java.time.Clock;
 import java.util.List;
 
 public class Main extends Application {
@@ -26,7 +28,6 @@ public class Main extends Application {
         System.out.println("Collaborator is " + "X");
 
         Connection conn = DBController.dbConnect();
-        assert conn != null;
         DatabaseMetaData dbmd = conn.getMetaData();
         ResultSet rs = dbmd.getTables(null, null, "RESERVATIONS",null);
         if(!rs.next()){
@@ -35,21 +36,17 @@ public class Main extends Application {
 
         // Initialize the graph.
         List<Node> allNodes = DBControllerNE.generateListOfNodes(conn,DBControllerNE.ALL_NODES);
-        assert allNodes != null;
         for (Node node : allNodes) {
             try {
                 Graph.getGraph().addNode(node);
             } catch (IllegalArgumentException e) {
-                e.printStackTrace();
             }
         }
         List<Edge> allEdges = DBControllerNE.generateListofEdges(conn);
-        assert allEdges != null;
         for (Edge edge : allEdges) {
             try {
                 Graph.getGraph().addBiEdge(edge.getNode1ID(), edge.getNode2ID());
             } catch (IllegalArgumentException e) {
-                e.printStackTrace();
             }
         }
 

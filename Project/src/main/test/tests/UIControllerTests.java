@@ -1,14 +1,15 @@
 package tests;
 
 import application.UIController;
-import entities.Node;
 import entities.ServiceRequest;
+import entities.Node;
+
 import javafx.embed.swing.JFXPanel;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 
 /**
  * Contains just the positive tests for the UIController
