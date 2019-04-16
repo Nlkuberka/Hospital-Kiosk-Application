@@ -49,37 +49,61 @@ public class UIControllerPUD extends UIController {
 
     @FXML
     public void sendEmail(ActionEvent event) {
-        System.out.println("an email is sent");
-        emailDirection sendDirections = new emailDirection();
+        if (email.getText().equals("")) {
+            try {
+                FXMLLoader fxmlLoader = new FXMLLoader();
+                fxmlLoader.setLocation(getClass().getResource("/no_email_entered_popup.fxml"));
 
-        String receivingEmail = email.getText();
+                Scene popupScene = new Scene(fxmlLoader.load(), 300, 150);
+                Stage popupStage = new Stage();
 
-        sendDirections.sendEmail(directions.getText(), receivingEmail);
+                popupStage.initModality(Modality.APPLICATION_MODAL);
+                popupStage.initOwner(this.primaryStage);
 
-        try {
-            FXMLLoader fxmlLoader = new FXMLLoader();
-            fxmlLoader.setLocation(getClass().getResource("/popup_confirm_email.fxml"));
+                UIControllerPUD controller = (UIControllerPUD) fxmlLoader.getController();
 
-            Scene popupScene = new Scene(fxmlLoader.load(), 300, 150);
-            Stage popupStage = new Stage();
+                popupStage.setTitle("Email Error");
+                popupStage.setScene(popupScene);
+                popupStage.show();
 
-            popupStage.initModality(Modality.APPLICATION_MODAL);
-            popupStage.initOwner(this.primaryStage);
+            } catch (IOException e) {
+                Logger logger = Logger.getLogger((getClass().getName()));
+                logger.log(Level.SEVERE, "Failed to create new window.", e);
 
-            UIControllerPUD controller = (UIControllerPUD) fxmlLoader.getController();
+            }
 
-            popupStage.setTitle("Email Confirmation");
-            popupStage.setScene(popupScene);
-            popupStage.show();
-        } catch (IOException e) {
-            Logger logger = Logger.getLogger((getClass().getName()));
-            logger.log(Level.SEVERE, "Failed to create new window.", e);
+        } else {
+            emailDirection sendDirections = new emailDirection();
 
+            String receivingEmail = email.getText();
+
+            sendDirections.sendEmail(directions.getText(), receivingEmail);
+
+            try {
+                FXMLLoader fxmlLoader = new FXMLLoader();
+                fxmlLoader.setLocation(getClass().getResource("/popup_confirm_email.fxml"));
+
+                Scene popupScene = new Scene(fxmlLoader.load(), 300, 150);
+                Stage popupStage = new Stage();
+
+                popupStage.initModality(Modality.APPLICATION_MODAL);
+                popupStage.initOwner(this.primaryStage);
+
+                UIControllerPUD controller = (UIControllerPUD) fxmlLoader.getController();
+
+                popupStage.setTitle("Email Confirmation");
+                popupStage.setScene(popupScene);
+                popupStage.show();
+            } catch (IOException e) {
+                Logger logger = Logger.getLogger((getClass().getName()));
+                logger.log(Level.SEVERE, "Failed to create new window.", e);
+
+            }
         }
     }
 
     @FXML
-    public void setOkButton(){
+    public void setOkButton() {
         Stage stage = (Stage) okButton.getScene().getWindow();
         stage.close();
     }
