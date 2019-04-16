@@ -1,7 +1,7 @@
 package application;
 
+import com.twilio.exception.RestException;
 import database.DBController;
-
 import database.DBControllerNE;
 import database.DBControllerU;
 import entities.Edge;
@@ -10,10 +10,16 @@ import entities.Node;
 import javafx.application.Application;
 import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DatabaseMetaData;
 import java.sql.ResultSet;
+import java.util.Arrays;
 import java.util.List;
+
+import com.twilio.Twilio;
+import com.twilio.rest.api.v2010.account.Message;
+import com.twilio.type.PhoneNumber;
 
 public class Main extends Application {
 
@@ -52,9 +58,25 @@ public class Main extends Application {
         CurrentUser.user = DBControllerU.getGuestUser(conn);
         DBController.closeConnection(conn);
         //DBController.initializeAppDB();
+
+
     }
 
-    public static void main(String[] args) {
-        launch(args);
+    public static final String ACCOUNT_SID = "AC176f9cd821ffa8dcad559ceecad9ecf1";
+    public static final String AUTH_TOKEN = "ab7f1a58335f47c98bac61b471920dfe";
+
+    public static void main(String[] args) throws IOException {
+
+        Twilio.init(ACCOUNT_SID, AUTH_TOKEN);
+        Message message = Message.creator(
+                new com.twilio.type.PhoneNumber("+15089834963"),
+                new com.twilio.type.PhoneNumber("+17472290044"),
+                "body")
+                .create();
+
+        System.out.println(message.getSid());
+
+        //launch(args);
     }
+
 }
