@@ -1,13 +1,15 @@
 package entities;
 
+import database.DBControllerNE;
+import pathfinding.UIControllerPFM;
+
 import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
-import database.DBControllerNE;
-import pathfinding.UIControllerPFM;
-import static java.lang.Math.*;
+import static java.lang.Math.abs;
+import static java.lang.Math.sqrt;
 
 public abstract class Graph {
     

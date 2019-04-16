@@ -1,19 +1,11 @@
 package database;
 
-import application.Encryptor;
-import entities.*;
+import entities.Reservation;
+import entities.User;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
-import java.io.*;
+import java.io.File;
 import java.sql.*;
-
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.LinkedList;
-import java.util.List;
 
 /**
  * Database Controller

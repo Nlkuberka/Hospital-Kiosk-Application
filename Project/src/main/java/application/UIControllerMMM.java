@@ -1,7 +1,6 @@
 package application;
 
 import com.jfoenix.controls.JFXButton;
-
 import javafx.fxml.FXML;
 import javafx.scene.control.MenuItem;
 import javafx.scene.image.ImageView;

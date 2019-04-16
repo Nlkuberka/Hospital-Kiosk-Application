@@ -1,7 +1,6 @@
 package tests;
 
 import entities.User;
-
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;

@@ -1,14 +1,12 @@
 package reservations;
 
 import application.CurrentUser;
-import database.DBController;
 import application.UIController;
-import database.DBControllerRW;
-import entities.Reservation;
-
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTimePicker;
-
+import database.DBController;
+import database.DBControllerRW;
+import entities.Reservation;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.control.ChoiceBox;
@@ -22,10 +20,11 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
-import java.time.*;
-
+import java.time.Instant;
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.ZoneId;
 import java.util.*;
-import java.util.List;
 
 /**
  * The UIController that handles the creation and sending of reservations

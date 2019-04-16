@@ -1,22 +1,15 @@
 package admintools;
 
-import database.DBController;
 import application.UIController;
+import com.jfoenix.controls.JFXCheckBox;
+import database.DBController;
 import database.DBControllerSR;
 import entities.ServiceRequest;
-
-import com.jfoenix.controls.JFXCheckBox;
-
 import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.scene.control.Label;
-import javafx.scene.control.Menu;
-import javafx.scene.control.MenuItem;
-import javafx.scene.control.TableCell;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 
 import java.lang.reflect.Method;
