@@ -203,7 +203,14 @@ public class DBControllerAPI {
         }
     }
 
-
-
-
+    public static void addUser(User user, Connection connection){
+        try{
+            PreparedStatement s = connection.prepareStatement("INSERT into USERS (USERID, PERMISSION, USERNAME, PASSWORD)" +
+                    " values ('" + user.getUserID() + "'," + user.getPermissions() + ",'" + user.getUsername() +
+                    "','" + user.getPassword() + "')");
+            s.execute();
+        }catch(SQLException e){
+            e.printStackTrace();
+        }
+    }
 }
