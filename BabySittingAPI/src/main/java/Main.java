@@ -17,7 +17,7 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception{
         Connection conn = DBControllerAPI.dbConnect();
-        //DBControllerAPI.initializeAppDB(conn);
+        DBControllerAPI.initializeAppDB(conn);
         DBControllerAPI.closeConnection(conn);
 
 
@@ -27,9 +27,6 @@ public class Main extends Application {
 
 
     public void run(int xcoord, int ycoord, int windowWidth, int windowLength, String cssPath) throws Exception {
-
-
-
         Stage primaryStage = new Stage();
         primaryStage.setX(xcoord);
         primaryStage.setY(ycoord);
@@ -37,7 +34,6 @@ public class Main extends Application {
 
         UIController controller = new UIController(primaryStage,windowWidth,windowLength);
         controller.goToScene(UIController.SERVICE_REQUEST_BABYSITTING,cssPath);
-
     }
 
 

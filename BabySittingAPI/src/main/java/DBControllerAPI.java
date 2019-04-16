@@ -57,7 +57,7 @@ public class DBControllerAPI {
                 "  SERVICEID INTEGER GENERATED ALWAYS AS IDENTITY, \n" +
                 "  NODEID VARCHAR(10) REFERENCES NODES(NODEID),\n" +
                 "  SERVICETYPE VARCHAR(20),\n" +
-                "  MESSAGE VARCHAR(100),\n" +
+                "  MESSAGE VARCHAR(200),\n" +
                 "  USERID VARCHAR(10) REFERENCES USERS(USERID),\n" +
                 "  RESOLVED BOOLEAN,\n" +
                 "  RESOLVERID VARCHAR(10) REFERENCES USERS(USERID), \n" +
@@ -73,9 +73,6 @@ public class DBControllerAPI {
         loadNodeData(new File("nodesv5.csv"),conn);
 
     }
-
-
-
 
     /**
      * loadNodeData
@@ -134,8 +131,6 @@ public class DBControllerAPI {
         }
     }
 
-
-
     /**
      * generateListofNodes
      *
@@ -156,8 +151,6 @@ public class DBControllerAPI {
         }
         return null;
     }
-
-
 
     private static Node buildNode(ResultSet rs){
         try {
