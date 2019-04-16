@@ -65,6 +65,7 @@ public class UIControllerPUMVNO extends UIController {
     private void addEdge(MouseEvent mouseEvent) throws IOException {
         closeWindow();
         uiControllerATMV.isAddingEdge = true;
+        uiControllerATMV.showAddedNode(node);
         uiControllerATMV.previousNodeID = node.getNodeID();
     }
 
@@ -78,6 +79,7 @@ public class UIControllerPUMVNO extends UIController {
     private void deleteEdge(MouseEvent mouseEvent) throws IOException {
         closeWindow();
         uiControllerATMV.isAddingEdge = false;
+        uiControllerATMV.showAddedNode(node);
         uiControllerATMV.previousNodeID = node.getNodeID();
     }
 
