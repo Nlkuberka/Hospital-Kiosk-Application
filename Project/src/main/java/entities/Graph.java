@@ -618,10 +618,11 @@ public abstract class Graph {
             //System.out.println(returnAngle(NodeIDS.get(i), NodeIDS.get(i+1), directions));
                     directions += returnDirection(currentDirection, pastDirection)
                     + " "
-                    +  Math.round(adjWeights.get(currentNodeIndex).getFirst())
-                    + " pixels to "
-                    + mapIndexToNode(nextNodeIndex).getLongName()
-                    + commaOrPeriod;
+                    + round(Math.round(adjWeights.get(currentNodeIndex).getFirst()) / 4.666)
+                    + " feet to "
+                    + mapIndexToNode((nextNodeIndex)).getLongName()
+                    + commaOrPeriod
+                    + "\n\n";
         }
         return directions;
     }
