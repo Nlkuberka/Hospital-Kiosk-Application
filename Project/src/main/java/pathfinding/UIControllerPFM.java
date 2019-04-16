@@ -1,6 +1,8 @@
 package pathfinding;
 
+import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTabPane;
+import com.jfoenix.controls.JFXTextField;
 import database.DBController;
 import application.UIController;
 import application.UIControllerPUD;
@@ -159,16 +161,11 @@ public class UIControllerPFM extends UIController {
     private String initialID;
     private String destID;
 
-    @FXML
-    public ChoiceBox<String> initialLocationCategorySelect;
-    @FXML
-    public ChoiceBox<String> initialLocationSelect;
-    @FXML
-    private ChoiceBox<String> destinationCategorySelect;
-    @FXML
-    private ChoiceBox<String> destinationSelect;
+    @FXML private JFXComboBox<String> initialLocationCombo;
+    @FXML private JFXComboBox<String> destinationCombo;
     private RoomCategoryFilterHelper initialFilterHelper;
     private RoomCategoryFilterHelper destiationFilterHelper;
+
     @FXML
     private ImageView backgroundImage;
     @FXML
@@ -270,7 +267,7 @@ public class UIControllerPFM extends UIController {
 
         DBControllerNE.closeConnection(conn);
 
-        initialFilterHelper = new RoomCategoryFilterHelper(initialLocationCategorySelect, initialLocationSelect, param -> {
+        /*initialFilterHelper = new RoomCategoryFilterHelper(initialLocationCategorySelect, initialLocationSelect, param -> {
             if (initialLocationSelect.getValue() == null)
                 return;
 
@@ -278,29 +275,27 @@ public class UIControllerPFM extends UIController {
 
             this.currentInitCircle = circleFromName.get(initialLocationSelect.getValue());
             getPath();
-        }, true);
-        destiationFilterHelper = new RoomCategoryFilterHelper(destinationCategorySelect, destinationSelect, param -> {
-            if (destinationSelect.getValue() == null)
+        }, true);*/
+        destiationFilterHelper = new RoomCategoryFilterHelper(destinationCombo, param -> {
+            if (destiationFilterHelper.getLongName() == null)
                 return;
 
             destID = destiationFilterHelper.getNodeID();
 
-            this.currentDestCircle = circleFromName.get(destinationSelect.getValue());
+            this.currentDestCircle = circleFromName.get(destiationFilterHelper.getLongName());
 
             // call getPath if not null
             getPath();
         }, true);
-        initialLocationSelect.getItems().clear();
-        destinationSelect.getItems().clear();
+        initialFilterHelper = new RoomCategoryFilterHelper(initialLocationCombo, param -> {
+            if (initialFilterHelper.getLongName() == null)
+                return;
 
-        for (LinkedList<Node> list : roomsAtEachFloor) {
-            for (Node node : list) {
-                // update choices for initial location
-                initialLocationSelect.getItems().add(node.getLongName());
-                // update choices for destination location
-                destinationSelect.getItems().addAll(node.getLongName());
-            }
-        }
+            initialID = initialFilterHelper.getNodeID();
+
+            this.currentInitCircle = circleFromName.get(initialFilterHelper.getLongName());
+            getPath();
+        }, true);
 
         // ~~~~~~ init circles
 
@@ -323,18 +318,16 @@ public class UIControllerPFM extends UIController {
                 this.circleFromName.put(node.getLongName(), circle); // setup hashmap
 
                 circle.setOnMouseClicked(e -> {
-                    if ((initialLocationSelect.getValue() == null)) {
+                    if ((initialLocationCombo.getValue() == null)) {
                         currentInitCircle = circle;
                         currentInitCircle.setFill(Color.GREEN);
                         currentInitCircle.setRadius(16);
-                        initialLocationCategorySelect.getSelectionModel().select(RoomCategoryFilterHelper.floorCategories.get(currentFloorIndex));
-                        initialLocationSelect.getSelectionModel().select(node.getLongName());
-                    } else if ((destinationSelect.getValue() == null)) {
+                        initialLocationCombo.getSelectionModel().select(node.getLongName());
+                    } else if ((destinationCombo.getValue() == null)) {
                         currentDestCircle = circle;
                         currentDestCircle.setFill(Color.RED);
                         currentDestCircle.setRadius(16);
-                        destinationCategorySelect.getSelectionModel().select(RoomCategoryFilterHelper.floorCategories.get(currentFloorIndex));
-                        destinationSelect.getSelectionModel().select(node.getLongName());
+                        destinationCombo.getSelectionModel().select(node.getLongName());
                     }
                 });
 
@@ -468,8 +461,8 @@ public class UIControllerPFM extends UIController {
 
         clearPathTransition();
 
-        initialLocationSelect.getSelectionModel().clearSelection();
-        destinationSelect.getSelectionModel().clearSelection();
+        initialLocationCombo.getSelectionModel().clearSelection();
+        destinationCombo.getSelectionModel().clearSelection();
     }
 
     /**
