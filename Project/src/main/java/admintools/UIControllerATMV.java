@@ -463,7 +463,7 @@ public class UIControllerATMV extends UIController {
         stage.initStyle(StageStyle.UNDECORATED);
         stage.initOwner(parentPane.getScene().getWindow());
         stage.setHeight(400);
-        stage.setWidth(600);
+        stage.setWidth(400);
         stage.setResizable(false);
         stage.centerOnScreen();
         stage.showAndWait();
