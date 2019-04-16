@@ -17,7 +17,7 @@
    <children>
       <ImageView fx:id="backgroundImage" opacity="0.6" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../resources/Hospitalbackground.png" />
+            <Image url="@Hospitalbackground.png" />
          </image>
       </ImageView>
       <BorderPane>
