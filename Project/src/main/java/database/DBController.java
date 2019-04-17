@@ -108,6 +108,13 @@ public class DBController {
         DBControllerU.addUser(new User("ADMIN00001","admin","admin",4095),conn);
         DBControllerU.addUser(new User("WWONG2","staff","staff",4095),conn);
 
+        DBControllerRW.addReservation(new Reservation("CL001","WWONG2","2019-04-18","10:00:00","12:00:00"),conn);
+        DBControllerRW.addReservation(new Reservation("CL002","WWONG2","2019-04-18","11:00:00","13:00:00"),conn);
+        DBControllerRW.addReservation(new Reservation("CL003","WWONG2","2019-04-19","08:00:00","13:00:00"),conn);
+        DBControllerRW.addReservation(new Reservation("CL001","WWONG2","2019-04-18","14:00:00","17:00:00"),conn);
+        DBControllerRW.addReservation(new Reservation("CL005","WWONG2","2019-04-19","11:00:00","13:00:00"),conn);
+
+
         DBControllerU.loadTeam(conn);
     }
 

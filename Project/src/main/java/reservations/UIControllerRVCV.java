@@ -46,7 +46,17 @@ public class UIControllerRVCV extends UIController {
     @FXML
     public void initialize() {
         CL001.setStyle(Calendar.Style.STYLE1);
-        CL008.setStyle(Calendar.Style.STYLE3);
+        CL002.setStyle(Calendar.Style.STYLE2);
+        CL003.setStyle(Calendar.Style.STYLE3);
+        CL004.setStyle(Calendar.Style.STYLE4);
+        CL005.setStyle(Calendar.Style.STYLE5);
+        CL006.setStyle(Calendar.Style.STYLE6);
+        CL007.setStyle(Calendar.Style.STYLE7);
+        CL008.setStyle(Calendar.Style.STYLE1);
+        CL009.setStyle(Calendar.Style.STYLE4);
+        MHA.setStyle(Calendar.Style.STYLE5);
+        MHCR.setStyle(Calendar.Style.STYLE6);
+        PNTRY.setStyle(Calendar.Style.STYLE7);
 
 
         Connection conn = DBController.dbConnect();
