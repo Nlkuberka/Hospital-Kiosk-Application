@@ -57,9 +57,13 @@ public class UIControllerSRSA extends UIController {
     public void onShow() {
         filterHelper = new RoomCategoryFilterHelper(roomSelect, null, false);
 
+        roomSelect.getSelectionModel().clearSelection();
+
         serviceMessage.setText("");
 
         sanitationSelect.getItems().addAll("Fecal Matter", "Vomit", "Urine", "Blood", "Water", "Soda", "Juice");
+
+        sanitationSelect.getSelectionModel().clearSelection();
     }
 
     public void setServiceType(String serviceType) {

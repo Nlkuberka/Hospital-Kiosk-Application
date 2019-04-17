@@ -89,6 +89,8 @@ public class UIControllerSRPS extends UIController {
      */
     @FXML
     public void onShow() {
+        roomSelect.getSelectionModel().clearSelection();
+        lengthChoiceBox.getSelectionModel().clearSelection();
         filterHelper = new RoomCategoryFilterHelper(roomSelect, null, true);
 
         serviceMessage.setText("");
