@@ -13,7 +13,8 @@ import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.control.*;
+import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.Tab;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 
@@ -22,7 +23,7 @@ import java.sql.Connection;
 
 import com.jfoenix.controls.JFXButton;
 import javafx.scene.Scene;
-import javafx.scene.shape.*;
+import javafx.scene.shape.Path;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import net.kurobako.gesturefx.GesturePane;

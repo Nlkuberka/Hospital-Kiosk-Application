@@ -2,6 +2,7 @@ package admintools;
 
 import application.CurrentUser;
 import application.UIController;
+import com.jfoenix.controls.JFXTabPane;
 import database.DBController;
 import database.DBControllerNE;
 import entities.Edge;
@@ -16,7 +17,8 @@ import javafx.scene.Cursor;
 import javafx.scene.Group;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.*;
+import javafx.scene.control.MenuItem;
+import javafx.scene.control.Tab;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
@@ -52,7 +54,7 @@ public class UIControllerATMV extends UIController {
     public ImageView backgroundImage;
     public Path path;
     public MenuItem backButton;
-    public TabPane tabs;
+    public JFXTabPane tabs;
     public String previousNodeID;
     public boolean isAddingEdge;
     private Group edgesGroup = new Group();
