@@ -39,7 +39,7 @@ public class UIController {
 
     // The starting width and height of the window
     private static final int WIDTH = 1280;
-    private static final int HEIGHT = 720;
+    private static final int HEIGHT = 800;
 
     private static final int WIDTH_POPUP_WARNING = 300;
     private static final int HEIGHT_POPUP_WARNING = 150;
@@ -70,6 +70,8 @@ public class UIController {
      */
     public UIController(Stage stage, int width, int height) {
         primaryStage = stage;
+        stage.setMinHeight(800);
+        stage.setMinWidth(1280);
         rootPane = new BorderPane();
         rootScene = new Scene(rootPane, width, height);
         primaryStage.setScene(rootScene);
