@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.String?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.effect.ColorAdjust?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.StackPane?>
+
+<StackPane minHeight="720.0" minWidth="1280.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="UIControllerATVSR">
+   <children>
+      <ImageView fx:id="backgroundImage" opacity="0.6" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@Hospitalbackground.png" />
+         </image>
+      </ImageView>
+      <BorderPane>
+         <center>
+            <TableView fx:id="serviceRequestTable" BorderPane.alignment="CENTER">
+              <columns>
+                <TableColumn prefWidth="130.0" text="Request Room" />
+                <TableColumn prefWidth="130.0" text="Service Type" />
+                  <TableColumn prefWidth="100.0" text="UserID" />
+                  <TableColumn prefWidth="100.0" text="Resolved" />
+                  <TableColumn prefWidth="160.0" text="Resolver" />
+                  <TableColumn prefWidth="180.0" text="Additional Messages" />
+              </columns>
+               <styleClass>
+                  <String fx:value="table-view" />
+                  <String fx:value="table-row-cell" />
+               </styleClass>
+            </TableView>
+         </center>
+      </BorderPane>
+   </children>
+</StackPane>
