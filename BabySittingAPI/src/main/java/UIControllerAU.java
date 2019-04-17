@@ -29,7 +29,7 @@ public class UIControllerAU extends UIController {
     }
 
     @FXML
-    private void getAddButton(){
+    private void setAddButton(){
         //Check if each text field is filled
         if(!trim(userIDInput.getText()).equals("") && !trim(usernameInput.getText()).equals("")
                 && !trim(passwordInput.getText()).equals("") && !trim(permissionsInput.getText()).equals("")){
@@ -38,6 +38,10 @@ public class UIControllerAU extends UIController {
                     usernameInput.getText(),passwordInput.getText());
             DBControllerAPI.addUser(newUser,connection);
         }
+        userIDInput.clear();
+        usernameInput.clear();
+        passwordInput.clear();
+        permissionsInput.clear();
     }
 
     @FXML

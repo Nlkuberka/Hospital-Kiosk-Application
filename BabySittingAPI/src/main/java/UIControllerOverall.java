@@ -6,24 +6,29 @@ import javafx.scene.layout.StackPane;
 
 public class UIControllerOverall extends UIController{
     @FXML private TabPane tabPane;
-    @FXML private AnchorPane createTabPane;
-    @FXML private AnchorPane viewTabPane;
-    @FXML private AnchorPane userTabPane;
+    @FXML private AnchorPane createServiceRequestTabPane;
+    @FXML private AnchorPane addUserTabPane;
+    @FXML private AnchorPane viewServiceRequestTabPane;
+    @FXML private AnchorPane viewUsersTabPane;
 
     @FXML
     public void initialize() {
         try{
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/service_request_babysitting.fxml"));
             StackPane subTabPane = (StackPane) fxmlLoader.load();
-            createTabPane.getChildren().setAll(subTabPane);
+            createServiceRequestTabPane.getChildren().setAll(subTabPane);
+
+            fxmlLoader = new FXMLLoader(getClass().getResource("/add_user.fxml"));
+            subTabPane = (StackPane) fxmlLoader.load();
+            addUserTabPane.getChildren().setAll(subTabPane);
 
             fxmlLoader = new FXMLLoader(getClass().getResource("/admin_tools_view_service_request.fxml"));
             subTabPane = (StackPane) fxmlLoader.load();
-            viewTabPane.getChildren().setAll(subTabPane);
+            viewServiceRequestTabPane.getChildren().setAll(subTabPane);
 
-            fxmlLoader = new FXMLLoader(getClass().getResource("/admin_tools_view_service_request.fxml"));
+            fxmlLoader = new FXMLLoader(getClass().getResource("/view_users.fxml"));
             subTabPane = (StackPane) fxmlLoader.load();
-            userTabPane.getChildren().setAll(subTabPane);
+            viewUsersTabPane.getChildren().setAll(subTabPane);
         } catch(Exception e) {
             e.printStackTrace();
         }

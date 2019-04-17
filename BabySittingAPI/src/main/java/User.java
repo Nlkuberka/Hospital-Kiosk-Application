@@ -1,5 +1,8 @@
 public class User {
 
+    public static final int BASIC_PERMISSIONS = 1;
+    public static final int ADMIN_PERMISSIONS = 2;
+
     private String userID;
     private String username;
     private String password;

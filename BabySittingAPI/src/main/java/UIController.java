@@ -93,6 +93,12 @@ public class UIController {
         sceneFiles.put(UIController.SERVICE_REQUEST_BABYSITTING, "/service_request_babysitting.fxml");
         sceneTitles.put(UIController.SERVICE_REQUEST_BABYSITTING, "Service Request - Babysitting");
 
+        sceneFiles.put(UIController.SERVICE_REQUEST_BABYSITTING, "/add_user");
+        sceneTitles.put(UIController.SERVICE_REQUEST_BABYSITTING, "Add User");
+
+        sceneFiles.put(UIController.SERVICE_REQUEST_BABYSITTING, "/view_users");
+        sceneTitles.put(UIController.SERVICE_REQUEST_BABYSITTING, "View Users");
+
         // Popups
         sceneFiles.put(UIController.POPUP_DIRECTIONS, "/direction_popup.fxml");
         sceneTitles.put(UIController.POPUP_DIRECTIONS, "Popup Window For Directions");
