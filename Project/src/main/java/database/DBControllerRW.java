@@ -71,7 +71,7 @@ public class DBControllerRW extends DBController {
     public static void deleteReservation(int reservationID,Connection connection){
         try {
             Statement s = connection.createStatement();
-            s.execute("delete from RESERVATIONS where RSVID = '"+ reservationID +"'");
+            s.execute("delete from RESERVATIONS where RSVID = "+ reservationID +"");
         }catch(SQLException e){
             e.printStackTrace();
         }
