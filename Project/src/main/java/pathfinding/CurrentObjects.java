@@ -40,6 +40,10 @@ public class CurrentObjects {
         this.gesturePaneHandler = gesturePaneHandler;
     }
 
+    boolean isActive() {
+        return pathHandler.isActive();
+    }
+
     void cancel() {
         this.clearNodeStyle();
         this.clearInitDestIDs();
@@ -159,6 +163,10 @@ public class CurrentObjects {
     }
 
     public void setInitCircle(Circle initCircle) {
+        if (this.initCircle != null) {
+            this.initCircle.setFill(Color.BLACK);
+            this.initCircle.setRadius(AnchorPaneHandler.nodeSizeIdle);
+        }
         if (initCircle != null) {
             initCircle.setFill(Color.GREEN);
             initCircle.setRadius(AnchorPaneHandler.getNodeSizeHighlited);
@@ -175,6 +183,10 @@ public class CurrentObjects {
     }
 
     public void setDestCircle(Circle destCircle) {
+        if (this.destCircle != null) {
+            this.destCircle.setFill(Color.BLACK);
+            this.destCircle.setRadius(AnchorPaneHandler.nodeSizeIdle);
+        }
         if (destCircle != null) {
             destCircle.setRadius(AnchorPaneHandler.getNodeSizeHighlited);
             destCircle.setFill(Color.RED);

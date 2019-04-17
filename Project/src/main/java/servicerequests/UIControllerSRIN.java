@@ -53,7 +53,7 @@ public class UIControllerSRIN extends UIController {
     @FXML
     public void onShow() {
         filterHelper = new RoomCategoryFilterHelper(roomSelect, null, true);
-
+        roomSelect.getSelectionModel().clearSelection();
         languageSelect.getSelectionModel().selectFirst();
         serviceMessage.setText("");
     }

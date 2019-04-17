@@ -19,8 +19,8 @@ import utilities.Tooltip;
 
 
 public class AnchorPaneHandler {
-    public static double nodeSizeIdle = 20;
-    public static double getNodeSizeHighlited = 30;
+    public static double nodeSizeIdle = 25;
+    public static double getNodeSizeHighlited = 35;
     List<AnchorPane> anchorPanes;
     private List<Group> groupsForNodes;
     private HashMap<String, Circle> circleFromName;

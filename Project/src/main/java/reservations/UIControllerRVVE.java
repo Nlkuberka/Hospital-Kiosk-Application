@@ -7,6 +7,7 @@ import com.jfoenix.controls.JFXButton;
 import database.DBControllerRW;
 import entities.Reservation;
 import entities.User;
+import helper.ReservationTableHelper;
 import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -52,106 +53,15 @@ public class UIControllerRVVE extends UIController {
         backgroundImage.fitWidthProperty().bind(primaryStage.widthProperty());
         List<TableColumn<Reservation, ?>> tableColumns = reservationTable.getColumns();
         // Initialize the cell factories of the reservation field columns
-
-        TableColumn<Reservation, Reservation> rsvIDColumn = (TableColumn<Reservation, Reservation>) tableColumns.get(0);
-        rsvIDColumn.setCellValueFactory(param -> new ReadOnlyObjectWrapper<>(param.getValue()));
-        rsvIDColumn.setCellFactory(param -> new TableCell<Reservation, Reservation>() {
-            private Label label = new Label();
-            private int index = 0; //RSVID is last field in Reservation
-
-            @Override
-            protected  void updateItem(Reservation reservation, boolean empty) {
-                super.updateItem(reservation, empty);
-                runStringGetter(reservation, reservationGetters[index], label);
-                setGraphic(label);
-            }
-        });
-
-        for(int i = 1; i < tableColumns.size() - 1; i++) {
-            int indexOut = i;
-            TableColumn<Reservation, Reservation> column = (TableColumn<Reservation, Reservation>) tableColumns.get(i);
-            column.setCellValueFactory(param -> new ReadOnlyObjectWrapper<>(param.getValue()));
-            column.setCellFactory(param -> new EditableTextCell<Reservation, Reservation
-                    >(column, indexOut) {
-
-                // When the Reservation is updated on the textfield
-                @Override
-                protected void updateItem(Reservation reservation, boolean empty) {
-                    super.updateItem(reservation, empty);
-
-                    // Get the starting text of the label and textField
-                    runStringGetterEditable(reservation, reservationGetters[index], label, textField);
-
-
-                    // When an edit is committed with enter
-                    textField.setOnAction(et -> {
-
-                        // See if input is a valid date
-                        if(index ==3) {
-                            try {
-                                //Date date = new SimpleDateFormat("yyyy-MM-dd").parse(textField.getText());
-                                runSetter(reservation, reservationSetters[index], String.class, textField.getText());
-                            } catch(Exception e) {
-                                setGraphic(label);
-                                textField.setText(label.getText());
-                                return;
-                            }
-                        }
-
-                        // See if input is a valid time
-                        if(index == 4 | index == 5) {
-                            try {
-                                Time time = Time.valueOf(textField.getText());
-                                runSetter(reservation, reservationSetters[index], String.class, textField.getText());
-                            } catch(Exception e) {
-                                setGraphic(label);
-                                textField.setText(label.getText());
-                                return;
-                            }
-                        }
-
-                        try{
-                            Connection conn = DBController.dbConnect();
-                            System.out.println(reservation.getRsvID());
-                            DBControllerRW.updateReservation(reservation, conn);
-                            conn.close();
-                        }catch(SQLException e){
-                            e.printStackTrace();
-                        }
-                        setGraphic(label);
-                        label.setText(textField.getText());
-                    });
-                }
-            });
-        }
-        // Initialize cell factories of the remove rsv column
-        TableColumn<Reservation, Reservation> removeColumn = (TableColumn<Reservation, Reservation>) tableColumns.get(tableColumns.size() - 1);
-        removeColumn.setCellValueFactory(param -> new ReadOnlyObjectWrapper<>(param.getValue()));
-        removeColumn.setCellFactory(param -> new TableCell<Reservation, Reservation>() {
-            private JFXButton removeButton = new JFXButton("Cancel");
-
-            @Override
-            protected void updateItem(Reservation reservation, boolean empty) {
-                super.updateItem(reservation, empty);
-                if(reservation == null) {
-                    return;
-                }
-                setGraphic(removeButton);
-                removeButton.setOnAction( e -> {
-                            try {
-                                Connection conn = DBController.dbConnect();
-                                DBControllerRW.deleteReservation(reservation.getRsvID(), conn);
-                                conn.close();
-                            }catch(SQLException e1){
-                                e1.printStackTrace();
-                            }
-                            getTableView().getItems().remove(reservation);
-                        }
-                );
-            }
-
-        });
-
+        new ReservationTableHelper(reservationTable,
+                (TableColumn<Reservation, Reservation>) tableColumns.get(0),
+                (TableColumn<Reservation, Reservation>) tableColumns.get(1),
+                (TableColumn<Reservation, Reservation>) tableColumns.get(2),
+                (TableColumn<Reservation, Reservation>) tableColumns.get(3),
+                (TableColumn<Reservation, Reservation>) tableColumns.get(4),
+                (TableColumn<Reservation, Reservation>)  tableColumns.get(5),
+                (TableColumn<Reservation, Reservation>) tableColumns.get(6)
+        );
     }
 
     /**

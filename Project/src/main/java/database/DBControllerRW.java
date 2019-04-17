@@ -1,6 +1,8 @@
 package database;
 
 
+import com.calendarfx.model.Entry;
+import com.calendarfx.model.Interval;
 import entities.Reservation;
 import entities.Workplace;
 
@@ -10,6 +12,7 @@ import java.io.FileReader;
 import java.sql.*;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.LinkedList;
 
@@ -71,7 +74,7 @@ public class DBControllerRW extends DBController {
     public static void deleteReservation(int reservationID,Connection connection){
         try {
             Statement s = connection.createStatement();
-            s.execute("delete from RESERVATIONS where RSVID ="+ reservationID +"");
+            s.execute("delete from RESERVATIONS where RSVID = "+ reservationID +"");
         }catch(SQLException e){
             e.printStackTrace();
         }
@@ -123,8 +126,8 @@ public class DBControllerRW extends DBController {
             ResultSet rs = s.executeQuery("select * from RESERVATIONS where USERID = '" + userID + "'");
             LinkedList<Reservation> listOfReservations = new LinkedList<Reservation>();
             while(rs.next()){
-                Reservation r = new Reservation(rs.getString(1),rs.getString(2),rs.getString(3),
-                        rs.getString(4),rs.getString(5));
+                Reservation r = new Reservation(rs.getString(2),rs.getString(3), rs.getString(4),
+                        rs.getString(5),rs.getString(6),rs.getInt(1));
                 listOfReservations.add(r);
             }
             return listOfReservations;
@@ -211,5 +214,31 @@ public class DBControllerRW extends DBController {
         return null;
     }
 
+
+
+    public static LinkedList<Entry> getEntriesforRoom(String WKPID, Connection conn){
+        LinkedList<Entry> list = new LinkedList<Entry>();
+        try {
+
+            PreparedStatement ps2 = conn.prepareStatement("SELECT ROOMNAME from WORKPLACES where WKPLACEID = ?");
+            ps2.setString(1,WKPID);
+            ResultSet rs2 = ps2.executeQuery();
+            rs2.next();
+            String title = rs2.getString(1);
+            PreparedStatement ps = conn.prepareStatement("SELECT * from RESERVATIONS where WKPLACEID = ?");
+            ps.setString(1,WKPID);
+            ResultSet rs = ps.executeQuery();
+
+            while(rs.next()){
+                Entry e = new Entry(rs.getString("RSVID"), new Interval(rs.getDate("DAY").toLocalDate(),rs.getTime("STARTTIME").toLocalTime(),rs.getDate("DAY").toLocalDate(),rs.getTime("ENDTIME").toLocalTime()));
+                e.setTitle(title);
+                list.add(e);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return null;
+        }
+        return list;
+    }
 
 }

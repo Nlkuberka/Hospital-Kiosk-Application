@@ -21,12 +21,12 @@
 
 <StackPane minHeight="720.0" minWidth="1280.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="servicerequests.UIControllerSRAVE">
    <children>
-            <ImageView fx:id="backgroundImage" fitWidth="900.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="backgroundImage" pickOnBounds="true" preserveRatio="true">
                 <image>
                     <Image url="@../images/Hospitalbackground.png" />
                 </image>
             </ImageView>
-            <BorderPane>
+            <BorderPane minHeight="720.0">
                 <top>
                     <MenuBar blendMode="ADD" prefWidth="600.0" style="-fx-background-color: white;" stylesheets="@../css/background.css" BorderPane.alignment="CENTER">
                         <menus>
@@ -64,8 +64,6 @@
                   <RowConstraints maxHeight="176.0" minHeight="10.0" prefHeight="63.0" vgrow="SOMETIMES" />
                   <RowConstraints maxHeight="176.0" minHeight="10.0" prefHeight="38.0" vgrow="SOMETIMES" />
                   <RowConstraints maxHeight="206.0" minHeight="158.0" percentHeight="20.0" prefHeight="168.0" />
-                  <RowConstraints maxHeight="61.0" minHeight="10.0" prefHeight="59.0" vgrow="SOMETIMES" />
-                  <RowConstraints maxHeight="53.0" minHeight="10.0" prefHeight="52.0" vgrow="SOMETIMES" />
                </rowConstraints>
                <children>
                   <JFXButton contentDisplay="CENTER" onAction="#setCancelButton" styleClass="jfx-button-cancel" stylesheets="@../css/background.css" text=" " GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="11">

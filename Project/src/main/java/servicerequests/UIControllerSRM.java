@@ -31,7 +31,7 @@ public class UIControllerSRM extends UIController {
     private JFXButton baseButton;
 
     @FXML
-    private Menu Home;
+    private Menu Back;
 
     @FXML
     private MenuItem  HOME;

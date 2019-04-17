@@ -72,5 +72,6 @@ public class UIControllerRVMM extends UIController {
         this.goToScene(UIController.USER_MAIN_MENU_MAIN);
     }
 
-
+    @FXML
+    private void setCalendarView() { this.goToScene(UIController.RESERVATIONS_CALENDAR_VIEW); }
 }
