@@ -16,8 +16,6 @@ import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.SubScene;
 import javafx.scene.control.Tab;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
@@ -27,7 +25,6 @@ import java.sql.Connection;
 
 import com.jfoenix.controls.JFXButton;
 import javafx.scene.Scene;
-import javafx.scene.shape.Circle;
 import javafx.scene.shape.Path;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -107,7 +104,6 @@ public class UIControllerPFM extends UIController {
                             gesturePaneHandler.newAnimation(currentObjects);
                         }
                         currentObjects.clearContextMenu();
-                        currentObjects.clearLables();
                     }
                 }
         );
@@ -205,7 +201,7 @@ public class UIControllerPFM extends UIController {
 
         currentObjects.clearContextMenu();
         currentObjects.cancel();
-        currentObjects.clearLables();
+        currentObjects.clearLabels();
 
         initialLocationCombo.getSelectionModel().clearSelection();
         destinationCombo.getSelectionModel().clearSelection();
