@@ -210,15 +210,15 @@ public class UIControllerRVM extends UIController {
         }
         colorShift = !colorShift;
 
-        if (!checkValidReservation()) {
+        if (!checkValidReservation(datePicker, startTimePicker, endTimePicker)) {
             return;
         }
         colorAllGreen();
 
-                if (checkValidReservation()) {
+                if (checkValidReservation(datePicker, startTimePicker, endTimePicker)) {
                     for (int i = 0; i < workplaceSelect.getItems().size(); i++) {
 //                        if (workplaceIDs.get(workplaceSelect.getValue()).equals(roomToShape.get(shapes.get(i)))) {
-                            if (!DBControllerRW.isRoomAvailableString(IDs.get(i), getDateString(),
+                            if (!DBControllerRW.isRoomAvailableString(IDs.get(i), getDateString(datePicker),
                                     getTimeString(startTimePicker), getTimeString(endTimePicker), connection)) {
                                 System.out.println(workplaceSelect.getItems().get(i) + "is reserved at this time");
 //                                shapes.get(i).setFill(javafx.scene.paint.Color.RED);
@@ -239,12 +239,12 @@ public class UIControllerRVM extends UIController {
      */
     @FXML
     private void setConfirmButton() {
-        if (!checkValidReservation()) {
+        if (!checkValidReservation(datePicker, startTimePicker, endTimePicker)) {
             popupMessage("Invalid Reservation", true);
             return;
         }
 
-        String dateString = getDateString();
+        String dateString = getDateString(datePicker);
 
         // If endTime before startTime return
 
@@ -277,8 +277,8 @@ public class UIControllerRVM extends UIController {
      *
      * @return Whether the reservation input is valid
      */
-    private boolean checkValidReservation() {
-        LocalDate ld = datePicker.getValue();
+    public static boolean checkValidReservation(DatePicker picker, JFXTimePicker startPicker, JFXTimePicker endPicker) {
+        LocalDate ld = picker.getValue();
         Instant instant = Instant.from(ld.atStartOfDay(ZoneId.systemDefault()));
         Date date = Date.from(instant);
 
@@ -288,8 +288,8 @@ public class UIControllerRVM extends UIController {
             return false;
         }
 
-        LocalTime startTime = startTimePicker.getValue();
-        LocalTime endTime = endTimePicker.getValue();
+        LocalTime startTime = startPicker.getValue();
+        LocalTime endTime = endPicker.getValue();
         if (endTime.compareTo(startTime) <= 0) {
             return false;
         }
@@ -301,8 +301,8 @@ public class UIControllerRVM extends UIController {
      *
      * @return The string from the datePicker
      */
-    private String getDateString() {
-        LocalDate ld = datePicker.getValue();
+    public static String getDateString(DatePicker picker) {
+        LocalDate ld = picker.getValue();
         Instant instant = Instant.from(ld.atStartOfDay(ZoneId.systemDefault()));
         Date date = Date.from(instant);
 
@@ -317,7 +317,7 @@ public class UIControllerRVM extends UIController {
      * @param timePicker The JFXTimePicker to get the timeString from
      * @return The timeString
      */
-    private String getTimeString(JFXTimePicker timePicker) {
+    public static String getTimeString(JFXTimePicker timePicker) {
         LocalTime localTime = timePicker.getValue();
         String timeString = localTime.toString();
         if (timeString.length() > 8) {

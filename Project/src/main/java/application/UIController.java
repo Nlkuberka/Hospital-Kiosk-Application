@@ -332,7 +332,7 @@ public class UIController {
 
         stage.setTitle("Warning");
         stage.setScene(scene);
-        stage.showAndWait();
+        stage.show();
         stage.setAlwaysOnTop(true);
 
 

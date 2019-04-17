@@ -1,23 +1,31 @@
 package admintools;
 
 import application.CurrentUser;
+import com.jfoenix.controls.JFXDatePicker;
+import com.jfoenix.controls.JFXTimePicker;
 import database.DBController;
 import application.UIController;
 import com.jfoenix.controls.JFXButton;
 import database.DBControllerRW;
 import entities.Reservation;
 import entities.User;
+import helper.ReservationTableHelper;
 import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
+import reservations.UIControllerRVM;
+import reservations.UIControllerRVMM;
 
+import java.awt.dnd.DnDConstants;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Time;
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.List;
 
 /**
@@ -28,8 +36,8 @@ import java.util.List;
  */
 public class UIControllerATER extends UIController {
     private static final int[] lengthRequirements = {-1, 10, 10, 10, 8, 8};
-    private static final String[] reservationSetters  = {"setNodeID", "setUserID", "setDate", "setStartTime", "setEndTime", ""};
-    private static final String[] reservationGetters  = {"getRsvID", "getNodeID", "getUserID", "getDate", "getStartTime", "getEndTime"};
+    private static final String[] reservationSetters  = {"", "setWkplaceID", "setUserID", "setDate", "setStartTime", "setEndTime"};
+    private static final String[] reservationGetters  = {"getRsvID", "getWkplaceID", "getUserID", "getDate", "getStartTime", "getEndTime"};
     @FXML
     private ImageView backgroundImage;
     /**< The Various Reservation Columns used for cell factories */
@@ -50,107 +58,17 @@ public class UIControllerATER extends UIController {
     public void initialize() {
         backgroundImage.fitWidthProperty().bind(primaryStage.widthProperty());
 
-        List<TableColumn<Reservation, ?>> tableColumns = reservationTable.getColumns();
         // Initialize the cell factories of the reservation field columns
 
-        TableColumn<Reservation, Reservation> rsvIDColumn = (TableColumn<Reservation, Reservation>) tableColumns.get(0);
-        rsvIDColumn.setCellValueFactory(param -> new ReadOnlyObjectWrapper<>(param.getValue()));
-        rsvIDColumn.setCellFactory(param -> new TableCell<Reservation, Reservation>() {
-            private Label label = new Label();
-            private int index = 0; //RSVID is last field in Reservation
-
-            @Override
-            protected  void updateItem(Reservation reservation, boolean empty) {
-                super.updateItem(reservation, empty);
-                runStringGetter(reservation, reservationGetters[index], label);
-                setGraphic(label);
-            }
-        });
-
-        for(int i = 1; i < tableColumns.size() - 1; i++) {
-            int indexOut = i;
-            TableColumn<Reservation, Reservation> column = (TableColumn<Reservation, Reservation>) tableColumns.get(i);
-            column.setCellValueFactory(param -> new ReadOnlyObjectWrapper<>(param.getValue()));
-            column.setCellFactory(param -> new EditableTextCell<Reservation, Reservation
-                    >(column, indexOut) {
-
-                // When the Reservation is updated on the textfield
-                @Override
-                protected void updateItem(Reservation reservation, boolean empty) {
-                    super.updateItem(reservation, empty);
-
-                    // Get the starting text of the label and textField
-                    runStringGetterEditable(reservation, reservationGetters[index], label, textField);
-
-
-                    // When an edit is committed with enter
-                    textField.setOnAction(et -> {
-
-                        // See if input is a valid date
-                        if(index ==3) {
-                            try {
-                                //Date date = new SimpleDateFormat("yyyy-MM-dd").parse(textField.getText());
-                                runSetter(reservation, reservationSetters[index], String.class, textField.getText());
-                            } catch(Exception e) {
-                                setGraphic(label);
-                                textField.setText(label.getText());
-                                return;
-                            }
-                        }
-
-                        // See if input is a valid time
-                        if(index == 4 | index == 5) {
-                            try {
-                                Time time = Time.valueOf(textField.getText());
-                                runSetter(reservation, reservationSetters[index], String.class, textField.getText());
-                            } catch(Exception e) {
-                                setGraphic(label);
-                                textField.setText(label.getText());
-                                return;
-                            }
-                        }
-
-                        try{
-                            Connection conn = DBController.dbConnect();
-                            System.out.println(reservation.getRsvID());
-                            DBControllerRW.updateReservation(reservation, conn);
-                            conn.close();
-                        }catch(SQLException e){
-                            e.printStackTrace();
-                        }
-                        setGraphic(label);
-                        label.setText(textField.getText());
-                    });
-                }
-            });
-        }
-        // Initialize cell factories of the remove rsv column
-        TableColumn<Reservation, Reservation> removeColumn = (TableColumn<Reservation, Reservation>) tableColumns.get(tableColumns.size() - 1);
-        removeColumn.setCellValueFactory(param -> new ReadOnlyObjectWrapper<>(param.getValue()));
-        removeColumn.setCellFactory(param -> new TableCell<Reservation, Reservation>() {
-            private JFXButton removeButton = new JFXButton("Cancel");
-
-            @Override
-            protected void updateItem(Reservation reservation, boolean empty) {
-                super.updateItem(reservation, empty);
-                if(reservation == null) {
-                    return;
-                }
-                setGraphic(removeButton);
-                removeButton.setOnAction( e -> {
-                            try {
-                                Connection conn = DBController.dbConnect();
-                                DBControllerRW.deleteReservation(reservation.getRsvID(), conn);
-                                conn.close();
-                            }catch(SQLException e1){
-                                e1.printStackTrace();
-                            }
-                            getTableView().getItems().remove(reservation);
-                        }
-                );
-            }
-
-        });
+        ObservableList<TableColumn<Reservation, ?>> tableColumns = reservationTable.getColumns();
+        new ReservationTableHelper(reservationTable,
+            (TableColumn<Reservation, Reservation>) tableColumns.get(0),
+            (TableColumn<Reservation, Reservation>) tableColumns.get(1),
+            (TableColumn<Reservation, Reservation>) tableColumns.get(2),
+            (TableColumn<Reservation, Reservation>) tableColumns.get(3),
+            (TableColumn<Reservation, Reservation>) tableColumns.get(4),
+            (TableColumn<Reservation, Reservation>) tableColumns.get(5),
+            (TableColumn<Reservation, Reservation>) tableColumns.get(6));
 
     }
 
@@ -163,27 +81,15 @@ public class UIControllerATER extends UIController {
         //DB get Nodes
         Connection conn = DBController.dbConnect();
         ObservableList<Reservation> rsvData = FXCollections.observableArrayList();
-        if(CurrentUser.user.getPermissions() == User.BASIC_PERMISSIONS) {
-            try {
-                ResultSet rs = conn.createStatement().executeQuery("Select * from RESERVATIONS WHERE USERID = '" + CurrentUser.user.getUserID() + "'");
-                while (rs.next()) {
-                    rsvData.add(new Reservation(rs.getString(2), rs.getString(3), rs.getString(4),
-                            rs.getString(5), rs.getString(6), rs.getInt(1)));
-                }
-            } catch (SQLException e) {
-                e.printStackTrace();
+
+        try {
+            ResultSet rs = conn.createStatement().executeQuery("Select * from RESERVATIONS WHERE 1=1");
+            while (rs.next()) {
+                rsvData.add(new Reservation(rs.getString(2), rs.getString(3), rs.getString(4),
+                        rs.getString(5), rs.getString(6), rs.getInt(1)));
             }
-        }
-        else if (CurrentUser.user.getPermissions() == User.ADMIN_PERMISSIONS) {
-            try {
-                ResultSet rs = conn.createStatement().executeQuery("Select * from RESERVATIONS");
-                while (rs.next()) {
-                    rsvData.add(new Reservation(rs.getString(2), rs.getString(3), rs.getString(4),
-                            rs.getString(5), rs.getString(6), rs.getInt(1)));
-                }
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
         reservationTable.setItems(rsvData);
     }
