@@ -1,10 +1,11 @@
 package servicerequests;
 
 import application.CurrentUser;
-import com.jfoenix.controls.JFXComboBox;
+import com.jfoenix.controls.JFXTextField;
 import database.DBController;
 import application.UIController;
 import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextArea;
 import database.DBControllerNE;
 import database.DBControllerSR;
@@ -32,11 +33,13 @@ public class UIControllerSRFD extends UIController {
     String flowerDelivery;
     private RoomCategoryFilterHelper filterHelper;
 
-    @FXML
-    private JFXComboBox<String> roomSelect;
+    @FXML private JFXComboBox<String> roomSelect;
 
     @FXML
     private JFXTextArea serviceMessage1;
+
+    @FXML
+    private JFXTextField phoneNum;
 
     @FXML
     private JFXButton confirmButton; /**< The confirm button*/
@@ -70,8 +73,9 @@ public class UIControllerSRFD extends UIController {
         String roomShortName = (String) roomSelect.getValue();
         String nodeID = filterHelper.getNodeID();
         String message = serviceMessage1.getText();
+        String phoneNumber = phoneNum.getText();
 
-        ServiceRequest sr = new ServiceRequest(nodeID, flowerDelivery, message + costLabel.getText(), CurrentUser.user.getUserID(), false, null);
+        ServiceRequest sr = new ServiceRequest(nodeID, flowerDelivery, phoneNumber + message + costLabel.getText(), CurrentUser.user.getUserID(), false, null);
         System.out.println(sr.toString());
         Connection conn = DBControllerSR.dbConnect();
         DBControllerSR.addServiceRequest(sr,conn);

@@ -263,9 +263,10 @@ public class UIControllerATMV extends UIController {
             });
 
             circle.setOnMouseDragged(mouseEvent -> {
-                circle.setLayoutX(mouseEvent.getSceneX() + mouseX);
-                circle.setLayoutY(mouseEvent.getSceneY() + mouseY);
+                circle.setLayoutX((mouseEvent.getSceneX() + mouseX) / firstFloorGesturePane.getCurrentScale());
+                circle.setLayoutY((mouseEvent.getSceneY() + mouseY) / firstFloorGesturePane.getCurrentScale());
                 circle.setCursor(Cursor.MOVE);
+                gesturePaneHandler.setPaning(false);
             });
 
             circle.setOnMouseReleased(mouseEvent -> {
@@ -275,6 +276,7 @@ public class UIControllerATMV extends UIController {
                 assert conn != null;
                 DBControllerNE.updateNode(tempNode, conn);
                 DBController.closeConnection(conn);
+                gesturePaneHandler.setPaning(true);
                 set();
             });
             nodesGroup.getChildren().add(circle);
@@ -403,6 +405,8 @@ public class UIControllerATMV extends UIController {
         tempNode.setYcoord((int) (mouseEvent.getY()));
         tempNode.setFloor(tabs.getSelectionModel().getSelectedItem().getId()); //TODO Make Auto Once Add MultiFloor Functionality
         enableAddAndEditPopup(tempNode, "ADD");
+        set();
+        showAddedNode(tempNode);
     }
 
     void editNode(Node node) throws IOException {
@@ -460,7 +464,6 @@ public class UIControllerATMV extends UIController {
         stage.setResizable(false);
         stage.centerOnScreen();
         stage.setAlwaysOnTop(true);
-
         stage.show();
     }
 
