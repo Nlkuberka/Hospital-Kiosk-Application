@@ -180,7 +180,7 @@ public class UIControllerATMV extends UIController {
             allEdges = DBControllerNE.generateListofEdges(conn);
         }
 
-        DBControllerNE.closeConnection(conn);
+        DBController.closeConnection(conn);
         setCurrentEdges();
     }
 
@@ -231,14 +231,21 @@ public class UIControllerATMV extends UIController {
 
             circle.setOnMousePressed(mouseEvent -> {
                 if (previousNodeID != null) {
-                    if (isAddingEdge) {
-                        addEdge(previousNodeID, tempNode.getNodeID());
-                        Connection conn = DBController.dbConnect();
-                        currentFloorEdges.add(DBControllerNE.fetchEdge(previousNodeID + "_" + tempNode.getNodeID(), conn));
-                        DBController.closeConnection(conn);
-                    } else {
-                        deleteEdge(previousNodeID, tempNode.getNodeID());
-                        currentFloorEdges.remove(getEdgeFrom(currentFloorEdges, previousNodeID, tempNode.getNodeID()));
+                    if(previousNodeID.equals(tempNode.getNodeID()))
+                    {
+                        popupMessage("Not Valid: Same Node", true);
+                    }
+                    else
+                    {
+                        if (isAddingEdge) {
+                            addEdge(previousNodeID, tempNode.getNodeID());
+                            Connection conn = DBController.dbConnect();
+                            currentFloorEdges.add(DBControllerNE.fetchEdge(previousNodeID + "_" + tempNode.getNodeID(), conn));
+                            DBController.closeConnection(conn);
+                        } else {
+                            deleteEdge(previousNodeID, tempNode.getNodeID());
+                            currentFloorEdges.remove(getEdgeFrom(currentFloorEdges, previousNodeID, tempNode.getNodeID()));
+                        }
                     }
                     previousNodeID = null;
                     draw();
@@ -377,7 +384,7 @@ public class UIControllerATMV extends UIController {
 
     @FXML
     public void goBack(ActionEvent actionEvent) {
-        this.goToScene(UIController.LOGIN_MAIN);
+        goToScene(UIController.LOGIN_MAIN);
     }
 
     /**
@@ -429,23 +436,23 @@ public class UIControllerATMV extends UIController {
     }
 
     void deleteNode(Node node) {
-        Connection conn = DBControllerNE.dbConnect();
+        Connection conn = DBController.dbConnect();
         DBControllerNE.deleteNode(node.getNodeID(), conn);
-        DBControllerNE.closeConnection(conn);
+        DBController.closeConnection(conn);
         set();
     }
 
     private void addEdge(String node1ID, String node2ID) {
-        Connection conn = DBControllerNE.dbConnect();
+        Connection conn = DBController.dbConnect();
         Edge newEdge = new Edge(null, node1ID, node2ID);
         DBControllerNE.addEdge(newEdge, conn);
-        DBControllerNE.closeConnection(conn);
+        DBController.closeConnection(conn);
     }
 
     private void deleteEdge(String nodeID1, String nodeID2) {
-        Connection conn = DBControllerNE.dbConnect();
+        Connection conn = DBController.dbConnect();
         DBControllerNE.deleteEdge(nodeID1, nodeID2, conn);
-        DBControllerNE.closeConnection(conn);
+        DBController.closeConnection(conn);
     }
 
     void setKiosk(Node node) {
@@ -475,7 +482,7 @@ public class UIControllerATMV extends UIController {
         stage.setWidth(400);
         stage.setResizable(false);
         stage.centerOnScreen();
-        stage.showAndWait();
+        stage.show();
     }
 
     private void enableChoicePopup(Node node) throws IOException {
@@ -483,6 +490,7 @@ public class UIControllerATMV extends UIController {
         Parent root = loader.load();
         UIControllerPUMVNO uiControllerPUMVNO = loader.getController();
         uiControllerPUMVNO.setUiControllerATMV(this, node);
+
         setStage(root);
     }
 
