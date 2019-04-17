@@ -65,6 +65,7 @@ public class UIControllerPFM extends UIController {
     static final Duration DURATION = Duration.millis(300);
     @FXML private Path pathLL2, pathLL1, pathG, path1, path2, path3;
     @FXML private JFXTabPane mapTabPane;
+    @FXML private JFXButton aboutButton;
 
     public enum Floors {
         LL2("Lower Level 2", "L2", 0), LL1("Lower Level 1", "L1", 1),
@@ -682,6 +683,11 @@ public class UIControllerPFM extends UIController {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    @FXML
+    private void setAboutButton(){
+        this.goToScene(UIController.ABOUT_PAGE);
     }
 }
 

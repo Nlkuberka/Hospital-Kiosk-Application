@@ -37,6 +37,7 @@ public class UIController {
     public static final String GUEST_MAIN_MENU_MAIN = "GMMM";
     public static final String USER_MAIN_MENU_MAIN = "UMMM";
     public static final String ADMIN_MAIN_MENU_MAIN = "AMMM";
+    public static final String ABOUT_PAGE= "AP";
 
     public static final String PATHFINDING_MAIN = "PFM";
 
@@ -131,6 +132,8 @@ public class UIController {
         sceneFiles.put(UIController.WELCOME_MAIN, "/application/welcome_main.fxml");
         sceneTitles.put(UIController.WELCOME_MAIN, "Welcome Screen");
 
+        sceneFiles.put(UIController.ABOUT_PAGE, "/application/about_page.fxml");
+        sceneTitles.put(UIController.ABOUT_PAGE, "About Page");
         // Main Menus
         sceneFiles.put(UIController.GUEST_MAIN_MENU_MAIN, "/guest_main_menu_main.fxml");
         sceneTitles.put(UIController.GUEST_MAIN_MENU_MAIN, "Main Menu");
@@ -164,6 +167,8 @@ public class UIController {
 
         sceneFiles.put(UIController.ADMIN_TOOLS_EDIT_RESERVATIONS, "/admintools/admin_tools_edit_reservations.fxml");
         sceneTitles.put(UIController.ADMIN_TOOLS_EDIT_RESERVATIONS, "Admin Tools - Edit Reservation");
+
+
 
 
         // Service Request
