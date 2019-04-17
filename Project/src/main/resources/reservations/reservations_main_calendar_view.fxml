@@ -29,7 +29,7 @@
                 </MenuBar>
             </top>
          <center>
-            <DayPage fx:id="day" maxHeight="600.0" maxWidth="1000.0" minHeight="200.0" minWidth="300.0" pickOnBounds="true" BorderPane.alignment="TOP_CENTER" />
+            <DayPage fx:id="day" maxHeight="900.0" maxWidth="1200.0" minHeight="200.0" minWidth="300.0" pickOnBounds="true" BorderPane.alignment="TOP_LEFT" />
          </center>
         </BorderPane>
     </children>

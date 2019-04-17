@@ -4,6 +4,7 @@ import application.UIController;
 import com.calendarfx.model.CalendarSource;
 import com.calendarfx.model.Entry;
 import com.calendarfx.model.Interval;
+import com.calendarfx.view.CalendarView;
 import com.calendarfx.view.DayView;
 import com.calendarfx.view.page.DayPage;
 import database.DBController;
@@ -66,13 +67,14 @@ public class UIControllerRVCV extends UIController {
             day.setToday(LocalDate.now());
             day.setTime(LocalTime.now());
         });
-
+        CL001.addEntry(new Entry<>("Hello",new Interval(LocalDate.of(2019,04,19),LocalTime.of(11,00,00),LocalDate.of(2019,04,19),LocalTime.of(18,00,00))));
         System.out.println(CL001);
 
 
-
-
-       day.setCalendarVisibility(CL001,true);
+        CalendarView cv = new CalendarView();
+        cv.getCalendarSources().addAll(workplaceCal);
+        //cv.setRequestedTime(LocalTime.now());
+        day = cv.getDayPage();
     }
 
     /**
