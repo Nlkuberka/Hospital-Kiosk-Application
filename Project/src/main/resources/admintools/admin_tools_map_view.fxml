@@ -18,9 +18,9 @@
 <?import javafx.scene.text.Font?>
 <StackPane fx:id="parentPane" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="admintools.UIControllerATMV">
     <ImageView fx:id="backgroundImage" pickOnBounds="true">
-        <Image url="@../images/Hospitalbackground.png" />
+        <Image url="@../images/Hospitalbackground.png"/>
         <effect>
-            <ColorAdjust brightness="0.41" />
+            <ColorAdjust brightness="0.41"/>
         </effect>
     </ImageView>
    <BorderPane prefHeight="200.0" prefWidth="200.0">

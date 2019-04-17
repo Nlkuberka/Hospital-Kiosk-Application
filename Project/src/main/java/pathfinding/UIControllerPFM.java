@@ -1,6 +1,8 @@
 package pathfinding;
 
+import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTabPane;
+import com.jfoenix.controls.JFXTextField;
 import database.DBController;
 import application.UIController;
 import application.UIControllerPUD;
@@ -17,7 +19,9 @@ import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 
+import java.beans.EventHandler;
 import java.io.IOException;
+import java.lang.reflect.Field;
 import java.sql.Connection;
 
 import com.jfoenix.controls.JFXButton;
@@ -42,6 +46,7 @@ public class UIControllerPFM extends UIController {
 
     @FXML private Path pathLL2, pathLL1, pathG, path1, path2, path3;
     @FXML private JFXTabPane mapTabPane;
+    @FXML private JFXButton aboutButton;
 
     @FXML
     public ChoiceBox<String> initialLocationSelect;
@@ -135,17 +140,35 @@ public class UIControllerPFM extends UIController {
 
         DBControllerNE.closeConnection(conn);
 
-        initialLocationSelect.getItems().clear();
-        destinationSelect.getItems().clear();
+        /*initialFilterHelper = new RoomCategoryFilterHelper(initialLocationCategorySelect, initialLocationSelect, param -> {
+            if (initialLocationSelect.getValue() == null)
+                return;
 
-        for (LinkedList<Node> list : roomsAtEachFloor) {
-            for (Node node : list) {
-                // update choices for initial location
-                initialLocationSelect.getItems().add(node.getLongName());
-                // update choices for destination location
-                destinationSelect.getItems().addAll(node.getLongName());
-            }
-        }
+            initialID = initialFilterHelper.getNodeID();
+
+            this.currentInitCircle = circleFromName.get(initialLocationSelect.getValue());
+            getPath();
+        }, true);*/
+        destiationFilterHelper = new RoomCategoryFilterHelper(destinationCombo, param -> {
+            if (destiationFilterHelper.getLongName() == null)
+                return;
+
+            destID = destiationFilterHelper.getNodeID();
+
+            this.currentDestCircle = circleFromName.get(destiationFilterHelper.getLongName());
+
+            // call getPath if not null
+            getPath();
+        }, true);
+        initialFilterHelper = new RoomCategoryFilterHelper(initialLocationCombo, param -> {
+            if (initialFilterHelper.getLongName() == null)
+                return;
+
+            initialID = initialFilterHelper.getNodeID();
+
+            this.currentInitCircle = circleFromName.get(initialFilterHelper.getLongName());
+            getPath();
+        }, true);
 
         anchorPaneHandler.initCircles(roomsAtEachFloor, initialLocationSelect, destinationSelect);
 
@@ -206,7 +229,6 @@ public class UIControllerPFM extends UIController {
         getPath();
     }
 
-
     /**
      * Callback for cancel. Clears path, animation, node selection and drop down menus
      * @param actionEvent
@@ -218,8 +240,8 @@ public class UIControllerPFM extends UIController {
 
         currentObjects.cancel();
 
-        initialLocationSelect.getSelectionModel().clearSelection();
-        destinationSelect.getSelectionModel().clearSelection();
+        initialLocationCombo.getSelectionModel().clearSelection();
+        destinationCombo.getSelectionModel().clearSelection();
     }
 
     /**
@@ -324,6 +346,28 @@ public class UIControllerPFM extends UIController {
     @FXML
     private void setServiceRequestButton() {
         this.goToScene(UIController.SERVICE_REQUEST_MAIN);
+    }
+
+    private static void hackTooltipStartTiming(Tooltip tooltip) {
+        try {
+            Field fieldBehavior = tooltip.getClass().getDeclaredField("BEHAVIOR");
+            fieldBehavior.setAccessible(true);
+            Object objBehavior = fieldBehavior.get(tooltip);
+
+            Field fieldTimer = objBehavior.getClass().getDeclaredField("activationTimer");
+            fieldTimer.setAccessible(true);
+            Timeline objTimer = (Timeline) fieldTimer.get(objBehavior);
+
+            objTimer.getKeyFrames().clear();
+            objTimer.getKeyFrames().add(new KeyFrame(new Duration(0)));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
+    private void setAboutButton(){
+        this.goToScene(UIController.ABOUT_PAGE);
     }
 }
 

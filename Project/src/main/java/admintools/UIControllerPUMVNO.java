@@ -3,31 +3,11 @@ package admintools;
 import application.UIController;
 import com.jfoenix.controls.JFXButton;
 import entities.Node;
-import javafx.animation.KeyFrame;
-import javafx.animation.KeyValue;
-import javafx.animation.PathTransition;
-import javafx.animation.Timeline;
 import javafx.fxml.FXML;
-import javafx.geometry.Bounds;
-import javafx.scene.Group;
-import javafx.scene.Scene;
-import javafx.scene.effect.BlendMode;
-import javafx.scene.effect.BoxBlur;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.StackPane;
-import javafx.scene.paint.Color;
-import javafx.scene.paint.CycleMethod;
-import javafx.scene.paint.LinearGradient;
-import javafx.scene.paint.Stop;
-import javafx.scene.shape.*;
-import javafx.scene.shape.Rectangle;
-import javafx.stage.Window;
-import javafx.util.Duration;
 
-import java.awt.*;
 import java.io.IOException;
-
-import static java.lang.Math.random;
 
 public class UIControllerPUMVNO extends UIController {
     public JFXButton button_cancel;
@@ -39,7 +19,7 @@ public class UIControllerPUMVNO extends UIController {
     public StackPane parentPane;
     private UIControllerATMV uiControllerATMV;
     private Node node;
-    
+
     @FXML
     void closeWindow(MouseEvent mouseEvent) {
         parentPane.getScene().getWindow().hide();
@@ -65,6 +45,7 @@ public class UIControllerPUMVNO extends UIController {
     private void addEdge(MouseEvent mouseEvent) throws IOException {
         closeWindow();
         uiControllerATMV.isAddingEdge = true;
+        uiControllerATMV.showAddedNode(node);
         uiControllerATMV.previousNodeID = node.getNodeID();
     }
 
@@ -78,6 +59,7 @@ public class UIControllerPUMVNO extends UIController {
     private void deleteEdge(MouseEvent mouseEvent) throws IOException {
         closeWindow();
         uiControllerATMV.isAddingEdge = false;
+        uiControllerATMV.showAddedNode(node);
         uiControllerATMV.previousNodeID = node.getNodeID();
     }
 

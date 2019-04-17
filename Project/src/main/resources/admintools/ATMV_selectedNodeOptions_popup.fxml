@@ -2,31 +2,92 @@
 
 <?import com.jfoenix.controls.JFXButton?>
 <?import javafx.geometry.Insets?>
+<?import javafx.geometry.Rectangle2D?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.StackPane?>
 
-<StackPane fx:id="parentPane" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: BLACK;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="admintools.UIControllerPUMVNO">
+<StackPane fx:id="parentPane" prefHeight="400.0" prefWidth="400.0" style="-fx-background-color: BLACK;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="admintools.UIControllerPUMVNO">
    <children>
+      <ImageView fitHeight="400.0" fitWidth="600.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/Hospitalbackground.png" />
+         </image>
+         <viewport>
+            <Rectangle2D height="400.0" width="400.0" />
+         </viewport>
+      </ImageView>
       <GridPane alignment="CENTER" prefHeight="0.0" prefWidth="600.0" StackPane.alignment="CENTER">
         <columnConstraints>
-          <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" percentWidth="33.3" prefWidth="100.0" />
-          <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" percentWidth="33.3" prefWidth="100.0" />
-            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" percentWidth="33.3" prefWidth="100.0" />
+          <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" percentWidth="50.0" prefWidth="100.0" />
+            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" percentWidth="50.0" prefWidth="100.0" />
             <ColumnConstraints />
         </columnConstraints>
         <rowConstraints>
+            <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="CENTER" vgrow="SOMETIMES" />
           <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="CENTER" vgrow="SOMETIMES" />
           <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="CENTER" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <JFXButton fx:id="button_cancel" onMouseClicked="#closeWindow" prefHeight="79.0" prefWidth="217.0" scaleX="1.5" scaleY="1.5" styleClass="jfx-button-add" stylesheets="@../css/background.css" text="Cancel" textAlignment="CENTER" GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
-            <JFXButton fx:id="button_editNode" onMouseClicked="#editNode" scaleX="1.5" scaleY="1.5" styleClass="jfx-button-add" stylesheets="@../css/background.css" text="Edit Node" textAlignment="CENTER" />
-            <JFXButton fx:id="button_setKioskLocation" layoutX="1.0" onMouseClicked="#setKiosk" prefHeight="37.0" prefWidth="181.0" scaleX="1.5" scaleY="1.5" styleClass="jfx-button-add" stylesheets="@../css/background.css" text="Set as Kiosk" textAlignment="CENTER" GridPane.columnIndex="2" />
-            <JFXButton fx:id="button_addEdge" onMouseClicked="#addEdge" prefHeight="72.0" prefWidth="227.0" scaleX="1.5" scaleY="1.5" styleClass="jfx-button-add" stylesheets="@../css/background.css" text="Add Edge" textAlignment="CENTER" GridPane.rowIndex="1" />
-            <JFXButton fx:id="button_deleteNode" onMouseClicked="#deleteNode" scaleX="1.5" scaleY="1.5" styleClass="jfx-button-add" stylesheets="@../css/background.css" text="Delete Node" textAlignment="CENTER" GridPane.columnIndex="1" />
-            <JFXButton fx:id="button_deleteEdge" onMouseClicked="#deleteEdge" scaleX="1.5" scaleY="1.5" styleClass="jfx-button-add" stylesheets="@../css/background.css" text="Delete Edge" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <AnchorPane maxWidth="0.0" minHeight="390.0" minWidth="390.0" style="-fx-background-color: #ffffff;" GridPane.halignment="LEFT" GridPane.valignment="TOP">
+               <padding>
+                  <Insets left="5.0" top="5.0" />
+               </padding>
+               <GridPane.margin>
+                  <Insets left="5.0" top="5.0" />
+               </GridPane.margin></AnchorPane>
+            <JFXButton fx:id="button_cancel" alignment="CENTER" contentDisplay="TOP" graphicTextGap="0.0" onMouseClicked="#closeWindow" prefHeight="79.0" prefWidth="217.0" scaleX="1.5" scaleY="1.5" styleClass="jfx-button-add" stylesheets="@../css/background.css" text="Cancel" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="2">
+               <graphic>
+                  <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/close.png" />
+                     </image>
+                  </ImageView>
+               </graphic></JFXButton>
+            <JFXButton fx:id="button_editNode" alignment="CENTER" contentDisplay="TOP" graphicTextGap="0.0" onMouseClicked="#editNode" scaleX="1.5" scaleY="1.5" styleClass="jfx-button-add" stylesheets="@../css/background.css" text="Edit Node" textAlignment="CENTER" GridPane.rowIndex="1">
+               <graphic>
+                  <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/add-anchor.png" />
+                     </image>
+                  </ImageView>
+               </graphic></JFXButton>
+            <JFXButton fx:id="button_setKioskLocation" alignment="CENTER" contentDisplay="TOP" graphicTextGap="0.0" layoutX="1.0" onMouseClicked="#setKiosk" prefHeight="37.0" prefWidth="181.0" scaleX="1.5" scaleY="1.5" styleClass="jfx-button-add" stylesheets="@../css/background.css" text="Set as Kiosk" textAlignment="CENTER" GridPane.rowIndex="2">
+               <graphic>
+                  <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/location-pin.png" />
+                     </image>
+                  </ImageView>
+               </graphic></JFXButton>
+            <JFXButton fx:id="button_addEdge" alignment="CENTER" contentDisplay="TOP" graphicTextGap="0.0" onMouseClicked="#addEdge" prefHeight="72.0" prefWidth="227.0" scaleX="1.5" scaleY="1.5" styleClass="jfx-button-add" stylesheets="@../css/background.css" text="Add Edge" textAlignment="CENTER">
+               <graphic>
+                  <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/curvature.png" />
+                     </image>
+                  </ImageView>
+               </graphic></JFXButton>
+            <JFXButton fx:id="button_deleteNode" alignment="CENTER" contentDisplay="TOP" graphicTextGap="0.0" onMouseClicked="#deleteNode" scaleX="1.5" scaleY="1.5" styleClass="jfx-button-add" stylesheets="@../css/background.css" text="Delete Node" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.rowIndex="1">
+               <graphic>
+                  <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/delete-anchor.png" />
+                     </image>
+                  </ImageView>
+               </graphic></JFXButton>
+            <JFXButton fx:id="button_deleteEdge" contentDisplay="TOP" graphicTextGap="0.0" onMouseClicked="#deleteEdge" scaleX="1.5" scaleY="1.5" styleClass="jfx-button-add" stylesheets="@../css/background.css" text="Delete Edge" textAlignment="CENTER" GridPane.columnIndex="1">
+               <graphic>
+                  <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/curvature_cancel.png" />
+                     </image>
+                  </ImageView>
+               </graphic></JFXButton>
          </children>
          <StackPane.margin>
             <Insets />
