@@ -283,7 +283,7 @@ public class UIControllerATMV extends UIController {
                 DBControllerNE.updateNode(tempNode, conn);
                 DBController.closeConnection(conn);
                 gesturePaneHandler.setPaning(true);
-                draw();
+                set();
             });
             nodesGroup.getChildren().add(circle);
         }
