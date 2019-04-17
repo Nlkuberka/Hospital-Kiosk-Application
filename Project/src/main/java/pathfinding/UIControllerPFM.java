@@ -1,6 +1,8 @@
 package pathfinding;
 
+import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTabPane;
+import com.jfoenix.controls.JFXTextField;
 import database.DBController;
 import application.UIController;
 import application.UIControllerPUD;
@@ -8,7 +10,10 @@ import database.DBControllerNE;
 import entities.Graph;
 import entities.Node;
 
+import helper.RoomCategoryFilterHelper;
 import javafx.animation.Interpolator;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
@@ -19,11 +24,14 @@ import javafx.geometry.Point2D;
 import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseButton;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 
+import java.beans.EventHandler;
 import java.io.IOException;
+import java.lang.reflect.Field;
 import java.sql.Connection;
 
 import com.jfoenix.controls.JFXButton;
@@ -43,6 +51,8 @@ import java.util.List;
 import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
+import static application.CurrentUser.startingLocation;
 
 /**
  * Controller for the path_find_main.fxml file
@@ -151,20 +161,17 @@ public class UIControllerPFM extends UIController {
     private String initialID;
     private String destID;
 
-    @FXML
-    public ChoiceBox<String> initialLocationSelect;
-    @FXML
-    private ChoiceBox<String> destinationSelect;
+    @FXML private JFXComboBox<String> initialLocationCombo;
+    @FXML private JFXComboBox<String> destinationCombo;
+    private RoomCategoryFilterHelper initialFilterHelper;
+    private RoomCategoryFilterHelper destiationFilterHelper;
+
     @FXML
     private ImageView backgroundImage;
     @FXML
     private MenuItem backButton;
     @FXML
     private ScrollPane scrollPane_pathfind;
-    @FXML
-    private Button zoom_button;
-    @FXML
-    private Button unzoom_button;
     @FXML
     private JFXButton loginButton;
     @FXML
@@ -178,6 +185,15 @@ public class UIControllerPFM extends UIController {
     @FXML private GesturePane secondFloorGesturePane;
     @FXML private GesturePane thirdFloorGesturePane;
     private List<GesturePane> gesturePanes;
+
+    @FXML private AnchorPane lowerLevel2AnchorPane;
+    @FXML private AnchorPane lowerLevel1AnchorPane;
+    @FXML private AnchorPane groundFloorAnchorPane;
+    @FXML private AnchorPane firstFloorAnchorPane;
+    @FXML private AnchorPane secondFloorAnchorPane;
+    @FXML private AnchorPane thirdFloorAnchorPane;
+    private List<AnchorPane> anchorPanes;
+    private List<Group> groupsForNodes;
 
     private Group circleGroup = new Group();
     private Circle currentInitCircle;
@@ -194,24 +210,35 @@ public class UIControllerPFM extends UIController {
 
     private int currentFloorIndex = 0;
 
+    private PathTransition currentAnimation = null;
+    private Rectangle currentAnt = null;
+
+    private HashMap<String, Circle> circleFromName;
+
+    /**
+     * Initialize various componets, especially panes, tabs and mapHandler
+     */
     @FXML
     public void initialize() {
         backgroundImage.fitWidthProperty().bind(primaryStage.widthProperty());
 
-
         setupGesturePanes();
+        setupAnchorPanes();
 
-
-        // ensures new tab has same x,y on the map
+        // ensures new tab has same x,y on the map and path animation changes between floors
         mapTabPane.getSelectionModel().selectedItemProperty().addListener(
                 new ChangeListener<Tab>() {
                     @Override
                     public void changed(ObservableValue<? extends Tab> ov, Tab t, Tab t1) {
+                        clearPathTransition();
                         currentFloorIndex = Floors.getByName(t1.getText()).getIndex();
                         int indexOld = Floors.getByName(t.getText()).getIndex();
                         GesturePane pane = gesturePanes.get(currentFloorIndex);
                         GesturePane oldPane = gesturePanes.get(indexOld);
                         pane.centreOn(oldPane.targetPointAtViewportCentre());
+                        if (mapHandler.isActive()) {
+                            newAnimation(mapHandler.getPaths().get(currentFloorIndex), anchorPanes.get(currentFloorIndex));
+                        }
                     }
                 }
         );
@@ -220,8 +247,13 @@ public class UIControllerPFM extends UIController {
 
     }
 
+    /**
+     * Initialize choice boxes and setup circles as node indicators
+     */
     @Override
     public void onShow() {
+
+        // ~~~~~ init choice boxes
         Connection conn = DBControllerNE.dbConnect();
 
         LinkedList<LinkedList<Node>> roomsAtEachFloor = new LinkedList<>();
@@ -235,23 +267,89 @@ public class UIControllerPFM extends UIController {
 
         DBControllerNE.closeConnection(conn);
 
-        initialLocationSelect.getItems().clear();
-        destinationSelect.getItems().clear();
+        /*initialFilterHelper = new RoomCategoryFilterHelper(initialLocationCategorySelect, initialLocationSelect, param -> {
+            if (initialLocationSelect.getValue() == null)
+                return;
 
-        for (LinkedList<Node> list : roomsAtEachFloor) {
-            for (Node node : list) {
-                // update choices for initial location
-                initialLocationSelect.getItems().add(node.getLongName());
-                // update choices for destination location
-                destinationSelect.getItems().addAll(node.getLongName());
+            initialID = initialFilterHelper.getNodeID();
+
+            this.currentInitCircle = circleFromName.get(initialLocationSelect.getValue());
+            getPath();
+        }, true);*/
+        destiationFilterHelper = new RoomCategoryFilterHelper(destinationCombo, param -> {
+            if (destiationFilterHelper.getLongName() == null)
+                return;
+
+            destID = destiationFilterHelper.getNodeID();
+
+            this.currentDestCircle = circleFromName.get(destiationFilterHelper.getLongName());
+
+            // call getPath if not null
+            getPath();
+        }, true);
+        initialFilterHelper = new RoomCategoryFilterHelper(initialLocationCombo, param -> {
+            if (initialFilterHelper.getLongName() == null)
+                return;
+
+            initialID = initialFilterHelper.getNodeID();
+
+            this.currentInitCircle = circleFromName.get(initialFilterHelper.getLongName());
+            getPath();
+        }, true);
+
+        // ~~~~~~ init circles
+
+        this.circleFromName = new HashMap<>(); // map to get corresponding circles from longnames
+
+        // setup circles for nodes
+        for (int i = 0; i < this.groupsForNodes.size(); i++) {
+            Group group = this.groupsForNodes.get(i);
+
+            for (Node node : roomsAtEachFloor.get(i)) {
+                float x = (float) node.getXcoord();
+                float y = (float) node.getYcoord();
+
+                Circle circle = new Circle(x, y, 13);
+                circle.setId(node.getNodeID());
+                Tooltip tooltip = new Tooltip(node.getShortName());
+                hackTooltipStartTiming(tooltip);
+                Tooltip.install(circle, tooltip);
+
+                this.circleFromName.put(node.getLongName(), circle); // setup hashmap
+
+                circle.setOnMouseClicked(e -> {
+                    if ((initialLocationCombo.getValue() == null)) {
+                        currentInitCircle = circle;
+                        currentInitCircle.setFill(Color.GREEN);
+                        currentInitCircle.setRadius(16);
+                        initialLocationCombo.getSelectionModel().select(node.getLongName());
+                    } else if ((destinationCombo.getValue() == null)) {
+                        currentDestCircle = circle;
+                        currentDestCircle.setFill(Color.RED);
+                        currentDestCircle.setRadius(16);
+                        destinationCombo.getSelectionModel().select(node.getLongName());
+                    }
+                });
+
+                setUpDefaultStartingLocation(startingLocation);
+
+                group.getChildren().add(circle);
             }
+            group.setVisible(true);
         }
 
-
-
-        //drawNodes(roomsAtEachFloor.get(mapHandler.currentFloor.getIndex()));
     }
 
+//    void createMenuOnNode() {
+//        AnchorPane pane = anchorPanes.get(currentFloorIndex);
+//        Rectangle rectangle = new Rectangle();
+//    }
+
+    /**
+     * Sets up gesture panes. 1) adds gesture panes to list 2) sets minscale, maxscale and scroll-bar
+     * 3) applies zoom bindings 4) sets event handlers for zoom 4) sets initial zoom
+     *
+     */
     private void setupGesturePanes() {
         this.gesturePanes = new LinkedList<GesturePane>();
         gesturePanes.add(lowerLevel2GesturePane);
@@ -261,6 +359,7 @@ public class UIControllerPFM extends UIController {
         gesturePanes.add(secondFloorGesturePane);
         gesturePanes.add(thirdFloorGesturePane);
 
+        // setup properties
         for(int i = 0; i < this.gesturePanes.size(); i++) {
             GesturePane pane = this.gesturePanes.get(i);
             pane.setMaxScale(1.3);
@@ -269,6 +368,7 @@ public class UIControllerPFM extends UIController {
             pane.setHBarEnabled(true);
         }
 
+        // setup scale bindings
         for(int i = 0; i < this.gesturePanes.size()-1; i++) {
             GesturePane pane = this.gesturePanes.get(i);
             GesturePane next = this.gesturePanes.get(i+1);
@@ -294,59 +394,90 @@ public class UIControllerPFM extends UIController {
             });
         }
 
+        // zoom so that it looks good
         GesturePane pane = this.gesturePanes.get(currentFloorIndex);
         pane.zoomTo(0.3, pane.viewportCentre());
         pane.translateBy(new Dimension2D(500.0, 400.0));
     }
 
+    /**
+     * Setup anchor panes such that they are in a list and have groups for the node circles
+     */
+    private void setupAnchorPanes() {
+        this.anchorPanes = new LinkedList<AnchorPane>();
+        anchorPanes.add(lowerLevel2AnchorPane);
+        anchorPanes.add(lowerLevel1AnchorPane);
+        anchorPanes.add(groundFloorAnchorPane);
+        anchorPanes.add(firstFloorAnchorPane);
+        anchorPanes.add(secondFloorAnchorPane);
+        anchorPanes.add(thirdFloorAnchorPane);
 
-    @FXML
-    public void initLocChanged(ActionEvent actionEvent) {
-        if (!(pathTransition == null)) {
-            pathTransition.stop();
-//            mapHandler.getTopPane().getChildren().remove(pathTransition.getNode());
+        this.groupsForNodes = new LinkedList<>(); // add groups for circles
+        for (AnchorPane anchorPane : this.anchorPanes) {
+            Group group = new Group();
+            this.groupsForNodes.add(group);
+            anchorPane.getChildren().add(group);
         }
 
-        //System.out.println("Initial location selected: " + initialLocationSelect.getValue());
-        Connection connection = DBController.dbConnect();
-        initialID = DBController.IDfromLongName(initialLocationSelect.getValue(), connection);
-        DBController.closeConnection(connection);
-
-        focusNodes();
-
-        getPath();
-
-        pathAnimation();
     }
 
-    @FXML
-    public void destLocChanged(ActionEvent actionEvent) {
-//        if (!(pathTransition == null)) {
-//            pathTransition.stop();
-//            mapHandler.getTopPane().getChildren().remove(pathTransition.getNode());
-//        }
-
-        //System.out.println("Initial location: " + initialLocationSelect.getValue());
-        //System.out.println("Destination selected: " + destinationSelect.getValue());
-
-        Connection connection = DBController.dbConnect();
-        System.out.println(destinationSelect.getValue());
-        destID = DBController.IDfromLongName(destinationSelect.getValue(), connection);
-        DBController.closeConnection(connection);
-
-        focusNodes();
-
-        // call getPath if not null
-        getPath();
-
-        pathAnimation();
+    /**
+     * Allows for a default starting location
+     * @param longName Name of starting node
+     */
+    private void setUpDefaultStartingLocation(String longName){
+//        initialLocationSelect.setValue(longName);
     }
 
+    /**
+     * Clears currentAnimation and currentAnt attributes and removes ant from anchorPane
+     */
+    private void clearPathTransition() {
+        // remove animation
+        if (currentAnimation != null) {
+            currentAnimation.stop();
+            currentAnimation = null;
+        }
+
+        // remove ant
+        if (this.currentAnt != null) {
+            this.anchorPanes.get(currentFloorIndex).getChildren().removeAll(this.currentAnt);
+            this.currentAnt = null;
+        }
+    }
+
+    /**
+     * Callback for cancel. Clears path, animation, node selection and drop down menus
+     * @param actionEvent
+     */
     @FXML
     private void cancel(ActionEvent actionEvent) {
         mapHandler.cancel();
+        clearNodes();
+        clearTabColors();
+
+        initialID = null;
+        destID = null;
+
+        clearPathTransition();
+
+        initialLocationCombo.getSelectionModel().clearSelection();
+        destinationCombo.getSelectionModel().clearSelection();
     }
 
+    /**
+     * Clear style of currently selected circles
+     */
+    private void clearNodes() {
+        currentInitCircle.setFill(Color.BLACK);
+        currentInitCircle.setRadius(13);
+        currentDestCircle.setFill(Color.BLACK);
+        currentDestCircle.setRadius(13);
+    }
+
+    /**
+     * Handles the generation, display and animation of a new path
+     */
     private void getPath() {
 
         if(initialID == null || destID == null)
@@ -359,11 +490,14 @@ public class UIControllerPFM extends UIController {
         Node initialNode = DBControllerNE.fetchNode(initialID, connection);
         DBController.closeConnection(connection);
 
-        // update paths
-        mapHandler.displayNewPath(Graph.getGraph().separatePathByFloor(pathIDs), initialNode);
+        clearPathTransition(); // reset stuff
+        mapHandler.cancel(); // reset stuff
 
-        // change tab based on initial node
+        // change tab based on initial node -- order here is important! Do not move below.
         mapTabPane.getSelectionModel().select(Floors.getByID(initialNode.getFloor()).getIndex());
+
+        // update paths -- order here is important! Do not move above change tab.
+        mapHandler.displayNewPath(Graph.getGraph().separatePathByFloor(pathIDs), initialNode);
 
         // center on initial node
         List<Point2D> extremaMinMax = mapHandler.getPathExtremaOnInitFloor(); // get extrema
@@ -376,50 +510,76 @@ public class UIControllerPFM extends UIController {
         ySpan = map(ySpan, 0, 3400, pane.getMaxScale(), pane.getMinScale());
 
         Point2D center = new Point2D(centerX, centerY); // animate to that point
-        pane.animate(DURATION)
-                .interpolateWith(Interpolator.EASE_BOTH)
-                .zoomTo(ySpan / 2.0,  center);
-
-        pane.centreOn(center);
-
 //        pane.animate(DURATION)
 //                .interpolateWith(Interpolator.EASE_BOTH)
-//                .centreOn(center);
+//                .zoomTo(ySpan / 2.0,  center);
+
+//        pane.centreOn(center);
+
+        pane.animate(DURATION)
+                .interpolateWith(Interpolator.EASE_BOTH)
+                .centreOn(center);
+
+        List<Integer> floorsUsed = mapHandler.getFloorsUsed();
+        clearTabColors();
+        for (Integer floor : floorsUsed) {
+            this.mapTabPane.getTabs().get(floor).setStyle("-fx-background-color: #015080");
+        }
+
+        newAnimation(mapHandler.getPaths().get(currentFloorIndex), anchorPanes.get(currentFloorIndex));
 
     }
 
+    /**
+     * Linearly map a variable from one range to another
+     * @param x
+     * @param in_min
+     * @param in_max
+     * @param out_min
+     * @param out_max
+     * @return
+     */
     private double map(double x, double in_min, double in_max, double out_min, double out_max) {
         return (x - in_min) * (out_max - out_min) / (in_max - in_min) + out_min;
     }
 
+    /**
+     * Returns gesture pane of current floor
+     * @return
+     */
     private GesturePane getCurrentPane() {
         return this.gesturePanes.get(currentFloorIndex);
     }
 
-
-    private HashMap<String, Float> getScale() {
-        HashMap<String, Float> scales = new HashMap<>();
-//        float scaleFx = (float) mapHandler.getCurrentMap().getFitWidth() / 5000.0f;
-//        float scaleFy = (float) mapHandler.getCurrentMap().getFitHeight() / 3400.0f;
-//        scales.put("scaleFx", scaleFx);
-//        scales.put("scaleFy", scaleFy);
-        return scales;
+    /**
+     * Clear marking of tab headers
+     */
+    private void clearTabColors() {
+        for (Tab tab : this.mapTabPane.getTabs()) {
+            tab.setStyle("-fx-background-color: #FFC41E");
+        }
     }
 
-    private void pathAnimation() {
+
+    /**
+     * Generates new animation based on given path. Sets the currentAnt and currentAnimation attributes
+     * @param path the path to be animated
+     * @param pane the pane on which to animate
+     */
+    private void newAnimation(Path path, AnchorPane pane) {
         pathTransition = new PathTransition();
 
         //Setting the duration of the path transition
-        pathTransition.setDuration(Duration.seconds(4));
+        pathTransition.setDuration(Duration.seconds(3));
 
         //Setting the node for the transition
-        Rectangle ant = new Rectangle(8, 3);
-        ant.setFill(Color.LIGHTGREEN);
-//        mapHandler.getTopPane().getChildren().add(ant);
-        pathTransition.setNode(ant);
+        this.currentAnt = new Rectangle(55, 20);
+        this.currentAnt.setFill(Color.LIGHTGREEN);
+        this.anchorPanes.get(currentFloorIndex).getChildren().add(this.currentAnt);
+        pathTransition.setNode(this.currentAnt);
 
         //Setting the path
-//        pathTransition.setPath(mapHandler.getCurrentPath());
+        pathTransition.setPath(mapHandler.getPaths().get(currentFloorIndex));
 
         //Setting the orientation of the path
         pathTransition.setOrientation(PathTransition.OrientationType.ORTHOGONAL_TO_TANGENT);
@@ -427,50 +587,21 @@ public class UIControllerPFM extends UIController {
         //Setting auto reverse value to false
         pathTransition.setAutoReverse(false);
 
-        pathTransition.setCycleCount(1);
+        pathTransition.setCycleCount(99);
 
         pathTransition.setOnFinished(e -> {
-//            mapHandler.getTopPane().getChildren().remove(ant);
-            setZoomOn(true);
-            setNodesVisible(true);
-            initialLocationSelect.setDisable(false);
-            destinationSelect.setDisable(false);
+            clearPathTransition();
         });
 
         if ((!(currentDestCircle == null)) && (!(currentInitCircle == null))) {
-            setZoomOn(false);
-            setNodesVisible(false);
-            initialLocationSelect.setDisable(true);
-            destinationSelect.setDisable(true);
             pathTransition.play();
         }
+
+        this.currentAnimation = pathTransition;
     }
-
-    private void setNodesVisible(boolean bool) {
-        for (javafx.scene.Node n : circleGroup.getChildren()) {
-            if(!(currentDestCircle == null) && !(currentInitCircle == null)) {
-                if (!currentDestCircle.equals(n) && !currentInitCircle.equals(n)) {
-                    n.setVisible(bool);
-                }
-            }
-        }
-        if (bool) {
-            focusNodes();
-        }
-    }
-
-
 
     public void goBack(ActionEvent actionEvent) {
         this.goToScene(UIController.LOGIN_MAIN);
-    }
-
-    /**
-     * @param bool Set in initialize() to turn on/off zoom functionality
-     */
-    private void setZoomOn(boolean bool) {
-        zoom_button.setVisible(bool);
-        unzoom_button.setVisible(bool);
     }
 
     /**
@@ -498,76 +629,6 @@ public class UIControllerPFM extends UIController {
         pane.animate(DURATION)
                 .interpolateWith(Interpolator.EASE_BOTH)
                 .zoomBy(-0.33, pivotOnTarget);
-    }
-
-    public void drawNodes(LinkedList<Node> nodes) {
-        float scaleFx = getScale().get("scaleFx");
-        float scaleFy = getScale().get("scaleFy");
-
-        float x;
-        float y;
-
-        // get all XY pairs and turn them into lines
-        for (Node tempNode : nodes) {
-
-            x = (float) tempNode.getXcoord() * scaleFx;
-            y = (float) tempNode.getYcoord() * scaleFy;
-
-
-            Circle circle = new Circle(x, y, 3);
-            circle.setId(tempNode.getNodeID());
-
-            circle.setOnMouseClicked(e -> {
-                if ((initialLocationSelect.getValue() == null)) {
-                    currentInitCircle = circle;
-                    currentInitCircle.setFill(Color.GREEN);
-                    currentInitCircle.setRadius(5);
-                    initialLocationSelect.setValue(tempNode.getLongName());
-                } else //if ((destinationSelect.getValue() == null))
-                {
-                    if (!(currentDestCircle == null)) {
-                        currentDestCircle.setFill(Color.BLACK);
-                        currentDestCircle.setRadius(3);
-                    }
-                    currentDestCircle = circle;
-                    currentDestCircle.setFill(Color.RED);
-                    currentDestCircle.setRadius(5);
-                    destinationSelect.setValue(tempNode.getLongName());
-                }
-            });
-
-            circleGroup.getChildren().add(circle);
-        }
-    }
-    //}
-
-    private void focusNodes() {
-        if (initialLocationSelect.getValue() == null && !(currentInitCircle == null)) {
-            currentInitCircle.setFill(Color.BLACK);
-            currentInitCircle.setRadius(3);
-            currentInitCircle = null;
-        }
-        if (destinationSelect.getValue() == null && !(currentDestCircle == null)) {
-            currentDestCircle.setFill(Color.BLACK);
-            currentDestCircle.setRadius(3);
-            currentDestCircle = null;
-        }
-
-        for (javafx.scene.Node n : circleGroup.getChildren()) {
-            //if (!(currentInitCircle == null)) {
-            if (n.getId().equals(initialID)) {
-                currentInitCircle = ((Circle) n);
-                currentInitCircle.setRadius(5);
-                currentInitCircle.setFill(Color.LIGHTGREEN);
-            } else if (n.getId().equals(destID)) {
-                currentDestCircle = ((Circle) n);
-                currentDestCircle.setRadius(5);
-                currentDestCircle.setFill(Color.RED);
-            } else {
-                ((Circle) n).setFill(Color.BLACK);
-                ((Circle) n).setRadius(3);
-            }
-        }
     }
 
     @FXML
@@ -604,6 +665,23 @@ public class UIControllerPFM extends UIController {
     @FXML
     private void setServiceRequestButton() {
         this.goToScene(UIController.SERVICE_REQUEST_MAIN);
+    }
+
+    private static void hackTooltipStartTiming(Tooltip tooltip) {
+        try {
+            Field fieldBehavior = tooltip.getClass().getDeclaredField("BEHAVIOR");
+            fieldBehavior.setAccessible(true);
+            Object objBehavior = fieldBehavior.get(tooltip);
+
+            Field fieldTimer = objBehavior.getClass().getDeclaredField("activationTimer");
+            fieldTimer.setAccessible(true);
+            Timeline objTimer = (Timeline) fieldTimer.get(objBehavior);
+
+            objTimer.getKeyFrames().clear();
+            objTimer.getKeyFrames().add(new KeyFrame(new Duration(0)));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }
 

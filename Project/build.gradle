@@ -79,6 +79,7 @@ dependencies {
     )
     runtime(
             [group: 'de.jensd', name: 'fontawesomefx-commons', version: '9.1.2']
+
     )
 }
 

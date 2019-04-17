@@ -234,6 +234,7 @@ public class UIController {
     protected UIController goToScene(String sceneString) {
         Scene scene = scenes.get(sceneString);
 
+
         // If the scene has not yet been created
         if(scene == null) {
             try {

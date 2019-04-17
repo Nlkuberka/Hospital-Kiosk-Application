@@ -17,50 +17,54 @@ public class UIControllerPUMVNO extends UIController {
     public JFXButton button_deleteNode;
     public JFXButton button_deleteEdge;
     public StackPane parentPane;
-    private String status = "";
+    private UIControllerATMV uiControllerATMV;
+    private Node node;
 
     @FXML
     void closeWindow(MouseEvent mouseEvent) {
         parentPane.getScene().getWindow().hide();
     }
 
-    private void closeWindow() {
+    void closeWindow() {
         parentPane.getScene().getWindow().hide();
     }
 
     @FXML
     private void editNode(MouseEvent mouseEvent) throws IOException {
-        status = "EDIT-NODE";
         closeWindow();
+        uiControllerATMV.editNode(node);
     }
 
     @FXML
     private void setKiosk(MouseEvent mouseEvent) throws IOException {
-        status = "SET-KIOSK";
         closeWindow();
+        uiControllerATMV.setKiosk(node);
     }
 
     @FXML
     private void addEdge(MouseEvent mouseEvent) throws IOException {
-        status = "ADD-EDGE";
         closeWindow();
+        uiControllerATMV.isAddingEdge = true;
+        uiControllerATMV.showAddedNode(node);
+        uiControllerATMV.previousNodeID = node.getNodeID();
     }
 
     @FXML
     private void deleteNode(MouseEvent mouseEvent) throws IOException {
-        status = "DELETE-NODE";
         closeWindow();
+        uiControllerATMV.deleteNode(node);
     }
 
     @FXML
     private void deleteEdge(MouseEvent mouseEvent) throws IOException {
-        status = "DELETE-EDGE";
         closeWindow();
+        uiControllerATMV.isAddingEdge = false;
+        uiControllerATMV.showAddedNode(node);
+        uiControllerATMV.previousNodeID = node.getNodeID();
     }
 
-    String getStatus()
-    {
-        return status;
+    void setUiControllerATMV(UIControllerATMV uiControllerATMV, Node node) {
+        this.uiControllerATMV = uiControllerATMV;
+        this.node = node;
     }
-
 }

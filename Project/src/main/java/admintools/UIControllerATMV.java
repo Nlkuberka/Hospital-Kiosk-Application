@@ -1,31 +1,30 @@
 package admintools;
 
+import application.CurrentUser;
 import application.UIController;
 import database.DBController;
 import database.DBControllerNE;
 import entities.Edge;
 import entities.Node;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Cursor;
 import javafx.scene.Group;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TabPane;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
 import javafx.scene.shape.Path;
+import javafx.scene.text.TextAlignment;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
@@ -44,17 +43,20 @@ import java.util.List;
 
 public class UIControllerATMV extends UIController {
 
-    public HBox hboxForMap;
     public StackPane parentPane;
     public ImageView backgroundImage;
     public Path path;
     public MenuItem backButton;
-    public ScrollPane scrollPane;
-    public ImageView map_imageView;
-    public AnchorPane scroll_AnchorPane;
-    public Button zoom_button;
-    public Button unzoom_button;
     public TabPane tabs;
+    public ImageView questionMarkF2;
+    public ImageView questionMarkF3;
+    public ImageView questionMarkF1;
+    public ImageView questionMarkGF;
+    public ImageView questionMarkL1;
+    public ImageView questionMarkL2;
+    private LinkedList<ImageView> helperIcons;
+    String previousNodeID;
+    boolean isAddingEdge;
     private Group edgesGroup = new Group();
     private Group nodesGroup = new Group();
     private LinkedList<Node> currentFloorNodes = new LinkedList<>();
@@ -124,8 +126,15 @@ public class UIControllerATMV extends UIController {
         tabs.getSelectionModel().selectedItemProperty().addListener(param -> {
             set();
         });
-    }
 
+        for (ImageView icon : helperIcons) {
+            String helper = "Click & Drag: Move Node\n" +
+                    "Double Click: Select Node\n\n" +
+                    "If Adding Or Deleting Edge:\n" +
+                    "Click Again (Once) to Execute\n";
+            new utilities.Tooltip(icon, helper, TextAlignment.LEFT);
+        }
+    }
 
     @Override
     public void onShow() {
@@ -217,48 +226,64 @@ public class UIControllerATMV extends UIController {
 
             Circle circle = new Circle(x, y, 7);
             circle.setId(tempNode.getNodeID());
+            new utilities.Tooltip(circle, tempNode.getShortName());
 
-            circle.setOnMouseClicked(event -> {
-                try {
-                    enableChoicePopup(tempNode);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            });
 
-            circle.setOnMousePressed(new EventHandler<MouseEvent>() {
-                @Override
-                public void handle(MouseEvent mouseEvent) {
+            circle.setOnMousePressed(mouseEvent -> {
+                if (previousNodeID != null) {
+                    if (isAddingEdge) {
+                        addEdge(previousNodeID, tempNode.getNodeID());
+                        Connection conn = DBController.dbConnect();
+                        currentFloorEdges.add(DBControllerNE.fetchEdge(previousNodeID + "_" + tempNode.getNodeID(), conn));
+                        DBController.closeConnection(conn);
+                    } else {
+                        deleteEdge(previousNodeID, tempNode.getNodeID());
+                        currentFloorEdges.remove(getEdgeFrom(currentFloorEdges, previousNodeID, tempNode.getNodeID()));
+                    }
+                    previousNodeID = null;
+                    draw();
+                } else {
                     mouseX = circle.getLayoutX() - mouseEvent.getSceneX();
                     mouseY = circle.getLayoutY() - mouseEvent.getSceneY();
-                    circle.setCursor(Cursor.MOVE);
+                    if (mouseEvent.getClickCount() == 2) {
+                        try {
+                            enableChoicePopup(tempNode);
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    }
                 }
             });
 
-            circle.setOnMouseDragged(new EventHandler<MouseEvent>() {
-                @Override
-                public void handle(MouseEvent mouseEvent) {
-                    circle.setLayoutX(mouseEvent.getSceneX() + mouseX);
-                    circle.setLayoutY(mouseEvent.getSceneY() + mouseY);
-
-                }
+            circle.setOnMouseDragged(mouseEvent -> {
+                circle.setLayoutX(mouseEvent.getSceneX() + mouseX);
+                circle.setLayoutY(mouseEvent.getSceneY() + mouseY);
+                circle.setCursor(Cursor.MOVE);
             });
 
-            circle.setOnMouseReleased(new EventHandler<MouseEvent>() {
-                @Override
-                public void handle(MouseEvent mouseEvent) {
-                    tempNode.setXcoord(tempNode.getXcoord() + (int) Math.round(circle.getLayoutX() / scaleFx));
-                    tempNode.setYcoord(tempNode.getYcoord() + (int) Math.round(circle.getLayoutY() / scaleFy));
-                    Connection conn = DBController.dbConnect();
-                    DBControllerNE.updateNode(tempNode, conn);
-                    DBController.closeConnection(conn);
-                    draw();
-                }
+            circle.setOnMouseReleased(mouseEvent -> {
+                tempNode.setXcoord(tempNode.getXcoord() + (int) Math.round(circle.getLayoutX() / scaleFx));
+                tempNode.setYcoord(tempNode.getYcoord() + (int) Math.round(circle.getLayoutY() / scaleFy));
+                Connection conn = DBController.dbConnect();
+                DBControllerNE.updateNode(tempNode, conn);
+                DBController.closeConnection(conn);
+                draw();
             });
 
             nodesGroup.getChildren().add(circle);
         }
         drawEdges();
+    }
+
+    private Edge getEdgeFrom(LinkedList<Edge> edges, String nodeID1, String nodeID2) {
+        String edgeID1 = nodeID1 + "_" + nodeID2;
+        String edgeID2 = nodeID2 + "_" + nodeID1;
+        for (Edge e : edges) {
+            if (e.getEdgeID().equals(edgeID1) || e.getEdgeID().equals(edgeID2)) {
+                return e;
+            }
+        }
+        return null;
     }
 
     private void drawEdges() {
@@ -278,7 +303,6 @@ public class UIControllerATMV extends UIController {
             edgesGroup.getChildren().add(tempLine);
         }
     }
-
 
     private void initialBindings() {
         // bind background image size to window size
@@ -321,6 +345,14 @@ public class UIControllerATMV extends UIController {
         imageViews.add(firstFloorImageView);
         imageViews.add(secondFloorImageView);
         imageViews.add(thirdFloorImageView);
+
+        helperIcons = new LinkedList<>();
+        helperIcons.add(questionMarkF1);
+        helperIcons.add(questionMarkF2);
+        helperIcons.add(questionMarkF3);
+        helperIcons.add(questionMarkGF);
+        helperIcons.add(questionMarkL1);
+        helperIcons.add(questionMarkL2);
 
     }
 
@@ -381,7 +413,6 @@ public class UIControllerATMV extends UIController {
         draw();
     }
 
-
     @FXML
     public void addNodeOnClick(MouseEvent mouseEvent) throws IOException {
         Node tempNode = new Node();
@@ -393,16 +424,36 @@ public class UIControllerATMV extends UIController {
         showAddedNode(tempNode);
     }
 
-    private void editNode(Node node) throws IOException {
+    void editNode(Node node) throws IOException {
         enableAddAndEditPopup(node, "EDIT");
     }
 
-    private void deleteNode(Node node)
-    {
+    void deleteNode(Node node) {
         Connection conn = DBControllerNE.dbConnect();
         DBControllerNE.deleteNode(node.getNodeID(), conn);
         DBControllerNE.closeConnection(conn);
         set();
+    }
+
+    private void addEdge(String node1ID, String node2ID) {
+        Connection conn = DBControllerNE.dbConnect();
+        Edge newEdge = new Edge(null, node1ID, node2ID);
+        DBControllerNE.addEdge(newEdge, conn);
+        DBControllerNE.closeConnection(conn);
+    }
+
+    private void deleteEdge(String nodeID1, String nodeID2) {
+        Connection conn = DBControllerNE.dbConnect();
+        DBControllerNE.deleteEdge(nodeID1, nodeID2, conn);
+        DBControllerNE.closeConnection(conn);
+    }
+
+    void setKiosk(Node node) {
+        if (node.getNodeType().equals("HALL") || node.getNodeType().equals("REST") || node.getNodeType().equals("ELEV")) {
+            popupMessage("Invalid Kiosk Location", true);
+        } else {
+            CurrentUser.startingLocation = node.getLongName();
+        }
     }
 
     private void enableAddAndEditPopup(Node node, String action) throws IOException {
@@ -411,13 +462,17 @@ public class UIControllerATMV extends UIController {
         UIControllerPUMVAN atmvAddNodePopupController = loader.getController();
         atmvAddNodePopupController.setNode(node, action);
 
+        setStage(root);
+    }
+
+    private void setStage(Parent root) {
         Stage stage = new Stage();
         stage.setScene(new Scene(root));
         stage.initModality(Modality.APPLICATION_MODAL);
         stage.initStyle(StageStyle.UNDECORATED);
         stage.initOwner(parentPane.getScene().getWindow());
         stage.setHeight(400);
-        stage.setWidth(600);
+        stage.setWidth(400);
         stage.setResizable(false);
         stage.centerOnScreen();
         stage.showAndWait();
@@ -427,38 +482,11 @@ public class UIControllerATMV extends UIController {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/admintools/ATMV_selectedNodeOptions_popup.fxml"));
         Parent root = loader.load();
         UIControllerPUMVNO uiControllerPUMVNO = loader.getController();
-        Stage stage = new Stage();
-        stage.setScene(new Scene(root));
-        stage.initModality(Modality.APPLICATION_MODAL);
-        stage.initStyle(StageStyle.UNDECORATED);
-        stage.initOwner(parentPane.getScene().getWindow());
-        stage.setHeight(400);
-        stage.setWidth(600);
-        stage.setResizable(false);
-        stage.centerOnScreen();
-        stage.showAndWait();
-
-        // TODO switch to listeners if there is time
-        switch (uiControllerPUMVNO.getStatus()) {
-            case "EDIT-NODE":
-                editNode(node);
-                break;
-            case "SET-KIOSK":
-                System.out.println("SET-KIOSK CALLED");
-                break;
-            case "ADD-EDGE":
-                break;
-            case "DELETE-NODE":
-                deleteNode(node);
-                break;
-            case "DELETE-EDGE":
-                break;
-            default:
-                break;
-        }
+        uiControllerPUMVNO.setUiControllerATMV(this, node);
+        setStage(root);
     }
 
-    private void showAddedNode(Node node) {
+    void showAddedNode(Node node) {
         for (javafx.scene.Node nodes : nodesGroup.getChildren()) {
             if (nodes.getId().equals(node.getNodeID())) {
                 ((Circle) nodes).setRadius(10);
