@@ -139,11 +139,15 @@ public class CurrentObjects {
     }
 
     public void setInitCircle(Circle initCircle) {
+        if (initCircle != null) {
+            initCircle.setFill(Color.GREEN);
+            initCircle.setRadius(AnchorPaneHandler.getNodeSizeHighlited);
+        }
         this.initCircle = initCircle;
     }
 
     public void setInitCircle(String initCircle) {
-        this.initCircle = anchorPaneHandler.getCircleFromName(initCircle);
+        setInitCircle(anchorPaneHandler.getCircleFromName(initCircle));
     }
 
     public Circle getDestCircle() {
@@ -151,11 +155,15 @@ public class CurrentObjects {
     }
 
     public void setDestCircle(Circle destCircle) {
+        if (destCircle != null) {
+            destCircle.setRadius(AnchorPaneHandler.getNodeSizeHighlited);
+            destCircle.setFill(Color.RED);
+        }
         this.destCircle = destCircle;
     }
 
     public void setDestCircle(String destCircle) {
-        this.destCircle = anchorPaneHandler.getCircleFromName(destCircle);
+        setDestCircle(anchorPaneHandler.getCircleFromName(destCircle));
     }
 
     public PathTransition getAnimation() {
