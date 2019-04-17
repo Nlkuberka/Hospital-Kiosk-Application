@@ -212,7 +212,7 @@ public class UIController {
         sceneFiles.put(UIController.RESERVATIONS_MAIN_MENU, "/reservations/reservations_main_menu.fxml");
         sceneTitles.put(UIController.RESERVATIONS_MAIN_MENU, "Reservations - Main Menu");
 
-        sceneFiles.put(UIController.RESERVATIONS_CALENDAR_VIEW, "/reservations/reservations_calendar_view.fxml");
+        sceneFiles.put(UIController.RESERVATIONS_CALENDAR_VIEW, "/reservations/reservations_main_calendar_view.fxml");
         sceneTitles.put(UIController.RESERVATIONS_CALENDAR_VIEW, "Reservations - Calendar View");
 
         // Pathfinding
