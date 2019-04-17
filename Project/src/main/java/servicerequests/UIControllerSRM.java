@@ -6,6 +6,7 @@ import com.jfoenix.controls.JFXTextField;
 import entities.ServiceRequest;
 
 import com.jfoenix.controls.JFXButton;
+import entities.User;
 import javafx.fxml.FXML;
 
 import javafx.event.ActionEvent;
@@ -124,5 +125,23 @@ public class UIControllerSRM extends UIController {
     private void avButton(ActionEvent actionEvent) {
         UIControllerSRAVE controller = (UIControllerSRAVE) this.goToScene(UIController.SERVICE_REQUEST_AV_EQUIPMENT);
         controller.setServiceType("Audio Visual");
+    }
+
+    @FXML
+    private void setBackButtonSR() {
+        switch(CurrentUser.user.getPermissions()) {
+            case User.GUEST_PERMISSIONS :
+                this.goToScene(UIController.PATHFINDING_MAIN);
+                break;
+            case User.BASIC_PERMISSIONS :
+                this.goToScene(UIController.USER_MAIN_MENU_MAIN);
+                break;
+            case User.ADMIN_PERMISSIONS :
+                this.goToScene(UIController.ADMIN_MAIN_MENU_MAIN);
+                break;
+            default:
+                this.goToScene(UIController.PATHFINDING_MAIN);
+                break;
+        }
     }
 }
