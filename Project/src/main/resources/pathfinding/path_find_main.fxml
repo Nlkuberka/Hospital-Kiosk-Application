@@ -159,8 +159,9 @@
                         <RowConstraints percentHeight="10.0" vgrow="ALWAYS" />
                         <RowConstraints percentHeight="15.0" vgrow="ALWAYS" />
                   <RowConstraints minHeight="10.0" percentHeight="15.0" prefHeight="30.0" vgrow="ALWAYS" />
-                        <RowConstraints percentHeight="20.0" vgrow="ALWAYS" />
                         <RowConstraints minHeight="0.0" percentHeight="20.0" prefHeight="30.0" vgrow="ALWAYS" />
+                  <RowConstraints minHeight="10.0" percentHeight="20.0" prefHeight="30.0" vgrow="ALWAYS" />
+                        <RowConstraints percentHeight="20.0" vgrow="ALWAYS" />
                         <RowConstraints minHeight="0.0" percentHeight="15.0" prefHeight="30.0" vgrow="ALWAYS" />
                     </rowConstraints>
                     <children>
@@ -193,7 +194,7 @@
                         </ImageView>
                      </graphic>
                         </JFXButton>
-                        <JFXToggleButton fx:id="noStairsButton" onAction="#noStairsToggled" prefHeight="30.0" style="-fx-background-color: #ffffff;" stylesheets="@/css/background.css" text="NO STAIRS" textAlignment="CENTER" wrapText="true" GridPane.halignment="CENTER" GridPane.rowIndex="8" GridPane.valignment="CENTER">
+                        <JFXToggleButton fx:id="noStairsButton" onAction="#noStairsToggled" prefHeight="30.0" style="-fx-background-color: #ffffff;" stylesheets="@/css/background.css" text="NO STAIRS" textAlignment="CENTER" wrapText="true" GridPane.halignment="CENTER" GridPane.rowIndex="10" GridPane.valignment="CENTER">
                             <font>
                                 <Font name="System Bold" size="14.0" />
                             </font>
@@ -203,9 +204,9 @@
                                 <Font name="System Bold" size="14.0" />
                             </font>
                         </JFXButton>
-                        <JFXButton fx:id="loginButton" onAction="#setLoginButton" styleClass="jfx-button-login" stylesheets="@../css/background.css" text="Login" GridPane.halignment="CENTER" GridPane.rowIndex="9" GridPane.valignment="TOP" />
+                        <JFXButton fx:id="loginButton" onAction="#setLoginButton" styleClass="jfx-button-login" stylesheets="@../css/background.css" text="Login" GridPane.halignment="CENTER" GridPane.rowIndex="9" GridPane.valignment="CENTER" />
                         <JFXButton fx:id="serviceRequestButton" onAction="#setServiceRequestButton" style="-fx-background-color: #33a6e7;" styleClass="jfx-button-login" stylesheets="@../css/background.css" text="Service Request" GridPane.halignment="CENTER" GridPane.rowIndex="8" />
-                  <JFXButton fx:id="aboutButton" onAction="#setAboutButton" style="-fx-background-color: #0090d3;" styleClass="jfx-button-add" stylesheets="@../css/background.css" text="About Us" GridPane.halignment="CENTER" GridPane.rowIndex="10" GridPane.valignment="BOTTOM" />
+                  <JFXButton fx:id="aboutButton" onAction="#setAboutButton" style="-fx-background-color: #0090d3;" styleClass="jfx-button-add" stylesheets="@../css/background.css" text="About Us" GridPane.halignment="CENTER" GridPane.rowIndex="11" GridPane.valignment="BOTTOM" />
                     </children>
                 </GridPane>
          </left>
