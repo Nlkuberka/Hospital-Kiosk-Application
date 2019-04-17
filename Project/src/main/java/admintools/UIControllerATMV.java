@@ -269,7 +269,6 @@ public class UIControllerATMV extends UIController {
             });
 
             circle.setOnMouseDragged(mouseEvent -> {
-                System.out.println(firstFloorGesturePane.getCurrentScale());
                 circle.setLayoutX((mouseEvent.getSceneX() + mouseX) / firstFloorGesturePane.getCurrentScale());
                 circle.setLayoutY((mouseEvent.getSceneY() + mouseY) / firstFloorGesturePane.getCurrentScale());
                 circle.setCursor(Cursor.MOVE);
