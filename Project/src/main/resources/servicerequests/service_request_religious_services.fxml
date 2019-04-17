@@ -200,7 +200,7 @@
                                           <Font size="22.0" />
                                       </font>
                                       <padding>
-                                          <Insets bottom="2.0" />
+                                          <Insets bottom="10.0" />
                                       </padding>
                                   </JFXCheckBox>
                                   <GridPane prefHeight="37.0" prefWidth="216.0">
@@ -218,7 +218,7 @@
                                                   <Font size="22.0" />
                                               </font>
                                           </Text>
-                                          <JFXTextField fx:id="OtherDenomField" alignment="TOP_CENTER" nodeOrientation="LEFT_TO_RIGHT" onKeyPressed="#setDenominationOther" opacity="0.6" promptText="Max: 30 Characters" style="-fx-background-color: White;" unFocusColor="#d62d2d00" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="BOTTOM">
+                                          <JFXTextField fx:id="OtherDenomField" alignment="TOP_CENTER" nodeOrientation="LEFT_TO_RIGHT" onKeyPressed="#setDenominationOther" opacity="0.6" promptText="Max: 30 Characters" style="-fx-background-color: White;" unFocusColor="#d62d2d00" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER" GridPane.vgrow="NEVER">
                                               <focusColor>
                                                   <RadialGradient centerX="0.5055555555555555" centerY="0.5" radius="0.5">
                                                       <stops>
@@ -229,7 +229,7 @@
                                                   </RadialGradient>
                                               </focusColor>
                                               <GridPane.margin>
-                                                  <Insets bottom="3.0" />
+                                                  <Insets top="5.0" />
                                               </GridPane.margin>
                                           </JFXTextField>
                                       </children>
