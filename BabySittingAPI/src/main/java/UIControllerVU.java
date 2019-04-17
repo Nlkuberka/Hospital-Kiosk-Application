@@ -60,6 +60,7 @@ public class UIControllerVU extends UIController {
             protected void updateItem(User user, boolean empty) {
                 super.updateItem(user, empty);
                 if(user == null) {
+                    setGraphic(null);
                     return;
                 }
                 setGraphic(removeButton);

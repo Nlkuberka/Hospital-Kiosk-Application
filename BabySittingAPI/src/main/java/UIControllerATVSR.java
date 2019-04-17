@@ -1,3 +1,4 @@
+import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXCheckBox;
 
 import javafx.beans.property.ReadOnlyObjectWrapper;
@@ -12,6 +13,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.image.ImageView;
 
+import javax.xml.ws.Service;
 import java.lang.reflect.Method;
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -79,6 +81,7 @@ public class UIControllerATVSR extends UIController {
             protected void updateItem(ServiceRequest serviceRequest, boolean empty) {
                 super.updateItem(serviceRequest, empty);
                 if(serviceRequest == null) {
+                    setGraphic(null);
                     return;
                 }
                 // Get the initial value of the checkbox
@@ -105,7 +108,10 @@ public class UIControllerATVSR extends UIController {
             @Override
             protected void updateItem(ServiceRequest serviceRequest, boolean empty) {
                 super.updateItem(serviceRequest, empty);
-
+                if(serviceRequest == null) {
+                    setGraphic(null);
+                    return;
+                }
                 runStringGetterEditable(serviceRequest, serviceRequestGetters[index], label, textField);
 
                 textField.setOnAction(et -> {
@@ -141,6 +147,35 @@ public class UIControllerATVSR extends UIController {
 
                 setGraphic(label);
             }
+        });
+
+        // Initialize cell factories of the remove rsv column
+        TableColumn<ServiceRequest, ServiceRequest> removeColumn = (TableColumn<ServiceRequest, ServiceRequest>) tableColumns.get(tableColumns.size() - 1);
+        removeColumn.setCellValueFactory(param -> new ReadOnlyObjectWrapper<>(param.getValue()));
+        removeColumn.setCellFactory(param -> new TableCell<ServiceRequest, ServiceRequest>() {
+            private JFXButton removeButton = new JFXButton("Remove");
+
+            @Override
+            protected void updateItem(ServiceRequest serviceRequest, boolean empty) {
+                super.updateItem(serviceRequest, empty);
+                if(serviceRequest == null) {
+                    setGraphic(null);
+                    return;
+                }
+                setGraphic(removeButton);
+                removeButton.setOnAction( e -> {
+                            try {
+                                Connection conn = DBControllerAPI.dbConnect();
+                                DBControllerAPI.deleteServiceRequest(serviceRequest.getServiceID(), conn);
+                                conn.close();
+                            }catch(SQLException e1){
+                                e1.printStackTrace();
+                            }
+                            getTableView().getItems().remove(serviceRequest);
+                        }
+                );
+            }
+
         });
     }
 
