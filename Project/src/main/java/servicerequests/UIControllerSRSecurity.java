@@ -1,6 +1,7 @@
 package servicerequests;
 
 import application.CurrentUser;
+import com.jfoenix.controls.JFXComboBox;
 import database.DBController;
 import application.UIController;
 import database.DBControllerNE;
@@ -28,10 +29,7 @@ public class UIControllerSRSecurity extends UIController {
     RoomCategoryFilterHelper filterHelper;
 
     @FXML
-    private ChoiceBox roomCategory;
-
-    @FXML
-    private ChoiceBox roomSelect;
+    private JFXComboBox<String> roomSelect;
 
     @FXML
     private ChoiceBox prioritySelect;
@@ -58,7 +56,7 @@ public class UIControllerSRSecurity extends UIController {
 
     @FXML
     public void onShow() {
-        filterHelper = new RoomCategoryFilterHelper(roomCategory, roomSelect, null, false);
+        filterHelper = new RoomCategoryFilterHelper(roomSelect, null, false);
 
         String[] priorities = {"1","2","3","4","5"};
         prioritySelect.setItems(FXCollections.observableList(Arrays.asList(priorities)));
