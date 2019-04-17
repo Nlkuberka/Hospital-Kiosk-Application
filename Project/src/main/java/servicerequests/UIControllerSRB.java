@@ -7,6 +7,7 @@ package servicerequests;
  */
 
 import application.CurrentUser;
+import com.jfoenix.controls.JFXComboBox;
 import database.DBController;
 import application.UIController;
 import com.jfoenix.controls.JFXButton;
@@ -43,10 +44,7 @@ public class UIControllerSRB extends UIController {
     String BabysittingServices = "";
 
     @FXML
-    private ChoiceBox<String> roomCategory;
-
-    @FXML
-    private ChoiceBox<String> roomSelect; /**< The room choice box*/
+    private JFXComboBox<String> roomSelect; /**< The room choice box*/
 
     @FXML
     private JFXTextField serviceMessage; /**< The additional message field*/
@@ -68,7 +66,7 @@ public class UIControllerSRB extends UIController {
 
     @FXML
     public void onShow() {
-        filterHelper = new RoomCategoryFilterHelper(roomCategory, roomSelect, null, false);
+        filterHelper = new RoomCategoryFilterHelper(roomSelect, null, false);
         serviceMessage.setText("");
     }
 
