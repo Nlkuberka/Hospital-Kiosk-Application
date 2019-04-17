@@ -221,6 +221,14 @@
 .tab-header-background-login{
     -fx-background-color: #FFC41E;
 }
+/*
+
+ */
+.tab-header-background-about{
+   -fx-background-color: #015080;
+}
+
+
 
 
 
@@ -246,7 +254,7 @@
      -fx-text-fill:  #FFC41E;
 
 
-     /* -fx-background-image: url("\purple-orange-gradient.jpg");*/
+
  }
  .menu{
      -fx-text-fill:  #FFC41E;
@@ -403,4 +411,9 @@
     -fx-font-weight: bold;
     -fx-text-fill: white;
     -fx-alignment: center;
+}
+
+.text-about{
+    -fx-font-weight: bold italic;
+    -fx-text-fill: #015080;
 }
