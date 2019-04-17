@@ -140,8 +140,6 @@ public class UIControllerPUD extends UIController {
                     directions.getText())
                     .create();
 
-            System.out.println("it sent");
-
             try {
                 FXMLLoader fxmlLoader = new FXMLLoader();
                 fxmlLoader.setLocation(getClass().getResource("/popup_confirm_text.fxml"));
