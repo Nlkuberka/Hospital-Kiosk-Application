@@ -32,6 +32,7 @@ public class RoomCategoryFilterHelper {
     private String nodeID;
     private String longName;
     private boolean roomsOnly;
+    private List<Node> nodes;
 
     /** > The map that holds both the room catgories but also maps them to the correct DBController String */
     private static Map<String, String> roomCategories = new HashMap<String, String>() {{
@@ -48,6 +49,22 @@ public class RoomCategoryFilterHelper {
         put("Third Floor - Rooms", DBControllerNE.ALL_ROOMS_FLOOR_3);
         put("Third Floor - Other", DBControllerNE.ALL_BUT_ROOMS_3);
         put("All Rooms", DBControllerNE.ALL_ROOMS);
+    }};
+
+    private static Map<String, String> roomLevels = new HashMap<String, String>() {{
+        put("Lower Level 2 - Rooms", "L2");
+        put("Lower Level 2 - Other", "L2");
+        put("Lower Level 1 - Rooms", "L1");
+        put("Lower Level 1 - Other", "L1");
+        put("Ground Floor - Rooms", "G");
+        put("Ground Floor - Other", "G");
+        put("First Floor - Rooms", "1");
+        put("First Floor - Other", "1");
+        put("Second Floor - Rooms", "2");
+        put("Second Floor - Other", "2");
+        put("Third Floor - Rooms", "3");
+        put("Third Floor - Other", "3");
+        put("All Rooms", "L2L1G123");
     }};
 
     private Map<String, String> nodeIDs;
@@ -189,6 +206,10 @@ public class RoomCategoryFilterHelper {
      * @return Whether or not to display the node
      */
     public boolean showNode(String nodeLongName, String input) {
+        Connection conn = DBController.dbConnect();
+        nodes = DBControllerNE.generateListOfNodes(conn, DBControllerNE.ALL_ROOMS);
+        DBController.closeConnection(conn);
+
         String[] parts = input.split(" ");
         boolean[] show = new boolean[parts.length];
         for(int i = 0; i < parts.length; i++) {
@@ -198,6 +219,8 @@ public class RoomCategoryFilterHelper {
         for(boolean b : show) {
             result = result && b;
         }
+
+        nodes = null;
         return result;
     }
 
@@ -211,6 +234,7 @@ public class RoomCategoryFilterHelper {
         if(input == null || input.equals("")) {
             return true;
         }
+
         input = input.toLowerCase();
         nodeLongName = nodeLongName.toLowerCase();
         if(nodeLongName.toLowerCase().contains(input)) {
@@ -220,11 +244,9 @@ public class RoomCategoryFilterHelper {
         for(String category : roomCategories.keySet()) {
             String nodeLongNameSub = nodeLongName;
             if(category.toLowerCase().contains(input)) {
-                Connection conn = DBController.dbConnect();
-                List<Node> nodes = DBControllerNE.generateListOfNodes(conn, roomCategories.get(category));
-                nodes = nodes.stream().filter(node -> node.getLongName().toLowerCase().equals(nodeLongNameSub)).collect(Collectors.toList());
-                DBController.closeConnection(conn);
-                if(nodes.size() >= 1) {
+                List<Node> subNodes = nodes.stream().filter(node -> roomLevels.get(category).contains(node.getFloor())).collect(Collectors.toList());
+                subNodes = subNodes.stream().filter(node -> node.getLongName().toLowerCase().equals(nodeLongNameSub)).collect(Collectors.toList());
+                if(subNodes.size() >= 1) {
                     return true;
                 }
             }
