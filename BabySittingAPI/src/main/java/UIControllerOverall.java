@@ -24,10 +24,14 @@ public class UIControllerOverall extends UIController{
 
             fxmlLoader = new FXMLLoader(getClass().getResource("/admin_tools_view_service_request.fxml"));
             subTabPane = (StackPane) fxmlLoader.load();
+            UIControllerATVSR controller1 = (UIControllerATVSR) fxmlLoader.getController();
+            controller1.onShow();
             viewServiceRequestTabPane.getChildren().setAll(subTabPane);
 
             fxmlLoader = new FXMLLoader(getClass().getResource("/view_users.fxml"));
             subTabPane = (StackPane) fxmlLoader.load();
+            UIControllerVU controller2 = (UIControllerVU) fxmlLoader.getController();
+            controller2.onShow();
             viewUsersTabPane.getChildren().setAll(subTabPane);
         } catch(Exception e) {
             e.printStackTrace();

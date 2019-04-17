@@ -54,7 +54,7 @@ public class UIControllerATVSR extends UIController {
             TableColumn<ServiceRequest, ServiceRequest> column = (TableColumn<ServiceRequest, ServiceRequest>) tableColumns.get(i);
             column.setCellValueFactory(param -> new ReadOnlyObjectWrapper<>(param.getValue()));
             column.setCellFactory(param -> new TableCell<ServiceRequest, ServiceRequest>() {
-                private Label label = new Label("TEST");
+                private Label label = new Label();
                 private int index = indexOut;
 
 
@@ -154,6 +154,7 @@ public class UIControllerATVSR extends UIController {
         try{
             ResultSet rs = conn.createStatement().executeQuery("Select * from SERVICEREQUEST");
             while (rs.next()){
+                System.out.println("outtttt");
                 serviceRequests.add(new ServiceRequest(rs.getString(2),rs.getString(3),rs.getString(4),
                         rs.getString(5),rs.getBoolean(6),rs.getString(7),rs.getInt(1)));
             }
@@ -161,6 +162,7 @@ public class UIControllerATVSR extends UIController {
             e.printStackTrace();
         }
         for(int i = 0; i < serviceRequests.size(); i ++) {
+            System.out.println("hello");
             System.out.println(serviceRequests.get(i));
         }
         serviceRequestTable.setItems(serviceRequests);

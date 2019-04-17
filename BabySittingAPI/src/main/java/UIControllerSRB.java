@@ -128,6 +128,8 @@ public class UIControllerSRB extends UIController {
         Connection conn = DBControllerAPI.dbConnect();
         DBControllerAPI.addServiceRequest(sr,conn);
         DBControllerAPI.closeConnection(conn);
+        roomSelect.getSelectionModel().selectFirst();
+        serviceMessage.setText("");
         this.goToScene(UIController.SERVICE_REQUEST_MAIN,"");
     }
 

@@ -22,6 +22,7 @@
                 <TableColumn prefWidth="130.0" text="User ID" />
                 <TableColumn prefWidth="130.0" text="Permissions" />
                   <TableColumn prefWidth="100.0" text="Username" />
+                  <TableColumn prefWidth="100.0" text="Remove" />
               </columns>
                <styleClass>
                   <String fx:value="table-view" />

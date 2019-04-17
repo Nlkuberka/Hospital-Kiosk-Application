@@ -230,4 +230,13 @@ public class DBControllerAPI {
         }
     }
 
+    public static void deleteUser(String userID, Connection connection){
+        try{
+            Statement s = connection.createStatement();
+            s.execute("DELETE FROM USERS WHERE USERID = '" + userID + "'");
+        }catch(SQLException e){
+            e.printStackTrace();
+        }
+    }
+
 }

@@ -1,3 +1,4 @@
+import com.jfoenix.controls.JFXButton;
 import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -49,6 +50,33 @@ public class UIControllerVU extends UIController {
                 }
             });
         }
+        // Initialize cell factories of the remove rsv column
+        TableColumn<User, User> removeColumn = (TableColumn<User, User>) tableColumns.get(tableColumns.size() - 1);
+        removeColumn.setCellValueFactory(param -> new ReadOnlyObjectWrapper<>(param.getValue()));
+        removeColumn.setCellFactory(param -> new TableCell<User, User>() {
+            private JFXButton removeButton = new JFXButton("Remove");
+
+            @Override
+            protected void updateItem(User user, boolean empty) {
+                super.updateItem(user, empty);
+                if(user == null) {
+                    return;
+                }
+                setGraphic(removeButton);
+                removeButton.setOnAction( e -> {
+                            try {
+                                Connection conn = DBControllerAPI.dbConnect();
+                                DBControllerAPI.deleteUser(user.getUserID(), conn);
+                                conn.close();
+                            }catch(SQLException e1){
+                                e1.printStackTrace();
+                            }
+                            getTableView().getItems().remove(user);
+                        }
+                );
+            }
+
+        });
     }
 
     /**
@@ -61,7 +89,7 @@ public class UIControllerVU extends UIController {
         try{
             ResultSet rs = conn.createStatement().executeQuery("Select * from USERS");
             while (rs.next()){
-                users.add(new User(rs.getString(0),rs.getInt(1),rs.getString(2),rs.getString(3)));
+                users.add(new User(rs.getString(1),rs.getInt(2),rs.getString(3),rs.getString(4)));
             }
         } catch (SQLException e) {
             e.printStackTrace();
