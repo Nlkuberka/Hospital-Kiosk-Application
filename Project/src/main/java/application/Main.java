@@ -21,7 +21,7 @@ import java.sql.ResultSet;
 import java.util.List;
 
 public class Main extends Application {
-    private static final int limit = 100000;
+    private static final int limit = 50000;
 
     @Override
     public void start(Stage primaryStage) throws Exception {
@@ -75,8 +75,9 @@ public class Main extends Application {
 
 
     public static void main(String[] args) throws IOException {
+
         LauncherImpl.launchApplication(Main.class, TeamDPreloader.class, args);
-        launch(args);
+        //launch(args);
     }
 
 
