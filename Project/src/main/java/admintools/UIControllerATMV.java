@@ -7,10 +7,7 @@ import database.DBController;
 import database.DBControllerNE;
 import entities.Edge;
 import entities.Node;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Cursor;
@@ -18,11 +15,9 @@ import javafx.scene.Group;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.MenuItem;
-import javafx.scene.control.Tab;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
@@ -56,8 +51,9 @@ public class UIControllerATMV extends UIController {
     public Path path;
     public MenuItem backButton;
     public JFXTabPane tabs;
-    public String previousNodeID;
-    public boolean isAddingEdge;
+    public ImageView questionMark;
+    String previousNodeID;
+    boolean isAddingEdge;
     private Group edgesGroup = new Group();
     private Group nodesGroup = new Group();
     private LinkedList<Node> currentFloorNodes = new LinkedList<>();
@@ -106,8 +102,6 @@ public class UIControllerATMV extends UIController {
     private ImageView thirdFloorImageView;
     private List<ImageView> imageViews;
 
-    // The multiplication factor at which the map changes size
-    private double zoomFactor = 1.2;
     private double mouseX;
     private double mouseY;
 
@@ -119,20 +113,22 @@ public class UIControllerATMV extends UIController {
     public void initialize() {
         setScene();
         initialBindings();
+        String helper = "Double Click: Select Node Options\n" +
+                "Click & Drag: Move Node\n\n" +
+                "If Node Already Selected\n" +
+                "Click Once To Complete Action";
+        new utilities.Tooltip(questionMark, helper);
 
         gesturePaneHandler = new GesturePaneHandler(lowerLevel2GesturePane, lowerLevel1GesturePane, groundFloorGesturePane,
                 firstFloorGesturePane, secondFloorGesturePane, thirdFloorGesturePane);
 
         tabs.getSelectionModel().selectedItemProperty().addListener(
-                new ChangeListener<Tab>() {
-                    @Override
-                    public void changed(ObservableValue<? extends Tab> ov, Tab t, Tab t1) {
-                        GesturePane oldPane = gesturePaneHandler.getGesturePanes().get(currentFloor);
-                        currentFloor = Floors.getByName(t1.getText()).getIndex();
-                        GesturePane pane = gesturePaneHandler.getGesturePanes().get(currentFloor);
-                        pane.centreOn(oldPane.targetPointAtViewportCentre());
-                        gesturePaneHandler.changeTabs(pane, oldPane);
-                    }
+                (ov, t, t1) -> {
+                    GesturePane oldPane = gesturePaneHandler.getGesturePanes().get(currentFloor);
+                    currentFloor = Floors.getByName(t1.getText()).getIndex();
+                    GesturePane pane = gesturePaneHandler.getGesturePanes().get(currentFloor);
+                    pane.centreOn(oldPane.targetPointAtViewportCentre());
+                    gesturePaneHandler.changeTabs(pane, oldPane);
                 }
         );
 
@@ -152,31 +148,37 @@ public class UIControllerATMV extends UIController {
         Connection conn = DBController.dbConnect();
         switch (tabs.getSelectionModel().getSelectedItem().getId()) {
             case "L2":
+                assert conn != null;
                 currentFloorNodes = DBControllerNE.generateListOfNodes(conn, DBControllerNE.ALL_NODES_FLOOR_L2);
                 setCurrentAnchorPane(lowerLevel2AnchorPane);
                 currentImageView = lowerLevel2ImageView;
                 break;
             case "L1":
+                assert conn != null;
                 currentFloorNodes = DBControllerNE.generateListOfNodes(conn, DBControllerNE.ALL_NODES_FLOOR_L1);
                 setCurrentAnchorPane(lowerLevel1AnchorPane);
                 currentImageView = lowerLevel1ImageView;
                 break;
             case "G":
+                assert conn != null;
                 currentFloorNodes = DBControllerNE.generateListOfNodes(conn, DBControllerNE.ALL_NODES_FLOOR_G);
                 setCurrentAnchorPane(groundFloorAnchorPane);
                 currentImageView = groundFloorImageView;
                 break;
             case "1":
+                assert conn != null;
                 currentFloorNodes = DBControllerNE.generateListOfNodes(conn, DBControllerNE.ALL_NODES_FLOOR_1);
                 setCurrentAnchorPane(firstFloorAnchorPane);
                 currentImageView = firstFloorImageView;
                 break;
             case "2":
+                assert conn != null;
                 currentFloorNodes = DBControllerNE.generateListOfNodes(conn, DBControllerNE.ALL_NODES_FLOOR_2);
                 setCurrentAnchorPane(secondFloorAnchorPane);
                 currentImageView = secondFloorImageView;
                 break;
             case "3":
+                assert conn != null;
                 currentFloorNodes = DBControllerNE.generateListOfNodes(conn, DBControllerNE.ALL_NODES_FLOOR_3);
                 setCurrentAnchorPane(thirdFloorAnchorPane);
                 currentImageView = thirdFloorImageView;
@@ -184,10 +186,12 @@ public class UIControllerATMV extends UIController {
         }
         //TODO find a better spot for this if statement
         if (allEdges.isEmpty()) {
+            assert conn != null;
             allEdges = DBControllerNE.generateListofEdges(conn);
         }
 
-        DBControllerNE.closeConnection(conn);
+        assert conn != null;
+        DBController.closeConnection(conn);
         setCurrentEdges();
     }
 
@@ -231,67 +235,66 @@ public class UIControllerATMV extends UIController {
 
             Circle circle = new Circle(x, y, AnchorPaneHandler.nodeSizeIdle);
             circle.setId(tempNode.getNodeID());
+            new Tooltip(circle, tempNode.getShortName());
 
-            circle.setOnMousePressed(new EventHandler<MouseEvent>() {
-                @Override
-                public void handle(MouseEvent mouseEvent) {
-                    if(previousNodeID != null){
-                        if(isAddingEdge){
-                            addEdge(null, previousNodeID, tempNode.getNodeID());
+            circle.setOnMousePressed(mouseEvent -> {
+                if (previousNodeID != null) {
+                    if (previousNodeID.equals(tempNode.getNodeID())) {
+                        popupMessage("Invalid Entry: Same Node", true);
+                    } else {
+                        if (isAddingEdge) {
+                            addEdge(previousNodeID, tempNode.getNodeID());
                             Connection conn = DBController.dbConnect();
+                            assert conn != null;
                             currentFloorEdges.add(DBControllerNE.fetchEdge(previousNodeID + "_" + tempNode.getNodeID(), conn));
                             DBController.closeConnection(conn);
-                        }else{
+                        } else {
                             deleteEdge(previousNodeID, tempNode.getNodeID());
                             currentFloorEdges.remove(getEdgeFrom(currentFloorEdges, previousNodeID, tempNode.getNodeID()));
                         }
-                        previousNodeID = null;
-                        draw();
-                    }else{
-                        mouseX = circle.getLayoutX() - mouseEvent.getSceneX();
-                        mouseY = circle.getLayoutY() - mouseEvent.getSceneY();
-                        if (mouseEvent.getClickCount() == 2) {
-                            try {
-                                enableChoicePopup(tempNode);
-                            } catch (IOException e) {
-                                e.printStackTrace();
-                            }
+                    }
+                    previousNodeID = null;
+                    set();
+                } else {
+                    mouseX = circle.getLayoutX() - mouseEvent.getSceneX();
+                    mouseY = circle.getLayoutY() - mouseEvent.getSceneY();
+                    if (mouseEvent.getClickCount() == 2) {
+                        try {
+                            enableChoicePopup(tempNode);
+                        } catch (IOException e) {
+                            e.printStackTrace();
                         }
                     }
                 }
             });
 
-            circle.setOnMouseDragged(new EventHandler<MouseEvent>() {
-                @Override
-                public void handle(MouseEvent mouseEvent) {
-                    circle.setLayoutX(mouseEvent.getSceneX() + mouseX);
-                    circle.setLayoutY(mouseEvent.getSceneY() + mouseY);
-                    circle.setCursor(Cursor.MOVE);
-                }
+            circle.setOnMouseDragged(mouseEvent -> {
+                circle.setLayoutX((mouseEvent.getSceneX() + mouseX) / firstFloorGesturePane.getCurrentScale());
+                circle.setLayoutY((mouseEvent.getSceneY() + mouseY) / firstFloorGesturePane.getCurrentScale());
+                circle.setCursor(Cursor.MOVE);
+                gesturePaneHandler.setPaning(false);
             });
 
-            circle.setOnMouseReleased(new EventHandler<MouseEvent>() {
-                @Override
-                public void handle(MouseEvent mouseEvent) {
-                    tempNode.setXcoord(tempNode.getXcoord() + (int) Math.round(circle.getLayoutX()));
-                    tempNode.setYcoord(tempNode.getYcoord() + (int) Math.round(circle.getLayoutY()));
-                    Connection conn = DBController.dbConnect();
-                    DBControllerNE.updateNode(tempNode, conn);
-                    DBController.closeConnection(conn);
-                    draw();
-                }
+            circle.setOnMouseReleased(mouseEvent -> {
+                tempNode.setXcoord(tempNode.getXcoord() + (int) Math.round(circle.getLayoutX()));
+                tempNode.setYcoord(tempNode.getYcoord() + (int) Math.round(circle.getLayoutY()));
+                Connection conn = DBController.dbConnect();
+                assert conn != null;
+                DBControllerNE.updateNode(tempNode, conn);
+                DBController.closeConnection(conn);
+                gesturePaneHandler.setPaning(true);
+                set();
             });
-            new Tooltip(circle, tempNode.getLongName());
             nodesGroup.getChildren().add(circle);
         }
         drawEdges();
     }
 
-    private Edge getEdgeFrom(LinkedList<Edge> edges, String nodeID1, String nodeID2){
+    private Edge getEdgeFrom(LinkedList<Edge> edges, String nodeID1, String nodeID2) {
         String edgeID1 = nodeID1 + "_" + nodeID2;
         String edgeID2 = nodeID2 + "_" + nodeID1;
-        for(Edge e:edges){
-            if(e.getEdgeID().equals(edgeID1) || e.getEdgeID().equals(edgeID2)){
+        for (Edge e : edges) {
+            if (e.getEdgeID().equals(edgeID1) || e.getEdgeID().equals(edgeID2)) {
                 return e;
             }
         }
@@ -304,8 +307,10 @@ public class UIControllerATMV extends UIController {
         for (Edge e : currentFloorEdges) {
             Node tempNode1 = getNodeFromID(e.getNode1ID());
             Node tempNode2 = getNodeFromID(e.getNode2ID());
+            assert tempNode1 != null;
             float Node1x = (float) tempNode1.getXcoord();
             float Node1y = (float) tempNode1.getYcoord();
+            assert tempNode2 != null;
             float Node2x = (float) tempNode2.getXcoord();
             float Node2y = (float) tempNode2.getYcoord();
             Line tempLine = new Line(Node1x, Node1y, Node2x, Node2y);
@@ -402,8 +407,8 @@ public class UIControllerATMV extends UIController {
     @FXML
     public void addNodeOnClick(MouseEvent mouseEvent) throws IOException {
         Node tempNode = new Node();
-        tempNode.setXcoord((int) (mouseEvent.getX() / getScale().get("scaleFx")));
-        tempNode.setYcoord((int) (mouseEvent.getY() / getScale().get("scaleFy")));
+        tempNode.setXcoord((int) (mouseEvent.getX()));
+        tempNode.setYcoord((int) (mouseEvent.getY()));
         tempNode.setFloor(tabs.getSelectionModel().getSelectedItem().getId()); //TODO Make Auto Once Add MultiFloor Functionality
         enableAddAndEditPopup(tempNode, "ADD");
         set();
@@ -415,23 +420,26 @@ public class UIControllerATMV extends UIController {
     }
 
     void deleteNode(Node node) {
-        Connection conn = DBControllerNE.dbConnect();
+        Connection conn = DBController.dbConnect();
+        assert conn != null;
         DBControllerNE.deleteNode(node.getNodeID(), conn);
-        DBControllerNE.closeConnection(conn);
+        DBController.closeConnection(conn);
         set();
     }
 
-    void addEdge(String edgeID, String node1ID, String node2ID) {
-        Connection conn = DBControllerNE.dbConnect();
-        Edge newEdge = new Edge(edgeID, node1ID, node2ID);
-        DBControllerNE.addEdge(newEdge,conn);
-        DBControllerNE.closeConnection(conn);
+    private void addEdge(String node1ID, String node2ID) {
+        Connection conn = DBController.dbConnect();
+        Edge newEdge = new Edge(null, node1ID, node2ID);
+        assert conn != null;
+        DBControllerNE.addEdge(newEdge, conn);
+        DBController.closeConnection(conn);
     }
 
-    void deleteEdge(String nodeID1, String nodeID2){
-        Connection conn = DBControllerNE.dbConnect();
+    private void deleteEdge(String nodeID1, String nodeID2) {
+        Connection conn = DBController.dbConnect();
+        assert conn != null;
         DBControllerNE.deleteEdge(nodeID1, nodeID2, conn);
-        DBControllerNE.closeConnection(conn);
+        DBController.closeConnection(conn);
     }
 
     void setKiosk(Node node) {
@@ -473,7 +481,7 @@ public class UIControllerATMV extends UIController {
         setStage(root);
     }
 
-    protected void showAddedNode(Node node) {
+    void showAddedNode(Node node) {
         for (javafx.scene.Node nodes : nodesGroup.getChildren()) {
             if (nodes.getId().equals(node.getNodeID())) {
                 ((Circle) nodes).setRadius(10);

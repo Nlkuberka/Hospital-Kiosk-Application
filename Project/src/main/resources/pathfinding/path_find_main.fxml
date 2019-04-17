@@ -169,8 +169,9 @@
                         <RowConstraints percentHeight="10.0" vgrow="ALWAYS" />
                         <RowConstraints percentHeight="15.0" vgrow="ALWAYS" />
                   <RowConstraints minHeight="10.0" percentHeight="15.0" prefHeight="30.0" vgrow="ALWAYS" />
-                        <RowConstraints percentHeight="20.0" vgrow="ALWAYS" />
                         <RowConstraints minHeight="0.0" percentHeight="20.0" prefHeight="30.0" vgrow="ALWAYS" />
+                  <RowConstraints minHeight="10.0" percentHeight="20.0" prefHeight="30.0" vgrow="ALWAYS" />
+                        <RowConstraints percentHeight="20.0" vgrow="ALWAYS" />
                         <RowConstraints minHeight="0.0" percentHeight="15.0" prefHeight="30.0" vgrow="ALWAYS" />
                     </rowConstraints>
                     <children>
@@ -204,7 +205,7 @@
                         </ImageView>
                      </graphic>
                         </JFXButton>
-                        <JFXToggleButton prefHeight="30.0" style="-fx-background-color: #ffffff;" stylesheets="@/css/background.css" text="NO STAIRS" textAlignment="CENTER" wrapText="true" GridPane.halignment="CENTER" GridPane.rowIndex="11" GridPane.valignment="CENTER">
+                        <JFXToggleButton fx:id="noStairsButton" onAction="#noStairsToggled" prefHeight="30.0" style="-fx-background-color: #ffffff;" stylesheets="@/css/background.css" text="NO STAIRS" textAlignment="CENTER" wrapText="true" GridPane.halignment="CENTER" GridPane.rowIndex="10" GridPane.valignment="CENTER">
                             <font>
                                 <Font name="System Bold" size="14.0" />
                             </font>

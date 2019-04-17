@@ -2,6 +2,7 @@ package pathfinding;
 
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTabPane;
+import com.jfoenix.controls.JFXToggleButton;
 import database.DBController;
 import application.UIController;
 import application.UIControllerPUD;
@@ -71,6 +72,7 @@ public class UIControllerPFM extends UIController {
     // The multiplication factor at which the map changes size
     @FXML
     private JFXButton directionsRequest;
+    @FXML JFXToggleButton noStairsButton;
 
     private PathHandler pathHandler;
 
@@ -302,6 +304,12 @@ public class UIControllerPFM extends UIController {
     @FXML
     private void setAboutButton() {
         this.goToScene(UIController.ABOUT_PAGE);
+    }
+
+    @FXML
+    private void noStairsToggled() {
+        Graph.noStairsIsOn = noStairsButton.isSelected();
+        getPath();
     }
 }
 
