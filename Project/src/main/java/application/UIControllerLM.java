@@ -72,6 +72,13 @@ public class UIControllerLM extends UIController {
     @FXML
     private BorderPane borderPane;
 
+    @FXML
+    private JFXButton cancelButton;
+
+    @FXML
+    private JFXButton cancelButton1;
+
+
     public UIControllerLM() {
 
     }
@@ -138,6 +145,11 @@ public class UIControllerLM extends UIController {
     @FXML
     private void goToUserTab() {
         login_tabpane.getSelectionModel().select(user_tab);
+    }
+
+    @FXML
+    private void setCancelButton() {
+        this.goToScene(UIController.PATHFINDING_MAIN);
     }
 
     private User checkLogin(String username, String password, int permissions) {
