@@ -92,8 +92,8 @@ public class UIControllerSRSA extends UIController {
     }
 
     @FXML
-    private void setHomeButton() {
-        this.goToScene(UIController.LOGIN_MAIN);
+    private void setBackButton() {
+        this.goToScene(UIController.SERVICE_REQUEST_MAIN);
     }
 
     @FXML
