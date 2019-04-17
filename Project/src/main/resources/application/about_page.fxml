@@ -323,6 +323,14 @@
                                     <Insets left="32.0" />
                                  </GridPane.margin>
                               </Text>
+                              <Text fill="#013655" strokeType="OUTSIDE" strokeWidth="0.0" text="Prof. Wilson Wong" GridPane.columnIndex="2" GridPane.rowIndex="14" GridPane.valignment="TOP">
+                                 <font>
+                                    <Font name="System Bold" size="24.0" />
+                                 </font>
+                                 <GridPane.margin>
+                                    <Insets left="90.0" />
+                                 </GridPane.margin>
+                              </Text>
                            </children>
                            <padding>
                               <Insets left="20.0" />
