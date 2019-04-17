@@ -14,6 +14,9 @@ public class BellmanFordGraph extends Graph {
     public List<String> shortestPath(String startID, String targetID) {
         int startIndex = mapNodeIDToIndex(startID);
         int targetIndex = mapNodeIDToIndex(targetID);
+        if(startIndex == -1 || targetIndex == -1) {
+            return null;
+        }
         double [] distance = new double [nodeIDs.size()]; // distance of shortest known path from start to all nodes
         for(int i = 0; i < nodeIDs.size(); i++) {
             distance[i] = Double.MAX_VALUE;
@@ -25,14 +28,18 @@ public class BellmanFordGraph extends Graph {
             // Iterate over all edges. Relax the endpoints if necessary.
             int nodeIndex1 = 0; // the index of edges in adj
             for(List<Integer> edges : adj) {
-                int edgesIndex = 0; // the index of nodeIndex2 in edges
-                for(int nodeIndex2 : edges) {
-                    double newDistance = distance[nodeIndex1] + adjWeights.get(nodeIndex1).get(edgesIndex);
-                    if(newDistance < distance[nodeIndex2]) {
-                        distance[nodeIndex2] = newDistance;
-                        done = false;
+                if(!nodeIsStairs.get(nodeIndex1) || !noStairsIsOn) {
+                    int edgesIndex = 0; // the index of nodeIndex2 in edges
+                    for (int nodeIndex2 : edges) {
+                        if(!nodeIsStairs.get(nodeIndex2) || !noStairsIsOn) {
+                            double newDistance = distance[nodeIndex1] + adjWeights.get(nodeIndex1).get(edgesIndex);
+                            if (newDistance < distance[nodeIndex2]) {
+                                distance[nodeIndex2] = newDistance;
+                                done = false;
+                            }
+                        }
+                        edgesIndex++;
                     }
-                    edgesIndex++;
                 }
                 nodeIndex1++;
             }

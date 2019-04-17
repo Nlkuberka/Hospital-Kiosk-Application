@@ -1,6 +1,7 @@
 package pathfinding;
 
 import com.jfoenix.controls.JFXTabPane;
+import com.jfoenix.controls.JFXToggleButton;
 import database.DBController;
 import application.UIController;
 import application.UIControllerPUD;
@@ -171,6 +172,8 @@ public class UIControllerPFM extends UIController {
     private JFXButton loginButton;
     @FXML
     private JFXButton serviceRequestButton;
+    @FXML
+    private JFXToggleButton noStairsButton;
 
 
     @FXML private GesturePane lowerLevel2GesturePane;
@@ -701,6 +704,12 @@ public class UIControllerPFM extends UIController {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    @FXML
+    private void noStairsToggled() {
+        Graph.noStairsIsOn = noStairsButton.isSelected();
+        getPath();
     }
 }
 

@@ -26,12 +26,16 @@ public abstract class SearchGraph extends Graph {
         // Search nodes and get the distances of the shortest path from start to each node.
         while(!finishedSearch()) {
             int current = getNodeToRelax(targetIndex);
-            for(int i = 0; i < adj.get(current).size(); i++) {
-                int nextNode = adj.get(current).get(i);
-                double currentDistance = distance[current] + adjWeights.get(current).get(i);
-                if(currentDistance < distance[nextNode]) {
-                    distance[nextNode] = currentDistance;
-                    addNodeToRelax(nextNode, distance, targetIndex);
+            if(!nodeIsStairs.get(current) || !noStairsIsOn) {
+                for (int i = 0; i < adj.get(current).size(); i++) {
+                    int nextNode = adj.get(current).get(i);
+                    if (!nodeIsStairs.get(nextNode) || !noStairsIsOn) {
+                        double currentDistance = distance[current] + adjWeights.get(current).get(i);
+                        if (currentDistance < distance[nextNode]) {
+                            distance[nextNode] = currentDistance;
+                            addNodeToRelax(nextNode, distance, targetIndex);
+                        }
+                    }
                 }
             }
         }

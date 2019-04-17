@@ -7,14 +7,18 @@ import java.util.List;
 
 import database.DBControllerNE;
 import pathfinding.UIControllerPFM;
-import static java.lang.Math.*;
+
+import static java.lang.Math.abs;
+import static java.lang.Math.sqrt;
+
 
 public abstract class Graph {
     
     protected LinkedList<LinkedList<Integer>> adj; // adjacency list
     protected LinkedList<LinkedList<Double>> adjWeights; //weights of the edges
     protected LinkedList<String> nodeIDs; //nodes that have been stored
-
+    protected LinkedList<Boolean> nodeIsStairs; // a boolean for each node, true if the node type is STAI
+    public static boolean noStairsIsOn = false;
 
     /**
      * Constructor
@@ -24,6 +28,7 @@ public abstract class Graph {
         this.adj = new LinkedList<>();
         this.adjWeights = new LinkedList<>();
         this.nodeIDs = new LinkedList<>();
+        this.nodeIsStairs = new LinkedList<>();
     }
 
     private static class GraphGetter {
@@ -47,6 +52,7 @@ public abstract class Graph {
         newGraph.adj = GraphGetter.graph.adj;
         newGraph.adjWeights = GraphGetter.graph.adjWeights;
         newGraph.nodeIDs = GraphGetter.graph.nodeIDs;
+        newGraph.nodeIsStairs = GraphGetter.graph.nodeIsStairs;
         GraphGetter.graph = newGraph;
     }
 
@@ -230,6 +236,7 @@ public abstract class Graph {
             nodeIDs.add(newNode.getNodeID());
             adj.add(new LinkedList<Integer>());
             adjWeights.add(new LinkedList<>());
+            nodeIsStairs.add(newNode.getNodeType().equals("STAI"));
         }
     }
 
@@ -248,6 +255,7 @@ public abstract class Graph {
         adj.remove(nodeIndex);
         adjWeights.remove(nodeIndex);
         nodeIDs.remove(nodeIndex);
+        nodeIsStairs.remove(nodeIndex);
 
         for(List<Integer> adjList : adj) {
             for(int j = 0; j < adjList.size(); j++) {
