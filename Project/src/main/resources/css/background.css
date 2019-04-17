@@ -106,7 +106,7 @@
 .jfx-button-zoom
 {
     -jfx-button-type: FLAT;
-    -fx-background-color:#ffffff;
+    -fx-background-color:transparent;
     -fx-pref-width: 60;
     -fx-pref-height: 60;
 }
