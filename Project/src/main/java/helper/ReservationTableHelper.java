@@ -15,6 +15,7 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.List;
 
 public class ReservationTableHelper extends UIController{
     private static final String[] reservationSetters  = {"", "setWkplaceID", "setUserID", "setDate", "setStartTime", "setEndTime"};
@@ -227,10 +228,13 @@ public class ReservationTableHelper extends UIController{
             return false;
         }
 
-        Connection conn = DBController.dbConnect();
+        /*Connection conn = DBController.dbConnect();
         DBControllerRW.deleteReservation(reservation.getRsvID(), conn);
         removeColumn.getTableView().getItems().remove(reservation);
         Reservation r = new Reservation(reservation.getWkplaceID(), reservation.getUserID(), UIControllerRVM.getDateString(datePicker), UIControllerRVM.getTimeString(startTimePicker), UIControllerRVM.getTimeString(endTimePicker));
+
+        List<Reservation> rs = DBControllerRW.generateListofUserReservations("ADMIN00001", conn);
+        System.out.println(r);
 
         if(!DBControllerRW.isRoomAvailableString(r.getWkplaceID(), r.getDate(), r.getStartTime(), r.getEndTime(), conn)) {
             popupMessage("Reservation conflicts with another.", true);
@@ -239,7 +243,7 @@ public class ReservationTableHelper extends UIController{
             DBController.closeConnection(conn);
             return false;
         }
-        DBController.closeConnection(conn);
+        DBController.closeConnection(conn);*/
         return true;
     }
 }
