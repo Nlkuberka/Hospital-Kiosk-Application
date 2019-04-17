@@ -1,6 +1,7 @@
 package servicerequests;
 
 import application.CurrentUser;
+import com.jfoenix.controls.JFXComboBox;
 import database.DBController;
 import application.UIController;
 import com.jfoenix.controls.JFXButton;
@@ -32,10 +33,7 @@ public class UIControllerSRFD extends UIController {
     private RoomCategoryFilterHelper filterHelper;
 
     @FXML
-    private ChoiceBox<String> roomCategory;
-
-    @FXML
-    private ChoiceBox<String> roomSelect;
+    private JFXComboBox<String> roomSelect;
 
     @FXML
     private JFXTextArea serviceMessage1;
@@ -59,7 +57,7 @@ public class UIControllerSRFD extends UIController {
 
     @FXML
     public void onShow() {
-        filterHelper = new RoomCategoryFilterHelper(roomCategory, roomSelect, null, true);
+        filterHelper = new RoomCategoryFilterHelper(roomSelect, null, true);
         serviceMessage1.setText("");
     }
 
