@@ -7,7 +7,6 @@ import database.DBControllerNE;
 import entities.Edge;
 import entities.Node;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Cursor;
@@ -49,12 +48,12 @@ public class UIControllerATMV extends UIController {
     public Path path;
     public MenuItem backButton;
     public TabPane tabs;
-    public ImageView questionMarkF2;
-    public ImageView questionMarkF3;
-    public ImageView questionMarkF1;
-    public ImageView questionMarkGF;
-    public ImageView questionMarkL1;
-    public ImageView questionMarkL2;
+    private ImageView questionMarkF2;
+    private ImageView questionMarkF3;
+    private ImageView questionMarkF1;
+    private ImageView questionMarkGF;
+    private ImageView questionMarkL1;
+    private ImageView questionMarkL2;
     private LinkedList<ImageView> helperIcons;
     String previousNodeID;
     boolean isAddingEdge;
@@ -107,16 +106,30 @@ public class UIControllerATMV extends UIController {
     private ImageView thirdFloorImageView;
     private List<ImageView> imageViews;
 
-    // The multiplication factor at which the map changes size
-    private double zoomFactor = 1.2;
     private double mouseX;
     private double mouseY;
+
+    private int currentFloor;
+
+    private GesturePaneHandler gesturePaneHandler;
 
     @FXML
     public void initialize() {
         setScene();
         initialBindings();
 
+        gesturePaneHandler = new GesturePaneHandler(lowerLevel2GesturePane, lowerLevel1GesturePane, groundFloorGesturePane,
+                firstFloorGesturePane, secondFloorGesturePane, thirdFloorGesturePane);
+
+        tabs.getSelectionModel().selectedItemProperty().addListener(
+                (ov, t, t1) -> {
+                    GesturePane oldPane = gesturePaneHandler.getGesturePanes().get(currentFloor);
+                    currentFloor = Floors.getByName(t1.getText()).getIndex();
+                    GesturePane pane = gesturePaneHandler.getGesturePanes().get(currentFloor);
+                    pane.centreOn(oldPane.targetPointAtViewportCentre());
+                    gesturePaneHandler.changeTabs(pane, oldPane);
+                }
+        );
 
         // Only show scroll bars if Image inside is bigger than ScrollPane
         for (ScrollPane sp : scrollPanes) {
@@ -124,9 +137,7 @@ public class UIControllerATMV extends UIController {
             sp.setVbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
         }
 
-        tabs.getSelectionModel().selectedItemProperty().addListener(param -> {
-            set();
-        });
+        tabs.getSelectionModel().selectedItemProperty().addListener(param -> set());
 
         for (ImageView icon : helperIcons) {
             String helper = "Click & Drag: Move Node\n" +
@@ -146,31 +157,37 @@ public class UIControllerATMV extends UIController {
         Connection conn = DBController.dbConnect();
         switch (tabs.getSelectionModel().getSelectedItem().getId()) {
             case "L2":
+                assert conn != null;
                 currentFloorNodes = DBControllerNE.generateListOfNodes(conn, DBControllerNE.ALL_NODES_FLOOR_L2);
                 setCurrentAnchorPane(lowerLevel2AnchorPane);
                 currentImageView = lowerLevel2ImageView;
                 break;
             case "L1":
+                assert conn != null;
                 currentFloorNodes = DBControllerNE.generateListOfNodes(conn, DBControllerNE.ALL_NODES_FLOOR_L1);
                 setCurrentAnchorPane(lowerLevel1AnchorPane);
                 currentImageView = lowerLevel1ImageView;
                 break;
             case "G":
+                assert conn != null;
                 currentFloorNodes = DBControllerNE.generateListOfNodes(conn, DBControllerNE.ALL_NODES_FLOOR_G);
                 setCurrentAnchorPane(groundFloorAnchorPane);
                 currentImageView = groundFloorImageView;
                 break;
             case "1":
+                assert conn != null;
                 currentFloorNodes = DBControllerNE.generateListOfNodes(conn, DBControllerNE.ALL_NODES_FLOOR_1);
                 setCurrentAnchorPane(firstFloorAnchorPane);
                 currentImageView = firstFloorImageView;
                 break;
             case "2":
+                assert conn != null;
                 currentFloorNodes = DBControllerNE.generateListOfNodes(conn, DBControllerNE.ALL_NODES_FLOOR_2);
                 setCurrentAnchorPane(secondFloorAnchorPane);
                 currentImageView = secondFloorImageView;
                 break;
             case "3":
+                assert conn != null;
                 currentFloorNodes = DBControllerNE.generateListOfNodes(conn, DBControllerNE.ALL_NODES_FLOOR_3);
                 setCurrentAnchorPane(thirdFloorAnchorPane);
                 currentImageView = thirdFloorImageView;
@@ -178,10 +195,12 @@ public class UIControllerATMV extends UIController {
         }
         //TODO find a better spot for this if statement
         if (allEdges.isEmpty()) {
+            assert conn != null;
             allEdges = DBControllerNE.generateListofEdges(conn);
         }
 
-        DBControllerNE.closeConnection(conn);
+        assert conn != null;
+        DBController.closeConnection(conn);
         setCurrentEdges();
     }
 
@@ -232,14 +251,22 @@ public class UIControllerATMV extends UIController {
 
             circle.setOnMousePressed(mouseEvent -> {
                 if (previousNodeID != null) {
-                    if (isAddingEdge) {
-                        addEdge(previousNodeID, tempNode.getNodeID());
-                        Connection conn = DBController.dbConnect();
-                        currentFloorEdges.add(DBControllerNE.fetchEdge(previousNodeID + "_" + tempNode.getNodeID(), conn));
-                        DBController.closeConnection(conn);
-                    } else {
-                        deleteEdge(previousNodeID, tempNode.getNodeID());
-                        currentFloorEdges.remove(getEdgeFrom(currentFloorEdges, previousNodeID, tempNode.getNodeID()));
+                    if(previousNodeID.equals(tempNode.getNodeID()))
+                    {
+                        popupMessage("Not Valid: Same Node", true);
+                    }
+                    else
+                    {
+                        if (isAddingEdge) {
+                            addEdge(previousNodeID, tempNode.getNodeID());
+                            Connection conn = DBController.dbConnect();
+                            assert conn != null;
+                            currentFloorEdges.add(DBControllerNE.fetchEdge(previousNodeID + "_" + tempNode.getNodeID(), conn));
+                            DBController.closeConnection(conn);
+                        } else {
+                            deleteEdge(previousNodeID, tempNode.getNodeID());
+                            currentFloorEdges.remove(getEdgeFrom(currentFloorEdges, previousNodeID, tempNode.getNodeID()));
+                        }
                     }
                     previousNodeID = null;
                     draw();
@@ -262,12 +289,14 @@ public class UIControllerATMV extends UIController {
                 circle.setCursor(Cursor.MOVE);
             });
 
-            circle.setOnMouseReleased(mouseEvent -> {
-                tempNode.setXcoord(tempNode.getXcoord() + (int) Math.round(circle.getLayoutX() / scaleFx));
-                tempNode.setYcoord(tempNode.getYcoord() + (int) Math.round(circle.getLayoutY() / scaleFy));
+            circle.setOnMouseReleased(
+                    mouseEvent -> {
+                tempNode.setXcoord(tempNode.getXcoord() + (int) Math.round(circle.getLayoutX()));
+                tempNode.setYcoord(tempNode.getYcoord() + (int) Math.round(circle.getLayoutY()));
                 Connection conn = DBController.dbConnect();
                 DBControllerNE.updateNode(tempNode, conn);
                 DBController.closeConnection(conn);
+                assert conn != null;
                 draw();
             });
 
@@ -295,10 +324,12 @@ public class UIControllerATMV extends UIController {
         for (Edge e : currentFloorEdges) {
             Node tempNode1 = getNodeFromID(e.getNode1ID());
             Node tempNode2 = getNodeFromID(e.getNode2ID());
-            float Node1x = (float) tempNode1.getXcoord() * scaleFx;
-            float Node1y = (float) tempNode1.getYcoord() * scaleFy;
-            float Node2x = (float) tempNode2.getXcoord() * scaleFx;
-            float Node2y = (float) tempNode2.getYcoord() * scaleFy;
+            assert tempNode1 != null;
+            float Node1x = (float) tempNode1.getXcoord();
+            float Node1y = (float) tempNode1.getYcoord();
+            assert tempNode2 != null;
+            float Node2x = (float) tempNode2.getXcoord();
+            float Node2y = (float) tempNode2.getYcoord();
             Line tempLine = new Line(Node1x, Node1y, Node2x, Node2y);
             tempLine.setStrokeWidth(3);
             edgesGroup.getChildren().add(tempLine);
@@ -378,7 +409,7 @@ public class UIControllerATMV extends UIController {
 
     @FXML
     public void goBack(ActionEvent actionEvent) {
-        this.goToScene(UIController.LOGIN_MAIN);
+        goToScene(UIController.LOGIN_MAIN);
     }
 
     /**
@@ -430,23 +461,26 @@ public class UIControllerATMV extends UIController {
     }
 
     void deleteNode(Node node) {
-        Connection conn = DBControllerNE.dbConnect();
+        Connection conn = DBController.dbConnect();
+        assert conn != null;
         DBControllerNE.deleteNode(node.getNodeID(), conn);
-        DBControllerNE.closeConnection(conn);
+        DBController.closeConnection(conn);
         set();
     }
 
     private void addEdge(String node1ID, String node2ID) {
-        Connection conn = DBControllerNE.dbConnect();
+        Connection conn = DBController.dbConnect();
         Edge newEdge = new Edge(null, node1ID, node2ID);
+        assert conn != null;
         DBControllerNE.addEdge(newEdge, conn);
-        DBControllerNE.closeConnection(conn);
+        DBController.closeConnection(conn);
     }
 
     private void deleteEdge(String nodeID1, String nodeID2) {
-        Connection conn = DBControllerNE.dbConnect();
+        Connection conn = DBController.dbConnect();
+        assert conn != null;
         DBControllerNE.deleteEdge(nodeID1, nodeID2, conn);
-        DBControllerNE.closeConnection(conn);
+        DBController.closeConnection(conn);
     }
 
     void setKiosk(Node node) {
@@ -476,7 +510,7 @@ public class UIControllerATMV extends UIController {
         stage.setWidth(400);
         stage.setResizable(false);
         stage.centerOnScreen();
-        stage.showAndWait();
+        stage.show();
     }
 
     private void enableChoicePopup(Node node) throws IOException {
@@ -484,6 +518,7 @@ public class UIControllerATMV extends UIController {
         Parent root = loader.load();
         UIControllerPUMVNO uiControllerPUMVNO = loader.getController();
         uiControllerPUMVNO.setUiControllerATMV(this, node);
+
         setStage(root);
     }
 
