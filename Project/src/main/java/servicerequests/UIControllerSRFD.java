@@ -5,6 +5,7 @@ import com.jfoenix.controls.JFXTextField;
 import database.DBController;
 import application.UIController;
 import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextArea;
 import database.DBControllerNE;
 import database.DBControllerSR;
@@ -32,11 +33,7 @@ public class UIControllerSRFD extends UIController {
     String flowerDelivery;
     private RoomCategoryFilterHelper filterHelper;
 
-    @FXML
-    private ChoiceBox<String> roomCategory;
-
-    @FXML
-    private ChoiceBox<String> roomSelect;
+    @FXML ComboBox<String> roomSelect;
 
     @FXML
     private JFXTextArea serviceMessage1;
@@ -63,7 +60,7 @@ public class UIControllerSRFD extends UIController {
 
     @FXML
     public void onShow() {
-        filterHelper = new RoomCategoryFilterHelper(roomCategory, roomSelect, null, true);
+        filterHelper = new RoomCategoryFilterHelper(roomSelect, null, true);
         serviceMessage1.setText("");
     }
 
