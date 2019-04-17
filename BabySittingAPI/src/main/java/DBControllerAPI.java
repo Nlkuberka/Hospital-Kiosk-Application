@@ -230,6 +230,15 @@ public class DBControllerAPI {
         }
     }
 
+    public static void deleteServiceRequest(int serviceID, Connection connection){
+        try{
+            Statement s = connection.createStatement();
+            s.execute("DELETE FROM SERVICEREQUEST WHERE SERVICEID = " + serviceID + "");
+        }catch(SQLException e){
+            e.printStackTrace();
+        }
+    }
+
     public static void deleteUser(String userID, Connection connection){
         try{
             Statement s = connection.createStatement();

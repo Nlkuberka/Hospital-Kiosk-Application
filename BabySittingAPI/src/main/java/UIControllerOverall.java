@@ -1,15 +1,17 @@
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Pos;
 import javafx.scene.control.TabPane;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 
 public class UIControllerOverall extends UIController{
     @FXML private TabPane tabPane;
-    @FXML private AnchorPane createServiceRequestTabPane;
-    @FXML private AnchorPane addUserTabPane;
-    @FXML private AnchorPane viewServiceRequestTabPane;
-    @FXML private AnchorPane viewUsersTabPane;
+    @FXML private Pane createServiceRequestTabPane;
+    @FXML private Pane addUserTabPane;
+    @FXML private Pane viewServiceRequestTabPane;
+    @FXML private Pane viewUsersTabPane;
 
     @FXML
     public void initialize() {
@@ -33,6 +35,11 @@ public class UIControllerOverall extends UIController{
             UIControllerVU controller2 = (UIControllerVU) fxmlLoader.getController();
             controller2.onShow();
             viewUsersTabPane.getChildren().setAll(subTabPane);
+
+            tabPane.getSelectionModel().selectedItemProperty().addListener(param -> {
+                controller1.onShow();
+                controller2.onShow();
+            });
         } catch(Exception e) {
             e.printStackTrace();
         }
