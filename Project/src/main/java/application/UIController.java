@@ -38,6 +38,7 @@ public class UIController {
     public static final String USER_MAIN_MENU_MAIN = "UMMM";
     public static final String ADMIN_MAIN_MENU_MAIN = "AMMM";
     public static final String ABOUT_PAGE= "AP";
+    public static final String SPLASH_SCREEN= "SC";
 
     public static final String PATHFINDING_MAIN = "PFM";
 
@@ -134,6 +135,9 @@ public class UIController {
 
         sceneFiles.put(UIController.ABOUT_PAGE, "/application/about_page.fxml");
         sceneTitles.put(UIController.ABOUT_PAGE, "About Page");
+
+        sceneFiles.put(UIController.SPLASH_SCREEN, "/application/splash_screen.fxml");
+        sceneTitles.put(UIController.SPLASH_SCREEN, "Splash screen Page");
         // Main Menus
         sceneFiles.put(UIController.GUEST_MAIN_MENU_MAIN, "/guest_main_menu_main.fxml");
         sceneTitles.put(UIController.GUEST_MAIN_MENU_MAIN, "Main Menu");

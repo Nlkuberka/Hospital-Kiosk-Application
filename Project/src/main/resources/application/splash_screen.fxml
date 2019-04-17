@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane prefHeight="500.0" prefWidth="750.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.UIControllerSC">
+   <children>
+      <ImageView fitHeight="500.0" fitWidth="750.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../pictures/Hospitalbackground.png" />
+         </image>
+      </ImageView>
+      <Line endX="631.800048828125" layoutX="107.0" layoutY="365.0" startX="-107.0" stroke="#ffc31f" strokeWidth="20.0" />
+      <Line endX="-18.0" endY="324.4000244140625" layoutX="138.0" layoutY="165.0" startX="-18.0" startY="-165.0" stroke="#ffc31f" strokeWidth="20.0" />
+      <Text fill="WHITE" layoutX="187.0" layoutY="178.0" strokeType="OUTSIDE" strokeWidth="0.0" text="DIAMOND">
+         <font>
+            <Font name="Marlett" size="64.0" />
+         </font>
+      </Text>
+      <Text fill="WHITE" layoutX="187.0" layoutY="245.0" strokeType="OUTSIDE" strokeWidth="0.0" text="DOBAR-CHU">
+         <font>
+            <Font name="Marlett" size="64.0" />
+         </font>
+      </Text>
+      <Text fill="WHITE" layoutX="187.0" layoutY="311.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Brigham And Women's Hospital  ">
+         <font>
+            <Font name="Marlett" size="30.0" />
+         </font>
+      </Text>
+      <Label fx:id="loading" layoutX="622.0" layoutY="375.0" text="Loading" textFill="WHITE">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+   </children>
+</AnchorPane>
