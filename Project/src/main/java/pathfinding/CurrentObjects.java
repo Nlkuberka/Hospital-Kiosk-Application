@@ -1,6 +1,7 @@
 package pathfinding;
 
 import javafx.animation.PathTransition;
+import javafx.scene.SubScene;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
@@ -19,6 +20,7 @@ public class CurrentObjects {
     private GesturePaneHandler gesturePaneHandler;
     private String initialID;
     private String destID;
+    private SubScene contextMenu;
 
     public CurrentObjects(int floorIndex, Circle initCircle, Circle destCircle, PathTransition animation, Rectangle currentAnt,
                           PathHandler pathHandler, AnchorPaneHandler anchorPaneHandler, GesturePaneHandler gesturePaneHandler) {
@@ -32,12 +34,27 @@ public class CurrentObjects {
         this.gesturePaneHandler = gesturePaneHandler;
         this.destID = null;
         this.initialID = null;
+        this.contextMenu = null;
     }
 
     void cancel() {
         this.clearNodeStyle();
         this.clearInitDestIDs();
         this.clearAnimation();
+    }
+
+    void clearContextMenu() {
+        if (contextMenu != null) {
+            getCurrentAnchorPane().getChildren().remove(contextMenu);
+        }
+    }
+
+    public SubScene getContextMenu() {
+        return contextMenu;
+    }
+
+    public void setContextMenu(SubScene contextMenu) {
+        this.contextMenu = contextMenu;
     }
 
     void clearInitDestIDs() {

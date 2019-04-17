@@ -16,6 +16,8 @@ import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.SubScene;
 import javafx.scene.control.Tab;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
@@ -25,6 +27,7 @@ import java.sql.Connection;
 
 import com.jfoenix.controls.JFXButton;
 import javafx.scene.Scene;
+import javafx.scene.shape.Circle;
 import javafx.scene.shape.Path;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -43,6 +46,8 @@ import java.util.logging.Logger;
 
 public class UIControllerPFM extends UIController {
 
+    @FXML
+    private AnchorPane topAnchorPane;
     @FXML private Path pathLL2, pathLL1, pathG, path1, path2, path3;
     @FXML private JFXTabPane mapTabPane;
 
@@ -101,6 +106,7 @@ public class UIControllerPFM extends UIController {
                         if (pathHandler.isActive()) {
                             gesturePaneHandler.newAnimation(currentObjects);
                         }
+                        currentObjects.clearContextMenu();
                     }
                 }
         );
@@ -111,12 +117,14 @@ public class UIControllerPFM extends UIController {
                 groundFloorGesturePane, firstFloorGesturePane, secondFloorGesturePane, thirdFloorGesturePane);
 
         anchorPaneHandler = new AnchorPaneHandler(lowerLevel2AnchorPane, lowerLevel1AnchorPane,
-                groundFloorAnchorPane, firstFloorAnchorPane, secondFloorAnchorPane, thirdFloorAnchorPane);
+                groundFloorAnchorPane, firstFloorAnchorPane, secondFloorAnchorPane, thirdFloorAnchorPane,
+                topAnchorPane, this);
 
         currentObjects = new CurrentObjects(0, null, null, null, null,
                 pathHandler, anchorPaneHandler, gesturePaneHandler);
 
         anchorPaneHandler.setCurrentObjects(currentObjects);
+        gesturePaneHandler.setCurrentObjects(currentObjects);
 
     }
 
@@ -165,11 +173,15 @@ public class UIControllerPFM extends UIController {
 
     }
 
-//    void createMenuOnNode() {
-//        AnchorPane pane = anchorPanes.get(currentFloorIndex);
-//        Rectangle rectangle = new Rectangle();
-//    }
+    protected void setInitialLocation(String longName) {
+        initialLocationCombo.getSelectionModel().select(longName);
+        currentObjects.clearContextMenu();
+    }
 
+    protected void setDestinationLocation(String longName) {
+        destinationCombo.getSelectionModel().select(longName);
+        currentObjects.clearContextMenu();
+    }
 
 
     /**
@@ -181,7 +193,6 @@ public class UIControllerPFM extends UIController {
     }
 
 
-
     /**
      * Callback for cancel. Clears path, animation, node selection and drop down menus
      * @param actionEvent
@@ -191,6 +202,7 @@ public class UIControllerPFM extends UIController {
         pathHandler.cancel();
         clearTabColors();
 
+        currentObjects.clearContextMenu();
         currentObjects.cancel();
 
         initialLocationCombo.getSelectionModel().clearSelection();
