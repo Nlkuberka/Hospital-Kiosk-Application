@@ -124,9 +124,9 @@ public class UIController {
                 sceneParents.put(sceneString, root);
                 sceneControllers.put(sceneString, fxmlLoader.getController());
                 scenes.put(sceneString, new Scene(root, WIDTH, HEIGHT));
+                scene = scenes.get(sceneString);
                 final ObservableList<String> stylesheets = scene.getStylesheets();
                 stylesheets.addAll(getClass().getResource(this.cssPath).toExternalForm());
-
             } catch(Exception e) {
                 e.printStackTrace();
             }

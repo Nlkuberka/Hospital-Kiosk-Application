@@ -1,9 +1,8 @@
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
 import javafx.scene.control.TabPane;
 import javafx.scene.layout.AnchorPane;
-
+import javafx.scene.layout.StackPane;
 
 public class UIControllerOverall extends UIController{
     @FXML private TabPane tabPane;
@@ -15,13 +14,19 @@ public class UIControllerOverall extends UIController{
     public void initialize() {
         try{
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/service_request_babysitting.fxml"));
-            Parent root = fxmlLoader.load();
-            AnchorPane subTabPane = (AnchorPane) fxmlLoader.load();
+            StackPane subTabPane = (StackPane) fxmlLoader.load();
             createTabPane.getChildren().setAll(subTabPane);
+
+            fxmlLoader = new FXMLLoader(getClass().getResource("/admin_tools_view_service_request.fxml"));
+            subTabPane = (StackPane) fxmlLoader.load();
+            viewTabPane.getChildren().setAll(subTabPane);
+
+            fxmlLoader = new FXMLLoader(getClass().getResource("/admin_tools_view_service_request.fxml"));
+            subTabPane = (StackPane) fxmlLoader.load();
+            userTabPane.getChildren().setAll(subTabPane);
         } catch(Exception e) {
-
+            e.printStackTrace();
         }
-
     }
 
     @Override

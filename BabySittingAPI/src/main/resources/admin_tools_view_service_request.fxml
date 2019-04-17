@@ -21,31 +21,8 @@
          </image>
       </ImageView>
       <BorderPane>
-         <top>
-            <MenuBar blendMode="LIGHTEN" nodeOrientation="LEFT_TO_RIGHT" prefWidth="900.0" style="-fx-background-color: #ffffff;" stylesheets="@../css/background.css" BorderPane.alignment="CENTER">
-              <menus>
-                <Menu mnemonicParsing="false" text="Back">
-                  <items>
-                    <MenuItem fx:id="backButton" mnemonicParsing="false" onAction="#setBackButton" text="Go back to previous page" />
-                  </items>
-                </Menu>
-                <Menu fx:id="homeButton" mnemonicParsing="false" onShowing="#setHomeButton" text="Home">
-                     <items>
-                        <MenuItem text="HOME" />
-                     </items>
-                  </Menu>
-              </menus>
-               <effect>
-                  <ColorAdjust brightness="0.19" contrast="0.01" hue="0.01" saturation="-0.44">
-                     <input>
-                        <DropShadow />
-                     </input>
-                  </ColorAdjust>
-               </effect>
-            </MenuBar>
-         </top>
          <center>
-            <TableView fx:id="serviceRequestTable" stylesheets="@../css/background.css" BorderPane.alignment="CENTER">
+            <TableView fx:id="serviceRequestTable" BorderPane.alignment="CENTER">
               <columns>
                 <TableColumn prefWidth="130.0" text="Request Room" />
                 <TableColumn prefWidth="130.0" text="Service Type" />
