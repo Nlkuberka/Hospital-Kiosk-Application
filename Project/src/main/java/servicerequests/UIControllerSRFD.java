@@ -33,7 +33,7 @@ public class UIControllerSRFD extends UIController {
     String flowerDelivery;
     private RoomCategoryFilterHelper filterHelper;
 
-    @FXML JFXComboBox<String> roomSelect;
+    @FXML private JFXComboBox<String> roomSelect;
 
     @FXML
     private JFXTextArea serviceMessage1;
