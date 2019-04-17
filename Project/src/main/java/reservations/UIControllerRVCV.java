@@ -1,9 +1,7 @@
 package reservations;
 
 import application.UIController;
-import com.calendarfx.model.CalendarSource;
-import com.calendarfx.model.Entry;
-import com.calendarfx.model.Interval;
+import com.calendarfx.model.*;
 import com.calendarfx.view.CalendarView;
 import com.calendarfx.view.DayView;
 import com.calendarfx.view.page.DayPage;
@@ -14,8 +12,6 @@ import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 
-
-import com.calendarfx.model.Calendar;
 
 import java.sql.Connection;
 import java.time.LocalDate;
@@ -41,40 +37,52 @@ public class UIControllerRVCV extends UIController {
 
 
     @FXML
-    DayPage day;
+    CalendarView cv;
+
 
     /**
      * Run when the scene is first loaded
      */
     @FXML
     public void initialize() {
+        CL001.setStyle(Calendar.Style.STYLE1);
+        CL008.setStyle(Calendar.Style.STYLE3);
+
+
         Connection conn = DBController.dbConnect();
-        for(Entry e : DBControllerRW.getEntriesforRoom("CL001",conn)) { CL001.addEntries(e); }
-        for(Entry e : DBControllerRW.getEntriesforRoom("CL002",conn)) { CL002.addEntries(e); }
-        for(Entry e : DBControllerRW.getEntriesforRoom("CL003",conn)) { CL003.addEntries(e); }
-        for(Entry e : DBControllerRW.getEntriesforRoom("CL004",conn)) { CL004.addEntries(e); }
-        for(Entry e : DBControllerRW.getEntriesforRoom("CL005",conn)) { CL005.addEntries(e); }
-        for(Entry e : DBControllerRW.getEntriesforRoom("CL006",conn)) { CL006.addEntries(e); }
-        for(Entry e : DBControllerRW.getEntriesforRoom("CL007",conn)) { CL007.addEntries(e); }
-        for(Entry e : DBControllerRW.getEntriesforRoom("CL008",conn)) { CL008.addEntries(e); }
-        for(Entry e : DBControllerRW.getEntriesforRoom("CL009",conn)) { CL009.addEntries(e); }
-        for(Entry e : DBControllerRW.getEntriesforRoom("MHA001",conn)) { MHA.addEntries(e); }
-        for(Entry e : DBControllerRW.getEntriesforRoom("MHCR001",conn)) { MHCR.addEntries(e); }
-        for(Entry e : DBControllerRW.getEntriesforRoom("PNTRY",conn)) { PNTRY.addEntries(e); }
+        for(Entry e : DBControllerRW.getEntriesforRoom("CL001",conn)) { CL001.addEntry(e); }
+        for(Entry e : DBControllerRW.getEntriesforRoom("CL002",conn)) { CL002.addEntry(e); }
+        for(Entry e : DBControllerRW.getEntriesforRoom("CL003",conn)) { CL003.addEntry(e); }
+        for(Entry e : DBControllerRW.getEntriesforRoom("CL004",conn)) { CL004.addEntry(e); }
+        for(Entry e : DBControllerRW.getEntriesforRoom("CL005",conn)) { CL005.addEntry(e); }
+        for(Entry e : DBControllerRW.getEntriesforRoom("CL006",conn)) { CL006.addEntry(e); }
+        for(Entry e : DBControllerRW.getEntriesforRoom("CL007",conn)) { CL007.addEntry(e); }
+        for(Entry e : DBControllerRW.getEntriesforRoom("CL008",conn)) { CL008.addEntry(e); }
+        for(Entry e : DBControllerRW.getEntriesforRoom("CL009",conn)) { CL009.addEntry(e); }
+        for(Entry e : DBControllerRW.getEntriesforRoom("MHA001",conn)) { MHA.addEntry(e); }
+        for(Entry e : DBControllerRW.getEntriesforRoom("MHCR001",conn)) { MHCR.addEntry(e); }
+        for(Entry e : DBControllerRW.getEntriesforRoom("PNTRY",conn)) { PNTRY.addEntry(e); }
 
+        //Entry e = new Entry<>("Hello",new Interval(LocalDate.of(2019,04,19),LocalTime.of(11,00,00),LocalDate.of(2019,04,19),LocalTime.of(18,00,00)));
+        //CL002.addEntry(e);
+        
         workplaceCal.getCalendars().addAll(CL001,CL002,CL003,CL004,CL005,CL006,CL007,CL008,CL009,MHA,MHCR,PNTRY);
-        Platform.runLater(()->{
-            day.setToday(LocalDate.now());
-            day.setTime(LocalTime.now());
-        });
-        CL001.addEntry(new Entry<>("Hello",new Interval(LocalDate.of(2019,04,19),LocalTime.of(11,00,00),LocalDate.of(2019,04,19),LocalTime.of(18,00,00))));
-        System.out.println(CL001);
 
+        for(Calendar c : workplaceCal.getCalendars()){
+            System.out.println("y");
+            System.out.println(c.findEntries("Hello"));
+        }
+        //cv = new CalendarView();
 
-        CalendarView cv = new CalendarView();
-        cv.getCalendarSources().addAll(workplaceCal);
-        //cv.setRequestedTime(LocalTime.now());
-        day = cv.getDayPage();
+        //cv.getCalendarSources().addAll(workplaceCal);
+        cv.getCalendarSources().set(0, workplaceCal);
+        for(CalendarSource cs : cv.getCalendarSources()){
+            System.out.println("f");
+        }
+
+        if(cv.getDayPage().getDayPageLayout() == null){
+            System.out.println("null");
+        }
     }
 
     /**
