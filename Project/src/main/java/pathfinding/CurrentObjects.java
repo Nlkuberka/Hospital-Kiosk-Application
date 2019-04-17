@@ -117,9 +117,11 @@ public class CurrentObjects {
         }
     }
 
-    void clearLables() {
-        getCurrentAnchorPane().getChildren().removeAll(this.initNodeLabel);
-        getCurrentAnchorPane().getChildren().removeAll(this.destNodeLabel);
+    void clearLabels() {
+        for (int i = 0; i < Floors.values().length; i++) {
+            anchorPaneHandler.getAnchorPaneAtFloor(i).getChildren().remove(this.initNodeLabel);
+            anchorPaneHandler.getAnchorPaneAtFloor(i).getChildren().remove(this.destNodeLabel);
+        }
         initNodeLabel = null;
         destNodeLabel = null;
     }
@@ -213,12 +215,12 @@ public class CurrentObjects {
     void newDestLabel(Node node) {
         Text text = labelFactory(node);
         this.destNodeLabel = text;
-        getCurrentAnchorPane().getChildren().add(text);
+        anchorPaneHandler.getAnchorPaneAtFloor(Floors.getByID(node.getFloor()).getIndex()).getChildren().add(text);
     }
 
     void newInitLabel(Node node) {
         Text text = labelFactory(node);
         this.initNodeLabel = text;
-        getCurrentAnchorPane().getChildren().add(text);
+        anchorPaneHandler.getAnchorPaneAtFloor(Floors.getByID(node.getFloor()).getIndex()).getChildren().add(text);
     }
 }
