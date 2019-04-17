@@ -3,7 +3,7 @@ package entities;
 import java.util.LinkedList;
 import java.util.Stack;
 
-public class DFSGraph extends Graph {
+public class DFSGraph extends SearchGraph {
     private Stack<Integer> stack;
 
     protected DFSGraph() {
@@ -18,14 +18,17 @@ public class DFSGraph extends Graph {
         stack = new Stack<>();
     }
 
-    protected void addNodeToRelax(int node, double distanceFromStart, int targetIndex) {
+    @Override
+    protected void addNodeToRelax(int node, double[] distanceFromStart, int targetIndex) {
         stack.push(node);
     }
 
-    protected int getNodeToRelax() {
+    @Override
+    protected int getNodeToRelax(int targetIndex) {
         return stack.pop();
     }
 
+    @Override
     protected boolean finishedSearch() {
         return stack.empty();
     }

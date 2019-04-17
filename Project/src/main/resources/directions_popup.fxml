@@ -1,8 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Button?>
+<?import com.jfoenix.controls.JFXButton?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
@@ -11,18 +14,11 @@
   <children>
     <AnchorPane maxHeight="400" maxWidth="600" prefHeight="400" prefWidth="640" VBox.vgrow="ALWAYS">
       <children>
-            <Button fx:id="printDirections" layoutX="322.0" layoutY="25.0" mnemonicParsing="false" prefHeight="110.0" prefWidth="263.0" text="Print Me The Directions">
-               <font>
-                  <Font size="20.0" />
-               </font></Button>
-            <Button fx:id="textDirections" layoutX="322.0" layoutY="149.0" mnemonicParsing="false" prefHeight="110.0" prefWidth="263.0" text="Text Me The Directions">
-               <font>
-                  <Font size="20.0" />
-               </font></Button>
-            <Button fx:id="emailDirections" layoutX="322.0" layoutY="273.0" mnemonicParsing="false" prefHeight="110.0" prefWidth="263.0" text="Email Me The Directions">
-               <font>
-                  <Font size="20.0" />
-               </font></Button>
+            <ImageView fitHeight="400.0" fitWidth="607.0" pickOnBounds="true">
+               <image>
+                  <Image url="@images/MainMenu.png" />
+               </image>
+            </ImageView>
             <ScrollPane fx:id="directionsBox" layoutX="14.0" layoutY="14.0" prefHeight="377.0" prefWidth="277.0">
               <content>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="375.0" prefWidth="274.0">
@@ -32,6 +28,18 @@
                   </AnchorPane>
               </content>
             </ScrollPane>
+            <TextField fx:id="phoneNumber" alignment="CENTER" layoutX="322.0" layoutY="111.0" prefHeight="25.0" prefWidth="263.0" promptText="Enter your phone number" />
+            <TextField fx:id="email" alignment="CENTER" layoutX="322.0" layoutY="259.0" prefHeight="25.0" prefWidth="263.0" promptText="Enter your email" />
+            <JFXButton fx:id="textDirections" layoutX="322.0" layoutY="14.0" onAction="#sendText" prefHeight="87.0" prefWidth="263.0" styleClass="jfx-button-OK" stylesheets="@css/background.css" text="Text Me The Directions">
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </JFXButton>
+            <JFXButton fx:id="emailDirections" layoutX="322.0" layoutY="157.0" onAction="#sendEmail" prefHeight="87.0" prefWidth="263.0" styleClass="jfx-button-OK" stylesheets="@css/background.css" text="Email Me The Directions">
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </JFXButton>
       </children>
     </AnchorPane>
   </children>

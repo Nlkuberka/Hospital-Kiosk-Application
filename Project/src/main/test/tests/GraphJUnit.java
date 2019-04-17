@@ -87,6 +87,14 @@ public class GraphJUnit extends TestCase {
         path = Graph.getGraph().shortestPath("N0", "N3");
         assertEquals(expected, path);
 
+        Graph.toBellmanFord();
+        path = Graph.getGraph().shortestPath("N0", "N3");
+        assertEquals(expected, path);
+
+        Graph.toDijkstra();
+        path = Graph.getGraph().shortestPath("N0", "N3");
+        assertEquals(expected, path);
+
         Graph.getGraph().removeNode("N0");
         Graph.getGraph().removeNode("N1");
         Graph.getGraph().removeNode("N2");
@@ -152,6 +160,14 @@ public class GraphJUnit extends TestCase {
         assertEquals(expected, path);
 
         Graph.toBFS();
+        path = Graph.getGraph().shortestPath("N5", "N0");
+        assertEquals(expected, path);
+
+        Graph.toBellmanFord();
+        path = Graph.getGraph().shortestPath("N5", "N0");
+        assertEquals(expected, path);
+
+        Graph.toDijkstra();
         path = Graph.getGraph().shortestPath("N5", "N0");
         assertEquals(expected, path);
 
@@ -228,6 +244,14 @@ public class GraphJUnit extends TestCase {
         actual = Graph.getGraph().shortestPath("N0", "N6");
         assertEquals(expected, actual);
 
+        Graph.toDijkstra();
+        actual = Graph.getGraph().shortestPath("N0", "N6");
+        assertEquals(expected, actual);
+
+        Graph.toBellmanFord();
+        actual = Graph.getGraph().shortestPath("N0", "N6");
+        assertEquals(expected, actual);
+
         Graph.getGraph().removeNode("N0");
         Graph.getGraph().removeNode("N1");
         Graph.getGraph().removeNode("N2");
@@ -295,6 +319,14 @@ public class GraphJUnit extends TestCase {
         actual = Graph.getGraph().shortestPath("N0", "N1");
         assertEquals(expected, actual);
 
+        Graph.toBellmanFord();
+        actual = Graph.getGraph().shortestPath("N0", "N1");
+        assertEquals(expected, actual);
+
+        Graph.toDijkstra();
+        actual = Graph.getGraph().shortestPath("N0", "N1");
+        assertEquals(expected, actual);
+
         actual = Graph.getGraph().shortestPath("N2", "N5");
         assertEquals(null, actual);
 
@@ -303,6 +335,14 @@ public class GraphJUnit extends TestCase {
         assertEquals(null, actual);
 
         Graph.toAStar();
+        actual = Graph.getGraph().shortestPath("N2", "N5");
+        assertEquals(null, actual);
+
+        Graph.toDijkstra();
+        actual = Graph.getGraph().shortestPath("N2", "N5");
+        assertEquals(null, actual);
+
+        Graph.toBellmanFord();
         actual = Graph.getGraph().shortestPath("N2", "N5");
         assertEquals(null, actual);
 
