@@ -1,8 +1,6 @@
 package application;
 
 import com.jfoenix.controls.JFXTextField;
-import entities.User;
-
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
@@ -13,14 +11,14 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TextField;
-import javafx.scene.image.ImageView;
+import javafx.scene.image.Image;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.lang.reflect.Method;
-import java.util.Map;
 import java.util.HashMap;
+import java.util.Map;
 
 /**
  * The UIController Superclass
@@ -266,6 +264,10 @@ public class UIController {
     @FXML
     public void popupMessage(String message, boolean isWarning) {
         Stage stage = new Stage();
+
+        Image icon = new Image("file:warning.png");
+        stage.getIcons().add(icon);
+
         Scene scene = null;
         UIControllerPUM controller = null;
         try {
@@ -282,7 +284,7 @@ public class UIController {
 
         controller.setMessage(message);
 
-        stage.setTitle("Warning - Main");
+        stage.setTitle("Warning");
         stage.setScene(scene);
         stage.showAndWait();
         stage.setAlwaysOnTop(true);
