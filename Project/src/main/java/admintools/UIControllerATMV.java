@@ -463,7 +463,7 @@ public class UIControllerATMV extends UIController {
         stage.setWidth(400);
         stage.setResizable(false);
         stage.centerOnScreen();
-        stage.setAlwaysOnTop(true);
+        stage.toFront();
         stage.show();
     }
 
