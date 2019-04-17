@@ -57,9 +57,13 @@ public class UIControllerSRSA extends UIController {
     public void onShow() {
         filterHelper = new RoomCategoryFilterHelper(roomSelect, null, false);
 
+        roomSelect.getSelectionModel().clearSelection();
+
         serviceMessage.setText("");
 
         sanitationSelect.getItems().addAll("Fecal Matter", "Vomit", "Urine", "Blood", "Water", "Soda", "Juice");
+
+        sanitationSelect.getSelectionModel().clearSelection();
     }
 
     public void setServiceType(String serviceType) {
@@ -88,8 +92,8 @@ public class UIControllerSRSA extends UIController {
     }
 
     @FXML
-    private void setHomeButton() {
-        this.goToScene(UIController.LOGIN_MAIN);
+    private void setBackButton() {
+        this.goToScene(UIController.SERVICE_REQUEST_MAIN);
     }
 
     @FXML

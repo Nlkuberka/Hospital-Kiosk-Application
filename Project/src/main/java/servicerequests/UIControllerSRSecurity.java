@@ -56,6 +56,7 @@ public class UIControllerSRSecurity extends UIController {
 
     @FXML
     public void onShow() {
+        roomSelect.getSelectionModel().clearSelection();
         filterHelper = new RoomCategoryFilterHelper(roomSelect, null, false);
 
         String[] priorities = {"1","2","3","4","5"};

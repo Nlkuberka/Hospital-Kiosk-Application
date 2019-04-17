@@ -64,7 +64,9 @@ public class UIControllerSRAVE extends UIController {
 
     @FXML
     public void onShow() {
+        roomSelect.getSelectionModel().clearSelection();
         filterHelper = new RoomCategoryFilterHelper(roomSelect, null, true);
+        serviceSelect.getSelectionModel().clearSelection();
         serviceMessage.setText("");
     }
 

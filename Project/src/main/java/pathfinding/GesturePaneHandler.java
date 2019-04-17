@@ -19,6 +19,7 @@ import java.util.List;
 public class GesturePaneHandler {
     private List<GesturePane> gesturePanes;
     static final Duration DURATION = Duration.millis(300);
+    private CurrentObjects currentObjects;
 
     public GesturePaneHandler(GesturePane p1, GesturePane p2, GesturePane p3, GesturePane p4,
             GesturePane p5, GesturePane p6) {
@@ -33,6 +34,9 @@ public class GesturePaneHandler {
         setupGesturePanes();
     }
 
+    public void setCurrentObjects(CurrentObjects currentObjects) {
+        this.currentObjects = currentObjects;
+    }
 
     public List<GesturePane> getGesturePanes() {
         return gesturePanes;
@@ -67,10 +71,9 @@ public class GesturePaneHandler {
                 Point2D pivotOnTarget = pane.targetPointAt(new Point2D(e.getX(), e.getY()))
                         .orElse(pane.targetPointAtViewportCentre());
                 if (e.getButton() == MouseButton.PRIMARY && e.getClickCount() == 2) {
-                    // increment of scale makes more sense exponentially instead of linearly
-                    pane.animate(DURATION)
-                            .interpolateWith(Interpolator.EASE_BOTH)
-                            .zoomBy(pane.getCurrentScale(), pivotOnTarget);
+                    if (currentObjects != null) {
+                        currentObjects.clearContextMenu();
+                    }
                 } else if (e.getButton() == MouseButton.SECONDARY && e.getClickCount() == 1) {
                     pane.animate(DURATION)
                             .interpolateWith(Interpolator.EASE_BOTH)

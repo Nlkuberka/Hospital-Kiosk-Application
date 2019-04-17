@@ -43,6 +43,8 @@ import java.util.logging.Logger;
 
 public class UIControllerPFM extends UIController {
 
+    @FXML
+    private AnchorPane topAnchorPane;
     @FXML private Path pathLL2, pathLL1, pathG, path1, path2, path3;
     @FXML private JFXTabPane mapTabPane;
 
@@ -101,6 +103,7 @@ public class UIControllerPFM extends UIController {
                         if (pathHandler.isActive()) {
                             gesturePaneHandler.newAnimation(currentObjects);
                         }
+                        currentObjects.clearContextMenu();
                     }
                 }
         );
@@ -111,12 +114,14 @@ public class UIControllerPFM extends UIController {
                 groundFloorGesturePane, firstFloorGesturePane, secondFloorGesturePane, thirdFloorGesturePane);
 
         anchorPaneHandler = new AnchorPaneHandler(lowerLevel2AnchorPane, lowerLevel1AnchorPane,
-                groundFloorAnchorPane, firstFloorAnchorPane, secondFloorAnchorPane, thirdFloorAnchorPane);
+                groundFloorAnchorPane, firstFloorAnchorPane, secondFloorAnchorPane, thirdFloorAnchorPane,
+                topAnchorPane, this);
 
         currentObjects = new CurrentObjects(0, null, null, null, null,
                 pathHandler, anchorPaneHandler, gesturePaneHandler);
 
         anchorPaneHandler.setCurrentObjects(currentObjects);
+        gesturePaneHandler.setCurrentObjects(currentObjects);
 
     }
 
@@ -165,11 +170,15 @@ public class UIControllerPFM extends UIController {
 
     }
 
-//    void createMenuOnNode() {
-//        AnchorPane pane = anchorPanes.get(currentFloorIndex);
-//        Rectangle rectangle = new Rectangle();
-//    }
+    protected void setInitialLocation(String longName) {
+        initialLocationCombo.getSelectionModel().select(longName);
+        currentObjects.clearContextMenu();
+    }
 
+    protected void setDestinationLocation(String longName) {
+        destinationCombo.getSelectionModel().select(longName);
+        currentObjects.clearContextMenu();
+    }
 
 
     /**
@@ -181,7 +190,6 @@ public class UIControllerPFM extends UIController {
     }
 
 
-
     /**
      * Callback for cancel. Clears path, animation, node selection and drop down menus
      * @param actionEvent
@@ -191,7 +199,9 @@ public class UIControllerPFM extends UIController {
         pathHandler.cancel();
         clearTabColors();
 
+        currentObjects.clearContextMenu();
         currentObjects.cancel();
+        currentObjects.clearLabels();
 
         initialLocationCombo.getSelectionModel().clearSelection();
         destinationCombo.getSelectionModel().clearSelection();
@@ -210,24 +220,36 @@ public class UIControllerPFM extends UIController {
 
         Connection connection = DBController.dbConnect();
         Node initialNode = DBControllerNE.fetchNode(currentObjects.getInitialID(), connection);
+        Node destNode = DBControllerNE.fetchNode(currentObjects.getDestID(), connection);
         DBController.closeConnection(connection);
 
         currentObjects.clearAnimation(); // reset stuff
         pathHandler.cancel(); // reset stuff
 
-        // change tab based on initial node -- order here is important! Do not move below.
-        mapTabPane.getSelectionModel().select(Floors.getByID(initialNode.getFloor()).getIndex());
-
-        // update paths -- order here is important! Do not move above change tab.
-        pathHandler.displayNewPath(Graph.getGraph().separatePathByFloor(pathIDs), initialNode);
-
-        gesturePaneHandler.centerOnInitialNode(pathHandler, currentObjects.getCurrentGesturePane());
-
-        List<Integer> floorsUsed = pathHandler.getFloorsUsed();
-        clearTabColors();
-        for (Integer floor : floorsUsed) {
-            this.mapTabPane.getTabs().get(floor).setStyle("-fx-background-color: #015080");
+        if(pathIDs == null) {
+            clearTabColors();
+            popupMessage("There is no path between these two nodes.", true);
         }
+        else {
+            // change tab based on initial node -- order here is important! Do not move below.
+            mapTabPane.getSelectionModel().select(Floors.getByID(initialNode.getFloor()).getIndex());
+
+            // update paths -- order here is important! Do not move above change tab.
+            pathHandler.displayNewPath(Graph.getGraph().separatePathByFloor(pathIDs), initialNode);
+
+            gesturePaneHandler.centerOnInitialNode(pathHandler, currentObjects.getCurrentGesturePane());
+
+            List<Integer> floorsUsed = pathHandler.getFloorsUsed();
+            clearTabColors();
+            for (Integer floor : floorsUsed) {
+                this.mapTabPane.getTabs().get(floor).setStyle("-fx-background-color: #015080");
+            }
+        }
+
+        currentObjects.clearLabels();
+
+        currentObjects.newInitLabel(initialNode);
+        currentObjects.newDestLabel(destNode);
 
         gesturePaneHandler.newAnimation(currentObjects);
 

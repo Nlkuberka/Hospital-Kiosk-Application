@@ -1,11 +1,16 @@
 package pathfinding;
 
+import entities.Node;
 import javafx.animation.PathTransition;
+import javafx.scene.SubScene;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Path;
 import javafx.scene.shape.Rectangle;
+import javafx.scene.text.Font;
+import javafx.scene.text.Text;
+import javafx.scene.text.TextAlignment;
 import net.kurobako.gesturefx.GesturePane;
 
 public class CurrentObjects {
@@ -19,6 +24,9 @@ public class CurrentObjects {
     private GesturePaneHandler gesturePaneHandler;
     private String initialID;
     private String destID;
+    private SubScene contextMenu;
+    private Text initNodeLabel;
+    private Text destNodeLabel;
 
     public CurrentObjects(int floorIndex, Circle initCircle, Circle destCircle, PathTransition animation, Rectangle currentAnt,
                           PathHandler pathHandler, AnchorPaneHandler anchorPaneHandler, GesturePaneHandler gesturePaneHandler) {
@@ -30,14 +38,26 @@ public class CurrentObjects {
         this.pathHandler = pathHandler;
         this.anchorPaneHandler = anchorPaneHandler;
         this.gesturePaneHandler = gesturePaneHandler;
-        this.destID = null;
-        this.initialID = null;
     }
 
     void cancel() {
         this.clearNodeStyle();
         this.clearInitDestIDs();
         this.clearAnimation();
+    }
+
+    void clearContextMenu() {
+        if (contextMenu != null) {
+            getCurrentAnchorPane().getChildren().remove(contextMenu);
+        }
+    }
+
+    public SubScene getContextMenu() {
+        return contextMenu;
+    }
+
+    public void setContextMenu(SubScene contextMenu) {
+        this.contextMenu = contextMenu;
     }
 
     void clearInitDestIDs() {
@@ -97,6 +117,23 @@ public class CurrentObjects {
         }
     }
 
+    void clearLabels() {
+        for (int i = 0; i < Floors.values().length; i++) {
+            anchorPaneHandler.getAnchorPaneAtFloor(i).getChildren().remove(this.initNodeLabel);
+            anchorPaneHandler.getAnchorPaneAtFloor(i).getChildren().remove(this.destNodeLabel);
+        }
+        initNodeLabel = null;
+        destNodeLabel = null;
+    }
+
+    public Text getInitNodeLabel() {
+        return initNodeLabel;
+    }
+
+    public Text getDestNodeLabel() {
+        return destNodeLabel;
+    }
+
     public AnchorPane getCurrentAnchorPane() {
         return this.anchorPaneHandler.getAnchorPaneAtFloor(this.floorIndex);
     }
@@ -122,11 +159,19 @@ public class CurrentObjects {
     }
 
     public void setInitCircle(Circle initCircle) {
+        if (this.initCircle != null) {
+            this.initCircle.setFill(Color.BLACK);
+            this.initCircle.setRadius(AnchorPaneHandler.nodeSizeIdle);
+        }
+        if (initCircle != null) {
+            initCircle.setFill(Color.GREEN);
+            initCircle.setRadius(AnchorPaneHandler.getNodeSizeHighlited);
+        }
         this.initCircle = initCircle;
     }
 
     public void setInitCircle(String initCircle) {
-        this.initCircle = anchorPaneHandler.getCircleFromName(initCircle);
+        setInitCircle(anchorPaneHandler.getCircleFromName(initCircle));
     }
 
     public Circle getDestCircle() {
@@ -134,11 +179,19 @@ public class CurrentObjects {
     }
 
     public void setDestCircle(Circle destCircle) {
+        if (this.destCircle != null) {
+            this.destCircle.setFill(Color.BLACK);
+            this.destCircle.setRadius(AnchorPaneHandler.nodeSizeIdle);
+        }
+        if (destCircle != null) {
+            destCircle.setRadius(AnchorPaneHandler.getNodeSizeHighlited);
+            destCircle.setFill(Color.RED);
+        }
         this.destCircle = destCircle;
     }
 
     public void setDestCircle(String destCircle) {
-        this.destCircle = anchorPaneHandler.getCircleFromName(destCircle);
+        setDestCircle(anchorPaneHandler.getCircleFromName(destCircle));
     }
 
     public PathTransition getAnimation() {
@@ -155,5 +208,27 @@ public class CurrentObjects {
 
     public void setAnt(Rectangle ant) {
         this.ant = ant;
+    }
+
+    private Text labelFactory(Node node) {
+        Text text = new Text();
+        text.setText(node.getLongName());
+        text.setFont(Font.font(60));
+        text.setLayoutX(node.getXcoord() - text.getLayoutBounds().getWidth()/2);
+        text.setLayoutY(node.getYcoord() - 60);
+        //text.setStyle("-fx-background-color: #ffffff;"); // does not work
+        return text;
+    }
+
+    void newDestLabel(Node node) {
+        Text text = labelFactory(node);
+        this.destNodeLabel = text;
+        anchorPaneHandler.getAnchorPaneAtFloor(Floors.getByID(node.getFloor()).getIndex()).getChildren().add(text);
+    }
+
+    void newInitLabel(Node node) {
+        Text text = labelFactory(node);
+        this.initNodeLabel = text;
+        anchorPaneHandler.getAnchorPaneAtFloor(Floors.getByID(node.getFloor()).getIndex()).getChildren().add(text);
     }
 }

@@ -1,8 +1,6 @@
 package application;
 
 import com.jfoenix.controls.JFXTextField;
-import entities.User;
-
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
@@ -13,14 +11,14 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TextField;
-import javafx.scene.image.ImageView;
+import javafx.scene.image.Image;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.lang.reflect.Method;
-import java.util.Map;
 import java.util.HashMap;
+import java.util.Map;
 
 /**
  * The UIController Superclass
@@ -75,6 +73,8 @@ public class UIController {
     // The starting width and height of the window
     private static final int WIDTH = 1280;
     private static final int HEIGHT = 720;
+    private static final int MIN_WIDTH = 1280;
+    private static final int MIN_HEIGHT = 720;
 
     private static final int WIDTH_POPUP_WARNING = 300;
     private static final int HEIGHT_POPUP_WARNING = 150;
@@ -103,6 +103,8 @@ public class UIController {
      */
     public UIController(Stage stage) {
         primaryStage = stage;
+        primaryStage.setMinWidth(MIN_WIDTH);
+        primaryStage.setMinHeight(MIN_HEIGHT);
         rootPane = new BorderPane();
         rootScene = new Scene(rootPane, WIDTH, HEIGHT);
         primaryStage.setScene(rootScene);
@@ -266,6 +268,10 @@ public class UIController {
     @FXML
     public void popupMessage(String message, boolean isWarning) {
         Stage stage = new Stage();
+
+        Image icon = new Image("file:warning.png");
+        stage.getIcons().add(icon);
+
         Scene scene = null;
         UIControllerPUM controller = null;
         try {
@@ -282,7 +288,7 @@ public class UIController {
 
         controller.setMessage(message);
 
-        stage.setTitle("Warning - Main");
+        stage.setTitle("Warning");
         stage.setScene(scene);
         stage.show();
         stage.setAlwaysOnTop(true);
@@ -299,7 +305,7 @@ public class UIController {
         int permission = CurrentUser.user.getPermissions();
         switch (permission){
             case 1:
-                this.goToScene(UIController.PATHFINDING_MAIN);
+                this.goToScene(UIController.SERVICE_REQUEST_MAIN);
                 break;
             case 2:
                 this.goToScene(UIController.USER_MAIN_MENU_MAIN);
@@ -311,6 +317,11 @@ public class UIController {
                 this.goToScene(UIController.WELCOME_MAIN);
                 break;
         }
+    }
+
+    @FXML
+    private void setBackButton(){
+        this.goToScene(UIController.PATHFINDING_MAIN);
     }
 
     /**
