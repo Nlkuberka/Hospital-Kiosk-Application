@@ -1,6 +1,7 @@
 package servicerequests;
 
 import application.CurrentUser;
+import com.jfoenix.controls.JFXComboBox;
 import database.DBController;
 import application.UIController;
 import com.jfoenix.controls.JFXButton;
@@ -27,10 +28,7 @@ public class UIControllerSRIN extends UIController {
     RoomCategoryFilterHelper filterHelper;
 
     @FXML
-    private ChoiceBox<String> roomCategory;
-
-    @FXML
-    private ChoiceBox<String> roomSelect;
+    private JFXComboBox<String> roomSelect;
 
     @FXML
     private ChoiceBox<String> languageSelect;
@@ -54,7 +52,7 @@ public class UIControllerSRIN extends UIController {
     @SuppressWarnings("Duplicates")
     @FXML
     public void onShow() {
-        filterHelper = new RoomCategoryFilterHelper(roomCategory, roomSelect, null, true);
+        filterHelper = new RoomCategoryFilterHelper(roomSelect, null, true);
 
         languageSelect.getSelectionModel().selectFirst();
         serviceMessage.setText("");

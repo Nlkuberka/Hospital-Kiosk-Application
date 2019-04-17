@@ -1,29 +1,22 @@
 package pathfinding;
 
-import application.UIController;
 import entities.Node;
-import javafx.collections.FXCollections;
 import javafx.geometry.Point2D;
-import javafx.scene.image.ImageView;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.shape.Circle;
 import javafx.scene.shape.LineTo;
 import javafx.scene.shape.MoveTo;
 import javafx.scene.shape.Path;
 import javafx.stage.Stage;
 
-import java.lang.reflect.Array;
-import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
-public class MapHandler {
+public class PathHandler {
     private LinkedList<Path> pathList = new LinkedList<>();
     private List<List<List<Node>>> latestPath;
     private Node latestStartingNode;
     private Stage primaryStage;
 
-    public MapHandler(Path p1, Path p2, Path p3, Path p4, Path p5, Path p6, Stage stage) {
+    public PathHandler(Path p1, Path p2, Path p3, Path p4, Path p5, Path p6, Stage stage) {
         this.pathList.add(p1);
         this.pathList.add(p2);
         this.pathList.add(p3);
@@ -84,7 +77,7 @@ public class MapHandler {
     }
 
     private void updatePaths(List<List<List<Node>>> list) {
-        if (list.size() != UIControllerPFM.Floors.values().length)
+        if (list.size() != Floors.values().length)
             System.out.println("WARNING: Did not receive a node list for each floor");
 
         clearAndHideAllPaths();
@@ -135,7 +128,7 @@ public class MapHandler {
 
     List<Point2D> getPathExtremaOnInitFloor() {
         double minX = 6000, maxX = 0, minY = 6000, maxY = 0;
-        int currentFloorIndex = UIControllerPFM.Floors.getByID(this.latestStartingNode.getFloor()).getIndex();
+        int currentFloorIndex = Floors.getByID(this.latestStartingNode.getFloor()).getIndex();
         List<List<Node>> list = this.latestPath.get(currentFloorIndex);
         for (List<Node> nodeList : list) {
             for (Node node : nodeList) {
