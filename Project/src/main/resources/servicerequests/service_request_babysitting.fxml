@@ -88,7 +88,10 @@
                         <Insets left="20.0" />
                      </GridPane.margin>
                   </Text>
-                  <JFXTextField fx:id="serviceMessage" alignment="TOP_LEFT" prefHeight="254.0" prefWidth="150.0" style="-fx-background-color: #ffffff;" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                  <JFXTextField fx:id="serviceMessage" alignment="TOP_LEFT" prefHeight="254.0" prefWidth="150.0" style="-fx-background-color: #ffffff;" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="5">
+                     <GridPane.margin>
+                        <Insets left="20.0" />
+                     </GridPane.margin></JFXTextField>
                   <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Additional Messages" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="4" GridPane.valignment="BOTTOM">
                      <font>
                         <Font name="System Bold" size="18.0" />
@@ -97,7 +100,7 @@
                         <Insets left="20.0" />
                      </GridPane.margin>
                   </Text>
-                  <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Room Selection" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="2" GridPane.valignment="BOTTOM">
+                  <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Room Selection" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="2" GridPane.valignment="TOP">
                      <font>
                         <Font name="System Bold" size="18.0" />
                      </font>
@@ -105,7 +108,7 @@
                         <Insets left="20.0" />
                      </GridPane.margin>
                   </Text>
-                  <JFXComboBox fx:id="roomSelect" prefWidth="150.0" style="-fx-background-color: #ffffff;" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                  <JFXComboBox fx:id="roomSelect" prefWidth="150.0" style="-fx-background-color: #ffffff;" GridPane.columnIndex="1" GridPane.rowIndex="3" GridPane.valignment="TOP" />
                </children>
             </GridPane>
          </left>
