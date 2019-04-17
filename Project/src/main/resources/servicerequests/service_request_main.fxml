@@ -52,18 +52,22 @@
                   <ColumnConstraints halignment="CENTER" hgrow="ALWAYS" minWidth="10.0" percentWidth="5.0" prefWidth="100.0" />
                </columnConstraints>
                <rowConstraints>
+                  <RowConstraints minHeight="10.0" percentHeight="15.0" prefHeight="30.0" vgrow="SOMETIMES" />
                   <RowConstraints minHeight="10.0" percentHeight="15.0" vgrow="SOMETIMES" />
                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                   <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
                </rowConstraints>
                <children>
-                  <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Service Request" GridPane.columnIndex="1">
+                  <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Service Request" GridPane.columnIndex="1" GridPane.rowIndex="1">
                      <font>
                         <Font name="System Bold Italic" size="48.0" />
                      </font>
+                     <GridPane.margin>
+                        <Insets bottom="60.0" />
+                     </GridPane.margin>
                   </Text>
-                  <FlowPane alignment="CENTER" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                  <FlowPane alignment="CENTER" GridPane.columnIndex="1" GridPane.rowIndex="2" GridPane.valignment="BOTTOM">
                      <children>
                         <JFXButton alignment="BOTTOM_CENTER" contentDisplay="TOP" graphicTextGap="20.0" onAction="#setReligiousServices" prefHeight="180.0" prefWidth="160.0" style="-fx-background-color: #ffc41e;" styleClass="jfx-button-SVmain" stylesheets="@../css/background.css" text="Religious Services" textFill="WHITE">
                            <font>
@@ -127,7 +131,7 @@
                         </JFXButton>
                      </children>
                   </FlowPane>
-                  <FlowPane alignment="CENTER" prefHeight="540.0" prefWidth="723.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                  <FlowPane alignment="CENTER" prefHeight="540.0" prefWidth="723.0" GridPane.columnIndex="1" GridPane.rowIndex="3" GridPane.valignment="TOP">
                      <children>
                         <JFXButton alignment="BOTTOM_CENTER" contentDisplay="TOP" graphicTextGap="20.0" onAction="#setSecurityButton" prefHeight="180.0" prefWidth="160.0" style="-fx-background-color: #ffc41e;" styleClass="jfx-button-SVmain" stylesheets="@../css/background.css" text="Security Services" textFill="WHITE">
                            <font>

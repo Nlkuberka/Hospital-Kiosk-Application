@@ -288,7 +288,7 @@
                                     <Font name="System Italic" size="20.0" />
                                  </font>
                                  <GridPane.margin>
-                                    <Insets left="45.0" />
+                                    <Insets left="35.0" />
                                  </GridPane.margin>
                               </Text>
                               <Text fill="#015080" strokeType="OUTSIDE" strokeWidth="0.0" text="Joseph Niski " GridPane.columnIndex="3" GridPane.rowIndex="13" GridPane.valignment="TOP">
@@ -296,7 +296,7 @@
                                     <Font name="System Bold" size="24.0" />
                                  </font>
                                  <GridPane.margin>
-                                    <Insets left="30.0" />
+                                    <Insets left="20.0" />
                                  </GridPane.margin>
                               </Text>
                               <Text fill="#015080" strokeType="OUTSIDE" strokeWidth="0.0" text="Rakesh Veetekat" GridPane.columnIndex="5" GridPane.rowIndex="9" GridPane.valignment="TOP">

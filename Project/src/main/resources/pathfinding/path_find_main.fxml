@@ -4,6 +4,7 @@
 <?import com.jfoenix.controls.JFXComboBox?>
 <?import com.jfoenix.controls.JFXTabPane?>
 <?import com.jfoenix.controls.JFXToggleButton?>
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.effect.ColorAdjust?>
 <?import javafx.scene.image.Image?>
@@ -173,21 +174,22 @@
                         <RowConstraints minHeight="0.0" percentHeight="15.0" prefHeight="30.0" vgrow="ALWAYS" />
                     </rowConstraints>
                     <children>
-                        <Text fill="WHITE" smooth="false" strokeType="OUTSIDE" strokeWidth="0.0" text="Initial Location" textAlignment="CENTER" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
-                            <font>
-                                <Font name="System Bold Italic" size="16.0" />
-                            </font>
-                        </Text>
                         <JFXComboBox fx:id="initialLocationCombo" prefWidth="150.0" style="-fx-background-color: #ffffff;" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
-                        <Text fill="WHITE" smooth="false" strokeType="OUTSIDE" strokeWidth="0.0" text="Initial Location" textAlignment="CENTER" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+                        <Text fill="WHITE" smooth="false" strokeType="OUTSIDE" strokeWidth="0.0" text="Initial Location" textAlignment="CENTER" GridPane.halignment="LEFT" GridPane.rowIndex="1" GridPane.valignment="BOTTOM">
                             <font>
                                 <Font name="System Bold Italic" size="16.0" />
                             </font>
+                     <GridPane.margin>
+                        <Insets left="25.0" />
+                     </GridPane.margin>
                         </Text>
-                        <Text fill="WHITE" smooth="false" strokeType="OUTSIDE" strokeWidth="0.0" text="Destination" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="CENTER">
+                        <Text fill="WHITE" smooth="false" strokeType="OUTSIDE" strokeWidth="0.0" text="Destination" GridPane.halignment="LEFT" GridPane.rowIndex="4" GridPane.valignment="BOTTOM">
                             <font>
                                 <Font name="System Bold Italic" size="16.0" />
                             </font>
+                     <GridPane.margin>
+                        <Insets left="25.0" />
+                     </GridPane.margin>
                         </Text>
                         <JFXComboBox fx:id="destinationCombo" prefWidth="150.0" style="-fx-background-color: #ffffff;" GridPane.halignment="CENTER" GridPane.rowIndex="5" />
                         <JFXButton alignment="TOP_CENTER" contentDisplay="CENTER" graphicTextGap="0.0" onAction="#cancel" prefWidth="100.0" style="-fx-background-color: transparent;" text=" " textFill="WHITE" GridPane.halignment="CENTER" GridPane.rowIndex="6" GridPane.valignment="CENTER">
@@ -213,7 +215,7 @@
                             </font>
                         </JFXButton>
                         <JFXButton fx:id="loginButton" onAction="#setLoginButton" styleClass="jfx-button-login" stylesheets="@../css/background.css" text="Login" GridPane.halignment="CENTER" GridPane.rowIndex="8" GridPane.valignment="TOP" />
-                  <JFXButton fx:id="aboutButton" onAction="#setAboutButton" style="-fx-background-color: #0090d3;" styleClass="jfx-button-add" stylesheets="@../css/background.css" text="About Us" GridPane.halignment="CENTER" GridPane.rowIndex="10" GridPane.valignment="BOTTOM" />
+                  <JFXButton fx:id="aboutButton" onAction="#setAboutButton" style="-fx-background-color: transparent;" styleClass="jfx-button-add" stylesheets="@../css/background.css" text="About Us" GridPane.halignment="CENTER" GridPane.rowIndex="10" GridPane.valignment="BOTTOM" />
                     </children>
                 </GridPane>
          </left>
