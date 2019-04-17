@@ -7,36 +7,66 @@
 <?import javafx.scene.effect.ColorAdjust?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="reservations.UIControllerRVMM">
+<StackPane xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="reservations.UIControllerRVMM">
    <children>
-      <AnchorPane prefHeight="400.0" prefWidth="600.0">
-         <children>
-            <AnchorPane prefHeight="400.0" prefWidth="600.0" styleClass="body-background" stylesheets="/css/background.css">
+      <ImageView fx:id="backgroundImage" onDragDetected="#initialize" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/Hospitalbackground.png" />
+         </image>
+      </ImageView>
+      <BorderPane>
+         <top>
+            <MenuBar blendMode="ADD" prefWidth="900.0" style="-fx-background-color: white;" stylesheets="@../css/background.css" BorderPane.alignment="CENTER">
+              <menus>
+                <Menu fx:id="homeButton" mnemonicParsing="false" onShowing="#setHomeButton" text="Home">
+                  <items>
+                    <MenuItem fx:id="backMenuItem" mnemonicParsing="false" onAction="#setBackMenuItem" text="HOME" />
+                  </items>
+                </Menu>
+              </menus>
+            </MenuBar>
+         </top>
+         <center>
+            <GridPane BorderPane.alignment="CENTER">
+              <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="45.0" prefWidth="100.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="10.0" prefWidth="100.0" />
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="45.0" prefWidth="100.0" />
+              </columnConstraints>
+              <rowConstraints>
+                  <RowConstraints minHeight="10.0" percentHeight="40.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" percentHeight="30.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" percentHeight="40.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" percentHeight="0.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" percentHeight="0.0" vgrow="SOMETIMES" />
+              </rowConstraints>
                <children>
-                  <ImageView fitHeight="600.0" fitWidth="900.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../images/Hospitalbackground.png" />
-                     </image>
-                  </ImageView>
-                  <BorderPane>
-                     <top>
-                        <MenuBar blendMode="ADD" prefWidth="900.0" style="-fx-background-color: white;" stylesheets="@../css/background.css" BorderPane.alignment="CENTER">
-                          <menus>
-                            <Menu mnemonicParsing="false" text="Back">
-                              <items>
-                                <MenuItem fx:id="backMenuItem" mnemonicParsing="false" onAction="#setBackMenuItem" text="Go back to previous page" />
-                              </items>
-                            </Menu>
-                          </menus>
-                        </MenuBar>
-                     </top>
-                  </BorderPane>
-                  <JFXButton fx:id="viewReservations" alignment="BOTTOM_CENTER" buttonType="RAISED" contentDisplay="TOP" graphicTextGap="20.0" layoutX="480.0" layoutY="200.0" maxHeight="240.0" onAction="#setViewReservations" prefHeight="40.0" prefWidth="400.0" styleClass="jfx-button-guest-main-menu" stylesheets="@../css/background.css" text="View My Reservations" textFill="WHITE" AnchorPane.leftAnchor="480.0">
+                  <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Reservation Home" textAlignment="CENTER" wrappingWidth="514.0441284179688" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+                     <font>
+                        <Font name="System Bold Italic" size="45.0" />
+                     </font>
+                  </Text>
+                  <JFXButton fx:id="makeReservation" alignment="BOTTOM_CENTER" buttonType="RAISED" contentDisplay="TOP" graphicTextGap="15.0" maxHeight="240.0" onAction="#setMakeReservation" prefHeight="245.0" prefWidth="400.0" styleClass="jfx-button-guest-main-menu" stylesheets="@../css/background.css" text="Make Reservation" textFill="WHITE" GridPane.halignment="RIGHT" GridPane.rowIndex="1" GridPane.valignment="TOP">
+                     <font>
+                        <Font name="System Bold" size="25.0" />
+                     </font>
+                     <graphic>
+                        <ImageView fitHeight="180.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/reserved.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </JFXButton>
+                  <JFXButton fx:id="viewReservations" alignment="BOTTOM_CENTER" buttonType="RAISED" contentDisplay="TOP" graphicTextGap="15.0" maxHeight="240.0" onAction="#setViewReservations" prefHeight="40.0" prefWidth="400.0" styleClass="jfx-button-guest-main-menu" stylesheets="@../css/background.css" text="View My Reservations" textFill="WHITE" GridPane.columnIndex="2" GridPane.halignment="LEFT" GridPane.rowIndex="1" GridPane.valignment="TOP">
                      <font>
                         <Font name="System Bold" size="25.0" />
                      </font>
@@ -51,26 +81,9 @@
                         </ImageView>
                      </graphic>
                   </JFXButton>
-                  <Text fill="WHITE" layoutX="193.0" layoutY="141.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Reservation Home" textAlignment="CENTER" wrappingWidth="514.0441284179688" AnchorPane.leftAnchor="193.0" AnchorPane.rightAnchor="192.95587158203125">
-                     <font>
-                        <Font name="System Bold Italic" size="45.0" />
-                     </font>
-                  </Text>
-                  <JFXButton fx:id="makeReservation" alignment="BOTTOM_CENTER" buttonType="RAISED" contentDisplay="TOP" graphicTextGap="15.0" layoutX="180.0" layoutY="200.0" maxHeight="240.0" onAction="#setMakeReservation" prefHeight="245.0" prefWidth="400.0" styleClass="jfx-button-guest-main-menu" stylesheets="@../css/background.css" text="Make Reservation" textFill="WHITE" AnchorPane.leftAnchor="180.0" AnchorPane.topAnchor="200.0">
-                     <font>
-                        <Font name="System Bold" size="25.0" />
-                     </font>
-                     <graphic>
-                        <ImageView fitHeight="180.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../images/reserved.png" />
-                           </image>
-                        </ImageView>
-                     </graphic>
-                  </JFXButton>
                </children>
-            </AnchorPane>
-         </children>
-      </AnchorPane>
+            </GridPane>
+         </center>
+      </BorderPane>
    </children>
-</AnchorPane>
+</StackPane>

@@ -1,8 +1,8 @@
 package application;
 
+import com.calendarfx.model.CalendarSource;
+import com.calendarfx.view.DayView;
 import com.jfoenix.controls.JFXTextField;
-import entities.User;
-
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
@@ -13,14 +13,14 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TextField;
-import javafx.scene.image.ImageView;
+import javafx.scene.image.Image;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.lang.reflect.Method;
-import java.util.Map;
 import java.util.HashMap;
+import java.util.Map;
 
 /**
  * The UIController Superclass
@@ -37,12 +37,14 @@ public class UIController {
     public static final String GUEST_MAIN_MENU_MAIN = "GMMM";
     public static final String USER_MAIN_MENU_MAIN = "UMMM";
     public static final String ADMIN_MAIN_MENU_MAIN = "AMMM";
+    public static final String ABOUT_PAGE= "AP";
 
     public static final String PATHFINDING_MAIN = "PFM";
 
     public static final String RESERVATIONS_MAIN = "RVM";
     public static final String RESERVATIONS_EDIT = "RVE";
     public static final String RESERVATIONS_MAIN_MENU = "RVMM";
+    public static final String RESERVATIONS_CALENDAR_VIEW = "RVCV";
 
     public static final String ADMIN_TOOLS_MAIN = "ATM";
     public static final String ADMIN_TOOLS_VIEW_NODES = "ATVN";
@@ -74,6 +76,8 @@ public class UIController {
     // The starting width and height of the window
     private static final int WIDTH = 1280;
     private static final int HEIGHT = 720;
+    private static final int MIN_WIDTH = 1280;
+    private static final int MIN_HEIGHT = 720;
 
     private static final int WIDTH_POPUP_WARNING = 300;
     private static final int HEIGHT_POPUP_WARNING = 150;
@@ -102,6 +106,8 @@ public class UIController {
      */
     public UIController(Stage stage) {
         primaryStage = stage;
+        primaryStage.setMinWidth(MIN_WIDTH);
+        primaryStage.setMinHeight(MIN_HEIGHT);
         rootPane = new BorderPane();
         rootScene = new Scene(rootPane, WIDTH, HEIGHT);
         primaryStage.setScene(rootScene);
@@ -131,6 +137,8 @@ public class UIController {
         sceneFiles.put(UIController.WELCOME_MAIN, "/application/welcome_main.fxml");
         sceneTitles.put(UIController.WELCOME_MAIN, "Welcome Screen");
 
+        sceneFiles.put(UIController.ABOUT_PAGE, "/application/about_page.fxml");
+        sceneTitles.put(UIController.ABOUT_PAGE, "About Page");
         // Main Menus
         sceneFiles.put(UIController.GUEST_MAIN_MENU_MAIN, "/guest_main_menu_main.fxml");
         sceneTitles.put(UIController.GUEST_MAIN_MENU_MAIN, "Main Menu");
@@ -164,6 +172,8 @@ public class UIController {
 
         sceneFiles.put(UIController.ADMIN_TOOLS_EDIT_RESERVATIONS, "/admintools/admin_tools_edit_reservations.fxml");
         sceneTitles.put(UIController.ADMIN_TOOLS_EDIT_RESERVATIONS, "Admin Tools - Edit Reservation");
+
+
 
 
         // Service Request
@@ -211,6 +221,9 @@ public class UIController {
         sceneFiles.put(UIController.RESERVATIONS_MAIN_MENU, "/reservations/reservations_main_menu.fxml");
         sceneTitles.put(UIController.RESERVATIONS_MAIN_MENU, "Reservations - Main Menu");
 
+        sceneFiles.put(UIController.RESERVATIONS_CALENDAR_VIEW, "/reservations/reservations_main_calendar_view.fxml");
+        sceneTitles.put(UIController.RESERVATIONS_CALENDAR_VIEW, "Reservations - Calendar View");
+
         // Pathfinding
         sceneFiles.put(UIController.PATHFINDING_MAIN, "/pathfinding/path_find_main.fxml");
         sceneTitles.put(UIController.PATHFINDING_MAIN, "Path Finding Main");
@@ -227,8 +240,45 @@ public class UIController {
      * @return The UIController for that particular new scene
      */
     @FXML
+    protected UIController goToScene(String sceneString, DayView dayCal) {
+        Scene scene = scenes.get(sceneString);
+
+
+        // If the scene has not yet been created
+        if(scene == null) {
+            try {
+                //FXMLLoader fxmlLoader = new FXMLLoader(new File(System.getProperty("user.dir") + "/resources" + sceneFiles.get(sceneString)).toURI().toURL());
+                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(sceneFiles.get(sceneString)));
+                fxmlLoader.setRoot(dayCal);
+                Parent root = fxmlLoader.load();
+                sceneParents.put(sceneString, root);
+                sceneControllers.put(sceneString, fxmlLoader.getController());
+                scenes.put(sceneString, new Scene(root, WIDTH, HEIGHT));
+            } catch(Exception e) {
+                e.printStackTrace();
+            }
+        }
+
+        // Show the scene
+        primaryStage.setTitle(sceneTitles.get(sceneString));
+        rootPane.setCenter(sceneParents.get(sceneString));
+
+        // Run the onShow function and return the controller
+        sceneControllers.get(sceneString).onShow();
+        return sceneControllers.get(sceneString);
+    }
+
+
+    /**
+     * Switches the primary stage to the given scene
+     * If the scene has not yet been created, creates that scene
+     * @param sceneString String representation of the scene to swtich to
+     * @return The UIController for that particular new scene
+     */
+    @FXML
     protected UIController goToScene(String sceneString) {
         Scene scene = scenes.get(sceneString);
+
 
         // If the scene has not yet been created
         if(scene == null) {
@@ -260,6 +310,10 @@ public class UIController {
     @FXML
     public void popupMessage(String message, boolean isWarning) {
         Stage stage = new Stage();
+
+        Image icon = new Image("file:warning.png");
+        stage.getIcons().add(icon);
+
         Scene scene = null;
         UIControllerPUM controller = null;
         try {
@@ -276,9 +330,9 @@ public class UIController {
 
         controller.setMessage(message);
 
-        stage.setTitle("Warning - Main");
+        stage.setTitle("Warning");
         stage.setScene(scene);
-        stage.showAndWait();
+        stage.show();
         stage.setAlwaysOnTop(true);
 
 
@@ -290,15 +344,26 @@ public class UIController {
      */
     @FXML
     private void setHomeButton() {
-        if(CurrentUser.user.getPermissions() == User.GUEST_PERMISSIONS) {
-            this.goToScene(UIController.GUEST_MAIN_MENU_MAIN);
-        } else if(CurrentUser.user.getPermissions() == User.BASIC_PERMISSIONS) {
-            this.goToScene(UIController.USER_MAIN_MENU_MAIN);
-        } else if(CurrentUser.user.getPermissions() == User.ADMIN_PERMISSIONS) {
-            this.goToScene(UIController.ADMIN_MAIN_MENU_MAIN);
-        } else {
-            this.goToScene(UIController.LOGIN_MAIN);
+        int permission = CurrentUser.user.getPermissions();
+        switch (permission){
+            case 1:
+                this.goToScene(UIController.SERVICE_REQUEST_MAIN);
+                break;
+            case 2:
+                this.goToScene(UIController.USER_MAIN_MENU_MAIN);
+                break;
+            case 3:
+                this.goToScene(UIController.ADMIN_MAIN_MENU_MAIN);
+                break;
+            default:
+                this.goToScene(UIController.WELCOME_MAIN);
+                break;
         }
+    }
+
+    @FXML
+    private void setBackButton(){
+        this.goToScene(UIController.PATHFINDING_MAIN);
     }
 
     /**

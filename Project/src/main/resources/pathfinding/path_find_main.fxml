@@ -1,191 +1,224 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXButton?>
-<?import com.jfoenix.controls.JFXSlider?>
+<?import com.jfoenix.controls.JFXComboBox?>
+<?import com.jfoenix.controls.JFXTabPane?>
 <?import com.jfoenix.controls.JFXToggleButton?>
-<?import javafx.scene.control.ChoiceBox?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.Menu?>
-<?import javafx.scene.control.MenuBar?>
-<?import javafx.scene.control.MenuItem?>
-<?import javafx.scene.control.ScrollPane?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Tab?>
 <?import javafx.scene.effect.ColorAdjust?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.StackPane?>
-<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.shape.Path?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
+<?import net.kurobako.gesturefx.GesturePane?>
 
-<StackPane minHeight="720.0" minWidth="1280.0" fx:id="parentPane" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pathfinding.UIControllerPFM">
-     <children>
-         <ImageView fx:id="backgroundImage" pickOnBounds="true">
-             <Image url="@/images/Hospitalbackground.png" />
-         <effect>
-            <ColorAdjust brightness="0.41" />
-         </effect>
-         </ImageView>
-         <VBox fillWidth="true">
-             <MenuBar blendMode="ADD" style="-fx-background-color: white;" stylesheets="@/css/background.css">
-                 <Menu mnemonicParsing="false" onShowing="#setHomeButton" text="Home">
-                     <MenuItem fx:id="backButton" mnemonicParsing="false" onAction="#goBack" text="Go back to previous page" />
-                 </Menu>
-             </MenuBar>
-             <HBox fx:id="hboxForMap" fillHeight="true" VBox.vgrow="ALWAYS">
-            <StackPane HBox.hgrow="ALWAYS">
+<StackPane fx:id="parentPane" minHeight="720.0" minWidth="1280.0" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pathfinding.UIControllerPFM">
+    <children>
+        <ImageView fx:id="backgroundImage" pickOnBounds="true">
+            <Image url="@/images/Hospitalbackground.png" />
+            <effect>
+                <ColorAdjust brightness="0.41" />
+            </effect>
+        </ImageView>
+        <BorderPane>
+            <center>
+            <StackPane BorderPane.alignment="CENTER">
                <children>
-                       <ScrollPane fx:id="scrollPane_pathfind">
-                            <StackPane alignment="TOP_LEFT">
-                                <children>
-                           <AnchorPane fx:id="pane_002" maxWidth="3000.0" minWidth="684.0" prefHeight="465.0" prefWidth="684.0">
-                              <children>
-                                          <ImageView fx:id="map_002" opacity="0.0" preserveRatio="true">
-                                              <Image url="@/maps/00_thelowerlevel2.png" />
+                      <JFXTabPane fx:id="mapTabPane" stylesheets="/css/background.css" tabClosingPolicy="UNAVAILABLE">
+                          <Tab text="Lower Level 2">
+                                  <GesturePane fx:id="lowerLevel2GesturePane" fitHeight="false" fitWidth="false" prefWidth="1920.0">
+                                      <AnchorPane fx:id="lowerLevel2AnchorPane">
+                                          <children>
+                                          <ImageView pickOnBounds="true" preserveRatio="true">
+                                              <image>
+                                                  <Image url="@/maps/00_thelowerlevel2.png" />
+                                              </image>
                                           </ImageView>
-                                          <Path fx:id="p_002" />
-                              </children>
-                           </AnchorPane>
-                           <AnchorPane fx:id="pane_001" maxWidth="3000.0" minWidth="684.0" prefHeight="465.0" prefWidth="684.0">
-                              <children>
-                                          <ImageView fx:id="map_001" opacity="0.0" preserveRatio="true">
+                                          <Path fx:id="pathLL2" />
+                                          </children>
+                                      </AnchorPane>
+                                  </GesturePane>
+                          </Tab>
+                          <Tab text="Lower Level 1">
+                              <GesturePane fx:id="lowerLevel1GesturePane" fitHeight="false" fitWidth="false" prefWidth="1920.0">
+                                  <AnchorPane fx:id="lowerLevel1AnchorPane">
+                                      <children>
+                                      <ImageView pickOnBounds="true" preserveRatio="true">
+                                          <image>
                                               <Image url="@/maps/00_thelowerlevel1.png" />
-                                          </ImageView>
-                                          <Path fx:id="p_001" />
-                              </children>
-                           </AnchorPane>
-                           <AnchorPane fx:id="pane_00" maxWidth="3000.0" minWidth="684.0" prefHeight="465.0" prefWidth="684.0">
-                              <children>
-                                          <ImageView fx:id="map_00" opacity="0.0" preserveRatio="true">
+                                          </image>
+                                      </ImageView>
+                                      <Path fx:id="pathLL1" />
+                                      </children>
+                                  </AnchorPane>
+                              </GesturePane>
+                          </Tab>
+                          <Tab text="Ground Floor">
+                              <GesturePane fx:id="groundFloorGesturePane" fitHeight="false" fitWidth="false" prefWidth="1920.0">
+                                  <AnchorPane fx:id="groundFloorAnchorPane">
+                                      <children>
+                                      <ImageView pickOnBounds="true" preserveRatio="true">
+                                          <image>
                                               <Image url="@/maps/00_thegroundfloor.png" />
-                                          </ImageView>
-                                          <Path fx:id="p_00" />
-                              </children>
-                           </AnchorPane>
-                           <AnchorPane fx:id="pane_01" maxWidth="3000.0" minWidth="684.0" prefHeight="465.0" prefWidth="684.0">
-                              <children>
-                                          <ImageView fx:id="map_01" opacity="0.0" preserveRatio="true">
+                                          </image>
+                                      </ImageView>
+                                      <Path fx:id="pathG" />
+                                      </children>
+                                  </AnchorPane>
+                              </GesturePane>
+                          </Tab>
+                          <Tab text="First Floor">
+                              <GesturePane fx:id="firstFloorGesturePane" fitHeight="false" fitWidth="false" prefWidth="1920.0">
+                                  <AnchorPane fx:id="firstFloorAnchorPane">
+                                      <children>
+                                      <ImageView pickOnBounds="true" preserveRatio="true">
+                                          <image>
                                               <Image url="@/maps/01_thefirstfloor.png" />
-                                          </ImageView>
-                                          <Path fx:id="p_01" />
-                              </children>
-                           </AnchorPane>
-                           <AnchorPane fx:id="pane_02" maxWidth="3000.0" minWidth="684.0" prefHeight="465.0" prefWidth="684.0">
-                              <children>
-                                          <ImageView fx:id="map_02" opacity="0.0" preserveRatio="true">
+                                          </image>
+                                      </ImageView>
+                                      <Path fx:id="path1" />
+                                      </children>
+                                  </AnchorPane>
+                              </GesturePane>
+                          </Tab>
+                          <Tab text="Second Floor">
+                              <GesturePane fx:id="secondFloorGesturePane" fitHeight="false" fitWidth="false" prefWidth="1920.0">
+                                  <AnchorPane fx:id="secondFloorAnchorPane">
+                                      <children>
+                                      <ImageView pickOnBounds="true" preserveRatio="true">
+                                          <image>
                                               <Image url="@/maps/02_thesecondfloor.png" />
-                                          </ImageView>
-                                          <Path fx:id="p_02" />
-                              </children>
-                           </AnchorPane>
-                           <AnchorPane fx:id="pane_03" maxWidth="3000.0" minWidth="684.0" prefHeight="465.0" prefWidth="684.0">
-                              <children>
-                                          <ImageView fx:id="map_03" opacity="0.0" preserveRatio="true">
+                                          </image>
+                                      </ImageView>
+                                      <Path fx:id="path2" />
+                                      </children>
+                                  </AnchorPane>
+                              </GesturePane>
+                          </Tab>
+                          <Tab text="Third Floor">
+                              <GesturePane fx:id="thirdFloorGesturePane" fitHeight="false" fitWidth="false" prefWidth="1920.0">
+                                  <AnchorPane fx:id="thirdFloorAnchorPane">
+                                      <children>
+                                      <ImageView pickOnBounds="true" preserveRatio="true">
+                                          <image>
                                               <Image url="@/maps/03_thethirdfloor.png" />
-                                          </ImageView>
-                                          <Path fx:id="p_03" />
-                              </children>
-                           </AnchorPane>
-                                </children>
-                            </StackPane>
-                       </ScrollPane>
-                  <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="20.0" StackPane.alignment="TOP_CENTER">
-                     <children>
-                        <Label fx:id="floorLabel" layoutY="14.0" styleClass="titleLabel" stylesheets="/css/background.css" text="Floor Label">
-                        </Label>
-                     </children>
-                  </AnchorPane>
-                  <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="75.0" StackPane.alignment="BOTTOM_RIGHT">
-                     <children>
-                        <JFXButton fx:id="zoom_button" contentDisplay="CENTER" layoutX="4.0" layoutY="14.0" mnemonicParsing="false" onAction="#zoom" prefWidth="100.0" styleClass="jfx-button-zoom" stylesheets="@/css/background.css" text=" " textFill="WHITE">
-                           <font>
-                              <Font name="System Bold" size="14.0" />
-                           </font>
-                           <graphic>
-                              <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
-                                 <image>
-                                    <Image url="@../icon/zoom-in.png" />
-                                 </image>
-                              </ImageView>
-                           </graphic>
-                        </JFXButton>
-                        <JFXButton fx:id="unzoom_button" contentDisplay="CENTER" layoutX="4.0" layoutY="79.0" mnemonicParsing="false" onAction="#unZoom" prefWidth="100.0" styleClass="jfx-button-zoom" stylesheets="@/css/background.css" text=" " textFill="WHITE">
-                           <font>
-                              <Font name="System Bold" size="14.0" />
-                           </font>
-                           <graphic>
-                              <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
-                                 <image>
-                                    <Image url="@../icon/zoom-out.png" />
-                                 </image>
-                              </ImageView>
-                           </graphic>
-                        </JFXButton>
-                        <JFXSlider fx:id="floorSlider" layoutX="20.0" layoutY="150.0" max="6.0" prefHeight="150.0" prefWidth="10.0" showTickMarks="true" snapToTicks="true" styleClass="floor-slider" stylesheets="/css/background.css" AnchorPane.leftAnchor="20.0">
-                           </JFXSlider>
-                     </children>
-                  </AnchorPane>
+                                          </image>
+                                      </ImageView>
+                                      <Path fx:id="path3" />
+                                      </children>
+                                  </AnchorPane>
+                              </GesturePane>
+                          </Tab>
+                      </JFXTabPane>
+                         <AnchorPane fx:id="topAnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="150.0" prefWidth="50.0" translateX="10" translateY="35" StackPane.alignment="TOP_LEFT">
+                             <JFXButton contentDisplay="CENTER" layoutX="4.0" layoutY="14.0" mnemonicParsing="false" onAction="#zoom" prefWidth="100.0" styleClass="jfx-button-zoom" stylesheets="@../css/background.css" text=" " textFill="WHITE">
+                                 <font>
+                                     <Font name="System Bold" size="14.0" />
+                                 </font>
+                                 <graphic>
+                                     <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
+                                         <Image url="@../images/zoom-in.png" />
+                                     </ImageView>
+                                 </graphic>
+                             </JFXButton>
+                           <JFXButton fx:id="serviceRequestButton" contentDisplay="CENTER" graphicTextGap="0.0" onAction="#setServiceRequestButton" styleClass="jfx-button-zoom" stylesheets="@../css/background.css" text=" " AnchorPane.leftAnchor="2.0" AnchorPane.topAnchor="150.0">
+                        <graphic>
+                           <ImageView fitHeight="55.0" fitWidth="55.0" pickOnBounds="true" preserveRatio="true">
+                              <image>
+                                 <Image url="@../images/sR.png" />
+                              </image>
+                           </ImageView>
+                        </graphic>
+                     </JFXButton>
+                             <JFXButton contentDisplay="CENTER" layoutX="4.0" layoutY="79.0" mnemonicParsing="false" onAction="#unZoom" prefWidth="100.0" styleClass="jfx-button-zoom" stylesheets="@../css/background.css" text=" " textFill="WHITE">
+                                 <font>
+                                     <Font name="System Bold" size="14.0" />
+                                 </font>
+                                 <graphic>
+                                     <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
+                                         <Image url="@../images/zoom-out.png" />
+                                     </ImageView>
+                                 </graphic>
+                             </JFXButton>
+                         </AnchorPane>
                </children>
             </StackPane>
-             </HBox>
-         </VBox>
-      <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" style=".controls-anchor" stylesheets="/css/controlsGridpane.css" StackPane.alignment="TOP_LEFT">
-         <children>
-            <GridPane fx:id="interfaceGrid" style=".controls-grid" stylesheets="/css/controlsGridpane.css">
-               <columnConstraints>
-                  <ColumnConstraints fillWidth="true" hgrow="ALWAYS" minWidth="200.0" />
-               </columnConstraints>
-               <rowConstraints>
-                  <RowConstraints percentHeight="5.0" vgrow="ALWAYS" />
-                  <RowConstraints percentHeight="5.0" vgrow="ALWAYS" />
+            </center>
+            <top>
+            </top>
+         <left>
+                <GridPane fx:id="interfaceGrid" prefWidth="200.0" style=".controls-grid" stylesheets="/css/controlsGridpane.css">
+                    <columnConstraints>
+                        <ColumnConstraints fillWidth="true" hgrow="ALWAYS" minWidth="200.0" />
+                    </columnConstraints>
+                    <rowConstraints>
+                        <RowConstraints percentHeight="2.5" vgrow="ALWAYS" />
+                        <RowConstraints percentHeight="5.0" vgrow="ALWAYS" />
+                        <RowConstraints percentHeight="10.0" vgrow="ALWAYS" />
+                        <RowConstraints percentHeight="2.5" vgrow="ALWAYS" />
+                        <RowConstraints percentHeight="5.0" vgrow="ALWAYS" />
+                        <RowConstraints percentHeight="10.0" vgrow="ALWAYS" />
+                        <RowConstraints percentHeight="10.0" vgrow="ALWAYS" />
+                        <RowConstraints percentHeight="15.0" vgrow="ALWAYS" />
+                  <RowConstraints minHeight="10.0" percentHeight="15.0" prefHeight="30.0" vgrow="ALWAYS" />
                   <RowConstraints percentHeight="10.0" vgrow="ALWAYS" />
-                  <RowConstraints percentHeight="5.0" vgrow="ALWAYS" />
-                  <RowConstraints percentHeight="5.0" vgrow="ALWAYS" />
-                  <RowConstraints percentHeight="10.0" vgrow="ALWAYS" />
-                  <RowConstraints percentHeight="10.0" vgrow="ALWAYS" />
-                  <RowConstraints percentHeight="15.0" vgrow="ALWAYS" />
-                  <RowConstraints percentHeight="20.0" vgrow="ALWAYS" />
-                  <RowConstraints minHeight="0.0" percentHeight="20.0" prefHeight="30.0" vgrow="ALWAYS" />
-                  <RowConstraints minHeight="0.0" percentHeight="15.0" prefHeight="30.0" vgrow="ALWAYS" />
-               </rowConstraints>
-               <children>
-                         <Text fill="WHITE" smooth="false" strokeType="OUTSIDE" strokeWidth="0.0" text="Initial Location" textAlignment="CENTER" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
-                             <font>
-                                 <Font name="System Bold Italic" size="16.0" />
-                             </font>
-                         </Text>
-                         <ChoiceBox fx:id="destinationSelect" onAction="#destLocChanged" prefWidth="150.0" style="-fx-background-color: #ffffff;" GridPane.halignment="CENTER" GridPane.rowIndex="5" GridPane.valignment="CENTER" />
-                         <Text fill="WHITE" smooth="false" strokeType="OUTSIDE" strokeWidth="0.0" text="Destination" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="CENTER">
-                             <font>
-                                 <Font name="System Bold Italic" size="16.0" />
-                             </font>
-                         </Text>
-                         <ChoiceBox fx:id="initialLocationSelect" onAction="#initLocChanged" prefWidth="150.0" style="-fx-background-color: #ffffff;" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
-                         <JFXButton onAction="#clearSelection" prefWidth="100.0" styleClass="jfx-button-login" stylesheets="@/css/background.css" text="Cancel" textFill="WHITE" GridPane.halignment="CENTER" GridPane.rowIndex="6" GridPane.valignment="CENTER">
-                             <font>
-                                 <Font name="System Bold" size="14.0" />
-                             </font>
-                         </JFXButton>
-                          <JFXToggleButton prefHeight="30.0" style="-fx-background-color: #ffffff;" stylesheets="@/css/background.css" text="NO STAIRS" textAlignment="CENTER" wrapText="true" GridPane.halignment="CENTER" GridPane.rowIndex="8" GridPane.valignment="CENTER">
-                     <font>
-                        <Font name="System Bold" size="14.0" />
-                     </font>
-                  </JFXToggleButton>
-                  <JFXButton fx:id="directionsRequest" onAction="#directionSelection" prefHeight="88.0" prefWidth="177.0" styleClass="jfx-button-login" stylesheets="@/css/background.css" text="Do you want directions?" textAlignment="CENTER" textFill="WHITE" wrapText="true" GridPane.halignment="CENTER" GridPane.rowIndex="7" GridPane.valignment="CENTER">
-                     <font>
-                        <Font name="System Bold" size="14.0" />
-                     </font>
-                  </JFXButton>
-                  <JFXButton fx:id="loginButton" onAction="#setLoginButton" styleClass="jfx-button-login" stylesheets="@../css/background.css" text="Login" GridPane.halignment="CENTER" GridPane.rowIndex="9" GridPane.valignment="CENTER" />
-                  <JFXButton fx:id="serviceRequestButton" onAction="#setServiceRequestButton" styleClass="jfx-button-login" stylesheets="@../css/background.css" text="Service Request" GridPane.halignment="CENTER" GridPane.rowIndex="10" />
-               </children>
-            </GridPane>
-         </children>
-      </AnchorPane>
-     </children>
- </StackPane>
+                        <RowConstraints maxHeight="83.0" minHeight="67.0" percentHeight="15.0" prefHeight="68.0" vgrow="ALWAYS" />
+                        <RowConstraints maxHeight="106.0" minHeight="0.0" percentHeight="20.0" prefHeight="105.0" vgrow="ALWAYS" />
+                    </rowConstraints>
+                    <children>
+                        <JFXComboBox fx:id="initialLocationCombo" prefWidth="150.0" style="-fx-background-color: #ffffff;" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
+                        <Text fill="WHITE" smooth="false" strokeType="OUTSIDE" strokeWidth="0.0" text="Initial Location" textAlignment="CENTER" GridPane.halignment="LEFT" GridPane.rowIndex="1" GridPane.valignment="BOTTOM">
+                            <font>
+                                <Font name="System Bold Italic" size="16.0" />
+                            </font>
+                     <GridPane.margin>
+                        <Insets left="25.0" />
+                     </GridPane.margin>
+                        </Text>
+                        <Text fill="WHITE" smooth="false" strokeType="OUTSIDE" strokeWidth="0.0" text="Destination" GridPane.halignment="LEFT" GridPane.rowIndex="4" GridPane.valignment="BOTTOM">
+                            <font>
+                                <Font name="System Bold Italic" size="16.0" />
+                            </font>
+                     <GridPane.margin>
+                        <Insets left="25.0" />
+                     </GridPane.margin>
+                        </Text>
+                        <JFXComboBox fx:id="destinationCombo" prefWidth="150.0" style="-fx-background-color: #ffffff;" GridPane.halignment="CENTER" GridPane.rowIndex="5" />
+                        <JFXButton alignment="TOP_CENTER" contentDisplay="CENTER" graphicTextGap="0.0" onAction="#cancel" prefWidth="100.0" style="-fx-background-color: transparent;" text=" " textFill="WHITE" GridPane.halignment="CENTER" GridPane.rowIndex="6" GridPane.valignment="CENTER">
+                            <font>
+                                <Font name="System Bold" size="14.0" />
+                            </font>
+                     <graphic>
+                        <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/cancel4.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                        </JFXButton>
+                        <JFXToggleButton fx:id="noStairsButton" onAction="#noStairsToggled" prefHeight="30.0" style="-fx-background-color: #ffffff;" stylesheets="@/css/background.css" text="NO STAIRS" textAlignment="CENTER" wrapText="true" GridPane.halignment="CENTER" GridPane.rowIndex="11" GridPane.valignment="CENTER">
+                            <font>
+                                <Font name="System Bold" size="14.0" />
+                            </font>
+                        </JFXToggleButton>
+                        <JFXButton fx:id="directionsRequest" onAction="#directionSelection" prefHeight="88.0" prefWidth="177.0" style="-fx-background-color: transparent;" styleClass="jfx-button-login" stylesheets="@/css/background.css" text="Do you want directions?" textAlignment="CENTER" textFill="WHITE" wrapText="true" GridPane.halignment="CENTER" GridPane.rowIndex="7" GridPane.valignment="CENTER">
+                            <font>
+                                <Font name="System Bold" size="14.0" />
+                            </font>
+                        </JFXButton>
+                        <JFXButton fx:id="loginButton" onAction="#setLoginButton" styleClass="jfx-button-login" stylesheets="@../css/background.css" text="Login" GridPane.halignment="CENTER" GridPane.rowIndex="8" GridPane.valignment="TOP" />
+                  <JFXButton fx:id="aboutButton" onAction="#setAboutButton" style="-fx-background-color: transparent;" styleClass="jfx-button-add" stylesheets="@../css/background.css" text="About Us" GridPane.halignment="CENTER" GridPane.rowIndex="10" GridPane.valignment="BOTTOM" />
+                    </children>
+                </GridPane>
+         </left>
+        </BorderPane>
+    </children>
+</StackPane>

@@ -1,6 +1,7 @@
 package servicerequests;
 
 import application.CurrentUser;
+import com.jfoenix.controls.JFXComboBox;
 import database.DBController;
 import application.UIController;
 import com.jfoenix.controls.JFXButton;
@@ -9,11 +10,14 @@ import database.DBControllerNE;
 import database.DBControllerSR;
 import entities.Node;
 import entities.ServiceRequest;
+import helper.RoomCategoryFilterHelper;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextFormatter;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 
 import java.sql.Connection;
@@ -26,16 +30,19 @@ public class UIControllerSRAVE extends UIController {
     public GridPane gridPane;
     public ChoiceBox serviceSelect;
     String serviceType;
-    Map<String, String> nodeIDs; /**< Holds reference between node short name and nodeID*/
+    private RoomCategoryFilterHelper filterHelper;
 
     @FXML
-    private ChoiceBox roomSelect;
+    private JFXComboBox<String> roomSelect;
 
     @FXML
     private JFXTextField serviceMessage;
 
     @FXML
     private JFXButton confirmButton; /**< The confirm button*/
+
+    @FXML
+    private ImageView backgroundImage;
 
     @FXML
     public void initialize() {
@@ -49,24 +56,17 @@ public class UIControllerSRAVE extends UIController {
         gridPane.setFillWidth(serviceMessage, true);
 
         confirmButton.setDisable(true);
+
+            backgroundImage.fitWidthProperty().bind(primaryStage.widthProperty());
+
+
     }
 
     @FXML
     public void onShow() {
-        List<String> nodeShortNames = new ArrayList<String>();
-        nodeIDs = new HashMap<String, String>();
-
-        Connection conn = DBControllerNE.dbConnect();
-        List<Node> nodes = DBControllerNE.generateListOfNodes(conn,DBControllerNE.ALL_ROOMS);
-        DBControllerNE.closeConnection(conn);
-        for(int i = 0; i < nodes.size(); i++) {
-            Node node = nodes.get(i);
-            nodeShortNames.add(node.getShortName());
-            nodeIDs.put(node.getShortName(), node.getNodeID());
-        }
-
-        roomSelect.setItems(FXCollections.observableList(nodeShortNames));
-        roomSelect.getSelectionModel().selectFirst();
+        roomSelect.getSelectionModel().clearSelection();
+        filterHelper = new RoomCategoryFilterHelper(roomSelect, null, true);
+        serviceSelect.getSelectionModel().clearSelection();
         serviceMessage.setText("");
     }
 
@@ -78,7 +78,7 @@ public class UIControllerSRAVE extends UIController {
     private void setConfirmButton() {
         String roomShortName = roomSelect.getValue().toString();
         String service = serviceSelect.getValue().toString();
-        String nodeID = nodeIDs.get(roomShortName);
+        String nodeID = filterHelper.getNodeID();
         String message = serviceMessage.getText();
 
         ServiceRequest sr = new ServiceRequest(nodeID, serviceType, "Equipment Needed: " + service + "\n Message: " + message, CurrentUser.user.getUserID(), false, null);

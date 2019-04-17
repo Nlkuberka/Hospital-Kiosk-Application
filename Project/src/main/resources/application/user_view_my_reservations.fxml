@@ -45,7 +45,7 @@
             </MenuBar>
          </top>
          <center>
-            <TableView fx:id="edgeTable" stylesheets="@../css/background.css" BorderPane.alignment="CENTER">
+            <TableView fx:id="edgeTable" prefHeight="490.0"  prefWidth="1000" maxWidth="1000" stylesheets="@../css/background.css" BorderPane.alignment="TOP_CENTER">
               <columns>
                 <TableColumn prefWidth="200.0" text="Reserved Date" />
                 <TableColumn prefWidth="200.0" text="Reserved Time" />

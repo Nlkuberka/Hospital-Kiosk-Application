@@ -55,7 +55,6 @@ public class DBControllerSR extends DBController {
                     "RESOLVED = '" + serviceRequest.isResolved() + "'," +
                     "RESOLVERID = '"+serviceRequest.getResolverID()+"' " +
                     "where  SERVICEID = " + serviceRequest.getServiceID());
-
         }catch(SQLException e){
             e.printStackTrace();
         }

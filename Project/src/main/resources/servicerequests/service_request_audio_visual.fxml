@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXComboBox?>
 <?import com.jfoenix.controls.JFXTextField?>
 <?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.Menu?>
@@ -20,16 +21,16 @@
 
 <StackPane minHeight="720.0" minWidth="1280.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="servicerequests.UIControllerSRAVE">
    <children>
-            <ImageView fitWidth="900.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="backgroundImage" pickOnBounds="true" preserveRatio="true">
                 <image>
                     <Image url="@../images/Hospitalbackground.png" />
                 </image>
             </ImageView>
-            <BorderPane prefHeight="600.0" prefWidth="900.0">
+            <BorderPane minHeight="720.0">
                 <top>
                     <MenuBar blendMode="ADD" prefWidth="600.0" style="-fx-background-color: white;" stylesheets="@../css/background.css" BorderPane.alignment="CENTER">
                         <menus>
-                            <Menu fx:id="homeButton" mnemonicParsing="false" onAction="#setHomeButton" onShowing="#setHomeButton" text="Home">
+                            <Menu fx:id="homeButton" mnemonicParsing="false" onAction="#setCancelButton" onShowing="#setHomeButton" text="Home">
                      <items>
                         <MenuItem mnemonicParsing="false" onAction="#setHomeButton" text="HOME" />
                      </items>
@@ -47,68 +48,69 @@
          <left>
             <GridPane fx:id="gridPane" prefWidth="200.0">
                <columnConstraints>
-                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="48.0" minWidth="10.0" prefWidth="32.0" />
-                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="176.0" minWidth="10.0" prefWidth="157.0" />
-                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="86.0" minWidth="10.0" prefWidth="21.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="150.0" minWidth="70.0" prefWidth="150.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="300.0" minWidth="200.0" prefWidth="300.0" />
                </columnConstraints>
                <rowConstraints>
+                  <RowConstraints minHeight="10.0" percentHeight="3.0" prefHeight="30.0" vgrow="SOMETIMES" />
                   <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
                   <RowConstraints maxHeight="117.0" minHeight="10.0" prefHeight="24.0" vgrow="SOMETIMES" />
                   <RowConstraints maxHeight="168.0" minHeight="8.0" prefHeight="30.0" vgrow="SOMETIMES" />
                   <RowConstraints maxHeight="168.0" minHeight="10.0" prefHeight="40.0" vgrow="SOMETIMES" />
                   <RowConstraints maxHeight="168.0" minHeight="10.0" prefHeight="44.0" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="168.0" minHeight="10.0" prefHeight="44.0" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="168.0" minHeight="10.0" prefHeight="44.0" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="10.0" minHeight="10.0" prefHeight="10.0" vgrow="SOMETIMES" />
                   <RowConstraints maxHeight="176.0" minHeight="10.0" prefHeight="63.0" vgrow="SOMETIMES" />
                   <RowConstraints maxHeight="176.0" minHeight="10.0" prefHeight="38.0" vgrow="SOMETIMES" />
-                  <RowConstraints maxHeight="206.0" minHeight="158.0" percentHeight="30.0" prefHeight="168.0" />
-                  <RowConstraints maxHeight="61.0" minHeight="10.0" prefHeight="59.0" vgrow="SOMETIMES" />
-                  <RowConstraints maxHeight="53.0" minHeight="10.0" prefHeight="52.0" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="206.0" minHeight="158.0" percentHeight="20.0" prefHeight="168.0" />
                </rowConstraints>
                <children>
-                  <JFXButton fx:id="confirmButton" onAction="#setConfirmButton" styleClass="jfx-button_edit" stylesheets="@../css/background.css" text="Confirm" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="8" />
-                  <JFXButton contentDisplay="CENTER" onAction="#setCancelButton" styleClass="jfx-button-cancel" stylesheets="@../css/background.css" text=" " GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="9">
+                  <JFXButton contentDisplay="CENTER" onAction="#setCancelButton" styleClass="jfx-button-cancel" stylesheets="@../css/background.css" text=" " GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="11">
                      <graphic>
                         <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@icon/cancel%20(1).png" />
+                              <Image url="@../images/cancel2.png" />
                            </image>
                         </ImageView>
                      </graphic>
                   </JFXButton>
-                  <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Request Audio Visual Equipment" GridPane.columnIndex="1" GridPane.halignment="LEFT">
+                  <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Request Audio Visual Equipment" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="1" GridPane.valignment="CENTER">
                      <font>
-                        <Font name="System Bold Italic" size="24.0" />
+                        <Font name="System Bold Italic" size="36.0" />
                      </font>
                   </Text>
-                  <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Panagiotis Argyrakis" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="1" GridPane.valignment="TOP">
+                  <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Panagiotis Argyrakis" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="2" GridPane.valignment="TOP">
                      <font>
-                        <Font name="System Bold" size="12.0" />
+                        <Font name="System Bold" size="16.0" />
                      </font>
                   </Text>
-                  <ChoiceBox fx:id="roomSelect" onAction="#validate" style="-fx-background-color: #ffffff;" GridPane.columnIndex="1" GridPane.fillWidth="true" GridPane.rowIndex="5" />
-                  <JFXTextField fx:id="serviceMessage" alignment="TOP_LEFT" prefHeight="200.0" style="-fx-background-color: #ffffff;" GridPane.columnIndex="1" GridPane.fillHeight="true" GridPane.fillWidth="true" GridPane.rowIndex="7" />
-                  <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Select Room" GridPane.columnIndex="1" GridPane.rowIndex="4" GridPane.valignment="BOTTOM">
+                  <JFXComboBox fx:id="roomSelect" onAction="#validate" style="-fx-background-color: #ffffff;" GridPane.columnIndex="1" GridPane.fillWidth="true" GridPane.halignment="LEFT" GridPane.rowIndex="6" />
+                  <JFXTextField fx:id="serviceMessage" alignment="TOP_LEFT" prefHeight="200.0" style="-fx-background-color: #ffffff;" GridPane.columnIndex="1" GridPane.fillHeight="true" GridPane.fillWidth="true" GridPane.halignment="CENTER" GridPane.rowIndex="9" />
+                  <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Select Room" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="5" GridPane.valignment="BOTTOM">
                      <font>
-                        <Font name="System Bold" size="12.0" />
+                        <Font name="System Bold" size="18.0" />
                      </font>
                   </Text>
-                  <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Select Service Type" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                  <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Select Service Type" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="3" GridPane.valignment="BOTTOM">
                      <font>
-                        <Font name="System Bold" size="12.0" />
+                        <Font name="System Bold" size="18.0" />
                      </font>
                   </Text>
-                  <ChoiceBox fx:id="serviceSelect" onAction="#validate" prefWidth="150.0" style="-fx-background-color: #ffffff;" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                  <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Message (optional)" GridPane.columnIndex="1" GridPane.rowIndex="6">
+                  <ChoiceBox fx:id="serviceSelect" onAction="#validate" prefWidth="150.0" style="-fx-background-color: #ffffff;" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="4" />
+                  <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Message (optional)" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="7" GridPane.valignment="BOTTOM">
                      <font>
-                        <Font name="System Bold" size="12.0" />
+                        <Font name="System Bold" size="18.0" />
                      </font>
                   </Text>
+                  <JFXButton fx:id="confirmButton" onAction="#setConfirmButton" styleClass="jfx-button_edit" stylesheets="@../css/background.css" text="Confirm" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="10" />
                </children>
             </GridPane>
          </left>
          <center>
-            <ImageView fitWidth="575.0" pickOnBounds="true" preserveRatio="true" BorderPane.alignment="CENTER">
+            <ImageView fitWidth="700.0" pickOnBounds="true" preserveRatio="true" BorderPane.alignment="CENTER">
                     <image>
-                        <Image url="@02_thesecondfloor.png" />
+                        <Image url="@../maps/02_thesecondfloor.png" />
                     </image>
             </ImageView>
          </center>

@@ -17,8 +17,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-
-<StackPane xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="admintools.UIControllerATM">
+<StackPane minHeight="720.0" minWidth="1280.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="admintools.UIControllerATM">
    <children>
       <ImageView fx:id="backgroundImage" pickOnBounds="true" preserveRatio="true">
          <image>
@@ -47,22 +46,25 @@
          <center>
             <GridPane BorderPane.alignment="CENTER">
                <columnConstraints>
-                  <ColumnConstraints hgrow="ALWAYS" percentWidth="10" minWidth="10.0" />
-                  <ColumnConstraints hgrow="SOMETIMES" percentWidth="80" minWidth="10.0" />
+                  <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" percentWidth="10" />
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="80" />
                   <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" />
                </columnConstraints>
                <rowConstraints>
-                  <RowConstraints minHeight="10.0" percentHeight="20" vgrow="SOMETIMES" />
-                  <RowConstraints minHeight="10.0" percentHeight="50" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="30.0" percentHeight="45.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="30.0" percentHeight="45.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" percentHeight="50.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" percentHeight="50.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" percentHeight="50.0" prefHeight="30.0" vgrow="SOMETIMES" />
                   <RowConstraints minHeight="10.0" vgrow="ALWAYS" />
                </rowConstraints>
                <children>
-                  <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Administrator Tools" GridPane.columnIndex="1" GridPane.rowIndex="0" GridPane.halignment="CENTER">
+                  <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Administrator Tools" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="0" GridPane.valignment="BOTTOM">
                      <font>
                         <Font name="System Bold" size="40.0" />
                      </font>
                   </Text>
-                  <FlowPane GridPane.rowIndex="1" GridPane.columnIndex="1" GridPane.halignment="CENTER" alignment="CENTER">
+                  <FlowPane alignment="BOTTOM_CENTER" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="3">
                      <children>
                         <JFXButton fx:id="viewEdgesButton1" alignment="BOTTOM_CENTER" buttonType="RAISED" contentDisplay="TOP" graphicTextGap="27.0" onAction="#setViewNodesButton" prefHeight="40.0" prefWidth="350.0" styleClass="jfx-button-admin-tools-main" stylesheets="@../css/background.css" text="Edit Nodes" textAlignment="CENTER" textFill="WHITE" wrapText="true">
                            <font>
@@ -115,6 +117,10 @@
                               </ImageView>
                            </graphic>
                         </JFXButton>
+                     </children>
+                  </FlowPane>
+                  <FlowPane alignment="TOP_CENTER" GridPane.columnIndex="1" GridPane.rowIndex="2" GridPane.valignment="BOTTOM">
+                     <children>
                         <JFXButton fx:id="viewServiceRequestsButton" alignment="BOTTOM_CENTER" buttonType="RAISED" contentDisplay="TOP" graphicTextGap="2.0" onAction="#setViewServiceRequestsButton" prefHeight="40.0" prefWidth="350.0" styleClass="jfx-button-admin-tools-main-horizontal" stylesheets="@../css/background.css" text="View Service Requests" textAlignment="CENTER" textFill="WHITE" wrapText="true">
                            <font>
                               <Font name="System Bold" size="28.0" />

@@ -5,6 +5,7 @@ import com.jfoenix.controls.JFXButton;
 import javafx.fxml.FXML;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuItem;
+import javafx.scene.image.ImageView;
 
 /**
  * The UIController for the Reservations Main Menu
@@ -27,6 +28,9 @@ public class UIControllerRVMM extends UIController {
     @FXML
     private JFXButton viewReservations; /**< The View/Edit Reservations Button*/
 
+    @FXML
+    private ImageView backgroundImage;
+
 
 
     public UIControllerRVMM() {
@@ -38,6 +42,7 @@ public class UIControllerRVMM extends UIController {
      */
     @FXML
     public void initialize() {
+        backgroundImage.fitWidthProperty().bind(primaryStage.widthProperty());
 
     }
 
@@ -66,4 +71,7 @@ public class UIControllerRVMM extends UIController {
     private void setBackMenuItem() {
         this.goToScene(UIController.USER_MAIN_MENU_MAIN);
     }
+
+    @FXML
+    private void setCalendarView() { this.goToScene(UIController.RESERVATIONS_CALENDAR_VIEW); }
 }

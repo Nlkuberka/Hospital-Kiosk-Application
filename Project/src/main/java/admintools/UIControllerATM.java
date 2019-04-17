@@ -92,7 +92,7 @@ public class UIControllerATM extends UIController {
     }
 
     @FXML
-    private void setEditReservationsButton() { this.goToScene(UIController.RESERVATIONS_EDIT);}
+    private void setEditReservationsButton() { this.goToScene(UIController.ADMIN_TOOLS_EDIT_RESERVATIONS);}
 
     @FXML
     private void setViewMapButton() {

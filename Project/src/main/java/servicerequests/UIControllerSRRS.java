@@ -1,28 +1,34 @@
 package servicerequests;
 
 import application.CurrentUser;
-import database.DBController;
 import application.UIController;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXCheckBox;
+import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextField;
 import database.DBControllerSR;
 import entities.ServiceRequest;
-import javafx.collections.FXCollections;
+import helper.RoomCategoryFilterHelper;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.CheckBox;
-import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextFormatter;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.StackPane;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
+import java.io.IOException;
 import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.*;
+import java.util.HashMap;
+import java.util.LinkedList;
 
 public class UIControllerSRRS extends UIController {
     /**
@@ -51,11 +57,12 @@ public class UIControllerSRRS extends UIController {
     public JFXButton clearButton;
     public JFXTextField OtherServiceField;
     public TextArea additionalCommentField;
+    public StackPane parentPane;
     @FXML
     private ImageView backgroundImage;
     private String serviceType;
     private String finalMessage;
-    private Map<String, String> nodeIDs;
+    private RoomCategoryFilterHelper filterHelper;
 
     private HashMap<String, String> denomAbrev;
     private HashMap<String, String> servAbrev;
@@ -65,7 +72,7 @@ public class UIControllerSRRS extends UIController {
     private LinkedList<CheckBox> denomCheckBoxes;
     private LinkedList<CheckBox> serviceCheckBoxes;
     @FXML
-    private ChoiceBox roomSelect;
+    private JFXComboBox<String> roomSelect;
     @FXML
     private TextArea serviceMessage;
     @FXML
@@ -125,22 +132,17 @@ public class UIControllerSRRS extends UIController {
 
     @FXML
     public void onShow() {
-        List<String> nodeShortNames = new ArrayList<String>();
-        nodeIDs = new HashMap<String, String>();
-
-        // DB Get all Nodes
-        try {
-            Connection conn = DBController.dbConnect();
-            ResultSet rs = conn.createStatement().executeQuery("Select * From NODES where FLOOR = '2' AND BUILDING = 'Tower'");
-            while (rs.next()) {
-                nodeIDs.put(rs.getString("SHORTNAME"), rs.getString("NODEID"));
-                nodeShortNames.add(rs.getString("SHORTNAME"));
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
+        for(int i = 0; i < serviceCheckBoxes.size(); i++) {
+            serviceCheckBoxes.get(i).setSelected(false);
         }
-        roomSelect.setItems(FXCollections.observableList(nodeShortNames));
-        roomSelect.getSelectionModel().selectFirst();
+        for(int i = 0; i < denomCheckBoxes.size(); i++) {
+            denomCheckBoxes.get(i).setSelected(false);
+        }
+        roomSelect.getSelectionModel().clearSelection();
+        filterHelper = new RoomCategoryFilterHelper(roomSelect, null, true);
+        OtherDenomField.setText("");
+        OtherServiceField.setText("");
+        additionalCommentField.setText("");
         serviceMessage.setText("");
     }
 
@@ -149,16 +151,19 @@ public class UIControllerSRRS extends UIController {
     }
 
     @FXML
-    private void setConfirmButton() {
-        String roomShortName = (String) roomSelect.getValue();
-        String nodeID = nodeIDs.get(roomShortName);
-        String message = finalMessage + "\n" + additionalCommentField.getText();
-
-        if(message.length() > 149)
+    private void setConfirmButton() throws IOException {
+        if(!enablePolicy())
         {
-            message = message.substring(0, 149);
+            return;
         }
 
+        String roomShortName = (String) roomSelect.getValue();
+        String nodeID = filterHelper.getNodeID();
+        String message = finalMessage + "\n" + additionalCommentField.getText();
+
+        if (message.length() > 149) {
+            message = message.substring(0, 149);
+        }
 
 
         ServiceRequest sr = new ServiceRequest(nodeID, serviceType, message, CurrentUser.user.getUserID(), false, null);
@@ -232,5 +237,27 @@ public class UIControllerSRRS extends UIController {
         for (CheckBox serviceCheckBox : serviceCheckBoxes) {
             serviceCheckBox.setSelected(false);
         }
+    }
+
+    @FXML
+    public void setCancelButton(ActionEvent actionEvent) {
+        goToScene(UIController.SERVICE_REQUEST_MAIN);
+    }
+
+    private boolean enablePolicy() throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/servicerequests/service_request_rs_policy.fxml"));
+        Parent root = loader.load();
+        UIControllerSRRSP uiControllerSRRSP = loader.getController();
+        Stage stage = new Stage();
+        stage.setScene(new Scene(root));
+        stage.initModality(Modality.APPLICATION_MODAL);
+        stage.initStyle(StageStyle.UNDECORATED);
+        stage.setHeight(400);
+        stage.setWidth(600);
+        stage.setResizable(false);
+        stage.centerOnScreen();
+        stage.toFront();
+        stage.showAndWait();
+        return uiControllerSRRSP.getStatus();
     }
 }

@@ -1,10 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXButton?>
-<<<<<<< HEAD
 <?import javafx.geometry.Insets?>
-=======
->>>>>>> iteration3
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
@@ -12,7 +9,6 @@
 <?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
-<<<<<<< HEAD
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.FlowPane?>
@@ -22,7 +18,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<StackPane xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="servicerequests.UIControllerSRM">
+<StackPane minHeight="720.0" minWidth="1280.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="servicerequests.UIControllerSRM">
    <children>
       <ImageView fx:id="backgroundImage" pickOnBounds="true" preserveRatio="true">
          <image>
@@ -33,9 +29,9 @@
          <top>
             <MenuBar blendMode="ADD" prefWidth="900.0" style="-fx-background-color: #ffffff;" stylesheets="@../css/background.css" BorderPane.alignment="CENTER">
               <menus>
-                <Menu fx:id="homeButton" mnemonicParsing="false" onShowing="#setHomeButton" text="Home">
+                <Menu fx:id="Home" mnemonicParsing="false" onAction="#setHomeButton" onShowing="#setHomeButton" text="Home">
                      <items>
-                        <MenuItem mnemonicParsing="false" text="HOME" />
+                        <MenuItem fx:id="HOME" mnemonicParsing="false" onAction="#setHomeButton" text="HOME" />
                      </items>
                   </Menu>
               </menus>
@@ -52,11 +48,13 @@
             <GridPane>
                <columnConstraints>
                   <ColumnConstraints halignment="CENTER" hgrow="ALWAYS" minWidth="10.0" percentWidth="5.0" prefWidth="100.0" />
-                  <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" />
+                  <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="300.0" />
                   <ColumnConstraints halignment="CENTER" hgrow="ALWAYS" minWidth="10.0" percentWidth="5.0" prefWidth="100.0" />
                </columnConstraints>
                <rowConstraints>
                   <RowConstraints minHeight="10.0" percentHeight="15.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                   <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
                </rowConstraints>
                <children>
@@ -68,49 +66,6 @@
                   <FlowPane alignment="CENTER" GridPane.columnIndex="1" GridPane.rowIndex="1">
                      <children>
                         <JFXButton alignment="BOTTOM_CENTER" contentDisplay="TOP" graphicTextGap="20.0" onAction="#setReligiousServices" prefHeight="180.0" prefWidth="160.0" style="-fx-background-color: #ffc41e;" styleClass="jfx-button-SVmain" stylesheets="@../css/background.css" text="Religious Services" textFill="WHITE">
-=======
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.BorderPane?>
-<?import javafx.scene.text.Font?>
-<?import javafx.scene.text.Text?>
-
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="servicerequests.UIControllerSRM">
-   <children>
-      <AnchorPane prefHeight="600.0" prefWidth="900.0" styleClass="body-background" stylesheets="/css/background.css" AnchorPane.topAnchor="0" AnchorPane.leftAnchor="0">
-         <children>
-            <ImageView fitHeight="600.0" fitWidth="900.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../images/Hospitalbackground.png" />
-               </image>
-            </ImageView>
-            <BorderPane prefHeight="600.0" prefWidth="900.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-               <top>
-                  <MenuBar blendMode="ADD" prefWidth="900.0" style="-fx-background-color: #ffffff;" stylesheets="@../css/background.css" BorderPane.alignment="CENTER">
-                    <menus>
-                      <Menu fx:id="homeButton" mnemonicParsing="false" onShowing="#setHomeButton" text="Home">
-                           <items>
-                              <MenuItem mnemonicParsing="false" text="HOME" />
-                           </items></Menu>
-                    </menus>
-                     <effect>
-                        <ColorAdjust>
-                           <input>
-                              <DropShadow />
-                           </input>
-                        </ColorAdjust>
-                     </effect>
-                  </MenuBar>
-               </top>
-               <center>
-                  <AnchorPane prefHeight="570.0" prefWidth="900.0" BorderPane.alignment="CENTER">
-                     <children>
-                        <Text fill="WHITE" layoutX="276.0" layoutY="83.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Service Request">
-                           <font>
-                              <Font name="System Bold Italic" size="48.0" />
-                           </font>
-                        </Text>
-                        <JFXButton alignment="BOTTOM_CENTER" contentDisplay="TOP" graphicTextGap="20.0" layoutX="487.0" layoutY="296.0" onAction="#setReligiousServices" prefHeight="180.0" prefWidth="160.0" style="-fx-background-color: #ffc41e;" styleClass="jfx-button-SVmain" stylesheets="@../css/background.css" text="Religious Services" textFill="WHITE" AnchorPane.leftAnchor="487.0">
->>>>>>> iteration3
                            <font>
                               <Font name="System Bold" size="14.0" />
                            </font>
@@ -122,27 +77,7 @@
                               </ImageView>
                            </graphic>
                         </JFXButton>
-<<<<<<< HEAD
-                        <JFXButton alignment="BOTTOM_CENTER" contentDisplay="TOP" graphicTextGap="20.0" onAction="#setFlowerButton" prefHeight="180.0" prefWidth="160.0" style="-fx-background-color: #ffc41e;" styleClass="jfx-button-SVmain" stylesheets="@../css/background.css" text="Flower Delievery" textFill="WHITE">
-=======
-                        <JFXButton alignment="BOTTOM_CENTER" contentDisplay="TOP" graphicTextGap="20.0" layoutX="327.0" layoutY="116.0" onAction="#setFlowerButton" prefHeight="180.0" prefWidth="160.0" style="-fx-background-color: #ffc41e;" styleClass="jfx-button-SVmain" stylesheets="@../css/background.css" text="Flower Delievery" textFill="WHITE">
->>>>>>> iteration3
-                           <font>
-                              <Font name="System Bold" size="14.0" />
-                           </font>
-                           <graphic>
-                              <ImageView fitHeight="95.0" fitWidth="95.0" pickOnBounds="true" preserveRatio="true">
-                                 <image>
-                                    <Image url="@../images/berries.png" />
-                                 </image>
-                              </ImageView>
-                           </graphic>
-                        </JFXButton>
-<<<<<<< HEAD
                         <JFXButton fx:id="ITServices" alignment="BOTTOM_CENTER" contentDisplay="TOP" graphicTextGap="20.0" onMouseClicked="#setITButton" prefHeight="180.0" prefWidth="160.0" style="-fx-background-color: #ffc41e;" styleClass="jfx-button-SVmain" stylesheets="@../css/background.css" text="IT Services" textFill="WHITE">
-=======
-                        <JFXButton fx:id="ITServices" alignment="BOTTOM_CENTER" contentDisplay="TOP" graphicTextGap="20.0" layoutX="487.0" layoutY="116.0" onMouseClicked="#setITButton" prefHeight="180.0" prefWidth="160.0" style="-fx-background-color: #ffc41e;" styleClass="jfx-button-SVmain" stylesheets="@../css/background.css" text="IT Services" textFill="WHITE">
->>>>>>> iteration3
                            <font>
                               <Font name="System Bold" size="14.0" />
                            </font>
@@ -154,43 +89,7 @@
                               </ImageView>
                            </graphic>
                         </JFXButton>
-<<<<<<< HEAD
-                        <JFXButton fx:id="sanitationButton" alignment="BOTTOM_CENTER" contentDisplay="TOP" graphicTextGap="20.0" onAction="#setSanitationButton" prefHeight="180.0" prefWidth="160.0" style="-fx-background-color: #ffc41e;" styleClass="jfx-button-SVmain2" stylesheets="@../css/background.css" text="Sanitation" textFill="WHITE">
-=======
-                        <JFXButton fx:id="sanitationButton" alignment="BOTTOM_CENTER" contentDisplay="TOP" graphicTextGap="20.0" layoutX="187.0" layoutY="296.0" onAction="#setSanitationButton" prefHeight="180.0" prefWidth="160.0" style="-fx-background-color: #ffc41e;" styleClass="jfx-button-SVmain2" stylesheets="@../css/background.css" text="Sanitation" textFill="WHITE">
->>>>>>> iteration3
-                           <font>
-                              <Font name="System Bold" size="14.0" />
-                           </font>
-                           <graphic>
-                              <ImageView fitHeight="95.0" fitWidth="95.0" pickOnBounds="true" preserveRatio="true">
-                                 <image>
-                                    <Image url="@../images/hospital.png" />
-                                 </image>
-                              </ImageView>
-                           </graphic>
-                        </JFXButton>
-<<<<<<< HEAD
-                        <JFXButton alignment="BOTTOM_CENTER" contentDisplay="TOP" graphicTextGap="20.0" onAction="#setSecurityButton" prefHeight="180.0" prefWidth="160.0" style="-fx-background-color: #ffc41e;" styleClass="jfx-button-SVmain" stylesheets="@../css/background.css" text="Security Services" textFill="WHITE">
-=======
-                        <JFXButton alignment="BOTTOM_CENTER" contentDisplay="TOP" graphicTextGap="20.0" layoutX="327.0" layoutY="296.0" onAction="#setSecurityButton" prefHeight="180.0" prefWidth="160.0" style="-fx-background-color: #ffc41e;" styleClass="jfx-button-SVmain" stylesheets="@../css/background.css" text="Security Services" textFill="WHITE">
->>>>>>> iteration3
-                           <font>
-                              <Font name="System Bold" size="14.0" />
-                           </font>
-                           <graphic>
-                              <ImageView fitHeight="95.0" fitWidth="95.0" pickOnBounds="true" preserveRatio="true">
-                                 <image>
-                                    <Image url="@icon/login.png" />
-                                 </image>
-                              </ImageView>
-                           </graphic>
-                        </JFXButton>
-<<<<<<< HEAD
                         <JFXButton alignment="BOTTOM_CENTER" contentDisplay="TOP" graphicTextGap="20.0" onAction="#setInterpreterButton" prefHeight="180.0" prefWidth="160.0" style="-fx-background-color: #ffc41e;" styleClass="jfx-button-SVmain2" stylesheets="@../css/background.css" text="Interperter" textFill="WHITE">
-=======
-                        <JFXButton alignment="BOTTOM_CENTER" contentDisplay="TOP" graphicTextGap="20.0" layoutX="47.0" layoutY="296.0" onAction="#setInterpreterButton" prefHeight="180.0" prefWidth="160.0" style="-fx-background-color: #ffc41e;" styleClass="jfx-button-SVmain2" stylesheets="@../css/background.css" text="Interperter" textFill="WHITE">
->>>>>>> iteration3
                            <font>
                               <Font name="System Bold" size="14.0" />
                            </font>
@@ -202,27 +101,7 @@
                               </ImageView>
                            </graphic>
                         </JFXButton>
-<<<<<<< HEAD
-                        <JFXButton fx:id="babysittingButton" alignment="BOTTOM_CENTER" contentDisplay="TOP" graphicTextGap="20.0" onAction="#setbabysittingButton" prefHeight="180.0" prefWidth="160.0" style="-fx-background-color: #ffc41e;" styleClass="jfx-button-SVmain2" stylesheets="@../css/background.css" text="Babysitter" textFill="WHITE">
-=======
-                        <JFXButton fx:id="babysittingButton" alignment="BOTTOM_CENTER" contentDisplay="TOP" graphicTextGap="20.0" layoutX="187.0" layoutY="116.0" onAction="#setbabysittingButton" prefHeight="180.0" prefWidth="160.0" style="-fx-background-color: #ffc41e;" styleClass="jfx-button-SVmain2" stylesheets="@../css/background.css" text="Babysitter" textFill="WHITE">
->>>>>>> iteration3
-                           <font>
-                              <Font name="System Bold" size="14.0" />
-                           </font>
-                           <graphic>
-                              <ImageView fitHeight="95.0" fitWidth="95.0" pickOnBounds="true" preserveRatio="true">
-                                 <image>
-                                    <Image url="@../images/old-baby-stroller.png" />
-                                 </image>
-                              </ImageView>
-                           </graphic>
-                        </JFXButton>
-<<<<<<< HEAD
                         <JFXButton alignment="BOTTOM_CENTER" contentDisplay="TOP" graphicTextGap="20.0" onAction="#avButton" prefHeight="180.0" prefWidth="160.0" style="-fx-background-color: #ffc41e;" styleClass="jfx-button-SVmain2" stylesheets="@../css/background.css" text="Audio Visual" textFill="WHITE">
-=======
-                        <JFXButton alignment="BOTTOM_CENTER" contentDisplay="TOP" graphicTextGap="20.0" layoutX="47.0" layoutY="116.0" prefHeight="180.0" onAction="#avButton" prefWidth="160.0" style="-fx-background-color: #ffc41e;" styleClass="jfx-button-SVmain2" stylesheets="@../css/background.css" text="Audio Visual" textFill="WHITE">
->>>>>>> iteration3
                            <font>
                               <Font name="System Bold" size="14.0" />
                            </font>
@@ -234,11 +113,7 @@
                               </ImageView>
                            </graphic>
                         </JFXButton>
-<<<<<<< HEAD
                         <JFXButton alignment="BOTTOM_CENTER" contentDisplay="TOP" graphicTextGap="20.0" onAction="#setTransportButton" prefHeight="180.0" prefWidth="160.0" style="-fx-background-color: #ffc41e;" styleClass="jfx-button-SVmain3" stylesheets="@../css/background.css" text="External Transportation" textFill="WHITE">
-=======
-                        <JFXButton alignment="BOTTOM_CENTER" contentDisplay="TOP" graphicTextGap="20.0" layoutX="647.0" layoutY="116.0" onAction="#setTransportButton" prefHeight="180.0" prefWidth="160.0" style="-fx-background-color: #ffc41e;" styleClass="jfx-button-SVmain3" stylesheets="@../css/background.css" text="External Transportation" textFill="WHITE">
->>>>>>> iteration3
                            <font>
                               <Font name="System Bold" size="14.0" />
                            </font>
@@ -250,11 +125,59 @@
                               </ImageView>
                            </graphic>
                         </JFXButton>
-<<<<<<< HEAD
+                     </children>
+                  </FlowPane>
+                  <FlowPane alignment="CENTER" prefHeight="540.0" prefWidth="723.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                     <children>
+                        <JFXButton alignment="BOTTOM_CENTER" contentDisplay="TOP" graphicTextGap="20.0" onAction="#setSecurityButton" prefHeight="180.0" prefWidth="160.0" style="-fx-background-color: #ffc41e;" styleClass="jfx-button-SVmain" stylesheets="@../css/background.css" text="Security Services" textFill="WHITE">
+                           <font>
+                              <Font name="System Bold" size="14.0" />
+                           </font>
+                           <graphic>
+                              <ImageView fitHeight="95.0" fitWidth="95.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../images/login.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                        </JFXButton>
+                        <JFXButton alignment="BOTTOM_CENTER" contentDisplay="TOP" graphicTextGap="20.0" onAction="#setFlowerButton" prefHeight="180.0" prefWidth="160.0" style="-fx-background-color: #ffc41e;" styleClass="jfx-button-SVmain" stylesheets="@../css/background.css" text="Flower Delievery" textFill="WHITE">
+                           <font>
+                              <Font name="System Bold" size="14.0" />
+                           </font>
+                           <graphic>
+                              <ImageView fitHeight="95.0" fitWidth="95.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../images/berries.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                        </JFXButton>
+                        <JFXButton fx:id="babysittingButton" alignment="BOTTOM_CENTER" contentDisplay="TOP" graphicTextGap="20.0" onAction="#setbabysittingButton" prefHeight="180.0" prefWidth="160.0" style="-fx-background-color: #ffc41e;" styleClass="jfx-button-SVmain2" stylesheets="@../css/background.css" text="Babysitter" textFill="WHITE">
+                           <font>
+                              <Font name="System Bold" size="14.0" />
+                           </font>
+                           <graphic>
+                              <ImageView fitHeight="95.0" fitWidth="95.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../images/old-baby-stroller.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                        </JFXButton>
+                        <JFXButton fx:id="sanitationButton" alignment="BOTTOM_CENTER" contentDisplay="TOP" graphicTextGap="20.0" onAction="#setSanitationButton" prefHeight="180.0" prefWidth="160.0" style="-fx-background-color: #ffc41e;" styleClass="jfx-button-SVmain2" stylesheets="@../css/background.css" text="Sanitation" textFill="WHITE">
+                           <font>
+                              <Font name="System Bold" size="14.0" />
+                           </font>
+                           <graphic>
+                              <ImageView fitHeight="95.0" fitWidth="95.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../images/hospital.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                        </JFXButton>
                         <JFXButton alignment="BOTTOM_CENTER" contentDisplay="TOP" graphicTextGap="20.0" onAction="#setPrescriptionServicesButton" prefHeight="180.0" prefWidth="160.0" style="-fx-background-color: #ffc41e;" styleClass="jfx-button-SVmain3" stylesheets="@../css/background.css" text="Prescription Services " textFill="WHITE">
-=======
-                        <JFXButton alignment="BOTTOM_CENTER" contentDisplay="TOP" graphicTextGap="20.0" layoutX="647.0" layoutY="296.0" onAction="#setPrescriptionServicesButton" prefHeight="180.0" prefWidth="160.0" style="-fx-background-color: #ffc41e;" styleClass="jfx-button-SVmain3" stylesheets="@../css/background.css" text="Prescription Services " textFill="WHITE">
->>>>>>> iteration3
                            <font>
                               <Font name="System Bold" size="14.0" />
                            </font>
@@ -267,7 +190,6 @@
                            </graphic>
                         </JFXButton>
                      </children>
-<<<<<<< HEAD
                   </FlowPane>
                </children>
                <BorderPane.margin>
@@ -278,12 +200,3 @@
       </BorderPane>
    </children>
 </StackPane>
-=======
-                  </AnchorPane>
-               </center>
-            </BorderPane>
-         </children>
-      </AnchorPane>
-   </children>
-</AnchorPane>
->>>>>>> iteration3
