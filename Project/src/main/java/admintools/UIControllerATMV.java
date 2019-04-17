@@ -133,9 +133,7 @@ public class UIControllerATMV extends UIController {
         );
 
 
-        tabs.getSelectionModel().selectedItemProperty().addListener(param -> {
-            set();
-        });
+        tabs.getSelectionModel().selectedItemProperty().addListener(param -> set());
     }
 
 
@@ -184,11 +182,7 @@ public class UIControllerATMV extends UIController {
                 currentImageView = thirdFloorImageView;
                 break;
         }
-        //TODO find a better spot for this if statement
-        if (allEdges.isEmpty()) {
-            assert conn != null;
-            allEdges = DBControllerNE.generateListofEdges(conn);
-        }
+        allEdges = DBControllerNE.generateListofEdges(conn);
 
         assert conn != null;
         DBController.closeConnection(conn);
@@ -281,7 +275,7 @@ public class UIControllerATMV extends UIController {
                 assert conn != null;
                 DBControllerNE.updateNode(tempNode, conn);
                 DBController.closeConnection(conn);
-                draw();
+                set();
             });
             nodesGroup.getChildren().add(circle);
         }
@@ -396,7 +390,7 @@ public class UIControllerATMV extends UIController {
         gesturePaneHandler.un_zoom(gesturePaneHandler.getGesturePanes().get(currentFloor));
     }
 
-    private void set() {
+    void set() {
         setCurrentScene();
         draw();
     }
@@ -409,8 +403,6 @@ public class UIControllerATMV extends UIController {
         tempNode.setYcoord((int) (mouseEvent.getY()));
         tempNode.setFloor(tabs.getSelectionModel().getSelectedItem().getId()); //TODO Make Auto Once Add MultiFloor Functionality
         enableAddAndEditPopup(tempNode, "ADD");
-        set();
-        showAddedNode(tempNode);
     }
 
     void editNode(Node node) throws IOException {
@@ -452,7 +444,7 @@ public class UIControllerATMV extends UIController {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/admintools/ATMV_addNode_popup.fxml"));
         Parent root = loader.load();
         UIControllerPUMVAN atmvAddNodePopupController = loader.getController();
-        atmvAddNodePopupController.setNode(node, action);
+        atmvAddNodePopupController.setProperties(node, action, this);
 
         setStage(root);
     }
@@ -468,6 +460,7 @@ public class UIControllerATMV extends UIController {
         stage.setResizable(false);
         stage.centerOnScreen();
         stage.setAlwaysOnTop(true);
+
         stage.show();
     }
 
@@ -482,7 +475,7 @@ public class UIControllerATMV extends UIController {
     void showAddedNode(Node node) {
         for (javafx.scene.Node nodes : nodesGroup.getChildren()) {
             if (nodes.getId().equals(node.getNodeID())) {
-                ((Circle) nodes).setRadius(10);
+                ((Circle) nodes).setRadius(AnchorPaneHandler.getNodeSizeHighlited);
                 ((Circle) nodes).setFill(Color.GREEN);
                 ((Circle) nodes).setStroke(Color.BLACK);
                 ((Circle) nodes).setStrokeWidth(2);
