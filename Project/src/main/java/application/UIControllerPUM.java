@@ -21,7 +21,7 @@ public class UIControllerPUM extends UIController {
 
     @FXML
     public void initialize() {
-
+        okButton.setDefaultButton(true);
     }
 
     /**

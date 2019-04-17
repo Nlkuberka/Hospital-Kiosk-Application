@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXComboBox?>
 <?import com.jfoenix.controls.JFXTextArea?>
 <?import com.jfoenix.controls.JFXTextField?>
 <?import javafx.geometry.Insets?>
@@ -20,7 +21,6 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<?import com.jfoenix.controls.JFXComboBox?>
 <StackPane minHeight="720.0" minWidth="1280.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="servicerequests.UIControllerSRPS">
    <children>
             <ImageView fx:id="backgroundImage" pickOnBounds="true" preserveRatio="true">
@@ -90,35 +90,35 @@
                   </JFXButton>
                   <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Perscription Services" GridPane.columnIndex="1">
                      <font>
-                        <Font name="System Bold Italic" size="20.0" />
+                        <Font name="System Bold Italic" size="36.0" />
                      </font>
                   </Text>
-                  <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Jonathan Chang" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                  <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Jonathan Chang" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="1">
                      <font>
-                        <Font name="System Bold" size="12.0" />
+                        <Font name="System Bold" size="18.0" />
                      </font>
                   </Text>
                   <JFXComboBox fx:id="roomSelect" prefWidth="150.0" style="-fx-background-color: #ffffff;" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                  <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Room Select" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                  <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Room Select" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="2">
                      <font>
-                        <Font name="System Bold" size="12.0" />
+                        <Font name="System Bold" size="18.0" />
                      </font>
                   </Text>
-                  <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Patient Name" GridPane.columnIndex="1" GridPane.rowIndex="4">
+                  <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Patient Name" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="4">
                      <font>
-                        <Font name="System Bold" size="12.0" />
+                        <Font name="System Bold" size="18.0" />
                      </font>
                   </Text>
-                  <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Perscription " GridPane.columnIndex="1" GridPane.rowIndex="6">
+                  <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Perscription " GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="6">
                      <font>
-                        <Font name="System Bold" size="12.0" />
+                        <Font name="System Bold" size="18.0" />
                      </font>
                   </Text>
                   <JFXTextField fx:id="patientNameTextField" prefHeight="25.0" prefWidth="150.0" style="-fx-background-color: #ffffff;" GridPane.columnIndex="1" GridPane.rowIndex="5" />
                   <JFXTextField fx:id="prescriptionTextField" prefHeight="25.0" prefWidth="150.0" style="-fx-background-color: #ffffff;" GridPane.columnIndex="1" GridPane.rowIndex="7" />
-                  <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Perscription Length" GridPane.columnIndex="1" GridPane.rowIndex="8">
+                  <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Perscription Length" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="8">
                      <font>
-                        <Font name="System Bold" size="12.0" />
+                        <Font name="System Bold" size="18.0" />
                      </font>
                   </Text>
                   <ChoiceBox fx:id="lengthChoiceBox" prefWidth="150.0" style="-fx-background-color: #ffffff;" GridPane.columnIndex="1" GridPane.rowIndex="9" />
