@@ -43,6 +43,8 @@ public class UIController {
     private static Map<String, String> sceneTitles;
     private static Map<String, Parent> sceneParents;
 
+    private String cssPath;
+
     /**
      * Constructor
      */
@@ -86,6 +88,9 @@ public class UIController {
         // Popups
         sceneFiles.put(UIController.POPUP_DIRECTIONS, "/direction_popup.fxml");
         sceneTitles.put(UIController.POPUP_DIRECTIONS, "Popup Window For Directions");
+
+        sceneFiles.put(UIController.SERVICE_REQUEST_MAIN, "/overall.fxml");
+        sceneTitles.put(UIController.SERVICE_REQUEST_MAIN, "Service Request - Babysitting");
     }
 
     /**
@@ -98,6 +103,10 @@ public class UIController {
     protected UIController goToScene(String sceneString, String cssPath) {
         Scene scene = scenes.get(sceneString);
 
+        if(this.cssPath == null) {
+            this.cssPath = cssPath;
+        }
+
         // If the scene has not yet been created
         if(scene == null) {
             try {
@@ -108,7 +117,7 @@ public class UIController {
                 sceneControllers.put(sceneString, fxmlLoader.getController());
                 scenes.put(sceneString, new Scene(root, WIDTH, HEIGHT));
                 final ObservableList<String> stylesheets = scene.getStylesheets();
-                stylesheets.addAll(getClass().getResource(cssPath).toExternalForm());
+                stylesheets.addAll(getClass().getResource(this.cssPath).toExternalForm());
 
             } catch(Exception e) {
                 e.printStackTrace();

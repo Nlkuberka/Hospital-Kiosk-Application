@@ -33,7 +33,7 @@ public class Main extends Application {
         primaryStage.setTitle("Service Request - Babysitter");
 
         UIController controller = new UIController(primaryStage,windowWidth,windowLength);
-        controller.goToScene(UIController.SERVICE_REQUEST_BABYSITTING,cssPath);
+        controller.goToScene(UIController.SERVICE_REQUEST_MAIN,cssPath);
     }
 
 
