@@ -1,31 +1,34 @@
 package servicerequests;
 
 import application.CurrentUser;
-import com.jfoenix.controls.JFXComboBox;
-import database.DBController;
 import application.UIController;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXCheckBox;
+import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextField;
 import database.DBControllerSR;
 import entities.ServiceRequest;
 import helper.RoomCategoryFilterHelper;
-import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.CheckBox;
-import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextFormatter;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.StackPane;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
-import javax.swing.*;
+import java.io.IOException;
 import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.*;
+import java.util.HashMap;
+import java.util.LinkedList;
 
 public class UIControllerSRRS extends UIController {
     /**
@@ -54,6 +57,7 @@ public class UIControllerSRRS extends UIController {
     public JFXButton clearButton;
     public JFXTextField OtherServiceField;
     public TextArea additionalCommentField;
+    public StackPane parentPane;
     @FXML
     private ImageView backgroundImage;
     private String serviceType;
@@ -137,16 +141,19 @@ public class UIControllerSRRS extends UIController {
     }
 
     @FXML
-    private void setConfirmButton() {
+    private void setConfirmButton() throws IOException {
+        if(!enablePolicy())
+        {
+            return;
+        }
+
         String roomShortName = (String) roomSelect.getValue();
         String nodeID = filterHelper.getNodeID();
         String message = finalMessage + "\n" + additionalCommentField.getText();
 
-        if(message.length() > 149)
-        {
+        if (message.length() > 149) {
             message = message.substring(0, 149);
         }
-
 
 
         ServiceRequest sr = new ServiceRequest(nodeID, serviceType, message, CurrentUser.user.getUserID(), false, null);
@@ -223,5 +230,24 @@ public class UIControllerSRRS extends UIController {
     }
 
     @FXML
-    public void setCancelButton(ActionEvent actionEvent) {this.goToScene(UIController.SERVICE_REQUEST_MAIN); }
+    public void setCancelButton(ActionEvent actionEvent) {
+        goToScene(UIController.SERVICE_REQUEST_MAIN);
+    }
+
+    private boolean enablePolicy() throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/servicerequests/service_request_rs_policy.fxml"));
+        Parent root = loader.load();
+        UIControllerSRRSP uiControllerSRRSP = loader.getController();
+        Stage stage = new Stage();
+        stage.setScene(new Scene(root));
+        stage.initModality(Modality.APPLICATION_MODAL);
+        stage.initStyle(StageStyle.UNDECORATED);
+        stage.setHeight(400);
+        stage.setWidth(600);
+        stage.setResizable(false);
+        stage.centerOnScreen();
+        stage.toFront();
+        stage.showAndWait();
+        return uiControllerSRRSP.getStatus();
+    }
 }
