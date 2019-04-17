@@ -21,6 +21,9 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
 
+        primaryStage.getIcons().add(new Image(getClass().getResourceAsStream("/icon/bwh.png")));
+
+        System.out.println("Collaborator is " + "X");
 
         Connection conn = DBController.dbConnect();
         DatabaseMetaData dbmd = conn.getMetaData();
@@ -30,11 +33,6 @@ public class Main extends Application {
         }
 
         UIController controller = new UIController(primaryStage);
-
-        Image icon = new Image("file:bwh.png");
-        primaryStage.getIcons().add(icon);
-
-        System.out.println("Collaborator is " + "X");
 
         // Initialize the graph.
         List<Node> allNodes = DBControllerNE.generateListOfNodes(conn,DBControllerNE.ALL_NODES);

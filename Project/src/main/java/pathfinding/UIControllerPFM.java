@@ -1,35 +1,34 @@
 package pathfinding;
 
+import application.CurrentUser;
+import application.UIController;
+import application.UIControllerPUD;
+import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTabPane;
 import com.jfoenix.controls.JFXToggleButton;
 import database.DBController;
-import application.UIController;
-import application.UIControllerPUD;
 import database.DBControllerNE;
 import entities.Graph;
 import entities.Node;
-
 import helper.RoomCategoryFilterHelper;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
 import javafx.scene.control.Tab;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
-
-import java.io.IOException;
-import java.sql.Connection;
-
-import com.jfoenix.controls.JFXButton;
-import javafx.scene.Scene;
 import javafx.scene.shape.Path;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import net.kurobako.gesturefx.GesturePane;
 
+import java.io.IOException;
+import java.sql.Connection;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.logging.Level;
@@ -169,7 +168,7 @@ public class UIControllerPFM extends UIController {
         }, true);
 
         anchorPaneHandler.initCircles(roomsAtEachFloor, initialLocationCombo, destinationCombo);
-
+        setInitialLocation(CurrentUser.startingLocation);
     }
 
     protected void setInitialLocation(String longName) {
@@ -209,6 +208,7 @@ public class UIControllerPFM extends UIController {
 
         initialLocationCombo.getSelectionModel().clearSelection();
         destinationCombo.getSelectionModel().clearSelection();
+        setInitialLocation(CurrentUser.startingLocation);
     }
 
     /**
@@ -302,6 +302,8 @@ public class UIControllerPFM extends UIController {
 
             Scene popupScene = new Scene(fxmlLoader.load(), 600, 400);
             Stage popupStage = new Stage();
+
+            popupStage.getIcons().add(new Image(getClass().getResourceAsStream("/icon/directions.png")));
 
             popupStage.initModality(Modality.WINDOW_MODAL);
             popupStage.initOwner(this.primaryStage);
