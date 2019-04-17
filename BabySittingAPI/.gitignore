@@ -1,0 +1,12 @@
+.gradle/
+.idea/
+classes/
+build/
+out/
+gradlew
+gradlew.bat
+derby.log
+*.class
+*.jar
+*.lock
+*.iml
