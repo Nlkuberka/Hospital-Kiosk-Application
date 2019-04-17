@@ -98,7 +98,7 @@
                         <Font name="System Bold" size="14.0" />
                      </font>
                   </Text>
-                  <ChoiceBox fx:id="roomSelect" prefWidth="150.0" style="-fx-background-color: #ffffff;" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+                  <JFXComboBox fx:id="roomSelect" prefWidth="150.0" style="-fx-background-color: #ffffff;" GridPane.columnIndex="1" GridPane.rowIndex="7" />
                   <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Message" GridPane.columnIndex="1" GridPane.rowIndex="10">
                      <font>
                         <Font name="System Bold" size="18.0" />
