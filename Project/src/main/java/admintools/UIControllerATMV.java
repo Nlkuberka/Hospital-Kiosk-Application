@@ -434,6 +434,7 @@ public class UIControllerATMV extends UIController {
         assert conn != null;
         DBControllerNE.deleteEdge(nodeID1, nodeID2, conn);
         DBController.closeConnection(conn);
+
     }
 
     void setKiosk(Node node) {
