@@ -1,5 +1,6 @@
 package servicerequests;
 
+import application.CurrentUser;
 import application.UIController;
 import com.jfoenix.controls.JFXTextField;
 import entities.ServiceRequest;
@@ -8,6 +9,11 @@ import com.jfoenix.controls.JFXButton;
 import javafx.fxml.FXML;
 
 import javafx.event.ActionEvent;
+import javafx.scene.control.Menu;
+import javafx.scene.control.MenuItem;
+import javafx.scene.image.ImageView;
+
+import java.awt.*;
 
 /**
  * The UIController for the making and sending of service requests
@@ -17,16 +23,25 @@ import javafx.event.ActionEvent;
 public class UIControllerSRM extends UIController {
 
     @FXML
+    private ImageView backgroundImage;
+    @FXML
     private JFXButton ITButton;
 
     @FXML
     private JFXButton baseButton;
+
+    @FXML
+    private Menu Home;
+
+    @FXML
+    private MenuItem  HOME;
 
     /**
      * Runs on the scene creation and adds the various service request types
      */
     @FXML
     public void initialize() {
+        backgroundImage.fitWidthProperty().bind(primaryStage.widthProperty());
     }
 
     /**
@@ -38,8 +53,10 @@ public class UIControllerSRM extends UIController {
 
     }
 
+
+
     /**
-     * Redirects to IT ServiceRequest
+     * Redirects to IT service requests
      */
     @FXML
     public void setITButton() {

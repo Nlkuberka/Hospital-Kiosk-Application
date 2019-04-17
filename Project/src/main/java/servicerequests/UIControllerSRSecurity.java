@@ -1,17 +1,22 @@
 package servicerequests;
 
 import application.CurrentUser;
-import application.DBController;
+import com.jfoenix.controls.JFXComboBox;
+import database.DBController;
 import application.UIController;
+import database.DBControllerNE;
+import database.DBControllerSR;
 import entities.Node;
 
 import com.jfoenix.controls.JFXButton;
 import entities.ServiceRequest;
+import helper.RoomCategoryFilterHelper;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextFormatter;
+import javafx.scene.image.ImageView;
 
 import java.sql.Connection;
 import java.util.*;
@@ -21,10 +26,10 @@ Security Service Request
  */
 public class UIControllerSRSecurity extends UIController {
     String serviceType;
-    Map<String, String> nodeIDs; /**< Holds reference between node short name and nodeID*/
+    RoomCategoryFilterHelper filterHelper;
 
     @FXML
-    private ChoiceBox roomSelect;
+    private JFXComboBox<String> roomSelect;
 
     @FXML
     private ChoiceBox prioritySelect;
@@ -39,7 +44,11 @@ public class UIControllerSRSecurity extends UIController {
     private JFXButton cancelButton;
 
     @FXML
+    private ImageView backgroundImage;
+
+    @FXML
     public void initialize() {
+        backgroundImage.fitWidthProperty().bind(primaryStage.widthProperty());
         serviceMessage.setTextFormatter(new TextFormatter<String>(e ->
                 e.getControlNewText().length() <= 100 ? e : null
         ));
@@ -47,19 +56,7 @@ public class UIControllerSRSecurity extends UIController {
 
     @FXML
     public void onShow() {
-        List<String> nodeShortNames = new ArrayList<String>();
-        nodeIDs = new HashMap<String, String>();
-
-
-        Connection conn = DBController.dbConnect();
-        LinkedList<Node> rooms = DBController.fetchAllRooms(conn);
-        for(Node n:rooms) {
-            nodeIDs.put(n.getShortName(), n.getNodeID());
-            nodeShortNames.add(n.getShortName());
-        }
-
-        roomSelect.setItems(FXCollections.observableList(nodeShortNames));
-        roomSelect.getSelectionModel().selectFirst();
+        filterHelper = new RoomCategoryFilterHelper(roomSelect, null, false);
 
         String[] priorities = {"1","2","3","4","5"};
         prioritySelect.setItems(FXCollections.observableList(Arrays.asList(priorities)));
@@ -75,14 +72,14 @@ public class UIControllerSRSecurity extends UIController {
     @FXML
     private void setConfirmButton() {
         String roomShortName = (String) roomSelect.getValue();
-        String nodeID = nodeIDs.get(roomShortName);
+        String nodeID = filterHelper.getNodeID();
         String message = prioritySelect.getValue() + " - " + serviceMessage.getText();
         serviceMessage.clear();
 
         ServiceRequest sr = new ServiceRequest(nodeID, serviceType, message, CurrentUser.user.getUserID(), false, null);
-        Connection conn = DBController.dbConnect();
-        DBController.addServiceRequest(sr,conn);
-        DBController.closeConnection(conn);
+        Connection conn = DBControllerSR.dbConnect();
+        DBControllerSR.addServiceRequest(sr,conn);
+        DBControllerSR.closeConnection(conn);
         this.goToScene(UIController.SERVICE_REQUEST_MAIN);
     }
 

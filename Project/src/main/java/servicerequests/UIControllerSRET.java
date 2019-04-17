@@ -1,17 +1,18 @@
 package servicerequests;
 
 import application.CurrentUser;
-import application.DBController;
+import com.jfoenix.controls.JFXComboBox;
+import database.DBController;
 import application.UIController;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextArea;
-import com.jfoenix.controls.JFXTextField;
+import database.DBControllerSR;
 import entities.ServiceRequest;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.TextArea;
 import javafx.scene.control.TextFormatter;
+import javafx.scene.image.ImageView;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -27,7 +28,7 @@ public class UIControllerSRET extends UIController {
 
 
     @FXML
-    private ChoiceBox<String> roomSelect;
+    private JFXComboBox<String> roomSelect;
 
     @FXML
     private JFXTextArea serviceMessage;
@@ -38,12 +39,16 @@ public class UIControllerSRET extends UIController {
     @FXML
     private ChoiceBox<String> transportSelect;
 
+    @FXML
+    private ImageView backgroundImage;
+
     /**
      * < The confirm button
      */
 
     @FXML
     public void initialize() {
+        backgroundImage.fitWidthProperty().bind(primaryStage.widthProperty());
         serviceMessage.setTextFormatter(new TextFormatter<String>(e ->
                 e.getControlNewText().length() <= 100 ? e : null
         ));
@@ -83,9 +88,9 @@ public class UIControllerSRET extends UIController {
         String message = transportSelect.getValue() + serviceMessage.getText();
 
         ServiceRequest sr = new ServiceRequest(nodeID, serviceType, message, CurrentUser.user.getUserID(), false, null);
-        Connection conn = DBController.dbConnect();
-        DBController.addServiceRequest(sr, conn);
-        DBController.closeConnection(conn);
+        Connection conn = DBControllerSR.dbConnect();
+        DBControllerSR.addServiceRequest(sr, conn);
+        DBControllerSR.closeConnection(conn);
         this.goToScene(UIController.SERVICE_REQUEST_MAIN);
     }
 

@@ -1,27 +1,23 @@
 package reservations;
 
 import application.CurrentUser;
-import application.DBController;
+import database.DBController;
 import application.UIController;
 import com.jfoenix.controls.JFXButton;
-import com.jfoenix.controls.JFXCheckBox;
+import database.DBControllerRW;
 import entities.Reservation;
-import entities.ServiceRequest;
 import entities.User;
 import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.scene.image.ImageView;
 
-import java.lang.reflect.Method;
-import java.security.BasicPermission;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Time;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -44,12 +40,16 @@ public class UIControllerRVVE extends UIController {
     @FXML
     private TableView<Reservation> reservationTable; /**< The table that holds all of the reservations */
 
+    @FXML
+    private ImageView backgroundImage;
+
     /**
      * Called when the scene is first created
      * Sets up all the cell factories
      */
     @FXML
     public void initialize() {
+        backgroundImage.fitWidthProperty().bind(primaryStage.widthProperty());
         List<TableColumn<Reservation, ?>> tableColumns = reservationTable.getColumns();
         // Initialize the cell factories of the reservation field columns
 
@@ -113,7 +113,7 @@ public class UIControllerRVVE extends UIController {
                         try{
                             Connection conn = DBController.dbConnect();
                             System.out.println(reservation.getRsvID());
-                            DBController.updateReservation(reservation, conn);
+                            DBControllerRW.updateReservation(reservation, conn);
                             conn.close();
                         }catch(SQLException e){
                             e.printStackTrace();
@@ -140,7 +140,7 @@ public class UIControllerRVVE extends UIController {
                 removeButton.setOnAction( e -> {
                             try {
                                 Connection conn = DBController.dbConnect();
-                                DBController.deleteReservation(reservation.getRsvID(), conn);
+                                DBControllerRW.deleteReservation(reservation.getRsvID(), conn);
                                 conn.close();
                             }catch(SQLException e1){
                                 e1.printStackTrace();
@@ -196,8 +196,5 @@ public class UIControllerRVVE extends UIController {
         this.goToScene(UIController.RESERVATIONS_MAIN_MENU);
     }
 
-
-    @FXML
-    private void setHomeButton() { this.goToScene(UIController.USER_MAIN_MENU_MAIN); }
 
 }

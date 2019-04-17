@@ -1,9 +1,10 @@
 package admintools;
 
 import application.CurrentUser;
-import application.DBController;
+import database.DBController;
 import application.UIController;
 import com.jfoenix.controls.JFXButton;
+import database.DBControllerRW;
 import entities.Reservation;
 import entities.User;
 import javafx.beans.property.ReadOnlyObjectWrapper;
@@ -11,6 +12,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.scene.image.ImageView;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -28,7 +30,9 @@ public class UIControllerATER extends UIController {
     private static final int[] lengthRequirements = {-1, 10, 10, 10, 8, 8};
     private static final String[] reservationSetters  = {"setNodeID", "setUserID", "setDate", "setStartTime", "setEndTime", ""};
     private static final String[] reservationGetters  = {"getRsvID", "getNodeID", "getUserID", "getDate", "getStartTime", "getEndTime"};
-                                                    /**< The Various Reservation Columns used for cell factories */
+    @FXML
+    private ImageView backgroundImage;
+    /**< The Various Reservation Columns used for cell factories */
     @FXML
     private MenuItem backButton; /**< The Back Button */
 
@@ -44,6 +48,8 @@ public class UIControllerATER extends UIController {
      */
     @FXML
     public void initialize() {
+        backgroundImage.fitWidthProperty().bind(primaryStage.widthProperty());
+
         List<TableColumn<Reservation, ?>> tableColumns = reservationTable.getColumns();
         // Initialize the cell factories of the reservation field columns
 
@@ -107,7 +113,7 @@ public class UIControllerATER extends UIController {
                         try{
                             Connection conn = DBController.dbConnect();
                             System.out.println(reservation.getRsvID());
-                            DBController.updateReservation(reservation, conn);
+                            DBControllerRW.updateReservation(reservation, conn);
                             conn.close();
                         }catch(SQLException e){
                             e.printStackTrace();
@@ -134,7 +140,7 @@ public class UIControllerATER extends UIController {
                 removeButton.setOnAction( e -> {
                             try {
                                 Connection conn = DBController.dbConnect();
-                                DBController.deleteReservation(reservation.getRsvID(), conn);
+                                DBControllerRW.deleteReservation(reservation.getRsvID(), conn);
                                 conn.close();
                             }catch(SQLException e1){
                                 e1.printStackTrace();

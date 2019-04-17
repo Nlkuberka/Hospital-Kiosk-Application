@@ -3,22 +3,33 @@ package entities;
 import java.util.LinkedList;
 import java.util.Queue;
 
-public class BFSGraph extends DijkstraGraph {
-    Queue<Integer> queue = new LinkedList<>();
+public class BFSGraph extends SearchGraph {
+    private Queue<Integer> queue;
 
-    public BFSGraph(LinkedList<Node> storedNodes) {
-        super(storedNodes);
+    protected BFSGraph() {
+        super();
     }
 
-    protected void addNodeToRelax(int node) {
+    /**
+     * Performs any operations needed before beginning the search.
+     */
+    @Override
+    protected void initialize() {
+        queue = new LinkedList<>();
+    }
+
+    @Override
+    protected void addNodeToRelax(int node, double[] distanceFromStart, int targetIndex) {
         queue.add(node);
     }
 
-    protected int getNodeToRelax() {
+    @Override
+    protected int getNodeToRelax(int  targetIndex) {
         return queue.remove();
     }
 
-    protected boolean hasNodesToRelax() {
-        return queue.size() > 0;
+    @Override
+    protected boolean finishedSearch() {
+        return queue.size() == 0;
     }
 }

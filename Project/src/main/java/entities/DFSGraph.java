@@ -3,22 +3,33 @@ package entities;
 import java.util.LinkedList;
 import java.util.Stack;
 
-public class DFSGraph extends DijkstraGraph {
-    Stack<Integer> stack = new Stack<>();
+public class DFSGraph extends SearchGraph {
+    private Stack<Integer> stack;
 
-    public DFSGraph(LinkedList<Node> storedNodes) {
-        super(storedNodes);
+    protected DFSGraph() {
+        super();
     }
 
-    protected void addNodeToRelax(int node) {
+    /**
+     * Performs any operations needed before beginning the search.
+     */
+    @Override
+    protected void initialize() {
+        stack = new Stack<>();
+    }
+
+    @Override
+    protected void addNodeToRelax(int node, double[] distanceFromStart, int targetIndex) {
         stack.push(node);
     }
 
-    protected int getNodeToRelax() {
+    @Override
+    protected int getNodeToRelax(int targetIndex) {
         return stack.pop();
     }
 
-    protected boolean hasNodesToRelax() {
-        return !stack.empty();
+    @Override
+    protected boolean finishedSearch() {
+        return stack.empty();
     }
 }

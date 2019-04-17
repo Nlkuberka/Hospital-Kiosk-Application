@@ -1,8 +1,6 @@
 package application;
 
 import com.jfoenix.controls.JFXTextField;
-import entities.User;
-
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
@@ -13,13 +11,14 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.lang.reflect.Method;
-import java.util.Map;
 import java.util.HashMap;
+import java.util.Map;
 
 /**
  * The UIController Superclass
@@ -29,11 +28,14 @@ import java.util.HashMap;
  * @version interation 1
  */
 public class UIController {
+
     // The various scenes that this UIController handles
     public static final String LOGIN_MAIN = "LM";
+    public static final String WELCOME_MAIN = "WM";
     public static final String GUEST_MAIN_MENU_MAIN = "GMMM";
     public static final String USER_MAIN_MENU_MAIN = "UMMM";
     public static final String ADMIN_MAIN_MENU_MAIN = "AMMM";
+    public static final String ABOUT_PAGE= "AP";
 
     public static final String PATHFINDING_MAIN = "PFM";
 
@@ -69,8 +71,8 @@ public class UIController {
     public static final String SERVICE_REQUEST_AV_EQUIPMENT = "SRAVE";
 
     // The starting width and height of the window
-    private static final int WIDTH = 900;
-    private static final int HEIGHT = 600;
+    private static final int WIDTH = 1280;
+    private static final int HEIGHT = 720;
 
     private static final int WIDTH_POPUP_WARNING = 300;
     private static final int HEIGHT_POPUP_WARNING = 150;
@@ -99,7 +101,6 @@ public class UIController {
      */
     public UIController(Stage stage) {
         primaryStage = stage;
-        primaryStage.setResizable(false);
         rootPane = new BorderPane();
         rootScene = new Scene(rootPane, WIDTH, HEIGHT);
         primaryStage.setScene(rootScene);
@@ -123,91 +124,98 @@ public class UIController {
         sceneTitles = new HashMap<String, String>();
         sceneParents = new HashMap<String, Parent>();
 
-        sceneFiles.put(UIController.LOGIN_MAIN, "/login_main.fxml");
+        sceneFiles.put(UIController.LOGIN_MAIN, "/application/login_main.fxml");
         sceneTitles.put(UIController.LOGIN_MAIN, "Login Screen");
 
+        sceneFiles.put(UIController.WELCOME_MAIN, "/application/welcome_main.fxml");
+        sceneTitles.put(UIController.WELCOME_MAIN, "Welcome Screen");
+
+        sceneFiles.put(UIController.ABOUT_PAGE, "/application/about_page.fxml");
+        sceneTitles.put(UIController.ABOUT_PAGE, "About Page");
         // Main Menus
         sceneFiles.put(UIController.GUEST_MAIN_MENU_MAIN, "/guest_main_menu_main.fxml");
         sceneTitles.put(UIController.GUEST_MAIN_MENU_MAIN, "Main Menu");
 
-        sceneFiles.put(UIController.USER_MAIN_MENU_MAIN, "/user_main_menu_main.fxml");
+        sceneFiles.put(UIController.USER_MAIN_MENU_MAIN, "/application/user_main_menu_main.fxml");
         sceneTitles.put(UIController.USER_MAIN_MENU_MAIN, "Main Menu");
 
-        sceneFiles.put(UIController.ADMIN_MAIN_MENU_MAIN, "/admin_main_menu_main.fxml");
+        sceneFiles.put(UIController.ADMIN_MAIN_MENU_MAIN, "/admintools/admin_main_menu_main.fxml");
         sceneTitles.put(UIController.ADMIN_MAIN_MENU_MAIN, "Main Menu");
 
         // Admin Tools
-        sceneFiles.put(UIController.ADMIN_TOOLS_MAIN, "/admin_tools_main.fxml");
+        sceneFiles.put(UIController.ADMIN_TOOLS_MAIN, "/admintools/admin_tools_main.fxml");
         sceneTitles.put(UIController.ADMIN_TOOLS_MAIN, "Admin Tools - Main");
 
-        sceneFiles.put(UIController.ADMIN_TOOLS_VIEW_EDGES, "/admin_tools_view_edges.fxml");
+        sceneFiles.put(UIController.ADMIN_TOOLS_VIEW_EDGES, "/admintools/admin_tools_view_edges.fxml");
         sceneTitles.put(UIController.ADMIN_TOOLS_VIEW_EDGES, "Admin Tools - View Edges");
 
-        sceneFiles.put(UIController.ADMIN_TOOLS_VIEW_NODES, "/admin_tools_view_nodes.fxml");
+        sceneFiles.put(UIController.ADMIN_TOOLS_VIEW_NODES, "/admintools/admin_tools_view_nodes.fxml");
         sceneTitles.put(UIController.ADMIN_TOOLS_VIEW_NODES, "Admin Tools - View Nodes");
 
-        sceneFiles.put(UIController.ADMIN_TOOLS_VIEW_SERVICE_REQUESTS, "/admin_tools_view_service_request.fxml");
+        sceneFiles.put(UIController.ADMIN_TOOLS_VIEW_SERVICE_REQUESTS, "/admintools/admin_tools_view_service_request.fxml");
         sceneTitles.put(UIController.ADMIN_TOOLS_VIEW_SERVICE_REQUESTS, "Admin Tools - View Service Requests");
 
-        sceneFiles.put(UIController.ADMIN_TOOLS_VIEW_USERS, "/admin_tools_view_users.fxml");
+        sceneFiles.put(UIController.ADMIN_TOOLS_VIEW_USERS, "/admintools/admin_tools_view_users.fxml");
         sceneTitles.put(UIController.ADMIN_TOOLS_VIEW_USERS, "Admin Tools - View Users");
 
-        sceneFiles.put(UIController.ADMIN_TOOLS_CHANGE_ALGORITHM, "/admin_tools_switch_algorithm.fxml");
+        sceneFiles.put(UIController.ADMIN_TOOLS_CHANGE_ALGORITHM, "/admintools/admin_tools_switch_algorithm.fxml");
         sceneTitles.put(UIController.ADMIN_TOOLS_CHANGE_ALGORITHM, "Admin Tools - Change Algorithm");
-        sceneFiles.put((UIController.ADMIN_TOOLS_MAP_VIEW), "/admin_tools_map_view.fxml");
+        sceneFiles.put((UIController.ADMIN_TOOLS_MAP_VIEW), "/admintools/admin_tools_map_view.fxml");
         sceneTitles.put((UIController.ADMIN_TOOLS_MAP_VIEW), "Admin Tools ; Map View");
 
-        sceneFiles.put(UIController.ADMIN_TOOLS_EDIT_RESERVATIONS, "/admin_tools_edit_reservations.fxml");
+        sceneFiles.put(UIController.ADMIN_TOOLS_EDIT_RESERVATIONS, "/admintools/admin_tools_edit_reservations.fxml");
         sceneTitles.put(UIController.ADMIN_TOOLS_EDIT_RESERVATIONS, "Admin Tools - Edit Reservation");
 
 
+
+
         // Service Request
-        sceneFiles.put(UIController.SERVICE_REQUEST_MAIN, "/service_request_main.fxml");
+        sceneFiles.put(UIController.SERVICE_REQUEST_MAIN, "/servicerequests/service_request_main.fxml");
         sceneTitles.put(UIController.SERVICE_REQUEST_MAIN, "Service Request - Main");
 
-        sceneFiles.put(UIController.SERVICE_REQUEST_AV_EQUIPMENT, "/service_request_audio_visual.fxml");
+        sceneFiles.put(UIController.SERVICE_REQUEST_AV_EQUIPMENT, "/servicerequests/service_request_audio_visual.fxml");
         sceneTitles.put(UIController.SERVICE_REQUEST_AV_EQUIPMENT, "Service Request - Audio Visual");
 
-        sceneFiles.put(UIController.SERVICE_REQUEST_BABYSITTING, "/service_request_babysitting.fxml");
+        sceneFiles.put(UIController.SERVICE_REQUEST_BABYSITTING, "/servicerequests/service_request_babysitting.fxml");
         sceneTitles.put(UIController.SERVICE_REQUEST_BABYSITTING, "Service Request - Babysitting");
 
-        sceneFiles.put(UIController.SERVICE_REQUEST_IT, "/service_request_It.fxml");
+        sceneFiles.put(UIController.SERVICE_REQUEST_IT, "/servicerequests/service_request_It.fxml");
         sceneTitles.put(UIController.SERVICE_REQUEST_IT, "Service Request - IT");
 
-        sceneFiles.put(UIController.SERVICE_REQUEST_PRESCRIPTION_SERVICES_MAIN, "/service_request_prescription_services_main.fxml");
+        sceneFiles.put(UIController.SERVICE_REQUEST_PRESCRIPTION_SERVICES_MAIN, "/servicerequests/service_request_prescription_services_main.fxml");
         sceneTitles.put(UIController.SERVICE_REQUEST_PRESCRIPTION_SERVICES_MAIN, "Service Request - Prescription Services");
 
-        sceneFiles.put(UIController.SERVICE_REQUEST_FLOWER_DELIVERY, "/service_request_flower_delivery.fxml");
+        sceneFiles.put(UIController.SERVICE_REQUEST_FLOWER_DELIVERY, "/servicerequests/service_request_flower_delivery.fxml");
         sceneTitles.put(UIController.SERVICE_REQUEST_FLOWER_DELIVERY, "Service Request - Flower Delivery");
 
 
-        sceneFiles.put(UIController.SERVICE_REQUEST_SANITATION, "/service_request_sanitation.fxml");
+        sceneFiles.put(UIController.SERVICE_REQUEST_SANITATION, "/servicerequests/service_request_sanitation.fxml");
         sceneTitles.put(UIController.SERVICE_REQUEST_SANITATION, "Service Request - Sanitation");
 
-        sceneFiles.put(UIController.SERVICE_REQUEST_SECURITY, "/service_request_security.fxml");
+        sceneFiles.put(UIController.SERVICE_REQUEST_SECURITY, "/servicerequests/service_request_security.fxml");
         sceneTitles.put(UIController.SERVICE_REQUEST_SECURITY, "Service Request - Security");
 
-        sceneFiles.put(UIController.SERVICE_REQUEST_RELIGIOUS_SERVICES,"/service_request_religious_services.fxml");
+        sceneFiles.put(UIController.SERVICE_REQUEST_RELIGIOUS_SERVICES, "/servicerequests/service_request_religious_services.fxml");
         sceneTitles.put(UIController.SERVICE_REQUEST_RELIGIOUS_SERVICES, "Service Request - Religious Services");
 
-        sceneFiles.put(UIController.SERVICE_REQUEST_INTERPRETER, "/service_request_interpreter.fxml");
+        sceneFiles.put(UIController.SERVICE_REQUEST_INTERPRETER, "/servicerequests/service_request_interpreter.fxml");
         sceneTitles.put(UIController.SERVICE_REQUEST_INTERPRETER, "Service Request - Interpreter");
 
-        sceneFiles.put(UIController.SERVICE_REQUEST_TRANSPORT, "/service_request_transport.fxml");
+        sceneFiles.put(UIController.SERVICE_REQUEST_TRANSPORT, "/servicerequests/service_request_transport.fxml");
         sceneTitles.put(UIController.SERVICE_REQUEST_TRANSPORT, "Service Request - Transport");
 
         // Reservations
-        sceneFiles.put(UIController.RESERVATIONS_MAIN, "/reservations_main.fxml");
+        sceneFiles.put(UIController.RESERVATIONS_MAIN, "/reservations/reservations_main.fxml");
         sceneTitles.put(UIController.RESERVATIONS_MAIN, "Reservations - Main");
 
-        sceneFiles.put(UIController.RESERVATIONS_EDIT, "/reservations_edit.fxml");
+        sceneFiles.put(UIController.RESERVATIONS_EDIT, "/reservations/reservations_edit.fxml");
         sceneTitles.put(UIController.RESERVATIONS_EDIT, "Reservations - Edit");
 
-        sceneFiles.put(UIController.RESERVATIONS_MAIN_MENU, "/reservations_main_menu.fxml");
+        sceneFiles.put(UIController.RESERVATIONS_MAIN_MENU, "/reservations/reservations_main_menu.fxml");
         sceneTitles.put(UIController.RESERVATIONS_MAIN_MENU, "Reservations - Main Menu");
 
         // Pathfinding
-        sceneFiles.put(UIController.PATHFINDING_MAIN, "/path_find_main.fxml");
+        sceneFiles.put(UIController.PATHFINDING_MAIN, "/pathfinding/path_find_main.fxml");
         sceneTitles.put(UIController.PATHFINDING_MAIN, "Path Finding Main");
 
         // Popups
@@ -224,6 +232,7 @@ public class UIController {
     @FXML
     protected UIController goToScene(String sceneString) {
         Scene scene = scenes.get(sceneString);
+
 
         // If the scene has not yet been created
         if(scene == null) {
@@ -255,6 +264,10 @@ public class UIController {
     @FXML
     public void popupMessage(String message, boolean isWarning) {
         Stage stage = new Stage();
+
+        Image icon = new Image("file:warning.png");
+        stage.getIcons().add(icon);
+
         Scene scene = null;
         UIControllerPUM controller = null;
         try {
@@ -271,7 +284,7 @@ public class UIController {
 
         controller.setMessage(message);
 
-        stage.setTitle("Warning - Main");
+        stage.setTitle("Warning");
         stage.setScene(scene);
         stage.showAndWait();
         stage.setAlwaysOnTop(true);
@@ -285,14 +298,20 @@ public class UIController {
      */
     @FXML
     private void setHomeButton() {
-        if(CurrentUser.user.getPermissions() == User.GUEST_PERMISSIONS) {
-            this.goToScene(UIController.GUEST_MAIN_MENU_MAIN);
-        } else if(CurrentUser.user.getPermissions() == User.BASIC_PERMISSIONS) {
-            this.goToScene(UIController.USER_MAIN_MENU_MAIN);
-        } else if(CurrentUser.user.getPermissions() == User.ADMIN_PERMISSIONS) {
-            this.goToScene(UIController.ADMIN_MAIN_MENU_MAIN);
-        } else {
-            this.goToScene(UIController.LOGIN_MAIN);
+        int permission = CurrentUser.user.getPermissions();
+        switch (permission){
+            case 1:
+                this.goToScene(UIController.PATHFINDING_MAIN);
+                break;
+            case 2:
+                this.goToScene(UIController.USER_MAIN_MENU_MAIN);
+                break;
+            case 3:
+                this.goToScene(UIController.ADMIN_MAIN_MENU_MAIN);
+                break;
+            default:
+                this.goToScene(UIController.WELCOME_MAIN);
+                break;
         }
     }
 

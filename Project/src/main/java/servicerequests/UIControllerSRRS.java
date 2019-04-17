@@ -1,12 +1,15 @@
 package servicerequests;
 
 import application.CurrentUser;
-import application.DBController;
+import com.jfoenix.controls.JFXComboBox;
+import database.DBController;
 import application.UIController;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXCheckBox;
 import com.jfoenix.controls.JFXTextField;
+import database.DBControllerSR;
 import entities.ServiceRequest;
+import helper.RoomCategoryFilterHelper;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -14,9 +17,11 @@ import javafx.scene.control.CheckBox;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextFormatter;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 
+import javax.swing.*;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -49,9 +54,11 @@ public class UIControllerSRRS extends UIController {
     public JFXButton clearButton;
     public JFXTextField OtherServiceField;
     public TextArea additionalCommentField;
+    @FXML
+    private ImageView backgroundImage;
     private String serviceType;
     private String finalMessage;
-    private Map<String, String> nodeIDs;
+    private RoomCategoryFilterHelper filterHelper;
 
     private HashMap<String, String> denomAbrev;
     private HashMap<String, String> servAbrev;
@@ -61,7 +68,7 @@ public class UIControllerSRRS extends UIController {
     private LinkedList<CheckBox> denomCheckBoxes;
     private LinkedList<CheckBox> serviceCheckBoxes;
     @FXML
-    private ChoiceBox roomSelect;
+    private JFXComboBox<String> roomSelect;
     @FXML
     private TextArea serviceMessage;
     @FXML
@@ -69,6 +76,8 @@ public class UIControllerSRRS extends UIController {
 
     @FXML
     public void initialize() {
+        backgroundImage.fitWidthProperty().bind(primaryStage.widthProperty());
+
         serviceMessage.setTextFormatter(new TextFormatter<String>(e ->
                 e.getControlNewText().length() <= 150 ? e : null
         ));
@@ -119,22 +128,7 @@ public class UIControllerSRRS extends UIController {
 
     @FXML
     public void onShow() {
-        List<String> nodeShortNames = new ArrayList<String>();
-        nodeIDs = new HashMap<String, String>();
-
-        // DB Get all Nodes
-        try {
-            Connection conn = DBController.dbConnect();
-            ResultSet rs = conn.createStatement().executeQuery("Select * From NODES where FLOOR = '2' AND BUILDING = 'Tower'");
-            while (rs.next()) {
-                nodeIDs.put(rs.getString("SHORTNAME"), rs.getString("NODEID"));
-                nodeShortNames.add(rs.getString("SHORTNAME"));
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        roomSelect.setItems(FXCollections.observableList(nodeShortNames));
-        roomSelect.getSelectionModel().selectFirst();
+        filterHelper = new RoomCategoryFilterHelper(roomSelect, null, true);
         serviceMessage.setText("");
     }
 
@@ -145,7 +139,7 @@ public class UIControllerSRRS extends UIController {
     @FXML
     private void setConfirmButton() {
         String roomShortName = (String) roomSelect.getValue();
-        String nodeID = nodeIDs.get(roomShortName);
+        String nodeID = filterHelper.getNodeID();
         String message = finalMessage + "\n" + additionalCommentField.getText();
 
         if(message.length() > 149)
@@ -156,9 +150,9 @@ public class UIControllerSRRS extends UIController {
 
 
         ServiceRequest sr = new ServiceRequest(nodeID, serviceType, message, CurrentUser.user.getUserID(), false, null);
-        Connection conn = DBController.dbConnect();
-        DBController.addServiceRequest(sr, conn);
-        DBController.closeConnection(conn);
+        Connection conn = DBControllerSR.dbConnect();
+        DBControllerSR.addServiceRequest(sr, conn);
+        DBControllerSR.closeConnection(conn);
         this.goToScene(UIController.SERVICE_REQUEST_MAIN);
     }
 
@@ -227,4 +221,7 @@ public class UIControllerSRRS extends UIController {
             serviceCheckBox.setSelected(false);
         }
     }
+
+    @FXML
+    public void setCancelButton(ActionEvent actionEvent) {this.goToScene(UIController.SERVICE_REQUEST_MAIN); }
 }

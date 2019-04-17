@@ -1,7 +1,10 @@
 package admintools;
 
-import application.DBController;
+import com.twilio.Twilio;
+import com.twilio.rest.api.v2010.account.Message;
+import database.DBController;
 import application.UIController;
+import database.DBControllerSR;
 import entities.ServiceRequest;
 
 import com.jfoenix.controls.JFXCheckBox;
@@ -16,11 +19,15 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.image.ImageView;
 
 import java.lang.reflect.Method;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+
+import static application.UIControllerPUD.ACCOUNT_SID;
+import static application.UIControllerPUD.AUTH_TOKEN;
 
 /**
  * The UIController for the viewing, editing, adding, and removing service requests
@@ -31,7 +38,9 @@ import java.sql.SQLException;
 public class UIControllerATVSR extends UIController {
     private static final String[] serviceRequestSetters  = {"", "", "", "setResolved", "setResolverID", ""};
     private static final String[] serviceRequestGetters  = {"getNodeID", "getServiceType", "getUserID", "isResolved", "getResolverID", "getMessage"};
-                                                    /**< The Various ServiceRequest Columns used for cell factories */
+    @FXML
+    private ImageView backgroundImage;
+    /**< The Various servicerequests Columns used for cell factories */
     @FXML
     private MenuItem backButton; /**< The Back Button */
 
@@ -47,6 +56,8 @@ public class UIControllerATVSR extends UIController {
      */
     @FXML
     public void initialize() {
+        backgroundImage.fitWidthProperty().bind(primaryStage.widthProperty());
+
         ObservableList<TableColumn<ServiceRequest, ?>> tableColumns = serviceRequestTable.getColumns();
 
         // Set up the uneditable columns
@@ -92,8 +103,19 @@ public class UIControllerATVSR extends UIController {
                 setGraphic(checkBox);
                 checkBox.setOnAction(et -> {
                     runSetter(serviceRequest, serviceRequestSetters[index], boolean.class, checkBox.isSelected());
+                    System.out.println(serviceRequest);
                     Connection conn = DBController.dbConnect();
-                    DBController.updateServiceRequest(serviceRequest,conn);
+                    DBControllerSR.updateServiceRequest(serviceRequest,conn);
+                    if(serviceRequest.getServiceType().equals("Flower Delivery")){
+                        String phoneNum = serviceRequest.getMessage().substring(0,10);
+                        Twilio.init(ACCOUNT_SID, AUTH_TOKEN);
+                        Message message = Message.creator(
+                                new com.twilio.type.PhoneNumber("+1" + phoneNum),
+                                new com.twilio.type.PhoneNumber("+17472290044"),
+                                "Flowers have been Delivered")
+                                .create();
+                        System.out.println("It did shit");
+                    }
                     DBController.closeConnection(conn);
                 });
             }
@@ -119,7 +141,7 @@ public class UIControllerATVSR extends UIController {
                     }
                     runSetter(serviceRequest, serviceRequestSetters[index],String.class, textField.getText());
                     Connection conn = DBController.dbConnect();
-                    DBController.updateServiceRequest(serviceRequest,conn);
+                    DBControllerSR.updateServiceRequest(serviceRequest,conn);
                     DBController.closeConnection(conn);
                     setGraphic(label);
                     label.setText(textField.getText());
@@ -156,7 +178,7 @@ public class UIControllerATVSR extends UIController {
             ResultSet rs = conn.createStatement().executeQuery("Select * from SERVICEREQUEST");
             while (rs.next()){
                 serviceRequests.add(new ServiceRequest(rs.getString(2),rs.getString(3),rs.getString(4),
-                        rs.getString(5),rs.getBoolean(6),rs.getString(7)));
+                        rs.getString(5),rs.getBoolean(6),rs.getString(7),rs.getInt(1)));
             }
         } catch (SQLException e) {
             e.printStackTrace();

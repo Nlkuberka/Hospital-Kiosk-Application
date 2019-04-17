@@ -7,33 +7,34 @@ package servicerequests;
  */
 
 import application.CurrentUser;
-import application.DBController;
+import com.jfoenix.controls.JFXComboBox;
+import database.DBController;
 import application.UIController;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextField;
+import database.DBControllerNE;
+import database.DBControllerSR;
 import entities.Node;
 import entities.ServiceRequest;
-import javafx.beans.binding.BooleanBinding;
+import helper.RoomCategoryFilterHelper;
 import javafx.collections.FXCollections;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.TextArea;
 import javafx.scene.control.TextFormatter;
+import javafx.scene.image.ImageView;
 
 import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 public class UIControllerSRB extends UIController {
+    @FXML
+    private ImageView backgroundImage;
     String serviceType;
-    Map<String, String> nodeIDs; /**< Holds reference between node short name and nodeID*/
+    private RoomCategoryFilterHelper filterHelper;
     @FXML private CheckBox feeder;
     @FXML private CheckBox diaper;
     @FXML private CheckBox bath;
@@ -43,7 +44,7 @@ public class UIControllerSRB extends UIController {
     String BabysittingServices = "";
 
     @FXML
-    private ChoiceBox roomSelect; /**< The room choice box*/
+    private JFXComboBox<String> roomSelect; /**< The room choice box*/
 
     @FXML
     private JFXTextField serviceMessage; /**< The additional message field*/
@@ -56,6 +57,8 @@ public class UIControllerSRB extends UIController {
 
     @FXML
     public void initialize() {
+        backgroundImage.fitWidthProperty().bind(primaryStage.widthProperty());
+
         serviceMessage.setTextFormatter(new TextFormatter<String>(e ->
                 e.getControlNewText().length() <= 100 ? e : null
         ));
@@ -63,20 +66,7 @@ public class UIControllerSRB extends UIController {
 
     @FXML
     public void onShow() {
-        List<String> nodeShortNames = new ArrayList<String>();
-        nodeIDs = new HashMap<String, String>();
-
-        Connection conn = DBController.dbConnect();
-        List<Node> nodes = DBController.fetchAllRooms(conn);
-        DBController.closeConnection(conn);
-        for(int i = 0; i < nodes.size(); i++) {
-            Node node = nodes.get(i);
-            nodeShortNames.add(node.getShortName());
-            nodeIDs.put(node.getShortName(), node.getNodeID());
-        }
-
-        roomSelect.setItems(FXCollections.observableList(nodeShortNames));
-        roomSelect.getSelectionModel().selectFirst();
+        filterHelper = new RoomCategoryFilterHelper(roomSelect, null, false);
         serviceMessage.setText("");
     }
 
@@ -115,7 +105,7 @@ public class UIControllerSRB extends UIController {
     @FXML
     private void setConfirmButton() {
         String roomShortName = (String) roomSelect.getValue();
-        String nodeID = nodeIDs.get(roomShortName);
+        String nodeID = filterHelper.getNodeID();
         setServiceType("Babysitting");
         checkEvent();
         String message = "Help with: "+ BabysittingServices + " Room: "+ roomShortName + serviceMessage.getText();
@@ -123,9 +113,9 @@ public class UIControllerSRB extends UIController {
             message = message.substring(0,149);
         }
         ServiceRequest sr = new ServiceRequest(nodeID, serviceType, message, CurrentUser.user.getUserID(), false, null);
-        Connection conn = DBController.dbConnect();
-        DBController.addServiceRequest(sr,conn);
-        DBController.closeConnection(conn);
+        Connection conn = DBControllerSR.dbConnect();
+        DBControllerSR.addServiceRequest(sr,conn);
+        DBControllerSR.closeConnection(conn);
         this.goToScene(UIController.SERVICE_REQUEST_MAIN);
     }
 

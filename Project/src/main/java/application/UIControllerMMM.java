@@ -4,6 +4,7 @@ import com.jfoenix.controls.JFXButton;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.MenuItem;
+import javafx.scene.image.ImageView;
 
 /**
  * The UIController for the application menus
@@ -13,6 +14,8 @@ import javafx.scene.control.MenuItem;
  */
 public class UIControllerMMM extends  UIController {
 
+    @FXML
+    private ImageView backgroundImage;
     @FXML
     private JFXButton pathfindingButton; /**< The Pathfinding Button*/
 
@@ -30,7 +33,7 @@ public class UIControllerMMM extends  UIController {
 
     @FXML
     public void initialize() {
-
+        backgroundImage.fitWidthProperty().bind(primaryStage.widthProperty());
     }
 
     /**

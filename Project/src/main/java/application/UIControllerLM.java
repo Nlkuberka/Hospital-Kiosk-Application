@@ -1,5 +1,7 @@
 package application;
 
+import database.DBController;
+import database.DBControllerU;
 import entities.User;
 
 import com.jfoenix.controls.JFXButton;
@@ -10,6 +12,8 @@ import javafx.scene.control.Tab;
 
 import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.BorderPane;
 
 import java.sql.Connection;
 
@@ -22,13 +26,12 @@ import java.sql.Connection;
 public class UIControllerLM extends UIController {
 
     @FXML
+    private ImageView backgroundImage;
+    @FXML
     private JFXTabPane login_tabpane;
 
     @FXML
     private JFXTabPane tabs;
-
-    @FXML
-    private Tab guest_tab;
 
     @FXML
     private Tab user_tab;
@@ -36,8 +39,6 @@ public class UIControllerLM extends UIController {
     @FXML
     private Tab admin_tab;
 
-    @FXML
-    private JFXButton loginAsGuestButton;
     /**
      * < The Login As Guest Button
      */
@@ -68,6 +69,16 @@ public class UIControllerLM extends UIController {
     @FXML
     private JFXPasswordField adminPasswordTextField;
 
+    @FXML
+    private BorderPane borderPane;
+
+    @FXML
+    private JFXButton cancelButton;
+
+    @FXML
+    private JFXButton cancelButton1;
+
+
     public UIControllerLM() {
 
     }
@@ -80,7 +91,10 @@ public class UIControllerLM extends UIController {
         tabs.getSelectionModel().selectedItemProperty().addListener(param -> {
             setDefaultButton();
         });
-        loginAsGuestButton.setDefaultButton(true);
+        backgroundImage.fitWidthProperty().bind(primaryStage.widthProperty());
+        borderPane.setPrefHeight(primaryStage.getHeight());
+        tabs.setPrefWidth(primaryStage.getWidth());
+        tabs.setPrefHeight(primaryStage.getHeight());
     }
 
     /**
@@ -94,16 +108,6 @@ public class UIControllerLM extends UIController {
         adminPasswordTextField.setText("");
     }
 
-    /**
-     * Goes to the Guest Main Menu
-     */
-    @FXML
-    private void setLoginAsGuestButton() {
-        Connection conn = DBController.dbConnect();
-        CurrentUser.user = DBController.getGuestUser(conn);
-        DBController.closeConnection(conn);
-        this.goToScene(UIController.GUEST_MAIN_MENU_MAIN);
-    }
 
     /**
      * Goes to the User Main Menu
@@ -143,10 +147,15 @@ public class UIControllerLM extends UIController {
         login_tabpane.getSelectionModel().select(user_tab);
     }
 
+    @FXML
+    private void setCancelButton() {
+        this.goToScene(UIController.PATHFINDING_MAIN);
+    }
+
     private User checkLogin(String username, String password, int permissions) {
         User user = null;
         Connection conn = DBController.dbConnect();
-        user = DBController.loginCheck(username,password,conn,permissions);
+        user = DBControllerU.loginCheck(username,password,conn,permissions);
         DBController.closeConnection(conn);
         if(user == null) {
             return null;
@@ -157,12 +166,9 @@ public class UIControllerLM extends UIController {
 
     private void setDefaultButton() {
         String tabName = tabs.getSelectionModel().getSelectedItem().getText();
-        loginAsGuestButton.setDefaultButton(false);
         loginAsUserButton.setDefaultButton(false);
         loginAsAdminButton.setDefaultButton(false);
-        if(tabName.equals("Guest")) {
-            loginAsGuestButton.setDefaultButton(true);
-        } else if(tabName.equals("User")) {
+        if(tabName.equals("User")) {
             loginAsUserButton.setDefaultButton(true);
         } else if(tabName.equals("Administrator")) {
             loginAsAdminButton.setDefaultButton(true);

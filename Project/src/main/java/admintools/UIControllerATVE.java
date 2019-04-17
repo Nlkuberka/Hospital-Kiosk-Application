@@ -1,7 +1,8 @@
 package admintools;
 
-import application.DBController;
+import database.DBController;
 import application.UIController;
+import database.DBControllerNE;
 import entities.Edge;
 
 import com.jfoenix.controls.JFXButton;
@@ -11,6 +12,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.scene.image.ImageView;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -26,7 +28,9 @@ public class UIControllerATVE extends UIController {
     private static final int[] lengthRequirements = {21, 10, 10};
     private static final String[] edgeSetters  = {"setEdgeID", "setNode1ID", "setNode2ID"};
     private static final String[] edgeGetters  = {"getEdgeID", "getNode1ID", "getNode2ID"};
-                                                /**< The Various Edge Columns used for cell factories */
+    @FXML
+    private ImageView backgroundImage;
+    /**< The Various Edge Columns used for cell factories */
 
     @FXML
     private MenuItem backButton; /**< The Back Button */
@@ -50,6 +54,8 @@ public class UIControllerATVE extends UIController {
      */
     @FXML
     public void initialize() {
+        backgroundImage.fitWidthProperty().bind(primaryStage.widthProperty());
+
         ObservableList<TableColumn<Edge, ?>> tableColumns = edgeTable.getColumns();
 
         // Initialize the cell factories of the edge field columns
@@ -94,9 +100,9 @@ public class UIControllerATVE extends UIController {
                         System.out.println(edge);
                             Connection conn = DBController.dbConnect();
                             if (index == 0) {
-                                DBController.deleteEdge(label.getText(), conn);
+                                DBControllerNE.deleteEdge(edge.getNode1ID(), edge.getNode2ID(), conn);
                             }
-                            DBController.addEdge(edge,conn);
+                            DBControllerNE.addEdge(edge,conn);
                             DBController.closeConnection(conn);
 
                         setGraphic(label);
@@ -123,7 +129,7 @@ public class UIControllerATVE extends UIController {
                 setGraphic(removeButton);
                 removeButton.setOnAction( e -> {
                         Connection conn = DBController.dbConnect();
-                        DBController.deleteEdge(edge.getEdgeID(),conn);
+                        DBControllerNE.deleteEdge(edge.getNode1ID(),edge.getNode2ID(),conn);
                         DBController.closeConnection(conn);
                         getTableView().getItems().remove(edge);
                     }

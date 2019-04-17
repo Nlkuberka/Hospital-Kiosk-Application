@@ -1,21 +1,28 @@
 
 package tests;
 
+import database.DBControllerNE;
+import entities.AStarGraph;
 import entities.Graph;
 import entities.Node;
 import junit.framework.TestCase;
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
+import pathfinding.Floors;
 import pathfinding.UIControllerPFM;
 
-import entities.AStarGraph;
 import entities.BFSGraph;
-import junit.framework.TestCase;
 
+import java.sql.Connection;
+import java.time.Clock;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
 public class GraphJUnit extends TestCase {
+
+    @Test
     public void testShortestPath() {
         Node n0 = new Node("N0", 0, 0, "", "", "", "", "");
         Node n1 = new Node("N1", 1, 1, "", "", "", "", "");
@@ -27,30 +34,40 @@ public class GraphJUnit extends TestCase {
         Node n7 = new Node("N7", 2, 0, "", "", "", "", "");
         Node n8 = new Node("N8", 3, 0, "", "", "", "", "");
         Node n9 = new Node("N9", 4, 0, "", "", "", "", "");
-        LinkedList<Node> nodes = new LinkedList<>();
-        nodes.add(n0);
-        nodes.add(n1);
-        nodes.add(n2);
-        nodes.add(n3);
-        nodes.add(n4);
-        nodes.add(n5);
-        nodes.add(n6);
-        nodes.add(n7);
-        nodes.add(n8);
-        nodes.add(n9);
-        Graph g = new BFSGraph(nodes);
-        g.addBiEdge("N0", "N1");
-        g.addBiEdge("N1", "N2");
-        g.addBiEdge("N1", "N4");
-        g.addBiEdge("N2", "N4");
-        g.addBiEdge("N2", "N5");
-        g.addBiEdge("N3", "N5");
-        g.addBiEdge("N0", "N6");
-        g.addBiEdge("N6", "N7");
-        g.addBiEdge("N7", "N8");
-        g.addBiEdge("N8", "N9");
-        g.addBiEdge("N9", "N3");
-        List<String> path = g.shortestPath("N0", "N3");
+        Connection conn = DBControllerNE.dbConnect();
+        DBControllerNE.addNode(n0, conn);
+        DBControllerNE.addNode(n1, conn);
+        DBControllerNE.addNode(n2, conn);
+        DBControllerNE.addNode(n3, conn);
+        DBControllerNE.addNode(n4, conn);
+        DBControllerNE.addNode(n5, conn);
+        DBControllerNE.addNode(n6, conn);
+        DBControllerNE.addNode(n7, conn);
+        DBControllerNE.addNode(n8, conn);
+        DBControllerNE.addNode(n9, conn);
+        DBControllerNE.closeConnection(conn);
+        Graph.getGraph().addNode(n0);
+        Graph.getGraph().addNode(n1);
+        Graph.getGraph().addNode(n2);
+        Graph.getGraph().addNode(n3);
+        Graph.getGraph().addNode(n4);
+        Graph.getGraph().addNode(n5);
+        Graph.getGraph().addNode(n6);
+        Graph.getGraph().addNode(n7);
+        Graph.getGraph().addNode(n8);
+        Graph.getGraph().addNode(n9);
+        Graph.getGraph().addBiEdge("N0", "N1");
+        Graph.getGraph().addBiEdge("N1", "N2");
+        Graph.getGraph().addBiEdge("N1", "N4");
+        Graph.getGraph().addBiEdge("N2", "N4");
+        Graph.getGraph().addBiEdge("N2", "N5");
+        Graph.getGraph().addBiEdge("N3", "N5");
+        Graph.getGraph().addBiEdge("N0", "N6");
+        Graph.getGraph().addBiEdge("N6", "N7");
+        Graph.getGraph().addBiEdge("N7", "N8");
+        Graph.getGraph().addBiEdge("N8", "N9");
+        Graph.getGraph().addBiEdge("N9", "N3");
+
         //g.checkEdges();
         List<String> expected = new LinkedList<>();
         expected.add("N0");
@@ -59,15 +76,51 @@ public class GraphJUnit extends TestCase {
         expected.add("N8");
         expected.add("N9");
         expected.add("N3");
+
+        List<String> path = Graph.getGraph().shortestPath("N0", "N3");
         assertEquals(expected, path);
-        g = g.toDFS();
-        path = g.shortestPath("N0", "N3");
+
+        Graph.toAStar();
+        path = Graph.getGraph().shortestPath("N0", "N3");
         assertEquals(expected, path);
-        g = g.toAStar();
-        path = g.shortestPath("N0", "N3");
+
+        Graph.toBFS();
+        path = Graph.getGraph().shortestPath("N0", "N3");
         assertEquals(expected, path);
+
+        Graph.toBellmanFord();
+        path = Graph.getGraph().shortestPath("N0", "N3");
+        assertEquals(expected, path);
+
+        Graph.toDijkstra();
+        path = Graph.getGraph().shortestPath("N0", "N3");
+        assertEquals(expected, path);
+
+        Graph.getGraph().removeNode("N0");
+        Graph.getGraph().removeNode("N1");
+        Graph.getGraph().removeNode("N2");
+        Graph.getGraph().removeNode("N3");
+        Graph.getGraph().removeNode("N4");
+        Graph.getGraph().removeNode("N5");
+        Graph.getGraph().removeNode("N6");
+        Graph.getGraph().removeNode("N7");
+        Graph.getGraph().removeNode("N8");
+        Graph.getGraph().removeNode("N9");
+        conn = DBControllerNE.dbConnect();
+        DBControllerNE.deleteNode("N0", conn);
+        DBControllerNE.deleteNode("N1", conn);
+        DBControllerNE.deleteNode("N2", conn);
+        DBControllerNE.deleteNode("N3", conn);
+        DBControllerNE.deleteNode("N4", conn);
+        DBControllerNE.deleteNode("N5", conn);
+        DBControllerNE.deleteNode("N6", conn);
+        DBControllerNE.deleteNode("N7", conn);
+        DBControllerNE.deleteNode("N8", conn);
+        DBControllerNE.deleteNode("N9", conn);
+        DBControllerNE.closeConnection(conn);
     }
 
+    @Test
     public void testRealNodes() {
         Node n0 = new Node("N0", 1580, 2538, "", "", "", "", "");
         Node n1 = new Node("N1", 1395, 2674, "", "", "", "", "");
@@ -75,149 +128,65 @@ public class GraphJUnit extends TestCase {
         Node n3 = new Node("N3", 1591, 2560, "", "", "", "", "");
         Node n4 = new Node("N4", 1590, 2604, "", "", "", "", "");
         Node n5 = new Node("N5", 1590, 2745, "", "", "", "", "");
-        LinkedList<Node> nodes = new LinkedList<>();
-        nodes.add(n0);
-        nodes.add(n1);
-        nodes.add(n2);
-        nodes.add(n3);
-        nodes.add(n4);
-        nodes.add(n5);
-        Graph g = new BFSGraph(nodes);
-        g.addBiEdge("N0", "N1");
-        g.addBiEdge("N1", "N5");
-        g.addBiEdge("N3", "N4");
-        g.addBiEdge("N2", "N3");
-        g.addBiEdge("N4", "N1");
-        g.addBiEdge("N3", "N0");
-        List<String> path = g.shortestPath("N5", "N0");
+        Connection conn = DBControllerNE.dbConnect();
+        DBControllerNE.addNode(n0, conn);
+        DBControllerNE.addNode(n1, conn);
+        DBControllerNE.addNode(n2, conn);
+        DBControllerNE.addNode(n3, conn);
+        DBControllerNE.addNode(n4, conn);
+        DBControllerNE.addNode(n5, conn);
+        DBControllerNE.closeConnection(conn);
+        Graph.getGraph().addNode(n0);
+        Graph.getGraph().addNode(n1);
+        Graph.getGraph().addNode(n2);
+        Graph.getGraph().addNode(n3);
+        Graph.getGraph().addNode(n4);
+        Graph.getGraph().addNode(n5);
+        Graph.getGraph().addBiEdge("N0", "N1");
+        Graph.getGraph().addBiEdge("N1", "N5");
+        Graph.getGraph().addBiEdge("N3", "N4");
+        Graph.getGraph().addBiEdge("N2", "N3");
+        Graph.getGraph().addBiEdge("N4", "N1");
+        Graph.getGraph().addBiEdge("N3", "N0");
         List<String> expected = new LinkedList<>();
         expected.add("N5");
         expected.add("N1");
         expected.add("N0");
-        assertEquals(expected, path);
-        g = g.toDFS();
-        path = g.shortestPath("N5", "N0");
-        assertEquals(expected, path);
-        g = g.toAStar();
-        path = g.shortestPath("N5", "N0");
-        assertEquals(expected, path);
-    }
 
-    public void testMultipleNodes() {
-        Node n0 = new Node("N0", 0, 0, "", "", "", "", "");
-        Node n1 = new Node("N1", 1, 1, "", "", "", "", "");
-        Node n2 = new Node("N2", 2, 2, "", "", "", "", "");
-        Node n3 = new Node("N3", 4, 1, "", "", "", "", "");
-        Node n4 = new Node("N4", 1, 4, "", "", "", "", "");
-        Node n5 = new Node("N5", 3, 2, "", "", "", "", "");
-        Node n6 = new Node("N6", 1, 0, "", "", "", "", "");
-        Node n7 = new Node("N7", 2, 0, "", "", "", "", "");
-        Node n8 = new Node("N8", 3, 0, "", "", "", "", "");
-        Node n9 = new Node("N9", 4, 0, "", "", "", "", "");
-        LinkedList<Node> nodes = new LinkedList<>();
-        nodes.add(n0);
-        nodes.add(n1);
-        nodes.add(n2);
-        nodes.add(n3);
-        nodes.add(n4);
-        nodes.add(n5);
-        nodes.add(n6);
-        nodes.add(n7);
-        nodes.add(n8);
-        nodes.add(n9);
-        Graph g = new BFSGraph(nodes);
-        g.addBiEdge("N0", "N1");
-        g.addBiEdge("N1", "N2");
-        g.addBiEdge("N1", "N4");
-        g.addBiEdge("N2", "N4");
-        g.addBiEdge("N2", "N5");
-        g.addBiEdge("N3", "N5");
-        g.addBiEdge("N0", "N6");
-        g.addBiEdge("N6", "N7");
-        g.addBiEdge("N7", "N8");
-        g.addBiEdge("N8", "N9");
-        g.addBiEdge("N9", "N3");
-        List<String> path1 = g.shortestPath("N0", "N3");
-        List<String> path2 = g.shortestPath("N3", "N5");
-    }
+        List<String> path = Graph.getGraph().shortestPath("N5", "N0");
+        assertEquals(expected, path);
 
-    @Test
-    public void testSeparatePathByFloor() {
-        Node n0 = new Node("N0", 0, 0, "1", "", "", "", "");
-        Node n1 = new Node("N1", 0, 0, "1", "", "", "", "");
-        Node n2 = new Node("N2", 0, 0, "G", "", "", "", "");
-        Node n3 = new Node("N3", 0, 0, "1", "", "", "", "");
-        Node n4 = new Node("N4", 0, 0, "2", "", "", "", "");
-        Node n5 = new Node("N5", 0, 0, "2", "", "", "", "");
-        Node n6 = new Node("N6", 0, 0, "2", "", "", "", "");
-        Node n7 = new Node("N7", 0, 0, "G", "", "", "", "");
-        Node n8 = new Node("N8", 0, 0, "1", "", "", "", "");
-        Node n9 = new Node("N9", 0, 0, "1", "", "", "", "");
-        List<String> expected1 = new LinkedList<>();
-        expected1.add("N0");
-        expected1.add("N6");
-        expected1.add("N7");
-        expected1.add("N8");
-        expected1.add("N9");
-        expected1.add("N3");
-        List<String> expected2 = new LinkedList<>();
-        expected2.add("N3");
-        expected2.add("N5");
-        assertEquals(expected1, path1);
-        assertEquals(expected2, path2);
-        g = g.toDFS();
-        path1 = g.shortestPath("N0", "N3");
-        path2 = g.shortestPath("N3", "N5");
-        assertEquals(expected1, path1);
-        assertEquals(expected2, path2);
-        g = g.toAStar();
-        path1 = g.shortestPath("N0", "N3");
-        path2 = g.shortestPath("N3", "N5");
-        assertEquals(expected1, path1);
-        assertEquals(expected2, path2);
-    }
+        Graph.toAStar();
+        path = Graph.getGraph().shortestPath("N5", "N0");
+        assertEquals(expected, path);
 
-    public void testDisconnectedGraph() {
-        LinkedList<Node> nodes = new LinkedList<>();
-        Node n0 = new Node("N0", 0, 0, "", "", "", "", "");
-        Node n1 = new Node("N1", 0, 1, "", "", "", "", "");
-        Node n2 = new Node("N2", 1, 0, "", "", "", "", "");
-        Node n3 = new Node("N3", 1, 1, "", "", "", "", "");
-        Node n4 = new Node("N4", 5, 0, "", "", "", "", "");
-        Node n5 = new Node("N5", 0, 5, "", "", "", "", "");
-        Node n6 = new Node("N6", 5, 5, "", "", "", "", "");
-        nodes.add(n0);
-        nodes.add(n1);
-        nodes.add(n2);
-        nodes.add(n3);
-        nodes.add(n4);
-        nodes.add(n5);
-        nodes.add(n6);
-        Graph g = new BFSGraph(nodes);
-        g.addBiEdge("N0", "N1");
-        g.addBiEdge("N1", "N2");
-        g.addBiEdge("N2", "N3");
-        g.addBiEdge("N3", "N0");
-        g.addBiEdge("N4", "N5");
-        g.addBiEdge("N5", "N6");
-        g.addBiEdge("N6", "N4");
-        List<String> expected = new LinkedList<>();
-        expected.add("N0");
-        expected.add("N1");
-        List<String> actual = g.shortestPath("N0", "N1");
-        assertEquals(expected, actual);
-        g = g.toAStar();
-        actual = g.shortestPath("N0", "N1");
-        assertEquals(expected, actual);
-        g = g.toBFS();
-        actual = g.shortestPath("N2", "N5");
-        assertEquals(null, actual);
-        g = g.toDFS();
-        actual = g.shortestPath("N2", "N5");
-        assertEquals(null, actual);
-        g = g.toAStar();
-        actual = g.shortestPath("N2", "N5");
-        assertEquals(null, actual);
+        Graph.toBFS();
+        path = Graph.getGraph().shortestPath("N5", "N0");
+        assertEquals(expected, path);
+
+        Graph.toBellmanFord();
+        path = Graph.getGraph().shortestPath("N5", "N0");
+        assertEquals(expected, path);
+
+        Graph.toDijkstra();
+        path = Graph.getGraph().shortestPath("N5", "N0");
+        assertEquals(expected, path);
+
+        Graph.getGraph().removeNode("N0");
+        Graph.getGraph().removeNode("N1");
+        Graph.getGraph().removeNode("N2");
+        Graph.getGraph().removeNode("N3");
+        Graph.getGraph().removeNode("N4");
+        Graph.getGraph().removeNode("N5");
+
+        conn = DBControllerNE.dbConnect();
+        DBControllerNE.deleteNode("N0", conn);
+        DBControllerNE.deleteNode("N1", conn);
+        DBControllerNE.deleteNode("N2", conn);
+        DBControllerNE.deleteNode("N3", conn);
+        DBControllerNE.deleteNode("N4", conn);
+        DBControllerNE.deleteNode("N5", conn);
+        DBControllerNE.closeConnection(conn);
     }
 
     @Test
@@ -230,18 +199,206 @@ public class GraphJUnit extends TestCase {
         Node n5 = new Node("N5", 5, 0, "", "", "", "", "");
         Node n6 = new Node("N6", 6, 0, "", "", "", "", "");
         Node n7 = new Node("N7", 3, 1, "", "", "", "", "");
-        LinkedList<Node> nodes = new LinkedList<>();
-        nodes.add(n0);
-        nodes.add(n1);
-        nodes.add(n2);
-        nodes.add(n3);
-        nodes.add(n4);
-        nodes.add(n5);
-        nodes.add(n6);
-        nodes.add(n7);
-        nodes.add(n8);
-        nodes.add(n9);
-        Graph g = new Graph(nodes);
+        Connection conn = DBControllerNE.dbConnect();
+        DBControllerNE.addNode(n0, conn);
+        DBControllerNE.addNode(n1, conn);
+        DBControllerNE.addNode(n2, conn);
+        DBControllerNE.addNode(n3, conn);
+        DBControllerNE.addNode(n4, conn);
+        DBControllerNE.addNode(n5, conn);
+        DBControllerNE.addNode(n6, conn);
+        DBControllerNE.addNode(n7, conn);
+        DBControllerNE.closeConnection(conn);
+        Graph.getGraph().addNode(n0);
+        Graph.getGraph().addNode(n1);
+        Graph.getGraph().addNode(n2);
+        Graph.getGraph().addNode(n3);
+        Graph.getGraph().addNode(n4);
+        Graph.getGraph().addNode(n5);
+        Graph.getGraph().addNode(n6);
+        Graph.getGraph().addNode(n7);
+        Graph.getGraph().addBiEdge("N0", "N1");
+        Graph.getGraph().addBiEdge("N1", "N2");
+        Graph.getGraph().addBiEdge("N2", "N3");
+        Graph.getGraph().addBiEdge("N3", "N4");
+        Graph.getGraph().addBiEdge("N4", "N5");
+        Graph.getGraph().addBiEdge("N5", "N6");
+        Graph.getGraph().addBiEdge("N1", "N7");
+        Graph.getGraph().addBiEdge("N7", "N5");
+        List<String> expected = new LinkedList<>();
+        expected.add("N0");
+        expected.add("N1");
+        expected.add("N2");
+        expected.add("N3");
+        expected.add("N4");
+        expected.add("N5");
+        expected.add("N6");
+
+        List<String> actual = Graph.getGraph().shortestPath("N0", "N6");
+        assertEquals(expected, actual);
+
+        Graph.toAStar();
+        actual = Graph.getGraph().shortestPath("N0", "N6");
+        assertEquals(expected, actual);
+
+        Graph.toBFS();
+        actual = Graph.getGraph().shortestPath("N0", "N6");
+        assertEquals(expected, actual);
+
+        Graph.toDijkstra();
+        actual = Graph.getGraph().shortestPath("N0", "N6");
+        assertEquals(expected, actual);
+
+        Graph.toBellmanFord();
+        actual = Graph.getGraph().shortestPath("N0", "N6");
+        assertEquals(expected, actual);
+
+        Graph.getGraph().removeNode("N0");
+        Graph.getGraph().removeNode("N1");
+        Graph.getGraph().removeNode("N2");
+        Graph.getGraph().removeNode("N3");
+        Graph.getGraph().removeNode("N4");
+        Graph.getGraph().removeNode("N5");
+        Graph.getGraph().removeNode("N6");
+        Graph.getGraph().removeNode("N7");
+        conn = DBControllerNE.dbConnect();
+        DBControllerNE.deleteNode("N0", conn);
+        DBControllerNE.deleteNode("N1", conn);
+        DBControllerNE.deleteNode("N2", conn);
+        DBControllerNE.deleteNode("N3", conn);
+        DBControllerNE.deleteNode("N4", conn);
+        DBControllerNE.deleteNode("N5", conn);
+        DBControllerNE.deleteNode("N6", conn);
+        DBControllerNE.deleteNode("N7", conn);
+        DBControllerNE.closeConnection(conn);
+    }
+
+    @Test
+    public void testDisconnectedGraph() {
+        Node n0 = new Node("N0", 0, 0, "", "", "", "", "");
+        Node n1 = new Node("N1", 0, 1, "", "", "", "", "");
+        Node n2 = new Node("N2", 1, 0, "", "", "", "", "");
+        Node n3 = new Node("N3", 1, 1, "", "", "", "", "");
+        Node n4 = new Node("N4", 5, 0, "", "", "", "", "");
+        Node n5 = new Node("N5", 0, 5, "", "", "", "", "");
+        Node n6 = new Node("N6", 5, 5, "", "", "", "", "");
+        Connection conn = DBControllerNE.dbConnect();
+        DBControllerNE.addNode(n0, conn);
+        DBControllerNE.addNode(n1, conn);
+        DBControllerNE.addNode(n2, conn);
+        DBControllerNE.addNode(n3, conn);
+        DBControllerNE.addNode(n4, conn);
+        DBControllerNE.addNode(n5, conn);
+        DBControllerNE.addNode(n6, conn);
+        DBControllerNE.closeConnection(conn);
+        Graph.getGraph().addNode(n0);
+        Graph.getGraph().addNode(n1);
+        Graph.getGraph().addNode(n2);
+        Graph.getGraph().addNode(n3);
+        Graph.getGraph().addNode(n4);
+        Graph.getGraph().addNode(n5);
+        Graph.getGraph().addNode(n6);
+        Graph.getGraph().addBiEdge("N0", "N1");
+        Graph.getGraph().addBiEdge("N1", "N2");
+        Graph.getGraph().addBiEdge("N2", "N3");
+        Graph.getGraph().addBiEdge("N3", "N0");
+        Graph.getGraph().addBiEdge("N4", "N5");
+        Graph.getGraph().addBiEdge("N5", "N6");
+        Graph.getGraph().addBiEdge("N6", "N4");
+        List<String> expected = new LinkedList<>();
+        expected.add("N0");
+        expected.add("N1");
+
+        List<String> actual = Graph.getGraph().shortestPath("N0", "N1");
+        assertEquals(expected, actual);
+
+        Graph.toAStar();
+        actual = Graph.getGraph().shortestPath("N0", "N1");
+        assertEquals(expected, actual);
+
+        Graph.toBFS();
+        actual = Graph.getGraph().shortestPath("N0", "N1");
+        assertEquals(expected, actual);
+
+        Graph.toBellmanFord();
+        actual = Graph.getGraph().shortestPath("N0", "N1");
+        assertEquals(expected, actual);
+
+        Graph.toDijkstra();
+        actual = Graph.getGraph().shortestPath("N0", "N1");
+        assertEquals(expected, actual);
+
+        actual = Graph.getGraph().shortestPath("N2", "N5");
+        assertEquals(null, actual);
+
+        Graph.toDFS();
+        actual = Graph.getGraph().shortestPath("N2", "N5");
+        assertEquals(null, actual);
+
+        Graph.toAStar();
+        actual = Graph.getGraph().shortestPath("N2", "N5");
+        assertEquals(null, actual);
+
+        Graph.toDijkstra();
+        actual = Graph.getGraph().shortestPath("N2", "N5");
+        assertEquals(null, actual);
+
+        Graph.toBellmanFord();
+        actual = Graph.getGraph().shortestPath("N2", "N5");
+        assertEquals(null, actual);
+
+        Graph.getGraph().removeNode("N0");
+        Graph.getGraph().removeNode("N1");
+        Graph.getGraph().removeNode("N2");
+        Graph.getGraph().removeNode("N3");
+        Graph.getGraph().removeNode("N4");
+        Graph.getGraph().removeNode("N5");
+        Graph.getGraph().removeNode("N6");
+        conn = DBControllerNE.dbConnect();
+        DBControllerNE.deleteNode("N0", conn);
+        DBControllerNE.deleteNode("N1", conn);
+        DBControllerNE.deleteNode("N2", conn);
+        DBControllerNE.deleteNode("N3", conn);
+        DBControllerNE.deleteNode("N4", conn);
+        DBControllerNE.deleteNode("N5", conn);
+        DBControllerNE.deleteNode("N6", conn);
+        DBControllerNE.closeConnection(conn);
+    }
+
+    @Test
+    public void testSeparatePathByFloor() {
+        Node n0 = new Node("N0", 0, 0, "1", "", "", "", "");
+        Node n1 = new Node("N1", 1, 1, "1", "", "", "", "");
+        Node n2 = new Node("N2", 2, 2, "G", "", "", "", "");
+        Node n3 = new Node("N3", 4, 1, "1", "", "", "", "");
+        Node n4 = new Node("N4", 1, 4, "2", "", "", "", "");
+        Node n5 = new Node("N5", 3, 2, "2", "", "", "", "");
+        Node n6 = new Node("N6", 1, 0, "2", "", "", "", "");
+        Node n7 = new Node("N7", 2, 0, "G", "", "", "", "");
+        Node n8 = new Node("N8", 3, 0, "1", "", "", "", "");
+        Node n9 = new Node("N9", 4, 0, "1", "", "", "", "");
+        Connection conn = DBControllerNE.dbConnect();
+        DBControllerNE.addNode(n0, conn);
+        DBControllerNE.addNode(n1, conn);
+        DBControllerNE.addNode(n2, conn);
+        DBControllerNE.addNode(n3, conn);
+        DBControllerNE.addNode(n4, conn);
+        DBControllerNE.addNode(n5, conn);
+        DBControllerNE.addNode(n6, conn);
+        DBControllerNE.addNode(n7, conn);
+        DBControllerNE.addNode(n8, conn);
+        DBControllerNE.addNode(n9, conn);
+        DBControllerNE.closeConnection(conn);
+        Graph.getGraph().addNode(n0);
+        Graph.getGraph().addNode(n1);
+        Graph.getGraph().addNode(n2);
+        Graph.getGraph().addNode(n3);
+        Graph.getGraph().addNode(n4);
+        Graph.getGraph().addNode(n5);
+        Graph.getGraph().addNode(n6);
+        Graph.getGraph().addNode(n7);
+        Graph.getGraph().addNode(n8);
+        Graph.getGraph().addNode(n9);
         List<String> path = new LinkedList<>();
         path.add("N0");
         path.add("N1");
@@ -254,50 +411,59 @@ public class GraphJUnit extends TestCase {
         path.add("N8");
         path.add("N9");
         List<List<List<Node>>> expected = new ArrayList<>();
-        for(int i = 0; i < UIControllerPFM.Floors.values().length; i++) {
+        for(int i = 0; i < Floors.values().length; i++) {
             expected.add(new LinkedList<>());
         }
-        expected.get(UIControllerPFM.Floors.FIRST.ordinal()).add(new LinkedList<>());
-        expected.get(UIControllerPFM.Floors.FIRST.ordinal()).get(0).add(n0);
-        expected.get(UIControllerPFM.Floors.FIRST.ordinal()).get(0).add(n1);
-        expected.get(UIControllerPFM.Floors.GROUND.ordinal()).add(new LinkedList<>());
-        expected.get(UIControllerPFM.Floors.GROUND.ordinal()).get(0).add(n2);
-        expected.get(UIControllerPFM.Floors.FIRST.ordinal()).add(new LinkedList<>());
-        expected.get(UIControllerPFM.Floors.FIRST.ordinal()).get(1).add(n3);
-        expected.get(UIControllerPFM.Floors.SECOND.ordinal()).add(new LinkedList<>());
-        expected.get(UIControllerPFM.Floors.SECOND.ordinal()).get(0).add(n4);
-        expected.get(UIControllerPFM.Floors.SECOND.ordinal()).get(0).add(n5);
-        expected.get(UIControllerPFM.Floors.SECOND.ordinal()).get(0).add(n6);
-        expected.get(UIControllerPFM.Floors.GROUND.ordinal()).add(new LinkedList<>());
-        expected.get(UIControllerPFM.Floors.GROUND.ordinal()).get(1).add(n7);
-        expected.get(UIControllerPFM.Floors.FIRST.ordinal()).add(new LinkedList<>());
-        expected.get(UIControllerPFM.Floors.FIRST.ordinal()).get(2).add(n8);
-        expected.get(UIControllerPFM.Floors.FIRST.ordinal()).get(2).add(n9);
-        List<List<List<Node>>> actual = g.separatePathByFloor(path);
-        Graph g = new AStarGraph(nodes);
-        g.addBiEdge("N0", "N1");
-        g.addBiEdge("N1", "N2");
-        g.addBiEdge("N2", "N3");
-        g.addBiEdge("N3", "N4");
-        g.addBiEdge("N4", "N5");
-        g.addBiEdge("N5", "N6");
-        g.addBiEdge("N1", "N7");
-        g.addBiEdge("N7", "N5");
-        List<String> expected = new LinkedList<>();
-        expected.add("N0");
-        expected.add("N1");
-        expected.add("N2");
-        expected.add("N3");
-        expected.add("N4");
-        expected.add("N5");
-        expected.add("N6");
-        List<String> actual = g.shortestPath("N0", "N6");
-        assertEquals(expected, actual);
-        g = g.toBFS();
-        actual = g.shortestPath("N0", "N6");
-        assertEquals(expected, actual);
-        g = g.toDFS();
-        actual = g.shortestPath("N0", "N6");
-        assertEquals(expected, actual);
+        expected.get(Floors.FIRST.ordinal()).add(new LinkedList<>());
+        expected.get(Floors.FIRST.ordinal()).get(0).add(n0);
+        expected.get(Floors.FIRST.ordinal()).get(0).add(n1);
+        expected.get(Floors.GROUND.ordinal()).add(new LinkedList<>());
+        expected.get(Floors.GROUND.ordinal()).get(0).add(n2);
+        expected.get(Floors.FIRST.ordinal()).add(new LinkedList<>());
+        expected.get(Floors.FIRST.ordinal()).get(1).add(n3);
+        expected.get(Floors.SECOND.ordinal()).add(new LinkedList<>());
+        expected.get(Floors.SECOND.ordinal()).get(0).add(n4);
+        expected.get(Floors.SECOND.ordinal()).get(0).add(n5);
+        expected.get(Floors.SECOND.ordinal()).get(0).add(n6);
+        expected.get(Floors.GROUND.ordinal()).add(new LinkedList<>());
+        expected.get(Floors.GROUND.ordinal()).get(1).add(n7);
+        expected.get(Floors.FIRST.ordinal()).add(new LinkedList<>());
+        expected.get(Floors.FIRST.ordinal()).get(2).add(n8);
+        expected.get(Floors.FIRST.ordinal()).get(2).add(n9);
+        List<List<List<Node>>> actual = Graph.getGraph().separatePathByFloor(path);
+
+        assertEquals(expected.size(), actual.size());
+        for(int i = 0; i < actual.size(); i++) {
+            assertEquals(expected.get(i).size(), actual.get(i).size());
+            for(int j = 0; j < actual.get(i).size(); j++) {
+                assertEquals(expected.get(i).get(j).size(), actual.get(i).get(j).size());
+                for(int k = 0; k < actual.get(i).get(j).size(); k++) {
+                    assertEquals(expected.get(i).get(j).get(k).getNodeID(), actual.get(i).get(j).get(k).getNodeID());
+                }
+            }
+        }
+
+        Graph.getGraph().removeNode("N0");
+        Graph.getGraph().removeNode("N1");
+        Graph.getGraph().removeNode("N2");
+        Graph.getGraph().removeNode("N3");
+        Graph.getGraph().removeNode("N4");
+        Graph.getGraph().removeNode("N5");
+        Graph.getGraph().removeNode("N6");
+        Graph.getGraph().removeNode("N7");
+        Graph.getGraph().removeNode("N8");
+        Graph.getGraph().removeNode("N9");
+        conn = DBControllerNE.dbConnect();
+        DBControllerNE.deleteNode("N0", conn);
+        DBControllerNE.deleteNode("N1", conn);
+        DBControllerNE.deleteNode("N2", conn);
+        DBControllerNE.deleteNode("N3", conn);
+        DBControllerNE.deleteNode("N4", conn);
+        DBControllerNE.deleteNode("N5", conn);
+        DBControllerNE.deleteNode("N6", conn);
+        DBControllerNE.deleteNode("N7", conn);
+        DBControllerNE.deleteNode("N8", conn);
+        DBControllerNE.deleteNode("N9", conn);
+        DBControllerNE.closeConnection(conn);
     }
 }
