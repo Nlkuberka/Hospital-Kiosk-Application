@@ -60,6 +60,8 @@ public class UIControllerSRFD extends UIController {
 
     @FXML
     public void onShow() {
+        roomSelect.getSelectionModel().clearSelection();
+        phoneNum.setText("");
         filterHelper = new RoomCategoryFilterHelper(roomSelect, null, true);
         serviceMessage1.setText("");
     }

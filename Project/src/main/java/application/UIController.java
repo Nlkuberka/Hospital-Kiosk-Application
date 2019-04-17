@@ -299,7 +299,7 @@ public class UIController {
         int permission = CurrentUser.user.getPermissions();
         switch (permission){
             case 1:
-                this.goToScene(UIController.PATHFINDING_MAIN);
+                this.goToScene(UIController.SERVICE_REQUEST_MAIN);
                 break;
             case 2:
                 this.goToScene(UIController.USER_MAIN_MENU_MAIN);
@@ -311,6 +311,11 @@ public class UIController {
                 this.goToScene(UIController.WELCOME_MAIN);
                 break;
         }
+    }
+
+    @FXML
+    private void setBackButton(){
+        this.goToScene(UIController.PATHFINDING_MAIN);
     }
 
     /**

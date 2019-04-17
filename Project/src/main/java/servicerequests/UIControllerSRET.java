@@ -58,6 +58,8 @@ public class UIControllerSRET extends UIController {
 
     @FXML
     public void onShow() {
+        roomSelect.getSelectionModel().clearSelection();
+        transportSelect.getSelectionModel().clearSelection();
         List<String> nodeShortNames = new ArrayList<String>();
         nodeIDs = new HashMap<String, String>();
 
