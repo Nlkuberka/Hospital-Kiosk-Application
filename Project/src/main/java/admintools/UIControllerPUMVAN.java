@@ -42,6 +42,7 @@ public class UIControllerPUMVAN extends UIController {
     public JFXTextField TextField_Floor;
     public Text Text_FieldsRequired;
     public ProgressBar progressBar;
+    public Text titleText;
     @FXML
     private JFXTextField TextField_ShortName;
     private Boolean isFading = false;
@@ -112,6 +113,7 @@ public class UIControllerPUMVAN extends UIController {
     }
 
     void setProperties(Node node, String action, UIControllerATMV uiControllerATMV) {
+        titleText.setText("Add Node");
         this.node = node;
         this.action = action;
         this.uiControllerATMV = uiControllerATMV;
@@ -119,6 +121,7 @@ public class UIControllerPUMVAN extends UIController {
         TextField_YCoor.setText(Integer.toString(node.getYcoord()));
         TextField_Floor.setText(node.getFloor());
         if (action.equals("EDIT")) {
+            titleText.setText("Edit Node");
             TextField_NodeID.setText(node.getNodeID());
             TextField_Building.setText(node.getBuilding());
             TextField_ShortName.setText(node.getShortName());
