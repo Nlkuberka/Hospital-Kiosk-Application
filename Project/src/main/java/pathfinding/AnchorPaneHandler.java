@@ -116,20 +116,6 @@ public class AnchorPaneHandler {
                 this.circleFromName.put(node.getLongName(), circle); // setup hashmap
 
                 circle.setOnMouseClicked(e -> {
-//                    if ((initialLocationSelect.getValue() == null)) {
-//                        circle.setFill(Color.GREEN);
-//                        circle.setRadius(getNodeSizeHighlited);
-//                        this.currentObjects.setInitCircle(circle);
-//                        initialLocationSelect.getSelectionModel().select(node.getLongName());
-//                        newContextMenuAtLocation(circle, node.getShortName(), node.getLongName());
-//                    }
-//                    else if ((destinationSelect.getValue() == null)) {
-//                        circle.setFill(Color.RED);
-//                        circle.setRadius(getNodeSizeHighlited);
-//                        this.currentObjects.setDestCircle(circle);
-//                        destinationSelect.getSelectionModel().select(node.getLongName());
-//                        clearContextMenu();
-//                    }
                     newContextMenuAtLocation(circle, node.getShortName(), node.getLongName());
                 });
                 group.getChildren().add(circle);

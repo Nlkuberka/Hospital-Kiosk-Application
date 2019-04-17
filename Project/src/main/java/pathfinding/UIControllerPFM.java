@@ -107,6 +107,7 @@ public class UIControllerPFM extends UIController {
                             gesturePaneHandler.newAnimation(currentObjects);
                         }
                         currentObjects.clearContextMenu();
+                        currentObjects.clearLables();
                     }
                 }
         );
@@ -204,6 +205,7 @@ public class UIControllerPFM extends UIController {
 
         currentObjects.clearContextMenu();
         currentObjects.cancel();
+        currentObjects.clearLables();
 
         initialLocationCombo.getSelectionModel().clearSelection();
         destinationCombo.getSelectionModel().clearSelection();
@@ -222,6 +224,7 @@ public class UIControllerPFM extends UIController {
 
         Connection connection = DBController.dbConnect();
         Node initialNode = DBControllerNE.fetchNode(currentObjects.getInitialID(), connection);
+        Node destNode = DBControllerNE.fetchNode(currentObjects.getDestID(), connection);
         DBController.closeConnection(connection);
 
         currentObjects.clearAnimation(); // reset stuff
@@ -245,9 +248,13 @@ public class UIControllerPFM extends UIController {
             for (Integer floor : floorsUsed) {
                 this.mapTabPane.getTabs().get(floor).setStyle("-fx-background-color: #015080");
             }
-
-            gesturePaneHandler.newAnimation(currentObjects);
         }
+
+        currentObjects.newInitLabel(initialNode);
+        currentObjects.newDestLabel(destNode);
+
+        gesturePaneHandler.newAnimation(currentObjects);
+
     }
 
     /**
