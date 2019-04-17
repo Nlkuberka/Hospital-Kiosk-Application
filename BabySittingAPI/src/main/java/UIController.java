@@ -34,6 +34,9 @@ public class UIController {
     public static final String SERVICE_REQUEST_MAIN = "SRM";
     public static final String SERVICE_REQUEST_BABYSITTING = "SRB";
 
+    public static final String USER_ADD = "UA";
+    public static final String USERS_VIEW = "UV";
+
     // The starting width and height of the window
     private static final int WIDTH = 1280;
     private static final int HEIGHT = 720;
@@ -93,11 +96,11 @@ public class UIController {
         sceneFiles.put(UIController.SERVICE_REQUEST_BABYSITTING, "/service_request_babysitting.fxml");
         sceneTitles.put(UIController.SERVICE_REQUEST_BABYSITTING, "Service Request - Babysitting");
 
-        sceneFiles.put(UIController.SERVICE_REQUEST_BABYSITTING, "/add_user");
-        sceneTitles.put(UIController.SERVICE_REQUEST_BABYSITTING, "Add User");
+        sceneFiles.put(UIController.USER_ADD, "/add_user");
+        sceneTitles.put(UIController.USER_ADD, "Add User");
 
-        sceneFiles.put(UIController.SERVICE_REQUEST_BABYSITTING, "/view_users");
-        sceneTitles.put(UIController.SERVICE_REQUEST_BABYSITTING, "View Users");
+        sceneFiles.put(UIController.USERS_VIEW, "/view_users");
+        sceneTitles.put(UIController.USERS_VIEW, "View Users");
 
         // Popups
         sceneFiles.put(UIController.POPUP_DIRECTIONS, "/direction_popup.fxml");

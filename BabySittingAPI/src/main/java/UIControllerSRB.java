@@ -53,10 +53,17 @@ public class UIControllerSRB extends UIController {
         serviceMessage.setTextFormatter(new TextFormatter<String>(e ->
                 e.getControlNewText().length() <= 100 ? e : null
         ));
+
+        setupRoomSelect();
+
     }
 
     @FXML
     public void onShow() {
+        setupRoomSelect();
+    }
+
+    private void setupRoomSelect(){
         List<String> nodeShortNames = new ArrayList<String>();
         nodeIDs = new HashMap<String, String>();
 
@@ -106,9 +113,6 @@ public class UIControllerSRB extends UIController {
         }
 
     }
-
-
-
 
     @FXML
     private void setConfirmButton() {
