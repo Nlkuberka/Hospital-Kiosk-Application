@@ -1,6 +1,5 @@
 package application;
 
-import com.calendarfx.model.CalendarSource;
 import com.calendarfx.view.DayView;
 import com.jfoenix.controls.JFXTextField;
 import javafx.beans.value.ChangeListener;
@@ -311,8 +310,7 @@ public class UIController {
     public void popupMessage(String message, boolean isWarning) {
         Stage stage = new Stage();
 
-        Image icon = new Image("file:warning.png");
-        stage.getIcons().add(icon);
+        stage.getIcons().add(new Image(getClass().getResourceAsStream("/icon/warningWindowIcon.png")));
 
         Scene scene = null;
         UIControllerPUM controller = null;
