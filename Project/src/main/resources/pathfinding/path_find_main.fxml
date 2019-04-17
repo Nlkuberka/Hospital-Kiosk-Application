@@ -169,10 +169,9 @@
                         <RowConstraints percentHeight="10.0" vgrow="ALWAYS" />
                         <RowConstraints percentHeight="15.0" vgrow="ALWAYS" />
                   <RowConstraints minHeight="10.0" percentHeight="15.0" prefHeight="30.0" vgrow="ALWAYS" />
-                        <RowConstraints minHeight="0.0" percentHeight="20.0" prefHeight="30.0" vgrow="ALWAYS" />
-                  <RowConstraints minHeight="10.0" percentHeight="20.0" prefHeight="30.0" vgrow="ALWAYS" />
-                        <RowConstraints percentHeight="15.0" vgrow="ALWAYS" />
-                        <RowConstraints minHeight="0.0" percentHeight="15.0" prefHeight="30.0" vgrow="ALWAYS" />
+                  <RowConstraints percentHeight="10.0" vgrow="ALWAYS" />
+                        <RowConstraints maxHeight="83.0" minHeight="67.0" percentHeight="15.0" prefHeight="68.0" vgrow="ALWAYS" />
+                        <RowConstraints maxHeight="106.0" minHeight="0.0" percentHeight="20.0" prefHeight="105.0" vgrow="ALWAYS" />
                     </rowConstraints>
                     <children>
                         <JFXComboBox fx:id="initialLocationCombo" prefWidth="150.0" style="-fx-background-color: #ffffff;" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
@@ -205,7 +204,7 @@
                         </ImageView>
                      </graphic>
                         </JFXButton>
-                        <JFXToggleButton fx:id="noStairsButton" onAction="#noStairsToggled" prefHeight="30.0" style="-fx-background-color: #ffffff;" stylesheets="@/css/background.css" text="NO STAIRS" textAlignment="CENTER" wrapText="true" GridPane.halignment="CENTER" GridPane.rowIndex="12" GridPane.valignment="CENTER">
+                        <JFXToggleButton fx:id="noStairsButton" onAction="#noStairsToggled" prefHeight="30.0" style="-fx-background-color: #ffffff;" stylesheets="@/css/background.css" text="NO STAIRS" textAlignment="CENTER" wrapText="true" GridPane.halignment="CENTER" GridPane.rowIndex="11" GridPane.valignment="CENTER">
                             <font>
                                 <Font name="System Bold" size="14.0" />
                             </font>
@@ -216,7 +215,7 @@
                             </font>
                         </JFXButton>
                         <JFXButton fx:id="loginButton" onAction="#setLoginButton" styleClass="jfx-button-login" stylesheets="@../css/background.css" text="Login" GridPane.halignment="CENTER" GridPane.rowIndex="8" GridPane.valignment="TOP" />
-                  <JFXButton fx:id="aboutButton" onAction="#setAboutButton" style="-fx-background-color: transparent;" styleClass="jfx-button-add" stylesheets="@../css/background.css" text="About Us" GridPane.halignment="CENTER" GridPane.rowIndex="11" GridPane.valignment="BOTTOM" />
+                  <JFXButton fx:id="aboutButton" onAction="#setAboutButton" style="-fx-background-color: transparent;" styleClass="jfx-button-add" stylesheets="@../css/background.css" text="About Us" GridPane.halignment="CENTER" GridPane.rowIndex="10" GridPane.valignment="BOTTOM" />
                     </children>
                 </GridPane>
          </left>
