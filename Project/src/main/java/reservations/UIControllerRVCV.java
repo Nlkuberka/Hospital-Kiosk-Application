@@ -78,21 +78,8 @@ public class UIControllerRVCV extends UIController {
         
         workplaceCal.getCalendars().addAll(CL001,CL002,CL003,CL004,CL005,CL006,CL007,CL008,CL009,MHA,MHCR,PNTRY);
 
-        for(Calendar c : workplaceCal.getCalendars()){
-            System.out.println("y");
-            System.out.println(c.findEntries("Hello"));
-        }
-        //cv = new CalendarView();
-
-        //cv.getCalendarSources().addAll(workplaceCal);
         cv.getCalendarSources().set(0, workplaceCal);
-        for(CalendarSource cs : cv.getCalendarSources()){
-            System.out.println("f");
-        }
 
-        if(cv.getDayPage().getDayPageLayout() == null){
-            System.out.println("null");
-        }
     }
 
     /**

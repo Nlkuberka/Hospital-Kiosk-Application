@@ -2,9 +2,13 @@ package application;
 
 import com.jfoenix.controls.JFXButton;
 
+import database.DBController;
+import database.DBControllerU;
 import javafx.fxml.FXML;
 import javafx.scene.control.MenuItem;
 import javafx.scene.image.ImageView;
+
+import java.sql.Connection;
 
 /**
  * The UIController for the application menus
@@ -41,6 +45,9 @@ public class UIControllerMMM extends  UIController {
      */
     @FXML
     private void setPathfindingButton() {
+        Connection conn = DBController.dbConnect();
+        CurrentUser.user = DBControllerU.getGuestUser(conn);
+        DBController.closeConnection(conn);
         this.goToScene(UIController.PATHFINDING_MAIN);
     }
 
