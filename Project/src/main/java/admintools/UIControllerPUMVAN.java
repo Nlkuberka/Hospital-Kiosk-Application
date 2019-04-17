@@ -47,6 +47,7 @@ public class UIControllerPUMVAN extends UIController {
     private Boolean isFading = false;
     private List<JFXTextField> textFields = new LinkedList<>();
     private Node node;
+    private UIControllerATMV uiControllerATMV;
     private String action = "";
 
     @FXML
@@ -110,14 +111,14 @@ public class UIControllerPUMVAN extends UIController {
         parentPane.getScene().getWindow().hide();
     }
 
-    void setNode(Node node, String action) {
+    void setProperties(Node node, String action, UIControllerATMV uiControllerATMV) {
         this.node = node;
         this.action = action;
+        this.uiControllerATMV = uiControllerATMV;
         TextField_XCoor.setText(Integer.toString(node.getXcoord()));
         TextField_YCoor.setText(Integer.toString(node.getYcoord()));
         TextField_Floor.setText(node.getFloor());
-        if(action.equals("EDIT"))
-        {
+        if (action.equals("EDIT")) {
             TextField_NodeID.setText(node.getNodeID());
             TextField_Building.setText(node.getBuilding());
             TextField_ShortName.setText(node.getShortName());
@@ -137,16 +138,15 @@ public class UIControllerPUMVAN extends UIController {
             node.setLongName(TextField_LongName.getText());
             node.setShortName(TextField_ShortName.getText());
             Connection conn = DBController.dbConnect();
-            if(action.equals("ADD")){
-                if(!DBControllerNE.addNode(node, conn)){
+            if (action.equals("ADD")) {
+                if (!DBControllerNE.addNode(node, conn)) {
                     TextField_NodeID.clear();
                     return;
                 }
-            }
-            else if(action.equals("EDIT")){
+            } else if (action.equals("EDIT")) {
                 DBControllerNE.updateNode(node, conn);
             }
-            DBControllerNE.closeConnection(conn);
+            DBController.closeConnection(conn);
             //noinspection unused
             Timer timer = new Timer(2, new Callback() {
                 @Override
@@ -162,7 +162,11 @@ public class UIControllerPUMVAN extends UIController {
 
                 @Override
                 public void onEnd() {
-                    Platform.runLater(() -> closeWindow());
+                    Platform.runLater(() -> {
+                        closeWindow();
+                        uiControllerATMV.set();
+                        uiControllerATMV.showAddedNode(node);
+                    });
                 }
             });
         } else {
