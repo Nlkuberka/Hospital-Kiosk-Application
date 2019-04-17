@@ -284,7 +284,7 @@ public class UIController {
 
         stage.setTitle("Warning - Main");
         stage.setScene(scene);
-        stage.showAndWait();
+        stage.show();
         stage.setAlwaysOnTop(true);
 
 
