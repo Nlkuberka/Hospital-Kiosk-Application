@@ -143,7 +143,7 @@
             <Font name="System Bold" size="14.0" />
          </font>
         </JFXTextField>
-      <Text fx:id="Text_FieldsRequired" fill="RED" strokeType="OUTSIDE" strokeWidth="0.0" text="All Fields Required" visible="false" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="10">
+      <Text fx:id="Text_FieldsRequired" fill="RED" strokeType="OUTSIDE" strokeWidth="0.0" text="All Fields Required " textAlignment="CENTER" visible="false" wrappingWidth="120.0" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="10">
          <font>
             <Font name="System Bold" size="14.0" />
          </font>

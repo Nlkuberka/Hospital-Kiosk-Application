@@ -154,6 +154,8 @@ public class UIControllerPUMVAN extends UIController {
             Timer timer = new Timer(2, new Callback() {
                 @Override
                 public void onStart() {
+                    button_save.setVisible(false);
+                    button_cancel.setVisible(false);
                     progressBar.setProgress(0);
                     progressBar.setVisible(true);
                 }
