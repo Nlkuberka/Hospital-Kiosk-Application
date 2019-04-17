@@ -204,7 +204,7 @@ public class CurrentObjects {
         Text text = new Text();
         text.setText(node.getLongName());
         text.setFont(Font.font(60));
-        text.setLayoutX(node.getXcoord() - text.getWrappingWidth()/2);
+        text.setLayoutX(node.getXcoord() - text.getLayoutBounds().getWidth()/2);
         text.setLayoutY(node.getYcoord() - 60);
         //text.setStyle("-fx-background-color: #ffffff;"); // does not work
         return text;
