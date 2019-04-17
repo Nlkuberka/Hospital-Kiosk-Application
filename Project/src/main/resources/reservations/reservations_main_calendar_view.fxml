@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.calendarfx.view.page.DayPage?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.StackPane?>
+
+<?import com.calendarfx.view.CalendarView?>
+<StackPane xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="reservations.UIControllerRVCV">
+    <children>
+        <ImageView fx:id="backgroundImage" onDragDetected="#initialize" pickOnBounds="true" preserveRatio="true">
+            <image>
+                <Image url="@../images/Hospitalbackground.png" />
+            </image>
+        </ImageView>
+        <BorderPane >
+            <top>
+                <MenuBar blendMode="ADD" prefWidth="900.0" style="-fx-background-color: white;" stylesheets="@../css/background.css" BorderPane.alignment="CENTER">
+                    <menus>
+                        <Menu fx:id="homeButton" mnemonicParsing="false" onShowing="#setHomeButton" text="Home">
+                            <items>
+                                <MenuItem fx:id="backMenuItem" mnemonicParsing="false" onAction="#setBackMenuItem" text="HOME" />
+                            </items>
+                        </Menu>
+                    </menus>
+                </MenuBar>
+            </top>
+         <center>
+            <CalendarView fx:id="cv" prefHeight="-Infinity" prefWidth="-Infinity" maxHeight="900.0" maxWidth="1300.0" minHeight="200.0" minWidth="300.0" pickOnBounds="true" BorderPane.alignment="TOP_LEFT" />
+         </center>
+        </BorderPane>
+    </children>
+</StackPane>
