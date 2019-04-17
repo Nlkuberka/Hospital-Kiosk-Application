@@ -269,9 +269,11 @@ public class UIControllerATMV extends UIController {
             });
 
             circle.setOnMouseDragged(mouseEvent -> {
-                circle.setLayoutX(mouseEvent.getSceneX() + mouseX);
-                circle.setLayoutY(mouseEvent.getSceneY() + mouseY);
+                System.out.println(firstFloorGesturePane.getCurrentScale());
+                circle.setLayoutX((mouseEvent.getSceneX() + mouseX) / firstFloorGesturePane.getCurrentScale());
+                circle.setLayoutY((mouseEvent.getSceneY() + mouseY) / firstFloorGesturePane.getCurrentScale());
                 circle.setCursor(Cursor.MOVE);
+                gesturePaneHandler.setPaning(false);
             });
 
             circle.setOnMouseReleased(mouseEvent -> {
@@ -281,6 +283,7 @@ public class UIControllerATMV extends UIController {
                 assert conn != null;
                 DBControllerNE.updateNode(tempNode, conn);
                 DBController.closeConnection(conn);
+                gesturePaneHandler.setPaning(true);
                 draw();
             });
             nodesGroup.getChildren().add(circle);

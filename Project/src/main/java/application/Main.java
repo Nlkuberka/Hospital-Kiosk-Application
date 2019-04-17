@@ -49,7 +49,7 @@ public class Main extends Application {
         CurrentUser.user = DBControllerU.getGuestUser(conn);
         DBController.closeConnection(conn);
 
-        controller.goToScene(UIController.WELCOME_MAIN);
+        controller.goToScene(UIController.ADMIN_TOOLS_MAP_VIEW);
     }
 
 
