@@ -15,21 +15,21 @@ import javafx.stage.Stage;
 
 
 public class CalendarApp {
-    @Override
+
     public void start(Stage primaryStage) throws Exception {
 
-        CalendarView calendarView = new CalendarView(); (1)
+        CalendarView calendarView = new CalendarView();
 
-        Calendar birthdays = new Calendar("Birthdays"); (2)
+        Calendar birthdays = new Calendar("Birthdays");
         Calendar holidays = new Calendar("Holidays");
 
-        birthdays.setStyle(Style.STYLE1); (3)
+        birthdays.setStyle(Style.STYLE1);
         holidays.setStyle(Style.STYLE2);
 
-        CalendarSource myCalendarSource = new CalendarSource("My Calendars"); (4)
+        CalendarSource myCalendarSource = new CalendarSource("My Calendars");
         myCalendarSource.getCalendars().addAll(birthdays, holidays);
 
-        calendarView.getCalendarSources().addAll(myCalendarSource); (5)
+        calendarView.getCalendarSources().addAll(myCalendarSource);
 
         calendarView.setRequestedTime(LocalTime.now());
 
@@ -66,7 +66,5 @@ public class CalendarApp {
         primaryStage.show();
     }
 
-    public static void main(String[] args) {
-        launch(args);
-    }
+
 }
