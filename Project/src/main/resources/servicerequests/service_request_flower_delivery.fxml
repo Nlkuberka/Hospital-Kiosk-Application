@@ -51,7 +51,7 @@
          <left>
             <GridPane prefWidth="250.0">
                <columnConstraints>
-                  <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="64.99298095703125" minWidth="0.0" prefWidth="29.972637176513672" />
+                  <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="70.0" minWidth="70.0" percentWidth="0.0" prefWidth="29.972637176513672" />
                   <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="230.0" minWidth="10.0" prefWidth="200.02736282348633" />
                </columnConstraints>
                <rowConstraints>
