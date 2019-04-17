@@ -40,6 +40,10 @@ public class CurrentObjects {
         this.gesturePaneHandler = gesturePaneHandler;
     }
 
+    boolean isActive() {
+        return pathHandler.isActive();
+    }
+
     void cancel() {
         this.clearNodeStyle();
         this.clearInitDestIDs();

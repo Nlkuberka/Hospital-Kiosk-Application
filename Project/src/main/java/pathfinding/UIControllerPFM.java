@@ -123,6 +123,8 @@ public class UIControllerPFM extends UIController {
         anchorPaneHandler.setCurrentObjects(currentObjects);
         gesturePaneHandler.setCurrentObjects(currentObjects);
 
+        directionsRequest.setDisable(true);
+
     }
 
     /**
@@ -203,6 +205,8 @@ public class UIControllerPFM extends UIController {
         currentObjects.cancel();
         currentObjects.clearLabels();
 
+        directionsRequest.setDisable(true);
+
         initialLocationCombo.getSelectionModel().clearSelection();
         destinationCombo.getSelectionModel().clearSelection();
     }
@@ -252,6 +256,8 @@ public class UIControllerPFM extends UIController {
         currentObjects.newDestLabel(destNode);
 
         gesturePaneHandler.newAnimation(currentObjects);
+
+        directionsRequest.setDisable(false);
 
     }
 
