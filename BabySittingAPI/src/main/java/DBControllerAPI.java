@@ -206,4 +206,28 @@ public class DBControllerAPI {
             e.printStackTrace();
         }
     }
+
+    /**
+     * updateServiceRequest
+     *
+     * saves changes msde to a ServiceRequest object
+     *
+     * UP TO DATE
+     * @param serviceRequest
+     * @param connection
+     */
+    public static void updateServiceRequest(ServiceRequest serviceRequest, Connection connection){
+        try{
+            Statement s = connection.createStatement();
+            s.execute("UPDATE SERVICEREQUEST SET  SERVICETYPE ='"+ serviceRequest.getServiceType() +"',"+
+                    "MESSAGE = '"+ serviceRequest.getMessage() + "'," +
+                    "RESOLVED = '" + serviceRequest.isResolved() + "'," +
+                    "RESOLVERID = '"+serviceRequest.getResolverID()+"' " +
+                    "where  SERVICEID = " + serviceRequest.getServiceID());
+
+        }catch(SQLException e){
+            e.printStackTrace();
+        }
+    }
+
 }
