@@ -1,6 +1,7 @@
 package servicerequests;
 
 import application.CurrentUser;
+import com.jfoenix.controls.JFXTextField;
 import database.DBController;
 import application.UIController;
 import com.jfoenix.controls.JFXButton;
@@ -41,6 +42,9 @@ public class UIControllerSRFD extends UIController {
     private JFXTextArea serviceMessage1;
 
     @FXML
+    private JFXTextField phoneNum;
+
+    @FXML
     private JFXButton confirmButton; /**< The confirm button*/
 
     @FXML
@@ -72,8 +76,9 @@ public class UIControllerSRFD extends UIController {
         String roomShortName = (String) roomSelect.getValue();
         String nodeID = filterHelper.getNodeID();
         String message = serviceMessage1.getText();
+        String phoneNumber = phoneNum.getText();
 
-        ServiceRequest sr = new ServiceRequest(nodeID, flowerDelivery, message + costLabel.getText(), CurrentUser.user.getUserID(), false, null);
+        ServiceRequest sr = new ServiceRequest(nodeID, flowerDelivery, phoneNumber + message + costLabel.getText(), CurrentUser.user.getUserID(), false, null);
         System.out.println(sr.toString());
         Connection conn = DBControllerSR.dbConnect();
         DBControllerSR.addServiceRequest(sr,conn);
