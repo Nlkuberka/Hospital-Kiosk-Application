@@ -66,8 +66,15 @@ public class UIControllerSRB extends UIController {
 
     @FXML
     public void onShow() {
+        roomSelect.getSelectionModel().clearSelection();
         filterHelper = new RoomCategoryFilterHelper(roomSelect, null, false);
         serviceMessage.setText("");
+        feeder.setSelected(false);
+        diaper.setSelected(false);
+        bath.setSelected(false);
+        toy.setSelected(false);
+        babyStroller.setSelected(false);
+        food.setSelected(false);
     }
 
     public void setServiceType(String serviceType) {

@@ -15,6 +15,7 @@ import helper.RoomCategoryFilterHelper;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.Menu;
 import javafx.scene.control.TextFormatter;
 import javafx.scene.image.ImageView;
 import org.controlsfx.control.textfield.TextFields;
@@ -89,6 +90,8 @@ public class UIControllerSRPS extends UIController {
      */
     @FXML
     public void onShow() {
+        roomSelect.getSelectionModel().clearSelection();
+        lengthChoiceBox.getSelectionModel().clearSelection();
         filterHelper = new RoomCategoryFilterHelper(roomSelect, null, true);
 
         serviceMessage.setText("");

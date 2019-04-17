@@ -85,7 +85,7 @@
                      </font>
                   </Text>
                   <ChoiceBox fx:id="roomNum" prefWidth="150.0" style="-fx-background-color: #ffffff;" GridPane.columnIndex="1" GridPane.rowIndex="5" />
-                  <JFXTextField fx:id="Notes" prefHeight="458.0" prefWidth="260.0" style="-fx-background-color: #ffffff;" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+                  <JFXTextField fx:id="Notes" prefHeight="300.0" prefWidth="260.0" style="-fx-background-color: #ffffff;" GridPane.columnIndex="1" GridPane.rowIndex="7" />
                   <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Aditional Notes" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="6" GridPane.valignment="BOTTOM">
                      <font>
                         <Font name="System Bold" size="18.0" />

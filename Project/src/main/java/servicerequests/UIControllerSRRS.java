@@ -128,7 +128,17 @@ public class UIControllerSRRS extends UIController {
 
     @FXML
     public void onShow() {
+        for(int i = 0; i < serviceCheckBoxes.size(); i++) {
+            serviceCheckBoxes.get(i).setSelected(false);
+        }
+        for(int i = 0; i < denomCheckBoxes.size(); i++) {
+            denomCheckBoxes.get(i).setSelected(false);
+        }
+        roomSelect.getSelectionModel().clearSelection();
         filterHelper = new RoomCategoryFilterHelper(roomSelect, null, true);
+        OtherDenomField.setText("");
+        OtherServiceField.setText("");
+        additionalCommentField.setText("");
         serviceMessage.setText("");
     }
 
