@@ -246,6 +246,8 @@ public class UIControllerPFM extends UIController {
             }
         }
 
+        currentObjects.clearLabels();
+
         currentObjects.newInitLabel(initialNode);
         currentObjects.newDestLabel(destNode);
 
