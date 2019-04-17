@@ -6,7 +6,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 import database.DBControllerNE;
-import pathfinding.Floors;
+import pathfinding.UIControllerPFM;
 import static java.lang.Math.*;
 
 public abstract class Graph {
@@ -202,15 +202,15 @@ public abstract class Graph {
      */
     public List<List<List<Node>>> separatePathByFloor(List<String> path) {
         // a collection of lists for each floor
-        List<List<List<Node>>> separatedPath = new ArrayList<>(Floors.values().length);
-        for(int i = 0; i < Floors.values().length; i++) {
+        List<List<List<Node>>> separatedPath = new ArrayList<>(UIControllerPFM.Floors.values().length);
+        for(int i = 0; i < UIControllerPFM.Floors.values().length; i++) {
             separatedPath.add(new LinkedList<>());  // Create the mid-level list for each floor.
         }
         // Analyze the nodes in the order that they appear in the path, looking for when the path jumps between floors.
-        Floors previousFloor = null; // the floor of the node previously analyzed
+        UIControllerPFM.Floors previousFloor = null; // the floor of the node previously analyzed
         for(String nodeID : path) {
             Node node = fetchNode(nodeID);
-            Floors currentFloor = Floors.getByID(node.getFloor());
+            UIControllerPFM.Floors currentFloor = UIControllerPFM.Floors.getByID(node.getFloor());
             // If the current node is on a different floor than the previous node,
             // then put the current node in a different list.
             if(previousFloor != currentFloor) {
