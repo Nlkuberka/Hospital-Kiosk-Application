@@ -110,8 +110,8 @@ public class ReservationTableHelper extends UIController{
                     oldDatePicker.setValue(datePicker.getValue());
 
                     Connection conn = DBController.dbConnect();
-                    DBControllerRW.addReservation(reservation, conn);
-                    dateColumn.getTableView().getItems().add(reservation);
+                    DBControllerRW.updateReservation(reservation, conn);
+                    //dateColumn.getTableView().getItems().add(reservation);
                     DBController.closeConnection(conn);
                 });
                 setGraphic(datePicker);
@@ -145,8 +145,8 @@ public class ReservationTableHelper extends UIController{
                     oldPicker.setValue(timePicker.getValue());
 
                     Connection conn = DBController.dbConnect();
-                    DBControllerRW.addReservation(reservation, conn);
-                    startTimeColumn.getTableView().getItems().add(reservation);
+                    DBControllerRW.updateReservation(reservation, conn);
+                    //startTimeColumn.getTableView().getItems().add(reservation);
                     DBController.closeConnection(conn);
                 });
                 setGraphic(timePicker);
@@ -181,8 +181,8 @@ public class ReservationTableHelper extends UIController{
                     oldPicker.setValue(timePicker.getValue());
 
                     Connection conn = DBController.dbConnect();
-                    DBControllerRW.addReservation(reservation, conn);
-                    endTimeColumn.getTableView().getItems().add(reservation);
+                    DBControllerRW.updateReservation(reservation, conn);
+                    //endTimeColumn.getTableView().getItems().add(reservation);
                     DBController.closeConnection(conn);
                 });
                 setGraphic(timePicker);
@@ -213,7 +213,7 @@ public class ReservationTableHelper extends UIController{
     }
 
     private boolean checkReservation(DatePicker datePicker, JFXTimePicker startTimePicker, JFXTimePicker endTimePicker, Reservation reservation) {
-        if(datePicker == null) {
+        /*if(datePicker == null) {
             datePicker = new DatePicker((LocalDate.parse(reservation.getDate())));
         }
         if(startTimePicker == null) {
@@ -228,7 +228,7 @@ public class ReservationTableHelper extends UIController{
             return false;
         }
 
-        /*Connection conn = DBController.dbConnect();
+        Connection conn = DBController.dbConnect();
         DBControllerRW.deleteReservation(reservation.getRsvID(), conn);
         removeColumn.getTableView().getItems().remove(reservation);
         Reservation r = new Reservation(reservation.getWkplaceID(), reservation.getUserID(), UIControllerRVM.getDateString(datePicker), UIControllerRVM.getTimeString(startTimePicker), UIControllerRVM.getTimeString(endTimePicker));
