@@ -13,8 +13,8 @@ import javafx.scene.shape.Circle;
 
 
 public class AnchorPaneHandler {
-    static double nodeSizeIdle = 16;
-    static double getNodeSizeHighlited = 19;
+    public static double nodeSizeIdle = 16;
+    public static double getNodeSizeHighlited = 19;
     List<AnchorPane> anchorPanes;
     private List<Group> groupsForNodes;
     private HashMap<String, Circle> circleFromName;

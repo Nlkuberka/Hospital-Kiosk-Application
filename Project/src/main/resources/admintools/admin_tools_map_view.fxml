@@ -6,15 +6,16 @@
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.Tab?>
-<?import javafx.scene.control.TabPane?>
 <?import javafx.scene.effect.ColorAdjust?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.StackPane?>
-<?import javafx.scene.text.Font?>
 
+<?import com.jfoenix.controls.JFXTabPane?>
+<?import net.kurobako.gesturefx.GesturePane?>
+<?import javafx.scene.text.Font?>
 <StackPane fx:id="parentPane" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="admintools.UIControllerATMV">
     <ImageView fx:id="backgroundImage" pickOnBounds="true">
         <Image url="@../images/Hospitalbackground.png" />
@@ -31,206 +32,88 @@
            </MenuBar>
       </top>
       <center>
-            <TabPane fx:id="tabs" tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER">
+          <StackPane>
+              <children>
+            <JFXTabPane fx:id="tabs" stylesheets="/css/background.css" tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER">
                 <Tab id="L2" text="Lower Level 2">
-                    <StackPane>
-                        <ScrollPane fx:id="lowerLevel2ScrollPane">
-                            <AnchorPane fx:id="lowerLevel2AnchorPane" maxHeight="3400.0" maxWidth="5000.0" minHeight="0.0" minWidth="0.0" prefHeight="3400.0" prefWidth="5000.0">
-                                <ImageView fx:id="lowerLevel2ImageView" fitHeight="999" fitWidth="999" onMouseClicked="#addNodeOnClick" pickOnBounds="true" preserveRatio="true">
-                                    <Image url="@../maps/00_thelowerlevel2.png" />
-                                </ImageView>
-                            </AnchorPane>
-                        </ScrollPane>
-                        <AnchorPane minHeight="-Infinity" minWidth="-Infinity" pickOnBounds="false">
-                            <JFXButton contentDisplay="CENTER" layoutX="4.0" layoutY="14.0" mnemonicParsing="false" onAction="#zoom" prefWidth="100.0" styleClass="jfx-button-zoom" stylesheets="@../css/background.css" text=" " textFill="WHITE">
-                                <font>
-                                    <Font name="System Bold" size="14.0" />
-                                </font>
-                                <graphic>
-                                    <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
-                                        <Image url="@../icon/zoom-in.png" />
-                                    </ImageView>
-                                </graphic>
-                            </JFXButton>
-                            <JFXButton contentDisplay="CENTER" layoutX="4.0" layoutY="79.0" mnemonicParsing="false" onAction="#unZoom" prefWidth="100.0" styleClass="jfx-button-zoom" stylesheets="@../css/background.css" text=" " textFill="WHITE">
-                                <font>
-                                    <Font name="System Bold" size="14.0" />
-                                </font>
-                                <graphic>
-                                    <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
-                                        <Image url="@../icon/zoom-out.png" />
-                                    </ImageView>
-                                </graphic>
-                            </JFXButton>
+                    <GesturePane fx:id="lowerLevel2GesturePane">
+                        <AnchorPane fx:id="lowerLevel2AnchorPane">
+                            <ImageView fx:id="lowerLevel2ImageView" pickOnBounds="true" preserveRatio="true" onMouseClicked="#addNodeOnClick">
+                                <Image url="@../maps/00_thelowerlevel2.png" />
+                            </ImageView>
                         </AnchorPane>
-                    </StackPane>
+                    </GesturePane>
                 </Tab>
                 <Tab id="L1" text="Lower Level 1">
-                    <StackPane>
-                        <ScrollPane fx:id="lowerLevel1ScrollPane">
-                            <AnchorPane fx:id="lowerLevel1AnchorPane" maxHeight="3400.0" maxWidth="5000.0" minHeight="0.0" minWidth="0.0" prefHeight="3400.0" prefWidth="5000.0">
-                                <ImageView fx:id="lowerLevel1ImageView" fitHeight="999" fitWidth="999" onMouseClicked="#addNodeOnClick" pickOnBounds="true" preserveRatio="true">
-                                    <Image url="@../maps/00_thelowerlevel1.png" />
-                                </ImageView>
-                            </AnchorPane>
-                        </ScrollPane>
-                        <AnchorPane minHeight="-Infinity" minWidth="-Infinity" pickOnBounds="false">
-                            <JFXButton contentDisplay="CENTER" layoutX="4.0" layoutY="14.0" mnemonicParsing="false" onAction="#zoom" prefWidth="100.0" styleClass="jfx-button-zoom" stylesheets="@../css/background.css" text=" " textFill="WHITE">
-                                <font>
-                                    <Font name="System Bold" size="14.0" />
-                                </font>
-                                <graphic>
-                                    <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
-                                        <Image url="@../icon/zoom-in.png" />
-                                    </ImageView>
-                                </graphic>
-                            </JFXButton>
-                            <JFXButton contentDisplay="CENTER" layoutX="4.0" layoutY="79.0" mnemonicParsing="false" onAction="#unZoom" prefWidth="100.0" styleClass="jfx-button-zoom" stylesheets="@../css/background.css" text=" " textFill="WHITE">
-                                <font>
-                                    <Font name="System Bold" size="14.0" />
-                                </font>
-                                <graphic>
-                                    <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
-                                        <Image url="@../icon/zoom-out.png" />
-                                    </ImageView>
-                                </graphic>
-                            </JFXButton>
+                    <GesturePane fx:id="lowerLevel1GesturePane">
+                        <AnchorPane fx:id="lowerLevel1AnchorPane">
+                            <ImageView fx:id="lowerLevel1ImageView" pickOnBounds="true" preserveRatio="true" onMouseClicked="#addNodeOnClick">
+                                <Image url="@../maps/00_thelowerlevel1.png" />
+                            </ImageView>
                         </AnchorPane>
-                    </StackPane>
+                    </GesturePane>
                 </Tab>
                 <Tab id="G" text="Ground Floor">
-                    <StackPane>
-                        <ScrollPane fx:id="groundFloorScrollPane">
-                            <AnchorPane fx:id="groundFloorAnchorPane" maxHeight="3400.0" maxWidth="5000.0" minHeight="0.0" minWidth="0.0" prefHeight="3400.0" prefWidth="5000.0">
-                                <ImageView fx:id="groundFloorImageView" fitHeight="999" fitWidth="999" onMouseClicked="#addNodeOnClick" pickOnBounds="true" preserveRatio="true">
-                                    <Image url="@../maps/00_thegroundfloor.png" />
-                                </ImageView>
-                            </AnchorPane>
-                        </ScrollPane>
-                        <AnchorPane minHeight="-Infinity" minWidth="-Infinity" pickOnBounds="false">
-                            <JFXButton contentDisplay="CENTER" layoutX="4.0" layoutY="14.0" mnemonicParsing="false" onAction="#zoom" prefWidth="100.0" styleClass="jfx-button-zoom" stylesheets="@../css/background.css" text=" " textFill="WHITE">
-                                <font>
-                                    <Font name="System Bold" size="14.0" />
-                                </font>
-                                <graphic>
-                                    <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
-                                        <Image url="@/icon/zoom-in.png" />
-                                    </ImageView>
-                                </graphic>
-                            </JFXButton>
-                            <JFXButton contentDisplay="CENTER" layoutX="4.0" layoutY="79.0" mnemonicParsing="false" onAction="#unZoom" prefWidth="100.0" styleClass="jfx-button-zoom" stylesheets="@../css/background.css" text=" " textFill="WHITE">
-                                <font>
-                                    <Font name="System Bold" size="14.0" />
-                                </font>
-                                <graphic>
-                                    <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
-                                        <Image url="@/icon/zoom-out.png" />
-                                    </ImageView>
-                                </graphic>
-                            </JFXButton>
+                    <GesturePane fx:id="groundFloorGesturePane">
+                        <AnchorPane fx:id="groundFloorAnchorPane">
+                            <ImageView fx:id="groundFloorImageView" onMouseClicked="#addNodeOnClick" pickOnBounds="true" preserveRatio="true">
+                                <Image url="@../maps/00_thegroundfloor.png" />
+                            </ImageView>
                         </AnchorPane>
-                    </StackPane>
+                    </GesturePane>
                 </Tab>
                 <Tab id="1" text="First Floor">
-                    <StackPane>
-                        <ScrollPane fx:id="firstFloorScrollPane">
-                            <AnchorPane fx:id="firstFloorAnchorPane" maxHeight="3400.0" maxWidth="5000.0" minHeight="0.0" minWidth="0.0" prefHeight="3400.0" prefWidth="5000.0">
-                                <ImageView fx:id="firstFloorImageView" fitHeight="999" fitWidth="999" onMouseClicked="#addNodeOnClick" pickOnBounds="true" preserveRatio="true">
-                                    <Image url="@../maps/01_thefirstfloor.png" />
-                                </ImageView>
-                            </AnchorPane>
-                        </ScrollPane>
-                        <AnchorPane minHeight="-Infinity" minWidth="-Infinity" pickOnBounds="false">
-                            <JFXButton contentDisplay="CENTER" layoutX="4.0" layoutY="14.0" mnemonicParsing="false" onAction="#zoom" prefWidth="100.0" styleClass="jfx-button-zoom" stylesheets="@../css/background.css" text=" " textFill="WHITE">
-                                <font>
-                                    <Font name="System Bold" size="14.0" />
-                                </font>
-                                <graphic>
-                                    <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
-                                        <Image url="@/icon/zoom-in.png" />
-                                    </ImageView>
-                                </graphic>
-                            </JFXButton>
-                            <JFXButton contentDisplay="CENTER" layoutX="4.0" layoutY="79.0" mnemonicParsing="false" onAction="#unZoom" prefWidth="100.0" styleClass="jfx-button-zoom" stylesheets="@../css/background.css" text=" " textFill="WHITE">
-                                <font>
-                                    <Font name="System Bold" size="14.0" />
-                                </font>
-                                <graphic>
-                                    <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
-                                        <Image url="@/icon/zoom-out.png" />
-                                    </ImageView>
-                                </graphic>
-                            </JFXButton>
+                    <GesturePane fx:id="firstFloorGesturePane">
+                        <AnchorPane fx:id="firstFloorAnchorPane">
+                            <ImageView fx:id="firstFloorImageView" onMouseClicked="#addNodeOnClick" pickOnBounds="true" preserveRatio="true">
+                                <Image url="@../maps/01_thefirstfloor.png" />
+                            </ImageView>
                         </AnchorPane>
-                    </StackPane>
+                    </GesturePane>
                 </Tab>
                 <Tab id="2" text="Second Floor">
-                    <StackPane>
-                        <ScrollPane fx:id="secondFloorScrollPane">
-                            <AnchorPane fx:id="secondFloorAnchorPane" maxHeight="3400.0" maxWidth="5000.0" minHeight="0.0" minWidth="0.0" prefHeight="3400.0" prefWidth="5000.0">
-                                <ImageView fx:id="secondFloorImageView" fitHeight="999" fitWidth="999" onMouseClicked="#addNodeOnClick" pickOnBounds="true" preserveRatio="true">
-                                    <Image url="@../maps/02_thesecondfloor.png" />
-                                </ImageView>
-                            </AnchorPane>
-                        </ScrollPane>
-                        <AnchorPane minHeight="-Infinity" minWidth="-Infinity" pickOnBounds="false">
-                            <JFXButton contentDisplay="CENTER" layoutX="4.0" layoutY="14.0" mnemonicParsing="false" onAction="#zoom" prefWidth="100.0" styleClass="jfx-button-zoom" stylesheets="@../css/background.css" text=" " textFill="WHITE">
-                                <font>
-                                    <Font name="System Bold" size="14.0" />
-                                </font>
-                                <graphic>
-                                    <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
-                                        <Image url="@/icon/zoom-in.png" />
-                                    </ImageView>
-                                </graphic>
-                            </JFXButton>
-                            <JFXButton contentDisplay="CENTER" layoutX="4.0" layoutY="79.0" mnemonicParsing="false" onAction="#unZoom" prefWidth="100.0" styleClass="jfx-button-zoom" stylesheets="@../css/background.css" text=" " textFill="WHITE">
-                                <font>
-                                    <Font name="System Bold" size="14.0" />
-                                </font>
-                                <graphic>
-                                    <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
-                                        <Image url="@/icon/zoom-out.png" />
-                                    </ImageView>
-                                </graphic>
-                            </JFXButton>
+                    <GesturePane fx:id="secondFloorGesturePane">
+                        <AnchorPane fx:id="secondFloorAnchorPane">
+                            <ImageView fx:id="secondFloorImageView" onMouseClicked="#addNodeOnClick" pickOnBounds="true" preserveRatio="true">
+                                <Image url="@../maps/02_thesecondfloor.png" />
+                            </ImageView>
                         </AnchorPane>
-                    </StackPane>
+                    </GesturePane>
                 </Tab>
                 <Tab id="3" text="Third Floor">
-                    <StackPane>
-                        <ScrollPane fx:id="thirdFloorScrollPane">
-                            <AnchorPane fx:id="thirdFloorAnchorPane" maxHeight="3400.0" maxWidth="5000.0" minHeight="0.0" minWidth="0.0" prefHeight="3400.0" prefWidth="5000.0">
-                                <ImageView fx:id="thirdFloorImageView" fitHeight="999" fitWidth="999" onMouseClicked="#addNodeOnClick" pickOnBounds="true" preserveRatio="true">
-                                    <Image url="@../maps/03_thethirdfloor.png" />
-                                </ImageView>
-                            </AnchorPane>
-                        </ScrollPane>
-                        <AnchorPane minHeight="-Infinity" minWidth="-Infinity" pickOnBounds="false">
-                            <JFXButton contentDisplay="CENTER" layoutX="4.0" layoutY="14.0" mnemonicParsing="false" onAction="#zoom" prefWidth="100.0" styleClass="jfx-button-zoom" stylesheets="@../css/background.css" text=" " textFill="WHITE">
-                                <font>
-                                    <Font name="System Bold" size="14.0" />
-                                </font>
-                                <graphic>
-                                    <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
-                                        <Image url="@/icon/zoom-in.png" />
-                                    </ImageView>
-                                </graphic>
-                            </JFXButton>
-                            <JFXButton contentDisplay="CENTER" layoutX="4.0" layoutY="79.0" mnemonicParsing="false" onAction="#unZoom" prefWidth="100.0" styleClass="jfx-button-zoom" stylesheets="@../css/background.css" text=" " textFill="WHITE">
-                                <font>
-                                    <Font name="System Bold" size="14.0" />
-                                </font>
-                                <graphic>
-                                    <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
-                                        <Image url="@/icon/zoom-out.png" />
-                                    </ImageView>
-                                </graphic>
-                            </JFXButton>
+                    <GesturePane fx:id="thirdFloorGesturePane">
+                        <AnchorPane fx:id="thirdFloorAnchorPane">
+                            <ImageView fx:id="thirdFloorImageView" onMouseClicked="#addNodeOnClick" pickOnBounds="true" preserveRatio="true">
+                                <Image url="@../maps/03_thethirdfloor.png" />
+                            </ImageView>
                         </AnchorPane>
-                    </StackPane>
+                    </GesturePane>
                 </Tab>
-            </TabPane>
+            </JFXTabPane>
+                  <AnchorPane translateX="10" translateY="35" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="150.0" prefWidth="50.0" StackPane.alignment="TOP_LEFT">
+                      <JFXButton contentDisplay="CENTER" layoutX="4.0" layoutY="14.0" mnemonicParsing="false" onAction="#zoom" prefWidth="100.0" styleClass="jfx-button-zoom" stylesheets="@../css/background.css" text=" " textFill="WHITE">
+                          <font>
+                              <Font name="System Bold" size="14.0" />
+                          </font>
+                          <graphic>
+                              <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
+                                  <Image url="@/icon/zoom-in.png" />
+                              </ImageView>
+                          </graphic>
+                      </JFXButton>
+                      <JFXButton contentDisplay="CENTER" layoutX="4.0" layoutY="79.0" mnemonicParsing="false" onAction="#unZoom" prefWidth="100.0" styleClass="jfx-button-zoom" stylesheets="@../css/background.css" text=" " textFill="WHITE">
+                          <font>
+                              <Font name="System Bold" size="14.0" />
+                          </font>
+                          <graphic>
+                              <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
+                                  <Image url="@/icon/zoom-out.png" />
+                              </ImageView>
+                          </graphic>
+                      </JFXButton>
+                  </AnchorPane>
+              </children>
+          </StackPane>
       </center>
    </BorderPane>
 </StackPane>

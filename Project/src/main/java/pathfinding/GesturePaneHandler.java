@@ -18,7 +18,6 @@ import java.util.List;
 
 public class GesturePaneHandler {
     private List<GesturePane> gesturePanes;
-    private CurrentObjects currentObjects;
     static final Duration DURATION = Duration.millis(300);
 
     public GesturePaneHandler(GesturePane p1, GesturePane p2, GesturePane p3, GesturePane p4,
@@ -34,9 +33,6 @@ public class GesturePaneHandler {
         setupGesturePanes();
     }
 
-    void setCurrentObjects(CurrentObjects currentObjects) {
-        this.currentObjects = currentObjects;
-    }
 
     public List<GesturePane> getGesturePanes() {
         return gesturePanes;
@@ -51,7 +47,7 @@ public class GesturePaneHandler {
         // setup properties
         for(int i = 0; i < this.gesturePanes.size(); i++) {
             GesturePane pane = this.gesturePanes.get(i);
-            pane.setMaxScale(1.3);
+            pane.setMaxScale(1.5);
             pane.setMinScale(0.1);
             pane.setScrollBarEnabled(true);
             pane.setHBarEnabled(true);
@@ -89,19 +85,11 @@ public class GesturePaneHandler {
         pane.translateBy(new Dimension2D(500.0, 400.0));
     }
 
-    void changeTabs(PathHandler pathHandler, int newFloorIndex) {
-        currentObjects.clearAnimation();
-        GesturePane oldPane = currentObjects.getCurrentGesturePane();
-        currentObjects.setFloorIndex(newFloorIndex);
-        GesturePane pane = currentObjects.getCurrentGesturePane();
+    public void changeTabs(GesturePane pane, GesturePane oldPane) {
         pane.centreOn(oldPane.targetPointAtViewportCentre());
-        if (pathHandler.isActive()) {
-            this.newAnimation();
-        }
     }
 
-    void zoom() {
-        GesturePane pane = currentObjects.getCurrentGesturePane();
+    public void zoom(GesturePane pane) {
         Point2D pivotOnTarget = pane.targetPointAtViewportCentre();
         // increment of scale makes more sense exponentially instead of linearly
         pane.animate(DURATION)
@@ -109,8 +97,7 @@ public class GesturePaneHandler {
                 .zoomBy(pane.getCurrentScale()/1.66, pivotOnTarget);
     }
 
-    void un_zoom() {
-        GesturePane pane = currentObjects.getCurrentGesturePane();
+    public void un_zoom(GesturePane pane) {
         Point2D pivotOnTarget = pane.targetPointAtViewportCentre();
         pane.animate(DURATION)
                 .interpolateWith(Interpolator.EASE_BOTH)
@@ -120,7 +107,7 @@ public class GesturePaneHandler {
     /**
      * Generates new animation based on given path. Sets the currentAnt and currentAnimation attributes
      */
-    void newAnimation() {
+    void newAnimation(CurrentObjects currentObjects) {
         PathTransition pathTransition = new PathTransition();
 
         //Setting the duration of the path transition
@@ -154,13 +141,11 @@ public class GesturePaneHandler {
         currentObjects.setAnimation(pathTransition);
     }
 
-    void centerOnInitialNode(PathHandler pathHandler) {
+    void centerOnInitialNode(PathHandler pathHandler, GesturePane pane) {
         // center on initial node
         List<Point2D> extremaMinMax = pathHandler.getPathExtremaOnInitFloor(); // get extrema
         double centerX = (extremaMinMax.get(0).getX() + extremaMinMax.get(1).getX()) / 2; // find average
         double centerY = (extremaMinMax.get(0).getY() + extremaMinMax.get(1).getY()) / 2;
-
-        GesturePane pane = currentObjects.getCurrentGesturePane(); // save pane for efficiency
 
         double ySpan = extremaMinMax.get(1).getY() - extremaMinMax.get(0).getY();
         ySpan = map(ySpan, 0, 3400, pane.getMaxScale(), pane.getMinScale());

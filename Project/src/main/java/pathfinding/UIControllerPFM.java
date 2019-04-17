@@ -87,8 +87,15 @@ public class UIControllerPFM extends UIController {
                 new ChangeListener<Tab>() {
                     @Override
                     public void changed(ObservableValue<? extends Tab> ov, Tab t, Tab t1) {
-                        gesturePaneHandler.changeTabs(pathHandler,
-                                Floors.getByName(t1.getText()).getIndex());
+                        currentObjects.clearAnimation();
+                        GesturePane oldPane = currentObjects.getCurrentGesturePane();
+                        currentObjects.setFloorIndex(Floors.getByName(t1.getText()).getIndex());
+                        GesturePane pane = currentObjects.getCurrentGesturePane();
+                        pane.centreOn(oldPane.targetPointAtViewportCentre());
+                        gesturePaneHandler.changeTabs(pane, oldPane);
+                        if (pathHandler.isActive()) {
+                            gesturePaneHandler.newAnimation(currentObjects);
+                        }
                     }
                 }
         );
@@ -104,7 +111,6 @@ public class UIControllerPFM extends UIController {
         currentObjects = new CurrentObjects(0, null, null, null, null,
                 pathHandler, anchorPaneHandler, gesturePaneHandler);
 
-        gesturePaneHandler.setCurrentObjects(currentObjects);
         anchorPaneHandler.setCurrentObjects(currentObjects);
 
     }
@@ -240,7 +246,7 @@ public class UIControllerPFM extends UIController {
         // update paths -- order here is important! Do not move above change tab.
         pathHandler.displayNewPath(Graph.getGraph().separatePathByFloor(pathIDs), initialNode);
 
-        gesturePaneHandler.centerOnInitialNode(pathHandler);
+        gesturePaneHandler.centerOnInitialNode(pathHandler, currentObjects.getCurrentGesturePane());
 
         List<Integer> floorsUsed = pathHandler.getFloorsUsed();
         clearTabColors();
@@ -248,7 +254,7 @@ public class UIControllerPFM extends UIController {
             this.mapTabPane.getTabs().get(floor).setStyle("-fx-background-color: #015080");
         }
 
-        gesturePaneHandler.newAnimation();
+        gesturePaneHandler.newAnimation(currentObjects);
 
     }
 
@@ -271,7 +277,7 @@ public class UIControllerPFM extends UIController {
      * @param actionEvent Triggered when zoom_button is pressed
      */
     public void zoom(ActionEvent actionEvent) {
-        gesturePaneHandler.zoom();
+        gesturePaneHandler.zoom(currentObjects.getCurrentGesturePane());
     }
 
     /**
@@ -280,7 +286,7 @@ public class UIControllerPFM extends UIController {
      * @param actionEvent Triggered when zoom_button is pressed
      */
     public void unZoom(ActionEvent actionEvent) {
-        gesturePaneHandler.zoom();
+        gesturePaneHandler.un_zoom(currentObjects.getCurrentGesturePane());
     }
 
     @FXML

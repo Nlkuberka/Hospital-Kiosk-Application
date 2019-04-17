@@ -6,6 +6,8 @@ import database.DBController;
 import database.DBControllerNE;
 import entities.Edge;
 import entities.Node;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -14,10 +16,7 @@ import javafx.scene.Cursor;
 import javafx.scene.Group;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.MenuItem;
-import javafx.scene.control.ScrollPane;
-import javafx.scene.control.TabPane;
+import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
@@ -30,6 +29,10 @@ import javafx.scene.shape.Path;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import net.kurobako.gesturefx.GesturePane;
+import pathfinding.AnchorPaneHandler;
+import pathfinding.Floors;
+import pathfinding.GesturePaneHandler;
 
 import java.io.IOException;
 import java.sql.Connection;
@@ -45,16 +48,10 @@ import java.util.List;
 
 public class UIControllerATMV extends UIController {
 
-    public HBox hboxForMap;
     public StackPane parentPane;
     public ImageView backgroundImage;
     public Path path;
     public MenuItem backButton;
-    public ScrollPane scrollPane;
-    public ImageView map_imageView;
-    public AnchorPane scroll_AnchorPane;
-    public Button zoom_button;
-    public Button unzoom_button;
     public TabPane tabs;
     public String previousNodeID;
     public boolean isAddingEdge;
@@ -66,18 +63,17 @@ public class UIControllerATMV extends UIController {
     private ImageView currentImageView;
 
     @FXML
-    private ScrollPane lowerLevel2ScrollPane;
+    private GesturePane lowerLevel2GesturePane;
     @FXML
-    private ScrollPane lowerLevel1ScrollPane;
+    private GesturePane lowerLevel1GesturePane;
     @FXML
-    private ScrollPane groundFloorScrollPane;
+    private GesturePane groundFloorGesturePane;
     @FXML
-    private ScrollPane firstFloorScrollPane;
+    private GesturePane firstFloorGesturePane;
     @FXML
-    private ScrollPane secondFloorScrollPane;
+    private GesturePane secondFloorGesturePane;
     @FXML
-    private ScrollPane thirdFloorScrollPane;
-    private List<ScrollPane> scrollPanes;
+    private GesturePane thirdFloorGesturePane;
 
     @FXML
     private AnchorPane lowerLevel2AnchorPane;
@@ -112,17 +108,31 @@ public class UIControllerATMV extends UIController {
     private double mouseX;
     private double mouseY;
 
+    private int currentFloor = 0;
+
+    private GesturePaneHandler gesturePaneHandler;
+
     @FXML
     public void initialize() {
         setScene();
         initialBindings();
 
+        gesturePaneHandler = new GesturePaneHandler(lowerLevel2GesturePane, lowerLevel1GesturePane, groundFloorGesturePane,
+                firstFloorGesturePane, secondFloorGesturePane, thirdFloorGesturePane);
 
-        // Only show scroll bars if Image inside is bigger than ScrollPane
-        for (ScrollPane sp : scrollPanes) {
-            sp.setHbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
-            sp.setVbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
-        }
+        tabs.getSelectionModel().selectedItemProperty().addListener(
+                new ChangeListener<Tab>() {
+                    @Override
+                    public void changed(ObservableValue<? extends Tab> ov, Tab t, Tab t1) {
+                        GesturePane oldPane = gesturePaneHandler.getGesturePanes().get(currentFloor);
+                        currentFloor = Floors.getByName(t1.getText()).getIndex();
+                        GesturePane pane = gesturePaneHandler.getGesturePanes().get(currentFloor);
+                        pane.centreOn(oldPane.targetPointAtViewportCentre());
+                        gesturePaneHandler.changeTabs(pane, oldPane);
+                    }
+                }
+        );
+
 
         tabs.getSelectionModel().selectedItemProperty().addListener(param -> {
             set();
@@ -207,18 +217,16 @@ public class UIControllerATMV extends UIController {
 
     private void draw() {
         nodesGroup.getChildren().clear();
-        float scaleFx = getScale().get("scaleFx");
-        float scaleFy = getScale().get("scaleFy");
 
         float x;
         float y;
 
         // get all XY pairs and turn them into lines
         for (Node tempNode : currentFloorNodes) {
-            x = (float) tempNode.getXcoord() * scaleFx;
-            y = (float) tempNode.getYcoord() * scaleFy;
+            x = (float) tempNode.getXcoord();
+            y = (float) tempNode.getYcoord();
 
-            Circle circle = new Circle(x, y, 7);
+            Circle circle = new Circle(x, y, AnchorPaneHandler.nodeSizeIdle);
             circle.setId(tempNode.getNodeID());
 
             circle.setOnMousePressed(new EventHandler<MouseEvent>() {
@@ -262,8 +270,8 @@ public class UIControllerATMV extends UIController {
             circle.setOnMouseReleased(new EventHandler<MouseEvent>() {
                 @Override
                 public void handle(MouseEvent mouseEvent) {
-                    tempNode.setXcoord(tempNode.getXcoord() + (int) Math.round(circle.getLayoutX() / scaleFx));
-                    tempNode.setYcoord(tempNode.getYcoord() + (int) Math.round(circle.getLayoutY() / scaleFy));
+                    tempNode.setXcoord(tempNode.getXcoord() + (int) Math.round(circle.getLayoutX()));
+                    tempNode.setYcoord(tempNode.getYcoord() + (int) Math.round(circle.getLayoutY()));
                     Connection conn = DBController.dbConnect();
                     DBControllerNE.updateNode(tempNode, conn);
                     DBController.closeConnection(conn);
@@ -289,18 +297,16 @@ public class UIControllerATMV extends UIController {
 
     private void drawEdges() {
         edgesGroup.getChildren().clear();
-        float scaleFx = getScale().get("scaleFx");
-        float scaleFy = getScale().get("scaleFy");
 
         for (Edge e : currentFloorEdges) {
             Node tempNode1 = getNodeFromID(e.getNode1ID());
             Node tempNode2 = getNodeFromID(e.getNode2ID());
-            float Node1x = (float) tempNode1.getXcoord() * scaleFx;
-            float Node1y = (float) tempNode1.getYcoord() * scaleFy;
-            float Node2x = (float) tempNode2.getXcoord() * scaleFx;
-            float Node2y = (float) tempNode2.getYcoord() * scaleFy;
+            float Node1x = (float) tempNode1.getXcoord();
+            float Node1y = (float) tempNode1.getYcoord();
+            float Node2x = (float) tempNode2.getXcoord();
+            float Node2y = (float) tempNode2.getYcoord();
             Line tempLine = new Line(Node1x, Node1y, Node2x, Node2y);
-            tempLine.setStrokeWidth(3);
+            tempLine.setStrokeWidth(10);
             edgesGroup.getChildren().add(tempLine);
         }
     }
@@ -323,14 +329,6 @@ public class UIControllerATMV extends UIController {
     private void setScene() {
         //scroll_AnchorPane.getChildren().add(nodesGroup);
         //scroll_AnchorPane.getChildren().add(edgesGroup);
-
-        scrollPanes = new LinkedList<>();
-        scrollPanes.add(lowerLevel2ScrollPane);
-        scrollPanes.add(lowerLevel1ScrollPane);
-        scrollPanes.add(groundFloorScrollPane);
-        scrollPanes.add(firstFloorScrollPane);
-        scrollPanes.add(secondFloorScrollPane);
-        scrollPanes.add(thirdFloorScrollPane);
 
         anchorPanes = new LinkedList<>();
         anchorPanes.add(lowerLevel2AnchorPane);
@@ -380,12 +378,7 @@ public class UIControllerATMV extends UIController {
      * @param actionEvent Triggered when zoom_button is pressed
      */
     public void zoom(ActionEvent actionEvent) {
-        if (groundFloorAnchorPane.getPrefWidth() < groundFloorAnchorPane.getMaxWidth()) {
-            for (AnchorPane ap : anchorPanes) {
-                ap.setPrefSize(ap.getPrefWidth() * zoomFactor, ap.getPrefHeight() * zoomFactor);
-            }
-        }
-        draw();
+        gesturePaneHandler.zoom(gesturePaneHandler.getGesturePanes().get(currentFloor));
     }
 
     /**
@@ -394,12 +387,7 @@ public class UIControllerATMV extends UIController {
      * @param actionEvent Triggered when zoom_button is pressed
      */
     public void unZoom(ActionEvent actionEvent) {
-        if (groundFloorAnchorPane.getPrefWidth() > groundFloorAnchorPane.getMinWidth()) {
-            for (AnchorPane ap : anchorPanes) {
-                ap.setPrefSize(ap.getPrefWidth() / zoomFactor, ap.getPrefHeight() / zoomFactor);
-            }
-        }
-        draw();
+        gesturePaneHandler.un_zoom(gesturePaneHandler.getGesturePanes().get(currentFloor));
     }
 
     private void set() {
