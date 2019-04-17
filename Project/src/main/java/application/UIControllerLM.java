@@ -13,6 +13,7 @@ import javafx.scene.control.Tab;
 import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.BorderPane;
 
 import java.sql.Connection;
 
@@ -68,6 +69,16 @@ public class UIControllerLM extends UIController {
     @FXML
     private JFXPasswordField adminPasswordTextField;
 
+    @FXML
+    private BorderPane borderPane;
+
+    @FXML
+    private JFXButton cancelButton;
+
+    @FXML
+    private JFXButton cancelButton1;
+
+
     public UIControllerLM() {
 
     }
@@ -81,8 +92,9 @@ public class UIControllerLM extends UIController {
             setDefaultButton();
         });
         backgroundImage.fitWidthProperty().bind(primaryStage.widthProperty());
-        tabs.setPrefHeight(primaryStage.getHeight());
+        borderPane.setPrefHeight(primaryStage.getHeight());
         tabs.setPrefWidth(primaryStage.getWidth());
+        tabs.setPrefHeight(primaryStage.getHeight());
     }
 
     /**
@@ -133,6 +145,11 @@ public class UIControllerLM extends UIController {
     @FXML
     private void goToUserTab() {
         login_tabpane.getSelectionModel().select(user_tab);
+    }
+
+    @FXML
+    private void setCancelButton() {
+        this.goToScene(UIController.PATHFINDING_MAIN);
     }
 
     private User checkLogin(String username, String password, int permissions) {

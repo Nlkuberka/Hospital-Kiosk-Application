@@ -4,13 +4,14 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
-public class AStarGraph extends Graph {
+public class AStarGraph extends SearchGraph {
     private List<Double> totalPathDistance;
     private List<Integer> priorityQueue;
     private boolean finishedSearch;
+    private Node targetNode;
 
-    public AStarGraph(LinkedList<Node> storedNodes) {
-        super(storedNodes);
+    protected AStarGraph() {
+        super();
     }
 
     /**
@@ -18,22 +19,24 @@ public class AStarGraph extends Graph {
      */
     @Override
     protected void initialize() {
-        totalPathDistance = new ArrayList<>(storedNodes.size());
-        for(int i = 0; i < storedNodes.size(); i++) {
+        totalPathDistance = new ArrayList<>(nodeIDs.size());
+        for(int i = 0; i < nodeIDs.size(); i++) {
             totalPathDistance.add(Double.MAX_VALUE);
         }
         priorityQueue = new LinkedList<>();
         finishedSearch = false;
+        targetNode = null;
     }
 
     /**
      * Adds a node to a set of nodes that need to be relaxed.
-     *
      * @param node the node to be added
+     * @param distanceFromStart the distances of the shortest known paths from start to each node in the graph
+     * @param targetIndex the index in adj of the target node
      */
     @Override
-    protected void addNodeToRelax(int node, double distanceFromStart, int targetIndex) {
-        totalPathDistance.set(node, distanceFromStart + getDistanceToTarget(node, targetIndex));
+    protected void addNodeToRelax(int node, double[] distanceFromStart, int targetIndex) {
+        totalPathDistance.set(node, distanceFromStart[node] + getDistanceToTarget(node, targetIndex));
         int index = 0;
         for (int queuedNode : priorityQueue) {
             if (totalPathDistance.get(node) < totalPathDistance.get(queuedNode)) {
@@ -49,11 +52,11 @@ public class AStarGraph extends Graph {
 
     /**
      * Removes a node from a set of nodes that need to be relaxed, and returns it.
-     *
+     * @param targetIndex the index in adj of the target node
      * @return the node to be relaxed
      */
     @Override
-    protected int getNodeToRelax() {
+    protected int getNodeToRelax(int targetIndex) {
         return priorityQueue.remove(0);
     }
 
@@ -74,8 +77,10 @@ public class AStarGraph extends Graph {
      * @return the estimated distance between these nodes
      */
     private double getDistanceToTarget(int nodeIndex, int targetIndex) {
-        Node startNode = storedNodes.get(nodeIndex);
-        Node targetNode = storedNodes.get(targetIndex);
+        Node startNode = mapIndexToNode(nodeIndex);
+        if(targetNode == null) {
+            targetNode = mapIndexToNode(targetIndex);
+        }
         double xDifference = startNode.getXcoord() - targetNode.getXcoord();
         double yDifference = startNode.getYcoord() - targetNode.getYcoord();
         return Math.sqrt(xDifference * xDifference + yDifference * yDifference);

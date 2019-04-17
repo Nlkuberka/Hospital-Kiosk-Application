@@ -1,5 +1,6 @@
 package database;
 
+import application.UIController;
 import entities.Edge;
 import entities.Node;
 
@@ -24,12 +25,20 @@ public class DBControllerNE extends DBController{
     public static final String ALL_NODES_FLOOR_3 = "SELECT * FROM NODES WHERE FLOOR = '3'";
 
     public static final String ALL_ROOMS = "SELECT * FROM NODES WHERE NODETYPE != 'HALL' and NODETYPE != 'STAI' and NODETYPE != 'ELEV'";
-    public static final String ALL_ROOMS_FLOOR_L2 = "SELECT * FROM NODES WHERE FLOOR = 'L2', NODETYPE != 'HALL' and NODETYPE != 'STAI' and NODETYPE != 'ELEV'";
-    public static final String ALL_ROOMS_FLOOR_L1 = "SELECT * FROM NODES WHERE FLOOR = 'L1',NODETYPE != 'HALL' and NODETYPE != 'STAI' and NODETYPE != 'ELEV'";
-    public static final String ALL_ROOMS_FLOOR_G = "SELECT * FROM NODES WHERE FLOOR = 'G', NODETYPE != 'HALL' and NODETYPE != 'STAI' and NODETYPE != 'ELEV'";
-    public static final String ALL_ROOMS_FLOOR_1 = "SELECT * FROM NODES WHERE FLOOR = '1', NODETYPE != 'HALL' and NODETYPE != 'STAI' and NODETYPE != 'ELEV'";
-    public static final String ALL_ROOMS_FLOOR_2 = "SELECT * FROM NODES WHERE FLOOR = '2', NODETYPE != 'HALL' and NODETYPE != 'STAI' and NODETYPE != 'ELEV'";
-    public static final String ALL_ROOMS_FLOOR_3 = "SELECT * FROM NODES WHERE FLOOR = '3', NODETYPE != 'HALL' and NODETYPE != 'STAI' and NODETYPE != 'ELEV'";
+    public static final String ALL_ROOMS_FLOOR_L2 = "SELECT * FROM NODES WHERE FLOOR = 'L2' AND NODETYPE != 'HALL' and NODETYPE != 'STAI' and NODETYPE != 'ELEV'";
+    public static final String ALL_ROOMS_FLOOR_L1 = "SELECT * FROM NODES WHERE FLOOR = 'L1' AND NODETYPE != 'HALL' and NODETYPE != 'STAI' and NODETYPE != 'ELEV'";
+    public static final String ALL_ROOMS_FLOOR_G = "SELECT * FROM NODES WHERE FLOOR = 'G' AND NODETYPE != 'HALL' and NODETYPE != 'STAI' and NODETYPE != 'ELEV'";
+    public static final String ALL_ROOMS_FLOOR_1 = "SELECT * FROM NODES WHERE FLOOR = '1' AND NODETYPE != 'HALL' and NODETYPE != 'STAI' and NODETYPE != 'ELEV'";
+    public static final String ALL_ROOMS_FLOOR_2 = "SELECT * FROM NODES WHERE FLOOR = '2' AND NODETYPE != 'HALL' and NODETYPE != 'STAI' and NODETYPE != 'ELEV'";
+    public static final String ALL_ROOMS_FLOOR_3 = "SELECT * FROM NODES WHERE FLOOR = '3' AND NODETYPE != 'HALL' and NODETYPE != 'STAI' and NODETYPE != 'ELEV'";
+
+    public static final String ALL_BUT_ROOMS_L2 = "SELECT * FROM NODES WHERE FLOOR = 'L2' AND (NODETYPE = 'STAI' OR NODETYPE = 'ELEV')";
+    public static final String ALL_BUT_ROOMS_L1 = "SELECT * FROM NODES WHERE FLOOR = 'L1' AND (NODETYPE = 'STAI' OR NODETYPE = 'ELEV')";
+    public static final String ALL_BUT_ROOMS_G = "SELECT * FROM NODES WHERE FLOOR = 'G' AND (NODETYPE = 'STAI' OR NODETYPE = 'ELEV')";
+    public static final String ALL_BUT_ROOMS_1 = "SELECT * FROM NODES WHERE FLOOR = '1' AND (NODETYPE = 'STAI' OR NODETYPE = 'ELEV')";
+    public static final String ALL_BUT_ROOMS_2 = "SELECT * FROM NODES WHERE FLOOR = '2' AND (NODETYPE = 'STAI' OR NODETYPE = 'ELEV')";
+    public static final String ALL_BUT_ROOMS_3 = "SELECT * FROM NODES WHERE FLOOR = '3' AND (NODETYPE = 'STAI' OR NODETYPE = 'ELEV')";
+
 
     public static final String ALL_BATHROOMS = "SELECT * FROM NODES WHERE NODETYPE = 'BATH'";
     public static final String ALL_EXITS = "SELECT * FROM NODES WHERE NODETYPE = 'EXIT";
@@ -39,26 +48,26 @@ public class DBControllerNE extends DBController{
     public static final String ALL_INFOROMATION_DESKS = "SELECT * FROM NODES WHERE NODETYPE = 'INFO'";
     public static final String ALL_LABS = "SELECT * FROM NODES WHERE NODETYPE = 'LABS'";
 
-    public static final String ALL_HALLS_FLOOR_L2 = "SELECT * FROM NODES WHERE FLOOR = 'L2', NODETYPE = 'HALL'";
-    public static final String ALL_HALLS_FLOOR_L1 = "SELECT * FROM NODES WHERE FLOOR = 'L1', NODETYPE = 'HALL'";
-    public static final String ALL_HALLS_FLOOR_G = "SELECT * FROM NODES WHERE FLOOR = 'G', NODETYPE = 'HALL'";
-    public static final String ALL_HALLS_FLOOR_1 = "SELECT * FROM NODES WHERE FLOOR = '1', NODETYPE = 'HALL'";
-    public static final String ALL_HALLS_FLOOR_2 = "SELECT * FROM NODES WHERE FLOOR = '2', NODETYPE = 'HALL'";
-    public static final String ALL_HALLS_FLOOR_3 = "SELECT * FROM NODES WHERE FLOOR = '3', NODETYPE = 'HALL'";
+    public static final String ALL_HALLS_FLOOR_L2 = "SELECT * FROM NODES WHERE FLOOR = 'L2' AND NODETYPE = 'HALL'";
+    public static final String ALL_HALLS_FLOOR_L1 = "SELECT * FROM NODES WHERE FLOOR = 'L1' AND NODETYPE = 'HALL'";
+    public static final String ALL_HALLS_FLOOR_G = "SELECT * FROM NODES WHERE FLOOR = 'G' AND NODETYPE = 'HALL'";
+    public static final String ALL_HALLS_FLOOR_1 = "SELECT * FROM NODES WHERE FLOOR = '1' AND NODETYPE = 'HALL'";
+    public static final String ALL_HALLS_FLOOR_2 = "SELECT * FROM NODES WHERE FLOOR = '2' AND NODETYPE = 'HALL'";
+    public static final String ALL_HALLS_FLOOR_3 = "SELECT * FROM NODES WHERE FLOOR = '3' AND NODETYPE = 'HALL'";
 
-    public static final String ALL_DEPARTMENT_ROOMS_FLOOR_L2 = "SELECT * FROM NODES WHERE FLOOR = 'L2', NODETYPE = 'DEPT'";
-    public static final String ALL_DEPARTMENT_ROOMS_FLOOR_L1 = "SELECT * FROM NODES WHERE FLOOR = 'L1', NODETYPE = 'DEPT'";
-    public static final String ALL_DEPARTMENT_ROOMS_FLOOR_G = "SELECT * FROM NODES WHERE FLOOR = 'G', NODETYPE = 'DEPT'";
-    public static final String ALL_DEPARTMENT_ROOMS_FLOOR_1 = "SELECT * FROM NODES WHERE FLOOR = '1', NODETYPE = 'DEPT'";
-    public static final String ALL_DEPARTMENT_ROOMS_FLOOR_2 = "SELECT * FROM NODES WHERE FLOOR = '2', NODETYPE = 'DEPT'";
-    public static final String ALL_DEPARTMENT_ROOMS_FLOOR_3 = "SELECT * FROM NODES WHERE FLOOR = '3', NODETYPE = 'DEPT'";
+    public static final String ALL_DEPARTMENT_ROOMS_FLOOR_L2 = "SELECT * FROM NODES WHERE FLOOR = 'L2' AND NODETYPE = 'DEPT'";
+    public static final String ALL_DEPARTMENT_ROOMS_FLOOR_L1 = "SELECT * FROM NODES WHERE FLOOR = 'L1' AND NODETYPE = 'DEPT'";
+    public static final String ALL_DEPARTMENT_ROOMS_FLOOR_G = "SELECT * FROM NODES WHERE FLOOR = 'G' AND NODETYPE = 'DEPT'";
+    public static final String ALL_DEPARTMENT_ROOMS_FLOOR_1 = "SELECT * FROM NODES WHERE FLOOR = '1' AND NODETYPE = 'DEPT'";
+    public static final String ALL_DEPARTMENT_ROOMS_FLOOR_2 = "SELECT * FROM NODES WHERE FLOOR = '2' AND NODETYPE = 'DEPT'";
+    public static final String ALL_DEPARTMENT_ROOMS_FLOOR_3 = "SELECT * FROM NODES WHERE FLOOR = '3' AND NODETYPE = 'DEPT'";
 
-    public static final String ALL_ELEVATORS_FLOOR_L2 = "SELECT * FROM NODES WHERE FLOOR = 'L2', NODETYPE = 'ELEV'";
-    public static final String ALL_ELEVATORS_FLOOR_L1 = "SELECT * FROM NODES WHERE FLOOR = 'L1', NODETYPE = 'ELEV'";
-    public static final String ALL_ELEVATORS_FLOOR_G = "SELECT * FROM NODES WHERE FLOOR = 'G', NODETYPE = 'ELEV'";
-    public static final String ALL_ELEVATORS_FLOOR_1 = "SELECT * FROM NODES WHERE FLOOR = '1', NODETYPE = 'ELEV'";
-    public static final String ALL_ELEVATORS_FLOOR_2 = "SELECT * FROM NODES WHERE FLOOR = '2', NODETYPE = 'ELEV'";
-    public static final String ALL_ELEVATORS_FLOOR_3 = "SELECT * FROM NODES WHERE FLOOR = '3', NODETYPE = 'ELEV'";
+    public static final String ALL_ELEVATORS_FLOOR_L2 = "SELECT * FROM NODES WHERE FLOOR = 'L2' AND NODETYPE = 'ELEV'";
+    public static final String ALL_ELEVATORS_FLOOR_L1 = "SELECT * FROM NODES WHERE FLOOR = 'L1' AND NODETYPE = 'ELEV'";
+    public static final String ALL_ELEVATORS_FLOOR_G = "SELECT * FROM NODES WHERE FLOOR = 'G' AND NODETYPE = 'ELEV'";
+    public static final String ALL_ELEVATORS_FLOOR_1 = "SELECT * FROM NODES WHERE FLOOR = '1' AND NODETYPE = 'ELEV'";
+    public static final String ALL_ELEVATORS_FLOOR_2 = "SELECT * FROM NODES WHERE FLOOR = '2' AND NODETYPE = 'ELEV'";
+    public static final String ALL_ELEVATORS_FLOOR_3 = "SELECT * FROM NODES WHERE FLOOR = '3' AND NODETYPE = 'ELEV'";
 
     /**
      * loadNodeData
@@ -154,8 +163,8 @@ public class DBControllerNE extends DBController{
             ps.setString(5,node.getNodeType());
             ps.setString(6,node.getLongName());
             ps.setString(7,node.getShortName());
-            ps.setString(6,node.getNodeID());
-
+            ps.setString(8,node.getNodeID());
+            ps.execute();
         }catch(SQLException e){
             e.printStackTrace();
         }
@@ -250,16 +259,19 @@ public class DBControllerNE extends DBController{
     /**
      * deleteEdge
      *
-     * deletes edge of given id from the database
+     * deletes edge between given nodes from the database
      *
-     * @param ID
+     * @param nodeID1
+     * @param nodeID2
      * @param connection
      */
-    public static void deleteEdge(String ID, Connection connection){
+    public static void deleteEdge(String nodeID1, String nodeID2, Connection connection){
         try {
-            PreparedStatement ps = connection.prepareStatement("DELETE from EDGES where EDGEID = ?");
-            ps.setString(1,ID);
-            ps.execute();
+            String edgeID1 = nodeID1 + "_" + nodeID2;
+            String edgeID2 = nodeID2 + "_" + nodeID1;
+            Statement s = connection.createStatement();
+            s.execute("DELETE from EDGES where EDGEID = '" + edgeID1 +
+                    "' OR EDGEID = '" + edgeID2 + "'");
         }catch(SQLException e){
             e.printStackTrace();
         }
@@ -271,12 +283,17 @@ public class DBControllerNE extends DBController{
      * lets user introduce a single node to the DB
      * @param node new node object
      */
-    public static void addNode(Node node, Connection connection){
+    public static boolean addNode(Node node, Connection connection){
         try{
             Statement s = connection.createStatement();
-            nodeInsert(s,node);
+            if(nodeInsert(s,node)){
+                return true;
+            }else{
+                return false;
+            }
         }catch(SQLException e){
             e.printStackTrace();
+            return false;
         }
     }
 
@@ -288,10 +305,14 @@ public class DBControllerNE extends DBController{
      */
     public static void addEdge(Edge edge, Connection connection){
         try{
+            System.out.println(edge.getNode1ID());
+            System.out.println(edge.getNode2ID());
             //connection = DriverManager.getConnection("jdbc:derby:myDB");
             Statement s = connection.createStatement();
-            s.execute("INSERT into EDGES values ('" + edge.getNode2ID() +"_" + edge.getNode1ID() +
-                    "','"+ edge.getNode1ID() +"','"+ edge.getNode2ID() + "')");
+            s.execute("INSERT into EDGES values ('" + edge.getNode2ID() + "_" + edge.getNode1ID() +
+                        "','" + edge.getNode1ID() + "','" + edge.getNode2ID() + "')");
+            s.execute("INSERT into EDGES values ('" + edge.getNode1ID() + "_" + edge.getNode2ID() +
+                    "','" + edge.getNode2ID() + "','" + edge.getNode1ID() + "')");
             //connection.close();
         }catch(SQLException e){
             e.printStackTrace();
@@ -348,7 +369,7 @@ public class DBControllerNE extends DBController{
      * @param s existing statement
      * @param node new node object
      */
-    public static void nodeInsert(Statement s, Node node){
+    public static boolean nodeInsert(Statement s, Node node){
         try {
             s.execute("insert into NODES values ('"+node.getNodeID()+"',"+
                     node.getXcoord()+","
@@ -359,8 +380,12 @@ public class DBControllerNE extends DBController{
                     " '" + node.getLongName() + "'," +
                     " '" + node.getShortName() + "')");
         }catch(SQLException e){
-            e.printStackTrace();
+            UIController ui = new UIController();
+            ui.popupMessage("Duplicate NodeID", true);
+            return false;
+            //e.printStackTrace();
         }
+        return true;
     }
 
 

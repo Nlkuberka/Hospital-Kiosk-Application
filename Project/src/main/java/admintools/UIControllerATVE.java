@@ -100,7 +100,7 @@ public class UIControllerATVE extends UIController {
                         System.out.println(edge);
                             Connection conn = DBController.dbConnect();
                             if (index == 0) {
-                                DBControllerNE.deleteEdge(label.getText(), conn);
+                                DBControllerNE.deleteEdge(edge.getNode1ID(), edge.getNode2ID(), conn);
                             }
                             DBControllerNE.addEdge(edge,conn);
                             DBController.closeConnection(conn);
@@ -129,7 +129,7 @@ public class UIControllerATVE extends UIController {
                 setGraphic(removeButton);
                 removeButton.setOnAction( e -> {
                         Connection conn = DBController.dbConnect();
-                        DBControllerNE.deleteEdge(edge.getEdgeID(),conn);
+                        DBControllerNE.deleteEdge(edge.getNode1ID(),edge.getNode2ID(),conn);
                         DBController.closeConnection(conn);
                         getTableView().getItems().remove(edge);
                     }

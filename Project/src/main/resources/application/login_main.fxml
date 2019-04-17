@@ -4,12 +4,15 @@
 <?import com.jfoenix.controls.JFXPasswordField?>
 <?import com.jfoenix.controls.JFXTabPane?>
 <?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.effect.Blend?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.FlowPane?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.StackPane?>
@@ -18,115 +21,149 @@
 
 <StackPane minHeight="720.0" minWidth="1280.0" style="-fx-background-color: #ffffff;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.UIControllerLM">
    <children>
-      <ImageView fx:id="backgroundImage" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="backgroundImage" pickOnBounds="true" preserveRatio="true" StackPane.alignment="BOTTOM_CENTER">
          <image>
             <Image url="@../images/MainMenu.png" />
          </image>
       </ImageView>
-      <BorderPane prefHeight="35.0">
+      <BorderPane fx:id="borderPane" minHeight="690.0" StackPane.alignment="BOTTOM_CENTER">
          <effect>
             <Blend />
          </effect>
          <top>
-            <JFXTabPane fx:id="tabs" stylesheets="@../css/background.css" BorderPane.alignment="CENTER">
+            <JFXTabPane fx:id="tabs" minHeight="690.0" style="-fx-text-fill: #090a0f;" stylesheets="@../css/background.css" BorderPane.alignment="CENTER">
                <tabs>
-                  <Tab fx:id="user_tab" style="-fx-text-fill: #090a0f;" text="User">
+                  <Tab fx:id="user_tab" text="User">
                      <content>
-                        <GridPane>
-                           <columnConstraints>
-                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
-                           </columnConstraints>
-                           <rowConstraints>
-                              <RowConstraints minHeight="10.0" percentHeight="10" vgrow="ALWAYS" />
-                              <RowConstraints minHeight="10.0" percentHeight="10" vgrow="SOMETIMES" />
-                              <RowConstraints minHeight="10.0" percentHeight="10" vgrow="SOMETIMES" />
-                              <RowConstraints minHeight="10.0" percentHeight="10" vgrow="SOMETIMES" />
-                              <RowConstraints minHeight="10.0" percentHeight="10" vgrow="SOMETIMES" />
-                              <RowConstraints minHeight="10.0" percentHeight="10" vgrow="SOMETIMES" />
-                              <RowConstraints minHeight="10.0" percentHeight="10" vgrow="SOMETIMES" />
-                              <RowConstraints minHeight="10.0" percentHeight="10" vgrow="SOMETIMES" />
-                              <RowConstraints vgrow="ALWAYS" />
-                           </rowConstraints>
+                        <GridPane alignment="CENTER" prefHeight="690.0" prefWidth="1280.0">
+                          <columnConstraints>
+                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                          </columnConstraints>
+                          <rowConstraints>
+                              <RowConstraints minHeight="10.0" prefHeight="10.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                            <RowConstraints minHeight="10.0" prefHeight="10.0" vgrow="SOMETIMES" />
+                            <RowConstraints minHeight="10.0" prefHeight="10.0" vgrow="SOMETIMES" />
+                          </rowConstraints>
                            <children>
-                              <JFXTextField fx:id="userUsernameTextField" opacity="0.8" prefHeight="35.0" prefWidth="200.0" promptText="Username" style="-fx-background-color: #ffffff;" stylesheets="/css/controlsGridpane.css" GridPane.halignment="CENTER" GridPane.rowIndex="4" />
-                              <JFXPasswordField fx:id="userPasswordTextField" opacity="0.8" prefHeight="35.0" prefWidth="200.0" promptText="Password" style="-fx-background-color: #ffffff;" stylesheets="/css/controlsGridpane.css" GridPane.halignment="CENTER" GridPane.rowIndex="6" />
-                              <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="User's Username" GridPane.halignment="CENTER" GridPane.rowIndex="3">
-                                 <font>
-                                    <Font size="25.0" />
-                                 </font>
-                              </Text>
-                              <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Password" GridPane.halignment="CENTER" GridPane.rowIndex="5">
-                                 <font>
-                                    <Font size="25.0" />
-                                 </font>
-                              </Text>
-                              <Text fill="#090a0f" strokeType="OUTSIDE" strokeWidth="0.0" text="Hi, User" GridPane.halignment="CENTER" GridPane.rowIndex="1">
+                              <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="1">
+                                 <image>
+                                    <Image url="@../pictures/BWH.JPG" />
+                                 </image>
+                              </ImageView>
+                              <Text fill="#090a0f" strokeType="OUTSIDE" strokeWidth="0.0" text="Hi, User!" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
                                  <font>
                                     <Font name="System Bold Italic" size="48.0" />
                                  </font>
+                                 <cursor>
+                                    <Cursor fx:constant="DEFAULT" />
+                                 </cursor>
                               </Text>
-                              <JFXButton fx:id="loginAsUserButton" onAction="#setLoginAsUserButton" styleClass="jfx-button-login" stylesheets="@../css/background.css" text="Login" textAlignment="CENTER" textFill="WHITE" GridPane.halignment="CENTER" GridPane.rowIndex="7" />
-                              <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" GridPane.halignment="LEFT">
-                                 <image>
-                                    <Image url="@../images/BWH.JPG" />
-                                 </image>
-                              </ImageView>
+                              <JFXTextField fx:id="userUsernameTextField" opacity="0.8" prefHeight="35.0" prefWidth="300.0" promptText="Username" style="-fx-background-color: #ffffff;" stylesheets="/css/controlsGridpane.css" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="6" GridPane.valignment="CENTER" />
+                              <JFXPasswordField fx:id="userPasswordTextField" opacity="0.8" prefHeight="35.0" prefWidth="300.0" promptText="Password" style="-fx-background-color: #ffffff;" stylesheets="/css/controlsGridpane.css" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="8" GridPane.valignment="CENTER" />
+                              <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Password" GridPane.columnIndex="1" GridPane.rowIndex="7">
+                                 <font>
+                                    <Font size="25.0" />
+                                 </font>
+                              </Text>
+                              <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="User's Username" GridPane.columnIndex="1" GridPane.rowIndex="5">
+                                 <font>
+                                    <Font size="25.0" />
+                                 </font>
+                              </Text>
+                              <FlowPane alignment="CENTER" orientation="VERTICAL" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="9" GridPane.valignment="CENTER">
+                                 <children>
+                                    <JFXButton fx:id="loginAsUserButton" contentDisplay="CENTER" onAction="#setLoginAsUserButton" styleClass="jfx-button-login" stylesheets="@../css/background.css" text="Login" textAlignment="CENTER" textFill="WHITE">
+                                       <font>
+                                          <Font name="System Bold" size="15.0" />
+                                       </font>
+                                    </JFXButton>
+                                 </children>
+                                 <opaqueInsets>
+                                    <Insets bottom="5.0" />
+                                 </opaqueInsets>
+                              </FlowPane>
+                              <JFXButton fx:id="cancelButton" alignment="BASELINE_RIGHT" cancelButton="true" contentDisplay="CENTER" onAction="#setCancelButton" stylesheets="@../css/background.css" text="Go Back to Path Finding" textAlignment="CENTER" textFill="WHITE" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="10" GridPane.valignment="TOP">
+                                 <font>
+                                    <Font name="System Bold" size="12.0" />
+                                 </font>
+                              </JFXButton>
                            </children>
                         </GridPane>
                      </content>
                   </Tab>
                   <Tab fx:id="admin_tab" text="Administrator">
-                    <content>
-                        <GridPane>
+                     <content>
+                        <GridPane alignment="CENTER">
                            <columnConstraints>
-                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
+                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                            </columnConstraints>
                            <rowConstraints>
-                              <RowConstraints minHeight="10.0" percentHeight="10" vgrow="ALWAYS" />
-                              <RowConstraints minHeight="10.0" percentHeight="10" vgrow="SOMETIMES" />
-                              <RowConstraints minHeight="10.0" percentHeight="10" vgrow="SOMETIMES" />
-                              <RowConstraints minHeight="10.0" percentHeight="10" vgrow="SOMETIMES" />
-                              <RowConstraints minHeight="10.0" percentHeight="10" vgrow="SOMETIMES" />
-                              <RowConstraints minHeight="10.0" percentHeight="10" vgrow="SOMETIMES" />
-                              <RowConstraints minHeight="10.0" percentHeight="10" vgrow="SOMETIMES" />
-                              <RowConstraints minHeight="10.0" percentHeight="10" vgrow="SOMETIMES" />
-                              <RowConstraints vgrow="ALWAYS" />
+                              <RowConstraints minHeight="10.0" prefHeight="10.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="10.0" prefHeight="10.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="10.0" prefHeight="10.0" vgrow="SOMETIMES" />
                            </rowConstraints>
                            <children>
-                              <JFXTextField fx:id="adminUsernameTextField" opacity="0.8" prefHeight="35.0" prefWidth="200.0" promptText="Username" style="-fx-background-color: #ffffff;" stylesheets="/css/controlsGridpane.css" GridPane.halignment="CENTER" GridPane.rowIndex="4" />
-                              <JFXPasswordField fx:id="adminPasswordTextField" opacity="0.8" prefHeight="35.0" prefWidth="200.0" promptText="Password" style="-fx-background-color: #ffffff;" stylesheets="/css/controlsGridpane.css" GridPane.halignment="CENTER" GridPane.rowIndex="6" />
-                              <JFXButton fx:id="loginAsAdminButton" onAction="#setLoginAsAdminButton" styleClass="jfx-button-login" stylesheets="@../css/background.css" text="Login" textAlignment="CENTER" textFill="WHITE" GridPane.halignment="CENTER" GridPane.rowIndex="7">
+                              <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="1">
+                                 <image>
+                                    <Image url="@../pictures/BWH.JPG" />
+                                 </image>
+                              </ImageView>
+                              <Text fill="#090a0f" strokeType="OUTSIDE" strokeWidth="0.0" text="Hi, Administrator!" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
+                                 <font>
+                                    <Font name="System Bold Italic" size="48.0" />
+                                 </font>
+                                 <cursor>
+                                    <Cursor fx:constant="DEFAULT" />
+                                 </cursor>
+                              </Text>
+                              <JFXTextField fx:id="adminUsernameTextField" opacity="0.8" prefHeight="35.0" prefWidth="300.0" promptText="Username" style="-fx-background-color: #ffffff;" stylesheets="/css/controlsGridpane.css" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="6" GridPane.valignment="CENTER" />
+                              <JFXPasswordField fx:id="adminPasswordTextField" opacity="0.8" prefHeight="35.0" prefWidth="300.0" promptText="Password" style="-fx-background-color: #ffffff;" stylesheets="/css/controlsGridpane.css" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="8" GridPane.valignment="CENTER" />
+                              <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Password" GridPane.columnIndex="1" GridPane.rowIndex="7">
+                                 <font>
+                                    <Font size="25.0" />
+                                 </font>
+                              </Text>
+                              <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Administrator's Username" GridPane.columnIndex="1" GridPane.rowIndex="5">
+                                 <font>
+                                    <Font size="25.0" />
+                                 </font>
+                              </Text>
+                              <JFXButton fx:id="loginAsAdminButton" onAction="#setLoginAsAdminButton" styleClass="jfx-button-login" stylesheets="@../css/background.css" text="Login" textAlignment="CENTER" textFill="WHITE" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="9" GridPane.valignment="CENTER">
                                  <font>
                                     <Font name="System Bold" size="15.0" />
                                  </font>
                               </JFXButton>
-                              <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Administrator's Username" GridPane.halignment="CENTER" GridPane.rowIndex="3">
-                                 <font>
-                                    <Font size="25.0" />
-                                 </font>
-                              </Text>
-                              <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Password" GridPane.halignment="CENTER" GridPane.rowIndex="5">
-                                 <font>
-                                    <Font size="25.0" />
-                                 </font>
-                              </Text>
-                              <Text fill="#090a0f" strokeType="OUTSIDE" strokeWidth="0.0" text="Hi, Administrator" GridPane.halignment="CENTER" GridPane.rowIndex="1">
-                                 <font>
-                                    <Font name="System Bold Italic" size="48.0" />
-                                 </font>
-                              </Text>
-                              <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" GridPane.halignment="LEFT">
-                                 <image>
-                                    <Image url="@../images/BWH.JPG" />
-                                 </image>
-                              </ImageView>
+                              <JFXButton fx:id="cancelButton1" cancelButton="true" contentDisplay="CENTER" onAction="#setCancelButton" style="-fx-font-weight: bold;" stylesheets="@../css/background.css" text="Go Back to Path Finding" textFill="WHITE" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="10" GridPane.valignment="TOP" />
                            </children>
                         </GridPane>
-                    </content>
+                     </content>
                   </Tab>
                </tabs>
             </JFXTabPane>
          </top>
+         <StackPane.margin>
+            <Insets />
+         </StackPane.margin>
       </BorderPane>
    </children>
 </StackPane>

@@ -3,11 +3,11 @@ package entities;
 import java.util.LinkedList;
 import java.util.Queue;
 
-public class BFSGraph extends Graph {
+public class BFSGraph extends SearchGraph {
     private Queue<Integer> queue;
 
-    public BFSGraph(LinkedList<Node> storedNodes) {
-        super(storedNodes);
+    protected BFSGraph() {
+        super();
     }
 
     /**
@@ -18,14 +18,17 @@ public class BFSGraph extends Graph {
         queue = new LinkedList<>();
     }
 
-    protected void addNodeToRelax(int node, double distanceFromStart, int targetIndex) {
+    @Override
+    protected void addNodeToRelax(int node, double[] distanceFromStart, int targetIndex) {
         queue.add(node);
     }
 
-    protected int getNodeToRelax() {
+    @Override
+    protected int getNodeToRelax(int  targetIndex) {
         return queue.remove();
     }
 
+    @Override
     protected boolean finishedSearch() {
         return queue.size() == 0;
     }

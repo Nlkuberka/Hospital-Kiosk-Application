@@ -1,9 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXButton?>
-<?import javafx.scene.control.Menu?>
-<?import javafx.scene.control.MenuBar?>
-<?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.BorderPane?>
@@ -21,23 +18,12 @@
             <Image url="@../images/Hospitalbackground.png" />
          </image>
       </ImageView>
-      <BorderPane>
-         <top>
-            <MenuBar blendMode="ADD" prefWidth="900.0" style="-fx-background-color: white;" stylesheets="@../css/background.css" BorderPane.alignment="CENTER">
-              <menus>
-                <Menu mnemonicParsing="false" text="Back">
-                  <items>
-                    <MenuItem fx:id="backMenuItem" mnemonicParsing="false" onAction="#setBackMenuItem" text="Go back to previous page" />
-                  </items>
-                </Menu>
-              </menus>
-            </MenuBar>
-         </top>
-      </BorderPane>
+      <BorderPane />
       <GridPane>
          <columnConstraints>
             <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" />
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="20" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="20.0" prefWidth="100.0" />
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="20" />
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="20" />
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="20" />
@@ -46,11 +32,17 @@
          <rowConstraints>
             <RowConstraints minHeight="10.0" percentHeight="15" vgrow="ALWAYS" />
             <RowConstraints minHeight="10.0" percentHeight="15" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" percentHeight="5.0" prefHeight="30.0" vgrow="SOMETIMES" />
             <RowConstraints minHeight="10.0" percentHeight="30" vgrow="SOMETIMES" />
             <RowConstraints minHeight="10.0" vgrow="ALWAYS" />
          </rowConstraints>
          <children>
-            <JFXButton fx:id="serviceRequestButton" alignment="TOP_CENTER" onAction="#setServiceRequestButton" styleClass="jfx-button-main-menu" stylesheets="@../css/background.css" text="Service Request" GridPane.columnIndex="2" GridPane.rowIndex="2">
+            <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Administrator's Home" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+               <font>
+                  <Font name="System Bold" size="45.0" />
+               </font>
+            </Text>
+            <JFXButton fx:id="serviceRequestButton" alignment="TOP_CENTER" onAction="#setServiceRequestButton" styleClass="jfx-button-main-menu" stylesheets="@../css/background.css" text="Service Request" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="CENTER">
                <font>
                   <Font name="System Bold" size="25.0" />
                </font>
@@ -62,12 +54,7 @@
                   </ImageView>
                </graphic>
             </JFXButton>
-            <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Administrator's Home" GridPane.columnIndex="1" GridPane.columnSpan="4" GridPane.halignment="CENTER" GridPane.rowIndex="1">
-               <font>
-                  <Font name="System Bold" size="40.0" />
-               </font>
-            </Text>
-            <JFXButton fx:id="adminToolsButton" alignment="TOP_CENTER" contentDisplay="BOTTOM" onAction="#setAdminToolsButton" styleClass="jfx-button-admin-main-menu-main" stylesheets="@../css/background.css" text="Administrator Tools" GridPane.columnIndex="3" GridPane.rowIndex="2">
+            <JFXButton fx:id="adminToolsButton" alignment="TOP_CENTER" contentDisplay="BOTTOM" onAction="#setAdminToolsButton" styleClass="jfx-button-admin-main-menu-main" stylesheets="@../css/background.css" text="Administrator Tools" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="CENTER">
                <font>
                   <Font name="System Bold" size="25.0" />
                </font>
@@ -79,7 +66,7 @@
                   </ImageView>
                </graphic>
             </JFXButton>
-            <JFXButton fx:id="reservationsButton" alignment="TOP_CENTER" onAction="#setReservationsButton" styleClass="jfx-button-main-menu" stylesheets="@../css/background.css" text="Reserve a Room" GridPane.columnIndex="4" GridPane.rowIndex="2">
+            <JFXButton fx:id="reservationsButton" alignment="TOP_CENTER" onAction="#setReservationsButton" styleClass="jfx-button-main-menu" stylesheets="@../css/background.css" text="Reserve a Room" GridPane.columnIndex="4" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="CENTER">
                <font>
                   <Font name="System Bold" size="25.0" />
                </font>
@@ -91,18 +78,7 @@
                   </ImageView>
                </graphic>
             </JFXButton>
-            <JFXButton fx:id="pathfindingButton" alignment="TOP_CENTER" onAction="#setPathfindingButton" styleClass="jfx-button-main-menu" stylesheets="@../css/background.css" text="Find Path" GridPane.columnIndex="1" GridPane.rowIndex="2">
-               <font>
-                  <Font name="System Bold" size="25.0" />
-               </font>
-               <graphic>
-                  <ImageView fitHeight="180.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../images/road-map.png" />
-                     </image>
-                  </ImageView>
-               </graphic>
-            </JFXButton>
+            <JFXButton fx:id="pathfindingButton" onAction="#setPathfindingButton" styleClass="jfx-button-login" stylesheets="@../css/background.css" text="Log Out" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="4" />
          </children>
       </GridPane>
    </children>

@@ -48,6 +48,9 @@ public class UIControllerSRIT extends UIController{
     @FXML
     private JFXButton confirmButton; /**< The confirm button*/
 
+    @FXML
+    private JFXButton homeButton;
+
 
     @FXML
     public void initialize() {
@@ -62,6 +65,9 @@ public class UIControllerSRIT extends UIController{
 
     @FXML
     public void onShow() {
+        roomNum.getSelectionModel().clearSelection();
+        serviceRequired.setText("");
+        Notes.setText("");
 
     }
 

@@ -1,6 +1,7 @@
 package servicerequests;
 
 import application.CurrentUser;
+import com.jfoenix.controls.JFXComboBox;
 import database.DBController;
 import application.UIController;
 import com.jfoenix.controls.JFXButton;
@@ -9,6 +10,7 @@ import database.DBControllerNE;
 import database.DBControllerSR;
 import entities.Node;
 import entities.ServiceRequest;
+import helper.RoomCategoryFilterHelper;
 import javafx.fxml.FXML;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextFormatter;
@@ -23,10 +25,10 @@ public class UIControllerSRIN extends UIController {
     @FXML
     private ImageView backgroundImage;
     String serviceType;
-    Map<String, String> nodeIDs; /**< Holds reference between node short name and nodeID*/
+    RoomCategoryFilterHelper filterHelper;
 
     @FXML
-    private ChoiceBox<String> roomSelect;
+    private JFXComboBox<String> roomSelect;
 
     @FXML
     private ChoiceBox<String> languageSelect;
@@ -50,21 +52,10 @@ public class UIControllerSRIN extends UIController {
     @SuppressWarnings("Duplicates")
     @FXML
     public void onShow() {
-        nodeIDs = new HashMap<>();
-
-        // DB Get all Nodes
-        Connection conn = DBControllerNE.dbConnect();
-        System.out.println(conn);
-        List<Node> rooms = DBControllerNE.generateListOfNodes(conn,DBControllerNE.ALL_ROOMS);
-        for(Node room : rooms) {
-            roomSelect.getItems().add(room.getShortName());
-            nodeIDs.put(room.getShortName(), room.getNodeID());
-        }
-        DBControllerNE.closeConnection(conn);
-        roomSelect.getSelectionModel().selectFirst();
+        filterHelper = new RoomCategoryFilterHelper(roomSelect, null, true);
+        roomSelect.getSelectionModel().clearSelection();
         languageSelect.getSelectionModel().selectFirst();
         serviceMessage.setText("");
-
     }
 
     public void setServiceType(String serviceType) {
@@ -75,7 +66,7 @@ public class UIControllerSRIN extends UIController {
     @FXML
     private void setConfirmButton() {
         String roomShortName = roomSelect.getValue();
-        String nodeID = nodeIDs.get(roomShortName);
+        String nodeID = filterHelper.getNodeID();
         String message = "Language: " + languageSelect.getValue() + " Comments: " + serviceMessage.getText();
         message = message.substring(0, Math.min(150, message.length()));
 

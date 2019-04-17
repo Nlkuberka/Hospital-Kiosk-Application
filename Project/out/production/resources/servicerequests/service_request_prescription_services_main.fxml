@@ -3,10 +3,7 @@
 <?import com.jfoenix.controls.JFXButton?>
 <?import com.jfoenix.controls.JFXTextArea?>
 <?import com.jfoenix.controls.JFXTextField?>
-<<<<<<< HEAD
 <?import javafx.geometry.Insets?>
-=======
->>>>>>> iteration3
 <?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
@@ -15,7 +12,6 @@
 <?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
-<<<<<<< HEAD
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
@@ -24,8 +20,8 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-
-<StackPane xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="servicerequests.UIControllerSRPS">
+<?import com.jfoenix.controls.JFXComboBox?>
+<StackPane minHeight="720.0" minWidth="1280.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="servicerequests.UIControllerSRPS">
    <children>
             <ImageView fx:id="backgroundImage" pickOnBounds="true" preserveRatio="true">
                 <image>
@@ -36,7 +32,7 @@
                 <top>
                     <MenuBar blendMode="ADD" prefWidth="600.0" style="-fx-background-color: white;" stylesheets="@../css/background.css" BorderPane.alignment="CENTER">
                         <menus>
-                            <Menu mnemonicParsing="false" onShowing="#setHomeButton" text="Home">
+                            <Menu mnemonicParsing="false" onAction="#setCancelButton" onShowing="#setHomeButton" text="Back">
                      <items>
                         <MenuItem mnemonicParsing="false" text="HOME" />
                      </items>
@@ -52,20 +48,23 @@
                     </MenuBar>
                 </top>
          <right>
-            <ImageView fitHeight="575.0" fitWidth="650.0" pickOnBounds="true" preserveRatio="true" BorderPane.alignment="CENTER">
+            <ImageView fitHeight="623.0" fitWidth="1000.0" pickOnBounds="true" preserveRatio="true" BorderPane.alignment="CENTER">
                <image>
-                  <Image url="@02_thesecondfloor.png" />
+                  <Image url="@../maps/02_thesecondfloor.png" />
                </image>
             </ImageView>
          </right>
          <left>
             <GridPane>
                <columnConstraints>
+                  <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                   <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" />
                </columnConstraints>
                <rowConstraints>
                   <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
                   <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                   <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
                   <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
                   <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
@@ -79,51 +78,51 @@
                   <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
                </rowConstraints>
                <children>
-                  <JFXButton onAction="#setConfirmButton" styleClass="jfx-button_edit" stylesheets="@../css/background.css" text="Confirm" GridPane.rowIndex="11" />
-                  <JFXButton contentDisplay="CENTER" onAction="#setCancelButton" styleClass="jfx-button-cancel" stylesheets="@../css/background.css" text=" " GridPane.rowIndex="12">
+                  <JFXButton onAction="#setConfirmButton" styleClass="jfx-button_edit" stylesheets="@../css/background.css" text="Confirm" GridPane.columnIndex="1" GridPane.rowIndex="11" />
+                  <JFXButton contentDisplay="CENTER" onAction="#setCancelButton" styleClass="jfx-button-cancel" stylesheets="@../css/background.css" text=" " GridPane.columnIndex="1" GridPane.rowIndex="12">
                      <graphic>
                         <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@icon/cancel%20(1).png" />
+                              <Image url="@../icon/cancel2.png" />
                            </image>
                         </ImageView>
                      </graphic>
                   </JFXButton>
-                  <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Perscription Services">
+                  <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Perscription Services" GridPane.columnIndex="1">
                      <font>
                         <Font name="System Bold Italic" size="20.0" />
                      </font>
                   </Text>
-                  <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Jonathan Chang" GridPane.rowIndex="1">
+                  <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Jonathan Chang" GridPane.columnIndex="1" GridPane.rowIndex="1">
                      <font>
                         <Font name="System Bold" size="12.0" />
                      </font>
                   </Text>
-                  <ChoiceBox fx:id="roomSelect" prefWidth="150.0" style="-fx-background-color: #ffffff;" GridPane.rowIndex="3" />
-                  <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Room Select" GridPane.rowIndex="2">
+                  <JFXComboBox fx:id="roomSelect" prefWidth="150.0" style="-fx-background-color: #ffffff;" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                  <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Room Select" GridPane.columnIndex="1" GridPane.rowIndex="2">
                      <font>
                         <Font name="System Bold" size="12.0" />
                      </font>
                   </Text>
-                  <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Patient Name" GridPane.rowIndex="4">
+                  <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Patient Name" GridPane.columnIndex="1" GridPane.rowIndex="4">
                      <font>
                         <Font name="System Bold" size="12.0" />
                      </font>
                   </Text>
-                  <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Perscription " GridPane.rowIndex="6">
+                  <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Perscription " GridPane.columnIndex="1" GridPane.rowIndex="6">
                      <font>
                         <Font name="System Bold" size="12.0" />
                      </font>
                   </Text>
-                  <JFXTextField fx:id="patientNameTextField" prefHeight="25.0" prefWidth="150.0" style="-fx-background-color: #ffffff;" GridPane.rowIndex="5" />
-                  <JFXTextField fx:id="prescriptionTextField" prefHeight="25.0" prefWidth="150.0" style="-fx-background-color: #ffffff;" GridPane.rowIndex="7" />
-                  <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Perscription Length" GridPane.rowIndex="8">
+                  <JFXTextField fx:id="patientNameTextField" prefHeight="25.0" prefWidth="150.0" style="-fx-background-color: #ffffff;" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                  <JFXTextField fx:id="prescriptionTextField" prefHeight="25.0" prefWidth="150.0" style="-fx-background-color: #ffffff;" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+                  <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Perscription Length" GridPane.columnIndex="1" GridPane.rowIndex="8">
                      <font>
                         <Font name="System Bold" size="12.0" />
                      </font>
                   </Text>
-                  <ChoiceBox fx:id="lengthChoiceBox" prefWidth="150.0" style="-fx-background-color: #ffffff;" GridPane.rowIndex="9" />
-                  <JFXTextArea fx:id="serviceMessage" prefHeight="125.0" prefWidth="150.0" style="-fx-background-color: #ffffff;" GridPane.rowIndex="10" />
+                  <ChoiceBox fx:id="lengthChoiceBox" prefWidth="150.0" style="-fx-background-color: #ffffff;" GridPane.columnIndex="1" GridPane.rowIndex="9" />
+                  <JFXTextArea fx:id="serviceMessage" prefHeight="125.0" prefWidth="150.0" style="-fx-background-color: #ffffff;" GridPane.columnIndex="1" GridPane.rowIndex="10" />
                </children>
                <BorderPane.margin>
                   <Insets left="20.0" right="20.0" />
@@ -133,101 +132,3 @@
             </BorderPane>
    </children>
 </StackPane>
-=======
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.BorderPane?>
-<?import javafx.scene.text.Font?>
-<?import javafx.scene.text.Text?>
-
-<AnchorPane prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="servicerequests.UIControllerSRPS">
-    <children>
-          <AnchorPane prefHeight="400.0" prefWidth="600.0" styleClass="body-background" stylesheets="/css/background.css">
-              <children>
-                  <ImageView fitWidth="900.0" pickOnBounds="true" preserveRatio="true">
-                      <image>
-                          <Image url="@../images/Hospitalbackground.png" />
-                      </image>
-                  </ImageView>
-                  <BorderPane prefHeight="600.0" prefWidth="900.0">
-                      <top>
-                          <MenuBar blendMode="ADD" prefWidth="600.0" style="-fx-background-color: white;" stylesheets="@../css/background.css" BorderPane.alignment="CENTER">
-                              <menus>
-                                  <Menu mnemonicParsing="false" onShowing="#setHomeButton" text="Home">
-                           <items>
-                              <MenuItem mnemonicParsing="false" text="HOME" />
-                           </items>
-                        </Menu>
-                              </menus>
-                              <effect>
-                                  <ColorAdjust>
-                                      <input>
-                                          <DropShadow />
-                                      </input>
-                                  </ColorAdjust>
-                              </effect>
-                          </MenuBar>
-                      </top>
-               <right>
-                  <ImageView fitHeight="575.0" fitWidth="650.0" pickOnBounds="true" preserveRatio="true" BorderPane.alignment="CENTER">
-                     <image>
-                        <Image url="@02_thesecondfloor.png" />
-                     </image>
-                  </ImageView>
-               </right>
-               <left>
-                  <AnchorPane prefHeight="575.0" prefWidth="250.0" BorderPane.alignment="CENTER">
-                     <children>
-                        <JFXButton layoutX="86.0" layoutY="472.0" onAction="#setConfirmButton" styleClass="jfx-button_edit" stylesheets="@../css/background.css" text="Confirm" />
-                        <JFXButton contentDisplay="CENTER" layoutX="102.0" layoutY="516.0" onAction="#setCancelButton" styleClass="jfx-button-cancel" stylesheets="@../css/background.css" text=" ">
-                           <graphic>
-                              <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
-                                 <image>
-                                    <Image url="@icon/cancel%20(1).png" />
-                                 </image>
-                              </ImageView>
-                           </graphic>
-                        </JFXButton>
-                        <Text fill="WHITE" layoutX="31.0" layoutY="44.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Perscription Services">
-                           <font>
-                              <Font name="System Bold Italic" size="20.0" />
-                           </font>
-                        </Text>
-                        <Text fill="WHITE" layoutX="31.0" layoutY="63.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Jonathan Chang">
-                           <font>
-                              <Font name="System Bold" size="12.0" />
-                           </font>
-                        </Text>
-                        <ChoiceBox fx:id="roomSelect" layoutX="48.0" layoutY="109.0" prefWidth="150.0" style="-fx-background-color: #ffffff;" />
-                        <Text fill="WHITE" layoutX="50.0" layoutY="104.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Room Select">
-                           <font>
-                              <Font name="System Bold" size="12.0" />
-                           </font>
-                        </Text>
-                        <Text fill="WHITE" layoutX="48.0" layoutY="155.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Patient Name">
-                           <font>
-                              <Font name="System Bold" size="12.0" />
-                           </font>
-                        </Text>
-                        <Text fill="WHITE" layoutX="48.0" layoutY="210.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Perscription ">
-                           <font>
-                              <Font name="System Bold" size="12.0" />
-                           </font>
-                        </Text>
-                        <JFXTextField fx:id="patientNameTextField" layoutX="48.0" layoutY="165.0" prefHeight="25.0" prefWidth="150.0" style="-fx-background-color: #ffffff;" />
-                        <JFXTextField fx:id="prescriptionTextField" layoutX="48.0" layoutY="220.0" prefHeight="25.0" prefWidth="150.0" style="-fx-background-color: #ffffff;" />
-                        <Text fill="WHITE" layoutX="48.0" layoutY="265.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Perscription Length">
-                           <font>
-                              <Font name="System Bold" size="12.0" />
-                           </font>
-                        </Text>
-                        <ChoiceBox fx:id="lengthChoiceBox" layoutX="48.0" layoutY="275.0" prefWidth="150.0" style="-fx-background-color: #ffffff;" />
-                        <JFXTextArea fx:id="serviceMessage" layoutX="48.0" layoutY="325.0" prefHeight="125.0" prefWidth="150.0" style="-fx-background-color: #ffffff;" />
-                     </children>
-                  </AnchorPane>
-               </left>
-                  </BorderPane>
-              </children>
-          </AnchorPane>
-    </children>
-</AnchorPane>
->>>>>>> iteration3

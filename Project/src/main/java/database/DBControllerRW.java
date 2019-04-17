@@ -1,6 +1,8 @@
 package database;
 
 
+import com.calendarfx.model.Entry;
+import com.calendarfx.model.Interval;
 import entities.Reservation;
 import entities.Workplace;
 
@@ -10,6 +12,7 @@ import java.io.FileReader;
 import java.sql.*;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.LinkedList;
 
@@ -71,7 +74,7 @@ public class DBControllerRW extends DBController {
     public static void deleteReservation(int reservationID,Connection connection){
         try {
             Statement s = connection.createStatement();
-            s.execute("delete from RESERVATIONS where RSVID ="+ reservationID +"");
+            s.execute("delete from RESERVATIONS where RSVID = "+ reservationID +"");
         }catch(SQLException e){
             e.printStackTrace();
         }
@@ -90,7 +93,7 @@ public class DBControllerRW extends DBController {
             Time endTime = Time.valueOf(reservation.getEndTime());
             Date date = new SimpleDateFormat("yyyy-MM-dd").parse(reservation.getDate());
 
-            if(isRoomAvailable(reservation.getWkplaceID(), date, startTime, endTime, connection)) {
+            if(isRoomAvailableString(reservation.getWkplaceID(), reservation.getDate(), reservation.getStartTime(), reservation.getEndTime(), connection)) {
                 //connection = DriverManager.getConnection("jdbc:derby:myDB");
                 PreparedStatement s = connection.prepareStatement("INSERT into RESERVATIONS (WKPLACEID, USERID, DAY, STARTTIME, ENDTIME) values ('" + reservation.getWkplaceID() +"','" + reservation.getUserID() +
                         "','"+ reservation.getDate() +"','"+ reservation.getStartTime() + "','" + reservation.getEndTime() + "')",Statement.RETURN_GENERATED_KEYS);
@@ -123,8 +126,8 @@ public class DBControllerRW extends DBController {
             ResultSet rs = s.executeQuery("select * from RESERVATIONS where USERID = '" + userID + "'");
             LinkedList<Reservation> listOfReservations = new LinkedList<Reservation>();
             while(rs.next()){
-                Reservation r = new Reservation(rs.getString(1),rs.getString(2),rs.getString(3),
-                        rs.getString(4),rs.getString(5));
+                Reservation r = new Reservation(rs.getString(2),rs.getString(3), rs.getString(4),
+                        rs.getString(5),rs.getString(6),rs.getInt(1));
                 listOfReservations.add(r);
             }
             return listOfReservations;
@@ -167,19 +170,17 @@ public class DBControllerRW extends DBController {
             //Four cases to check:
             //Reservation within the given times, starts before and ends during, starts during and ends after, or room is booked for the whole duration or more
 
-            Time startTime = Time.valueOf(startTimeSTR);
-            Time endTime = Time.valueOf(endTimeSTR);
-            Date date = new SimpleDateFormat("yyyy-MM-dd").parse(dateSTR);
+//            Time startTime = Time.valueOf(startTimeSTR);
+//            Time endTime = Time.valueOf(endTimeSTR);
+//            Date date = new SimpleDateFormat("yyyy-MM-dd").parse(dateSTR);
 
             Statement s = connection.createStatement();
-            ResultSet rs = s.executeQuery("select * from RESERVATIONS where WKPLACEID = '" + wkplaceID + "' and DAY = '" + date + "' and " +
-                    "((STARTTIME >= '" + startTime + "' and ENDTIME <= '" + endTime + "') " +
-                    "OR (STARTTIME < '" + startTime + "' and ENDTIME > '" + startTime + "') " +
-                    "OR (STARTTIME < '" + endTime + "' and ENDTIME > '" + endTime + "'))");
+            ResultSet rs = s.executeQuery("select * from RESERVATIONS where WKPLACEID = '" + wkplaceID + "' and DAY = '" + dateSTR + "' and " +
+                    "((STARTTIME >= '" + startTimeSTR + "' and ENDTIME <= '" + endTimeSTR + "') " +
+                    "OR (STARTTIME < '" + startTimeSTR + "' and ENDTIME > '" + startTimeSTR + "') " +
+                    "OR (STARTTIME < '" + endTimeSTR + "' and ENDTIME > '" + endTimeSTR + "'))");
             return !rs.next();
         }catch(SQLException e){
-            e.printStackTrace();
-        }catch(ParseException e) {
             e.printStackTrace();
         }
         return false;
@@ -213,5 +214,31 @@ public class DBControllerRW extends DBController {
         return null;
     }
 
+
+
+    public static LinkedList<Entry> getEntriesforRoom(String WKPID, Connection conn){
+        LinkedList<Entry> list = new LinkedList<Entry>();
+        try {
+
+            PreparedStatement ps2 = conn.prepareStatement("SELECT ROOMNAME from WORKPLACES where WKPLACEID = ?");
+            ps2.setString(1,WKPID);
+            ResultSet rs2 = ps2.executeQuery();
+            rs2.next();
+            String title = rs2.getString(1);
+            PreparedStatement ps = conn.prepareStatement("SELECT * from RESERVATIONS where WKPLACEID = ?");
+            ps.setString(1,WKPID);
+            ResultSet rs = ps.executeQuery();
+
+            while(rs.next()){
+                Entry e = new Entry(rs.getString("RSVID"), new Interval(rs.getDate("DAY").toLocalDate(),rs.getTime("STARTTIME").toLocalTime(),rs.getDate("DAY").toLocalDate(),rs.getTime("ENDTIME").toLocalTime()));
+                e.setTitle(title);
+                list.add(e);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return null;
+        }
+        return list;
+    }
 
 }

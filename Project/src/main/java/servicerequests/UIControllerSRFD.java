@@ -1,14 +1,17 @@
 package servicerequests;
 
 import application.CurrentUser;
+import com.jfoenix.controls.JFXTextField;
 import database.DBController;
 import application.UIController;
 import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextArea;
 import database.DBControllerNE;
 import database.DBControllerSR;
 import entities.Node;
 import entities.ServiceRequest;
+import helper.RoomCategoryFilterHelper;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.control.ChoiceBox;
@@ -28,13 +31,15 @@ public class UIControllerSRFD extends UIController {
     @FXML
     private ImageView backgroundImage;
     String flowerDelivery;
-    Map<String, String> nodeIDs; /**< Holds reference between node short name and nodeID*/
+    private RoomCategoryFilterHelper filterHelper;
 
-    @FXML
-    private ChoiceBox roomSelect;
+    @FXML private JFXComboBox<String> roomSelect;
 
     @FXML
     private JFXTextArea serviceMessage1;
+
+    @FXML
+    private JFXTextField phoneNum;
 
     @FXML
     private JFXButton confirmButton; /**< The confirm button*/
@@ -55,20 +60,9 @@ public class UIControllerSRFD extends UIController {
 
     @FXML
     public void onShow() {
-        List<String> nodeShortNames = new ArrayList<String>();
-        nodeIDs = new HashMap<String, String>();
-
-        Connection conn = DBControllerNE.dbConnect();
-        List<Node> nodes = DBControllerNE.generateListOfNodes(conn,DBControllerNE.ALL_ROOMS);
-        DBControllerNE.closeConnection(conn);
-        for(int i = 0; i < nodes.size(); i++) {
-            Node node = nodes.get(i);
-            nodeShortNames.add(node.getShortName());
-            nodeIDs.put(node.getShortName(), node.getNodeID());
-        }
-
-        roomSelect.setItems(FXCollections.observableList(nodeShortNames));
-        roomSelect.getSelectionModel().selectFirst();
+        roomSelect.getSelectionModel().clearSelection();
+        phoneNum.setText("");
+        filterHelper = new RoomCategoryFilterHelper(roomSelect, null, true);
         serviceMessage1.setText("");
     }
 
@@ -79,10 +73,11 @@ public class UIControllerSRFD extends UIController {
     @FXML
     private void setConfirmButton() {
         String roomShortName = (String) roomSelect.getValue();
-        String nodeID = nodeIDs.get(roomShortName);
+        String nodeID = filterHelper.getNodeID();
         String message = serviceMessage1.getText();
+        String phoneNumber = phoneNum.getText();
 
-        ServiceRequest sr = new ServiceRequest(nodeID, flowerDelivery, message + costLabel.getText(), CurrentUser.user.getUserID(), false, null);
+        ServiceRequest sr = new ServiceRequest(nodeID, flowerDelivery, phoneNumber + message + costLabel.getText(), CurrentUser.user.getUserID(), false, null);
         System.out.println(sr.toString());
         Connection conn = DBControllerSR.dbConnect();
         DBControllerSR.addServiceRequest(sr,conn);

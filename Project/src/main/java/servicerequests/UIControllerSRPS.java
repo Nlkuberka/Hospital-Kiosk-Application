@@ -1,6 +1,7 @@
 package servicerequests;
 
 import application.CurrentUser;
+import com.jfoenix.controls.JFXComboBox;
 import database.DBController;
 import application.UIController;
 import com.jfoenix.controls.JFXButton;
@@ -10,9 +11,11 @@ import database.DBControllerNE;
 import database.DBControllerSR;
 import entities.Node;
 import entities.ServiceRequest;
+import helper.RoomCategoryFilterHelper;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.Menu;
 import javafx.scene.control.TextFormatter;
 import javafx.scene.image.ImageView;
 import org.controlsfx.control.textfield.TextFields;
@@ -31,12 +34,12 @@ public class UIControllerSRPS extends UIController {
     @FXML
     private ImageView backgroundImage;
     String serviceType;
-    Map<String, String> nodeIDs; /**< Holds reference between node short name and nodeID*/
     String[] prescriptionArray;
     String[] lengthArray = {"1 day", "1 week", "1 month", "3 months", "6 month", "1 year"};
+    private RoomCategoryFilterHelper filterHelper;
 
     @FXML
-    private ChoiceBox<String> roomSelect;
+    private JFXComboBox<String> roomSelect;
 
     @FXML
     private JFXTextArea serviceMessage;
@@ -87,20 +90,10 @@ public class UIControllerSRPS extends UIController {
      */
     @FXML
     public void onShow() {
-        List<String> nodeShortNames = new ArrayList<String>();
-        nodeIDs = new HashMap<String, String>();
+        roomSelect.getSelectionModel().clearSelection();
+        lengthChoiceBox.getSelectionModel().clearSelection();
+        filterHelper = new RoomCategoryFilterHelper(roomSelect, null, true);
 
-        Connection conn = DBControllerNE.dbConnect();
-        List<Node> nodes = DBControllerNE.generateListOfNodes(conn,DBControllerNE.ALL_ROOMS);
-        DBControllerNE.closeConnection(conn);
-        for(int i = 0; i < nodes.size(); i++) {
-            Node node = nodes.get(i);
-            nodeShortNames.add(node.getShortName());
-            nodeIDs.put(node.getShortName(), node.getNodeID());
-        }
-
-        roomSelect.setItems(FXCollections.observableList(nodeShortNames));
-        roomSelect.getSelectionModel().selectFirst();
         serviceMessage.setText("");
         prescriptionTextField.setText("");
         patientNameTextField.setText("");
@@ -120,7 +113,7 @@ public class UIControllerSRPS extends UIController {
     @FXML
     private void setConfirmButton() {
         String roomShortName = (String) roomSelect.getValue();
-        String nodeID = nodeIDs.get(roomShortName);
+        String nodeID = filterHelper.getNodeID();
         String message = prescriptionTextField.getText() + " for patient" + patientNameTextField.getText() + " for " + lengthChoiceBox.getValue() + "  " + serviceMessage.getText();
 
         ServiceRequest sr = new ServiceRequest(nodeID, serviceType, message, CurrentUser.user.getUserID(), false, null);

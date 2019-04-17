@@ -1,23 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import com.jfoenix.controls.JFXButton?>
-<?import com.jfoenix.controls.JFXTextField?>
-<?import javafx.geometry.Insets?>
+<?import com.jfoenix.controls.*?>
+<?import javafx.geometry.*?>
 <?import javafx.scene.control.ProgressBar?>
-<?import javafx.scene.layout.ColumnConstraints?>
-<?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.RowConstraints?>
-<?import javafx.scene.layout.StackPane?>
-<?import javafx.scene.text.Font?>
-<?import javafx.scene.text.Text?>
-
-<StackPane fx:id="parentPane" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: BLACK;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="admintools.UIControllerPUMVAN">
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+<StackPane fx:id="parentPane" prefHeight="500.0" prefWidth="600.0" style="-fx-background-color: BLACK;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="admintools.UIControllerPUMVAN">
+   <ImageView fitHeight="500.0" fitWidth="600.0" pickOnBounds="true">
+      <image>
+         <Image url="@../pictures/Hospitalbackground.png" />
+      </image>
+   </ImageView>
     <GridPane>
         <columnConstraints>
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
         </columnConstraints>
         <rowConstraints>
+         <RowConstraints maxHeight="106.5" minHeight="10.0" percentHeight="8.0" prefHeight="106.5" vgrow="SOMETIMES" />
             <RowConstraints maxHeight="106.5" minHeight="10.0" percentHeight="10.0" prefHeight="106.5" vgrow="SOMETIMES" />
             <RowConstraints maxHeight="180.5" minHeight="10.0" percentHeight="10.0" prefHeight="104.5" vgrow="SOMETIMES" />
             <RowConstraints maxHeight="166.0" minHeight="10.0" percentHeight="10.0" prefHeight="17.5" vgrow="SOMETIMES" />
@@ -26,21 +27,59 @@
             <RowConstraints maxHeight="133.0" minHeight="0.0" percentHeight="10.0" prefHeight="0.0" vgrow="SOMETIMES" />
             <RowConstraints maxHeight="133.0" minHeight="10.0" percentHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
             <RowConstraints maxHeight="133.0" minHeight="10.0" percentHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-            <RowConstraints maxHeight="133.0" minHeight="0.0" percentHeight="10.0" prefHeight="0.0" vgrow="SOMETIMES" />
+         <RowConstraints maxHeight="80.0" minHeight="10.0" percentHeight="10.0" prefHeight="80.0" vgrow="SOMETIMES" />
             <RowConstraints maxHeight="80.0" minHeight="10.0" percentHeight="15.0" prefHeight="80.0" vgrow="SOMETIMES" />
         </rowConstraints>
-        <JFXButton fx:id="button_cancel" onMouseClicked="#closeWindow" styleClass="jfx-button-add" stylesheets="@../css/background.css" text="Cancel" GridPane.halignment="CENTER" GridPane.rowIndex="9" GridPane.valignment="CENTER" />
-        <JFXButton fx:id="button_save" onMouseClicked="#saveNode" styleClass="jfx-button-add" stylesheets="@../css/background.css" text="Save" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="9" />
-        <Text strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-fill: White; -fx-font-weight: Bold; -fx-font-size: 18;" text="NodeID" GridPane.halignment="CENTER" GridPane.rowIndex="0" />
-        <Text strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-fill: White; -fx-font-weight: Bold; -fx-font-size: 18;" text="X-Coordinate" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
-        <Text strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-fill: White; -fx-font-weight: Bold; -fx-font-size: 18;" text="Building" GridPane.halignment="CENTER" GridPane.rowIndex="4" />
-        <Text strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-fill: White; -fx-font-weight: Bold; -fx-font-size: 18;" text="Long Name" GridPane.halignment="CENTER" GridPane.rowIndex="6" />
-        <Text strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-fill: White; -fx-font-weight: Bold; -fx-font-size: 18;" text="Node Type" GridPane.columnIndex="1" GridPane.halignment="CENTER" />
-        <Text strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-fill: White; -fx-font-weight: Bold; -fx-font-size: 18;" text="Y-Coordinate" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
-        <Text strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-fill: White; -fx-font-weight: Bold; -fx-font-size: 18;" text="Floor" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="4" />
-        <Text strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-fill: White; -fx-font-weight: Bold; -fx-font-size: 18;" text="Short Name" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="6" />
+        <JFXButton fx:id="button_cancel" contentDisplay="CENTER" graphicTextGap="0.0" onMouseClicked="#closeWindow" prefHeight="30.0" prefWidth="100.0" style="-fx-background-color: #ffc41e;" text=" " GridPane.halignment="CENTER" GridPane.rowIndex="10" GridPane.valignment="CENTER">
+         <graphic>
+            <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../images/cancel2.png" />
+               </image>
+            </ImageView>
+         </graphic></JFXButton>
+        <JFXButton fx:id="button_save" contentDisplay="CENTER" graphicTextGap="0.0" onMouseClicked="#saveNode" prefWidth="100.0" style="-fx-background-color: #ffc41e;" text=" " GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="10">
+         <graphic>
+            <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../images/confirm.png" />
+               </image>
+            </ImageView>
+         </graphic></JFXButton>
+        <Text strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-fill: White; -fx-font-weight: Bold; -fx-font-size: 18;" text="NodeID" GridPane.halignment="LEFT" GridPane.rowIndex="1" GridPane.valignment="BOTTOM">
+         <GridPane.margin>
+            <Insets left="30.0" />
+         </GridPane.margin></Text>
+        <Text strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-fill: White; -fx-font-weight: Bold; -fx-font-size: 18;" text="X-Coordinate" GridPane.halignment="LEFT" GridPane.rowIndex="3" GridPane.valignment="BOTTOM">
+         <GridPane.margin>
+            <Insets left="30.0" />
+         </GridPane.margin></Text>
+        <Text strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-fill: White; -fx-font-weight: Bold; -fx-font-size: 18;" text="Building" GridPane.halignment="LEFT" GridPane.rowIndex="5" GridPane.valignment="BOTTOM">
+         <GridPane.margin>
+            <Insets left="30.0" />
+         </GridPane.margin></Text>
+        <Text strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-fill: White; -fx-font-weight: Bold; -fx-font-size: 18;" text="Long Name" GridPane.halignment="LEFT" GridPane.rowIndex="7" GridPane.valignment="BOTTOM">
+         <GridPane.margin>
+            <Insets left="30.0" />
+         </GridPane.margin></Text>
+        <Text strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-fill: White; -fx-font-weight: Bold; -fx-font-size: 18;" text="Node Type" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="1" GridPane.valignment="BOTTOM">
+         <GridPane.margin>
+            <Insets left="30.0" />
+         </GridPane.margin></Text>
+        <Text strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-fill: White; -fx-font-weight: Bold; -fx-font-size: 18;" text="Y-Coordinate" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="3" GridPane.valignment="BOTTOM">
+         <GridPane.margin>
+            <Insets left="30.0" />
+         </GridPane.margin></Text>
+        <Text strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-fill: White; -fx-font-weight: Bold; -fx-font-size: 18;" text="Floor" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="5" GridPane.valignment="BOTTOM">
+         <GridPane.margin>
+            <Insets left="30.0" />
+         </GridPane.margin></Text>
+        <Text strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-fill: White; -fx-font-weight: Bold; -fx-font-size: 18;" text="Short Name" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="7" GridPane.valignment="BOTTOM">
+         <GridPane.margin>
+            <Insets left="30.0" />
+         </GridPane.margin></Text>
 
-        <JFXTextField fx:id="TextField_NodeID" alignment="CENTER" maxWidth="260.0" style="-fx-background-color: White;" GridPane.halignment="CENTER" GridPane.rowIndex="1">
+        <JFXTextField fx:id="TextField_NodeID" alignment="CENTER" maxWidth="260.0" promptText="Max Characters: 10 " style="-fx-background-color: White; -fx-prompt-text-fill: derive(-fx-control-inner-background,-30%);" GridPane.halignment="CENTER" GridPane.rowIndex="2">
             <GridPane.margin>
                 <Insets left="20.0" right="20.0" />
             </GridPane.margin>
@@ -48,7 +87,7 @@
             <Font name="System Bold" size="14.0" />
          </font>
         </JFXTextField>
-        <JFXTextField fx:id="TextField_XCoor" alignment="CENTER" maxWidth="260.0" style="-fx-background-color: White;" GridPane.halignment="CENTER" GridPane.rowIndex="3">
+        <JFXTextField fx:id="TextField_XCoor" alignment="CENTER" editable="false" maxWidth="260.0" style="-fx-background-color: White;" GridPane.halignment="CENTER" GridPane.rowIndex="4">
             <GridPane.margin>
                 <Insets left="20.0" right="20.0" />
             </GridPane.margin>
@@ -56,7 +95,7 @@
             <Font name="System Bold" size="14.0" />
          </font>
         </JFXTextField>
-        <JFXTextField fx:id="TextField_Building" alignment="CENTER" maxWidth="260.0" style="-fx-background-color: White;" GridPane.halignment="CENTER" GridPane.rowIndex="5">
+        <JFXTextField fx:id="TextField_Building" alignment="CENTER" maxWidth="260.0" promptText="Max Characters: 15" style="-fx-background-color: White; -fx-prompt-text-fill: derive(-fx-control-inner-background,-30%);" GridPane.halignment="CENTER" GridPane.rowIndex="6">
             <GridPane.margin>
                 <Insets left="20.0" right="20.0" />
             </GridPane.margin>
@@ -64,7 +103,7 @@
             <Font name="System Bold" size="14.0" />
          </font>
         </JFXTextField>
-        <JFXTextField fx:id="TextField_LongName" alignment="CENTER" maxWidth="260.0" style="-fx-background-color: White;" GridPane.halignment="CENTER" GridPane.rowIndex="7">
+        <JFXTextField fx:id="TextField_LongName" alignment="CENTER" maxWidth="260.0" promptText="Max Characters: 49" style="-fx-background-color: White; -fx-prompt-text-fill: derive(-fx-control-inner-background,-30%);" GridPane.halignment="CENTER" GridPane.rowIndex="8">
             <GridPane.margin>
                 <Insets left="20.0" right="20.0" />
             </GridPane.margin>
@@ -72,7 +111,7 @@
             <Font name="System Bold" size="14.0" />
          </font>
         </JFXTextField>
-        <JFXTextField fx:id="TextField_NodeType" alignment="CENTER" maxWidth="260.0" style="-fx-background-color: White;" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1">
+        <JFXTextField fx:id="TextField_NodeType" alignment="CENTER" maxWidth="260.0" promptText="Max Characters: 4" style="-fx-background-color: White; -fx-prompt-text-fill: derive(-fx-control-inner-background,-30%);" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2">
             <GridPane.margin>
                 <Insets left="20.0" right="20.0" />
             </GridPane.margin>
@@ -80,7 +119,7 @@
             <Font name="System Bold" size="14.0" />
          </font>
         </JFXTextField>
-        <JFXTextField fx:id="TextField_YCoor" alignment="CENTER" maxWidth="260.0" style="-fx-background-color: White;" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="3">
+        <JFXTextField fx:id="TextField_YCoor" alignment="CENTER" editable="false" maxWidth="260.0" style="-fx-background-color: White;" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="4">
             <GridPane.margin>
                 <Insets left="20.0" right="20.0" />
             </GridPane.margin>
@@ -88,7 +127,7 @@
             <Font name="System Bold" size="14.0" />
          </font>
         </JFXTextField>
-        <JFXTextField fx:id="TextField_Floor" alignment="CENTER" editable="false" maxWidth="260.0" style="-fx-background-color: White;" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="5">
+        <JFXTextField fx:id="TextField_Floor" alignment="CENTER" editable="false" maxWidth="260.0" style="-fx-background-color: White;" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="6">
             <GridPane.margin>
                 <Insets left="20.0" right="20.0" />
             </GridPane.margin>
@@ -96,7 +135,7 @@
             <Font name="System Bold" size="14.0" />
          </font>
         </JFXTextField>
-        <JFXTextField fx:id="TextField_ShortName" alignment="CENTER" maxWidth="260.0" style="-fx-background-color: White;" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="7">
+        <JFXTextField fx:id="TextField_ShortName" alignment="CENTER" maxWidth="260.0" promptText="Max Characters: 49" style="-fx-background-color: White; -fx-prompt-text-fill: derive(-fx-control-inner-background,-30%);" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="8">
             <GridPane.margin>
                 <Insets left="20.0" right="20.0" />
             </GridPane.margin>
@@ -104,11 +143,21 @@
             <Font name="System Bold" size="14.0" />
          </font>
         </JFXTextField>
-      <Text fx:id="Text_FieldsRequired" fill="RED" strokeType="OUTSIDE" strokeWidth="0.0" text="All Fields Required" visible="false" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="9">
+      <Text fx:id="Text_FieldsRequired" fill="RED" strokeType="OUTSIDE" strokeWidth="0.0" text="All Fields Required " textAlignment="CENTER" visible="false" wrappingWidth="120.0" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="10">
          <font>
             <Font name="System Bold" size="14.0" />
          </font>
       </Text>
-      <ProgressBar fx:id="progressBar" prefHeight="18.0" prefWidth="159.0" progress="0.0" visible="false" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="9" />
+      <ProgressBar fx:id="progressBar" prefHeight="18.0" prefWidth="159.0" progress="0.0" visible="false" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="10" />
+      <AnchorPane prefHeight="200.0" prefWidth="600.0" style="-fx-background-color: #ffc41e;" />
+      <AnchorPane prefHeight="200.0" prefWidth="600.0" style="-fx-background-color: #ffc41e;" GridPane.columnIndex="1" />
     </GridPane>
+   <Text fx:id="titleText" fill="#081644" strokeType="OUTSIDE" strokeWidth="0.0" text="Add/Edit Node" StackPane.alignment="TOP_CENTER">
+      <font>
+         <Font name="System Bold Italic" size="17.0" />
+      </font>
+      <StackPane.margin>
+         <Insets top="4.0" />
+      </StackPane.margin>
+   </Text>
 </StackPane>
