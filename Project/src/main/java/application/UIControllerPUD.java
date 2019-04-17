@@ -4,11 +4,13 @@ import com.jfoenix.controls.JFXButton;
 import com.twilio.Twilio;
 import com.twilio.rest.api.v2010.account.Message;
 import entities.emailDirection;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.control.*;
-import javafx.event.ActionEvent;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 

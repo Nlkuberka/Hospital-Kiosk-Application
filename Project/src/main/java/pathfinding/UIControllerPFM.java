@@ -230,18 +230,24 @@ public class UIControllerPFM extends UIController {
         currentObjects.clearAnimation(); // reset stuff
         pathHandler.cancel(); // reset stuff
 
-        // change tab based on initial node -- order here is important! Do not move below.
-        mapTabPane.getSelectionModel().select(Floors.getByID(initialNode.getFloor()).getIndex());
+        if(pathIDs == null) {
+            clearTabColors();
+            popupMessage("There is no path between these two nodes.", true);
+        }
+        else {
+            // change tab based on initial node -- order here is important! Do not move below.
+            mapTabPane.getSelectionModel().select(Floors.getByID(initialNode.getFloor()).getIndex());
 
-        // update paths -- order here is important! Do not move above change tab.
-        pathHandler.displayNewPath(Graph.getGraph().separatePathByFloor(pathIDs), initialNode);
+            // update paths -- order here is important! Do not move above change tab.
+            pathHandler.displayNewPath(Graph.getGraph().separatePathByFloor(pathIDs), initialNode);
 
-        gesturePaneHandler.centerOnInitialNode(pathHandler, currentObjects.getCurrentGesturePane());
+            gesturePaneHandler.centerOnInitialNode(pathHandler, currentObjects.getCurrentGesturePane());
 
-        List<Integer> floorsUsed = pathHandler.getFloorsUsed();
-        clearTabColors();
-        for (Integer floor : floorsUsed) {
-            this.mapTabPane.getTabs().get(floor).setStyle("-fx-background-color: #015080");
+            List<Integer> floorsUsed = pathHandler.getFloorsUsed();
+            clearTabColors();
+            for (Integer floor : floorsUsed) {
+                this.mapTabPane.getTabs().get(floor).setStyle("-fx-background-color: #015080");
+            }
         }
 
         currentObjects.newInitLabel(initialNode);

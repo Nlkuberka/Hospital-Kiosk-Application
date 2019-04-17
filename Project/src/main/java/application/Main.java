@@ -7,6 +7,7 @@ import entities.Edge;
 import entities.Graph;
 import entities.Node;
 import javafx.application.Application;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -20,6 +21,9 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
         UIController controller = new UIController(primaryStage);
+
+        Image icon = new Image("file:bwh.png");
+        primaryStage.getIcons().add(icon);
 
         System.out.println("Collaborator is " + "X");
 
