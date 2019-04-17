@@ -1,6 +1,7 @@
 package servicerequests;
 
 import application.CurrentUser;
+import com.jfoenix.controls.JFXComboBox;
 import database.DBController;
 import application.UIController;
 import com.jfoenix.controls.JFXButton;
@@ -14,6 +15,7 @@ import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextFormatter;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
@@ -31,10 +33,7 @@ public class UIControllerSRAVE extends UIController {
     private RoomCategoryFilterHelper filterHelper;
 
     @FXML
-    private ChoiceBox<String> roomCategory;
-
-    @FXML
-    private ChoiceBox<String> roomSelect;
+    private JFXComboBox<String> roomSelect;
 
     @FXML
     private JFXTextField serviceMessage;
@@ -65,7 +64,7 @@ public class UIControllerSRAVE extends UIController {
 
     @FXML
     public void onShow() {
-        filterHelper = new RoomCategoryFilterHelper(roomCategory, roomSelect, null, true);
+        filterHelper = new RoomCategoryFilterHelper(roomSelect, null, true);
         serviceMessage.setText("");
     }
 

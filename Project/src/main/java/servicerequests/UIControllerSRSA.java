@@ -1,6 +1,7 @@
 package servicerequests;
 
 import application.CurrentUser;
+import com.jfoenix.controls.JFXComboBox;
 import database.DBController;
 import application.UIController;
 import com.jfoenix.controls.JFXButton;
@@ -36,10 +37,7 @@ public class UIControllerSRSA extends UIController {
     private Menu homeButton; /**< The home button*/
 
     @FXML
-    private ChoiceBox<String> roomCategory; /**< The room select dropdown*/
-
-    @FXML
-    private ChoiceBox<String> roomSelect; /**< The room select dropdown*/
+    private JFXComboBox<String> roomSelect; /**< The room select dropdown*/
 
     @FXML
     private ChoiceBox<String> sanitationSelect;
@@ -57,7 +55,7 @@ public class UIControllerSRSA extends UIController {
 
     @FXML
     public void onShow() {
-        filterHelper = new RoomCategoryFilterHelper(roomCategory, roomSelect, null, false);
+        filterHelper = new RoomCategoryFilterHelper(roomSelect, null, false);
 
         serviceMessage.setText("");
 
