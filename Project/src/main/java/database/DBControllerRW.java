@@ -219,16 +219,19 @@ public class DBControllerRW extends DBController {
     public static LinkedList<Entry> getEntriesforRoom(String WKPID, Connection conn){
         LinkedList<Entry> list = new LinkedList<Entry>();
         try {
+
+            PreparedStatement ps2 = conn.prepareStatement("SELECT ROOMNAME from WORKPLACES where WKPLACEID = ?");
+            ps2.setString(1,WKPID);
+            ResultSet rs2 = ps2.executeQuery();
+            rs2.next();
+            String title = rs2.getString(1);
             PreparedStatement ps = conn.prepareStatement("SELECT * from RESERVATIONS where WKPLACEID = ?");
             ps.setString(1,WKPID);
             ResultSet rs = ps.executeQuery();
-            PreparedStatement ps2 = conn.prepareStatement("SELECT ROOMNAME from WORKPLACES where WKPLACEID = ?");
-            ps.setString(1,WKPID);
-            ResultSet rs2 = ps.executeQuery();
-            rs2.next();
+
             while(rs.next()){
                 Entry e = new Entry(rs.getString("RSVID"), new Interval(rs.getDate("DAY").toLocalDate(),rs.getTime("STARTTIME").toLocalTime(),rs.getDate("DAY").toLocalDate(),rs.getTime("ENDTIME").toLocalTime()));
-                e.setTitle(rs2.getString(1));
+                e.setTitle(title);
                 list.add(e);
             }
         } catch (SQLException e) {

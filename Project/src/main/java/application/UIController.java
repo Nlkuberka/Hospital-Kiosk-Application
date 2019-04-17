@@ -1,5 +1,7 @@
 package application;
 
+import com.calendarfx.model.CalendarSource;
+import com.calendarfx.view.DayView;
 import com.jfoenix.controls.JFXTextField;
 import entities.User;
 
@@ -223,6 +225,42 @@ public class UIController {
         sceneFiles.put(UIController.POPUP_DIRECTIONS, "/direction_popup.fxml");
         sceneTitles.put(UIController.POPUP_DIRECTIONS, "Popup Window For Directions");
     }
+
+    /**
+     * Switches the primary stage to the given scene
+     * If the scene has not yet been created, creates that scene
+     * @param sceneString String representation of the scene to swtich to
+     * @return The UIController for that particular new scene
+     */
+    @FXML
+    protected UIController goToScene(String sceneString, DayView dayCal) {
+        Scene scene = scenes.get(sceneString);
+
+
+        // If the scene has not yet been created
+        if(scene == null) {
+            try {
+                //FXMLLoader fxmlLoader = new FXMLLoader(new File(System.getProperty("user.dir") + "/resources" + sceneFiles.get(sceneString)).toURI().toURL());
+                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(sceneFiles.get(sceneString)));
+                fxmlLoader.setRoot(dayCal);
+                Parent root = fxmlLoader.load();
+                sceneParents.put(sceneString, root);
+                sceneControllers.put(sceneString, fxmlLoader.getController());
+                scenes.put(sceneString, new Scene(root, WIDTH, HEIGHT));
+            } catch(Exception e) {
+                e.printStackTrace();
+            }
+        }
+
+        // Show the scene
+        primaryStage.setTitle(sceneTitles.get(sceneString));
+        rootPane.setCenter(sceneParents.get(sceneString));
+
+        // Run the onShow function and return the controller
+        sceneControllers.get(sceneString).onShow();
+        return sceneControllers.get(sceneString);
+    }
+
 
     /**
      * Switches the primary stage to the given scene

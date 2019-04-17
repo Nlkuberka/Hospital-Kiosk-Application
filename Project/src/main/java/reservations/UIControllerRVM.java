@@ -1,6 +1,7 @@
 package reservations;
 
 import application.CurrentUser;
+import com.calendarfx.view.DayView;
 import database.DBController;
 import application.UIController;
 import database.DBControllerRW;
@@ -318,6 +319,6 @@ public class UIControllerRVM extends UIController {
      */
     @FXML
     private void setBackButton() {
-        this.goToScene(UIController.RESERVATIONS_MAIN_MENU);
+        this.goToScene(UIController.RESERVATIONS_MAIN_MENU,new DayView());
     }
 }

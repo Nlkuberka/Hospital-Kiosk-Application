@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.StackPane?>
 
-<fx:root type="StackPane" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="reservations.UIControllerRVCV">
+<StackPane xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="reservations.UIControllerRVCV">
     <children>
         <ImageView fx:id="backgroundImage" onDragDetected="#initialize" pickOnBounds="true" preserveRatio="true">
             <image>
@@ -29,8 +29,8 @@
                 </MenuBar>
             </top>
          <center>
-            <DayPage fx:id="dayView" BorderPane.alignment="CENTER" />
+            <DayPage fx:id="day" maxHeight="600.0" maxWidth="1000.0" minHeight="200.0" minWidth="300.0" pickOnBounds="true" BorderPane.alignment="TOP_CENTER" />
          </center>
         </BorderPane>
     </children>
-</fx:root>
+</StackPane>
