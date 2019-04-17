@@ -9,7 +9,7 @@ import junit.framework.TestCase;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import pathfinding.Floors;
+import pathfinding.UIControllerPFM;
 
 import entities.BFSGraph;
 
@@ -410,25 +410,25 @@ public class GraphJUnit extends TestCase {
         path.add("N8");
         path.add("N9");
         List<List<List<Node>>> expected = new ArrayList<>();
-        for(int i = 0; i < Floors.values().length; i++) {
+        for(int i = 0; i < UIControllerPFM.Floors.values().length; i++) {
             expected.add(new LinkedList<>());
         }
-        expected.get(Floors.FIRST.ordinal()).add(new LinkedList<>());
-        expected.get(Floors.FIRST.ordinal()).get(0).add(n0);
-        expected.get(Floors.FIRST.ordinal()).get(0).add(n1);
-        expected.get(Floors.GROUND.ordinal()).add(new LinkedList<>());
-        expected.get(Floors.GROUND.ordinal()).get(0).add(n2);
-        expected.get(Floors.FIRST.ordinal()).add(new LinkedList<>());
-        expected.get(Floors.FIRST.ordinal()).get(1).add(n3);
-        expected.get(Floors.SECOND.ordinal()).add(new LinkedList<>());
-        expected.get(Floors.SECOND.ordinal()).get(0).add(n4);
-        expected.get(Floors.SECOND.ordinal()).get(0).add(n5);
-        expected.get(Floors.SECOND.ordinal()).get(0).add(n6);
-        expected.get(Floors.GROUND.ordinal()).add(new LinkedList<>());
-        expected.get(Floors.GROUND.ordinal()).get(1).add(n7);
-        expected.get(Floors.FIRST.ordinal()).add(new LinkedList<>());
-        expected.get(Floors.FIRST.ordinal()).get(2).add(n8);
-        expected.get(Floors.FIRST.ordinal()).get(2).add(n9);
+        expected.get(UIControllerPFM.Floors.FIRST.ordinal()).add(new LinkedList<>());
+        expected.get(UIControllerPFM.Floors.FIRST.ordinal()).get(0).add(n0);
+        expected.get(UIControllerPFM.Floors.FIRST.ordinal()).get(0).add(n1);
+        expected.get(UIControllerPFM.Floors.GROUND.ordinal()).add(new LinkedList<>());
+        expected.get(UIControllerPFM.Floors.GROUND.ordinal()).get(0).add(n2);
+        expected.get(UIControllerPFM.Floors.FIRST.ordinal()).add(new LinkedList<>());
+        expected.get(UIControllerPFM.Floors.FIRST.ordinal()).get(1).add(n3);
+        expected.get(UIControllerPFM.Floors.SECOND.ordinal()).add(new LinkedList<>());
+        expected.get(UIControllerPFM.Floors.SECOND.ordinal()).get(0).add(n4);
+        expected.get(UIControllerPFM.Floors.SECOND.ordinal()).get(0).add(n5);
+        expected.get(UIControllerPFM.Floors.SECOND.ordinal()).get(0).add(n6);
+        expected.get(UIControllerPFM.Floors.GROUND.ordinal()).add(new LinkedList<>());
+        expected.get(UIControllerPFM.Floors.GROUND.ordinal()).get(1).add(n7);
+        expected.get(UIControllerPFM.Floors.FIRST.ordinal()).add(new LinkedList<>());
+        expected.get(UIControllerPFM.Floors.FIRST.ordinal()).get(2).add(n8);
+        expected.get(UIControllerPFM.Floors.FIRST.ordinal()).get(2).add(n9);
         List<List<List<Node>>> actual = Graph.getGraph().separatePathByFloor(path);
 
         assertEquals(expected.size(), actual.size());

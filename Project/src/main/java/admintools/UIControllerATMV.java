@@ -14,6 +14,7 @@ import javafx.scene.Group;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.MenuItem;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TabPane;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -27,10 +28,6 @@ import javafx.scene.text.TextAlignment;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
-import net.kurobako.gesturefx.GesturePane;
-import pathfinding.AnchorPaneHandler;
-import pathfinding.Floors;
-import pathfinding.GesturePaneHandler;
 
 import java.io.IOException;
 import java.sql.Connection;
@@ -68,17 +65,18 @@ public class UIControllerATMV extends UIController {
     private ImageView currentImageView;
 
     @FXML
-    private GesturePane lowerLevel2GesturePane;
+    private ScrollPane lowerLevel2ScrollPane;
     @FXML
-    private GesturePane lowerLevel1GesturePane;
+    private ScrollPane lowerLevel1ScrollPane;
     @FXML
-    private GesturePane groundFloorGesturePane;
+    private ScrollPane groundFloorScrollPane;
     @FXML
-    private GesturePane firstFloorGesturePane;
+    private ScrollPane firstFloorScrollPane;
     @FXML
-    private GesturePane secondFloorGesturePane;
+    private ScrollPane secondFloorScrollPane;
     @FXML
-    private GesturePane thirdFloorGesturePane;
+    private ScrollPane thirdFloorScrollPane;
+    private List<ScrollPane> scrollPanes;
 
     @FXML
     private AnchorPane lowerLevel2AnchorPane;
@@ -133,6 +131,11 @@ public class UIControllerATMV extends UIController {
                 }
         );
 
+        // Only show scroll bars if Image inside is bigger than ScrollPane
+        for (ScrollPane sp : scrollPanes) {
+            sp.setHbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
+            sp.setVbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
+        }
 
         tabs.getSelectionModel().selectedItemProperty().addListener(param -> set());
 
@@ -230,16 +233,18 @@ public class UIControllerATMV extends UIController {
 
     private void draw() {
         nodesGroup.getChildren().clear();
+        float scaleFx = getScale().get("scaleFx");
+        float scaleFy = getScale().get("scaleFy");
 
         float x;
         float y;
 
         // get all XY pairs and turn them into lines
         for (Node tempNode : currentFloorNodes) {
-            x = (float) tempNode.getXcoord();
-            y = (float) tempNode.getYcoord();
+            x = (float) tempNode.getXcoord() * scaleFx;
+            y = (float) tempNode.getYcoord() * scaleFy;
 
-            Circle circle = new Circle(x, y, AnchorPaneHandler.nodeSizeIdle);
+            Circle circle = new Circle(x, y, 7);
             circle.setId(tempNode.getNodeID());
             new utilities.Tooltip(circle, tempNode.getShortName());
 
@@ -289,9 +294,9 @@ public class UIControllerATMV extends UIController {
                 tempNode.setXcoord(tempNode.getXcoord() + (int) Math.round(circle.getLayoutX()));
                 tempNode.setYcoord(tempNode.getYcoord() + (int) Math.round(circle.getLayoutY()));
                 Connection conn = DBController.dbConnect();
-                assert conn != null;
                 DBControllerNE.updateNode(tempNode, conn);
                 DBController.closeConnection(conn);
+                assert conn != null;
                 draw();
             });
 
@@ -313,6 +318,8 @@ public class UIControllerATMV extends UIController {
 
     private void drawEdges() {
         edgesGroup.getChildren().clear();
+        float scaleFx = getScale().get("scaleFx");
+        float scaleFy = getScale().get("scaleFy");
 
         for (Edge e : currentFloorEdges) {
             Node tempNode1 = getNodeFromID(e.getNode1ID());
@@ -324,7 +331,7 @@ public class UIControllerATMV extends UIController {
             float Node2x = (float) tempNode2.getXcoord();
             float Node2y = (float) tempNode2.getYcoord();
             Line tempLine = new Line(Node1x, Node1y, Node2x, Node2y);
-            tempLine.setStrokeWidth(10);
+            tempLine.setStrokeWidth(3);
             edgesGroup.getChildren().add(tempLine);
         }
     }
@@ -346,6 +353,14 @@ public class UIControllerATMV extends UIController {
     private void setScene() {
         //scroll_AnchorPane.getChildren().add(nodesGroup);
         //scroll_AnchorPane.getChildren().add(edgesGroup);
+
+        scrollPanes = new LinkedList<>();
+        scrollPanes.add(lowerLevel2ScrollPane);
+        scrollPanes.add(lowerLevel1ScrollPane);
+        scrollPanes.add(groundFloorScrollPane);
+        scrollPanes.add(firstFloorScrollPane);
+        scrollPanes.add(secondFloorScrollPane);
+        scrollPanes.add(thirdFloorScrollPane);
 
         anchorPanes = new LinkedList<>();
         anchorPanes.add(lowerLevel2AnchorPane);
@@ -403,7 +418,12 @@ public class UIControllerATMV extends UIController {
      * @param actionEvent Triggered when zoom_button is pressed
      */
     public void zoom(ActionEvent actionEvent) {
-        gesturePaneHandler.zoom(gesturePaneHandler.getGesturePanes().get(currentFloor));
+        if (groundFloorAnchorPane.getPrefWidth() < groundFloorAnchorPane.getMaxWidth()) {
+            for (AnchorPane ap : anchorPanes) {
+                ap.setPrefSize(ap.getPrefWidth() * zoomFactor, ap.getPrefHeight() * zoomFactor);
+            }
+        }
+        draw();
     }
 
     /**
@@ -412,7 +432,12 @@ public class UIControllerATMV extends UIController {
      * @param actionEvent Triggered when zoom_button is pressed
      */
     public void unZoom(ActionEvent actionEvent) {
-        gesturePaneHandler.un_zoom(gesturePaneHandler.getGesturePanes().get(currentFloor));
+        if (groundFloorAnchorPane.getPrefWidth() > groundFloorAnchorPane.getMinWidth()) {
+            for (AnchorPane ap : anchorPanes) {
+                ap.setPrefSize(ap.getPrefWidth() / zoomFactor, ap.getPrefHeight() / zoomFactor);
+            }
+        }
+        draw();
     }
 
     private void set() {
