@@ -21,11 +21,11 @@ import java.sql.ResultSet;
 import java.util.List;
 
 public class Main extends Application {
-    private static final int limit = 5000000;
+    private static final int limit = 100000;
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        Parent root = FXMLLoader.load(getClass().getResource("UIControllerSC.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("splash_screen.fxml"));
         Scene scene = new Scene(root);
         primaryStage.setScene(scene);
         primaryStage.show();
@@ -75,7 +75,7 @@ public class Main extends Application {
 
 
     public static void main(String[] args) throws IOException {
-       // LauncherImpl.launchApplication(Main.class, UIControllerSC.class, args);
+        LauncherImpl.launchApplication(Main.class, TeamDPreloader.class, args);
         launch(args);
     }
 
