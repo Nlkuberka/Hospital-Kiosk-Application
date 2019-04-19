@@ -58,7 +58,7 @@ public class Main extends Application {
 
 
 
-        controller.goToScene(UIController.WELCOME_MAIN);
+        controller.goToScene(UIController.LOGIN_MAIN);
     }
 
 

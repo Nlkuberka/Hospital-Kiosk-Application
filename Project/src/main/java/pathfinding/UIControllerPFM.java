@@ -241,7 +241,7 @@ public class UIControllerPFM extends UIController {
             List<Integer> floorsUsed = pathHandler.getFloorsUsed();
             clearTabColors();
             for (Integer floor : floorsUsed) {
-                mapTabPane.getTabs().get(floor).setStyle("-fx-background-color: #015080");
+                mapTabPane.getTabs().get(floor).setStyle("-fx-background-color: #fbe58e");
             }
         }
 
