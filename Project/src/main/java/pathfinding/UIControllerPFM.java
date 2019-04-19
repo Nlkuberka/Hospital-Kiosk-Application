@@ -12,8 +12,6 @@ import database.DBControllerNE;
 import entities.Graph;
 import entities.Node;
 import helper.RoomCategoryFilterHelper;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -90,20 +88,17 @@ public class UIControllerPFM extends UIController {
 
         // ensures new tab has same x,y on the map and path animation changes between floors
         mapTabPane.getSelectionModel().selectedItemProperty().addListener(
-                new ChangeListener<Tab>() {
-                    @Override
-                    public void changed(ObservableValue<? extends Tab> ov, Tab t, Tab t1) {
-                        currentObjects.clearAnimation();
-                        GesturePane oldPane = currentObjects.getCurrentGesturePane();
-                        currentObjects.setFloorIndex(Floors.getByName(t1.getText()).getIndex());
-                        GesturePane pane = currentObjects.getCurrentGesturePane();
-                        pane.centreOn(oldPane.targetPointAtViewportCentre());
-                        gesturePaneHandler.changeTabs(pane, oldPane);
-                        if (pathHandler.isActive()) {
-                            gesturePaneHandler.newAnimation(currentObjects);
-                        }
-                        currentObjects.clearContextMenu();
+                (ov, t, t1) -> {
+                    currentObjects.clearAnimation();
+                    GesturePane oldPane = currentObjects.getCurrentGesturePane();
+                    currentObjects.setFloorIndex(Floors.getByName(t1.getText()).getIndex());
+                    GesturePane pane = currentObjects.getCurrentGesturePane();
+                    pane.centreOn(oldPane.targetPointAtViewportCentre());
+                    gesturePaneHandler.changeTabs(pane, oldPane);
+                    if (pathHandler.isActive()) {
+                        gesturePaneHandler.newAnimation(currentObjects);
                     }
+                    currentObjects.clearContextMenu();
                 }
         );
 
@@ -133,10 +128,11 @@ public class UIControllerPFM extends UIController {
     public void onShow() {
 
         // ~~~~~ init choice boxes
-        Connection conn = DBControllerNE.dbConnect();
+        Connection conn = DBController.dbConnect();
 
         LinkedList<LinkedList<Node>> roomsAtEachFloor = new LinkedList<>();
 
+        assert conn != null;
         roomsAtEachFloor.add(DBControllerNE.generateListOfNodes(conn, DBControllerNE.ALL_ROOMS_FLOOR_L2));
         roomsAtEachFloor.add(DBControllerNE.generateListOfNodes(conn, DBControllerNE.ALL_ROOMS_FLOOR_L1));
         roomsAtEachFloor.add(DBControllerNE.generateListOfNodes(conn, DBControllerNE.ALL_ROOMS_FLOOR_G));
@@ -144,7 +140,7 @@ public class UIControllerPFM extends UIController {
         roomsAtEachFloor.add(DBControllerNE.generateListOfNodes(conn, DBControllerNE.ALL_ROOMS_FLOOR_2));
         roomsAtEachFloor.add(DBControllerNE.generateListOfNodes(conn, DBControllerNE.ALL_ROOMS_FLOOR_3));
 
-        DBControllerNE.closeConnection(conn);
+        DBController.closeConnection(conn);
 
         initialFilterHelper = new RoomCategoryFilterHelper(initialLocationCombo, param -> {
             if (initialFilterHelper.getLongName() == null)
@@ -168,15 +164,14 @@ public class UIControllerPFM extends UIController {
         }, true);
 
         anchorPaneHandler.initCircles(roomsAtEachFloor, initialLocationCombo, destinationCombo);
-        setInitialLocation(CurrentUser.startingLocation);
     }
 
-    protected void setInitialLocation(String longName) {
+    void setInitialLocation(String longName) {
         initialLocationCombo.getSelectionModel().select(longName);
         currentObjects.clearContextMenu();
     }
 
-    protected void setDestinationLocation(String longName) {
+    void setDestinationLocation(String longName) {
         destinationCombo.getSelectionModel().select(longName);
         currentObjects.clearContextMenu();
     }
@@ -193,7 +188,6 @@ public class UIControllerPFM extends UIController {
 
     /**
      * Callback for cancel. Clears path, animation, node selection and drop down menus
-     * @param actionEvent
      */
     @FXML
     private void cancel(ActionEvent actionEvent) {
@@ -223,6 +217,7 @@ public class UIControllerPFM extends UIController {
         pathIDs = Graph.getGraph().shortestPath(currentObjects.getInitialID(), currentObjects.getDestID());
 
         Connection connection = DBController.dbConnect();
+        assert connection != null;
         Node initialNode = DBControllerNE.fetchNode(currentObjects.getInitialID(), connection);
         Node destNode = DBControllerNE.fetchNode(currentObjects.getDestID(), connection);
         DBController.closeConnection(connection);
@@ -246,7 +241,7 @@ public class UIControllerPFM extends UIController {
             List<Integer> floorsUsed = pathHandler.getFloorsUsed();
             clearTabColors();
             for (Integer floor : floorsUsed) {
-                this.mapTabPane.getTabs().get(floor).setStyle("-fx-background-color: #015080");
+                mapTabPane.getTabs().get(floor).setStyle("-fx-background-color: #015080");
             }
         }
 
@@ -265,20 +260,21 @@ public class UIControllerPFM extends UIController {
      * Clear marking of tab headers
      */
     private void clearTabColors() {
-        for (Tab tab : this.mapTabPane.getTabs()) {
+        for (Tab tab : mapTabPane.getTabs()) {
             tab.setStyle("-fx-background-color: #FFC41E");
         }
     }
 
+    @FXML
     public void goBack(ActionEvent actionEvent) {
-        this.goToScene(UIController.LOGIN_MAIN);
+        goToScene(UIController.LOGIN_MAIN);
     }
 
     /**
      * Allows the map to increase in size, up to scroll_AnchorPane.getMaxWidth
-     *
      * @param actionEvent Triggered when zoom_button is pressed
      */
+    @FXML
     public void zoom(ActionEvent actionEvent) {
         gesturePaneHandler.zoom(currentObjects.getCurrentGesturePane());
     }
@@ -288,6 +284,7 @@ public class UIControllerPFM extends UIController {
      *
      * @param actionEvent Triggered when zoom_button is pressed
      */
+    @FXML
     public void unZoom(ActionEvent actionEvent) {
         gesturePaneHandler.un_zoom(currentObjects.getCurrentGesturePane());
     }
@@ -306,9 +303,9 @@ public class UIControllerPFM extends UIController {
             popupStage.getIcons().add(new Image(getClass().getResourceAsStream("/icon/directions.png")));
 
             popupStage.initModality(Modality.WINDOW_MODAL);
-            popupStage.initOwner(this.primaryStage);
+            popupStage.initOwner(primaryStage);
 
-            UIControllerPUD controller = (UIControllerPUD) fxmlLoader.getController();
+            UIControllerPUD controller = fxmlLoader.getController();
             controller.setDirections(direction);
 
             popupStage.setTitle("Directions");
@@ -323,17 +320,17 @@ public class UIControllerPFM extends UIController {
 
     @FXML
     private void setLoginButton() {
-        this.goToScene(UIController.LOGIN_MAIN);
+        goToScene(UIController.LOGIN_MAIN);
     }
 
     @FXML
     private void setServiceRequestButton() {
-        this.goToScene(UIController.SERVICE_REQUEST_MAIN);
+        goToScene(UIController.SERVICE_REQUEST_MAIN);
     }
 
     @FXML
     private void setAboutButton() {
-        this.goToScene(UIController.ABOUT_PAGE);
+        goToScene(UIController.ABOUT_PAGE);
     }
 
     @FXML
