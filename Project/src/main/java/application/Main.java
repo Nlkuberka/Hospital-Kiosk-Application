@@ -7,8 +7,11 @@ import entities.Edge;
 import entities.Graph;
 import entities.Node;
 import javafx.application.Application;
+import javafx.event.EventHandler;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
+import network.DBNetwork;
 
 import java.io.IOException;
 import java.sql.Connection;
@@ -55,10 +58,21 @@ public class Main extends Application {
         CurrentUser.user = DBControllerU.getGuestUser(conn);
         DBController.closeConnection(conn);
 
-
-
+        DBNetwork network = new DBNetwork(4590);
+        //network.outputString("TEST");
 
         controller.goToScene(UIController.WELCOME_MAIN);
+
+        primaryStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
+            @Override
+            public void handle(WindowEvent event) {
+                try {
+                    network.shutdown();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        });
     }
 
 
