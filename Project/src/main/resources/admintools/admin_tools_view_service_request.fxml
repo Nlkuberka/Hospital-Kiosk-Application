@@ -13,7 +13,6 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.StackPane?>
 
-
 <StackPane minHeight="720.0" minWidth="1280.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="admintools.UIControllerATVSR">
    <children>
       <ImageView fx:id="backgroundImage" opacity="0.6" pickOnBounds="true" preserveRatio="true">
@@ -54,6 +53,7 @@
                   <TableColumn prefWidth="100.0" text="Resolved" />
                   <TableColumn prefWidth="160.0" text="Resolver" />
                   <TableColumn prefWidth="180.0" text="Additional Messages" />
+                  <TableColumn prefWidth="180.0" text="Delete Request" />
               </columns>
                <styleClass>
                   <String fx:value="table-view" />

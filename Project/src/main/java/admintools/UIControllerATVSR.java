@@ -1,5 +1,8 @@
 package admintools;
 
+import application.CurrentUser;
+import com.jfoenix.controls.JFXButton;
+import application.CurrentUser;
 import com.twilio.Twilio;
 import com.twilio.rest.api.v2010.account.Message;
 import database.DBController;
@@ -102,21 +105,26 @@ public class UIControllerATVSR extends UIController {
                 }
                 setGraphic(checkBox);
                 checkBox.setOnAction(et -> {
-                    runSetter(serviceRequest, serviceRequestSetters[index], boolean.class, checkBox.isSelected());
-                    System.out.println(serviceRequest);
-                    Connection conn = DBController.dbConnect();
-                    DBControllerSR.updateServiceRequest(serviceRequest,conn);
-                    if(serviceRequest.getServiceType().equals("Flower Delivery")){
-                        String phoneNum = serviceRequest.getMessage().substring(0,10);
-                        Twilio.init(ACCOUNT_SID, AUTH_TOKEN);
-                        Message message = Message.creator(
-                                new com.twilio.type.PhoneNumber("+1" + phoneNum),
-                                new com.twilio.type.PhoneNumber("+17472290044"),
-                                "Flowers have been Delivered")
-                                .create();
-                        System.out.println("It did shit");
-                    }
-                    DBController.closeConnection(conn);
+                        runSetter(serviceRequest, serviceRequestSetters[index], boolean.class, checkBox.isSelected());
+                        if(checkBox.isSelected()) {
+                            serviceRequest.setResolverID(CurrentUser.user.getUserID());
+                        } else {
+                            serviceRequest.setResolverID(null);
+                        }
+                        serviceRequestTable.refresh();
+                        Connection conn = DBController.dbConnect();
+                        DBControllerSR.updateServiceRequest(serviceRequest, conn);
+                        if (serviceRequest.getServiceType().equals("Flower Delivery")) {
+                            String phoneNum = serviceRequest.getMessage().substring(0, 10);
+                            Twilio.init(ACCOUNT_SID, AUTH_TOKEN);
+                            Message message = Message.creator(
+                                    new com.twilio.type.PhoneNumber("+1" + phoneNum),
+                                    new com.twilio.type.PhoneNumber("+17472290044"),
+                                    "Flowers have been Delivered")
+                                    .create();
+                            System.out.println("It did shit");
+                        }
+                        DBController.closeConnection(conn);
                 });
             }
 
@@ -165,6 +173,34 @@ public class UIControllerATVSR extends UIController {
                 setGraphic(label);
             }
         });
+
+        // Initialize cell factories of the remove service request column
+        TableColumn<ServiceRequest, ServiceRequest> removeColumn = (TableColumn<ServiceRequest, ServiceRequest>) tableColumns.get(tableColumns.size() - 1);
+        if(CurrentUser.user.getPermissions() != 3){
+            removeColumn.setVisible(false);
+        } else {
+            removeColumn.setVisible(true);
+            removeColumn.setCellValueFactory(param -> new ReadOnlyObjectWrapper<>(param.getValue()));
+            removeColumn.setCellFactory(param -> new TableCell<ServiceRequest, ServiceRequest>() {
+                private JFXButton removeButton = new JFXButton("Remove");
+
+                @Override
+                protected void updateItem(ServiceRequest serviceRequest, boolean empty) {
+                    super.updateItem(serviceRequest, empty);
+                    if (serviceRequest == null) {
+                        return;
+                    }
+                    setGraphic(removeButton);
+                    removeButton.setOnAction(e -> {
+                        serviceRequestTable.getItems().remove(serviceRequest);
+                        Connection conn = DBController.dbConnect();
+                        DBControllerSR.deleteServiceRequest(serviceRequest.getServiceID(), conn);
+                        DBController.closeConnection(conn);
+                        serviceRequestTable.refresh();
+                    });
+                }
+            });
+        }
     }
 
     /**

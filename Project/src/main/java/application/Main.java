@@ -20,7 +20,6 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-
         primaryStage.getIcons().add(new Image(getClass().getResourceAsStream("/icon/bwh.png")));
 
         System.out.println("Collaborator is " + "X");
@@ -50,14 +49,11 @@ public class Main extends Application {
             }
         }
 
-
-
         CurrentUser.user = DBControllerU.getGuestUser(conn);
         DBController.closeConnection(conn);
 
-
-
-
+        controller.goToScene(UIController.ADMIN_TOOLS_MAP_VIEW);
+        controller.goToScene(UIController.PATHFINDING_MAIN);
         controller.goToScene(UIController.LOGIN_MAIN);
     }
 
