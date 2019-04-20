@@ -37,9 +37,9 @@
          <center>
             <GridPane BorderPane.alignment="CENTER">
               <columnConstraints>
-                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="45.0" prefWidth="100.0" />
-                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="10.0" prefWidth="100.0" />
-                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="45.0" prefWidth="100.0" />
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="39.0" prefWidth="100.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="23.0" prefWidth="100.0" />
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="38.0" prefWidth="100.0" />
               </columnConstraints>
               <rowConstraints>
                   <RowConstraints minHeight="10.0" percentHeight="40.0" prefHeight="30.0" vgrow="SOMETIMES" />
@@ -66,7 +66,7 @@
                         </ImageView>
                      </graphic>
                   </JFXButton>
-                  <JFXButton fx:id="viewReservations" alignment="BOTTOM_CENTER" buttonType="RAISED" contentDisplay="TOP" graphicTextGap="15.0" maxHeight="240.0" onAction="#setViewReservations" prefHeight="40.0" prefWidth="400.0" styleClass="jfx-button-guest-main-menu" stylesheets="@../css/background.css" text="View My Reservations" textFill="WHITE" GridPane.columnIndex="2" GridPane.halignment="LEFT" GridPane.rowIndex="1" GridPane.valignment="TOP">
+                  <JFXButton fx:id="viewReservations" alignment="BOTTOM_CENTER" buttonType="RAISED" contentDisplay="TOP" graphicTextGap="15.0" maxHeight="240.0" onAction="#setViewReservations" prefHeight="40.0" prefWidth="400.0" styleClass="jfx-button-guest-main-menu" stylesheets="@../css/background.css" text="View My Reservations" textFill="WHITE" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="TOP">
                      <font>
                         <Font name="System Bold" size="25.0" />
                      </font>
@@ -78,6 +78,18 @@
                            <effect>
                               <ColorAdjust brightness="0.3" />
                            </effect>
+                        </ImageView>
+                     </graphic>
+                  </JFXButton>
+                  <JFXButton fx:id="calendarView" alignment="BOTTOM_CENTER" buttonType="RAISED" contentDisplay="TOP" graphicTextGap="15.0" maxHeight="240.0" onAction="#setCalendarView" prefHeight="245.0" prefWidth="400.0" styleClass="jfx-button-guest-main-menu" stylesheets="@../css/background.css" text="Calendar View" textFill="WHITE" GridPane.columnIndex="2" GridPane.halignment="LEFT" GridPane.rowIndex="1" GridPane.valignment="TOP">
+                     <font>
+                        <Font name="System Bold" size="25.0" />
+                     </font>
+                     <graphic>
+                        <ImageView fitHeight="180.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../icon/calendar-512.png" />
+                           </image>
                         </ImageView>
                      </graphic>
                   </JFXButton>

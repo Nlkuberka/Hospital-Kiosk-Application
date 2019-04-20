@@ -1,0 +1,25 @@
+.tab{
+    -fx-background-color: #015080;
+
+}
+.tab-header-background{
+    -fx-background-color: #015080;
+
+}
+
+.titled-pane > .title
+{
+    -fx-background-color: WHITE;
+}
+
+
+.jfx-button-node-list{
+    -jfx-button-type: RAISED;
+    -fx-background-color:#ffc41e;
+    -fx-border-width: 3;
+    -fx-border-color: WHITE;
+    -fx-pref-height: 60;
+    -fx-pref-width: 60;
+    -fx-background-radius: 40;
+    -fx-border-radius: 40;
+}
