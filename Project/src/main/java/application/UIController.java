@@ -16,6 +16,7 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 import java.lang.reflect.Method;
 import java.util.HashMap;
@@ -73,8 +74,8 @@ public class UIController {
     public static final String SERVICE_REQUEST_AV_EQUIPMENT = "SRAVE";
 
     // The starting width and height of the window
-    private static final int WIDTH = 1280;
-    private static final int HEIGHT = 720;
+    public static final int WIDTH = 1280;
+    public static final int HEIGHT = 720;
     private static final int MIN_WIDTH = 1280;
     private static final int MIN_HEIGHT = 720;
 
@@ -242,11 +243,9 @@ public class UIController {
     protected UIController goToScene(String sceneString, DayView dayCal) {
         Scene scene = scenes.get(sceneString);
 
-
         // If the scene has not yet been created
         if(scene == null) {
             try {
-                //FXMLLoader fxmlLoader = new FXMLLoader(new File(System.getProperty("user.dir") + "/resources" + sceneFiles.get(sceneString)).toURI().toURL());
                 FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(sceneFiles.get(sceneString)));
                 fxmlLoader.setRoot(dayCal);
                 Parent root = fxmlLoader.load();
@@ -278,19 +277,9 @@ public class UIController {
     protected UIController goToScene(String sceneString) {
         Scene scene = scenes.get(sceneString);
 
-
         // If the scene has not yet been created
         if(scene == null) {
-            try {
-                //FXMLLoader fxmlLoader = new FXMLLoader(new File(System.getProperty("user.dir") + "/resources" + sceneFiles.get(sceneString)).toURI().toURL());
-                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(sceneFiles.get(sceneString)));
-                Parent root = fxmlLoader.load();
-                sceneParents.put(sceneString, root);
-                sceneControllers.put(sceneString, fxmlLoader.getController());
-                scenes.put(sceneString, new Scene(root, WIDTH, HEIGHT));
-            } catch(Exception e) {
-                e.printStackTrace();
-            }
+            loadScene(sceneString, WIDTH, HEIGHT);
         }
 
         // Show the scene
@@ -332,8 +321,78 @@ public class UIController {
         stage.setScene(scene);
         stage.show();
         stage.setAlwaysOnTop(true);
+    }
 
+    /**
+     * Popups a scene of the given the scenestring with the given width and height
+     * @param sceneString The scene to popup
+     * @param width The width of the popup
+     * @param height The height of the popup
+     * @return The UIController for that scene
+     */
+    @FXML
+    public UIController popupScene(String sceneString, int width, int height, boolean isDecorated) {
+        Stage stage = new Stage();
 
+        // If the scene has not yet been created
+        if(scenes.get(sceneString) == null) {
+            loadScene(sceneString, width, height);
+        }
+
+        stage.initOwner(primaryStage);
+        stage.initModality(Modality.APPLICATION_MODAL);
+        if(!isDecorated) {
+            stage.initStyle(StageStyle.UNDECORATED);
+        }
+
+        stage.setTitle(sceneTitles.get(sceneString));
+        stage.setScene(scenes.get(sceneString));
+        stage.show();
+        stage.toFront();
+
+        // Run the onShow function and return the controller
+        sceneControllers.get(sceneString).onShow();
+        return sceneControllers.get(sceneString);
+    }
+
+    /**
+     * Switchs the given stage to the given scenestring
+     * @param sceneString The scene to switch to
+     * @param stage The stage to switch
+     * @return The UIController
+     */
+    @FXML
+    public UIController changeScene(String sceneString, Stage stage) {
+        // If the scene has not yet been created
+        if(scenes.get(sceneString) == null) {
+            loadScene(sceneString, (int) Math.round(stage.getWidth()), (int) Math.round(stage.getHeight()));
+        }
+
+        // Show the scene
+        stage.setTitle(sceneTitles.get(sceneString));
+        stage.setScene(scenes.get(sceneString));
+
+        // Run the onShow function and return the controller
+        sceneControllers.get(sceneString).onShow();
+        return sceneControllers.get(sceneString);
+    }
+
+    /**
+     * Sets up the scene with the given width and height
+     * @param sceneString The scene to setup
+     * @param width The width to setup to
+     * @param height The height to setup to
+     */
+    private void loadScene(String sceneString, int width, int height) {
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(sceneFiles.get(sceneString)));
+            Parent root = fxmlLoader.load();
+            sceneParents.put(sceneString, root);
+            sceneControllers.put(sceneString, fxmlLoader.getController());
+            scenes.put(sceneString, new Scene(root, width, height));
+        } catch(Exception e) {
+            e.printStackTrace();
+        }
     }
 
     /**

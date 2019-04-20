@@ -2,6 +2,7 @@ package admintools;
 
 import application.CurrentUser;
 import com.jfoenix.controls.JFXButton;
+import application.CurrentUser;
 import com.twilio.Twilio;
 import com.twilio.rest.api.v2010.account.Message;
 import database.DBController;
@@ -105,7 +106,8 @@ public class UIControllerATVSR extends UIController {
                 setGraphic(checkBox);
                 checkBox.setOnAction(et -> {
                     runSetter(serviceRequest, serviceRequestSetters[index], boolean.class, checkBox.isSelected());
-                    System.out.println(serviceRequest);
+                    serviceRequest.setResolverID(CurrentUser.user.getUserID());
+                    serviceRequestTable.refresh();
                     Connection conn = DBController.dbConnect();
                     DBControllerSR.updateServiceRequest(serviceRequest,conn);
                     if(serviceRequest.getServiceType().equals("Flower Delivery")){

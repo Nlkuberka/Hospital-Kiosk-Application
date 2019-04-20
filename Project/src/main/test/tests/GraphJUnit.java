@@ -466,4 +466,126 @@ public class GraphJUnit extends TestCase {
         DBControllerNE.deleteNode("N9", conn);
         DBControllerNE.closeConnection(conn);
     }
+
+    @Test
+    public void testNoStairsMode() {
+        Node n0 = new Node("N0", 0, 0, "", "", "STAI", "", "");
+        Node n1 = new Node("N1", 1, 0, "", "", "", "", "");
+        Node n2 = new Node("N2", 2, 0, "", "", "STAI", "", "");
+        Node n3 = new Node("N3", 3, 0, "", "", "STAI", "", "");
+        Node n4 = new Node("N4", 3, 1, "", "", "", "", "");
+        Node n5 = new Node("N5", 4, 0, "", "", "STAI", "", "");
+        Connection conn = DBControllerNE.dbConnect();
+        DBControllerNE.addNode(n0, conn);
+        DBControllerNE.addNode(n1, conn);
+        DBControllerNE.addNode(n2, conn);
+        DBControllerNE.addNode(n3, conn);
+        DBControllerNE.addNode(n4, conn);
+        DBControllerNE.addNode(n5, conn);
+        DBControllerNE.closeConnection(conn);
+        Graph.getGraph().addNode(n0);
+        Graph.getGraph().addNode(n1);
+        Graph.getGraph().addNode(n2);
+        Graph.getGraph().addNode(n3);
+        Graph.getGraph().addNode(n4);
+        Graph.getGraph().addNode(n5);
+        Graph.getGraph().addBiEdge("N0", "N1");
+        Graph.getGraph().addBiEdge("N1", "N2");
+        Graph.getGraph().addBiEdge("N2", "N3");
+        Graph.getGraph().addBiEdge("N2", "N4");
+        Graph.getGraph().addBiEdge("N3", "N5");
+        Graph.getGraph().addBiEdge("N4", "N5");
+        List<String> expected = new LinkedList<>();
+        expected.add("N0");
+        expected.add("N1");
+        expected.add("N2");
+        expected.add("N4");
+        expected.add("N5");
+        Graph.noStairsIsOn = true;
+
+        Graph.toDijkstra();
+        List<String> actual = Graph.getGraph().shortestPath("N0", "N5");
+        assertEquals(expected, actual);
+
+        Graph.toBellmanFord();
+        actual = Graph.getGraph().shortestPath("N0", "N5");
+        assertEquals(expected, actual);
+
+        Graph.toDFS();
+        actual = Graph.getGraph().shortestPath("N0", "N5");
+        assertEquals(expected, actual);
+
+        Graph.toBFS();
+        actual = Graph.getGraph().shortestPath("N0", "N5");
+        assertEquals(expected, actual);
+
+        Graph.toAStar();
+        actual = Graph.getGraph().shortestPath("N0", "N5");
+        assertEquals(expected, actual);
+
+        expected = null;
+
+        Graph.toDijkstra();
+        actual = Graph.getGraph().shortestPath("N0", "N3");
+        assertEquals(expected, actual);
+
+        Graph.toBellmanFord();
+        actual = Graph.getGraph().shortestPath("N0", "N3");
+        assertEquals(expected, actual);
+
+        Graph.toDFS();
+        actual = Graph.getGraph().shortestPath("N0", "N3");
+        assertEquals(expected, actual);
+
+        Graph.toBFS();
+        actual = Graph.getGraph().shortestPath("N0", "N3");
+        assertEquals(expected, actual);
+
+        Graph.toAStar();
+        actual = Graph.getGraph().shortestPath("N0", "N3");
+        assertEquals(expected, actual);
+
+        Graph.noStairsIsOn = false;
+        expected = new LinkedList<>();
+        expected.add("N0");
+        expected.add("N1");
+        expected.add("N2");
+        expected.add("N3");
+        expected.add("N5");
+
+        Graph.toDijkstra();
+        actual = Graph.getGraph().shortestPath("N0", "N5");
+        assertEquals(expected, actual);
+
+        Graph.toBellmanFord();
+        actual = Graph.getGraph().shortestPath("N0", "N5");
+        assertEquals(expected, actual);
+
+        Graph.toDFS();
+        actual = Graph.getGraph().shortestPath("N0", "N5");
+        assertEquals(expected, actual);
+
+        Graph.toBFS();
+        actual = Graph.getGraph().shortestPath("N0", "N5");
+        assertEquals(expected, actual);
+
+        Graph.toAStar();
+        actual = Graph.getGraph().shortestPath("N0", "N5");
+        assertEquals(expected, actual);
+
+        Graph.getGraph().removeNode("N0");
+        Graph.getGraph().removeNode("N1");
+        Graph.getGraph().removeNode("N2");
+        Graph.getGraph().removeNode("N3");
+        Graph.getGraph().removeNode("N4");
+        Graph.getGraph().removeNode("N5");
+        conn = DBControllerNE.dbConnect();
+        DBControllerNE.deleteNode("N0", conn);
+        DBControllerNE.deleteNode("N1", conn);
+        DBControllerNE.deleteNode("N2", conn);
+        DBControllerNE.deleteNode("N3", conn);
+        DBControllerNE.deleteNode("N4", conn);
+        DBControllerNE.deleteNode("N5", conn);
+        DBControllerNE.closeConnection(conn);
+    }
 }
