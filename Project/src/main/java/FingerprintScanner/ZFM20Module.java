@@ -1,4 +1,4 @@
-package application;
+package FingerprintScanner;
 
 import gnu.io.CommPortIdentifier;
 import gnu.io.PortInUseException;
@@ -105,7 +105,7 @@ public class ZFM20Module {
         }
 
     }
-    private ZFM20Module() throws UnsupportedCommOperationException, IOException, PortInUseException {
+    public ZFM20Module() throws UnsupportedCommOperationException, IOException, PortInUseException {
         seclevel=0;
         templatecount=0;
         matchedPage=0;
