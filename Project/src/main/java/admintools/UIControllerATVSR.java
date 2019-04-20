@@ -1,6 +1,8 @@
 package admintools;
 
 import application.CurrentUser;
+import com.jfoenix.controls.JFXButton;
+import application.CurrentUser;
 import com.twilio.Twilio;
 import com.twilio.rest.api.v2010.account.Message;
 import database.DBController;
@@ -167,6 +169,34 @@ public class UIControllerATVSR extends UIController {
                 setGraphic(label);
             }
         });
+
+        // Initialize cell factories of the remove service request column
+        TableColumn<ServiceRequest, ServiceRequest> removeColumn = (TableColumn<ServiceRequest, ServiceRequest>) tableColumns.get(tableColumns.size() - 1);
+        if(CurrentUser.user.getPermissions() != 3){
+            removeColumn.setVisible(false);
+        } else {
+            removeColumn.setVisible(true);
+            removeColumn.setCellValueFactory(param -> new ReadOnlyObjectWrapper<>(param.getValue()));
+            removeColumn.setCellFactory(param -> new TableCell<ServiceRequest, ServiceRequest>() {
+                private JFXButton removeButton = new JFXButton("Remove");
+
+                @Override
+                protected void updateItem(ServiceRequest serviceRequest, boolean empty) {
+                    super.updateItem(serviceRequest, empty);
+                    if (serviceRequest == null) {
+                        return;
+                    }
+                    setGraphic(removeButton);
+                    removeButton.setOnAction(e -> {
+                        serviceRequestTable.getItems().remove(serviceRequest);
+                        Connection conn = DBController.dbConnect();
+                        DBControllerSR.deleteServiceRequest(serviceRequest.getServiceID(), conn);
+                        DBController.closeConnection(conn);
+                        serviceRequestTable.refresh();
+                    });
+                }
+            });
+        }
     }
 
     /**
