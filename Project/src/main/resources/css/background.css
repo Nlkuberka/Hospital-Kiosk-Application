@@ -16,6 +16,8 @@
 .image_view_context{
     -fx-background-radius: 10;
 }
+
+
 .jfx-button-login{
     -jfx-button-type: FLAT;
     -fx-background-color:#FFC41E;
@@ -419,3 +421,4 @@
     -fx-font-weight: bold italic;
     -fx-text-fill: #015080;
 }
+

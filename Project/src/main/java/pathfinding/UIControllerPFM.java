@@ -16,10 +16,15 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.control.Menu;
 import javafx.scene.control.Tab;
+import javafx.scene.control.TitledPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
+import javafx.scene.paint.Color;
 import javafx.scene.shape.Path;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -44,6 +49,7 @@ public class UIControllerPFM extends UIController {
     private AnchorPane topAnchorPane;
     @FXML private Path pathLL2, pathLL1, pathG, path1, path2, path3;
     @FXML private JFXTabPane mapTabPane;
+    @FXML private Menu homeMenu;
 
     @FXML public JFXComboBox<String> initialLocationCombo;
     @FXML public JFXComboBox<String> destinationCombo;
@@ -68,6 +74,9 @@ public class UIControllerPFM extends UIController {
     @FXML private AnchorPane secondFloorAnchorPane;
     @FXML private AnchorPane thirdFloorAnchorPane;
 
+    @FXML
+    TitledPane titledPane;
+
     // The multiplication factor at which the map changes size
     @FXML
     private JFXButton directionsRequest;
@@ -84,6 +93,7 @@ public class UIControllerPFM extends UIController {
      */
     @FXML
     public void initialize() {
+       // titledPane.prefHeightProperty().bind(primaryStage.heightProperty());
         backgroundImage.fitWidthProperty().bind(primaryStage.widthProperty());
 
         // ensures new tab has same x,y on the map and path animation changes between floors
@@ -164,6 +174,8 @@ public class UIControllerPFM extends UIController {
         }, true);
 
         anchorPaneHandler.initCircles(roomsAtEachFloor, initialLocationCombo, destinationCombo);
+
+
     }
 
     void setInitialLocation(String longName) {
@@ -176,7 +188,20 @@ public class UIControllerPFM extends UIController {
         currentObjects.clearContextMenu();
     }
 
+    /**
+     *
+     */
+    @FXML
+    private void setTitledPane(){
+        if (titledPane.isExpanded() == false){
+            final Color color = Color.TRANSPARENT;
+            titledPane.setBackground(new Background(new BackgroundFill(color, null, null)));
+        }else{
+            final Color color2 = Color.web("#ffc41e");
+            titledPane.setBackground(new Background(new BackgroundFill(color2, null, null)));
+        }
 
+    }
     /**
      * Allows for a default starting location
      * @param longName Name of starting node
@@ -241,7 +266,7 @@ public class UIControllerPFM extends UIController {
             List<Integer> floorsUsed = pathHandler.getFloorsUsed();
             clearTabColors();
             for (Integer floor : floorsUsed) {
-                mapTabPane.getTabs().get(floor).setStyle("-fx-background-color: #fbe58e");
+                mapTabPane.getTabs().get(floor).setStyle("-fx-background-color: #efffff");
             }
         }
 
@@ -261,7 +286,7 @@ public class UIControllerPFM extends UIController {
      */
     private void clearTabColors() {
         for (Tab tab : mapTabPane.getTabs()) {
-            tab.setStyle("-fx-background-color: #FFC41E");
+            tab.setStyle("-fx-background-color: #015080");
         }
     }
 
@@ -338,6 +363,8 @@ public class UIControllerPFM extends UIController {
         Graph.noStairsIsOn = noStairsButton.isSelected();
         getPath();
     }
+
+
 }
 
 
