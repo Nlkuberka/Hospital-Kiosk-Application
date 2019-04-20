@@ -102,7 +102,7 @@ public class DBControllerU extends DBController {
 
 
 
-    public static void removeUser(User user, Connection conn){
+    public static void deleteUser(User user, Connection conn){
         try {
             PreparedStatement ps = conn.prepareStatement("Delete from USERS where USERID = ?");
             ps.setString(1, user.getUserID());
