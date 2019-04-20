@@ -111,6 +111,7 @@ public class DBControllerU extends DBController {
             PreparedStatement ps = conn.prepareStatement("Delete from USERS where USERID = ?");
             ps.setString(1, user.getUserID());
             ps.execute();
+            CurrentUser.network.sendUserPacket(DBNetwork.DELETE_USER, user);
         }catch(SQLException e){
             e.printStackTrace();
         }

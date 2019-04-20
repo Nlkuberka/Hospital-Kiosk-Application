@@ -58,7 +58,6 @@ public class Main extends Application {
         CurrentUser.network = new DBNetwork(4590);
         CurrentUser.network.hold();
         CurrentUser.network.mute();
-        //CurrentUser.network.sendNodePacket(DBNetwork.ADD_NODE, new Node("TEST", 123, 456, "TEST", "TEST", "TEST", "TEST", "TEST"));
 
         controller.goToScene(UIController.ADMIN_TOOLS_MAP_VIEW);
         controller.goToScene(UIController.PATHFINDING_MAIN);

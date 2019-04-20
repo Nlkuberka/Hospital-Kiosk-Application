@@ -176,7 +176,7 @@ public class DBServer extends NetworkThread implements Runnable {
         } else if(command.contains("UPDATE")) {
             DBControllerU.updateUser(user.getUserID(), user, conn);
         } else if(command.contains("DELETE")) {
-            DBController.createTable("Delete From USERS WHERE USERID = '" + user.getUserID() + "'", conn);
+            DBControllerU.deleteUser(user, conn);
         }
         DBController.closeConnection(conn);
         outputSuccess();

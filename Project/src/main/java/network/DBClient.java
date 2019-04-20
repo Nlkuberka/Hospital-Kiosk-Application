@@ -11,6 +11,7 @@ import java.net.Socket;
  * @version iteration4
  */
 public class DBClient extends NetworkThread implements Runnable {
+    private static final int attemptsNum = 10;
     private Socket socket;
     private String ip;
     private int socketNum;
@@ -36,7 +37,8 @@ public class DBClient extends NetworkThread implements Runnable {
      */
     public void run() {
         String result = "";
-        while(!result.equals("CONFIRMED|:|" + outputString)) {
+        int attempts = 0;
+        while(!result.equals("CONFIRMED|:|" + outputString) && attempts < attemptsNum) {
             if(end) {
                 break;
             }
@@ -53,6 +55,7 @@ public class DBClient extends NetworkThread implements Runnable {
             } catch(Exception e) {
                 e.printStackTrace();
             }
+            attempts++;
         }
     }
 
