@@ -370,16 +370,17 @@
 }
 .paneBabysitting{
     -jfx-button-type: FLAT;
-    -fx-background-color:#efffff;
+    -fx-background-color:#ffffff;
     -fx-font-size: 16;
     -fx-font-weight: bold;
     -fx-text-fill: white;
     -fx-wrap-text: #015080;
-    -fx-pref-width: 180;
-    -fx-pref-height: 200;
-    -fx-border-color: #015080;
-    -fx-border-width: 1;
-    -fx-background-radius: 10;
+    -fx-pref-width: 160;
+    -fx-pref-height: 180;
+    -fx-border-color: #ffc41e;
+    -fx-border-width: 5;
+    -fx-background-radius: 40;
+    -fx-border-radius: 40;
 }
 
 /* Styling the slider thumb */
