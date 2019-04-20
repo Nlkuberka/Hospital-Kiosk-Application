@@ -23,7 +23,6 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-
         primaryStage.getIcons().add(new Image(getClass().getResourceAsStream("/icon/bwh.png")));
 
         System.out.println("Collaborator is " + "X");
@@ -53,15 +52,16 @@ public class Main extends Application {
             }
         }
 
-
-
         CurrentUser.user = DBControllerU.getGuestUser(conn);
         DBController.closeConnection(conn);
 
         CurrentUser.network = new DBNetwork(4590);
         CurrentUser.network.hold();
-        CurrentUser.network.sendNodePacket(DBNetwork.ADD_NODE, new Node("TEST", 123, 456, "TEST", "TEST", "TEST", "TEST", "TEST"));
+        CurrentUser.network.mute();
+        //CurrentUser.network.sendNodePacket(DBNetwork.ADD_NODE, new Node("TEST", 123, 456, "TEST", "TEST", "TEST", "TEST", "TEST"));
 
+        controller.goToScene(UIController.ADMIN_TOOLS_MAP_VIEW);
+        controller.goToScene(UIController.PATHFINDING_MAIN);
         controller.goToScene(UIController.WELCOME_MAIN);
 
         primaryStage.setOnCloseRequest(new EventHandler<WindowEvent>() {

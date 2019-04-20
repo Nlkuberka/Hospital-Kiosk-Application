@@ -64,12 +64,12 @@ public class DBControllerSR extends DBController {
      * deleteServiceRequest
      *
      *
-     * @param conn
+     * @param connection
      */
-    public static void deleteServiceRequest(Connection conn, String ID){
+    public static void deleteServiceRequest(int ID, Connection connection){
         try {
-            PreparedStatement ps = conn.prepareStatement("DELETE * FROM SERVICEREQUEST WHERE SERVICEID = ?");
-            ps.setString(1,ID);
+            PreparedStatement ps = connection.prepareStatement("DELETE * FROM SERVICEREQUEST WHERE SERVICEID = ?");
+            ps.setInt(1,ID);
             ps.execute();
         }catch(SQLException e){
             e.printStackTrace();
