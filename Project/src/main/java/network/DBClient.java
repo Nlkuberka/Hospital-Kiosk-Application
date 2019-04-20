@@ -35,21 +35,20 @@ public class DBClient extends NetworkThread implements Runnable {
      * The running state of the client
      */
     public void run() {
-        while(true) {
+        String result = "";
+        while(!result.equals("CONFIRMED|:|" + outputString)) {
             if(end) {
                 break;
-            }
-            System.out.print("");
-            if(outputString == null || outputString.equals("")) {
-                continue;
             }
             try{
                 socket = new Socket(ip, socketNum);
                 setup();
 
                 output.writeBytes(outputString + "\n");
-                System.out.println("SENT:" + outputString);
-                outputString = "";
+                log("C-SENT     : " + outputString);
+
+                result = input.readLine();
+                log("C-RECEIVED : " + result);
                 closeSocket(socket);
             } catch(Exception e) {
                 e.printStackTrace();

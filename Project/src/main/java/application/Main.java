@@ -59,8 +59,8 @@ public class Main extends Application {
         DBController.closeConnection(conn);
 
         CurrentUser.network = new DBNetwork(4590);
-        CurrentUser.network.mute();
-        //network.addNode(new Node("TEST", 123, 456, "TEST", "TEST", "TEST", "TEST", "TEST"));
+        CurrentUser.network.hold();
+        CurrentUser.network.sendNodePacket(DBNetwork.ADD_NODE, new Node("TEST", 123, 456, "TEST", "TEST", "TEST", "TEST", "TEST"));
 
         controller.goToScene(UIController.WELCOME_MAIN);
 

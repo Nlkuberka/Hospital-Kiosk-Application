@@ -1,14 +1,9 @@
 package network;
 
+import application.CurrentUser;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import database.DBController;
-import database.DBControllerNE;
-import database.DBControllerSR;
-import database.DBControllerU;
-import entities.Edge;
-import entities.Node;
-import entities.ServiceRequest;
-import entities.User;
+import database.*;
+import entities.*;
 
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
@@ -16,7 +11,6 @@ import java.io.InputStreamReader;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.sql.Connection;
-import java.util.Arrays;
 
 /**
  * The class for a DBServer
@@ -30,6 +24,9 @@ public class DBServer extends NetworkThread implements Runnable {
     private DataOutputStream output;
     private ObjectMapper mapper;
 
+    private String inputString;
+    private boolean hold;
+
     /**
      * Constructor
      * @param socket The serverSocket to use
@@ -38,6 +35,7 @@ public class DBServer extends NetworkThread implements Runnable {
         this.serverSocket = socket;
         mapper = new ObjectMapper();
         end = false;
+        hold = false;
     }
 
     /**
@@ -55,9 +53,17 @@ public class DBServer extends NetworkThread implements Runnable {
                 setup(socket);
 
                 // Output input
-                String string = input.readLine();
-                System.out.println("Received:" + string);
-                handleString(string);
+                inputString = input.readLine();
+                log("S-RECEIVED : " + inputString);
+
+                if(!hold) {
+                    CurrentUser.network.mute();
+                    handleString(inputString);
+                    CurrentUser.network.unmute();
+                } else {
+                    outputSuccess();
+                }
+
                 closeSocket(socket);
             } catch(Exception e) {
                 e.printStackTrace();
@@ -66,6 +72,10 @@ public class DBServer extends NetworkThread implements Runnable {
         closeServerSocket(serverSocket);
     }
 
+    /**
+     * Handles the given string from a client and parse as the given object class
+     * @param string The string to handle
+     */
     private void handleString(String string) {
         String[] parts = string.split("\\|:\\|");
         String command = parts[0];
@@ -97,9 +107,32 @@ public class DBServer extends NetworkThread implements Runnable {
                 return;
             }
             handleUser(command, user);
+        } else if(command.contains("SERVICE REQUEST")) {
+            ServiceRequest serviceRequest;
+            try{
+                serviceRequest = mapper.readValue(object, ServiceRequest.class);
+            } catch(Exception e) {
+                e.printStackTrace();
+                return;
+            }
+            handleServiceRequest(command, serviceRequest);
+        } else if(command.contains("RESERVATIONS")) {
+            Reservation reservation;
+            try{
+                reservation = mapper.readValue(object, Reservation.class);
+            } catch(Exception e) {
+                e.printStackTrace();
+                return;
+            }
+            handleReservation(command, reservation);
         }
     }
 
+    /**
+     * Calls the DB function based on the command for the given node
+     * @param command The command
+     * @param node The node for that command
+     */
     private void handleNode(String command, Node node) {
         Connection conn = DBController.dbConnect();
         if(command.contains("ADD")) {
@@ -110,8 +143,14 @@ public class DBServer extends NetworkThread implements Runnable {
             DBControllerNE.deleteNode(node.getNodeID(), conn);
         }
         DBController.closeConnection(conn);
+        outputSuccess();
     }
 
+    /**
+     * Calls the DB function based on the command for the given edge
+     * @param command The command
+     * @param edge The edge for that command
+     */
     private void handleEdge(String command, Edge edge) {
         Connection conn = DBController.dbConnect();
         if(command.contains("ADD")) {
@@ -122,8 +161,14 @@ public class DBServer extends NetworkThread implements Runnable {
             DBControllerNE.deleteEdge(edge.getNode1ID(), edge.getNode2ID(), conn);
         }
         DBController.closeConnection(conn);
+        outputSuccess();
     }
 
+    /**
+     * Calls the DB function based on the command for the given user
+     * @param command The command
+     * @param user The user for that command
+     */
     private void handleUser(String command, User user) {
         Connection conn = DBController.dbConnect();
         if(command.contains("ADD")) {
@@ -134,7 +179,57 @@ public class DBServer extends NetworkThread implements Runnable {
             DBController.createTable("Delete From USERS WHERE USERID = '" + user.getUserID() + "'", conn);
         }
         DBController.closeConnection(conn);
+        outputSuccess();
     }
+
+    /**
+     * Calls the DB function based on the command for the given service request
+     * @param command The command
+     * @param serviceRequest The service request for that command
+     */
+    private void handleServiceRequest(String command, ServiceRequest serviceRequest) {
+        Connection conn = DBController.dbConnect();
+        if(command.contains("ADD")) {
+            DBControllerSR.addServiceRequest(serviceRequest, conn);
+        } else if(command.contains("UPDATE")) {
+            DBControllerSR.updateServiceRequest(serviceRequest, conn);
+        } else if(command.contains("DELETE")) {
+            DBControllerSR.deleteServiceRequest(conn, serviceRequest.getServiceID() + "");
+        }
+        DBController.closeConnection(conn);
+        outputSuccess();
+    }
+
+    /**
+     * Calls the DB function based on the command for the given reservation
+     * @param command The command
+     * @param reservation The reservation for that command
+     */
+    private void handleReservation(String command, Reservation reservation) {
+        Connection conn = DBController.dbConnect();
+        if(command.contains("ADD")) {
+            DBControllerRW.addReservation(reservation, conn);
+        } else if(command.contains("UPDATE")) {
+            DBControllerRW.updateReservation(reservation, conn);
+        } else if(command.contains("DELETE")) {
+            DBControllerRW.deleteReservation(reservation.getRsvID(), conn);
+        }
+        DBController.closeConnection(conn);
+        outputSuccess();
+    }
+
+    /**
+     * Returns a success to the client
+     */
+    private void outputSuccess() {
+        try {
+            output.writeBytes("CONFIRMED|:|" + inputString);
+            log("S-SENT     : " + "CONFIRMED|:|" + inputString);
+        } catch(Exception e) {
+            e.printStackTrace();
+        }
+    }
+
     /**
      * Any setup for a new socket
      */
@@ -152,6 +247,14 @@ public class DBServer extends NetworkThread implements Runnable {
      */
     void end() {
         end = true;
+    }
+
+    public void hold() {
+        this.hold = true;
+    }
+
+    public void unhold() {
+        this.hold = false;
     }
 
 }

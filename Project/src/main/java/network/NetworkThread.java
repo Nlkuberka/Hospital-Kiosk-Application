@@ -9,6 +9,8 @@ import java.net.Socket;
  * @version iteration4
  */
 public class NetworkThread {
+    private static boolean verbose = true;
+
     /**
      * Closes the given serverSocket
      * @param serverSocket The serverSocket to close
@@ -30,6 +32,12 @@ public class NetworkThread {
             socket.close();
         } catch(Exception e) {
             e.printStackTrace();
+        }
+    }
+
+    void log(String string) {
+        if(verbose) {
+            System.out.println(string);
         }
     }
 }
