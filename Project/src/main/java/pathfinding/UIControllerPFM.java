@@ -74,6 +74,9 @@ public class UIControllerPFM extends UIController {
     @FXML private AnchorPane secondFloorAnchorPane;
     @FXML private AnchorPane thirdFloorAnchorPane;
 
+    @FXML private JFXButton reservationButton;
+    @FXML private  JFXButton resolveRequestButton;
+
     @FXML
     TitledPane titledPane;
 
@@ -362,6 +365,15 @@ public class UIControllerPFM extends UIController {
     private void noStairsToggled() {
         Graph.noStairsIsOn = noStairsButton.isSelected();
         getPath();
+    }
+
+    @FXML
+    private void setReservationButton(){
+
+    }
+    @FXML
+    private void setResolveRequestButton(){
+
     }
 
 
