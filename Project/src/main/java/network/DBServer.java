@@ -194,7 +194,7 @@ public class DBServer extends NetworkThread implements Runnable {
         } else if(command.contains("UPDATE")) {
             DBControllerSR.updateServiceRequest(serviceRequest, conn);
         } else if(command.contains("DELETE")) {
-            DBControllerSR.deleteServiceRequest(conn, serviceRequest.getServiceID() + "");
+            DBControllerSR.deleteServiceRequest(serviceRequest.getServiceID(), conn);
         }
         DBController.closeConnection(conn);
         outputSuccess();

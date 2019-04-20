@@ -1,6 +1,8 @@
 package database;
 
+import application.CurrentUser;
 import entities.ServiceRequest;
+import network.DBNetwork;
 
 import java.sql.*;
 
@@ -31,6 +33,7 @@ public class DBControllerSR extends DBController {
             }
             s.execute();
             ResultSet rs = s.getGeneratedKeys();
+            CurrentUser.network.sendServiceRequestPacket(DBNetwork.ADD_SERVICE_REQUEST, serviceRequest);
             return 1;
         }catch(SQLException e){
             e.printStackTrace();
@@ -55,6 +58,7 @@ public class DBControllerSR extends DBController {
                     "RESOLVED = '" + serviceRequest.isResolved() + "'," +
                     "RESOLVERID = '"+serviceRequest.getResolverID()+"' " +
                     "where  SERVICEID = " + serviceRequest.getServiceID());
+            CurrentUser.network.sendServiceRequestPacket(DBNetwork.UPDATE_SERVICE_REQUEST, serviceRequest);
         }catch(SQLException e){
             e.printStackTrace();
         }
@@ -71,6 +75,9 @@ public class DBControllerSR extends DBController {
             PreparedStatement ps = connection.prepareStatement("DELETE * FROM SERVICEREQUEST WHERE SERVICEID = ?");
             ps.setInt(1,ID);
             ps.execute();
+            ServiceRequest serviceRequest = new ServiceRequest();
+            serviceRequest.setServiceID(ID);
+            CurrentUser.network.sendServiceRequestPacket(DBNetwork.DELETE_SERVICE_REQUEST, serviceRequest);
         }catch(SQLException e){
             e.printStackTrace();
         }
