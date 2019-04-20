@@ -58,8 +58,9 @@ public class Main extends Application {
         CurrentUser.user = DBControllerU.getGuestUser(conn);
         DBController.closeConnection(conn);
 
-        DBNetwork network = new DBNetwork(4590);
-        //network.outputString("TEST");
+        CurrentUser.network = new DBNetwork(4590);
+        CurrentUser.network.mute();
+        //network.addNode(new Node("TEST", 123, 456, "TEST", "TEST", "TEST", "TEST", "TEST"));
 
         controller.goToScene(UIController.WELCOME_MAIN);
 
@@ -67,7 +68,7 @@ public class Main extends Application {
             @Override
             public void handle(WindowEvent event) {
                 try {
-                    network.shutdown();
+                    CurrentUser.network.shutdown();
                 } catch (Exception e) {
                     e.printStackTrace();
                 }

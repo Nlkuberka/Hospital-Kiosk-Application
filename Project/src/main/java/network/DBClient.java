@@ -39,7 +39,8 @@ public class DBClient extends NetworkThread implements Runnable {
             if(end) {
                 break;
             }
-            if( outputString == null || outputString.equals("")) {
+            System.out.print("");
+            if(outputString == null || outputString.equals("")) {
                 continue;
             }
             try{
@@ -47,6 +48,7 @@ public class DBClient extends NetworkThread implements Runnable {
                 setup();
 
                 output.writeBytes(outputString + "\n");
+                System.out.println("SENT:" + outputString);
                 outputString = "";
                 closeSocket(socket);
             } catch(Exception e) {
