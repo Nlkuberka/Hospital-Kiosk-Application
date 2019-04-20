@@ -1,5 +1,6 @@
 package application;
 
+import FingerprintScanner.ZFM20Module;
 import database.DBController;
 import database.DBControllerNE;
 import database.DBControllerU;
@@ -10,7 +11,6 @@ import javafx.application.Application;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
-import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DatabaseMetaData;
 import java.sql.ResultSet;
@@ -63,7 +63,7 @@ public class Main extends Application {
 
 
 
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) throws Exception {
         ZFM20Module module = new ZFM20Module();
         Thread.sleep(1500);
         boolean success =module.setBaud(12); //actual baudrate = 12*9600 (max)
