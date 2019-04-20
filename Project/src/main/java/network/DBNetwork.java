@@ -184,7 +184,7 @@ public class DBNetwork {
         outputString(outputString);
     }
 
-    public void deleteUSER(User user) {
+    public void deleteUser(User user) {
         String outputString = "DELETE USER|:|";
         try {
             outputString += mapper.writeValueAsString(user);
