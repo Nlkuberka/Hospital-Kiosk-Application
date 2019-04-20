@@ -54,7 +54,7 @@ public class Main extends Application {
 
         controller.goToScene(UIController.ADMIN_TOOLS_MAP_VIEW);
         controller.goToScene(UIController.PATHFINDING_MAIN);
-        controller.goToScene(UIController.WELCOME_MAIN);
+        controller.goToScene(UIController.LOGIN_MAIN);
     }
 
 

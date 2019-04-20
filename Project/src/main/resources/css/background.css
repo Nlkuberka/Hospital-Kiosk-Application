@@ -16,19 +16,29 @@
 .image_view_context{
     -fx-background-radius: 10;
 }
+
+
 .jfx-button-login{
     -jfx-button-type: FLAT;
     -fx-background-color:#FFC41E;
     -fx-font-size: 20;
     -fx-font-weight: bold;
-    -fx-text-fill: white;
+    -fx-text-fill:#090a0f;
+}
+.jfx-button-guest-login{
+    -jfx-button-type: FLAT;
+    -fx-background-color:#FFC41E;
+    -fx-font-size: 45;
+    -fx-font-weight: bold;
+    -fx-text-fill:#090a0f;
+    -fx-pref-width: 350;
 }
 .jfx-button-main-menu{
     -jfx-button-type: FLAT;
     -fx-background-color:#FFC41E;
     -fx-font-size: 20;
     -fx-font-weight: bold;
-    -fx-text-fill: white;
+    -fx-text-fill: #090a0f;
     -fx-pref-width: 240;
     -fx-max-width: 240;
     -fx-pref-height: 240;
@@ -41,7 +51,7 @@
     -fx-background-color:#FFC41E;
     -fx-font-size: 20;
     -fx-font-weight: bold;
-    -fx-text-fill: white;
+    -fx-text-fill: #090a0f;
     -fx-pref-width: 230;
     -fx-pref-height: 240;
 }
@@ -50,7 +60,7 @@
     -fx-background-color:#FFC41E;
     -fx-font-size: 20;
     -fx-font-weight: bold;
-    -fx-text-fill: white;
+    -fx-text-fill: #090a0f;
     -fx-pref-width: 240;
     -fx-pref-height: 240;
 }
@@ -60,7 +70,7 @@
     -fx-background-color:#FFC41E;
     -fx-font-size: 30;
     -fx-font-weight: bold;
-    -fx-text-fill: white;
+    -fx-text-fill: #090a0f;
     -fx-pref-width: 400;
     -fx-pref-height: 60;
 }
@@ -70,7 +80,7 @@
     -fx-background-color:#FFC41E;
     -fx-font-size: 20;
     -fx-font-weight: bold;
-    -fx-text-fill: white;
+    -fx-text-fill: #090a0f;
     -fx-pref-width: 201;
     -fx-pref-height: 200;
     -fx-border-color: #015080;
@@ -85,7 +95,7 @@
     -fx-background-color:#FFC41E;
     -fx-font-size: 20;
     -fx-font-weight: bold;
-    -fx-text-fill: white;
+    -fx-text-fill: #090a0f;
     -fx-pref-width: 268;
     -fx-pref-height: 150;
     -fx-border-color: #015080;
@@ -98,7 +108,7 @@
     -fx-background-color:#FFC41E;
     -fx-font-size: 16;
     -fx-font-weight: bold;
-    -fx-text-fill: white;
+    -fx-text-fill: #090a0f;
     -fx-pref-width: 120;
     -fx-pref-height: 35;
 }
@@ -116,7 +126,7 @@
     -fx-background-color:#FFC41E;
     -fx-font-size: 12;
     -fx-font-weight: bold;
-    -fx-text-fill: white;
+    -fx-text-fill: #090a0f;
 }
 
 .jfx-button-cancel{
@@ -130,7 +140,7 @@
     -fx-background-color:#FFC41E;
     -fx-font-size: 15;
     -fx-font-weight: bold;
-    -fx-text-fill: white;
+    -fx-text-fill: #090a0f;
 }
 
 .jfx-button-SVmain{
@@ -138,7 +148,7 @@
     -fx-background-color:#FFC41E;
     -fx-font-size: 16;
     -fx-font-weight: bold;
-    -fx-text-fill: white;
+    -fx-text-fill: #090a0f;
     -fx-pref-width: 160;
     -fx-pref-height: 180;
     -fx-border-color: #015080;
@@ -152,7 +162,7 @@
     -fx-background-color:#FFC41E;
     -fx-font-size: 16;
     -fx-font-weight: bold;
-    -fx-text-fill: white;
+    -fx-text-fill: #090a0f;
     -fx-pref-width: 140;
     -fx-pref-height: 180;
     -fx-border-color: #015080;
@@ -165,7 +175,7 @@
     -fx-background-color:#FFC41E;
     -fx-font-size: 16;
     -fx-font-weight: bold;
-    -fx-text-fill: white;
+    -fx-text-fill: #090a0f;
     -fx-pref-width: 205;
     -fx-pref-height: 180;
     -fx-border-color: #015080;
@@ -178,7 +188,7 @@
     -fx-background-color:#efffff;
     -fx-font-size: 16;
     -fx-font-weight: bold;
-    -fx-text-fill: white;
+    -fx-text-fill: #090a0f;
     -fx-wrap-text: #015080;
     -fx-pref-width: 180;
     -fx-pref-height: 200;
@@ -189,20 +199,24 @@
 
 /* Tab pane styling*/
 .jfx-tab-pane-other{
-    -fx-background-color: #FFC41E;
+    -fx-background-color: #ffc41e;
     -fx-pref-width: 900;
-    -webkit-fx-pref-height:50;
+    -webkit-fx-pref-height:60;
 }
-.tab .text{
-    -fx-text-fill: #090a0f;
-    -fx-pref-height: 30;
+.tab-login .text{
+    -fx-pref-height: 60;
     -fx-font-weight: Bold;
-    -fx-font-size: 14;
+    -fx-fill: #090a0f;
+   /* -fx-font-size: 22;*/
     -fx-text-alignment: CENTER;
+}
+.tab-login:selected {
+    -fx-background-color:#015080;
+    -fx-text-fill: #ffc41e;
 }
 
  .tab-header-background{
-     -fx-background-color: #FFC41E;
+     -fx-background-color: #ffc41e;
  }
 
 .tab-pane-switch-algorithm{
@@ -210,16 +224,6 @@
     -fx-pref-width: 900;
    -fx-border-color: #FFC41E;
     -fx-border-width: 6;
-}
-/*Login_main tab*/
-.jfx-tab-pane-login{
-    -fx-pref-width: 900;
-    -webkit-fx-pref-height:50;
-}
-
-
-.tab-header-background-login{
-    -fx-background-color: #FFC41E;
 }
 /*
 
@@ -417,3 +421,4 @@
     -fx-font-weight: bold italic;
     -fx-text-fill: #015080;
 }
+

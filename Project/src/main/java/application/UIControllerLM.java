@@ -12,6 +12,7 @@ import javafx.scene.control.Tab;
 
 import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;
+import javafx.scene.control.TabPane;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 
@@ -28,9 +29,6 @@ public class UIControllerLM extends UIController {
     @FXML
     private ImageView backgroundImage;
     @FXML
-    private JFXTabPane login_tabpane;
-
-    @FXML
     private JFXTabPane tabs;
 
     @FXML
@@ -38,6 +36,9 @@ public class UIControllerLM extends UIController {
 
     @FXML
     private Tab admin_tab;
+
+    @FXML
+    private Tab guest_tab;
 
     /**
      * < The Login As Guest Button
@@ -78,6 +79,11 @@ public class UIControllerLM extends UIController {
     @FXML
     private JFXButton cancelButton1;
 
+    @FXML
+    private JFXButton beginButton;
+
+
+
 
     public UIControllerLM() {
 
@@ -91,6 +97,7 @@ public class UIControllerLM extends UIController {
         tabs.getSelectionModel().selectedItemProperty().addListener(param -> {
             setDefaultButton();
         });
+       // tabs.getTabs().get.setStyle("-fx-background-color: #fbe58e")
         backgroundImage.fitWidthProperty().bind(primaryStage.widthProperty());
         borderPane.setPrefHeight(primaryStage.getHeight());
         tabs.setPrefWidth(primaryStage.getWidth());
@@ -144,11 +151,16 @@ public class UIControllerLM extends UIController {
 
     @FXML
     private void goToUserTab() {
-        login_tabpane.getSelectionModel().select(user_tab);
+        tabs.getSelectionModel().select(user_tab);
     }
 
     @FXML
     private void setCancelButton() {
+        this.goToScene(UIController.PATHFINDING_MAIN);
+    }
+
+    @FXML
+    private void setBeginButton() {
         this.goToScene(UIController.PATHFINDING_MAIN);
     }
 
