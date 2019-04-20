@@ -104,6 +104,18 @@ public class DBControllerU extends DBController {
 
     }
 
+
+
+    public static void deleteUser(User user, Connection conn){
+        try {
+            PreparedStatement ps = conn.prepareStatement("Delete from USERS where USERID = ?");
+            ps.setString(1, user.getUserID());
+            ps.execute();
+        }catch(SQLException e){
+            e.printStackTrace();
+        }
+    }
+
     public static void loadTeam(Connection conn){
         addUser(new User("TM0001","jon","jon",4095),conn); // adding Jon
         addUser(new User("TM0002","joe","joe",4095),conn); // adding Joe
