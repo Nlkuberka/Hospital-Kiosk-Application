@@ -64,8 +64,12 @@ public class Main extends Application {
 
 
     public static void main(String[] args) throws IOException {
+        ZFM20Module module = new ZFM20Module();
+        Thread.sleep(1500);
+        boolean success =module.setBaud(12); //actual baudrate = 12*9600 (max)
+        module.close();
 
-        launch(args);
+        //launch(args);
     }
 
 }
