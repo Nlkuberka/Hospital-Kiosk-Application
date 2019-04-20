@@ -105,22 +105,26 @@ public class UIControllerATVSR extends UIController {
                 }
                 setGraphic(checkBox);
                 checkBox.setOnAction(et -> {
-                    runSetter(serviceRequest, serviceRequestSetters[index], boolean.class, checkBox.isSelected());
-                    serviceRequest.setResolverID(CurrentUser.user.getUserID());
-                    serviceRequestTable.refresh();
-                    Connection conn = DBController.dbConnect();
-                    DBControllerSR.updateServiceRequest(serviceRequest,conn);
-                    if(serviceRequest.getServiceType().equals("Flower Delivery")){
-                        String phoneNum = serviceRequest.getMessage().substring(0,10);
-                        Twilio.init(ACCOUNT_SID, AUTH_TOKEN);
-                        Message message = Message.creator(
-                                new com.twilio.type.PhoneNumber("+1" + phoneNum),
-                                new com.twilio.type.PhoneNumber("+17472290044"),
-                                "Flowers have been Delivered")
-                                .create();
-                        System.out.println("It did shit");
-                    }
-                    DBController.closeConnection(conn);
+                        runSetter(serviceRequest, serviceRequestSetters[index], boolean.class, checkBox.isSelected());
+                        if(checkBox.isSelected()) {
+                            serviceRequest.setResolverID(CurrentUser.user.getUserID());
+                        } else {
+                            serviceRequest.setResolverID(null);
+                        }
+                        serviceRequestTable.refresh();
+                        Connection conn = DBController.dbConnect();
+                        DBControllerSR.updateServiceRequest(serviceRequest, conn);
+                        if (serviceRequest.getServiceType().equals("Flower Delivery")) {
+                            String phoneNum = serviceRequest.getMessage().substring(0, 10);
+                            Twilio.init(ACCOUNT_SID, AUTH_TOKEN);
+                            Message message = Message.creator(
+                                    new com.twilio.type.PhoneNumber("+1" + phoneNum),
+                                    new com.twilio.type.PhoneNumber("+17472290044"),
+                                    "Flowers have been Delivered")
+                                    .create();
+                            System.out.println("It did shit");
+                        }
+                        DBController.closeConnection(conn);
                 });
             }
 
