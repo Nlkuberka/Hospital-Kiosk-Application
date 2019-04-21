@@ -165,7 +165,7 @@ public class UIController {
 
         // Service Request
 
-        sceneFiles.put(UIController.USER_RESOLVE_SERVICE_REQUESTS, "/application/user_resolve_service_requests.fxm");
+        sceneFiles.put(UIController.USER_RESOLVE_SERVICE_REQUESTS, "/application/user_resolve_service_requests.fxml");
         sceneTitles.put(UIController.USER_RESOLVE_SERVICE_REQUESTS, "User Resolve Service Request Page");
 
         sceneFiles.put(UIController.SERVICE_REQUEST_AV_EQUIPMENT, "/servicerequests/service_request_audio_visual.fxml");
