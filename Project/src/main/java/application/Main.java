@@ -55,6 +55,8 @@ public class Main extends Application {
         controller.goToScene(UIController.ADMIN_TOOLS_MAP_VIEW);
         controller.goToScene(UIController.PATHFINDING_MAIN);
         controller.goToScene(UIController.WELCOME_MAIN);
+
+        UIController.SESSION_TIMEOUT_THREAD.start();
     }
 
 
@@ -62,6 +64,7 @@ public class Main extends Application {
     public static void main(String[] args) throws IOException {
 
         launch(args);
+        System.exit(0);
     }
 
 }
