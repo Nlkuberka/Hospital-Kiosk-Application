@@ -32,6 +32,22 @@ public class DBControllerU extends DBController {
         }
     }
 
+    public static User loginWithID(String ID, Connection conn){
+        User currentUser = null;
+        try{
+            PreparedStatement ps = conn.prepareStatement("SELECT * from USERS where WPIID = ?");
+            ps.setString(1,ID);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()){
+                currentUser =  new User(rs.getString("USERID"),rs.getString("USERNAME"),rs.getInt("PERMISSION"));
+            }
+        }catch(SQLException e){
+            e.printStackTrace();
+        }
+
+        return currentUser;
+    }
+
     public static User getGuestUser(Connection conn){
         User guestUser;
         try {

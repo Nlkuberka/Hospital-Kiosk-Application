@@ -7,15 +7,20 @@ import entities.User;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTabPane;
 
+import javafx.application.Platform;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Tab;
 
 import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.BorderPane;
 
 import java.sql.Connection;
+import java.util.Scanner;
 
 /**
  * The UIController for the Login screen
@@ -81,13 +86,51 @@ public class UIControllerLM extends UIController {
 
     public UIControllerLM() {
 
+//        Scanner sc = new Scanner(System.in);
+//        String ID;
+//        do {
+//            //System.out.println("Please enter a positive number!");
+//            while (!sc.hasNext()) {
+//                System.out.println("That's not a number!");
+//                sc.next(); // this is important!
+//            }
+//            ID = sc.nextLine();
+//        } while (ID != null);
+        //System.out.println("Thank you! Got " + number);
+//
+//        Scanner s = null;
+//        while(true){
+//            s = new Scanner(System.in);
+//            if(s.hasNext()){
+//                s = new Scanner(System.in);
+//                String ID = s.next();
+//                if(ID.length() > 10) {
+//                    ID = ID.substring(1,9);
+//                    Connection conn = DBController.dbConnect();
+//                    DBControllerU.loginWithID(ID,conn);
+//                    DBController.closeConnection(conn);
+//                }
+//            }
+//        }
+
     }
+
+
+
+
+
 
     /**
      * Called when the scene is first created
      */
     @FXML
     public void initialize() {
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                userUsernameTextField.requestFocus();
+            }
+        });
         tabs.getSelectionModel().selectedItemProperty().addListener(param -> {
             setDefaultButton();
         });
@@ -95,6 +138,16 @@ public class UIControllerLM extends UIController {
         borderPane.setPrefHeight(primaryStage.getHeight());
         tabs.setPrefWidth(primaryStage.getWidth());
         tabs.setPrefHeight(primaryStage.getHeight());
+
+        userUsernameTextField.setOnKeyPressed(new EventHandler<KeyEvent>() {
+
+            @Override
+            public void handle(KeyEvent event) {
+                if(event.getCode().equals(KeyCode.ENTER)) {
+                    System.out.println(userUsernameTextField.getText());
+                }
+            }
+        });
     }
 
     /**
