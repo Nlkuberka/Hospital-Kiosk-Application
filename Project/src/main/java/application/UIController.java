@@ -243,7 +243,7 @@ public class UIController {
      * @return The UIController for that particular new scene
      */
     @FXML
-    protected synchronized UIController goToScene(String sceneString, DayView dayCal) {
+    protected UIController goToScene(String sceneString, DayView dayCal) {
         Scene scene = scenes.get(sceneString);
 
         // If the scene has not yet been created
@@ -280,7 +280,7 @@ public class UIController {
      * @return The UIController for that particular new scene
      */
     @FXML
-    protected synchronized UIController goToScene(String sceneString) {
+    protected UIController goToScene(String sceneString) {
         Scene scene = scenes.get(sceneString);
 
         // If the scene has not yet been created

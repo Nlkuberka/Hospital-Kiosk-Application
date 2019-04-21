@@ -1,9 +1,11 @@
 package application;
 
+import javafx.application.Platform;
+
 import java.time.Clock;
 
 public class SessionTimeoutThread extends Thread{
-    public long timeout = 10 * 1000;
+    public long timeout = 30 * 1000;
     public String currentSceneString;
     public UIController currentUIController;
 
@@ -12,11 +14,9 @@ public class SessionTimeoutThread extends Thread{
         while(true) {
             try {
                 Thread.sleep(timeout);
-                System.out.println("Logged out");
                 restoreMemo(homeSceneMemo);
             }
             catch(InterruptedException e) {
-                System.out.println("Action happened");
             }
         }
     }
@@ -26,6 +26,11 @@ public class SessionTimeoutThread extends Thread{
     }
 
     public void restoreMemo(String memo) {
-        currentUIController.goToScene(memo);
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                currentUIController.goToScene(memo);
+            }
+        });
     }
 }
