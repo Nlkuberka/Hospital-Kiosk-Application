@@ -288,7 +288,7 @@ public class UIControllerATVU extends UIController {
                 removeButton.setOnAction( e -> {
                     userTableView.getItems().remove(user);
                     Connection conn = DBController.dbConnect();
-                    DBController.createTable("Delete From USERS WHERE USERID = '"+user.getUserID()+"'",conn);
+                    DBControllerU.deleteUser(user,conn);
                     DBController.closeConnection(conn);
                 });
             }
