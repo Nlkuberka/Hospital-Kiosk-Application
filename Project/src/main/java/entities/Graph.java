@@ -613,7 +613,7 @@ public abstract class Graph {
                             + " "
                             + Math.round(adjWeights.get(currentNodeIndex).get(adj.get(currentNodeIndex).indexOf(nextNodeIndex)) / 4.666)
                             + " feet"
-                            + ((nextNode.getNodeType().equals("HALL")) ? "" : " to " + nextNode.getShortName())
+                            + ((nextNode.getNodeType().equals("HALL")) ? "" : " to " + nextNode.getLongName())
                             + commaOrPeriod
                             + "\n\n"));
 
