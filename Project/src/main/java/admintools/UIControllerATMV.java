@@ -492,12 +492,12 @@ public class UIControllerATMV extends UIController {
     }
 
     void limitDrag(Circle circle, MouseEvent mouseEvent) {
-        if(circle.getLayoutX() < (mouseEvent.getSceneX() + mouseX) / firstFloorGesturePane.getCurrentScale()) {
-            circle.setLayoutX((0 + mouseX) / firstFloorGesturePane.getCurrentScale());
-
+        System.out.println((mouseEvent.getSceneX() + mouseX));
+        if(circle.getLayoutX() < 5000 / firstFloorGesturePane.getCurrentScale()) {
+            System.out.println("FIRE");
         }
-        if(circle.getLayoutX() > 5000) {
-            circle.setLayoutX(5000);
+        if(circle.getLayoutX() > 1250) {
+            circle.setLayoutX(1250);
         }
         if(circle.getLayoutY() < 0) {
             circle.setLayoutY(0);

@@ -1,11 +1,13 @@
 
 package tests;
 
+import application.CurrentUser;
 import database.DBControllerNE;
 import entities.AStarGraph;
 import entities.Graph;
 import entities.Node;
 import junit.framework.TestCase;
+import network.DBNetwork;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -21,9 +23,12 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class GraphJUnit extends TestCase {
-
     @Test
     public void testShortestPath() {
+        CurrentUser.network = new DBNetwork(5000);
+        CurrentUser.network.mute();
+        CurrentUser.network.hold();
+        CurrentUser.testing = true;
         Node n0 = new Node("N0", 0, 0, "", "", "", "", "");
         Node n1 = new Node("N1", 1, 1, "", "", "", "", "");
         Node n2 = new Node("N2", 2, 2, "", "", "", "", "");
@@ -118,10 +123,15 @@ public class GraphJUnit extends TestCase {
         DBControllerNE.deleteNode("N8", conn);
         DBControllerNE.deleteNode("N9", conn);
         DBControllerNE.closeConnection(conn);
+        CurrentUser.network.shutdown();
     }
 
     @Test
     public void testRealNodes() {
+        CurrentUser.network = new DBNetwork(5000);
+        CurrentUser.network.mute();
+        CurrentUser.network.hold();
+        CurrentUser.testing = true;
         Node n0 = new Node("N0", 1580, 2538, "", "", "", "", "");
         Node n1 = new Node("N1", 1395, 2674, "", "", "", "", "");
         Node n2 = new Node("N2", 1532, 2777, "", "", "", "", "");
@@ -187,10 +197,15 @@ public class GraphJUnit extends TestCase {
         DBControllerNE.deleteNode("N4", conn);
         DBControllerNE.deleteNode("N5", conn);
         DBControllerNE.closeConnection(conn);
+        CurrentUser.network.shutdown();
     }
 
     @Test
     public void testDistanceReplacement() {
+        CurrentUser.network = new DBNetwork(5000);
+        CurrentUser.network.mute();
+        CurrentUser.network.hold();
+        CurrentUser.testing = true;
         Node n0 = new Node("N0", 0, 0, "", "", "", "", "");
         Node n1 = new Node("N1", 1, 0, "", "", "", "", "");
         Node n2 = new Node("N2", 2, 0, "", "", "", "", "");
@@ -271,10 +286,15 @@ public class GraphJUnit extends TestCase {
         DBControllerNE.deleteNode("N6", conn);
         DBControllerNE.deleteNode("N7", conn);
         DBControllerNE.closeConnection(conn);
+        CurrentUser.network.shutdown();
     }
 
     @Test
     public void testDisconnectedGraph() {
+        CurrentUser.network = new DBNetwork(5000);
+        CurrentUser.network.mute();
+        CurrentUser.network.hold();
+        CurrentUser.testing = true;
         Node n0 = new Node("N0", 0, 0, "", "", "", "", "");
         Node n1 = new Node("N1", 0, 1, "", "", "", "", "");
         Node n2 = new Node("N2", 1, 0, "", "", "", "", "");
@@ -363,10 +383,15 @@ public class GraphJUnit extends TestCase {
         DBControllerNE.deleteNode("N5", conn);
         DBControllerNE.deleteNode("N6", conn);
         DBControllerNE.closeConnection(conn);
+        CurrentUser.network.shutdown();
     }
 
     @Test
     public void testSeparatePathByFloor() {
+        CurrentUser.network = new DBNetwork(5000);
+        CurrentUser.network.mute();
+        CurrentUser.network.hold();
+        CurrentUser.testing = true;
         Node n0 = new Node("N0", 0, 0, "1", "", "", "", "");
         Node n1 = new Node("N1", 1, 1, "1", "", "", "", "");
         Node n2 = new Node("N2", 2, 2, "G", "", "", "", "");
@@ -465,10 +490,15 @@ public class GraphJUnit extends TestCase {
         DBControllerNE.deleteNode("N8", conn);
         DBControllerNE.deleteNode("N9", conn);
         DBControllerNE.closeConnection(conn);
+        CurrentUser.network.shutdown();
     }
 
     @Test
     public void testNoStairsMode() {
+        CurrentUser.network = new DBNetwork(5000);
+        CurrentUser.network.mute();
+        CurrentUser.network.hold();
+        CurrentUser.testing = true;
         Node n0 = new Node("N0", 0, 0, "", "", "STAI", "", "");
         Node n1 = new Node("N1", 1, 0, "", "", "", "", "");
         Node n2 = new Node("N2", 2, 0, "", "", "STAI", "", "");
@@ -587,5 +617,6 @@ public class GraphJUnit extends TestCase {
         DBControllerNE.deleteNode("N4", conn);
         DBControllerNE.deleteNode("N5", conn);
         DBControllerNE.closeConnection(conn);
+        CurrentUser.network.shutdown();
     }
 }
