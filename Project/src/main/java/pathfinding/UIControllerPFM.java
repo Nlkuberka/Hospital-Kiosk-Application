@@ -291,8 +291,8 @@ public class UIControllerPFM extends UIController {
 
     @FXML
     private void directionSelection() {
-        String direction = Graph.getGraph().textDirections(Graph.getGraph().shortestPath(currentObjects.getInitialID(),
-                currentObjects.getDestID()));
+            List<String> direction = Graph.getGraph().textDirections(Graph.getGraph().separatePathByFloor(Graph.getGraph().shortestPath(currentObjects.getInitialID(),
+                currentObjects.getDestID())));
         try {
             FXMLLoader fxmlLoader = new FXMLLoader();
             fxmlLoader.setLocation(getClass().getResource("/directions_popup.fxml"));

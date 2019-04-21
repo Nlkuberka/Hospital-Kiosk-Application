@@ -11,6 +11,7 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
+import java.util.List;
 import java.util.regex.Pattern;
 
 public class UIControllerPUD extends UIController {
@@ -35,8 +36,13 @@ public class UIControllerPUD extends UIController {
     private JFXButton okButton; //ok button to exit confirmation window
 
     @FXML
-    public void setDirections(String message) {
-        directions.setText(message); //  sets the text received from the pathfinding
+    public void setDirections(List<String> message) {
+        String returnText = "";
+        for(int i = 0; i < message.size() - 1; i++){
+            returnText += message.get(i);
+        }
+        directions.setText(returnText); //  sets the text received from the pathfinding
+
     }
 
     @FXML

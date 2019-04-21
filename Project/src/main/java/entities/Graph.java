@@ -14,7 +14,7 @@ import static java.lang.Math.sqrt;
 
 
 public abstract class Graph {
-    
+
     protected LinkedList<LinkedList<Integer>> adj; // adjacency list
     protected LinkedList<LinkedList<Double>> adjWeights; //weights of the edges
     protected LinkedList<String> nodeIDs; //nodes that have been stored
@@ -317,7 +317,6 @@ public abstract class Graph {
         }
         int edgeIndex = adj.get(nodeIndex1).indexOf(nodeIndex2);
         if(edgeIndex >= 0) {
-            //edgeNum--;  TODO: Fix error I do not know what this does or where it comes from
             adj.get(mapNodeIDToIndex(nodeID1)).remove(edgeIndex);
             adjWeights.get(mapNodeIDToIndex(nodeID1)).remove(edgeIndex);
         }
@@ -576,15 +575,48 @@ public abstract class Graph {
 
     /**
      * Prints directions to every node in a path
-     * @param NodeIDS the path generated from shortestPath
+     * @param Nodes the path generated from shortestPath
      * @return text based directions directing a reader from one point to another
      */
-    public String textDirections(List<String> NodeIDS){
-        String directions = "";
+    public List<String> textDirections(List<List<List<Node>>> Nodes){
+        List<String> sortedDirections = new LinkedList<>();
         String commaOrPeriod;
         String currentDirection;
+        //refactor for usage of list of list of list
+        for(int i = 0; i < Nodes.size() - 1; i++){
+            for (int j = 0; j < Nodes.get(i).size() - 1; j++){
+                for (int k = 0; k < Nodes.get(i).get(j).size() - 1; k++){
 
-        for(int i = 0; i < NodeIDS.size()-1; i++){
+                    String pastDirection = returnAngle(Nodes.get(i).get(j).get(k).getNodeID(), Nodes.get(i).get(j).get(k+1).getNodeID());
+                    if(k < Nodes.get(i).get(j).size() - 3){
+                        currentDirection = returnAngle(Nodes.get(i).get(j).get(k+1).getNodeID(), Nodes.get(i).get(j).get(k+2).getNodeID());
+                    } else {
+                        currentDirection = pastDirection;
+                    }
+
+                    if(k == Nodes.get(i).get(j).size()-2) {
+                        commaOrPeriod = ".";
+                    }
+                    else{
+                        commaOrPeriod = ", ";
+                    }
+                    int currentNodeIndex = mapNodeIDToIndex(Nodes.get(i).get(j).get(k).getNodeID());
+                    int nextNodeIndex = mapNodeIDToIndex(Nodes.get(i).get(j).get(k+1).getNodeID());
+                    //System.out.println(returnAngle(NodeIDS.get(i), NodeIDS.get(i+1), directions)); //here for testing
+                    sortedDirections.add((returnDirection(currentDirection, pastDirection)
+                            + " "
+                            + Math.round(adjWeights.get(currentNodeIndex).getFirst() / 4.666)
+                            + " feet to "
+                            + mapIndexToNode((nextNodeIndex)).getLongName()
+                            + commaOrPeriod
+                            + "\n\n"));
+
+                }
+            }
+        }
+
+        //used when the parameter was just a list of strings
+        /*for(int i = 0; i < NodeIDS.size()-1; i++){
             String pastDirection = returnAngle(NodeIDS.get(i), NodeIDS.get(i+1));
             if(i <= NodeIDS.size() - 3){
                 currentDirection = returnAngle(NodeIDS.get(i+1), NodeIDS.get(i+2));
@@ -608,7 +640,8 @@ public abstract class Graph {
                     + mapIndexToNode((nextNodeIndex)).getLongName()
                     + commaOrPeriod
                     + "\n\n";
-        }
-        return directions;
+        }*/
+        System.out.println(sortedDirections);
+        return sortedDirections;
     }
 }
