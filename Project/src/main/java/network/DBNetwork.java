@@ -14,7 +14,7 @@ import java.util.List;
  */
 public class DBNetwork {
     public static final List<String> ipAddresses = new LinkedList<String>(){{
-        add("130.215.213.188");
+
     }};
 
     private DBServer dbServer;
@@ -29,6 +29,7 @@ public class DBNetwork {
      */
     public DBNetwork(int socketNum) {
         setupServer(socketNum);
+        this.dbClients = new LinkedList<DBClient>();
         this.mapper = new ObjectMapper();
         this.socketNum = socketNum;
     }
@@ -44,6 +45,7 @@ public class DBNetwork {
             dbServer = new DBServer(serverSocket);
             Thread serverThread = new Thread(dbServer);
             serverThread.start();
+            serverThread.interrupt();
         } catch(Exception e) {
             e.printStackTrace();
             return false;
