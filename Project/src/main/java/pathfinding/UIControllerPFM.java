@@ -351,10 +351,7 @@ public class UIControllerPFM extends UIController {
         goToScene(UIController.LOGIN_MAIN);
     }
 
-    @FXML
-    private void setServiceRequestButton() {
-        goToScene(UIController.SERVICE_REQUEST_MAIN);
-    }
+
 
     @FXML
     private void setAboutButton() {
