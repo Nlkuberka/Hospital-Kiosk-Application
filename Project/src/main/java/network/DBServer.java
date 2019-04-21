@@ -249,12 +249,11 @@ public class DBServer extends NetworkThread implements Runnable {
         end = true;
     }
 
-    public void hold() {
+    void hold() {
         this.hold = true;
     }
 
-    public void unhold() {
+    void unhold() {
         this.hold = false;
     }
-
 }

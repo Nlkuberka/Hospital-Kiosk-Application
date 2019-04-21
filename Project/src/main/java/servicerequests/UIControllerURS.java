@@ -1,27 +1,20 @@
-package admintools;
+package servicerequests;
 
 import application.CurrentUser;
+import application.UIController;
 import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXCheckBox;
 import com.twilio.Twilio;
 import com.twilio.rest.api.v2010.account.Message;
 import database.DBController;
-import application.UIController;
 import database.DBControllerSR;
 import entities.ServiceRequest;
-
-import com.jfoenix.controls.JFXCheckBox;
-
 import helper.ServiceRequestTableHelper;
 import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.scene.control.Label;
-import javafx.scene.control.Menu;
-import javafx.scene.control.MenuItem;
-import javafx.scene.control.TableCell;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 
 import java.lang.reflect.Method;
@@ -32,13 +25,7 @@ import java.sql.SQLException;
 import static pathfinding.UIControllerPUD.ACCOUNT_SID;
 import static pathfinding.UIControllerPUD.AUTH_TOKEN;
 
-/**
- * The UIController for the viewing, editing, adding, and removing service requests
- * Allows the admin to manage service Requests
- * @author Jonathan Chang, imoralessirgo
- * @version iteration1
- */
-public class UIControllerATVSR extends UIController {
+public class UIControllerURS extends UIController {
     private static final String[] serviceRequestSetters  = {"", "", "", "setResolved", "setResolverID", ""};
     private static final String[] serviceRequestGetters  = {"getNodeID", "getServiceType", "getUserID", "isResolved", "getResolverID", "getMessage"};
     @FXML
@@ -100,6 +87,6 @@ public class UIControllerATVSR extends UIController {
      */
     @FXML
     private void setBackButton() {
-        this.goToScene(UIController.ADMIN_TOOLS_MAIN);
+        this.goToScene(UIController.PATHFINDING_MAIN);
     }
 }

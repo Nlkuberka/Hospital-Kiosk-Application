@@ -13,13 +13,17 @@ import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 import network.DBNetwork;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.sql.Connection;
 import java.sql.DatabaseMetaData;
 import java.sql.ResultSet;
 import java.util.List;
 
 public class Main extends Application {
+    private static int socketNum;
 
     @Override
     public void start(Stage primaryStage) throws Exception {
@@ -33,8 +37,6 @@ public class Main extends Application {
         if(!rs.next()){
             DBController.initializeAppDB();
         }
-
-        UIController controller = new UIController(primaryStage);
 
         // Initialize the graph.
         List<Node> allNodes = DBControllerNE.generateListOfNodes(conn,DBControllerNE.ALL_NODES);
@@ -55,10 +57,23 @@ public class Main extends Application {
         CurrentUser.user = DBControllerU.getGuestUser(conn);
         DBController.closeConnection(conn);
 
-        CurrentUser.network = new DBNetwork(4590);
+        CurrentUser.network = new DBNetwork(socketNum);
         CurrentUser.network.hold();
         CurrentUser.network.mute();
+        try {
+            InputStream inputStream = getClass().getResourceAsStream("/ipAddresses.txt");
+            BufferedReader br = new BufferedReader(new InputStreamReader(inputStream, "UTF-8"));
+            String line;
+            while((line = br.readLine()) != null) {
+                DBNetwork.ipAddresses.add(line);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
+        System.out.println(DBNetwork.ipAddresses);
+
+        UIController controller = new UIController(primaryStage);
         controller.goToScene(UIController.ADMIN_TOOLS_MAP_VIEW);
         controller.goToScene(UIController.PATHFINDING_MAIN);
         controller.goToScene(UIController.LOGIN_MAIN);
@@ -68,6 +83,7 @@ public class Main extends Application {
             public void handle(WindowEvent event) {
                 try {
                     CurrentUser.network.shutdown();
+                    System.exit(0);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -78,6 +94,13 @@ public class Main extends Application {
 
 
     public static void main(String[] args) throws IOException {
+        socketNum = 4590;
+        if(args.length > 0) {
+            for(int i = 0; i < args.length - 1; i++) {
+                DBNetwork.ipAddresses.add(args[i]);
+            }
+            socketNum = Integer.parseInt(args[args.length - 1]);
+        }
 
         launch(args);
     }

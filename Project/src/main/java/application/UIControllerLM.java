@@ -113,7 +113,9 @@ public class UIControllerLM extends UIController {
         userPasswordTextField.setText("");
         adminUsernameTextField.setText("");
         adminPasswordTextField.setText("");
-        CurrentUser.user = null;
+        Connection conn = DBController.dbConnect();
+        CurrentUser.user = DBControllerU.getGuestUser(conn);
+        DBController.closeConnection(conn);
     }
 
 
