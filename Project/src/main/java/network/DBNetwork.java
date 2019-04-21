@@ -124,7 +124,8 @@ public class DBNetwork {
         } catch(Exception e) {
             e.printStackTrace();
         }
-        outputString(command);
+        return;
+        //outputString(command);
     }
 
     /*===== Service Request Functions ======*/
