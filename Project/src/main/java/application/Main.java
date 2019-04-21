@@ -77,7 +77,9 @@ public class Main extends Application {
         UIController controller = new UIController(primaryStage);
         controller.goToScene(UIController.ADMIN_TOOLS_MAP_VIEW);
         controller.goToScene(UIController.PATHFINDING_MAIN);
-        controller.goToScene(UIController.LOGIN_MAIN);
+        controller.goToScene(UIController.WELCOME_MAIN);
+
+        UIController.SESSION_TIMEOUT_THREAD.start();
 
         primaryStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
             @Override
@@ -104,6 +106,7 @@ public class Main extends Application {
         }
 
         launch(args);
+        System.exit(0);
     }
 
 }
