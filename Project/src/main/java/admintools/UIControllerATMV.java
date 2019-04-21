@@ -265,6 +265,7 @@ public class UIControllerATMV extends UIController {
             circle.setOnMouseDragged(mouseEvent -> {
                 circle.setLayoutX((mouseEvent.getSceneX() + mouseX) / firstFloorGesturePane.getCurrentScale());
                 circle.setLayoutY((mouseEvent.getSceneY() + mouseY) / firstFloorGesturePane.getCurrentScale());
+                limitDrag(circle, mouseEvent);
                 circle.setCursor(Cursor.MOVE);
                 gesturePaneHandler.setPaning(false);
             });
@@ -400,6 +401,9 @@ public class UIControllerATMV extends UIController {
 
     @FXML
     public void addNodeOnClick(MouseEvent mouseEvent) throws IOException {
+        if(mouseEvent.getClickCount() != 2) {
+            return;
+        }
         Node tempNode = new Node();
         tempNode.setXcoord((int) (mouseEvent.getX()));
         tempNode.setYcoord((int) (mouseEvent.getY()));
@@ -484,6 +488,22 @@ public class UIControllerATMV extends UIController {
                 ((Circle) nodes).setStroke(Color.BLACK);
                 ((Circle) nodes).setStrokeWidth(2);
             }
+        }
+    }
+
+    void limitDrag(Circle circle, MouseEvent mouseEvent) {
+        if(circle.getLayoutX() < (mouseEvent.getSceneX() + mouseX) / firstFloorGesturePane.getCurrentScale()) {
+            circle.setLayoutX((0 + mouseX) / firstFloorGesturePane.getCurrentScale());
+
+        }
+        if(circle.getLayoutX() > 5000) {
+            circle.setLayoutX(5000);
+        }
+        if(circle.getLayoutY() < 0) {
+            circle.setLayoutY(0);
+        }
+        if(circle.getLayoutY() > 3000) {
+            circle.setLayoutY(3000);
         }
     }
 }
