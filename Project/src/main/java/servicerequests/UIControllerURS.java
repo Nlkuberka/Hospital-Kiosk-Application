@@ -21,6 +21,8 @@ import java.lang.reflect.Method;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.LinkedList;
+import java.util.List;
 
 import static pathfinding.UIControllerPUD.ACCOUNT_SID;
 import static pathfinding.UIControllerPUD.AUTH_TOKEN;
@@ -66,20 +68,12 @@ public class UIControllerURS extends UIController {
     @Override
     public void onShow() {
         Connection conn = DBController.dbConnect();
-        ObservableList<ServiceRequest> serviceRequests = FXCollections.observableArrayList();
-        try{
-            ResultSet rs = conn.createStatement().executeQuery("Select * from SERVICEREQUEST");
-            while (rs.next()){
-                serviceRequests.add(new ServiceRequest(rs.getString(2),rs.getString(3),rs.getString(4),
-                        rs.getString(5),rs.getBoolean(6),rs.getString(7),rs.getInt(1)));
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
+        List<ServiceRequest> serviceRequests = new LinkedList<ServiceRequest>();
+        List<String> serviceRequestTypes = CurrentUser.user.getServiceRequestFullfillment();
+        for(String serviceRequestType : serviceRequestTypes) {
+            serviceRequests.addAll(DBControllerSR.getServiceRequests(serviceRequestType, conn));
         }
-        for(int i = 0; i < serviceRequests.size(); i ++) {
-            System.out.println(serviceRequests.get(i));
-        }
-        serviceRequestTable.setItems(serviceRequests);
+        serviceRequestTable.setItems(FXCollections.observableList(serviceRequests));
     }
 
     /**

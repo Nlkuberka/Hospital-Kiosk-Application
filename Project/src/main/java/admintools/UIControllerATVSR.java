@@ -28,6 +28,7 @@ import java.lang.reflect.Method;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.List;
 
 import static pathfinding.UIControllerPUD.ACCOUNT_SID;
 import static pathfinding.UIControllerPUD.AUTH_TOKEN;
@@ -79,20 +80,9 @@ public class UIControllerATVSR extends UIController {
     @Override
     public void onShow() {
         Connection conn = DBController.dbConnect();
-        ObservableList<ServiceRequest> serviceRequests = FXCollections.observableArrayList();
-        try{
-            ResultSet rs = conn.createStatement().executeQuery("Select * from SERVICEREQUEST");
-            while (rs.next()){
-                serviceRequests.add(new ServiceRequest(rs.getString(2),rs.getString(3),rs.getString(4),
-                        rs.getString(5),rs.getBoolean(6),rs.getString(7),rs.getInt(1)));
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        for(int i = 0; i < serviceRequests.size(); i ++) {
-            System.out.println(serviceRequests.get(i));
-        }
-        serviceRequestTable.setItems(serviceRequests);
+        List<ServiceRequest> serviceRequests = DBControllerSR.getServiceRequests(DBControllerSR.TYPE_ALL, conn);
+        DBController.closeConnection(conn);
+        serviceRequestTable.setItems(FXCollections.observableList(serviceRequests));
     }
 
     /**

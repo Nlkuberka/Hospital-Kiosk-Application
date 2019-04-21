@@ -8,7 +8,7 @@ import java.sql.*;
 import java.util.LinkedList;
 
 public class DBControllerSR extends DBController {
-    public static final String TYPE_OTHER = "OTHER";
+    public static final String TYPE_OTHER = "Other";
     public static final String TYPE_BABYSITTER = "Babysitter";
     public static final String TYPE_RELIGIOUS_SERVICES = "Religious Services";
     public static final String TYPE_FLOWER_DELIVERY = "Flower Delivery";
