@@ -9,7 +9,7 @@ import java.net.Socket;
  * @version iteration4
  */
 public class NetworkThread {
-    private static boolean verbose = true;
+    public static boolean verbose = true;
 
     /**
      * Closes the given serverSocket
