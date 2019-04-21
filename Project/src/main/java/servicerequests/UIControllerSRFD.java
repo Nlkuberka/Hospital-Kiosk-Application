@@ -82,12 +82,12 @@ public class UIControllerSRFD extends UIController {
         Connection conn = DBControllerSR.dbConnect();
         DBControllerSR.addServiceRequest(sr,conn);
         DBControllerSR.closeConnection(conn);
-        this.goToScene(UIController.SERVICE_REQUEST_MAIN);
+        this.goToScene(UIController.PATHFINDING_MAIN);
     }
 
     @FXML
     private void setCancelButton() {
-        this.goToScene(UIController.SERVICE_REQUEST_MAIN);
+        this.goToScene(UIController.PATHFINDING_MAIN);
     }
 
     @FXML

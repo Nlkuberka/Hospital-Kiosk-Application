@@ -1,8 +1,10 @@
 package database;
 
+import application.CurrentUser;
 import application.UIController;
 import entities.Edge;
 import entities.Node;
+import network.DBNetwork;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -165,6 +167,8 @@ public class DBControllerNE extends DBController{
             ps.setString(7,node.getShortName());
             ps.setString(8,node.getNodeID());
             ps.execute();
+
+            CurrentUser.network.sendNodePacket(DBNetwork.UPDATE_NODE, node);
         }catch(SQLException e){
             e.printStackTrace();
         }
@@ -183,7 +187,7 @@ public class DBControllerNE extends DBController{
                     " SET  STARTNODE ='"+ edge.getNode1ID() +"',"+
                     "ENDNODE = '"+ edge.getNode2ID() + "'" +
                     "where EDGEID = '" + edge.getEdgeID()+"'");
-
+            CurrentUser.network.sendEdgePacket(DBNetwork.UPDATE_EDGE, edge);
         }catch(SQLException e){
             e.printStackTrace();
         }
@@ -251,6 +255,10 @@ public class DBControllerNE extends DBController{
             s2.setString(1,ID);
             s1.execute();
             s2.execute();
+
+            Node node = new Node();
+            node.setNodeID(ID);
+            CurrentUser.network.sendNodePacket(DBNetwork.DELETE_NODE, node);
         }catch(SQLException e){
             e.printStackTrace();
         }
@@ -272,6 +280,7 @@ public class DBControllerNE extends DBController{
             Statement s = connection.createStatement();
             s.execute("DELETE from EDGES where EDGEID = '" + edgeID1 +
                     "' OR EDGEID = '" + edgeID2 + "'");
+            CurrentUser.network.sendEdgePacket(DBNetwork.DELETE_EDGE, new Edge(edgeID1, nodeID1, nodeID2));
         }catch(SQLException e){
             e.printStackTrace();
         }
@@ -313,6 +322,7 @@ public class DBControllerNE extends DBController{
                         "','" + edge.getNode1ID() + "','" + edge.getNode2ID() + "')");
             s.execute("INSERT into EDGES values ('" + edge.getNode1ID() + "_" + edge.getNode2ID() +
                     "','" + edge.getNode2ID() + "','" + edge.getNode1ID() + "')");
+            CurrentUser.network.sendEdgePacket(DBNetwork.ADD_EDGE, edge);
             //connection.close();
         }catch(SQLException e){
             e.printStackTrace();
@@ -379,6 +389,7 @@ public class DBControllerNE extends DBController{
                     " '" + node.getNodeType() + "'," +
                     " '" + node.getLongName() + "'," +
                     " '" + node.getShortName() + "')");
+            CurrentUser.network.sendNodePacket(DBNetwork.ADD_NODE, node);
         }catch(SQLException e){
             UIController ui = new UIController();
             ui.popupMessage("Duplicate NodeID", true);
