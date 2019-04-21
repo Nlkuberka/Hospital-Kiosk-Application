@@ -17,16 +17,13 @@ import java.util.List;
  * @author Jonathan Chang
  */
 public class DBNetwork {
-    public static final List<String> ipAddresses = new LinkedList<String>(){{
-
-    }};
+    public static List<String> ipAddresses = new LinkedList<String>(){};
 
     private DBServer dbServer;
     private List<DBClient> dbClients;
     private ObjectMapper mapper;
     private boolean mute;
     private int socketNum;
-    private String ownIP;
 
     /**
      * Constructor
@@ -34,7 +31,7 @@ public class DBNetwork {
      */
     public DBNetwork(int socketNum) {
         setupServer(socketNum);
-        getOwnIP();
+        DBNetwork.ipAddresses.remove(getOwnIP());
         this.dbClients = new LinkedList<DBClient>();
         this.mapper = new ObjectMapper();
         this.socketNum = socketNum;
@@ -67,9 +64,6 @@ public class DBNetwork {
         dbClients = new LinkedList<DBClient>();
         try {
             for(String ip : ipAddresses) {
-                if(ownIP == ip) {
-                    continue;
-                }
                 DBClient dbClient = new DBClient(ip, socketNum);
                 dbClient.outputString(outputString);
                 dbClients.add(dbClient);
@@ -178,7 +172,8 @@ public class DBNetwork {
     /**
      * Quires a bot to get the public IP address of the self
      */
-    private void getOwnIP() {
+    private String getOwnIP() {
+        String ownIP = "";
         try {
             InetAddress localhost = InetAddress.getLocalHost();
             URL url_name = new URL("http://bot.whatismyipaddress.com");
@@ -190,6 +185,8 @@ public class DBNetwork {
             e.printStackTrace();
             ownIP = "Cannot Execute Properly";
         }
+        System.out.println(ownIP);
+        return ownIP;
     }
 
     public void mute() {
