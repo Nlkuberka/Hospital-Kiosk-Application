@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXToggleButton?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
@@ -14,12 +15,12 @@
   <children>
     <AnchorPane maxHeight="400" maxWidth="600" prefHeight="400" prefWidth="640" VBox.vgrow="ALWAYS">
       <children>
-            <ImageView fitHeight="400.0" fitWidth="607.0" pickOnBounds="true">
+            <ImageView fx:id="directionSwitch" fitHeight="400.0" fitWidth="607.0" pickOnBounds="true" styleClass="jfx-toggle-button">
                <image>
                   <Image url="@images/MainMenu.png" />
                </image>
             </ImageView>
-            <ScrollPane fx:id="directionsBox" layoutX="14.0" layoutY="14.0" prefHeight="377.0" prefWidth="277.0">
+            <ScrollPane fx:id="directionsBox" layoutX="14.0" layoutY="14.0" prefHeight="377.0" prefWidth="277.0" styleClass="jfx-button-OK" stylesheets="@css/background.css">
               <content>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="375.0" prefWidth="274.0">
                      <children>
@@ -40,6 +41,7 @@
                   <Font size="20.0" />
                </font>
             </JFXButton>
+            <JFXToggleButton layoutX="382.0" layoutY="306.0" />
       </children>
     </AnchorPane>
   </children>
