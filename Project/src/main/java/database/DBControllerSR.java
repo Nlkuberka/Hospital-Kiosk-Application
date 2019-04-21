@@ -5,8 +5,32 @@ import entities.ServiceRequest;
 import network.DBNetwork;
 
 import java.sql.*;
+import java.util.LinkedList;
 
 public class DBControllerSR extends DBController {
+    public static final String TYPE_OTHER = "OTHER";
+    public static final String TYPE_BABYSITTER = "Babysitter";
+    public static final String TYPE_RELIGIOUS_SERVICES = "Religious Services";
+    public static final String TYPE_FLOWER_DELIVERY = "Flower Delivery";
+    public static final String TYPE_ALL = "*";
+
+
+    public static LinkedList<ServiceRequest> getServiceRequests(String type, Connection conn){
+        LinkedList<ServiceRequest> list = new LinkedList<ServiceRequest>();
+        try{
+           PreparedStatement ps = conn.prepareStatement("SELECT * from USERS where servicetype = ?");
+           ps.setString(1,type);
+           ResultSet rs = ps.executeQuery();
+           while(rs.next()){
+               list.add(new ServiceRequest(rs.getString("NODEID"),rs.getString("SERVICETYPE"),
+                       rs.getString("MESSAGE"),rs.getString("USERID"),rs.getBoolean("RESOLVED"),rs.getString("RESOLVERID")));
+           }
+        }catch(SQLException e){
+            e.printStackTrace();
+        }
+        return list;
+    }
+
 
     /**
      * addServiceRequest
