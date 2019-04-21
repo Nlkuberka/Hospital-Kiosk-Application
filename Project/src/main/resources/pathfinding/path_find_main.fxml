@@ -394,7 +394,7 @@
          <top>
             <MenuBar style="-fx-background-color: #ffc41e;" stylesheets="@../css/background.css" BorderPane.alignment="CENTER">
               <menus>
-                <Menu fx:id="homeMenu" mnemonicParsing="false" onAction="#setHomeButton" onShowing="#setHomeButton" text="Home">
+                <Menu fx:id="homeMenu" mnemonicParsing="false" onShowing="#setHomeMenuPF" text="Home">
                   <items>
                     <MenuItem mnemonicParsing="false" text="HOME" />
                   </items>

@@ -347,7 +347,7 @@ public class UIControllerPFM extends UIController {
     }
 
     @FXML
-    private void setLoginButton() {
+    private void setBackButton() {
         goToScene(UIController.LOGIN_MAIN);
     }
 
@@ -369,13 +369,32 @@ public class UIControllerPFM extends UIController {
 
     @FXML
     private void setReservationButton(){
-
+        goToScene(UIController.RESERVATIONS_MAIN_MENU);
     }
+
     @FXML
     private void setResolveRequestButton(){
 
     }
 
+    @FXML
+    private void setHomeMenuPF() {
+        int permission = CurrentUser.user.getPermissions();
+        switch (permission){
+            case 1:
+                this.goToScene(UIController.LOGIN_MAIN);
+                break;
+            case 2:
+                this.goToScene(UIController.LOGIN_MAIN);
+                break;
+            case 3:
+                this.goToScene(UIController.ADMIN_MAIN_MENU_MAIN);
+                break;
+            default:
+                this.goToScene(UIController.LOGIN_MAIN);
+                break;
+        }
+    }
 
 }
 

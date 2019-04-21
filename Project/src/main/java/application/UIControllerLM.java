@@ -113,6 +113,7 @@ public class UIControllerLM extends UIController {
         userPasswordTextField.setText("");
         adminUsernameTextField.setText("");
         adminPasswordTextField.setText("");
+        CurrentUser.user = null;
     }
 
 
@@ -130,7 +131,7 @@ public class UIControllerLM extends UIController {
             return;
         }
 
-        this.goToScene(UIController.USER_MAIN_MENU_MAIN);
+        this.goToScene(UIController.PATHFINDING_MAIN);
     }
 
     /**
@@ -152,11 +153,6 @@ public class UIControllerLM extends UIController {
     @FXML
     private void goToUserTab() {
         tabs.getSelectionModel().select(user_tab);
-    }
-
-    @FXML
-    private void setCancelButton() {
-        this.goToScene(UIController.PATHFINDING_MAIN);
     }
 
     @FXML

@@ -398,10 +398,10 @@ public class UIController {
         int permission = CurrentUser.user.getPermissions();
         switch (permission){
             case 1:
-                this.goToScene(UIController.SERVICE_REQUEST_MAIN);
+                this.goToScene(UIController.PATHFINDING_MAIN);
                 break;
             case 2:
-                this.goToScene(UIController.USER_MAIN_MENU_MAIN);
+                this.goToScene(UIController.PATHFINDING_MAIN);
                 break;
             case 3:
                 this.goToScene(UIController.ADMIN_MAIN_MENU_MAIN);
