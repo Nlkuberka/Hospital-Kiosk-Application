@@ -265,7 +265,6 @@ public class UIControllerATMV extends UIController {
             circle.setOnMouseDragged(mouseEvent -> {
                 circle.setLayoutX((mouseEvent.getSceneX() + mouseX) / firstFloorGesturePane.getCurrentScale());
                 circle.setLayoutY((mouseEvent.getSceneY() + mouseY) / firstFloorGesturePane.getCurrentScale());
-                limitDrag(circle, mouseEvent);
                 circle.setCursor(Cursor.MOVE);
                 gesturePaneHandler.setPaning(false);
             });
@@ -490,21 +489,4 @@ public class UIControllerATMV extends UIController {
             }
         }
     }
-
-    void limitDrag(Circle circle, MouseEvent mouseEvent) {
-        System.out.println((mouseEvent.getSceneX() + mouseX));
-        if(circle.getLayoutX() < 5000 / firstFloorGesturePane.getCurrentScale()) {
-            System.out.println("FIRE");
-        }
-        if(circle.getLayoutX() > 1250) {
-            circle.setLayoutX(1250);
-        }
-        if(circle.getLayoutY() < 0) {
-            circle.setLayoutY(0);
-        }
-        if(circle.getLayoutY() > 3000) {
-            circle.setLayoutY(3000);
-        }
-    }
 }
-
