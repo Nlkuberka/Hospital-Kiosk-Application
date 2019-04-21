@@ -238,6 +238,15 @@
                               <Insets top="20.0" />
                            </opaqueInsets>
                         </JFXButton>
+                        <JFXButton contentDisplay="CENTER" graphicTextGap="0.0" styleClass="jfx-button-node-list" stylesheets="@../css/pathfinding_tab.css" text=" ">
+                           <graphic>
+                              <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../images/headset.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                        </JFXButton>
                      </children>
                      <StackPane.margin>
                         <Insets right="95.0" top="15.0" />
