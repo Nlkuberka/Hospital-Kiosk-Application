@@ -113,6 +113,9 @@ public class UIControllerLM extends UIController {
         userPasswordTextField.setText("");
         adminUsernameTextField.setText("");
         adminPasswordTextField.setText("");
+        Connection conn = DBController.dbConnect();
+        CurrentUser.user = DBControllerU.getGuestUser(conn);
+        DBController.closeConnection(conn);
     }
 
 
@@ -130,7 +133,7 @@ public class UIControllerLM extends UIController {
             return;
         }
 
-        this.goToScene(UIController.USER_MAIN_MENU_MAIN);
+        this.goToScene(UIController.PATHFINDING_MAIN);
     }
 
     /**
@@ -152,11 +155,6 @@ public class UIControllerLM extends UIController {
     @FXML
     private void goToUserTab() {
         tabs.getSelectionModel().select(user_tab);
-    }
-
-    @FXML
-    private void setCancelButton() {
-        this.goToScene(UIController.PATHFINDING_MAIN);
     }
 
     @FXML

@@ -13,6 +13,8 @@ import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
+import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -34,7 +36,6 @@ public class UIController {
     // The various scenes that this UIController handles
     public static final String LOGIN_MAIN = "LM";
     public static final String WELCOME_MAIN = "WM";
-    public static final String USER_MAIN_MENU_MAIN = "UMMM";
     public static final String ADMIN_MAIN_MENU_MAIN = "AMMM";
     public static final String ABOUT_PAGE= "AP";
     public static final String USER_RESOLVE_SERVICE_REQUESTS="URS";
@@ -81,6 +82,7 @@ public class UIController {
     private static Map<String, String> sceneFiles;
     private static Map<String, String> sceneTitles;
     private static Map<String, Parent> sceneParents;
+    public static final SessionTimeoutThread SESSION_TIMEOUT_THREAD = new SessionTimeoutThread();
 
     /**
      * Constructor
@@ -129,12 +131,9 @@ public class UIController {
 
 
         // Main Menus
-
-        sceneFiles.put(UIController.USER_MAIN_MENU_MAIN, "/application/user_main_menu_main.fxml");
-        sceneTitles.put(UIController.USER_MAIN_MENU_MAIN, "Main Menu");
-
         sceneFiles.put(UIController.ADMIN_MAIN_MENU_MAIN, "/admintools/admin_main_menu_main.fxml");
         sceneTitles.put(UIController.ADMIN_MAIN_MENU_MAIN, "Main Menu");
+
 
         // Admin Tools
         sceneFiles.put(UIController.ADMIN_TOOLS_MAIN, "/admintools/admin_tools_main.fxml");
@@ -161,11 +160,8 @@ public class UIController {
         sceneTitles.put(UIController.ADMIN_TOOLS_EDIT_RESERVATIONS, "Admin Tools - Edit Reservation");
 
 
-
-
         // Service Request
-
-        sceneFiles.put(UIController.USER_RESOLVE_SERVICE_REQUESTS, "/application/user_resolve_service_requests.fxml");
+        sceneFiles.put(UIController.USER_RESOLVE_SERVICE_REQUESTS, "/servicerequests/user_resolve_service_requests.fxml");
         sceneTitles.put(UIController.USER_RESOLVE_SERVICE_REQUESTS, "User Resolve Service Request Page");
 
         sceneFiles.put(UIController.SERVICE_REQUEST_AV_EQUIPMENT, "/servicerequests/service_request_audio_visual.fxml");
@@ -174,15 +170,11 @@ public class UIController {
         sceneFiles.put(UIController.SERVICE_REQUEST_BABYSITTING, "/servicerequests/service_request_babysitting.fxml");
         sceneTitles.put(UIController.SERVICE_REQUEST_BABYSITTING, "Service Request - Babysitting");
 
-
-
-        sceneFiles.put(UIController.SERVICE_REQUEST_PRESCRIPTION_SERVICES_MAIN, "/servicerequests/service_request_prescription_services_main.fxml");
+        sceneFiles.put(UIController.SERVICE_REQUEST_PRESCRIPTION_SERVICES_MAIN, "/servicerequests/service_request_other_main.fxml");
         sceneTitles.put(UIController.SERVICE_REQUEST_PRESCRIPTION_SERVICES_MAIN, "Service Request - Prescription Services");
 
         sceneFiles.put(UIController.SERVICE_REQUEST_FLOWER_DELIVERY, "/servicerequests/service_request_flower_delivery.fxml");
         sceneTitles.put(UIController.SERVICE_REQUEST_FLOWER_DELIVERY, "Service Request - Flower Delivery");
-
-
 
         sceneFiles.put(UIController.SERVICE_REQUEST_RELIGIOUS_SERVICES, "/servicerequests/service_request_religious_services.fxml");
         sceneTitles.put(UIController.SERVICE_REQUEST_RELIGIOUS_SERVICES, "Service Request - Religious Services");
@@ -239,8 +231,11 @@ public class UIController {
         rootPane.setCenter(sceneParents.get(sceneString));
 
         // Run the onShow function and return the controller
-        sceneControllers.get(sceneString).onShow();
-        return sceneControllers.get(sceneString);
+        UIController sceneController = sceneControllers.get(sceneString);
+        sceneController.onShow();
+        SESSION_TIMEOUT_THREAD.currentSceneString = sceneString;
+        SESSION_TIMEOUT_THREAD.currentUIController = sceneController;
+        return sceneController;
     }
 
 
@@ -264,8 +259,11 @@ public class UIController {
         rootPane.setCenter(sceneParents.get(sceneString));
 
         // Run the onShow function and return the controller
-        sceneControllers.get(sceneString).onShow();
-        return sceneControllers.get(sceneString);
+        UIController sceneController = sceneControllers.get(sceneString);
+        sceneController.onShow();
+        SESSION_TIMEOUT_THREAD.currentSceneString = sceneString;
+        SESSION_TIMEOUT_THREAD.currentUIController = sceneController;
+        return sceneController;
     }
 
     /**
@@ -364,6 +362,21 @@ public class UIController {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(sceneFiles.get(sceneString)));
             Parent root = fxmlLoader.load();
+            root.addEventFilter(MouseEvent.MOUSE_RELEASED, e -> {
+                SESSION_TIMEOUT_THREAD.interrupt();
+            });
+            root.addEventFilter(MouseEvent.MOUSE_MOVED, e -> {
+                SESSION_TIMEOUT_THREAD.interrupt();
+            });
+            root.addEventFilter(MouseEvent.MOUSE_PRESSED, e -> {
+                SESSION_TIMEOUT_THREAD.interrupt();
+            });
+            root.addEventFilter(KeyEvent.KEY_PRESSED, e -> {
+                SESSION_TIMEOUT_THREAD.interrupt();
+            });
+            root.addEventFilter(KeyEvent.KEY_RELEASED, e -> {
+                SESSION_TIMEOUT_THREAD.interrupt();
+            });
             sceneParents.put(sceneString, root);
             sceneControllers.put(sceneString, fxmlLoader.getController());
             scenes.put(sceneString, new Scene(root, width, height));
@@ -381,7 +394,7 @@ public class UIController {
         int permission = CurrentUser.user.getPermissions();
         switch (permission){
             case 1:
-                this.goToScene(UIController.LOGIN_MAIN);
+                this.goToScene(UIController.PATHFINDING_MAIN);
                 break;
             case 2:
                 this.goToScene(UIController.PATHFINDING_MAIN);

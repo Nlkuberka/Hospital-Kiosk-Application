@@ -18,12 +18,11 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-
-      <BorderPane prefHeight="600.0" prefWidth="900.0" style="-fx-background-color: #015080;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="servicerequests.UIControllerSRPS">
+<BorderPane prefHeight="600.0" prefWidth="900.0" style="-fx-background-color: #015080;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="servicerequests.UIControllerSRO">
           <top>
               <MenuBar nodeOrientation="RIGHT_TO_LEFT" style="-fx-background-color: #ffc41e;" stylesheets="@../css/background.css" BorderPane.alignment="TOP_LEFT">
                   <menus>
-                      <Menu fx:id="homeButton" mnemonicParsing="false" onAction="#setHomeButton" onShowing="#setHomeButton" text="Close">
+                      <Menu fx:id="homeButton" mnemonicParsing="false" onAction="#setHomeButton" onShowing="#setCancelButton" text="Close">
                           <items>
                               <MenuItem mnemonicParsing="false" text="HOME" />
                           </items>
@@ -82,7 +81,7 @@
                   <Insets left="50.0" />
                </GridPane.margin>
             </Text>
-            <JFXTextField fx:id="patientNameTextField" maxWidth="250.0" prefHeight="25.0" prefWidth="250.0" style="-fx-background-color: #ffffff;" GridPane.rowIndex="7" />
+            <JFXTextField fx:id="serviceTypeTextField" maxWidth="250.0" prefHeight="25.0" prefWidth="250.0" style="-fx-background-color: #ffffff;" GridPane.rowIndex="7" />
             <JFXTextArea fx:id="serviceMessage" maxHeight="400.0" maxWidth="400.0" minHeight="400.0" prefHeight="400.0" prefWidth="250.0" style="-fx-background-color: #ffffff;" GridPane.columnIndex="1" GridPane.rowIndex="2" GridPane.valignment="BASELINE">
                <GridPane.margin>
                   <Insets />
@@ -104,7 +103,7 @@
                   <Insets left="50.0" top="5.0" />
                </GridPane.margin>
             </Text>
-            <TextField maxWidth="250.0" prefWidth="250.0" GridPane.rowIndex="3" />
+            <TextField fx:id="nameTextField" maxWidth="250.0" prefWidth="250.0" GridPane.rowIndex="3" />
          </children>
          <BorderPane.margin>
             <Insets left="20.0" right="20.0" />

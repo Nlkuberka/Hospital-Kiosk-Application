@@ -57,9 +57,6 @@ public class Main extends Application {
         CurrentUser.user = DBControllerU.getGuestUser(conn);
         DBController.closeConnection(conn);
 
-        CurrentUser.network = new DBNetwork(socketNum);
-        CurrentUser.network.hold();
-        CurrentUser.network.mute();
         try {
             InputStream inputStream = getClass().getResourceAsStream("/ipAddresses.txt");
             BufferedReader br = new BufferedReader(new InputStreamReader(inputStream, "UTF-8"));
@@ -71,12 +68,18 @@ public class Main extends Application {
             e.printStackTrace();
         }
 
+        CurrentUser.network = new DBNetwork(socketNum);
+        CurrentUser.network.hold();
+        CurrentUser.network.mute();
+
         System.out.println(DBNetwork.ipAddresses);
 
         UIController controller = new UIController(primaryStage);
         controller.goToScene(UIController.ADMIN_TOOLS_MAP_VIEW);
         controller.goToScene(UIController.PATHFINDING_MAIN);
-        controller.goToScene(UIController.LOGIN_MAIN);
+        controller.goToScene(UIController.WELCOME_MAIN);
+
+        UIController.SESSION_TIMEOUT_THREAD.start();
 
         primaryStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
             @Override
@@ -103,6 +106,7 @@ public class Main extends Application {
         }
 
         launch(args);
+        System.exit(0);
     }
 
 }
