@@ -83,6 +83,7 @@ public class Main extends Application {
             public void handle(WindowEvent event) {
                 try {
                     CurrentUser.network.shutdown();
+                    System.exit(0);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }

@@ -45,7 +45,6 @@ public class DBNetwork {
             dbServer = new DBServer(serverSocket);
             Thread serverThread = new Thread(dbServer);
             serverThread.start();
-            serverThread.interrupt();
         } catch(Exception e) {
             e.printStackTrace();
             return false;
