@@ -4,7 +4,11 @@ import entities.*;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.net.InetAddress;
 import java.net.ServerSocket;
+import java.net.URL;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -22,6 +26,7 @@ public class DBNetwork {
     private ObjectMapper mapper;
     private boolean mute;
     private int socketNum;
+    private String ownIP;
 
     /**
      * Constructor
@@ -29,6 +34,7 @@ public class DBNetwork {
      */
     public DBNetwork(int socketNum) {
         setupServer(socketNum);
+        getOwnIP();
         this.dbClients = new LinkedList<DBClient>();
         this.mapper = new ObjectMapper();
         this.socketNum = socketNum;
@@ -61,6 +67,9 @@ public class DBNetwork {
         dbClients = new LinkedList<DBClient>();
         try {
             for(String ip : ipAddresses) {
+                if(ownIP == ip) {
+                    continue;
+                }
                 DBClient dbClient = new DBClient(ip, socketNum);
                 dbClient.outputString(outputString);
                 dbClients.add(dbClient);
@@ -166,6 +175,23 @@ public class DBNetwork {
         dbServer.end();
     }
 
+    /**
+     * Quires a bot to get the public IP address of the self
+     */
+    private void getOwnIP() {
+        try {
+            InetAddress localhost = InetAddress.getLocalHost();
+            URL url_name = new URL("http://bot.whatismyipaddress.com");
+
+            BufferedReader sc = new BufferedReader(new InputStreamReader(url_name.openStream()));
+
+            ownIP = sc.readLine().trim();
+        } catch (Exception e) {
+            e.printStackTrace();
+            ownIP = "Cannot Execute Properly";
+        }
+    }
+
     public void mute() {
         this.mute = true;
     }
@@ -181,4 +207,5 @@ public class DBNetwork {
     public void unhold() {
         this.dbServer.unhold();
     }
+
 }
