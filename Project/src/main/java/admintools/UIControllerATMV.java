@@ -20,6 +20,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
+import javafx.scene.paint.Paint;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
 import javafx.scene.shape.Path;
@@ -228,6 +229,7 @@ public class UIControllerATMV extends UIController {
             y = (float) tempNode.getYcoord();
 
             Circle circle = new Circle(x, y, AnchorPaneHandler.nodeSizeIdle);
+            circle.setFill(Color.web("015080"));
             circle.setId(tempNode.getNodeID());
             new Tooltip(circle, tempNode.getShortName());
 

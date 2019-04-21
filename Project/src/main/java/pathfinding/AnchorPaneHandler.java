@@ -109,6 +109,7 @@ public class AnchorPaneHandler {
                 float y = (float) node.getYcoord();
 
                 Circle circle = new Circle(x, y, nodeSizeIdle);
+                circle.setFill(Color.web("015080"));
                 circle.setId(node.getNodeID());
 
                 new Tooltip(circle, node.getShortName());

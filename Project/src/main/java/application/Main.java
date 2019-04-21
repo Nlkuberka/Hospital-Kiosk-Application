@@ -31,6 +31,23 @@ public class Main extends Application {
 
         System.out.println("Collaborator is " + "X");
 
+        try {
+            InputStream inputStream = getClass().getResourceAsStream("/ipAddresses.txt");
+            BufferedReader br = new BufferedReader(new InputStreamReader(inputStream, "UTF-8"));
+            String line;
+            while((line = br.readLine()) != null) {
+                DBNetwork.ipAddresses.add(line);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        CurrentUser.network = new DBNetwork(socketNum);
+        CurrentUser.network.hold();
+        CurrentUser.network.mute();
+
+        System.out.println(DBNetwork.ipAddresses);
+
         Connection conn = DBController.dbConnect();
         DatabaseMetaData dbmd = conn.getMetaData();
         ResultSet rs = dbmd.getTables(null, null, "RESERVATIONS",null);
@@ -57,27 +74,10 @@ public class Main extends Application {
         CurrentUser.user = DBControllerU.getGuestUser(conn);
         DBController.closeConnection(conn);
 
-        try {
-            InputStream inputStream = getClass().getResourceAsStream("/ipAddresses.txt");
-            BufferedReader br = new BufferedReader(new InputStreamReader(inputStream, "UTF-8"));
-            String line;
-            while((line = br.readLine()) != null) {
-                DBNetwork.ipAddresses.add(line);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        CurrentUser.network = new DBNetwork(socketNum);
-        CurrentUser.network.hold();
-        CurrentUser.network.mute();
-
-        System.out.println(DBNetwork.ipAddresses);
-
         UIController controller = new UIController(primaryStage);
         controller.goToScene(UIController.ADMIN_TOOLS_MAP_VIEW);
         controller.goToScene(UIController.PATHFINDING_MAIN);
-        controller.goToScene(UIController.WELCOME_MAIN);
+        controller.goToScene(UIController.LOGIN_MAIN);
 
         UIController.SESSION_TIMEOUT_THREAD.start();
 
