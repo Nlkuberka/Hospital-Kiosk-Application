@@ -2,7 +2,6 @@ package pathfinding;
 
 import application.CurrentUser;
 import application.UIController;
-import application.UIControllerPUD;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTabPane;
@@ -11,11 +10,13 @@ import database.DBController;
 import database.DBControllerNE;
 import entities.Graph;
 import entities.Node;
+import entities.User;
 import helper.RoomCategoryFilterHelper;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.control.Accordion;
 import javafx.scene.control.Menu;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TitledPane;
@@ -75,10 +76,10 @@ public class UIControllerPFM extends UIController {
     @FXML private AnchorPane thirdFloorAnchorPane;
 
     @FXML private JFXButton reservationButton;
-    @FXML private  JFXButton resolveRequestButton;
-
-    @FXML
-    TitledPane titledPane;
+    @FXML private JFXButton resolveRequestButton;
+    @FXML private Accordion menu;
+    @FXML private TitledPane userToolsTitledPane;
+    @FXML private TitledPane pathfindingTitledPane;
 
     // The multiplication factor at which the map changes size
     @FXML
@@ -131,7 +132,6 @@ public class UIControllerPFM extends UIController {
         gesturePaneHandler.setCurrentObjects(currentObjects);
 
         directionsRequest.setDisable(true);
-
     }
 
     /**
@@ -178,7 +178,11 @@ public class UIControllerPFM extends UIController {
 
         anchorPaneHandler.initCircles(roomsAtEachFloor, initialLocationCombo, destinationCombo);
 
-
+        userToolsTitledPane.collapsibleProperty().setValue(false);
+        if(CurrentUser.user.getPermissions() == User.BASIC_PERMISSIONS) {
+            userToolsTitledPane.collapsibleProperty().setValue(true);
+        }
+        menu.setExpandedPane(pathfindingTitledPane);
     }
 
     void setInitialLocation(String longName) {
@@ -196,12 +200,12 @@ public class UIControllerPFM extends UIController {
      */
     @FXML
     private void setTitledPane(){
-        if (titledPane.isExpanded() == false){
+        if (pathfindingTitledPane.isExpanded() == false){
             final Color color = Color.TRANSPARENT;
-            titledPane.setBackground(new Background(new BackgroundFill(color, null, null)));
+            pathfindingTitledPane.setBackground(new Background(new BackgroundFill(color, null, null)));
         }else{
             final Color color2 = Color.web("#ffc41e");
-            titledPane.setBackground(new Background(new BackgroundFill(color2, null, null)));
+            pathfindingTitledPane.setBackground(new Background(new BackgroundFill(color2, null, null)));
         }
 
     }
@@ -347,7 +351,7 @@ public class UIControllerPFM extends UIController {
     }
 
     @FXML
-    private void setLoginButton() {
+    private void setBackButton() {
         goToScene(UIController.LOGIN_MAIN);
     }
 
@@ -366,13 +370,32 @@ public class UIControllerPFM extends UIController {
 
     @FXML
     private void setReservationButton(){
-
+        goToScene(UIController.RESERVATIONS_MAIN_MENU);
     }
+
     @FXML
     private void setResolveRequestButton(){
-
+        goToScene(UIController.USER_RESOLVE_SERVICE_REQUESTS);
     }
 
+    @FXML
+    private void setHomeMenuPF() {
+        int permission = CurrentUser.user.getPermissions();
+        switch (permission){
+            case 1:
+                this.goToScene(UIController.LOGIN_MAIN);
+                break;
+            case 2:
+                this.goToScene(UIController.LOGIN_MAIN);
+                break;
+            case 3:
+                this.goToScene(UIController.ADMIN_MAIN_MENU_MAIN);
+                break;
+            default:
+                this.goToScene(UIController.LOGIN_MAIN);
+                break;
+        }
+    }
 
 }
 

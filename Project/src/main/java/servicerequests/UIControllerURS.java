@@ -1,45 +1,33 @@
-package admintools;
+package servicerequests;
 
 import application.CurrentUser;
+import application.UIController;
 import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXCheckBox;
 import com.twilio.Twilio;
 import com.twilio.rest.api.v2010.account.Message;
 import database.DBController;
-import application.UIController;
 import database.DBControllerSR;
 import entities.ServiceRequest;
-
-import com.jfoenix.controls.JFXCheckBox;
-
 import helper.ServiceRequestTableHelper;
 import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.scene.control.Label;
-import javafx.scene.control.Menu;
-import javafx.scene.control.MenuItem;
-import javafx.scene.control.TableCell;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 
 import java.lang.reflect.Method;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.LinkedList;
 import java.util.List;
 
 import static pathfinding.UIControllerPUD.ACCOUNT_SID;
 import static pathfinding.UIControllerPUD.AUTH_TOKEN;
 
-/**
- * The UIController for the viewing, editing, adding, and removing service requests
- * Allows the admin to manage service Requests
- * @author Jonathan Chang, imoralessirgo
- * @version iteration1
- */
-public class UIControllerATVSR extends UIController {
+public class UIControllerURS extends UIController {
     private static final String[] serviceRequestSetters  = {"", "", "", "setResolved", "setResolverID", ""};
     private static final String[] serviceRequestGetters  = {"getNodeID", "getServiceType", "getUserID", "isResolved", "getResolverID", "getMessage"};
     @FXML
@@ -80,8 +68,11 @@ public class UIControllerATVSR extends UIController {
     @Override
     public void onShow() {
         Connection conn = DBController.dbConnect();
-        List<ServiceRequest> serviceRequests = DBControllerSR.getServiceRequests(DBControllerSR.TYPE_ALL, conn);
-        DBController.closeConnection(conn);
+        List<ServiceRequest> serviceRequests = new LinkedList<ServiceRequest>();
+        List<String> serviceRequestTypes = CurrentUser.user.getServiceRequestFullfillment();
+        for(String serviceRequestType : serviceRequestTypes) {
+            serviceRequests.addAll(DBControllerSR.getServiceRequests(serviceRequestType, conn));
+        }
         serviceRequestTable.setItems(FXCollections.observableList(serviceRequests));
     }
 
@@ -90,6 +81,6 @@ public class UIControllerATVSR extends UIController {
      */
     @FXML
     private void setBackButton() {
-        this.goToScene(UIController.ADMIN_TOOLS_MAIN);
+        this.goToScene(UIController.PATHFINDING_MAIN);
     }
 }
