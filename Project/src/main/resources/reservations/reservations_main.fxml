@@ -2,6 +2,7 @@
 
 <?import com.jfoenix.controls.JFXButton?>
 <?import com.jfoenix.controls.JFXTimePicker?>
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Menu?>
@@ -9,7 +10,6 @@
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.effect.Blend?>
 <?import javafx.scene.effect.ColorAdjust?>
-<?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.BorderPane?>
@@ -23,195 +23,223 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-
-<StackPane minHeight="720.0" minWidth="1280.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="reservations.UIControllerRVM">
+<StackPane minHeight="720.0" minWidth="1280.0" style="-fx-background-color: WHITE;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="reservations.UIControllerRVM">
    <children>
-      <ImageView fx:id="backgroundImage" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../pictures/Hospitalbackground.png" />
-         </image>
-      </ImageView>
       <BorderPane>
          <left>
-            <GridPane prefHeight="700.0" prefWidth="1197.0" BorderPane.alignment="CENTER">
+            <GridPane prefWidth="1280.0" BorderPane.alignment="CENTER">
                <columnConstraints>
-                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="160.4593963623047" minWidth="10.0" prefWidth="62.94464874267578" />
-                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="280.75816345214844" minWidth="10.0" prefWidth="270.0553512573242" />
-                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="400.199951171875" minWidth="10.0" prefWidth="400.199951171875" />
+                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="915.800048828125" minWidth="10.0" prefWidth="879.800048828125" />
                </columnConstraints>
                <rowConstraints>
-                  <RowConstraints maxHeight="86.27015686035156" minHeight="10.0" prefHeight="36.918190002441406" vgrow="SOMETIMES" />
-                  <RowConstraints maxHeight="663.0818099975586" minHeight="10.0" prefHeight="663.0818099975586" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
                </rowConstraints>
                <children>
-                  <GridPane maxWidth="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                  <GridPane maxWidth="400.0" prefWidth="0.0" style="-fx-background-color: #015080;">
                      <columnConstraints>
                         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
                      </columnConstraints>
                      <rowConstraints>
-                        <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" percentHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" percentHeight="10.0" vgrow="SOMETIMES" />
                         <RowConstraints minHeight="10.0" percentHeight="5.0" vgrow="SOMETIMES" />
-                        <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" percentHeight="10.0" vgrow="SOMETIMES" />
                         <RowConstraints minHeight="10.0" percentHeight="5.0" vgrow="SOMETIMES" />
-                        <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" percentHeight="10.0" vgrow="SOMETIMES" />
                         <RowConstraints minHeight="10.0" percentHeight="5.0" vgrow="SOMETIMES" />
-                        <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" percentHeight="10.0" vgrow="SOMETIMES" />
                         <RowConstraints minHeight="10.0" percentHeight="20.0" vgrow="SOMETIMES" />
                         <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
                      </rowConstraints>
                      <children>
-                            <ChoiceBox fx:id="workplaceSelect" onMouseClicked="#updateColorView" prefWidth="170.0" style="-fx-background-color: #ffffff;" GridPane.rowIndex="7" GridPane.valignment="TOP">
+                            <ChoiceBox fx:id="workplaceSelect" onMouseClicked="#updateColorView" prefWidth="250.0" style="-fx-background-color: #ffffff;" GridPane.rowIndex="8" GridPane.valignment="TOP">
                                 <effect>
                                     <Blend mode="MULTIPLY" opacity="0.34" />
                                 </effect>
+                           <GridPane.margin>
+                              <Insets left="90.0" />
+                           </GridPane.margin>
                             </ChoiceBox>
-                            <Text fill="WHITE" smooth="false" strokeType="OUTSIDE" strokeWidth="0.0" text="Select Date">
+                            <Text fill="WHITE" smooth="false" strokeType="OUTSIDE" strokeWidth="0.0" text="Select Date" GridPane.rowIndex="1">
                                 <font>
-                                    <Font name="System Bold Italic" size="16.0" />
+                                    <Font name="System Bold" size="20.0" />
                                 </font>
+                           <GridPane.margin>
+                              <Insets left="75.0" />
+                           </GridPane.margin>
                             </Text>
-                            <DatePicker fx:id="datePicker" blendMode="LIGHTEN" onAction="#updateColorView" style="-fx-background-color: #ffffff;" GridPane.rowIndex="1" GridPane.valignment="TOP">
+                            <DatePicker fx:id="datePicker" blendMode="LIGHTEN" onAction="#updateColorView" prefWidth="250.0" style="-fx-background-color: #ffffff;" GridPane.rowIndex="2" GridPane.valignment="TOP">
                                 <effect>
                                     <ColorAdjust brightness="0.05" />
                                 </effect>
+                           <GridPane.margin>
+                              <Insets left="90.0" />
+                           </GridPane.margin>
                             </DatePicker>
-                            <Text fill="WHITE" smooth="false" strokeType="OUTSIDE" strokeWidth="0.0" text="Start Time" GridPane.rowIndex="2">
+                            <Text fill="WHITE" smooth="false" strokeType="OUTSIDE" strokeWidth="0.0" text="Start Time" GridPane.rowIndex="3">
                                 <font>
-                                    <Font name="System Bold Italic" size="16.0" />
+                                    <Font name="System Bold" size="20.0" />
                                 </font>
+                           <GridPane.margin>
+                              <Insets left="75.0" />
+                           </GridPane.margin>
                             </Text>
-                            <JFXTimePicker fx:id="startTimePicker" defaultColor="#5777c6" onAction="#updateColorView" style="-fx-background-color: white;" GridPane.rowIndex="3" GridPane.valignment="TOP" />
-                            <Text fill="WHITE" smooth="false" strokeType="OUTSIDE" strokeWidth="0.0" text="End Time" GridPane.rowIndex="4">
+                            <JFXTimePicker fx:id="startTimePicker" defaultColor="#5777c6" onAction="#updateColorView" prefWidth="250.0" style="-fx-background-color: white;" GridPane.rowIndex="4" GridPane.valignment="TOP">
+                           <GridPane.margin>
+                              <Insets left="90.0" />
+                           </GridPane.margin></JFXTimePicker>
+                            <Text fill="WHITE" smooth="false" strokeType="OUTSIDE" strokeWidth="0.0" text="End Time" GridPane.rowIndex="5">
                                 <font>
-                                    <Font name="System Bold Italic" size="16.0" />
+                                    <Font name="System Bold" size="20.0" />
                                 </font>
+                           <GridPane.margin>
+                              <Insets left="75.0" />
+                           </GridPane.margin>
                             </Text>
-                            <JFXButton fx:id="confirmButton" buttonType="RAISED" onAction="#setConfirmButton" style="-fx-background-color: #ffc41e;" text="Confirm" textFill="WHITE" GridPane.rowIndex="8">
+                            <JFXButton fx:id="confirmButton" onAction="#setConfirmButton" style="-fx-background-color: #ffc41e;" text="Confirm" textFill="WHITE" GridPane.halignment="CENTER" GridPane.rowIndex="9" GridPane.valignment="TOP">
                                 <font>
-                                    <Font name="System Bold" size="12.0" />
+                                    <Font name="System Bold" size="18.0" />
                                 </font>
                             </JFXButton>
-                            <Text fill="WHITE" smooth="false" strokeType="OUTSIDE" strokeWidth="0.0" text="Select Your Room" GridPane.rowIndex="6">
+                            <Text fill="WHITE" smooth="false" strokeType="OUTSIDE" strokeWidth="0.0" text="Select Your Room" GridPane.rowIndex="7">
                                 <font>
-                                    <Font name="System Bold Italic" size="16.0" />
+                                    <Font name="System Bold" size="20.0" />
                                 </font>
+                           <GridPane.margin>
+                              <Insets left="75.0" />
+                           </GridPane.margin>
                             </Text>
-                            <JFXTimePicker fx:id="endTimePicker" defaultColor="#5777c6" onAction="#updateColorView" style="-fx-background-color: white;" GridPane.rowIndex="5" GridPane.valignment="TOP" />
+                            <JFXTimePicker fx:id="endTimePicker" defaultColor="#5777c6" onAction="#updateColorView" prefWidth="250.0" style="-fx-background-color: white;" GridPane.rowIndex="6" GridPane.valignment="TOP">
+                           <GridPane.margin>
+                              <Insets left="90.0" />
+                           </GridPane.margin></JFXTimePicker>
+                        <Text fill="WHITE" smooth="false" strokeType="OUTSIDE" strokeWidth="0.0" text="Room Reservation" GridPane.valignment="CENTER">
+                           <font>
+                              <Font name="System Bold" size="36.0" />
+                           </font>
+                           <GridPane.margin>
+                              <Insets left="50.0" />
+                           </GridPane.margin>
+                        </Text>
                      </children>
                   </GridPane>
-                  <ImageView fitHeight="931.0" fitWidth="878.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
-                     <image>
-                        <Image url="@../images/OBC-4-Concept-Plan-Overview.jpg" />
-                     </image>
-                  </ImageView>
-                  <Pane GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.rowIndex="1" GridPane.valignment="BOTTOM">
+                  <Pane GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.valignment="BOTTOM">
                      <children>
+                        <ImageView fitHeight="931.0" fitWidth="878.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/OBC-4-Concept-Plan-Overview.jpg" />
+                           </image>
+                        </ImageView>
                   
-                                                                  <Rectangle fx:id="classroom8" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="82.0" layoutX="427.0" layoutY="30.0" opacity="0.53" stroke="BLACK" strokeType="INSIDE" width="77.0" />
-                        <Rectangle fx:id="classroom6" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="79.0" layoutX="509.0" layoutY="30.0" opacity="0.53" stroke="BLACK" strokeType="INSIDE" width="72.0" />
-                        <Rectangle fx:id="classroom7" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="60.0" layoutX="427.0" layoutY="199.0" opacity="0.53" stroke="BLACK" strokeType="INSIDE" width="42.0" />
-                        <Rectangle fx:id="classroom5" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="65.0" layoutX="471.0" layoutY="195.0" opacity="0.53" stroke="BLACK" strokeType="INSIDE" width="58.0" />
-                        <Rectangle fx:id="classroom9" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="35.0" layoutX="383.0" layoutY="195.0" opacity="0.53" stroke="BLACK" strokeType="INSIDE" width="42.0" />
-                        <Rectangle fx:id="classroom1" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="45.0" layoutX="468.0" layoutY="363.0" opacity="0.53" stroke="BLACK" strokeType="INSIDE" width="80.0" />
-                        <Rectangle fx:id="MHCR" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="37.0" layoutX="469.0" layoutY="410.0" opacity="0.53" stroke="BLACK" strokeType="INSIDE" width="79.0" />
-                        <Rectangle fx:id="classroom2" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="46.0" layoutX="679.0" layoutY="265.0" opacity="0.53" rotate="70.0" stroke="BLACK" strokeType="INSIDE" width="94.0" />
-                        <Rectangle fx:id="classroom3" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="41.0" layoutX="641.0" layoutY="178.0" opacity="0.53" rotate="70.0" stroke="BLACK" strokeType="INSIDE" width="96.0" />
-                        <Rectangle fx:id="pantry" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="86.0" layoutX="478.0" layoutY="464.0" opacity="0.53" stroke="BLACK" strokeType="INSIDE" width="95.0" />
-                        <Rectangle fx:id="classroom4" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="77.0" layoutX="585.0" layoutY="30.0" opacity="0.53" stroke="BLACK" strokeType="INSIDE" width="42.0" />
-                        <Polygon fx:id="MHA" fill="DODGERBLUE" layoutX="731.0" layoutY="415.0" opacity="0.53" points="26.0, 40.0, -41.0, 40.0, 26.0, -68.0, 51.5, -11.333343505859375, 51.5, 10.0, 42.0, 28.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
-                        <Rectangle fx:id="workzone4_t1" arcHeight="5.0" arcWidth="5.0" fill="GREEN" height="15.0" layoutX="87.0" layoutY="296.0" opacity="0.53" stroke="BLACK" strokeType="INSIDE" width="15.0" />
-                        <Rectangle fx:id="workzone4_t2" arcHeight="5.0" arcWidth="5.0" fill="GREEN" height="18.0" layoutX="156.0" layoutY="304.0" opacity="0.53" stroke="BLACK" strokeType="INSIDE" width="14.0" />
-                        <Rectangle fx:id="workzone3_t1" arcHeight="5.0" arcWidth="5.0" fill="GREEN" height="23.0" layoutX="77.0" layoutY="97.0" opacity="0.53" stroke="BLACK" strokeType="INSIDE" width="11.0" />
-                        <Rectangle fx:id="workzone3_t2" arcHeight="5.0" arcWidth="5.0" fill="GREEN" height="23.0" layoutX="77.0" layoutY="132.0" opacity="0.53" stroke="BLACK" strokeType="INSIDE" width="11.0" />
-                        <Rectangle fx:id="workzone3_t3" arcHeight="5.0" arcWidth="5.0" fill="GREEN" height="25.0" layoutX="77.0" layoutY="166.0" opacity="0.53" stroke="BLACK" strokeType="INSIDE" width="11.0" />
-                        <Rectangle fx:id="workzone3_d4" arcHeight="5.0" arcWidth="5.0" fill="GREEN" height="9.0" layoutX="131.0" layoutY="99.0" opacity="0.53" stroke="BLACK" strokeType="INSIDE" width="12.0" />
-                        <Rectangle fx:id="workzone3_r1" arcHeight="5.0" arcWidth="5.0" fill="GREEN" height="25.0" layoutX="112.0" layoutY="161.0" opacity="0.53" stroke="BLACK" strokeType="INSIDE" width="42.0" />
-                        <Rectangle fx:id="workzone3_r2" arcHeight="5.0" arcWidth="5.0" fill="GREEN" height="16.0" layoutX="172.0" layoutY="178.0" opacity="0.53" stroke="BLACK" strokeType="INSIDE" width="14.0" />
-                        <Rectangle fx:id="workzone3_r4" arcHeight="5.0" arcWidth="5.0" fill="GREEN" height="16.0" layoutX="172.0" layoutY="212.0" opacity="0.53" stroke="BLACK" strokeType="INSIDE" width="14.0" />
-                        <Rectangle fx:id="workzone3_r3" arcHeight="5.0" arcWidth="5.0" fill="GREEN" height="16.0" layoutX="172.0" layoutY="196.0" opacity="0.53" stroke="BLACK" strokeType="INSIDE" width="14.0" />
-                        <Rectangle fx:id="workzone3_r5" arcHeight="5.0" arcWidth="5.0" fill="GREEN" height="16.0" layoutX="172.0" layoutY="229.0" opacity="0.53" stroke="BLACK" strokeType="INSIDE" width="14.0" />
-                        <Rectangle fx:id="workzone3_r6" arcHeight="5.0" arcWidth="5.0" fill="GREEN" height="16.0" layoutX="172.0" layoutY="245.0" opacity="0.53" stroke="BLACK" strokeType="INSIDE" width="14.0" />
-                        <Rectangle fx:id="workzone3_d3" arcHeight="5.0" arcWidth="5.0" fill="GREEN" height="9.0" layoutX="119.0" layoutY="99.0" opacity="0.53" stroke="BLACK" strokeType="INSIDE" width="12.0" />
-                        <Rectangle fx:id="workzone3_d2" arcHeight="5.0" arcWidth="5.0" fill="GREEN" height="9.0" layoutX="107.0" layoutY="99.0" opacity="0.53" stroke="BLACK" strokeType="INSIDE" width="12.0" />
-                        <Rectangle fx:id="workzone3_d1" arcHeight="5.0" arcWidth="5.0" fill="GREEN" height="9.0" layoutX="96.0" layoutY="99.0" opacity="0.53" stroke="BLACK" strokeType="INSIDE" width="12.0" />
-                        <Rectangle fx:id="workzone3_d5" arcHeight="5.0" arcWidth="5.0" fill="GREEN" height="9.0" layoutX="96.0" layoutY="108.0" opacity="0.53" stroke="BLACK" strokeType="INSIDE" width="12.0" />
-                        <Rectangle fx:id="workzone3_d6" arcHeight="5.0" arcWidth="5.0" fill="GREEN" height="9.0" layoutX="107.0" layoutY="108.0" opacity="0.53" stroke="BLACK" strokeType="INSIDE" width="12.0" />
-                        <Rectangle fx:id="workzone3_d7" arcHeight="5.0" arcWidth="5.0" fill="GREEN" height="9.0" layoutX="119.0" layoutY="108.0" opacity="0.53" stroke="BLACK" strokeType="INSIDE" width="12.0" />
-                        <Rectangle fx:id="workzone3_d8" arcHeight="5.0" arcWidth="5.0" fill="GREEN" height="9.0" layoutX="131.0" layoutY="108.0" opacity="0.53" stroke="BLACK" strokeType="INSIDE" width="12.0" />
-                        <Rectangle fx:id="workzone3_d9" arcHeight="5.0" arcWidth="5.0" fill="GREEN" height="9.0" layoutX="96.0" layoutY="127.0" opacity="0.53" stroke="BLACK" strokeType="INSIDE" width="12.0" />
-                        <Rectangle fx:id="workzone3_d10" arcHeight="5.0" arcWidth="5.0" fill="GREEN" height="9.0" layoutX="107.0" layoutY="127.0" opacity="0.53" stroke="BLACK" strokeType="INSIDE" width="12.0" />
-                        <Rectangle fx:id="workzone3_d11" arcHeight="5.0" arcWidth="5.0" fill="GREEN" height="9.0" layoutX="119.0" layoutY="127.0" opacity="0.53" stroke="BLACK" strokeType="INSIDE" width="12.0" />
-                        <Rectangle fx:id="workzone3_d12" arcHeight="5.0" arcWidth="5.0" fill="GREEN" height="9.0" layoutX="131.0" layoutY="127.0" opacity="0.53" stroke="BLACK" strokeType="INSIDE" width="12.0" />
-                        <Rectangle fx:id="workzone3_d13" arcHeight="5.0" arcWidth="5.0" fill="GREEN" height="9.0" layoutX="96.0" layoutY="137.0" opacity="0.53" stroke="BLACK" strokeType="INSIDE" width="12.0" />
-                        <Rectangle fx:id="workzone3_d14" arcHeight="5.0" arcWidth="5.0" fill="GREEN" height="9.0" layoutX="107.0" layoutY="137.0" opacity="0.53" stroke="BLACK" strokeType="INSIDE" width="12.0" />
-                        <Rectangle fx:id="workzone3_d15" arcHeight="5.0" arcWidth="5.0" fill="GREEN" height="9.0" layoutX="119.0" layoutY="137.0" opacity="0.53" stroke="BLACK" strokeType="INSIDE" width="12.0" />
-                        <Rectangle fx:id="workzone3_d16" arcHeight="5.0" arcWidth="5.0" fill="GREEN" height="9.0" layoutX="131.0" layoutY="137.0" opacity="0.53" stroke="BLACK" strokeType="INSIDE" width="12.0" />
-                        <Rectangle fx:id="workzone1_d17" arcHeight="5.0" arcWidth="5.0" fill="GREEN" height="9.0" layoutX="281.0" layoutY="353.0" opacity="0.53" stroke="BLACK" strokeType="INSIDE" width="12.0" />
-                        <Rectangle fx:id="workzone1_d18" arcHeight="5.0" arcWidth="5.0" fill="GREEN" height="9.0" layoutX="293.0" layoutY="353.0" opacity="0.53" stroke="BLACK" strokeType="INSIDE" width="12.0" />
-                        <Rectangle fx:id="workzone1_d19" arcHeight="5.0" arcWidth="5.0" fill="GREEN" height="9.0" layoutX="305.0" layoutY="353.0" opacity="0.53" stroke="BLACK" strokeType="INSIDE" width="12.0" />
-                        <Rectangle fx:id="workzone1_d11" arcHeight="5.0" arcWidth="5.0" fill="GREEN" height="9.0" layoutX="281.0" layoutY="344.0" opacity="0.53" stroke="BLACK" strokeType="INSIDE" width="12.0" />
-                        <Rectangle fx:id="workzone1_d12" arcHeight="5.0" arcWidth="5.0" fill="GREEN" height="9.0" layoutX="293.0" layoutY="344.0" opacity="0.53" stroke="BLACK" strokeType="INSIDE" width="12.0" />
-                        <Rectangle fx:id="workzone1_d13" arcHeight="5.0" arcWidth="5.0" fill="GREEN" height="9.0" layoutX="305.0" layoutY="344.0" opacity="0.53" stroke="BLACK" strokeType="INSIDE" width="12.0" />
-                        <Rectangle fx:id="workzone1_d20" arcHeight="5.0" arcWidth="5.0" fill="GREEN" height="9.0" layoutX="329.0" layoutY="353.0" opacity="0.53" stroke="BLACK" strokeType="INSIDE" width="12.0" />
-                        <Rectangle fx:id="workzone1_d21" arcHeight="5.0" arcWidth="5.0" fill="GREEN" height="9.0" layoutX="341.0" layoutY="353.0" opacity="0.53" stroke="BLACK" strokeType="INSIDE" width="12.0" />
-                        <Rectangle fx:id="workzone1_d22" arcHeight="5.0" arcWidth="5.0" fill="GREEN" height="9.0" layoutX="353.0" layoutY="353.0" opacity="0.53" stroke="BLACK" strokeType="INSIDE" width="12.0" />
-                        <Rectangle fx:id="workzone1_d14" arcHeight="5.0" arcWidth="5.0" fill="GREEN" height="9.0" layoutX="329.0" layoutY="344.0" opacity="0.53" stroke="BLACK" strokeType="INSIDE" width="12.0" />
-                        <Rectangle fx:id="workzone1_d15" arcHeight="5.0" arcWidth="5.0" fill="GREEN" height="9.0" layoutX="341.0" layoutY="344.0" opacity="0.53" stroke="BLACK" strokeType="INSIDE" width="12.0" />
-                        <Rectangle fx:id="workzone1_d16" arcHeight="5.0" arcWidth="5.0" fill="GREEN" height="9.0" layoutX="353.0" layoutY="344.0" opacity="0.53" stroke="BLACK" strokeType="INSIDE" width="12.0" />
-                        <Rectangle fx:id="workzone1_d1" arcHeight="5.0" arcWidth="5.0" fill="GREEN" height="9.0" layoutX="334.0" layoutY="279.0" opacity="0.53" rotate="-90.0" stroke="BLACK" strokeType="INSIDE" width="12.0" />
-                        <Rectangle fx:id="workzone1_d3" arcHeight="5.0" arcWidth="5.0" fill="GREEN" height="9.0" layoutX="334.0" layoutY="291.0" opacity="0.53" rotate="-90.0" stroke="BLACK" strokeType="INSIDE" width="12.0" />
-                        <Rectangle fx:id="workzone1_d5" arcHeight="5.0" arcWidth="5.0" fill="GREEN" height="9.0" layoutX="334.0" layoutY="303.0" opacity="0.53" rotate="-90.0" stroke="BLACK" strokeType="INSIDE" width="12.0" />
-                        <Rectangle fx:id="workzone1_d7" arcHeight="5.0" arcWidth="5.0" fill="GREEN" height="9.0" layoutX="334.0" layoutY="315.0" opacity="0.53" rotate="-90.0" stroke="BLACK" strokeType="INSIDE" width="12.0" />
-                        <Rectangle fx:id="workzone1_d9" arcHeight="5.0" arcWidth="5.0" fill="GREEN" height="12.0" layoutX="335.0" layoutY="325.0" opacity="0.53" stroke="BLACK" strokeType="INSIDE" width="10.0" />
-                        <Rectangle fx:id="workzone1_d10" arcHeight="5.0" arcWidth="5.0" fill="GREEN" height="12.0" layoutX="345.0" layoutY="325.0" opacity="0.53" stroke="BLACK" strokeType="INSIDE" width="9.0" />
-                        <Rectangle fx:id="workzone1_d8" arcHeight="5.0" arcWidth="5.0" fill="GREEN" height="12.0" layoutX="345.0" layoutY="313.0" opacity="0.53" stroke="BLACK" strokeType="INSIDE" width="9.0" />
-                        <Rectangle fx:id="workzone1_d6" arcHeight="5.0" arcWidth="5.0" fill="GREEN" height="12.0" layoutX="345.0" layoutY="302.0" opacity="0.53" stroke="BLACK" strokeType="INSIDE" width="9.0" />
-                        <Rectangle fx:id="workzone1_d4" arcHeight="5.0" arcWidth="5.0" fill="GREEN" height="12.0" layoutX="345.0" layoutY="290.0" opacity="0.53" stroke="BLACK" strokeType="INSIDE" width="9.0" />
-                        <Rectangle fx:id="workzone1_d2" arcHeight="5.0" arcWidth="5.0" fill="GREEN" height="12.0" layoutX="345.0" layoutY="278.0" opacity="0.53" stroke="BLACK" strokeType="INSIDE" width="9.0" />
-                        <Rectangle fx:id="workzone1_r3" arcHeight="5.0" arcWidth="5.0" fill="GREEN" height="14.0" layoutX="250.0" layoutY="278.0" opacity="0.53" stroke="BLACK" strokeType="INSIDE" width="18.0" />
-                        <Rectangle fx:id="workzone1_r2" arcHeight="5.0" arcWidth="5.0" fill="GREEN" height="14.0" layoutX="230.0" layoutY="278.0" opacity="0.53" stroke="BLACK" strokeType="INSIDE" width="18.0" />
-                        <Rectangle fx:id="workzone1_r1" arcHeight="5.0" arcWidth="5.0" fill="GREEN" height="14.0" layoutX="210.0" layoutY="280.0" opacity="0.53" stroke="BLACK" strokeType="INSIDE" width="18.0" />
-                        <Rectangle fx:id="workzone1_r4" arcHeight="5.0" arcWidth="5.0" fill="GREEN" height="56.0" layoutX="212.0" layoutY="293.0" opacity="0.53" stroke="BLACK" strokeType="INSIDE" width="55.0" />
-                        <Rectangle fx:id="workzone2_d9" arcHeight="5.0" arcWidth="5.0" fill="GREEN" height="12.0" layoutX="315.0" layoutY="139.0" opacity="0.53" stroke="BLACK" strokeType="INSIDE" width="9.0" />
-                        <Rectangle fx:id="workzone2_d7" arcHeight="5.0" arcWidth="5.0" fill="GREEN" height="12.0" layoutX="315.0" layoutY="127.0" opacity="0.53" stroke="BLACK" strokeType="INSIDE" width="9.0" />
-                        <Rectangle fx:id="workzone2_d5" arcHeight="5.0" arcWidth="5.0" fill="GREEN" height="12.0" layoutX="315.0" layoutY="115.0" opacity="0.53" stroke="BLACK" strokeType="INSIDE" width="9.0" />
-                        <Rectangle fx:id="workzone2_d3" arcHeight="5.0" arcWidth="5.0" fill="GREEN" height="12.0" layoutX="315.0" layoutY="103.0" opacity="0.53" stroke="BLACK" strokeType="INSIDE" width="9.0" />
-                        <Rectangle fx:id="workzone2_d1" arcHeight="5.0" arcWidth="5.0" fill="GREEN" height="12.0" layoutX="315.0" layoutY="91.0" opacity="0.53" stroke="BLACK" strokeType="INSIDE" width="9.0" />
-                        <Rectangle fx:id="workzone2_d8" arcHeight="5.0" arcWidth="5.0" fill="GREEN" height="12.0" layoutX="307.0" layoutY="138.0" opacity="0.53" stroke="BLACK" strokeType="INSIDE" width="9.0" />
-                        <Rectangle fx:id="workzone2_d6" arcHeight="5.0" arcWidth="5.0" fill="GREEN" height="12.0" layoutX="307.0" layoutY="126.0" opacity="0.53" stroke="BLACK" strokeType="INSIDE" width="9.0" />
-                        <Rectangle fx:id="workzone2_d4" arcHeight="5.0" arcWidth="5.0" fill="GREEN" height="12.0" layoutX="307.0" layoutY="114.0" opacity="0.53" stroke="BLACK" strokeType="INSIDE" width="9.0" />
-                        <Rectangle fx:id="workzone2_d2" arcHeight="5.0" arcWidth="5.0" fill="GREEN" height="12.0" layoutX="307.0" layoutY="103.0" opacity="0.53" stroke="BLACK" strokeType="INSIDE" width="9.0" />
-                        <Rectangle fx:id="workzone5_d13" arcHeight="5.0" arcWidth="5.0" fill="GREEN" height="12.0" layoutX="406.0" layoutY="445.0" opacity="0.53" stroke="BLACK" strokeType="INSIDE" width="9.0" />
-                        <Rectangle fx:id="workzone5_d9" arcHeight="5.0" arcWidth="5.0" fill="GREEN" height="12.0" layoutX="406.0" layoutY="433.0" opacity="0.53" stroke="BLACK" strokeType="INSIDE" width="9.0" />
-                        <Rectangle fx:id="workzone5_d5" arcHeight="5.0" arcWidth="5.0" fill="GREEN" height="14.0" layoutX="406.0" layoutY="421.0" opacity="0.53" stroke="BLACK" strokeType="INSIDE" width="9.0" />
-                        <Rectangle fx:id="workzone5_d1" arcHeight="5.0" arcWidth="5.0" fill="GREEN" height="12.0" layoutX="406.0" layoutY="410.0" opacity="0.53" stroke="BLACK" strokeType="INSIDE" width="9.0" />
-                        <Rectangle fx:id="workzone5_r1" arcHeight="5.0" arcWidth="5.0" fill="GREEN" height="37.0" layoutX="422.0" layoutY="370.0" opacity="0.53" stroke="BLACK" strokeType="INSIDE" width="46.0" />
-                        <Rectangle fx:id="workzone5_t1" arcHeight="5.0" arcWidth="5.0" fill="GREEN" height="11.0" layoutX="298.0" layoutY="439.0" opacity="0.53" stroke="BLACK" strokeType="INSIDE" width="11.0" />
-                        <Rectangle fx:id="workzone5_r5" arcHeight="5.0" arcWidth="5.0" fill="GREEN" height="24.0" layoutX="466.0" layoutY="528.0" opacity="0.53" stroke="BLACK" strokeType="INSIDE" width="14.0" />
-                        <Rectangle fx:id="workzone5_r4" arcHeight="5.0" arcWidth="5.0" fill="GREEN" height="14.0" layoutX="466.0" layoutY="511.0" opacity="0.53" stroke="BLACK" strokeType="INSIDE" width="14.0" />
-                        <Rectangle fx:id="workzone5_r3" arcHeight="5.0" arcWidth="5.0" fill="GREEN" height="14.0" layoutX="465.0" layoutY="495.0" opacity="0.53" stroke="BLACK" strokeType="INSIDE" width="14.0" />
-                        <Rectangle fx:id="workzone5_r2" arcHeight="5.0" arcWidth="5.0" fill="GREEN" height="21.0" layoutX="467.0" layoutY="471.0" opacity="0.53" stroke="BLACK" strokeType="INSIDE" width="13.0" />
-                        <Rectangle fx:id="workzone5_d14" arcHeight="5.0" arcWidth="5.0" fill="GREEN" height="12.0" layoutX="416.0" layoutY="445.0" opacity="0.53" stroke="BLACK" strokeType="INSIDE" width="9.0" />
-                        <Rectangle fx:id="workzone5_d10" arcHeight="5.0" arcWidth="5.0" fill="GREEN" height="12.0" layoutX="416.0" layoutY="433.0" opacity="0.53" stroke="BLACK" strokeType="INSIDE" width="9.0" />
-                        <Rectangle fx:id="workzone5_d6" arcHeight="5.0" arcWidth="5.0" fill="GREEN" height="14.0" layoutX="416.0" layoutY="419.0" opacity="0.53" stroke="BLACK" strokeType="INSIDE" width="9.0" />
-                        <Rectangle fx:id="workzone5_d2" arcHeight="5.0" arcWidth="5.0" fill="GREEN" height="12.0" layoutX="416.0" layoutY="408.0" opacity="0.53" stroke="BLACK" strokeType="INSIDE" width="9.0" />
-                        <Rectangle fx:id="workzone5_d15" arcHeight="5.0" arcWidth="5.0" fill="GREEN" height="12.0" layoutX="435.0" layoutY="445.0" opacity="0.53" stroke="BLACK" strokeType="INSIDE" width="9.0" />
-                        <Rectangle fx:id="workzone5_d11" arcHeight="5.0" arcWidth="5.0" fill="GREEN" height="12.0" layoutX="435.0" layoutY="434.0" opacity="0.53" stroke="BLACK" strokeType="INSIDE" width="9.0" />
-                        <Rectangle fx:id="workzone5_d7" arcHeight="5.0" arcWidth="5.0" fill="GREEN" height="14.0" layoutX="435.0" layoutY="420.0" opacity="0.53" stroke="BLACK" strokeType="INSIDE" width="9.0" />
-                        <Rectangle fx:id="workzone5_d16" arcHeight="5.0" arcWidth="5.0" fill="GREEN" height="12.0" layoutX="443.0" layoutY="445.0" opacity="0.53" stroke="BLACK" strokeType="INSIDE" width="9.0" />
-                        <Rectangle fx:id="workzone5_d12" arcHeight="5.0" arcWidth="5.0" fill="GREEN" height="12.0" layoutX="443.0" layoutY="433.0" opacity="0.53" stroke="BLACK" strokeType="INSIDE" width="9.0" />
-                        <Rectangle fx:id="workzone5_d4" arcHeight="5.0" arcWidth="5.0" fill="GREEN" height="12.0" layoutX="444.0" layoutY="409.0" opacity="0.53" stroke="BLACK" strokeType="INSIDE" width="9.0" />
-                        <Rectangle fx:id="workzone5_d8" arcHeight="5.0" arcWidth="5.0" fill="GREEN" height="12.0" layoutX="444.0" layoutY="421.0" opacity="0.53" stroke="BLACK" strokeType="INSIDE" width="9.0" />
-                        <Rectangle fx:id="workzone5_d3" arcHeight="5.0" arcWidth="5.0" fill="GREEN" height="12.0" layoutX="434.0" layoutY="410.0" opacity="0.53" stroke="BLACK" strokeType="INSIDE" width="9.0" />
-                        <Rectangle fx:id="workzone5_t2" arcHeight="5.0" arcWidth="5.0" fill="GREEN" height="31.0" layoutX="380.0" layoutY="471.0" opacity="0.53" stroke="BLACK" strokeType="INSIDE" width="12.0" />
-                        <Rectangle fx:id="workzone5_t3" arcHeight="5.0" arcWidth="5.0" fill="GREEN" height="31.0" layoutX="376.0" layoutY="513.0" opacity="0.53" stroke="BLACK" strokeType="INSIDE" width="12.0" />
+                                                                  <Rectangle fx:id="classroom8" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="82.0" layoutX="425.0" layoutY="34.0" opacity="0.53" stroke="BLACK" strokeType="INSIDE" width="77.0" />
+                        <Rectangle fx:id="classroom6" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="79.0" layoutX="507.0" layoutY="34.0" opacity="0.53" stroke="BLACK" strokeType="INSIDE" width="72.0" />
+                        <Rectangle fx:id="classroom7" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="78.0" layoutX="485.0" layoutY="170.0" opacity="0.53" stroke="BLACK" strokeType="INSIDE" width="58.0" />
+                        <Rectangle fx:id="classroom5" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="79.0" layoutX="544.0" layoutY="170.0" opacity="0.53" stroke="BLACK" strokeType="INSIDE" width="70.0" />
+                        <Rectangle fx:id="classroom9" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="40.0" layoutX="434.0" layoutY="170.0" opacity="0.53" stroke="BLACK" strokeType="INSIDE" width="49.0" />
+                        <Rectangle fx:id="classroom1" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="57.0" layoutX="541.0" layoutY="380.0" opacity="0.53" stroke="BLACK" strokeType="INSIDE" width="91.0" />
+                        <Rectangle fx:id="MHCR" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="37.0" layoutX="544.0" layoutY="446.0" opacity="0.53" stroke="BLACK" strokeType="INSIDE" width="97.0" />
+                        <Rectangle fx:id="classroom2" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="46.0" layoutX="680.0" layoutY="272.0" opacity="0.53" rotate="70.0" stroke="BLACK" strokeType="INSIDE" width="94.0" />
+                        <Rectangle fx:id="classroom3" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="41.0" layoutX="642.0" layoutY="185.0" opacity="0.53" rotate="70.0" stroke="BLACK" strokeType="INSIDE" width="96.0" />
+                        <Rectangle fx:id="pantry" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="104.0" layoutX="560.0" layoutY="504.0" opacity="0.53" stroke="BLACK" strokeType="INSIDE" width="110.0" />
+                        <Rectangle fx:id="classroom4" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="77.0" layoutX="586.0" layoutY="37.0" opacity="0.53" stroke="BLACK" strokeType="INSIDE" width="42.0" />
+                        <Polygon fx:id="MHA" fill="DODGERBLUE" layoutX="732.0" layoutY="422.0" opacity="0.53" points="32.6878662109375, 40.0, -39.800048828125, 40.0, 32.6878662109375, -88.0, 60.5999755859375, -8.0, 60.5999755859375, 11.5999755859375, 45.4000244140625, 40.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
+                        <Rectangle fx:id="workzone4_t1" arcHeight="5.0" arcWidth="5.0" fill="GREEN" height="15.0" layoutX="62.0" layoutY="299.0" opacity="0.53" stroke="BLACK" strokeType="INSIDE" width="15.0" />
+                        <Rectangle fx:id="workzone4_t2" arcHeight="5.0" arcWidth="5.0" fill="GREEN" height="18.0" layoutX="148.0" layoutY="307.0" opacity="0.53" stroke="BLACK" strokeType="INSIDE" width="14.0" />
+                        <Rectangle fx:id="workzone3_t1" arcHeight="5.0" arcWidth="5.0" fill="GREEN" height="23.0" layoutX="47.0" layoutY="45.0" opacity="0.53" stroke="BLACK" strokeType="INSIDE" width="11.0" />
+                        <Rectangle fx:id="workzone3_t2" arcHeight="5.0" arcWidth="5.0" fill="GREEN" height="28.0" layoutX="47.0" layoutY="90.0" opacity="0.53" stroke="BLACK" strokeType="INSIDE" width="11.0" />
+                        <Rectangle fx:id="workzone3_t3" arcHeight="5.0" arcWidth="5.0" fill="GREEN" height="33.0" layoutX="47.0" layoutY="132.0" opacity="0.53" stroke="BLACK" strokeType="INSIDE" width="11.0" />
+                        <Rectangle fx:id="workzone3_d4" arcHeight="5.0" arcWidth="5.0" fill="GREEN" height="9.0" layoutX="117.0" layoutY="52.0" opacity="0.53" stroke="BLACK" strokeType="INSIDE" width="12.0" />
+                        <Rectangle fx:id="workzone3_r1" arcHeight="5.0" arcWidth="5.0" fill="GREEN" height="32.0" layoutX="96.0" layoutY="125.0" opacity="0.53" stroke="BLACK" strokeType="INSIDE" width="42.0" />
+                        <Rectangle fx:id="workzone3_r2" arcHeight="5.0" arcWidth="5.0" fill="GREEN" height="16.0" layoutX="169.0" layoutY="150.0" opacity="0.53" stroke="BLACK" strokeType="INSIDE" width="14.0" />
+                        <Rectangle fx:id="workzone3_r4" arcHeight="5.0" arcWidth="5.0" fill="GREEN" height="16.0" layoutX="169.0" layoutY="191.0" opacity="0.53" stroke="BLACK" strokeType="INSIDE" width="14.0" />
+                        <Rectangle fx:id="workzone3_r3" arcHeight="5.0" arcWidth="5.0" fill="GREEN" height="16.0" layoutX="169.0" layoutY="170.0" opacity="0.53" stroke="BLACK" strokeType="INSIDE" width="14.0" />
+                        <Rectangle fx:id="workzone3_r5" arcHeight="5.0" arcWidth="5.0" fill="GREEN" height="16.0" layoutX="169.0" layoutY="211.0" opacity="0.53" stroke="BLACK" strokeType="INSIDE" width="14.0" />
+                        <Rectangle fx:id="workzone3_r6" arcHeight="5.0" arcWidth="5.0" fill="GREEN" height="16.0" layoutX="169.0" layoutY="232.0" opacity="0.53" stroke="BLACK" strokeType="INSIDE" width="14.0" />
+                        <Rectangle fx:id="workzone3_d3" arcHeight="5.0" arcWidth="5.0" fill="GREEN" height="9.0" layoutX="102.0" layoutY="52.0" opacity="0.53" stroke="BLACK" strokeType="INSIDE" width="12.0" />
+                        <Rectangle fx:id="workzone3_d2" arcHeight="5.0" arcWidth="5.0" fill="GREEN" height="9.0" layoutX="87.0" layoutY="52.0" opacity="0.53" stroke="BLACK" strokeType="INSIDE" width="12.0" />
+                        <Rectangle fx:id="workzone3_d1" arcHeight="5.0" arcWidth="5.0" fill="GREEN" height="9.0" layoutX="73.0" layoutY="52.0" opacity="0.53" stroke="BLACK" strokeType="INSIDE" width="12.0" />
+                        <Rectangle fx:id="workzone3_d5" arcHeight="5.0" arcWidth="5.0" fill="GREEN" height="9.0" layoutX="73.0" layoutY="59.0" opacity="0.53" stroke="BLACK" strokeType="INSIDE" width="12.0" />
+                        <Rectangle fx:id="workzone3_d6" arcHeight="5.0" arcWidth="5.0" fill="GREEN" height="9.0" layoutX="87.0" layoutY="59.0" opacity="0.53" stroke="BLACK" strokeType="INSIDE" width="12.0" />
+                        <Rectangle fx:id="workzone3_d7" arcHeight="5.0" arcWidth="5.0" fill="GREEN" height="9.0" layoutX="102.0" layoutY="59.0" opacity="0.53" stroke="BLACK" strokeType="INSIDE" width="12.0" />
+                        <Rectangle fx:id="workzone3_d8" arcHeight="5.0" arcWidth="5.0" fill="GREEN" height="9.0" layoutX="117.0" layoutY="59.0" opacity="0.53" stroke="BLACK" strokeType="INSIDE" width="12.0" />
+                        <Rectangle fx:id="workzone3_d9" arcHeight="5.0" arcWidth="5.0" fill="GREEN" height="9.0" layoutX="73.0" layoutY="87.0" opacity="0.53" stroke="BLACK" strokeType="INSIDE" width="12.0" />
+                        <Rectangle fx:id="workzone3_d10" arcHeight="5.0" arcWidth="5.0" fill="GREEN" height="9.0" layoutX="87.0" layoutY="87.0" opacity="0.53" stroke="BLACK" strokeType="INSIDE" width="12.0" />
+                        <Rectangle fx:id="workzone3_d11" arcHeight="5.0" arcWidth="5.0" fill="GREEN" height="9.0" layoutX="103.0" layoutY="87.0" opacity="0.53" stroke="BLACK" strokeType="INSIDE" width="12.0" />
+                        <Rectangle fx:id="workzone3_d12" arcHeight="5.0" arcWidth="5.0" fill="GREEN" height="9.0" layoutX="117.0" layoutY="87.0" opacity="0.53" stroke="BLACK" strokeType="INSIDE" width="12.0" />
+                        <Rectangle fx:id="workzone3_d13" arcHeight="5.0" arcWidth="5.0" fill="GREEN" height="9.0" layoutX="73.0" layoutY="96.0" opacity="0.53" stroke="BLACK" strokeType="INSIDE" width="12.0" />
+                        <Rectangle fx:id="workzone3_d14" arcHeight="5.0" arcWidth="5.0" fill="GREEN" height="9.0" layoutX="87.0" layoutY="96.0" opacity="0.53" stroke="BLACK" strokeType="INSIDE" width="12.0" />
+                        <Rectangle fx:id="workzone3_d15" arcHeight="5.0" arcWidth="5.0" fill="GREEN" height="9.0" layoutX="103.0" layoutY="96.0" opacity="0.53" stroke="BLACK" strokeType="INSIDE" width="12.0" />
+                        <Rectangle fx:id="workzone3_d16" arcHeight="5.0" arcWidth="5.0" fill="GREEN" height="9.0" layoutX="117.0" layoutY="96.0" opacity="0.53" stroke="BLACK" strokeType="INSIDE" width="12.0" />
+                        <Rectangle fx:id="workzone1_d17" arcHeight="5.0" arcWidth="5.0" fill="GREEN" height="9.0" layoutX="307.0" layoutY="367.0" opacity="0.53" stroke="BLACK" strokeType="INSIDE" width="12.0" />
+                        <Rectangle fx:id="workzone1_d18" arcHeight="5.0" arcWidth="5.0" fill="GREEN" height="9.0" layoutX="321.0" layoutY="367.0" opacity="0.53" stroke="BLACK" strokeType="INSIDE" width="12.0" />
+                        <Rectangle fx:id="workzone1_d19" arcHeight="5.0" arcWidth="5.0" fill="GREEN" height="9.0" layoutX="335.0" layoutY="366.0" opacity="0.53" stroke="BLACK" strokeType="INSIDE" width="12.0" />
+                        <Rectangle fx:id="workzone1_d11" arcHeight="5.0" arcWidth="5.0" fill="GREEN" height="9.0" layoutX="307.0" layoutY="358.0" opacity="0.53" stroke="BLACK" strokeType="INSIDE" width="12.0" />
+                        <Rectangle fx:id="workzone1_d12" arcHeight="5.0" arcWidth="5.0" fill="GREEN" height="9.0" layoutX="322.0" layoutY="358.0" opacity="0.53" stroke="BLACK" strokeType="INSIDE" width="12.0" />
+                        <Rectangle fx:id="workzone1_d13" arcHeight="5.0" arcWidth="5.0" fill="GREEN" height="9.0" layoutX="335.0" layoutY="358.0" opacity="0.53" stroke="BLACK" strokeType="INSIDE" width="12.0" />
+                        <Rectangle fx:id="workzone1_d20" arcHeight="5.0" arcWidth="5.0" fill="GREEN" height="9.0" layoutX="366.0" layoutY="367.0" opacity="0.53" stroke="BLACK" strokeType="INSIDE" width="12.0" />
+                        <Rectangle fx:id="workzone1_d21" arcHeight="5.0" arcWidth="5.0" fill="GREEN" height="9.0" layoutX="382.0" layoutY="366.0" opacity="0.53" stroke="BLACK" strokeType="INSIDE" width="12.0" />
+                        <Rectangle fx:id="workzone1_d22" arcHeight="5.0" arcWidth="5.0" fill="GREEN" height="9.0" layoutX="395.0" layoutY="367.0" opacity="0.53" stroke="BLACK" strokeType="INSIDE" width="12.0" />
+                        <Rectangle fx:id="workzone1_d14" arcHeight="5.0" arcWidth="5.0" fill="GREEN" height="9.0" layoutX="366.0" layoutY="358.0" opacity="0.53" stroke="BLACK" strokeType="INSIDE" width="12.0" />
+                        <Rectangle fx:id="workzone1_d15" arcHeight="5.0" arcWidth="5.0" fill="GREEN" height="9.0" layoutX="382.0" layoutY="358.0" opacity="0.53" stroke="BLACK" strokeType="INSIDE" width="12.0" />
+                        <Rectangle fx:id="workzone1_d16" arcHeight="5.0" arcWidth="5.0" fill="GREEN" height="9.0" layoutX="395.0" layoutY="358.0" opacity="0.53" stroke="BLACK" strokeType="INSIDE" width="12.0" />
+                        <Rectangle fx:id="workzone1_d1" arcHeight="5.0" arcWidth="5.0" fill="GREEN" height="9.0" layoutX="373.0" layoutY="276.0" opacity="0.53" rotate="-90.0" stroke="BLACK" strokeType="INSIDE" width="12.0" />
+                        <Rectangle fx:id="workzone1_d3" arcHeight="5.0" arcWidth="5.0" fill="GREEN" height="9.0" layoutX="373.0" layoutY="290.0" opacity="0.53" rotate="-90.0" stroke="BLACK" strokeType="INSIDE" width="12.0" />
+                        <Rectangle fx:id="workzone1_d5" arcHeight="5.0" arcWidth="5.0" fill="GREEN" height="9.0" layoutX="373.0" layoutY="305.0" opacity="0.53" rotate="-90.0" stroke="BLACK" strokeType="INSIDE" width="12.0" />
+                        <Rectangle fx:id="workzone1_d7" arcHeight="5.0" arcWidth="5.0" fill="GREEN" height="9.0" layoutX="374.0" layoutY="319.0" opacity="0.53" rotate="-90.0" stroke="BLACK" strokeType="INSIDE" width="12.0" />
+                        <Rectangle fx:id="workzone1_d9" arcHeight="5.0" arcWidth="5.0" fill="GREEN" height="12.0" layoutX="375.0" layoutY="333.0" opacity="0.53" stroke="BLACK" strokeType="INSIDE" width="10.0" />
+                        <Rectangle fx:id="workzone1_d10" arcHeight="5.0" arcWidth="5.0" fill="GREEN" height="12.0" layoutX="384.0" layoutY="333.0" opacity="0.53" stroke="BLACK" strokeType="INSIDE" width="9.0" />
+                        <Rectangle fx:id="workzone1_d8" arcHeight="5.0" arcWidth="5.0" fill="GREEN" height="12.0" layoutX="384.0" layoutY="318.0" opacity="0.53" stroke="BLACK" strokeType="INSIDE" width="9.0" />
+                        <Rectangle fx:id="workzone1_d6" arcHeight="5.0" arcWidth="5.0" fill="GREEN" height="12.0" layoutX="384.0" layoutY="302.0" opacity="0.53" stroke="BLACK" strokeType="INSIDE" width="9.0" />
+                        <Rectangle fx:id="workzone1_d4" arcHeight="5.0" arcWidth="5.0" fill="GREEN" height="12.0" layoutX="384.0" layoutY="288.0" opacity="0.53" stroke="BLACK" strokeType="INSIDE" width="9.0" />
+                        <Rectangle fx:id="workzone1_d2" arcHeight="5.0" arcWidth="5.0" fill="GREEN" height="12.0" layoutX="384.0" layoutY="274.0" opacity="0.53" stroke="BLACK" strokeType="INSIDE" width="9.0" />
+                        <Rectangle fx:id="workzone1_r3" arcHeight="5.0" arcWidth="5.0" fill="GREEN" height="14.0" layoutX="264.0" layoutY="273.0" opacity="0.53" stroke="BLACK" strokeType="INSIDE" width="18.0" />
+                        <Rectangle fx:id="workzone1_r2" arcHeight="5.0" arcWidth="5.0" fill="GREEN" height="14.0" layoutX="242.0" layoutY="274.0" opacity="0.53" stroke="BLACK" strokeType="INSIDE" width="18.0" />
+                        <Rectangle fx:id="workzone1_r1" arcHeight="5.0" arcWidth="5.0" fill="GREEN" height="14.0" layoutX="220.0" layoutY="274.0" opacity="0.53" stroke="BLACK" strokeType="INSIDE" width="18.0" />
+                        <Rectangle fx:id="workzone1_r4" arcHeight="5.0" arcWidth="5.0" fill="GREEN" height="68.0" layoutX="218.0" layoutY="292.0" opacity="0.53" stroke="BLACK" strokeType="INSIDE" width="68.0" />
+                        <Rectangle fx:id="workzone2_d9" arcHeight="5.0" arcWidth="5.0" fill="GREEN" height="12.0" layoutX="346.0" layoutY="101.0" opacity="0.53" stroke="BLACK" strokeType="INSIDE" width="9.0" />
+                        <Rectangle fx:id="workzone2_d7" arcHeight="5.0" arcWidth="5.0" fill="GREEN" height="12.0" layoutX="346.0" layoutY="85.0" opacity="0.53" stroke="BLACK" strokeType="INSIDE" width="9.0" />
+                        <Rectangle fx:id="workzone2_d5" arcHeight="5.0" arcWidth="5.0" fill="GREEN" height="12.0" layoutX="346.0" layoutY="71.0" opacity="0.53" stroke="BLACK" strokeType="INSIDE" width="9.0" />
+                        <Rectangle fx:id="workzone2_d3" arcHeight="5.0" arcWidth="5.0" fill="GREEN" height="12.0" layoutX="346.0" layoutY="56.0" opacity="0.53" stroke="BLACK" strokeType="INSIDE" width="9.0" />
+                        <Rectangle fx:id="workzone2_d1" arcHeight="5.0" arcWidth="5.0" fill="GREEN" height="18.0" layoutX="346.0" layoutY="41.0" opacity="0.53" stroke="BLACK" strokeType="INSIDE" width="9.0" />
+                        <Rectangle fx:id="workzone2_d8" arcHeight="5.0" arcWidth="5.0" fill="GREEN" height="12.0" layoutX="338.0" layoutY="100.0" opacity="0.53" stroke="BLACK" strokeType="INSIDE" width="9.0" />
+                        <Rectangle fx:id="workzone2_d6" arcHeight="5.0" arcWidth="5.0" fill="GREEN" height="12.0" layoutX="337.0" layoutY="85.0" opacity="0.53" stroke="BLACK" strokeType="INSIDE" width="9.0" />
+                        <Rectangle fx:id="workzone2_d4" arcHeight="5.0" arcWidth="5.0" fill="GREEN" height="12.0" layoutX="337.0" layoutY="71.0" opacity="0.53" stroke="BLACK" strokeType="INSIDE" width="9.0" />
+                        <Rectangle fx:id="workzone2_d2" arcHeight="5.0" arcWidth="5.0" fill="GREEN" height="12.0" layoutX="337.0" layoutY="56.0" opacity="0.53" stroke="BLACK" strokeType="INSIDE" width="9.0" />
+                        <Rectangle fx:id="workzone5_d13" arcHeight="5.0" arcWidth="5.0" fill="GREEN" height="12.0" layoutX="463.0" layoutY="484.0" opacity="0.53" stroke="BLACK" strokeType="INSIDE" width="9.0" />
+                        <Rectangle fx:id="workzone5_d9" arcHeight="5.0" arcWidth="5.0" fill="GREEN" height="12.0" layoutX="463.0" layoutY="470.0" opacity="0.53" stroke="BLACK" strokeType="INSIDE" width="9.0" />
+                        <Rectangle fx:id="workzone5_d5" arcHeight="5.0" arcWidth="5.0" fill="GREEN" height="14.0" layoutX="464.0" layoutY="452.0" opacity="0.53" stroke="BLACK" strokeType="INSIDE" width="9.0" />
+                        <Rectangle fx:id="workzone5_d1" arcHeight="5.0" arcWidth="5.0" fill="GREEN" height="12.0" layoutX="464.0" layoutY="438.0" opacity="0.53" stroke="BLACK" strokeType="INSIDE" width="9.0" />
+                        <Rectangle fx:id="workzone5_r1" arcHeight="5.0" arcWidth="5.0" fill="GREEN" height="43.0" layoutX="482.0" layoutY="390.0" opacity="0.53" stroke="BLACK" strokeType="INSIDE" width="49.0" />
+                        <Rectangle fx:id="workzone5_t1" arcHeight="5.0" arcWidth="5.0" fill="GREEN" height="11.0" layoutX="326.0" layoutY="475.0" opacity="0.53" stroke="BLACK" strokeType="INSIDE" width="11.0" />
+                        <Rectangle fx:id="workzone5_r5" arcHeight="5.0" arcWidth="5.0" fill="GREEN" height="24.0" layoutX="539.0" layoutY="584.0" opacity="0.53" stroke="BLACK" strokeType="INSIDE" width="14.0" />
+                        <Rectangle fx:id="workzone5_r4" arcHeight="5.0" arcWidth="5.0" fill="GREEN" height="14.0" layoutX="539.0" layoutY="568.0" opacity="0.53" stroke="BLACK" strokeType="INSIDE" width="14.0" />
+                        <Rectangle fx:id="workzone5_r3" arcHeight="5.0" arcWidth="5.0" fill="GREEN" height="14.0" layoutX="538.0" layoutY="547.0" opacity="0.53" stroke="BLACK" strokeType="INSIDE" width="14.0" />
+                        <Rectangle fx:id="workzone5_r2" arcHeight="5.0" arcWidth="5.0" fill="GREEN" height="21.0" layoutX="539.0" layoutY="518.0" opacity="0.53" stroke="BLACK" strokeType="INSIDE" width="13.0" />
+                        <Rectangle fx:id="workzone5_d14" arcHeight="5.0" arcWidth="5.0" fill="GREEN" height="12.0" layoutX="472.0" layoutY="484.0" opacity="0.53" stroke="BLACK" strokeType="INSIDE" width="9.0" />
+                        <Rectangle fx:id="workzone5_d10" arcHeight="5.0" arcWidth="5.0" fill="GREEN" height="12.0" layoutX="472.0" layoutY="470.0" opacity="0.53" stroke="BLACK" strokeType="INSIDE" width="9.0" />
+                        <Rectangle fx:id="workzone5_d6" arcHeight="5.0" arcWidth="5.0" fill="GREEN" height="14.0" layoutX="472.0" layoutY="452.0" opacity="0.53" stroke="BLACK" strokeType="INSIDE" width="9.0" />
+                        <Rectangle fx:id="workzone5_d2" arcHeight="5.0" arcWidth="5.0" fill="GREEN" height="12.0" layoutX="471.0" layoutY="438.0" opacity="0.53" stroke="BLACK" strokeType="INSIDE" width="9.0" />
+                        <Rectangle fx:id="workzone5_d15" arcHeight="5.0" arcWidth="5.0" fill="GREEN" height="12.0" layoutX="499.0" layoutY="483.0" opacity="0.53" stroke="BLACK" strokeType="INSIDE" width="9.0" />
+                        <Rectangle fx:id="workzone5_d11" arcHeight="5.0" arcWidth="5.0" fill="GREEN" height="12.0" layoutX="499.0" layoutY="469.0" opacity="0.53" stroke="BLACK" strokeType="INSIDE" width="9.0" />
+                        <Rectangle fx:id="workzone5_d7" arcHeight="5.0" arcWidth="5.0" fill="GREEN" height="14.0" layoutX="499.0" layoutY="453.0" opacity="0.53" stroke="BLACK" strokeType="INSIDE" width="9.0" />
+                        <Rectangle fx:id="workzone5_d16" arcHeight="5.0" arcWidth="5.0" fill="GREEN" height="12.0" layoutX="507.0" layoutY="483.0" opacity="0.53" stroke="BLACK" strokeType="INSIDE" width="9.0" />
+                        <Rectangle fx:id="workzone5_d12" arcHeight="5.0" arcWidth="5.0" fill="GREEN" height="12.0" layoutX="507.0" layoutY="469.0" opacity="0.53" stroke="BLACK" strokeType="INSIDE" width="9.0" />
+                        <Rectangle fx:id="workzone5_d4" arcHeight="5.0" arcWidth="5.0" fill="GREEN" height="12.0" layoutX="507.0" layoutY="439.0" opacity="0.53" stroke="BLACK" strokeType="INSIDE" width="9.0" />
+                        <Rectangle fx:id="workzone5_d8" arcHeight="5.0" arcWidth="5.0" fill="GREEN" height="15.0" layoutX="507.0" layoutY="453.0" opacity="0.53" stroke="BLACK" strokeType="INSIDE" width="9.0" />
+                        <Rectangle fx:id="workzone5_d3" arcHeight="5.0" arcWidth="5.0" fill="GREEN" height="12.0" layoutX="498.0" layoutY="439.0" opacity="0.53" stroke="BLACK" strokeType="INSIDE" width="9.0" />
+                        <Rectangle fx:id="workzone5_t2" arcHeight="5.0" arcWidth="5.0" fill="GREEN" height="31.0" layoutX="428.0" layoutY="520.0" opacity="0.53" stroke="BLACK" strokeType="INSIDE" width="12.0" />
+                        <Rectangle fx:id="workzone5_t3" arcHeight="5.0" arcWidth="5.0" fill="GREEN" height="31.0" layoutX="428.0" layoutY="569.0" opacity="0.53" stroke="BLACK" strokeType="INSIDE" width="12.0" />
                      </children>
+                     <GridPane.margin>
+                        <Insets left="70.0" top="50.0" />
+                     </GridPane.margin>
                   </Pane>
                </children>
             </GridPane>
          </left>
          <top>
-                    <MenuBar blendMode="ADD" style="-fx-background-color: white;" stylesheets="@../css/background.css" BorderPane.alignment="CENTER">
+                    <MenuBar style="-fx-background-color: #ffc41e;" stylesheets="@../css/background.css" BorderPane.alignment="CENTER">
                         <menus>
                   <Menu fx:id="backButton" mnemonicParsing="false" text="Back">
                     <items>
@@ -225,11 +253,7 @@
                   </Menu>
                         </menus>
                         <effect>
-                            <ColorAdjust>
-                                <input>
-                                    <DropShadow />
-                                </input>
-                            </ColorAdjust>
+                            <ColorAdjust />
                         </effect>
                     </MenuBar>
          </top>
