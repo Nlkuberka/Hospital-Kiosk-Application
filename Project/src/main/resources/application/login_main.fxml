@@ -75,7 +75,7 @@
                         </GridPane>
                      </content>
                   </Tab>
-                  <Tab fx:id="user_tab" style="-fx-font-size: 22;" text="User">
+                  <Tab fx:id="user_tab" onSelectionChanged="#setUserTab" style="-fx-font-size: 22;" text="User">
                      <content>
                         <GridPane alignment="CENTER" prefHeight="690.0" prefWidth="1280.0">
                           <columnConstraints>
@@ -97,6 +97,7 @@
                             <RowConstraints minHeight="10.0" prefHeight="10.0" vgrow="SOMETIMES" />
                           </rowConstraints>
                            <children>
+                              <JFXTextField fx:id="userID" GridPane.rowIndex="3" />
                               <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="1">
                                  <image>
                                     <Image url="@../pictures/BWH.JPG" />
@@ -150,7 +151,7 @@
                         </GridPane>
                      </content>
                   </Tab>
-                  <Tab fx:id="admin_tab" style="-fx-font-size: 22;" text="Administrator">
+                  <Tab fx:id="admin_tab" onSelectionChanged="#setAdminTab" style="-fx-font-size: 22;" text="Administrator">
                      <content>
                         <GridPane alignment="CENTER">
                            <columnConstraints>
@@ -214,6 +215,7 @@
                                     </JFXButton>
                                  </children>
                               </FlowPane>
+                              <JFXTextField fx:id="adminID" GridPane.rowIndex="3" />
                            </children>
                         </GridPane>
                      </content>

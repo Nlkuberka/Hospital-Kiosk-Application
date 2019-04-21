@@ -26,7 +26,7 @@ import java.util.Scanner;
 /**
  * The UIController for the Login screen
  * Allows a user to login, for admins to login, or for guests to enter
- * @author Jonathan Chang
+ * @author Jonathan Chang, imoralessirgo
  * @version iteration1
  */
 public class UIControllerLM extends UIController {
@@ -35,13 +35,18 @@ public class UIControllerLM extends UIController {
     private ImageView backgroundImage;
     @FXML
     private JFXTabPane tabs;
-
+    @FXML
+    private JFXButton swipeUser;
+    @FXML
+    private JFXButton swipeAdmin;
     @FXML
     private Tab user_tab;
-
+    @FXML
+    private JFXTextField userID;
+    @FXML
+    private JFXTextField adminID;
     @FXML
     private Tab admin_tab;
-
     @FXML
     private Tab guest_tab;
 
@@ -92,33 +97,6 @@ public class UIControllerLM extends UIController {
 
     public UIControllerLM() {
 
-//        Scanner sc = new Scanner(System.in);
-//        String ID;
-//        do {
-//            //System.out.println("Please enter a positive number!");
-//            while (!sc.hasNext()) {
-//                System.out.println("That's not a number!");
-//                sc.next(); // this is important!
-//            }
-//            ID = sc.nextLine();
-//        } while (ID != null);
-        //System.out.println("Thank you! Got " + number);
-//
-//        Scanner s = null;
-//        while(true){
-//            s = new Scanner(System.in);
-//            if(s.hasNext()){
-//                s = new Scanner(System.in);
-//                String ID = s.next();
-//                if(ID.length() > 10) {
-//                    ID = ID.substring(1,9);
-//                    Connection conn = DBController.dbConnect();
-//                    DBControllerU.loginWithID(ID,conn);
-//                    DBController.closeConnection(conn);
-//                }
-//            }
-//        }
-
     }
 
 
@@ -131,12 +109,10 @@ public class UIControllerLM extends UIController {
      */
     @FXML
     public void initialize() {
-        Platform.runLater(new Runnable() {
-            @Override
-            public void run() {
-                userUsernameTextField.requestFocus();
-            }
-        });
+        userID.setVisible(false);
+        adminID.setVisible(false);
+
+
         tabs.getSelectionModel().selectedItemProperty().addListener(param -> {
             setDefaultButton();
         });
@@ -162,6 +138,8 @@ public class UIControllerLM extends UIController {
      */
     @Override
     public void onShow() {
+        userID.setText("");
+        adminID.setText("");
         userUsernameTextField.setText("");
         userPasswordTextField.setText("");
         adminUsernameTextField.setText("");
@@ -201,6 +179,27 @@ public class UIControllerLM extends UIController {
 
         this.goToScene(UIController.ADMIN_MAIN_MENU_MAIN);
     }
+
+    @FXML
+    private void setUserTab() {
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                userID.requestFocus();
+            }
+        });
+    }
+
+    @FXML
+    private void setAdminTab() {
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                adminID.requestFocus();
+            }
+        });
+    }
+
 
     @FXML
     private void goToUserTab() {
