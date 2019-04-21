@@ -2,6 +2,7 @@
 
 <?import com.jfoenix.controls.JFXButton?>
 <?import com.jfoenix.controls.JFXTimePicker?>
+<?import com.jfoenix.controls.JFXToggleButton?>
 <?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Menu?>
@@ -113,6 +114,10 @@
                           </font>
                       </Text>
                       <JFXTimePicker fx:id="endTimePicker" defaultColor="#5777c6" onAction="#updateColorView" style="-fx-background-color: white;" GridPane.rowIndex="5" GridPane.valignment="TOP" />
+                  <JFXToggleButton fx:id="rsvToggle" onAction="#toggleMode" prefHeight="58.0" prefWidth="57.0" text=" " textFill="WHITE" GridPane.halignment="CENTER" GridPane.rowIndex="7" GridPane.valignment="BOTTOM" />
+                  <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" GridPane.rowIndex="7" GridPane.valignment="BOTTOM" />
+                  <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Reservation Type" GridPane.halignment="CENTER" GridPane.rowIndex="7" />
+                  <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" GridPane.halignment="RIGHT" GridPane.rowIndex="7" GridPane.valignment="BOTTOM" />
                </children>
             </GridPane>
             <ImageView fitHeight="575.0" fitWidth="700.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
