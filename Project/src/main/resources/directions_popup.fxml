@@ -15,7 +15,7 @@
   <children>
     <AnchorPane maxHeight="400" maxWidth="600" prefHeight="400" prefWidth="640" VBox.vgrow="ALWAYS">
       <children>
-            <ImageView fx:id="directionSwitch" fitHeight="400.0" fitWidth="607.0" pickOnBounds="true" styleClass="jfx-toggle-button">
+            <ImageView fitHeight="400.0" fitWidth="607.0" pickOnBounds="true">
                <image>
                   <Image url="@images/MainMenu.png" />
                </image>
@@ -41,7 +41,7 @@
                   <Font size="20.0" />
                </font>
             </JFXButton>
-            <JFXToggleButton layoutX="382.0" layoutY="306.0" />
+            <JFXToggleButton fx:id="directionSwitch" layoutX="372.0" layoutY="317.0" stylesheets="@/css/background.css" text="See All Directions" textAlignment="CENTER" textFill="WHITE" wrapText="true" />
       </children>
     </AnchorPane>
   </children>

@@ -2,6 +2,7 @@ package pathfinding;
 
 import application.UIController;
 import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXToggleButton;
 import com.twilio.Twilio;
 import com.twilio.rest.api.v2010.account.Message;
 import entities.emailDirection;
@@ -35,6 +36,9 @@ public class UIControllerPUD extends UIController {
     private TextField email; //the prompt box for an email
     @FXML
     private JFXButton okButton; //ok button to exit confirmation window
+    @FXML
+    JFXToggleButton noStairsButton;
+
 
     @FXML
     public void setDirections(List<List<List<String>>> message) {
