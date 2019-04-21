@@ -59,13 +59,6 @@ public class UIControllerMMM extends  UIController {
         this.goToScene(UIController.RESERVATIONS_MAIN_MENU);
     }
 
-    /**
-     * Goes to the Service Request scene
-     */
-    @FXML
-    private void setServiceRequestButton() {
-        this.goToScene(UIController.SERVICE_REQUEST_MAIN);
-    }
 
     /**
      * Goes to the Admin Tools scene
