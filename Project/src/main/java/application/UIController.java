@@ -34,7 +34,6 @@ public class UIController {
     // The various scenes that this UIController handles
     public static final String LOGIN_MAIN = "LM";
     public static final String WELCOME_MAIN = "WM";
-    public static final String USER_MAIN_MENU_MAIN = "UMMM";
     public static final String ADMIN_MAIN_MENU_MAIN = "AMMM";
     public static final String ABOUT_PAGE= "AP";
     public static final String USER_RESOLVE_SERVICE_REQUESTS="URS";
@@ -129,12 +128,9 @@ public class UIController {
 
 
         // Main Menus
-
-        sceneFiles.put(UIController.USER_MAIN_MENU_MAIN, "/application/user_main_menu_main.fxml");
-        sceneTitles.put(UIController.USER_MAIN_MENU_MAIN, "Main Menu");
-
         sceneFiles.put(UIController.ADMIN_MAIN_MENU_MAIN, "/admintools/admin_main_menu_main.fxml");
         sceneTitles.put(UIController.ADMIN_MAIN_MENU_MAIN, "Main Menu");
+
 
         // Admin Tools
         sceneFiles.put(UIController.ADMIN_TOOLS_MAIN, "/admintools/admin_tools_main.fxml");
@@ -161,11 +157,8 @@ public class UIController {
         sceneTitles.put(UIController.ADMIN_TOOLS_EDIT_RESERVATIONS, "Admin Tools - Edit Reservation");
 
 
-
-
         // Service Request
-
-        sceneFiles.put(UIController.USER_RESOLVE_SERVICE_REQUESTS, "/application/user_resolve_service_requests.fxml");
+        sceneFiles.put(UIController.USER_RESOLVE_SERVICE_REQUESTS, "/servicerequests/user_resolve_service_requests.fxml");
         sceneTitles.put(UIController.USER_RESOLVE_SERVICE_REQUESTS, "User Resolve Service Request Page");
 
         sceneFiles.put(UIController.SERVICE_REQUEST_AV_EQUIPMENT, "/servicerequests/service_request_audio_visual.fxml");
@@ -174,15 +167,11 @@ public class UIController {
         sceneFiles.put(UIController.SERVICE_REQUEST_BABYSITTING, "/servicerequests/service_request_babysitting.fxml");
         sceneTitles.put(UIController.SERVICE_REQUEST_BABYSITTING, "Service Request - Babysitting");
 
-
-
-        sceneFiles.put(UIController.SERVICE_REQUEST_PRESCRIPTION_SERVICES_MAIN, "/servicerequests/service_request_prescription_services_main.fxml");
+        sceneFiles.put(UIController.SERVICE_REQUEST_PRESCRIPTION_SERVICES_MAIN, "/servicerequests/service_request_other_main.fxml");
         sceneTitles.put(UIController.SERVICE_REQUEST_PRESCRIPTION_SERVICES_MAIN, "Service Request - Prescription Services");
 
         sceneFiles.put(UIController.SERVICE_REQUEST_FLOWER_DELIVERY, "/servicerequests/service_request_flower_delivery.fxml");
         sceneTitles.put(UIController.SERVICE_REQUEST_FLOWER_DELIVERY, "Service Request - Flower Delivery");
-
-
 
         sceneFiles.put(UIController.SERVICE_REQUEST_RELIGIOUS_SERVICES, "/servicerequests/service_request_religious_services.fxml");
         sceneTitles.put(UIController.SERVICE_REQUEST_RELIGIOUS_SERVICES, "Service Request - Religious Services");
@@ -381,7 +370,7 @@ public class UIController {
         int permission = CurrentUser.user.getPermissions();
         switch (permission){
             case 1:
-                this.goToScene(UIController.LOGIN_MAIN);
+                this.goToScene(UIController.PATHFINDING_MAIN);
                 break;
             case 2:
                 this.goToScene(UIController.PATHFINDING_MAIN);

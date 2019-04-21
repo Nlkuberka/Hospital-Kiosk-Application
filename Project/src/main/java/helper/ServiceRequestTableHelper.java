@@ -1,5 +1,7 @@
-package application;
+package helper;
 
+import application.CurrentUser;
+import application.UIController;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXCheckBox;
 import com.twilio.Twilio;
@@ -8,46 +10,48 @@ import database.DBController;
 import database.DBControllerSR;
 import entities.ServiceRequest;
 import javafx.beans.property.ReadOnlyObjectWrapper;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import javafx.fxml.FXML;
-import javafx.scene.control.*;
-import javafx.scene.image.ImageView;
+import javafx.scene.control.Label;
+import javafx.scene.control.TableCell;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import pathfinding.UIControllerPUD;
 
 import java.lang.reflect.Method;
 import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.util.LinkedList;
+import java.util.List;
 
-import static application.UIControllerPUD.ACCOUNT_SID;
-import static application.UIControllerPUD.AUTH_TOKEN;
-
-public class UIControllerURS extends UIController {
+public class ServiceRequestTableHelper extends UIController {
     private static final String[] serviceRequestSetters  = {"", "", "", "setResolved", "setResolverID", ""};
     private static final String[] serviceRequestGetters  = {"getNodeID", "getServiceType", "getUserID", "isResolved", "getResolverID", "getMessage"};
-    @FXML
-    private ImageView backgroundImage;
-    /**< The Various servicerequests Columns used for cell factories */
-    @FXML
-    private MenuItem backButton; /**< The Back Button */
 
-    @FXML
-    private Menu homeButton; /**< The Home Button */
-
-    @FXML
     private TableView<ServiceRequest> serviceRequestTable; /**< The table that holds all of the nodes */
+    private TableColumn<ServiceRequest, ServiceRequest> nodeIDColumn;
+    private TableColumn<ServiceRequest, ServiceRequest> serviceTypeColumn;
+    private TableColumn<ServiceRequest, ServiceRequest> userIDColumn;
+    private TableColumn<ServiceRequest, ServiceRequest> resolvedColumn;
+    private TableColumn<ServiceRequest, ServiceRequest> resolverIDColumn;
+    private TableColumn<ServiceRequest, ServiceRequest> messageColumn;
+    private TableColumn<ServiceRequest, ServiceRequest> removeColumn;
 
-    /**
-     * Called when the scene is first created
-     * Sets up all the cell factories
-     */
-    @FXML
-    public void initialize() {
-        backgroundImage.fitWidthProperty().bind(primaryStage.widthProperty());
+    public ServiceRequestTableHelper(TableView<ServiceRequest> serviceRequestTable, TableColumn<ServiceRequest, ServiceRequest> nodeIDColumn, TableColumn<ServiceRequest, ServiceRequest> serviceTypeColumn, TableColumn<ServiceRequest, ServiceRequest> userIDColumn, TableColumn<ServiceRequest, ServiceRequest> resolvedColumn, TableColumn<ServiceRequest, ServiceRequest> resolverIDColumn, TableColumn<ServiceRequest, ServiceRequest> messageColumn, TableColumn<ServiceRequest, ServiceRequest> removeColumn) {
+        this.serviceRequestTable = serviceRequestTable;
+        this.nodeIDColumn = nodeIDColumn;
+        this.serviceTypeColumn = serviceTypeColumn;
+        this.userIDColumn = userIDColumn;
+        this.resolvedColumn = resolvedColumn;
+        this.resolverIDColumn = resolverIDColumn;
+        this.messageColumn = messageColumn;
+        this.removeColumn = removeColumn;
+        setupColumns();
+    }
 
-        ObservableList<TableColumn<ServiceRequest, ?>> tableColumns = serviceRequestTable.getColumns();
-
+    private void setupColumns() {
         // Set up the uneditable columns
+        List<TableColumn<ServiceRequest, ServiceRequest>> tableColumns = new LinkedList<TableColumn<ServiceRequest, ServiceRequest>>();
+        tableColumns.add(nodeIDColumn);
+        tableColumns.add(serviceTypeColumn);
+        tableColumns.add(userIDColumn);
         for(int i = 0; i < 3; i++) {
             int indexOut = i;
             TableColumn<ServiceRequest, ServiceRequest> column = (TableColumn<ServiceRequest, ServiceRequest>) tableColumns.get(i);
@@ -67,7 +71,6 @@ public class UIControllerURS extends UIController {
             });
         }
         // Set up the Resolved Column
-        TableColumn<ServiceRequest, ServiceRequest> resolvedColumn = (TableColumn<ServiceRequest, ServiceRequest>) tableColumns.get(3);
         resolvedColumn.setStyle( "-fx-alignment: CENTER;");
         resolvedColumn.setCellValueFactory(param -> new ReadOnlyObjectWrapper<>(param.getValue()));
         resolvedColumn.setCellFactory(param -> new TableCell<ServiceRequest, ServiceRequest>() {
@@ -100,7 +103,7 @@ public class UIControllerURS extends UIController {
                     DBControllerSR.updateServiceRequest(serviceRequest, conn);
                     if (serviceRequest.getServiceType().equals("Flower Delivery")) {
                         String phoneNum = serviceRequest.getMessage().substring(0, 10);
-                        Twilio.init(ACCOUNT_SID, AUTH_TOKEN);
+                        Twilio.init(UIControllerPUD.ACCOUNT_SID, UIControllerPUD.AUTH_TOKEN);
                         Message message = Message.creator(
                                 new com.twilio.type.PhoneNumber("+1" + phoneNum),
                                 new com.twilio.type.PhoneNumber("+17472290044"),
@@ -114,9 +117,8 @@ public class UIControllerURS extends UIController {
 
         });
         // Set up the ResolverID Column
-        TableColumn<ServiceRequest, ServiceRequest> resolverIDColumn = (TableColumn<ServiceRequest, ServiceRequest>) tableColumns.get(4);
         resolverIDColumn.setCellValueFactory(param -> new ReadOnlyObjectWrapper<>(param.getValue()));
-        resolverIDColumn.setCellFactory(param -> new EditableTextCell<ServiceRequest, ServiceRequest>(resolverIDColumn, 4) {
+        resolverIDColumn.setCellFactory(param -> new UIController.EditableTextCell<ServiceRequest, ServiceRequest>(resolverIDColumn, 4) {
             @Override
             protected void updateItem(ServiceRequest serviceRequest, boolean empty) {
                 super.updateItem(serviceRequest, empty);
@@ -142,9 +144,8 @@ public class UIControllerURS extends UIController {
         });
 
         // Setup the message column
-        TableColumn<ServiceRequest, ServiceRequest> column = (TableColumn<ServiceRequest, ServiceRequest>) tableColumns.get(5);
-        column.setCellValueFactory(param -> new ReadOnlyObjectWrapper<>(param.getValue()));
-        column.setCellFactory(param -> new TableCell<ServiceRequest, ServiceRequest>() {
+        messageColumn.setCellValueFactory(param -> new ReadOnlyObjectWrapper<>(param.getValue()));
+        messageColumn.setCellFactory(param -> new TableCell<ServiceRequest, ServiceRequest>() {
             private Label label = new Label("TEST");
             private int index = 5;
 
@@ -185,35 +186,5 @@ public class UIControllerURS extends UIController {
                 }
             });
         }
-    }
-
-    /**
-     * Run when the scene is shown
-     */
-    @Override
-    public void onShow() {
-        Connection conn = DBController.dbConnect();
-        ObservableList<ServiceRequest> serviceRequests = FXCollections.observableArrayList();
-        try{
-            ResultSet rs = conn.createStatement().executeQuery("Select * from SERVICEREQUEST");
-            while (rs.next()){
-                serviceRequests.add(new ServiceRequest(rs.getString(2),rs.getString(3),rs.getString(4),
-                        rs.getString(5),rs.getBoolean(6),rs.getString(7),rs.getInt(1)));
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        for(int i = 0; i < serviceRequests.size(); i ++) {
-            System.out.println(serviceRequests.get(i));
-        }
-        serviceRequestTable.setItems(serviceRequests);
-    }
-
-    /**
-     * Goes back to the admin tools application menu
-     */
-    @FXML
-    private void setBackButton() {
-        this.goToScene(UIController.PATHFINDING_MAIN);
     }
 }

@@ -78,10 +78,12 @@ public class DBControllerU extends DBController {
                         "SET USERID ='"+user.getUserID()+"'," +
                         " PERMISSION = "+ user.getPermissionsNumber() +"," +
                         " USERNAME = '"+ user.getUsername() +"' where USERID = '"+ID +"'");
-                ps.execute();}else{
+                ps.execute();
+                CurrentUser.network.sendUserPacket(DBNetwork.UPDATE_USER, user);
+            } else {
                 addUser(user,conn);
             }
-            CurrentUser.network.sendUserPacket(DBNetwork.UPDATE_USER, user);
+
         } catch (SQLException e) {
             e.printStackTrace();
         }
