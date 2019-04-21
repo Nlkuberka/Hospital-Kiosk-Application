@@ -55,8 +55,6 @@ public class DBClient extends NetworkThread implements Runnable {
             } catch(Exception e) {
                 e.printStackTrace();
             }
-            System.out.println(result);
-            System.out.println("CONFIRMED|:|" + outputString);
             attempts++;
         }
         System.out.println("-");
