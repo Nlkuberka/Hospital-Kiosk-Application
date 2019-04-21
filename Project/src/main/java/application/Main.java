@@ -57,9 +57,6 @@ public class Main extends Application {
         CurrentUser.user = DBControllerU.getGuestUser(conn);
         DBController.closeConnection(conn);
 
-        CurrentUser.network = new DBNetwork(socketNum);
-        CurrentUser.network.hold();
-        CurrentUser.network.mute();
         try {
             InputStream inputStream = getClass().getResourceAsStream("/ipAddresses.txt");
             BufferedReader br = new BufferedReader(new InputStreamReader(inputStream, "UTF-8"));
@@ -70,6 +67,10 @@ public class Main extends Application {
         } catch (Exception e) {
             e.printStackTrace();
         }
+
+        CurrentUser.network = new DBNetwork(socketNum);
+        CurrentUser.network.hold();
+        CurrentUser.network.mute();
 
         System.out.println(DBNetwork.ipAddresses);
 

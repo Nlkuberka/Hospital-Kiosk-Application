@@ -57,6 +57,7 @@ public class DBClient extends NetworkThread implements Runnable {
             }
             attempts++;
         }
+        System.out.println("-");
     }
 
     /**
