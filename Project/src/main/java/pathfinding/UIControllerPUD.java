@@ -1,5 +1,6 @@
-package application;
+package pathfinding;
 
+import application.UIController;
 import com.jfoenix.controls.JFXButton;
 import com.twilio.Twilio;
 import com.twilio.rest.api.v2010.account.Message;

@@ -2,7 +2,6 @@ package pathfinding;
 
 import application.CurrentUser;
 import application.UIController;
-import application.UIControllerPUD;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTabPane;
@@ -11,15 +10,22 @@ import database.DBController;
 import database.DBControllerNE;
 import entities.Graph;
 import entities.Node;
+import entities.User;
 import helper.RoomCategoryFilterHelper;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.control.Accordion;
+import javafx.scene.control.Menu;
 import javafx.scene.control.Tab;
+import javafx.scene.control.TitledPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
+import javafx.scene.paint.Color;
 import javafx.scene.shape.Path;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -44,6 +50,7 @@ public class UIControllerPFM extends UIController {
     private AnchorPane topAnchorPane;
     @FXML private Path pathLL2, pathLL1, pathG, path1, path2, path3;
     @FXML private JFXTabPane mapTabPane;
+    @FXML private Menu homeMenu;
 
     @FXML public JFXComboBox<String> initialLocationCombo;
     @FXML public JFXComboBox<String> destinationCombo;
@@ -68,6 +75,12 @@ public class UIControllerPFM extends UIController {
     @FXML private AnchorPane secondFloorAnchorPane;
     @FXML private AnchorPane thirdFloorAnchorPane;
 
+    @FXML private JFXButton reservationButton;
+    @FXML private JFXButton resolveRequestButton;
+    @FXML private Accordion menu;
+    @FXML private TitledPane userToolsTitledPane;
+    @FXML private TitledPane pathfindingTitledPane;
+
     // The multiplication factor at which the map changes size
     @FXML
     private JFXButton directionsRequest;
@@ -84,6 +97,7 @@ public class UIControllerPFM extends UIController {
      */
     @FXML
     public void initialize() {
+       // titledPane.prefHeightProperty().bind(primaryStage.heightProperty());
         backgroundImage.fitWidthProperty().bind(primaryStage.widthProperty());
 
         // ensures new tab has same x,y on the map and path animation changes between floors
@@ -118,7 +132,6 @@ public class UIControllerPFM extends UIController {
         gesturePaneHandler.setCurrentObjects(currentObjects);
 
         directionsRequest.setDisable(true);
-
     }
 
     /**
@@ -164,6 +177,12 @@ public class UIControllerPFM extends UIController {
         }, true);
 
         anchorPaneHandler.initCircles(roomsAtEachFloor, initialLocationCombo, destinationCombo);
+
+        userToolsTitledPane.collapsibleProperty().setValue(false);
+        if(CurrentUser.user.getPermissions() == User.BASIC_PERMISSIONS) {
+            userToolsTitledPane.collapsibleProperty().setValue(true);
+        }
+        menu.setExpandedPane(pathfindingTitledPane);
     }
 
     void setInitialLocation(String longName) {
@@ -176,7 +195,20 @@ public class UIControllerPFM extends UIController {
         currentObjects.clearContextMenu();
     }
 
+    /**
+     *
+     */
+    @FXML
+    private void setTitledPane(){
+        if (pathfindingTitledPane.isExpanded() == false){
+            final Color color = Color.TRANSPARENT;
+            pathfindingTitledPane.setBackground(new Background(new BackgroundFill(color, null, null)));
+        }else{
+            final Color color2 = Color.web("#ffc41e");
+            pathfindingTitledPane.setBackground(new Background(new BackgroundFill(color2, null, null)));
+        }
 
+    }
     /**
      * Allows for a default starting location
      * @param longName Name of starting node
@@ -241,7 +273,7 @@ public class UIControllerPFM extends UIController {
             List<Integer> floorsUsed = pathHandler.getFloorsUsed();
             clearTabColors();
             for (Integer floor : floorsUsed) {
-                mapTabPane.getTabs().get(floor).setStyle("-fx-background-color: #015080");
+                mapTabPane.getTabs().get(floor).setStyle("-fx-background-color: #efffff");
             }
         }
 
@@ -261,7 +293,7 @@ public class UIControllerPFM extends UIController {
      */
     private void clearTabColors() {
         for (Tab tab : mapTabPane.getTabs()) {
-            tab.setStyle("-fx-background-color: #FFC41E");
+            tab.setStyle("-fx-background-color: #015080");
         }
     }
 
@@ -319,14 +351,11 @@ public class UIControllerPFM extends UIController {
     }
 
     @FXML
-    private void setLoginButton() {
+    private void setBackButton() {
         goToScene(UIController.LOGIN_MAIN);
     }
 
-    @FXML
-    private void setServiceRequestButton() {
-        goToScene(UIController.SERVICE_REQUEST_MAIN);
-    }
+
 
     @FXML
     private void setAboutButton() {
@@ -338,6 +367,36 @@ public class UIControllerPFM extends UIController {
         Graph.noStairsIsOn = noStairsButton.isSelected();
         getPath();
     }
+
+    @FXML
+    private void setReservationButton(){
+        goToScene(UIController.RESERVATIONS_MAIN_MENU);
+    }
+
+    @FXML
+    private void setResolveRequestButton(){
+        goToScene(UIController.USER_RESOLVE_SERVICE_REQUESTS);
+    }
+
+    @FXML
+    private void setHomeMenuPF() {
+        int permission = CurrentUser.user.getPermissions();
+        switch (permission){
+            case 1:
+                this.goToScene(UIController.LOGIN_MAIN);
+                break;
+            case 2:
+                this.goToScene(UIController.LOGIN_MAIN);
+                break;
+            case 3:
+                this.goToScene(UIController.ADMIN_MAIN_MENU_MAIN);
+                break;
+            default:
+                this.goToScene(UIController.LOGIN_MAIN);
+                break;
+        }
+    }
+
 }
 
 

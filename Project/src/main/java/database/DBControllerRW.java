@@ -1,10 +1,12 @@
 package database;
 
 
+import application.CurrentUser;
 import com.calendarfx.model.Entry;
 import com.calendarfx.model.Interval;
 import entities.Reservation;
 import entities.Workplace;
+import network.DBNetwork;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -66,6 +68,7 @@ public class DBControllerRW extends DBController {
                     "STARTTIME = '" + reservation.getStartTime() + "'," +
                     "ENDTIME = '" + reservation.getEndTime() + "'" +
                     " where RSVID = " + reservation.getRsvID());
+            CurrentUser.network.sendReservationPacket(DBNetwork.UPDATE_RESERVATION, reservation);
         }catch(SQLException e) {
             e.printStackTrace();
         }
@@ -75,6 +78,9 @@ public class DBControllerRW extends DBController {
         try {
             Statement s = connection.createStatement();
             s.execute("delete from RESERVATIONS where RSVID = "+ reservationID +"");
+            Reservation reservation = new Reservation();
+            reservation.setRsvID(reservationID);
+            CurrentUser.network.sendReservationPacket(DBNetwork.DELETE_RESERVATION, reservation);
         }catch(SQLException e){
             e.printStackTrace();
         }
@@ -100,6 +106,7 @@ public class DBControllerRW extends DBController {
                 s.execute();
                 ResultSet rs = s.getGeneratedKeys();
                 rs.next();
+                CurrentUser.network.sendReservationPacket(DBNetwork.ADD_RESERVATION, reservation);
                 return rs.getInt(1);
             }
             else {
