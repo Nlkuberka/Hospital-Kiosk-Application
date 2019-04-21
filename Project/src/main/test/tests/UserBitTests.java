@@ -49,28 +49,24 @@ public class UserBitTests {
     @Test
     public void serviceRequestTests() {
         // Test admin with all service requests
-        user.setPermissionsNumber(4095);
+        user.setPermissionsNumber(4032);
         boolean[] bits = user.getBitArray(user.getPermissionsNumber());
         Assert.assertEquals(serviceRequests, user.getServiceRequestFullfillment());
 
-        serviceRequests.remove("Prescription Services");
-        serviceRequests.remove("Flower Delivery");
-        serviceRequests.remove("IT Services");
-        serviceRequests.remove("Sanitation");
-        serviceRequests.remove("External Transportation");
+        System.out.println(serviceRequests);
         serviceRequests.remove("Babysitter");
-        serviceRequests.remove("Security");
 
         // Test user with add and removes
-        user.setPermissionsNumber(2820);
+        user.setPermissionsNumber(3904);
         Assert.assertEquals(serviceRequests, user.getServiceRequestFullfillment());
 
-        user.removeServiceRequest("Audio Visual");
-        user.addServiceRequest("Security");
+        user.removeServiceRequest("Religious Services");
         user.addServiceRequest("Babysitter");
-        serviceRequests.remove("Audio Visual");
+        user.addServiceRequest("Other");
+        serviceRequests.remove("Religious Services");
+        serviceRequests.remove("Other");
         serviceRequests.add("Babysitter");
-        serviceRequests.add("Security");
+        serviceRequests.add("Other");
         Assert.assertEquals(serviceRequests, user.getServiceRequestFullfillment());
 
         serviceRequests = new LinkedList<>();

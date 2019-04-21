@@ -400,6 +400,9 @@ public class UIControllerATMV extends UIController {
 
     @FXML
     public void addNodeOnClick(MouseEvent mouseEvent) throws IOException {
+        if(mouseEvent.getClickCount() != 2) {
+            return;
+        }
         Node tempNode = new Node();
         tempNode.setXcoord((int) (mouseEvent.getX()));
         tempNode.setYcoord((int) (mouseEvent.getY()));
@@ -487,4 +490,3 @@ public class UIControllerATMV extends UIController {
         }
     }
 }
-
