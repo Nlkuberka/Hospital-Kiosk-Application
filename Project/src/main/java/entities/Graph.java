@@ -578,21 +578,25 @@ public abstract class Graph {
      * @param Nodes the path generated from shortestPath
      * @return text based directions directing a reader from one point to another
      */
-    public List<String> textDirections(List<List<List<Node>>> Nodes){
-        List<String> sortedDirections = new LinkedList<>();
+    @SuppressWarnings("Duplicates")
+    public List<List<List<String>>> textDirections(List<List<List<Node>>> Nodes){
+        List<List<List<String>>> sortedDirections = new LinkedList<>();
         String commaOrPeriod;
         String currentDirection;
+        String pastDirection;
         //refactor for usage of list of list of list
-        for(int i = 0; i < Nodes.size() - 1; i++){
-            for (int j = 0; j < Nodes.get(i).size() - 1; j++){
-                for (int k = 0; k < Nodes.get(i).get(j).size() - 1; k++){
+        for(int i = 0; i < Nodes.size(); i++){
+            //add a new floor to the sortedDirections
+            sortedDirections.add(new LinkedList<>());
+            for (int j = 0; j < Nodes.get(i).size(); j++){
+                //add a new list for a section per floor
+                sortedDirections.get(i).add(new LinkedList<>());
 
-                    String pastDirection = returnAngle(Nodes.get(i).get(j).get(k).getNodeID(), Nodes.get(i).get(j).get(k+1).getNodeID());
-                    if(k < Nodes.get(i).get(j).size() - 3){
-                        currentDirection = returnAngle(Nodes.get(i).get(j).get(k+1).getNodeID(), Nodes.get(i).get(j).get(k+2).getNodeID());
-                    } else {
-                        currentDirection = pastDirection;
-                    }
+                for (int k = 1; k < Nodes.get(i).get(j).size()-1; k++){
+
+                    pastDirection = returnAngle(Nodes.get(i).get(j).get(k-1).getNodeID(), Nodes.get(i).get(j).get(k).getNodeID());
+                    currentDirection = returnAngle(Nodes.get(i).get(j).get(k).getNodeID(), Nodes.get(i).get(j).get(k+1).getNodeID());
+
 
                     if(k == Nodes.get(i).get(j).size()-2) {
                         commaOrPeriod = ".";
@@ -602,12 +606,14 @@ public abstract class Graph {
                     }
                     int currentNodeIndex = mapNodeIDToIndex(Nodes.get(i).get(j).get(k).getNodeID());
                     int nextNodeIndex = mapNodeIDToIndex(Nodes.get(i).get(j).get(k+1).getNodeID());
+                    Node nextNode = mapIndexToNode(nextNodeIndex);
                     //System.out.println(returnAngle(NodeIDS.get(i), NodeIDS.get(i+1), directions)); //here for testing
-                    sortedDirections.add((returnDirection(currentDirection, pastDirection)
+                    List<List<String>> floor = sortedDirections.get(i);
+                    floor.get(j).add((returnDirection(currentDirection, pastDirection)
                             + " "
-                            + Math.round(adjWeights.get(currentNodeIndex).getFirst() / 4.666)
-                            + " feet to "
-                            + mapIndexToNode((nextNodeIndex)).getLongName()
+                            + Math.round(adjWeights.get(currentNodeIndex).get(adj.get(currentNodeIndex).indexOf(nextNodeIndex)) / 4.666)
+                            + " feet"
+                            + ((nextNode.getNodeType().equals("HALL")) ? "" : " to " + nextNode.getShortName())
                             + commaOrPeriod
                             + "\n\n"));
 

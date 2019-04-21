@@ -36,10 +36,14 @@ public class UIControllerPUD extends UIController {
     private JFXButton okButton; //ok button to exit confirmation window
 
     @FXML
-    public void setDirections(List<String> message) {
+    public void setDirections(List<List<List<String>>> message) {
         String returnText = "";
-        for(int i = 0; i < message.size() - 1; i++){
-            returnText += message.get(i);
+        for(int i = 0; i < message.size(); i++){
+            for (int j = 0; j < message.get(i).size(); j++) {
+                for (int k = 0; k < message.get(i).get(j).size(); k++) {
+                    returnText += message.get(i).get(j).get(k);
+                }
+            }
         }
         directions.setText(returnText); //  sets the text received from the pathfinding
 
