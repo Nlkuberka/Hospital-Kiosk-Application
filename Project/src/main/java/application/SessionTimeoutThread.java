@@ -6,10 +6,9 @@ public class SessionTimeoutThread extends Thread{
     public long timeout = 10 * 1000;
     public String currentSceneString;
     public UIController currentUIController;
-    private String homeSceneMemo;
 
     public void run() {
-        homeSceneMemo = saveMemo();
+        String homeSceneMemo = saveMemo();
         while(true) {
             try {
                 Thread.sleep(timeout);

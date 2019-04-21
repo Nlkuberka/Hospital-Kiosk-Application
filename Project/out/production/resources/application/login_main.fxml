@@ -12,6 +12,7 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.FlowPane?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.StackPane?>
@@ -79,9 +80,21 @@
                                     <Font size="25.0" />
                                  </font>
                               </Text>
-                              <JFXButton fx:id="loginAsUserButton" onAction="#setLoginAsUserButton" styleClass="jfx-button-login" stylesheets="@../css/background.css" text="Login" textAlignment="CENTER" textFill="WHITE" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="9" GridPane.valignment="CENTER">
+                              <FlowPane alignment="CENTER" orientation="VERTICAL" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="9" GridPane.valignment="CENTER">
+                                 <children>
+                                    <JFXButton fx:id="loginAsUserButton" contentDisplay="CENTER" onAction="#setLoginAsUserButton" styleClass="jfx-button-login" stylesheets="@../css/background.css" text="Login" textAlignment="CENTER" textFill="WHITE">
+                                       <font>
+                                          <Font name="System Bold" size="15.0" />
+                                       </font>
+                                    </JFXButton>
+                                 </children>
+                                 <opaqueInsets>
+                                    <Insets bottom="5.0" />
+                                 </opaqueInsets>
+                              </FlowPane>
+                              <JFXButton fx:id="cancelButton" alignment="BASELINE_RIGHT" cancelButton="true" contentDisplay="CENTER" onAction="#setCancelButton" styleClass="jfx-button-OK" stylesheets="@../css/background.css" text="Go Back to Path Finding" textAlignment="CENTER" textFill="WHITE" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="10" GridPane.valignment="CENTER">
                                  <font>
-                                    <Font name="System Bold" size="15.0" />
+                                    <Font name="System Bold" size="12.0" />
                                  </font>
                               </JFXButton>
                            </children>
@@ -140,6 +153,7 @@
                                     <Font name="System Bold" size="15.0" />
                                  </font>
                               </JFXButton>
+                              <JFXButton fx:id="cancelButton1" cancelButton="true" contentDisplay="CENTER" onAction="#setCancelButton" style="-fx-font-weight: bold;" styleClass="jfx-button-OK" stylesheets="@../css/background.css" text="Go Back to Path Finding" textFill="WHITE" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="10" GridPane.valignment="CENTER" />
                            </children>
                         </GridPane>
                      </content>

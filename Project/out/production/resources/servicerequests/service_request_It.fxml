@@ -48,7 +48,7 @@
          <left>
             <GridPane>
                <columnConstraints>
-                  <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="87.62950897216797" minWidth="10.0" prefWidth="41.0024528503418" />
+                  <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="87.62950897216797" minWidth="70.0" prefWidth="41.0024528503418" />
                   <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="259.9975471496582" minWidth="10.0" prefWidth="259.9975471496582" />
                </columnConstraints>
                <rowConstraints>
@@ -79,27 +79,27 @@
                         <Font name="System Bold Italic" size="36.0" />
                      </font>
                   </Text>
-                  <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Isabel Morales " GridPane.columnIndex="1" GridPane.rowIndex="1">
+                  <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Isabel Morales " GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="1" GridPane.valignment="TOP">
                      <font>
-                        <Font name="System Bold" size="12.0" />
+                        <Font name="System Bold" size="18.0" />
                      </font>
                   </Text>
                   <ChoiceBox fx:id="roomNum" prefWidth="150.0" style="-fx-background-color: #ffffff;" GridPane.columnIndex="1" GridPane.rowIndex="5" />
-                  <JFXTextField fx:id="Notes" prefHeight="458.0" prefWidth="260.0" style="-fx-background-color: #ffffff;" GridPane.columnIndex="1" GridPane.rowIndex="7" />
-                  <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Aditional Notes" GridPane.columnIndex="1" GridPane.rowIndex="6">
+                  <JFXTextField fx:id="Notes" prefHeight="300.0" prefWidth="260.0" style="-fx-background-color: #ffffff;" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+                  <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Aditional Notes" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="6" GridPane.valignment="BOTTOM">
                      <font>
-                        <Font name="System Bold" size="12.0" />
+                        <Font name="System Bold" size="18.0" />
                      </font>
                   </Text>
-                  <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Room Number" GridPane.columnIndex="1" GridPane.rowIndex="4">
+                  <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Room Number" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="4" GridPane.valignment="BOTTOM">
                      <font>
-                        <Font name="System Bold" size="12.0" />
+                        <Font name="System Bold" size="18.0" />
                      </font>
                   </Text>
                   <JFXTextField fx:id="serviceRequired" prefHeight="26.0" prefWidth="200.0" style="-fx-background-color: #ffffff;" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                  <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Service Required" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                  <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Service Required" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="2" GridPane.valignment="BOTTOM">
                      <font>
-                        <Font name="System Bold" size="12.0" />
+                        <Font name="System Bold" size="18.0" />
                      </font>
                   </Text>
                </children>
