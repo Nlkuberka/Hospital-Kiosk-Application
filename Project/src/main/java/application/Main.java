@@ -14,6 +14,7 @@ import javafx.stage.WindowEvent;
 import network.DBNetwork;
 
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.sql.Connection;
@@ -60,7 +61,7 @@ public class Main extends Application {
         CurrentUser.network.hold();
         CurrentUser.network.mute();
         try {
-            InputStream inputStream =getClass().getResourceAsStream("/ipAddresses.txt");
+            InputStream inputStream = getClass().getResourceAsStream("/ipAddresses.txt");
             BufferedReader br = new BufferedReader(new InputStreamReader(inputStream, "UTF-8"));
             String line;
             while((line = br.readLine()) != null) {
@@ -91,7 +92,7 @@ public class Main extends Application {
 
 
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         socketNum = 4590;
         if(args.length > 0) {
             for(int i = 0; i < args.length - 1; i++) {
