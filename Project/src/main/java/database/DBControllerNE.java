@@ -26,6 +26,7 @@ public class DBControllerNE extends DBController{
     public static final String ALL_NODES_FLOOR_1 = "SELECT * FROM NODES WHERE FLOOR = '1'";
     public static final String ALL_NODES_FLOOR_2 = "SELECT * FROM NODES WHERE FLOOR = '2'";
     public static final String ALL_NODES_FLOOR_3 = "SELECT * FROM NODES WHERE FLOOR = '3'";
+    public static final String ALL_NODES_FLOOR_4 = "SELECT * FROM NODES WHERE FLOOR = '4'";
 
     public static final String ALL_ROOMS = "SELECT * FROM NODES WHERE NODETYPE != 'HALL' and NODETYPE != 'STAI' and NODETYPE != 'ELEV'";
     public static final String ALL_ROOMS_FLOOR_L2 = "SELECT * FROM NODES WHERE FLOOR = 'L2' AND NODETYPE != 'HALL' and NODETYPE != 'STAI' and NODETYPE != 'ELEV'";
@@ -34,6 +35,8 @@ public class DBControllerNE extends DBController{
     public static final String ALL_ROOMS_FLOOR_1 = "SELECT * FROM NODES WHERE FLOOR = '1' AND NODETYPE != 'HALL' and NODETYPE != 'STAI' and NODETYPE != 'ELEV'";
     public static final String ALL_ROOMS_FLOOR_2 = "SELECT * FROM NODES WHERE FLOOR = '2' AND NODETYPE != 'HALL' and NODETYPE != 'STAI' and NODETYPE != 'ELEV'";
     public static final String ALL_ROOMS_FLOOR_3 = "SELECT * FROM NODES WHERE FLOOR = '3' AND NODETYPE != 'HALL' and NODETYPE != 'STAI' and NODETYPE != 'ELEV'";
+    public static final String ALL_ROOMS_FLOOR_4 = "SELECT * FROM NODES WHERE FLOOR = '4' AND NODETYPE != 'HALL' and NODETYPE != 'STAI' and NODETYPE != 'ELEV'";
+
 
     public static final String ALL_BUT_ROOMS_L2 = "SELECT * FROM NODES WHERE FLOOR = 'L2' AND (NODETYPE = 'STAI' OR NODETYPE = 'ELEV')";
     public static final String ALL_BUT_ROOMS_L1 = "SELECT * FROM NODES WHERE FLOOR = 'L1' AND (NODETYPE = 'STAI' OR NODETYPE = 'ELEV')";

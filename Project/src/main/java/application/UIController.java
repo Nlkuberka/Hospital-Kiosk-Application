@@ -272,6 +272,9 @@ public class UIController {
      */
     @FXML
     public void popupMessage(String message, boolean isWarning) {
+        if(CurrentUser.testing) {
+            return;
+        }
         Stage stage = new Stage();
 
         stage.getIcons().add(new Image(getClass().getResourceAsStream("/icon/warningWindowIcon.png")));
