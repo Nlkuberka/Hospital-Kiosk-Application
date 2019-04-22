@@ -188,12 +188,12 @@ public class UIControllerATMV extends UIController {
                 setCurrentAnchorPane(thirdFloorAnchorPane);
                 currentImageView = thirdFloorImageView;
                 break;
-//            case "4":
-//                assert conn != null;
-//                currentFloorNodes = DBControllerNE.generateListOfNodes(conn, DBControllerNE.ALL_NODES_FLOOR_4);
-//                setCurrentAnchorPane(fourthFloorAnchorPane);
-//                currentImageView = fourthFloorImageView;
-//                break;
+            case "4":
+                assert conn != null;
+                currentFloorNodes = DBControllerNE.generateListOfNodes(conn, DBControllerNE.ALL_NODES_FLOOR_4);
+                setCurrentAnchorPane(fourthFloorAnchorPane);
+                currentImageView = fourthFloorImageView;
+                break;
         }
         allEdges = DBControllerNE.generateListofEdges(conn);
 
