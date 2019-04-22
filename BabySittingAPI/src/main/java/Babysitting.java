@@ -12,12 +12,12 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.List;
 
-public class Main extends Application {
+public class Babysitting extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception{
         Connection conn = DBControllerAPI.dbConnect();
-       // DBControllerAPI.initializeAppDB(conn);
+        DBControllerAPI.initializeAppDB(conn);
         DBControllerAPI.closeConnection(conn);
 
         run(0,0,600,600,"/css/background.css");
