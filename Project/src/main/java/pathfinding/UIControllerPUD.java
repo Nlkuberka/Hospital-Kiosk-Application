@@ -38,20 +38,30 @@ public class UIControllerPUD extends UIController {
     @FXML
     private JFXButton okButton; //ok button to exit confirmation window
     @FXML
-    private JFXComboBox floorSelect; //drop down to select which floor's directions to display
+    private JFXComboBox<String> floorSelect; //drop down to select which floor's directions to display
 
     @FXML
     public void onShow(){
         floorSelect.getItems().addAll("All", "L2", "L1", "G", "1", "2", "3", "4");
     }
+
+    void getFloorSelection(String floor){
+        floorSelect.getSelectionModel().select(floor);
+    }
     @FXML
     public void setDirections(List<List<List<String>>> message) {
         String returnText = "";
+        String selectedFloor = "";
 
         for(int i = 0; i < message.size(); i++){
             for (int j = 0; j < message.get(i).size(); j++) {
                 for (int k = 0; k < message.get(i).get(j).size(); k++) {
-                    returnText += message.get(i).get(j).get(k);
+                    if(message.get(i).get(j).get(k).equals(selectedFloor)) {
+                        returnText += message.get(i).get(j).get(k);
+                    }
+                    else if(selectedFloor.equals("All")){
+                        returnText += message.get(i).get(j).get(k);
+                    }
                 }
             }
         }

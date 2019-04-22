@@ -41,7 +41,7 @@
                   <Font size="20.0" />
                </font>
             </JFXButton>
-            <JFXComboBox fx:id="floorSelect" focusColor="WHITE" layoutX="322.0" layoutY="24.0" prefHeight="64.0" prefWidth="263.0" promptText="What floor's directions would you like to view?" style="-fx-background-color: #ffffff" />
+            <JFXComboBox fx:id="floorSelect" focusColor="WHITE" layoutX="322.0" layoutY="24.0" onAction="#selectFloor" prefHeight="64.0" prefWidth="263.0" promptText="What floor's directions would you like to view?" style="-fx-background-color: #ffffff" />
       </children>
     </AnchorPane>
   </children>
