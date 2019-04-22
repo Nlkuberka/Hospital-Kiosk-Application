@@ -2,6 +2,7 @@ package network;
 
 import application.CurrentUser;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.twilio.twiml.voice.Echo;
 import database.*;
 import entities.*;
 
@@ -10,6 +11,7 @@ import java.io.DataOutputStream;
 import java.io.InputStreamReader;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.net.SocketException;
 import java.sql.Connection;
 
 /**
@@ -65,6 +67,8 @@ public class DBServer extends NetworkThread implements Runnable {
                 }
 
                 closeSocket(socket);
+            } catch(SocketException e) {
+                //
             } catch(Exception e) {
                 e.printStackTrace();
             }
@@ -247,6 +251,12 @@ public class DBServer extends NetworkThread implements Runnable {
      * Ends the server
      */
     void end() {
+        try{
+            serverSocket.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
         end = true;
     }
 

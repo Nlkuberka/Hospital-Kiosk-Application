@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXComboBox?>
+<?import com.jfoenix.controls.JFXTextArea?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<<<<<<< HEAD
+<StackPane minHeight="720.0" minWidth="1280.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="servicerequests.UIControllerSRPS">
+   <children>
+            <ImageView fx:id="backgroundImage" pickOnBounds="true" preserveRatio="true">
+                <image>
+                    <Image url="@../images/Hospitalbackground.png" />
+                </image>
+            </ImageView>
+            <BorderPane>
+                <top>
+                    <MenuBar blendMode="ADD" nodeOrientation="LEFT_TO_RIGHT" style="-fx-background-color: white;" stylesheets="@../css/background.css" BorderPane.alignment="TOP_LEFT">
+                        <menus>
+                            <Menu fx:id="homeButton" mnemonicParsing="false" onAction="#setHomeButton" onShowing="#setHomeButton" text="Back">
+                                <items>
+                                    <MenuItem mnemonicParsing="false" text="HOME" />
+                                </items>
+                            </Menu>
+                        </menus>
+                        <effect>
+                            <ColorAdjust>
+                                <input>
+                                    <DropShadow />
+                                </input>
+                            </ColorAdjust>
+                        </effect>
+                    </MenuBar>
+                </top>
+         <right>
+            <ImageView fitHeight="623.0" fitWidth="1000.0" pickOnBounds="true" preserveRatio="true" BorderPane.alignment="CENTER">
+               <image>
+                  <Image url="@../maps/02_thesecondfloor.png" />
+               </image>
+            </ImageView>
+         </right>
+         <left>
+            <GridPane>
+               <columnConstraints>
+                  <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" />
+               </columnConstraints>
+               <rowConstraints>
+                  <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+               </rowConstraints>
+               <children>
+                  <JFXButton onAction="#setConfirmButton" styleClass="jfx-button_edit" stylesheets="@../css/background.css" text="Confirm" GridPane.columnIndex="1" GridPane.rowIndex="11" />
+                  <JFXButton contentDisplay="CENTER" onAction="#setCancelButton" styleClass="jfx-button-cancel" stylesheets="@../css/background.css" text=" " GridPane.columnIndex="1" GridPane.rowIndex="12">
+                     <graphic>
+                        <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../icon/cancel2.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </JFXButton>
+                  <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Perscription Services" GridPane.columnIndex="1">
+                     <font>
+                        <Font name="System Bold Italic" size="36.0" />
+                     </font>
+                  </Text>
+                  <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Jonathan Chang" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="1">
+                     <font>
+                        <Font name="System Bold" size="18.0" />
+                     </font>
+                  </Text>
+                  <JFXComboBox fx:id="roomSelect" prefWidth="150.0" style="-fx-background-color: #ffffff;" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                  <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Room Select" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="2">
+                     <font>
+                        <Font name="System Bold" size="18.0" />
+                     </font>
+                  </Text>
+                  <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Patient Name" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="4">
+                     <font>
+                        <Font name="System Bold" size="18.0" />
+                     </font>
+                  </Text>
+                  <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Perscription " GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="6">
+                     <font>
+                        <Font name="System Bold" size="18.0" />
+                     </font>
+                  </Text>
+                  <JFXTextField fx:id="patientNameTextField" prefHeight="25.0" prefWidth="150.0" style="-fx-background-color: #ffffff;" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                  <JFXTextField fx:id="prescriptionTextField" prefHeight="25.0" prefWidth="150.0" style="-fx-background-color: #ffffff;" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+                  <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Perscription Length" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="8">
+                     <font>
+                        <Font name="System Bold" size="18.0" />
+                     </font>
+                  </Text>
+                  <ChoiceBox fx:id="lengthChoiceBox" prefWidth="150.0" style="-fx-background-color: #ffffff;" GridPane.columnIndex="1" GridPane.rowIndex="9" />
+                  <JFXTextArea fx:id="serviceMessage" prefHeight="125.0" prefWidth="150.0" style="-fx-background-color: #ffffff;" GridPane.columnIndex="1" GridPane.rowIndex="10" />
+               </children>
+               <BorderPane.margin>
+                  <Insets left="20.0" right="20.0" />
+               </BorderPane.margin>
+            </GridPane>
+         </left>
+            </BorderPane>
+   </children>
+</StackPane>
+=======
+
+      <BorderPane prefHeight="600.0" prefWidth="900.0" style="-fx-background-color: #015080;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="servicerequests.UIControllerSRPS">
+          <top>
+              <MenuBar nodeOrientation="RIGHT_TO_LEFT" style="-fx-background-color: #ffc41e;" stylesheets="@../css/background.css" BorderPane.alignment="TOP_LEFT">
+                  <menus>
+                      <Menu fx:id="homeButton" mnemonicParsing="false" onAction="#setHomeButton" onShowing="#setHomeButton" text="Close">
+                          <items>
+                              <MenuItem mnemonicParsing="false" text="HOME" />
+                          </items>
+               <graphic>
+                  <ImageView fitHeight="18.0" fitWidth="18.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../icon/cancel2.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+                      </Menu>
+                  </menus>
+              </MenuBar>
+          </top>
+   <center>
+      <GridPane prefWidth="900.0" BorderPane.alignment="CENTER">
+         <columnConstraints>
+            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="584.5999755859375" minWidth="10.0" prefWidth="382.5999755859375" />
+            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="477.4000244140625" minWidth="10.0" prefWidth="477.4000244140625" />
+         </columnConstraints>
+         <rowConstraints>
+            <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" percentHeight="6.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+         </rowConstraints>
+         <children>
+            <JFXButton onAction="#setConfirmButton" styleClass="jfx-button_edit" stylesheets="@../css/background.css" text="Confirm" GridPane.rowIndex="10" />
+            <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Other Services">
+               <font>
+                  <Font name="System Bold Italic" size="36.0" />
+               </font>
+            </Text>
+            <JFXComboBox fx:id="roomSelect" prefWidth="250.0" style="-fx-background-color: #ffffff;" GridPane.rowIndex="5" />
+            <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Room Select" GridPane.halignment="LEFT" GridPane.rowIndex="4">
+               <font>
+                  <Font name="System Bold" size="18.0" />
+               </font>
+               <GridPane.margin>
+                  <Insets left="50.0" />
+               </GridPane.margin>
+            </Text>
+            <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Service Type" GridPane.halignment="LEFT" GridPane.rowIndex="6">
+               <font>
+                  <Font name="System Bold" size="18.0" />
+               </font>
+               <GridPane.margin>
+                  <Insets left="50.0" />
+               </GridPane.margin>
+            </Text>
+            <JFXTextField fx:id="patientNameTextField" maxWidth="250.0" prefHeight="25.0" prefWidth="250.0" style="-fx-background-color: #ffffff;" GridPane.rowIndex="7" />
+            <JFXTextArea fx:id="serviceMessage" maxHeight="400.0" maxWidth="400.0" minHeight="400.0" prefHeight="400.0" prefWidth="250.0" style="-fx-background-color: #ffffff;" GridPane.columnIndex="1" GridPane.rowIndex="2" GridPane.valignment="BASELINE">
+               <GridPane.margin>
+                  <Insets />
+               </GridPane.margin>
+            </JFXTextArea>
+            <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Additional Message" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="1" GridPane.valignment="BOTTOM">
+               <font>
+                  <Font name="System Bold" size="18.0" />
+               </font>
+               <GridPane.margin>
+                  <Insets bottom="20.0" left="50.0" />
+               </GridPane.margin>
+            </Text>
+            <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Name" GridPane.halignment="LEFT" GridPane.rowIndex="2">
+               <font>
+                  <Font name="System Bold" size="18.0" />
+               </font>
+               <GridPane.margin>
+                  <Insets left="50.0" top="5.0" />
+               </GridPane.margin>
+            </Text>
+            <TextField maxWidth="250.0" prefWidth="250.0" GridPane.rowIndex="3" />
+         </children>
+         <BorderPane.margin>
+            <Insets left="20.0" right="20.0" />
+         </BorderPane.margin>
+      </GridPane>
+   </center>
+      </BorderPane>
+>>>>>>> iteration4

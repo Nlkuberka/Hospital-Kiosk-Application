@@ -109,7 +109,7 @@ public class User {
     public List<String> getServiceRequestFullfillment() {
         boolean[] bits = getBitArray(permissions);
         List<String> result = new LinkedList<String>();
-        for(int i = 2; i < bits.length; i++) {
+        for(int i = 2; i < bits.length - 6; i++) {
             if(bits[i]) {
                 result.add(serviceRequests[i - 2]);
             }

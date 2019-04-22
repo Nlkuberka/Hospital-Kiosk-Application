@@ -13,6 +13,8 @@ import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
+import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -82,6 +84,7 @@ public class UIController {
     private static Map<String, String> sceneFiles;
     private static Map<String, String> sceneTitles;
     private static Map<String, Parent> sceneParents;
+    public static final SessionTimeoutThread SESSION_TIMEOUT_THREAD = new SessionTimeoutThread();
 
     /**
      * Constructor
@@ -233,8 +236,11 @@ public class UIController {
         rootPane.setCenter(sceneParents.get(sceneString));
 
         // Run the onShow function and return the controller
-        sceneControllers.get(sceneString).onShow();
-        return sceneControllers.get(sceneString);
+        UIController sceneController = sceneControllers.get(sceneString);
+        sceneController.onShow();
+        SESSION_TIMEOUT_THREAD.currentSceneString = sceneString;
+        SESSION_TIMEOUT_THREAD.currentUIController = sceneController;
+        return sceneController;
     }
 
 
@@ -258,8 +264,11 @@ public class UIController {
         rootPane.setCenter(sceneParents.get(sceneString));
 
         // Run the onShow function and return the controller
-        sceneControllers.get(sceneString).onShow();
-        return sceneControllers.get(sceneString);
+        UIController sceneController = sceneControllers.get(sceneString);
+        sceneController.onShow();
+        SESSION_TIMEOUT_THREAD.currentSceneString = sceneString;
+        SESSION_TIMEOUT_THREAD.currentUIController = sceneController;
+        return sceneController;
     }
 
     /**
@@ -268,6 +277,9 @@ public class UIController {
      */
     @FXML
     public void popupMessage(String message, boolean isWarning) {
+        if(CurrentUser.testing) {
+            return;
+        }
         Stage stage = new Stage();
 
         stage.getIcons().add(new Image(getClass().getResourceAsStream("/icon/warningWindowIcon.png")));
@@ -358,6 +370,21 @@ public class UIController {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(sceneFiles.get(sceneString)));
             Parent root = fxmlLoader.load();
+            root.addEventFilter(MouseEvent.MOUSE_RELEASED, e -> {
+                SESSION_TIMEOUT_THREAD.interrupt();
+            });
+            root.addEventFilter(MouseEvent.MOUSE_MOVED, e -> {
+                SESSION_TIMEOUT_THREAD.interrupt();
+            });
+            root.addEventFilter(MouseEvent.MOUSE_PRESSED, e -> {
+                SESSION_TIMEOUT_THREAD.interrupt();
+            });
+            root.addEventFilter(KeyEvent.KEY_PRESSED, e -> {
+                SESSION_TIMEOUT_THREAD.interrupt();
+            });
+            root.addEventFilter(KeyEvent.KEY_RELEASED, e -> {
+                SESSION_TIMEOUT_THREAD.interrupt();
+            });
             sceneParents.put(sceneString, root);
             sceneControllers.put(sceneString, fxmlLoader.getController());
             scenes.put(sceneString, new Scene(root, width, height));
