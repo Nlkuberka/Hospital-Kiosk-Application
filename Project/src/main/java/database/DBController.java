@@ -103,10 +103,10 @@ public class DBController {
         DBControllerNE.loadEdgeData(new File("edgesv5.csv"),conn);
         DBControllerRW.loadWorkplaceData(new File( "workplaces.csv"),conn);
 
-        DBControllerU.addUser(new User("USER0001","user","user",3071),conn);
+        DBControllerU.addUser(new User("USER0001","user","user",2816),conn);
         DBControllerU.addUser(new User("GUEST0001","guest","guest",1024),conn);
-        DBControllerU.addUser(new User("ADMIN00001","admin","admin",4095),conn);
-        DBControllerU.addUser(new User("WWONG2","staff","staff",4095),conn);
+        DBControllerU.addUser(new User("ADMIN00001","admin","admin",4032),conn);
+        DBControllerU.addUser(new User("WWONG2","staff","staff",4032),conn);
 
         DBControllerRW.addReservation(new Reservation("CL001","WWONG2","2019-04-18","10:00:00","12:00:00"),conn);
         DBControllerRW.addReservation(new Reservation("CL002","WWONG2","2019-04-18","11:00:00","13:00:00"),conn);
