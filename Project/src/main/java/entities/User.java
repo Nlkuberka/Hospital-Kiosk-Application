@@ -1,6 +1,5 @@
 package entities;
 
-import java.lang.reflect.Array;
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
@@ -9,8 +8,7 @@ public class User {
     public static final int GUEST_PERMISSIONS = 1;
     public static final int BASIC_PERMISSIONS = 2;
     public static final int ADMIN_PERMISSIONS = 3;
-    public static final String[] serviceRequests = {"Audio Visual", "Religious Services", "Prescription Services", "Flower Delivery",
-            "IT Services", "Sanitation", "External Transportation", "Interpreter", "Babysitter", "Security"};
+    public static final String[] serviceRequests = {"Religious Services", "Flower Delivery", "Babysitter", "Other"};
 
     private String userID;
     private String username;
@@ -111,7 +109,7 @@ public class User {
     public List<String> getServiceRequestFullfillment() {
         boolean[] bits = getBitArray(permissions);
         List<String> result = new LinkedList<String>();
-        for(int i = 2; i < bits.length; i++) {
+        for(int i = 2; i < bits.length - 6; i++) {
             if(bits[i]) {
                 result.add(serviceRequests[i - 2]);
             }

@@ -42,7 +42,7 @@
                   <Font name="System Bold" size="45.0" />
                </font>
             </Text>
-            <JFXButton fx:id="serviceRequestButton" alignment="TOP_CENTER" onAction="#setServiceRequestButton" styleClass="jfx-button-main-menu" stylesheets="@../css/background.css" text="Service Request" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="CENTER">
+            <JFXButton fx:id="serviceRequestButton" alignment="TOP_CENTER" onAction="#setBackMenuItem" styleClass="jfx-button-main-menu" stylesheets="@../css/background.css" text="Service Request" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="CENTER">
                <font>
                   <Font name="System Bold" size="25.0" />
                </font>

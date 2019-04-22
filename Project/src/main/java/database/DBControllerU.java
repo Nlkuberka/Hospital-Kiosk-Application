@@ -1,7 +1,9 @@
 package database;
 
+import application.CurrentUser;
 import application.Encryptor;
 import entities.User;
+import network.DBNetwork;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -76,9 +78,12 @@ public class DBControllerU extends DBController {
                         "SET USERID ='"+user.getUserID()+"'," +
                         " PERMISSION = "+ user.getPermissionsNumber() +"," +
                         " USERNAME = '"+ user.getUsername() +"' where USERID = '"+ID +"'");
-                ps.execute();}else{
+                ps.execute();
+                CurrentUser.network.sendUserPacket(DBNetwork.UPDATE_USER, user);
+            } else {
                 addUser(user,conn);
             }
+
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -94,10 +99,24 @@ public class DBControllerU extends DBController {
             PreparedStatement s = conn.prepareStatement("insert into USERS (userid, permission, username, password) \n" +
                     "values ('"+ user.getUserID() +"',"+ user.getPermissionsNumber()+",'"+user.getUsername()+"','"+Encryptor.encrypt(user.getPassword())+"')");
             s.execute();
+            CurrentUser.network.sendUserPacket(DBNetwork.ADD_USER, user);
         } catch (SQLException e) {
             e.printStackTrace();
         }
 
+    }
+
+
+
+    public static void deleteUser(User user, Connection conn){
+        try {
+            PreparedStatement ps = conn.prepareStatement("Delete from USERS where USERID = ?");
+            ps.setString(1, user.getUserID());
+            ps.execute();
+            CurrentUser.network.sendUserPacket(DBNetwork.DELETE_USER, user);
+        }catch(SQLException e){
+            e.printStackTrace();
+        }
     }
 
     public static void loadTeam(Connection conn){

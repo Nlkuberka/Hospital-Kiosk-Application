@@ -1,6 +1,8 @@
 package application;
 
 import entities.User;
+import network.DBNetwork;
+
 /**
  * An class with static variables to store information about the current user
  * @version iteration1
@@ -14,4 +16,6 @@ public class CurrentUser {
 
     public static User user;
     public static String startingLocation = "Shattuck Street Lobby ATM";
+    public static DBNetwork network;
+    public static boolean testing = false;
 }
