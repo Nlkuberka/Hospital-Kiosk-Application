@@ -74,6 +74,8 @@ public class UIControllerATMV extends UIController {
     private GesturePane secondFloorGesturePane;
     @FXML
     private GesturePane thirdFloorGesturePane;
+    @FXML
+    private GesturePane fourthFloorGesturePane;
 
     @FXML
     private AnchorPane lowerLevel2AnchorPane;
@@ -87,6 +89,8 @@ public class UIControllerATMV extends UIController {
     private AnchorPane secondFloorAnchorPane;
     @FXML
     private AnchorPane thirdFloorAnchorPane;
+    @FXML
+    private AnchorPane fourthFloorAnchorPane;
     private List<AnchorPane> anchorPanes;
 
     @FXML
@@ -101,6 +105,8 @@ public class UIControllerATMV extends UIController {
     private ImageView secondFloorImageView;
     @FXML
     private ImageView thirdFloorImageView;
+    @FXML
+    private ImageView fourthFloorImageView;
     private List<ImageView> imageViews;
 
     private double mouseX;
@@ -121,7 +127,7 @@ public class UIControllerATMV extends UIController {
         new utilities.Tooltip(questionMark, helper);
 
         gesturePaneHandler = new GesturePaneHandler(lowerLevel2GesturePane, lowerLevel1GesturePane, groundFloorGesturePane,
-                firstFloorGesturePane, secondFloorGesturePane, thirdFloorGesturePane);
+                firstFloorGesturePane, secondFloorGesturePane, thirdFloorGesturePane, fourthFloorGesturePane);
 
         tabs.getSelectionModel().selectedItemProperty().addListener(
                 (ov, t, t1) -> {
@@ -182,6 +188,12 @@ public class UIControllerATMV extends UIController {
                 setCurrentAnchorPane(thirdFloorAnchorPane);
                 currentImageView = thirdFloorImageView;
                 break;
+//            case "4":
+//                assert conn != null;
+//                currentFloorNodes = DBControllerNE.generateListOfNodes(conn, DBControllerNE.ALL_NODES_FLOOR_4);
+//                setCurrentAnchorPane(fourthFloorAnchorPane);
+//                currentImageView = fourthFloorImageView;
+//                break;
         }
         allEdges = DBControllerNE.generateListofEdges(conn);
 
