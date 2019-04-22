@@ -25,6 +25,7 @@ public class DBControllerNE extends DBController{
     public static final String ALL_NODES_FLOOR_1 = "SELECT * FROM NODES WHERE FLOOR = '1'";
     public static final String ALL_NODES_FLOOR_2 = "SELECT * FROM NODES WHERE FLOOR = '2'";
     public static final String ALL_NODES_FLOOR_3 = "SELECT * FROM NODES WHERE FLOOR = '3'";
+    public static final String ALL_NODES_FLOOR_4 = "SELECT * FROM NODES WHERE FLOOR = '4'";
 
     public static final String ALL_ROOMS = "SELECT * FROM NODES WHERE NODETYPE != 'HALL' and NODETYPE != 'STAI' and NODETYPE != 'ELEV'";
     public static final String ALL_ROOMS_FLOOR_L2 = "SELECT * FROM NODES WHERE FLOOR = 'L2' AND NODETYPE != 'HALL' and NODETYPE != 'STAI' and NODETYPE != 'ELEV'";
