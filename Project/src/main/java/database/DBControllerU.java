@@ -42,7 +42,6 @@ public class DBControllerU extends DBController {
             ResultSet rs = ps.executeQuery();
             while (rs.next()){
                 u =  new User(rs.getString("USERID"),rs.getString("USERNAME"),rs.getInt("PERMISSION"));
-                System.out.println("h");
             }
         }catch(SQLException e){
             e.printStackTrace();
