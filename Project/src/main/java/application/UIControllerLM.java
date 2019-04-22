@@ -92,26 +92,15 @@ public class UIControllerLM extends UIController {
     @FXML
     private JFXButton beginButton;
 
-
-
-
     public UIControllerLM() {
 
     }
-
-
-
-
-
 
     /**
      * Called when the scene is first created
      */
     @FXML
     public void initialize() {
-
-
-
         tabs.getSelectionModel().selectedItemProperty().addListener(param -> {
             setDefaultButton();
         });
@@ -135,10 +124,6 @@ public class UIControllerLM extends UIController {
         adminUsernameTextField.setText("");
         adminPasswordTextField.setText("");
     }
-
-
-
-
 
     /**
      * Goes to the User Main Menu
@@ -195,7 +180,7 @@ public class UIControllerLM extends UIController {
                     }else{
                         // Jon check if u is user
                         CurrentUser.user = u;
-                        this.goToScene(UIController.ADMIN_MAIN_MENU_MAIN);
+                        this.goToScene(UIController.PATHFINDING_MAIN);
                     }
 
                 }
