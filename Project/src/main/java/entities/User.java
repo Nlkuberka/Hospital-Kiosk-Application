@@ -14,6 +14,7 @@ public class User {
     private String username;
     private String password;
     private int permissions;
+    private String wpiid;
 
     public User() {
     }
@@ -29,6 +30,13 @@ public class User {
         this.userID = userID;
         this.username = username;
         this.permissions = permissions;
+    }
+
+    public User(String userID, String username, int permissions,String wpiid) {
+        this.userID = userID;
+        this.username = username;
+        this.permissions = permissions;
+        this.wpiid = wpiid;
     }
 
     public String getUserID() {
@@ -109,7 +117,7 @@ public class User {
     public List<String> getServiceRequestFullfillment() {
         boolean[] bits = getBitArray(permissions);
         List<String> result = new LinkedList<String>();
-        for(int i = 2; i < bits.length; i++) {
+        for(int i = 2; i < bits.length - 6; i++) {
             if(bits[i]) {
                 result.add(serviceRequests[i - 2]);
             }

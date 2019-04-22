@@ -17,4 +17,5 @@ public class CurrentUser {
     public static User user;
     public static String startingLocation = "Shattuck Street Lobby ATM";
     public static DBNetwork network;
+    public static boolean testing = false;
 }
