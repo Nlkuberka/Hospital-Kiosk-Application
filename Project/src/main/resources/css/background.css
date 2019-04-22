@@ -81,7 +81,7 @@
     -fx-font-size: 20;
     -fx-font-weight: bold;
     -fx-text-fill: #090a0f;
-    -fx-pref-width: 201;
+    -fx-pref-width: 200;
     -fx-pref-height: 200;
     -fx-border-color: #015080;
     -fx-border-width: 1;
@@ -96,8 +96,8 @@
     -fx-font-size: 20;
     -fx-font-weight: bold;
     -fx-text-fill: #090a0f;
-    -fx-pref-width: 268;
-    -fx-pref-height: 150;
+    -fx-pref-width: 250;
+    -fx-pref-height: 170;
     -fx-border-color: #015080;
     -fx-border-width: 1;
     -fx-background-radius: 10;
@@ -207,6 +207,7 @@
     -fx-pref-height: 60;
     -fx-font-weight: Bold;
     -fx-fill: #090a0f;
+    -fx-text-fill: #090a0f;
    /* -fx-font-size: 22;*/
     -fx-text-alignment: CENTER;
 }

@@ -20,8 +20,6 @@ public class UIControllerATM extends UIController {
 
     @FXML
     private ImageView backgroundImage;
-    @FXML
-    private Menu homeButton; /**< The Home Button*/
 
     @FXML
     private MenuItem backMenuItem; /**< The Home Button*/
@@ -36,7 +34,7 @@ public class UIControllerATM extends UIController {
     private JFXButton viewUsersButton; /**< The View Edges Button*/
 
     @FXML
-    private JFXButton editReservationsButton; /**< The View Edges Button*/
+    private JFXButton ReservationsButton; /**< The View Edges Button*/
 
     @FXML
     private JFXButton viewServiceRequestsButton; /**< The View Service Request Button */
@@ -92,7 +90,7 @@ public class UIControllerATM extends UIController {
     }
 
     @FXML
-    private void setEditReservationsButton() { this.goToScene(UIController.ADMIN_TOOLS_EDIT_RESERVATIONS);}
+    private void setReservationsButton() { this.goToScene(UIController.ADMIN_RESERVATION_MAIN);}
 
     @FXML
     private void setViewMapButton() {
@@ -104,6 +102,6 @@ public class UIControllerATM extends UIController {
      */
     @FXML
     private void setBackMenuItem() {
-        this.goToScene(UIController.ADMIN_MAIN_MENU_MAIN);
+        this.goToScene(UIController.LOGIN_MAIN);
     }
 }

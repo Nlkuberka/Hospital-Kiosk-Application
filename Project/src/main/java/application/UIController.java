@@ -46,6 +46,7 @@ public class UIController {
     public static final String RESERVATIONS_CALENDAR_VIEW = "RVCV";
 
     public static final String ADMIN_TOOLS_MAIN = "ATM";
+    public static final String ADMIN_RESERVATION_MAIN="ARM";
     public static final String ADMIN_TOOLS_VIEW_NODES = "ATVN";
     public static final String ADMIN_TOOLS_VIEW_EDGES = "ATVE";
     public static final String ADMIN_TOOLS_VIEW_SERVICE_REQUESTS = "ATVSR";
@@ -127,14 +128,14 @@ public class UIController {
         sceneTitles.put(UIController.ABOUT_PAGE, "About Page");
 
 
-        // Main Menus
-        sceneFiles.put(UIController.ADMIN_MAIN_MENU_MAIN, "/admintools/admin_main_menu_main.fxml");
-        sceneTitles.put(UIController.ADMIN_MAIN_MENU_MAIN, "Main Menu");
 
 
         // Admin Tools
         sceneFiles.put(UIController.ADMIN_TOOLS_MAIN, "/admintools/admin_tools_main.fxml");
         sceneTitles.put(UIController.ADMIN_TOOLS_MAIN, "Admin Tools - Main");
+
+        sceneFiles.put(UIController.ADMIN_RESERVATION_MAIN, "/admintools/admin_reservation_main.fxml");
+        sceneTitles.put(UIController.ADMIN_RESERVATION_MAIN, "Admin Tools - Main");
 
         sceneFiles.put(UIController.ADMIN_TOOLS_VIEW_EDGES, "/admintools/admin_tools_view_edges.fxml");
         sceneTitles.put(UIController.ADMIN_TOOLS_VIEW_EDGES, "Admin Tools - View Edges");
@@ -376,10 +377,10 @@ public class UIController {
                 this.goToScene(UIController.PATHFINDING_MAIN);
                 break;
             case 3:
-                this.goToScene(UIController.ADMIN_MAIN_MENU_MAIN);
+                this.goToScene(UIController.ADMIN_TOOLS_MAIN);
                 break;
             default:
-                this.goToScene(UIController.WELCOME_MAIN);
+                this.goToScene(UIController.LOGIN_MAIN);
                 break;
         }
     }

@@ -238,6 +238,15 @@
                               <Insets top="20.0" />
                            </opaqueInsets>
                         </JFXButton>
+                        <JFXButton contentDisplay="CENTER" graphicTextGap="0.0" styleClass="jfx-button-node-list" stylesheets="@../css/pathfinding_tab.css" text=" ">
+                           <graphic>
+                              <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../images/headset.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                        </JFXButton>
                      </children>
                      <StackPane.margin>
                         <Insets right="95.0" top="15.0" />
@@ -271,9 +280,9 @@
                         <Insets bottom="50.0" />
                      </padding>
                          </AnchorPane>
-                  <Accordion maxWidth="300.0" prefWidth="300.0" StackPane.alignment="TOP_LEFT">
+                  <Accordion fx:id="menu" maxWidth="300.0" prefWidth="300.0" StackPane.alignment="TOP_LEFT">
                     <panes>
-                        <TitledPane fx:id="titledPane" alignment="TOP_LEFT" maxWidth="300.0" onContextMenuRequested="#setTitledPane" onMouseClicked="#setTitledPane" prefWidth="300.0" stylesheets="@../css/pathfinding_tab.css" text="Find Path">
+                        <TitledPane fx:id="pathfindingTitledPane" alignment="TOP_LEFT" maxWidth="300.0" onContextMenuRequested="#setTitledPane" onMouseClicked="#setTitledPane" prefWidth="300.0" stylesheets="@../css/pathfinding_tab.css" text="Find Path">
                            <content>
                                   <GridPane fx:id="interfaceGrid" prefWidth="200.0" style="-fx-background-color: #015080;" stylesheets="/css/controlsGridpane.css">
                                       <columnConstraints>
@@ -340,7 +349,7 @@
                               <Font name="System Bold" size="12.0" />
                            </font>
                         </TitledPane>
-                      <TitledPane animated="false" styleClass="title" stylesheets="@../css/pathfinding_tab.css" text="User Tools">
+                      <TitledPane fx:id="userToolsTitledPane" animated="false" styleClass="title" stylesheets="@../css/pathfinding_tab.css" text="User Tools">
                         <content>
                               <GridPane prefHeight="644.0" prefWidth="298.0" style="-fx-background-color: #015080;">
                                 <columnConstraints>
@@ -394,7 +403,7 @@
          <top>
             <MenuBar style="-fx-background-color: #ffc41e;" stylesheets="@../css/background.css" BorderPane.alignment="CENTER">
               <menus>
-                <Menu fx:id="homeMenu" mnemonicParsing="false" onAction="#setHomeButton" onShowing="#setHomeButton" text="Home">
+                <Menu fx:id="homeMenu" mnemonicParsing="false" onShowing="#setHomeMenuPF" text="Home">
                   <items>
                     <MenuItem mnemonicParsing="false" text="HOME" />
                   </items>
