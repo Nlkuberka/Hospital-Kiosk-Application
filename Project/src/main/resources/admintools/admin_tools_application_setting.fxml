@@ -1,6 +1,188 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXTabPane?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.FlowPane?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
-
-<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" />
+<StackPane minHeight="720.0" minWidth="1280.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="admintools.UIControllerATAS">
+   <children>
+      <ImageView fx:id="backgroundImage" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/Hospitalbackground.png" />
+         </image>
+      </ImageView>
+      <BorderPane>
+         <top>
+            <MenuBar blendMode="ADD" style="-fx-background-color: white;" stylesheets="@../css/background.css" BorderPane.alignment="CENTER">
+              <menus>
+                <Menu mnemonicParsing="false" text="Back">
+                  <items>
+                    <MenuItem fx:id="backMenuItem" mnemonicParsing="false" onAction="#setBackMenuItem" text="Go back to previous page" />
+                  </items>
+                </Menu>
+                  <Menu fx:id="homeMenu" mnemonicParsing="false" onShowing="#setHomeButton" text="Home">
+                     <items>
+                        <MenuItem mnemonicParsing="false" text="HOME" />
+                     </items>
+                  </Menu>
+              </menus>
+            </MenuBar>
+         </top>
+         <center>
+            <GridPane BorderPane.alignment="CENTER">
+               <columnConstraints>
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
+               </columnConstraints>
+               <rowConstraints>
+                  <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" percentHeight="84.0" vgrow="SOMETIMES" />
+               </rowConstraints>
+               <children>
+                  <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Application Setting" GridPane.halignment="CENTER">
+                     <font>
+                        <Font name="System Bold" size="40.0" />
+                     </font>
+                  </Text>
+                  <JFXTabPane fx:id="tabs" style="-fx-text-fill: #015080;" stylesheets="@../css/background.css" GridPane.rowIndex="1">
+                     <tabs>
+                        <Tab text="Time Out Setting">
+                          <content>
+                              <GridPane style="-fx-background-color: #ffffff;">
+                                 <columnConstraints>
+                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
+                                 </columnConstraints>
+                                 <rowConstraints>
+                                    <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                                    <RowConstraints minHeight="10.0" percentHeight="20.0" vgrow="SOMETIMES" />
+                                    <RowConstraints minHeight="10.0" percentHeight="5.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                    <RowConstraints minHeight="10.0" percentHeight="15.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                    <RowConstraints minHeight="10.0" percentHeight="5.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                    <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                                 </rowConstraints>
+                                 <children>
+                                    <Text fill="#015080" strokeType="OUTSIDE" strokeWidth="0.0" text="Time Out Setting" GridPane.valignment="BOTTOM">
+                                       <font>
+                                          <Font name="System Bold" size="30.0" />
+                                       </font>
+                                       <GridPane.margin>
+                                          <Insets left="200.0" />
+                                       </GridPane.margin>
+                                    </Text>
+                                    <Text fill="#015080" strokeType="OUTSIDE" strokeWidth="0.0" text="Please determined value for how long the application is idle before reverting to the initial state." GridPane.rowIndex="1" GridPane.valignment="CENTER">
+                                       <font>
+                                          <Font size="18.0" />
+                                       </font>
+                                       <GridPane.margin>
+                                          <Insets left="200.0" />
+                                       </GridPane.margin>
+                                    </Text>
+                                    <JFXButton fx:id="confirmButton" onAction="#changeAlgorithm" styleClass="jfx-button-login" stylesheets="@../css/background.css" text="Confirm" GridPane.halignment="CENTER" GridPane.rowIndex="6" GridPane.valignment="TOP" />
+                                    <FlowPane maxWidth="530.0" prefHeight="200.0" prefWidth="200.0" GridPane.halignment="CENTER" GridPane.rowIndex="5" GridPane.valignment="CENTER">
+                                       <children>
+                                          <Text fill="#015080" strokeType="OUTSIDE" strokeWidth="0.0" text="Minuts：">
+                                             <font>
+                                                <Font name="System Bold" size="18.0" />
+                                             </font>
+                                          </Text>
+                                          <ChoiceBox fx:id="minutCB" prefWidth="150.0" style="-fx-background-color: #efeae6;">
+                                             <FlowPane.margin>
+                                                <Insets left="20.0" />
+                                             </FlowPane.margin>
+                                          </ChoiceBox>
+                                          <Text fill="#015080" strokeType="OUTSIDE" strokeWidth="0.0" text="Seconds：">
+                                             <font>
+                                                <Font name="System Bold" size="18.0" />
+                                             </font>
+                                             <FlowPane.margin>
+                                                <Insets left="20.0" />
+                                             </FlowPane.margin>
+                                          </Text>
+                                          <ChoiceBox fx:id="secondCB" prefWidth="150.0" style="-fx-background-color: #efeae6;">
+                                             <FlowPane.margin>
+                                                <Insets left="20.0" />
+                                             </FlowPane.margin>
+                                          </ChoiceBox>
+                                       </children>
+                                       <GridPane.margin>
+                                          <Insets left="30.0" />
+                                       </GridPane.margin>
+                                    </FlowPane>
+                                    <FlowPane maxWidth="530.0" prefHeight="200.0" prefWidth="200.0" prefWrapLength="410.0" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="CENTER">
+                                       <children>
+                                          <Text fill="#015080" strokeType="OUTSIDE" strokeWidth="0.0" text="Minuts：">
+                                             <font>
+                                                <Font name="System Bold" size="18.0" />
+                                             </font>
+                                          </Text>
+                                          <Label fx:id="minutLabel" prefWidth="150.0" text="Label">
+                                             <padding>
+                                                <Insets left="20.0" />
+                                             </padding>
+                                             <FlowPane.margin>
+                                                <Insets left="20.0" />
+                                             </FlowPane.margin></Label>
+                                          <Text fill="#015080" strokeType="OUTSIDE" strokeWidth="0.0" text="Seconds：">
+                                             <font>
+                                                <Font name="System Bold" size="18.0" />
+                                             </font>
+                                             <FlowPane.margin>
+                                                <Insets left="20.0" />
+                                             </FlowPane.margin>
+                                          </Text>
+                                          <Label fx:id="secondLabel" prefWidth="150.0" text="Label">
+                                             <padding>
+                                                <Insets left="20.0" />
+                                             </padding>
+                                             <FlowPane.margin>
+                                                <Insets left="20.0" />
+                                             </FlowPane.margin></Label>
+                                       </children>
+                                       <GridPane.margin>
+                                          <Insets left="30.0" />
+                                       </GridPane.margin>
+                                    </FlowPane>
+                                    <Text fill="#015080" strokeType="OUTSIDE" strokeWidth="0.0" text="Current Setting" GridPane.rowIndex="2" GridPane.valignment="TOP">
+                                       <font>
+                                          <Font name="System Bold" size="24.0" />
+                                       </font>
+                                       <GridPane.margin>
+                                          <Insets left="400.0" />
+                                       </GridPane.margin>
+                                    </Text>
+                                    <Text fill="#015080" strokeType="OUTSIDE" strokeWidth="0.0" text="Modified Setting" GridPane.rowIndex="4" GridPane.valignment="TOP">
+                                       <font>
+                                          <Font name="System Bold" size="24.0" />
+                                       </font>
+                                       <GridPane.margin>
+                                          <Insets left="400.0" />
+                                       </GridPane.margin>
+                                    </Text>
+                                 </children>
+                              </GridPane>
+                          </content>
+                        </Tab>
+                     </tabs>
+                  </JFXTabPane>
+               </children>
+            </GridPane>
+         </center>
+      </BorderPane>
+   </children>
+</StackPane>
