@@ -40,7 +40,7 @@
                 <StackPane BorderPane.alignment="CENTER">
                     <children>
                         <JFXTabPane fx:id="mapTabPane" side="RIGHT" stylesheets="@../css/pathfinding_tab.css" tabClosingPolicy="UNAVAILABLE">
-                            <Tab>
+                            <Tab fx:id="4">
                                 <graphic>
                                     <ImageView fitHeight="70.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true">
                                         <image>
@@ -65,7 +65,7 @@
                                     </GesturePane>
                                 </content>
                             </Tab>
-                            <Tab>
+                            <Tab fx:id="3">
                                 <GesturePane fx:id="thirdFloorGesturePane" fitHeight="false" fitWidth="false" prefWidth="1920.0">
                                     <AnchorPane fx:id="thirdFloorAnchorPane">
                                         <children>
@@ -86,7 +86,7 @@
                                     </ImageView>
                                 </graphic>
                             </Tab>
-                            <Tab text=" ">
+                            <Tab fx:id="2">
                                 <GesturePane fx:id="secondFloorGesturePane" fitHeight="false" fitWidth="false" prefWidth="1920.0">
                                     <AnchorPane fx:id="secondFloorAnchorPane">
                                         <children>
@@ -107,7 +107,7 @@
                                     </ImageView>
                                 </graphic>
                             </Tab>
-                            <Tab text=" ">
+                            <Tab fx:id="1">
                                 <GesturePane fx:id="firstFloorGesturePane" fitHeight="false" fitWidth="false" prefWidth="1920.0">
                                     <AnchorPane fx:id="firstFloorAnchorPane">
                                         <children>
@@ -128,7 +128,7 @@
                                     </ImageView>
                                 </graphic>
                             </Tab>
-                            <Tab>
+                            <Tab fx:id="G">
                                 <GesturePane fx:id="groundFloorGesturePane" fitHeight="false" fitWidth="false" prefWidth="1920.0">
                                     <AnchorPane fx:id="groundFloorAnchorPane">
                                         <children>
@@ -149,7 +149,7 @@
                                     </ImageView>
                                 </graphic>
                             </Tab>
-                            <Tab text=" ">
+                            <Tab fx:id="LL1">
                                 <GesturePane fx:id="lowerLevel1GesturePane" fitHeight="false" fitWidth="false" prefWidth="1920.0">
                                     <AnchorPane fx:id="lowerLevel1AnchorPane">
                                         <children>
@@ -170,7 +170,7 @@
                                     </ImageView>
                                 </graphic>
                             </Tab>
-                            <Tab text=" ">
+                            <Tab fx:id="LL2">
                                 <GesturePane fx:id="lowerLevel2GesturePane" fitHeight="false" fitWidth="false" prefWidth="1920.0">
                                     <AnchorPane fx:id="lowerLevel2AnchorPane">
                                         <children>

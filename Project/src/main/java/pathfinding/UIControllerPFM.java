@@ -107,7 +107,7 @@ public class UIControllerPFM extends UIController {
                 (ov, t, t1) -> {
                     currentObjects.clearAnimation();
                     GesturePane oldPane = currentObjects.getCurrentGesturePane();
-                    currentObjects.setFloorIndex(Floors.getByName(t1.getText()).getIndex());
+                    currentObjects.setFloorIndex(Floors.getByID(t1.getId()).getIndex());
                     GesturePane pane = currentObjects.getCurrentGesturePane();
                     pane.centreOn(oldPane.targetPointAtViewportCentre());
                     gesturePaneHandler.changeTabs(pane, oldPane);
@@ -135,6 +135,8 @@ public class UIControllerPFM extends UIController {
         gesturePaneHandler.setCurrentObjects(currentObjects);
 
         directionsRequest.setDisable(true);
+
+        mapTabPane.getSelectionModel().select(4); // sets default to ground floor
     }
 
     /**
