@@ -55,6 +55,7 @@ public class UIController {
     public static final String ADMIN_TOOLS_CHANGE_ALGORITHM = "ATCA";
     public static final String ADMIN_TOOLS_MAP_VIEW = "ATMV";
     public static final String ADMIN_TOOLS_EDIT_RESERVATIONS = "ATER";
+    public static final String ADMIN_TOOLS_APPLICATION_SETTING = "ATAS";
 
 //    public static final String SERVICE_REQUEST_BASE = "SRB";
     public static final String SERVICE_REQUEST_PRESCRIPTION_SERVICES_MAIN = "SRPSM";
@@ -156,6 +157,9 @@ public class UIController {
 
         sceneFiles.put(UIController.ADMIN_TOOLS_EDIT_RESERVATIONS, "/admintools/admin_tools_edit_reservations.fxml");
         sceneTitles.put(UIController.ADMIN_TOOLS_EDIT_RESERVATIONS, "Admin Tools - Edit Reservation");
+
+        sceneFiles.put(UIController.ADMIN_TOOLS_APPLICATION_SETTING, "/admintools/admin_tools_application_setting.fxml");
+        sceneTitles.put(UIController.ADMIN_TOOLS_APPLICATION_SETTING, "Admin Tools - Application Setting");
 
 
         // Service Request

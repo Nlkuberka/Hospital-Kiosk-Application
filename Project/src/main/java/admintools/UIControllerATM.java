@@ -39,6 +39,12 @@ public class UIControllerATM extends UIController {
     @FXML
     private JFXButton viewServiceRequestsButton; /**< The View Service Request Button */
 
+    @FXML
+    private JFXButton findPathButton;
+
+    @FXML
+    private JFXButton applicationSettingButton;
+
     public UIControllerATM() {
 
     }
@@ -96,6 +102,17 @@ public class UIControllerATM extends UIController {
     private void setViewMapButton() {
         this.goToScene(UIController.ADMIN_TOOLS_MAP_VIEW);
     }
+
+    @FXML
+    private void setFindPathButton() {
+        this.goToScene(UIController.PATHFINDING_MAIN);
+    }
+
+    @FXML
+    private void setApplicationSettingButton() {
+        this.goToScene(UIController.ADMIN_TOOLS_APPLICATION_SETTING);
+    }
+
 
     /**
      * Goes back t0 the admin application Menu
