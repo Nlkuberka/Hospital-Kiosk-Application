@@ -82,7 +82,7 @@
             </AnchorPane>
         </content>
       </ScrollPane>
-      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="545.0" layoutY="37.0" text="Prototype Node Data" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="20.0">
+      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="545.0" layoutY="37.0" text="Prototype edu.wpi.cs3733.d19.teamD.Node Data" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="20.0">
          <font>
             <Font size="36.0" />
          </font>
@@ -97,7 +97,7 @@
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Button fx:id="addNodeButton" mnemonicParsing="false" onAction="#setAddNodeButton" text="Add Node" GridPane.halignment="CENTER" />
+            <Button fx:id="addNodeButton" mnemonicParsing="false" onAction="#setAddNodeButton" text="Add edu.wpi.cs3733.d19.teamD.Node" GridPane.halignment="CENTER" />
             <Button fx:id="toDownloadButton" mnemonicParsing="false" onAction="#goToDownloadViewer" text="Download CSV" GridPane.columnIndex="2" GridPane.halignment="CENTER" />
          </children>
       </GridPane>

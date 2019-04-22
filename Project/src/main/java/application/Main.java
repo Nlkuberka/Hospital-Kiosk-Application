@@ -12,7 +12,6 @@ import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 import network.DBNetwork;
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;

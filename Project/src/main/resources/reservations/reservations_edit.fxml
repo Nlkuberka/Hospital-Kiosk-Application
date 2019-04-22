@@ -46,8 +46,8 @@
             <TableView fx:id="reservationTable" maxHeight="800.0" maxWidth="1000.0" prefHeight="520.0" prefWidth="1000" BorderPane.alignment="TOP_CENTER">
               <columns>
                 <TableColumn prefWidth="150" text="RSV ID" />
-                <TableColumn prefWidth="150" text="Node ID" />
-                  <TableColumn minWidth="0.0" prefWidth="150" text="User ID" />
+                <TableColumn prefWidth="150" text="edu.wpi.cs3733.d19.teamD.Node ID" />
+                  <TableColumn minWidth="0.0" prefWidth="150" text="edu.wpi.cs3733.d19.teamD.User ID" />
                   <TableColumn minWidth="0.0" prefWidth="150" text="Date" />
                   <TableColumn minWidth="0.0" prefWidth="150" text="Start Time" />
                   <TableColumn minWidth="0.0" prefWidth="150" text="End Time" />

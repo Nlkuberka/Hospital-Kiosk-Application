@@ -349,7 +349,7 @@
                               <Font name="System Bold" size="12.0" />
                            </font>
                         </TitledPane>
-                      <TitledPane fx:id="userToolsTitledPane" animated="false" styleClass="title" stylesheets="@../css/pathfinding_tab.css" text="User Tools">
+                      <TitledPane fx:id="userToolsTitledPane" animated="false" styleClass="title" stylesheets="@../css/pathfinding_tab.css" text="edu.wpi.cs3733.d19.teamD.User Tools">
                         <content>
                               <GridPane prefHeight="644.0" prefWidth="298.0" style="-fx-background-color: #015080;">
                                 <columnConstraints>

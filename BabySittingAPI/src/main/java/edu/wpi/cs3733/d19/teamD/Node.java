@@ -1,3 +1,5 @@
+package edu.wpi.cs3733.d19.teamD;
+
 /**
  * The object that holds data about a particular node
  * @author ryano647
@@ -93,7 +95,7 @@ public class Node {
 
     @Override
     public String toString() {
-        return "Node{" +
+        return "edu.wpi.cs3733.d19.teamD.Node{" +
                 "nodeID='" + nodeID + '\'' +
                 ", xcoord=" + xcoord +
                 ", ycoord=" + ycoord +

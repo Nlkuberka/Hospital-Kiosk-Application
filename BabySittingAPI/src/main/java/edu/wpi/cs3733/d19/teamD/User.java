@@ -1,3 +1,5 @@
+package edu.wpi.cs3733.d19.teamD;
+
 public class User {
 
     public static final int BASIC_PERMISSIONS = 1;
@@ -47,7 +49,7 @@ public class User {
     }
 
     public String toString() {
-        String returnValue = "User(";
+        String returnValue = "edu.wpi.cs3733.d19.teamD.User(";
         returnValue += userID + ", ";
         returnValue += username + ", ";
         returnValue += password + ", ";

@@ -1,3 +1,5 @@
+package edu.wpi.cs3733.d19.teamD;
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
@@ -135,7 +137,7 @@ public class DBControllerAPI {
      * generateListofNodes
      *
      * creates and returns a list of node objects
-     * @return LinkedList<Node>
+     * @return LinkedList<edu.wpi.cs3733.d19.teamD.Node>
      */
     public static LinkedList<Node> generateListOfNodes(Connection connection, String query){
         try{
@@ -167,7 +169,7 @@ public class DBControllerAPI {
     /**
      * addServiceRequest
      *
-     * Enters ServiceRequest object to database
+     * Enters edu.wpi.cs3733.d19.teamD.ServiceRequest object to database
      *
      * @param serviceRequest
      * @param connection
@@ -210,7 +212,7 @@ public class DBControllerAPI {
     /**
      * updateServiceRequest
      *
-     * saves changes msde to a ServiceRequest object
+     * saves changes msde to a edu.wpi.cs3733.d19.teamD.ServiceRequest object
      *
      * UP TO DATE
      * @param serviceRequest

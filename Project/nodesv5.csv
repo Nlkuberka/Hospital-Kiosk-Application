@@ -276,40 +276,40 @@ EDEPT00301,3200,880,1,45 Francis,DEPT,Ocupational Health Floor 1,Ocupational 1
 EDEPT00401,2790,1380,1,45 Francis,DEPT,Rehabilitation Services Floor 1,Rehab 1
 EEXIT00101,2275,785,1,45 Francis,EXIT,Ambulance Parking Exit Floor 1,AmbExit 1
 EEXIT00201,2950,705,1,45 Francis,EXIT,Exit 2 Floor 1,Exit 2
-EHALL00301,2240,910,1,45 Francis,HALL,Hallway Node 1 Floor 1,Hall 01
-EHALL00401,2275,910,1,45 Francis,HALL,Hallway Node 2 Floor 1,HallE02
-EHALL00501,2290,910,1,45 Francis,HALL,Hallway Node 3 Floor 1,HallE03
-EHALL00601,2385,910,1,45 Francis,HALL,Hallway Node 4 Floor 1,HallE04
-EHALL00701,2385,860,1,45 Francis,HALL,Hallway Node 5 Floor 1,HallE05
-EHALL00801,2460,910,1,45 Francis,HALL,Hallway Node 6 Floor 1,HallE06
-EHALL00901,2585,910,1,45 Francis,HALL,Hallway Node 7 Floor 1,HallE07
-EHALL01001,2585,890,1,45 Francis,HALL,Hallway Node 8 Floor 1,HallE08
-EHALL01101,2610,910,1,45 Francis,HALL,Hallway Node 9 Floor 1,HallE09
-EHALL01201,2610,954,1,45 Francis,HALL,Hallway Node 10 Floor 1,HallE10
-EHALL01301,2660,954,1,45 Francis,HALL,Hallway Node 11 Floor 1,HallE11
-EHALL01401,2660,979,1,45 Francis,HALL,Hallway Node 12 Floor 1,HallE12
-EHALL01501,2675,910,1,45 Francis,HALL,Hallway Node 13 Floor 1,HallE13
-EHALL01601,2910,910,1,45 Francis,HALL,Hallway Node 14 Floor 1,HallE14
-EHALL01701,2910,907,1,45 Francis,HALL,Hallway Node 15 Floor 1,HallE15
-EHALL01801,2925,910,1,45 Francis,HALL,Hallway Node 16 Floor 1,HallE16
-EHALL01901,2960,900,1,45 Francis,HALL,Hallway Node 17 Floor 1,HallE17
-EHALL02001,2950,745,1,45 Francis,HALL,Hallway Node 18 Floor 1,HallE18
-EHALL02101,3230,880,1,45 Francis,HALL,Hallway Node 19 Floor 1,HallE19
-EHALL02201,3270,875,1,45 Francis,HALL,Hallway Node 20 Floor 1,HallE20
-EHALL02301,3325,870,1,45 Francis,HALL,Hallway Node 21 Floor 1,HallE21
-EHALL02401,2770,1010,1,45 Francis,HALL,Hallway Node 22 Floor 1,HallE22
-EHALL02501,2925,980,1,45 Francis,HALL,Hallway Node 23 Floor 1,HallE23
-EHALL02601,3085,980,1,45 Francis,HALL,Hallway Node 24 Floor 1,HallE24
-EHALL02701,3085,1000,1,45 Francis,HALL,Hallway Node 25 Floor 1,HallE25
-EHALL02801,2925,1050,1,45 Francis,HALL,Hallway Node 26 Floor 1,HallE26
-EHALL02901,2770,1070,1,45 Francis,HALL,Hallway Node 27 Floor 1,HallE27
-EHALL03001,2790,1070,1,45 Francis,HALL,Hallway Node 28 Floor 1,HallE28
-EHALL03101,2790,1460,1,45 Francis,HALL,Hallway Node 29 Floor 1,HallE29
-EHALL03201,2670,1380,1,45 Francis,HALL,Hallway Node 30 Floor 1,HallE30
-EHALL03301,2605,1380,1,45 Francis,HALL,Hallway Node 31 Floor 1,HallE31
-EHALL03401,2835,1460,1,45 Francis,HALL,Hallway Node 32 Floor 1,HallE32
-EHALL03501,2760,1460,1,45 Francis,HALL,Hallway Node 33 Floor 1,HallE33
-EHALL03601,2760,1405,1,45 Francis,HALL,Hallway Node 34 Floor 1,HallE34
+EHALL00301,2240,910,1,45 Francis,HALL,Hallway edu.wpi.cs3733.d19.teamD.Node 1 Floor 1,Hall 01
+EHALL00401,2275,910,1,45 Francis,HALL,Hallway edu.wpi.cs3733.d19.teamD.Node 2 Floor 1,HallE02
+EHALL00501,2290,910,1,45 Francis,HALL,Hallway edu.wpi.cs3733.d19.teamD.Node 3 Floor 1,HallE03
+EHALL00601,2385,910,1,45 Francis,HALL,Hallway edu.wpi.cs3733.d19.teamD.Node 4 Floor 1,HallE04
+EHALL00701,2385,860,1,45 Francis,HALL,Hallway edu.wpi.cs3733.d19.teamD.Node 5 Floor 1,HallE05
+EHALL00801,2460,910,1,45 Francis,HALL,Hallway edu.wpi.cs3733.d19.teamD.Node 6 Floor 1,HallE06
+EHALL00901,2585,910,1,45 Francis,HALL,Hallway edu.wpi.cs3733.d19.teamD.Node 7 Floor 1,HallE07
+EHALL01001,2585,890,1,45 Francis,HALL,Hallway edu.wpi.cs3733.d19.teamD.Node 8 Floor 1,HallE08
+EHALL01101,2610,910,1,45 Francis,HALL,Hallway edu.wpi.cs3733.d19.teamD.Node 9 Floor 1,HallE09
+EHALL01201,2610,954,1,45 Francis,HALL,Hallway edu.wpi.cs3733.d19.teamD.Node 10 Floor 1,HallE10
+EHALL01301,2660,954,1,45 Francis,HALL,Hallway edu.wpi.cs3733.d19.teamD.Node 11 Floor 1,HallE11
+EHALL01401,2660,979,1,45 Francis,HALL,Hallway edu.wpi.cs3733.d19.teamD.Node 12 Floor 1,HallE12
+EHALL01501,2675,910,1,45 Francis,HALL,Hallway edu.wpi.cs3733.d19.teamD.Node 13 Floor 1,HallE13
+EHALL01601,2910,910,1,45 Francis,HALL,Hallway edu.wpi.cs3733.d19.teamD.Node 14 Floor 1,HallE14
+EHALL01701,2910,907,1,45 Francis,HALL,Hallway edu.wpi.cs3733.d19.teamD.Node 15 Floor 1,HallE15
+EHALL01801,2925,910,1,45 Francis,HALL,Hallway edu.wpi.cs3733.d19.teamD.Node 16 Floor 1,HallE16
+EHALL01901,2960,900,1,45 Francis,HALL,Hallway edu.wpi.cs3733.d19.teamD.Node 17 Floor 1,HallE17
+EHALL02001,2950,745,1,45 Francis,HALL,Hallway edu.wpi.cs3733.d19.teamD.Node 18 Floor 1,HallE18
+EHALL02101,3230,880,1,45 Francis,HALL,Hallway edu.wpi.cs3733.d19.teamD.Node 19 Floor 1,HallE19
+EHALL02201,3270,875,1,45 Francis,HALL,Hallway edu.wpi.cs3733.d19.teamD.Node 20 Floor 1,HallE20
+EHALL02301,3325,870,1,45 Francis,HALL,Hallway edu.wpi.cs3733.d19.teamD.Node 21 Floor 1,HallE21
+EHALL02401,2770,1010,1,45 Francis,HALL,Hallway edu.wpi.cs3733.d19.teamD.Node 22 Floor 1,HallE22
+EHALL02501,2925,980,1,45 Francis,HALL,Hallway edu.wpi.cs3733.d19.teamD.Node 23 Floor 1,HallE23
+EHALL02601,3085,980,1,45 Francis,HALL,Hallway edu.wpi.cs3733.d19.teamD.Node 24 Floor 1,HallE24
+EHALL02701,3085,1000,1,45 Francis,HALL,Hallway edu.wpi.cs3733.d19.teamD.Node 25 Floor 1,HallE25
+EHALL02801,2925,1050,1,45 Francis,HALL,Hallway edu.wpi.cs3733.d19.teamD.Node 26 Floor 1,HallE26
+EHALL02901,2770,1070,1,45 Francis,HALL,Hallway edu.wpi.cs3733.d19.teamD.Node 27 Floor 1,HallE27
+EHALL03001,2790,1070,1,45 Francis,HALL,Hallway edu.wpi.cs3733.d19.teamD.Node 28 Floor 1,HallE28
+EHALL03101,2790,1460,1,45 Francis,HALL,Hallway edu.wpi.cs3733.d19.teamD.Node 29 Floor 1,HallE29
+EHALL03201,2670,1380,1,45 Francis,HALL,Hallway edu.wpi.cs3733.d19.teamD.Node 30 Floor 1,HallE30
+EHALL03301,2605,1380,1,45 Francis,HALL,Hallway edu.wpi.cs3733.d19.teamD.Node 31 Floor 1,HallE31
+EHALL03401,2835,1460,1,45 Francis,HALL,Hallway edu.wpi.cs3733.d19.teamD.Node 32 Floor 1,HallE32
+EHALL03501,2760,1460,1,45 Francis,HALL,Hallway edu.wpi.cs3733.d19.teamD.Node 33 Floor 1,HallE33
+EHALL03601,2760,1405,1,45 Francis,HALL,Hallway edu.wpi.cs3733.d19.teamD.Node 34 Floor 1,HallE34
 EINFO00101,2460,850,1,45 Francis,INFO,Connors Center Security Desk Floor 1,Security 1
 ELABS00101,3050,730,1,45 Francis,LABS,Asthma Research Floor 1,Asthma 1
 ELABS00201,2790,1290,1,45 Francis,LABS,Ambulatory X-Ray Floor 1,X-Ray 1
@@ -376,112 +376,112 @@ FSTAI00101,2026,892,1,Tower,STAI,Lobby Shattuck Street Stairs,Stairway F00101
 FSTAI00201,1673,802,1,Tower,STAI,Tower Stairway 1,Tower Stairs 1
 FSTAI00301,1947,1239,1,Tower,STAI,Lobby Escalator,Lobby Escalator
 GCONF02001,1493,2117,1,Shapiro,CONF,Shapiro Board Room MapNode 20 Floor 1,Shapiro Board Room
-GDEPT00403,1580,2142,3,Shapiro,DEPT,Brigham Circle Medical Associates Node 4 Floor 3,Brigham Circle Medical Associates
-GDEPT00702,1341,1778,2,Shapiro,DEPT,Waiting room? Node 7 Floor 2,Waiting Area Shapiro Floor 2
-GDEPT01403,1580,1904,3,Shapiro,DEPT,Watkins Clinic C Node 14 Floor 3,Watkins Clinic C
+GDEPT00403,1580,2142,3,Shapiro,DEPT,Brigham Circle Medical Associates edu.wpi.cs3733.d19.teamD.Node 4 Floor 3,Brigham Circle Medical Associates
+GDEPT00702,1341,1778,2,Shapiro,DEPT,Waiting room? edu.wpi.cs3733.d19.teamD.Node 7 Floor 2,Waiting Area Shapiro Floor 2
+GDEPT01403,1580,1904,3,Shapiro,DEPT,Watkins Clinic C edu.wpi.cs3733.d19.teamD.Node 14 Floor 3,Watkins Clinic C
 GDEPT01901,1566,2139,1,Shapiro,DEPT,Zinner Breakout Room MapNode 19 Floor 1,Zinner Breakout Room
-GDEPT02402,1578,1932,2,Shapiro,DEPT,Watkins A Node 24 Floor 2 Floor 2,Watkins A
-GDEPT03502,1580,2166,2,Shapiro,DEPT,Watkins B Node 35 Floor 2,Watkins B
+GDEPT02402,1578,1932,2,Shapiro,DEPT,Watkins A edu.wpi.cs3733.d19.teamD.Node 24 Floor 2 Floor 2,Watkins A
+GDEPT03502,1580,2166,2,Shapiro,DEPT,Watkins B edu.wpi.cs3733.d19.teamD.Node 35 Floor 2,Watkins B
 GELEV00N01,1647,1930,1,Shapiro,ELEV,Elevator N MapNode 26 Floor 1,Hall
-GELEV00N02,1630,1931,2,Shapiro,ELEV,Elevator N Node 25 Floor 2,Elevator N Floor 1
-GELEV00N03,1628,1904,3,Shapiro,ELEV,Elevator N Node 15 Floor 3,Elevator N Floor 3
+GELEV00N02,1630,1931,2,Shapiro,ELEV,Elevator N edu.wpi.cs3733.d19.teamD.Node 25 Floor 2,Elevator N Floor 1
+GELEV00N03,1628,1904,3,Shapiro,ELEV,Elevator N edu.wpi.cs3733.d19.teamD.Node 15 Floor 3,Elevator N Floor 3
 GELEV00Q01,1648,2161,1,Shapiro,ELEV,Elevator Q MapNode 18 Floor 1,Elevator Q Floor 1
-GELEV00Q02,1628,2102,2,Shapiro,ELEV,Elevator Q Node 31a Floor 2,Elevator Q Floor 2
-GELEV00Q03,1628,2142,3,Shapiro,ELEV,Elevator Q Node 5 Floor 3,Elevator Q Floor 3
+GELEV00Q02,1628,2102,2,Shapiro,ELEV,Elevator Q edu.wpi.cs3733.d19.teamD.Node 31a Floor 2,Elevator Q Floor 2
+GELEV00Q03,1628,2142,3,Shapiro,ELEV,Elevator Q edu.wpi.cs3733.d19.teamD.Node 5 Floor 3,Elevator Q Floor 3
 GELEV00QL1,1637,2116,L1,Shapiro,ELEV,Elevator Q MapNode 7 Floor L1,Elevator Q L1
 GELEV00QL2,1625,2089,L2,Shapiro,ELEV,Elevator Q MapNode 6 Floor L2,Elevator Q L2
 GEXIT00101,1751,1825,1,Shapiro,EXIT,Francis Street Exit MapNode 1 Floor 1,Francis Street Exit Floor 1
 GEXIT001L1,1702,2260,L1,Shapiro,EXIT,Fenwood Road Exit MapNode 1 Floor L1,Fenwood Road EntranceExit L1
-GHALL00102,1170,1780,2,Shapiro,HALL,Hall Node 1 Floor 2,Hall
-GHALL00103,1562,2230,3,Shapiro,HALL,Hallway Node 1 Floor 3,Hall
+GHALL00102,1170,1780,2,Shapiro,HALL,Hall edu.wpi.cs3733.d19.teamD.Node 1 Floor 2,Hall
+GHALL00103,1562,2230,3,Shapiro,HALL,Hallway edu.wpi.cs3733.d19.teamD.Node 1 Floor 3,Hall
 GHALL001L2,1730,1584,L2,Shapiro,HALL,Hallway MapNode 1 Floor L2,Hall
 GHALL00201,1722,1832,1,Shapiro,HALL,Hallway MapNode 2 Floor 1,Hall
-GHALL00202,1168,1820,2,Shapiro,HALL,Hall Node 2 Floor 2,Hall
-GHALL00203,1580,2230,3,Shapiro,HALL,Hallway Node 2 Floor 3,Hall
+GHALL00202,1168,1820,2,Shapiro,HALL,Hall edu.wpi.cs3733.d19.teamD.Node 2 Floor 2,Hall
+GHALL00203,1580,2230,3,Shapiro,HALL,Hallway edu.wpi.cs3733.d19.teamD.Node 2 Floor 3,Hall
 GHALL002L1,1702,2167,L1,Shapiro,HALL,Hallway MapNode 2 Floor L1,Hall
 GHALL00301,1705,1831,1,Shapiro,HALL,Hallway MapNode 3 Floor 1,Hall
-GHALL00302,1231,1781,2,Shapiro,HALL,Hall Node 3 Floor 2,Hall
-GHALL00303,1580,2180,3,Shapiro,HALL,Hallway Node 3 Floor 3,Hall
+GHALL00302,1231,1781,2,Shapiro,HALL,Hall edu.wpi.cs3733.d19.teamD.Node 3 Floor 2,Hall
+GHALL00303,1580,2180,3,Shapiro,HALL,Hallway edu.wpi.cs3733.d19.teamD.Node 3 Floor 3,Hall
 GHALL003L1,1688,2167,L1,Shapiro,HALL,Hallway MapNode 3 Floor L1,Hall
-GHALL00402,1230,1820,2,Shapiro,HALL,Hall Node 4 Floor 2,Hall
+GHALL00402,1230,1820,2,Shapiro,HALL,Hall edu.wpi.cs3733.d19.teamD.Node 4 Floor 2,Hall
 GHALL004L1,1666,2167,L1,Shapiro,HALL,Hallway MapNode 4 Floor L1,Hall
-GHALL00502,1283,1781,2,Shapiro,HALL,Hall Node 5 Floor 2,Hall
+GHALL00502,1283,1781,2,Shapiro,HALL,Hall edu.wpi.cs3733.d19.teamD.Node 5 Floor 2,Hall
 GHALL005L1,1688,2131,L1,Shapiro,HALL,Hallway MapNode 5 Floor L1,Hall
 GHALL005L2,1642,2089,L2,Shapiro,HALL,Hallway MapNode 5 Floor L2,Hall
 GHALL00601,1707,2015,1,Shapiro,HALL,Hallway MapNode 6 Floor 1,Hall
-GHALL00603,1685,2142,3,Shapiro,HALL,Hallway Node 6 Floor 3,Hall
+GHALL00603,1685,2142,3,Shapiro,HALL,Hallway edu.wpi.cs3733.d19.teamD.Node 6 Floor 3,Hall
 GHALL006L1,1665,2116,L1,Shapiro,HALL,Hallway MapNode 6 Floor L1,Hall
 GHALL00701,1708,2092,1,Shapiro,HALL,Hallway MapNode 7 Floor 1,Hall
-GHALL00703,1685,2230,3,Shapiro,HALL,Hallway Node 7 Floor 3,Hall
+GHALL00703,1685,2230,3,Shapiro,HALL,Hallway edu.wpi.cs3733.d19.teamD.Node 7 Floor 3,Hall
 GHALL007L2,1578,2089,L2,Shapiro,HALL,Hallway MapNode 7 Floor L2,Hall
 GHALL00801,1707,2152,1,Shapiro,HALL,Hallway MapNode 8 Floor 1,Hall
-GHALL00803,1685,2106,3,Shapiro,HALL,Hallway Node 8 Floor 3,Hall
+GHALL00803,1685,2106,3,Shapiro,HALL,Hallway edu.wpi.cs3733.d19.teamD.Node 8 Floor 3,Hall
 GHALL008L2,1577,2195,L2,Shapiro,HALL,Hallway MapNode 8 Floor L2,Hall
 GHALL00901,1707,2164,1,Shapiro,HALL,Hallway MapNode 9 Floor 1,Hall
 GHALL009L2,1578,2031,L2,Shapiro,HALL,Hallway MapNode 9 Floor L2,Hall
 GHALL01001,1673,2165,1,Shapiro,HALL,Hallway MapNode 10 Floor 1,Hall
-GHALL01002,1340,1820,2,Shapiro,HALL,Hall Node 10 Floor 2,Hall
-GHALL01003,1580,2070,3,Shapiro,HALL,Hallway Node 10 Floor 3,Hall
+GHALL01002,1340,1820,2,Shapiro,HALL,Hall edu.wpi.cs3733.d19.teamD.Node 10 Floor 2,Hall
+GHALL01003,1580,2070,3,Shapiro,HALL,Hallway edu.wpi.cs3733.d19.teamD.Node 10 Floor 3,Hall
 GHALL010L2,1550,2031,L2,Shapiro,HALL,Hallway MapNode 10 Floor L2,Hall
-GHALL01102,1396,1781,2,Shapiro,HALL,Hall Node 11 Floor 2,Hall
-GHALL01103,1628,2070,3,Shapiro,HALL,Hallway Node 11 Floor 3,Hall
+GHALL01102,1396,1781,2,Shapiro,HALL,Hall edu.wpi.cs3733.d19.teamD.Node 11 Floor 2,Hall
+GHALL01103,1628,2070,3,Shapiro,HALL,Hallway edu.wpi.cs3733.d19.teamD.Node 11 Floor 3,Hall
 GHALL011L2,1550,1966,L2,Shapiro,HALL,Hallway MapNode 11 Floor L2,Hall
-GHALL01202,1395,1820,2,Shapiro,HALL,Hall Node 12 Floor 2,Hall
+GHALL01202,1395,1820,2,Shapiro,HALL,Hall edu.wpi.cs3733.d19.teamD.Node 12 Floor 2,Hall
 GHALL012L2,1512,1966,L2,Shapiro,HALL,Hallway MapNode 12 Floor L2,Hall
-GHALL01302,1450,1781,2,Shapiro,HALL,Hall Node 13 Floor 2,Hall
-GHALL01303,1580,2006,3,Shapiro,HALL,Hallway Node 13 Floor 3,Hall
+GHALL01302,1450,1781,2,Shapiro,HALL,Hall edu.wpi.cs3733.d19.teamD.Node 13 Floor 2,Hall
+GHALL01303,1580,2006,3,Shapiro,HALL,Hallway edu.wpi.cs3733.d19.teamD.Node 13 Floor 3,Hall
 GHALL013L2,1512,1909,L2,Shapiro,HALL,Hallway MapNode 13 Floor L2,Hall
 GHALL01401,1749,2151,1,Shapiro,HALL,Hallway MapNode 14 Floor 1,Hall
-GHALL01402,1450,1820,2,Shapiro,HALL,Hall Node 14 Floor 2,Hall
+GHALL01402,1450,1820,2,Shapiro,HALL,Hall edu.wpi.cs3733.d19.teamD.Node 14 Floor 2,Hall
 GHALL01501,1749,2224,1,Shapiro,HALL,Hallway MapNode 15 Floor 1,Hall
-GHALL01502,1502,1781,2,Shapiro,HALL,Hall Node 15 Floor 2,Hall
+GHALL01502,1502,1781,2,Shapiro,HALL,Hall edu.wpi.cs3733.d19.teamD.Node 15 Floor 2,Hall
 GHALL01601,1689,2225,1,Shapiro,HALL,Hallway MapNode 16 Floor 1,Hall
-GHALL01602,1502,1820,2,Shapiro,HALL,Hall Node 16 Floor 2,Hall
+GHALL01602,1502,1820,2,Shapiro,HALL,Hall edu.wpi.cs3733.d19.teamD.Node 16 Floor 2,Hall
 GHALL016L2,1512,1701,L2,Shapiro,HALL,Hallway MapNode 16 Floor L2,Hall
 GHALL01701,1605,2093,1,Shapiro,HALL,Hallway MapNode 17 Floor 1,Hall
-GHALL01702,1578,1820,2,Shapiro,HALL,Hall Node 17 (Exit?) Floor 2,Hall
+GHALL01702,1578,1820,2,Shapiro,HALL,Hall edu.wpi.cs3733.d19.teamD.Node 17 (Exit?) Floor 2,Hall
 GHALL017L2,1512,1539,L2,Shapiro,HALL,Hallway MapNode 17 Floor L2,Hall
-GHALL01802,1630,1801,2,Shapiro,HALL,Hall Node 18 Floor 2,Hall
-GHALL02002,1684,1801,2,Shapiro,HALL,Hall Node 20 Floor 2,Hall
+GHALL01802,1630,1801,2,Shapiro,HALL,Hall edu.wpi.cs3733.d19.teamD.Node 18 Floor 2,Hall
+GHALL02002,1684,1801,2,Shapiro,HALL,Hall edu.wpi.cs3733.d19.teamD.Node 20 Floor 2,Hall
 GHALL02101,1600,1830,1,Shapiro,HALL,Hallway MapNode 21 Floor 1,Hall
-GHALL02102,1683,1821,2,Shapiro,HALL,Hall Node 21 Floor 2,Hall
+GHALL02102,1683,1821,2,Shapiro,HALL,Hall edu.wpi.cs3733.d19.teamD.Node 21 Floor 2,Hall
 GHALL02201,1601,1866,1,Shapiro,HALL,Hallway MapNode 22 Floor 1,Hall
-GHALL02202,1720,1801,2,Shapiro,HALL,Hall Node 22 Floor 2,Hall
-GHALL02302,1726,1835,2,Shapiro,HALL,Hall Node 23 Floor 2,Hall
+GHALL02202,1720,1801,2,Shapiro,HALL,Hall edu.wpi.cs3733.d19.teamD.Node 22 Floor 2,Hall
+GHALL02302,1726,1835,2,Shapiro,HALL,Hall edu.wpi.cs3733.d19.teamD.Node 23 Floor 2,Hall
 GHALL02401,1602,1928,1,Shapiro,HALL,Hallway MapNode 24 Floor 1,Hall
-GHALL02702,1726,1930,2,Shapiro,HALL,Hall Node 27 Floor 2,Hall
+GHALL02702,1726,1930,2,Shapiro,HALL,Hall edu.wpi.cs3733.d19.teamD.Node 27 Floor 2,Hall
 GHALL02801,1270,1830,1,Shapiro,HALL,Hallway MapNode 28 Floor 1,Hall
 GHALL02901,1262,1850,1,Shapiro,HALL,Hallway MapNode 29 Floor 1,Hall
-GHALL02902,1728,2042,2,Shapiro,HALL,Hall Node 29 Floor 2,Hall
+GHALL02902,1728,2042,2,Shapiro,HALL,Hall edu.wpi.cs3733.d19.teamD.Node 29 Floor 2,Hall
 GHALL03001,1256,1858,1,Shapiro,HALL,Hallway MapNode 30 Floor 1,Hall
-GHALL03002,1580,2090,2,Shapiro,HALL,Hall Node 30 Floor 2,Hall
+GHALL03002,1580,2090,2,Shapiro,HALL,Hall edu.wpi.cs3733.d19.teamD.Node 30 Floor 2,Hall
 GHALL03101,1227,1859,1,Shapiro,HALL,Hallway MapNode 31 Floor 1,Hall
-GHALL03202,1684,2091,2,Shapiro,HALL,Hall Node 32 Floor 2,Hall
+GHALL03202,1684,2091,2,Shapiro,HALL,Hall edu.wpi.cs3733.d19.teamD.Node 32 Floor 2,Hall
 GHALL03301,1255,1872,1,Shapiro,HALL,Hallway MapNode 33 Floor 1,Hall
-GHALL03302,1692,2124,2,Shapiro,HALL,Hall Node 33 Floor 2,Hall
+GHALL03302,1692,2124,2,Shapiro,HALL,Hall edu.wpi.cs3733.d19.teamD.Node 33 Floor 2,Hall
 GHALL03401,1284,1872,1,Shapiro,HALL,Hallway MapNode 34 Floor 1,Hall
-GHALL03402,1724,2123,2,Shapiro,HALL,Hall Node 34 Floor 2,Hall
-GHALL03602,1580,2208,2,Shapiro,HALL,Hall Node 36 Floor 2,Hall
-GHALL03702,1692,2211,2,Shapiro,HALL,Hall Node 37 Floor 2,Hall
-GHALL03802,1726,2210,2,Shapiro,HALL,Hall Node 38 Floor 2,Hall
-GINFO01902,1630,1821,2,Shapiro,INFO,Info Node 19 Floor 2,Information Center Shapiro Floor 2
+GHALL03402,1724,2123,2,Shapiro,HALL,Hall edu.wpi.cs3733.d19.teamD.Node 34 Floor 2,Hall
+GHALL03602,1580,2208,2,Shapiro,HALL,Hall edu.wpi.cs3733.d19.teamD.Node 36 Floor 2,Hall
+GHALL03702,1692,2211,2,Shapiro,HALL,Hall edu.wpi.cs3733.d19.teamD.Node 37 Floor 2,Hall
+GHALL03802,1726,2210,2,Shapiro,HALL,Hall edu.wpi.cs3733.d19.teamD.Node 38 Floor 2,Hall
+GINFO01902,1630,1821,2,Shapiro,INFO,Info edu.wpi.cs3733.d19.teamD.Node 19 Floor 2,Information Center Shapiro Floor 2
 GLABS003L2,1729,2089,L2,Shapiro,LABS,Cardiovascular Imaging Center Floor L2,Cardiovascular Imaging Center
 GLABS014L2,1512,1844,L2,Shapiro,LABS,Cardiac Stress Test Lab Floor L2,Cardiac Stress Test Lab
 GLABS015L2,1512,1811,L2,Shapiro,LABS,CVRR Floor L2,CVRR
 GREST004L2,1680,2090,L2,Shapiro,REST,Restroom MapNode 4 Floor L2,Restroom Shapiro L2
-GREST00602,1284,1821,2,Shapiro,REST,Restroom Node 6 Floor 2,Restroom 1 Shapiro Floor 2
+GREST00602,1284,1821,2,Shapiro,REST,Restroom edu.wpi.cs3733.d19.teamD.Node 6 Floor 2,Restroom 1 Shapiro Floor 2
 GREST01201,1671,2015,1,Shapiro,REST,Bathroom MapNode 12 Floor 1,Restroom Shapiro Floor 1
-GREST01203,1628,2052,3,Shapiro,REST,Restroom Node 12 Floor 3,Restroom Shapiro Floor 3
-GREST03102,1628,2092,2,Shapiro,REST,Restroom Node 31 Floor 2,Handicap Accessible Restrooms Shapiro Floor 2
+GREST01203,1628,2052,3,Shapiro,REST,Restroom edu.wpi.cs3733.d19.teamD.Node 12 Floor 3,Restroom Shapiro Floor 3
+GREST03102,1628,2092,2,Shapiro,REST,Restroom edu.wpi.cs3733.d19.teamD.Node 31 Floor 2,Handicap Accessible Restrooms Shapiro Floor 2
 GRETL03501,1284,1884,1,Shapiro,REST,Random Room MapNode 35 Floor 1,Secret Room Floor 1
-GSERV01603,1580,1858,3,Shapiro,SERV,The Porch Node 16 Floor 3,The Porch
+GSERV01603,1580,1858,3,Shapiro,SERV,The Porch edu.wpi.cs3733.d19.teamD.Node 16 Floor 3,The Porch
 GSERV02301,1600,1895,1,Shapiro,SERV,ATM MapNode 23 Floor 1,ATM Floor 1
 GSTAI00501,1707,1992,1,Shapiro,STAI,Stairway MapNode 5 Floor 1,Northbound Stairs Floor 2
 GSTAI008L1,1720,2131,L1,Shapiro,STAI,Stairs MapNode 8 Floor L1,L1 Stairs
-GSTAI00903,1685,2052,3,Shapiro,STAI,Staircase Node 9 Floor 3,Floor 3 Stairs 
+GSTAI00903,1685,2052,3,Shapiro,STAI,Staircase edu.wpi.cs3733.d19.teamD.Node 9 Floor 3,Floor 3 Stairs
 GSTAI01301,1750,2014,1,Shapiro,STAI,Staircase MapNode 13 Floor 1,Southbound Stairs Floor 1
-GSTAI02602,1686,1931,2,Shapiro,STAI,Stairs Node 26 Floor 2,Floor 2 Stairs Upper
-GSTAI02802,1685,2041,2,Shapiro,STAI,Stairs Node 28 Floor 2,Floor 2 Stairs Lower
+GSTAI02602,1686,1931,2,Shapiro,STAI,Stairs edu.wpi.cs3733.d19.teamD.Node 26 Floor 2,Floor 2 Stairs Upper
+GSTAI02802,1685,2041,2,Shapiro,STAI,Stairs edu.wpi.cs3733.d19.teamD.Node 28 Floor 2,Floor 2 Stairs Lower
 HBATH00102,1605,1008,2,Tower,REST,Bathroom 1 Tower Floor 2,Bathroom 0102
 HBATH00103,1785,830,3,Tower,REST,Bathroom 1 Tower Floor 3,Bathroom 0103
 HBATH00203,1750,985,3,Tower,REST,Bathroom 2 Tower Floor 3,Bathroom 0203
@@ -531,27 +531,27 @@ IDEPT00603,2333,764,3,45 Francis,DEPT,Maternal Fetal Practice,D6
 IDEPT00703,2400,764,3,45 Francis,DEPT,Obstetrics,D7
 IDEPT00803,2492,887,3,45 Francis,DEPT,Fetal Med & Genetics,D8
 IDEPT00903,2631,851,3,45 Francis,DEPT,Gynecology,D9
-IHALL00103,2255,1290,3,45 Francis,HALL,Hallway Node 1,H1
-IHALL00203,2323,1290,3,45 Francis,HALL,Hallway Node 2,H2
-IHALL00303,2448,1290,3,45 Francis,HALL,Hallway Node 3,H3
-IHALL00403,2570,1290,3,45 Francis,HALL,Hallway Node 4,H4
-IHALL00503,2730,1290,3,45 Francis,HALL,Hallway Node 5,H5
-IHALL00603,2772,1290,3,45 Francis,HALL,Hallway Node 6,H6
-IHALL00703,2772,1227,3,45 Francis,HALL,Hallway Node 7,H7
-IHALL00803,2772,1147,3,45 Francis,HALL,Hallway Node 8,H8
-IHALL00903,2649,1075,3,45 Francis,HALL,Hallway Node 9,H9
-IHALL01003,2772,1075,3,45 Francis,HALL,Hallway Node 10,H10
-IHALL01103,2922,1075,3,45 Francis,HALL,Hallway Node 11,H11
-IHALL01203,2220,1034,3,45 Francis,HALL,Hallway Node 12,H12
-IHALL01303,2323,1034,3,45 Francis,HALL,Hallway Node 13,H13
-IHALL01403,2323,993,3,45 Francis,HALL,Hallway Node 14,H14
-IHALL01503,2220,944,3,45 Francis,HALL,Hallway Node 15,H15
-IHALL01603,2252,851,3,45 Francis,HALL,Hallway Node 16,H16
-IHALL01703,2323,851,3,45 Francis,HALL,Hallway Node 17,H17
-IHALL01803,2362,851,3,45 Francis,HALL,Hallway Node 18,H18
-IHALL01903,2492,851,3,45 Francis,HALL,Hallway Node 19,H19
-IHALL02003,2597,851,3,45 Francis,HALL,Hallway Node 20,H20
-IHALL02203,2362,764,3,45 Francis,HALL,Hallway Node 22,H22
+IHALL00103,2255,1290,3,45 Francis,HALL,Hallway edu.wpi.cs3733.d19.teamD.Node 1,H1
+IHALL00203,2323,1290,3,45 Francis,HALL,Hallway edu.wpi.cs3733.d19.teamD.Node 2,H2
+IHALL00303,2448,1290,3,45 Francis,HALL,Hallway edu.wpi.cs3733.d19.teamD.Node 3,H3
+IHALL00403,2570,1290,3,45 Francis,HALL,Hallway edu.wpi.cs3733.d19.teamD.Node 4,H4
+IHALL00503,2730,1290,3,45 Francis,HALL,Hallway edu.wpi.cs3733.d19.teamD.Node 5,H5
+IHALL00603,2772,1290,3,45 Francis,HALL,Hallway edu.wpi.cs3733.d19.teamD.Node 6,H6
+IHALL00703,2772,1227,3,45 Francis,HALL,Hallway edu.wpi.cs3733.d19.teamD.Node 7,H7
+IHALL00803,2772,1147,3,45 Francis,HALL,Hallway edu.wpi.cs3733.d19.teamD.Node 8,H8
+IHALL00903,2649,1075,3,45 Francis,HALL,Hallway edu.wpi.cs3733.d19.teamD.Node 9,H9
+IHALL01003,2772,1075,3,45 Francis,HALL,Hallway edu.wpi.cs3733.d19.teamD.Node 10,H10
+IHALL01103,2922,1075,3,45 Francis,HALL,Hallway edu.wpi.cs3733.d19.teamD.Node 11,H11
+IHALL01203,2220,1034,3,45 Francis,HALL,Hallway edu.wpi.cs3733.d19.teamD.Node 12,H12
+IHALL01303,2323,1034,3,45 Francis,HALL,Hallway edu.wpi.cs3733.d19.teamD.Node 13,H13
+IHALL01403,2323,993,3,45 Francis,HALL,Hallway edu.wpi.cs3733.d19.teamD.Node 14,H14
+IHALL01503,2220,944,3,45 Francis,HALL,Hallway edu.wpi.cs3733.d19.teamD.Node 15,H15
+IHALL01603,2252,851,3,45 Francis,HALL,Hallway edu.wpi.cs3733.d19.teamD.Node 16,H16
+IHALL01703,2323,851,3,45 Francis,HALL,Hallway edu.wpi.cs3733.d19.teamD.Node 17,H17
+IHALL01803,2362,851,3,45 Francis,HALL,Hallway edu.wpi.cs3733.d19.teamD.Node 18,H18
+IHALL01903,2492,851,3,45 Francis,HALL,Hallway edu.wpi.cs3733.d19.teamD.Node 19,H19
+IHALL02003,2597,851,3,45 Francis,HALL,Hallway edu.wpi.cs3733.d19.teamD.Node 20,H20
+IHALL02203,2362,764,3,45 Francis,HALL,Hallway edu.wpi.cs3733.d19.teamD.Node 22,H22
 IREST00103,2255,1255,3,45 Francis,REST,Restroom 1 - Family,R1
 IREST00203,2570,1257,3,45 Francis,REST,Restroom 2,R2
 IREST00303,2745,1147,3,45 Francis,REST,Restroom 3,R3

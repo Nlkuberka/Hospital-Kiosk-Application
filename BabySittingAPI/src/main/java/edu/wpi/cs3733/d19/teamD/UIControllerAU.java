@@ -1,3 +1,5 @@
+package edu.wpi.cs3733.d19.teamD;
+
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextField;
 import javafx.fxml.FXML;
