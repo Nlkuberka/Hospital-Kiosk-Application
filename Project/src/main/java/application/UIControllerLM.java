@@ -178,7 +178,10 @@ public class UIControllerLM extends UIController {
                         userID.clear();
                         DBController.closeConnection(conn);
                     }else{
-                        // Jon check if u is user
+                        if(u.getPermissions() != User.BASIC_PERMISSIONS) {
+                            this.popupMessage("Incorrect permissions", true);
+                            return;
+                        }
                         CurrentUser.user = u;
                         this.goToScene(UIController.PATHFINDING_MAIN);
                     }
@@ -219,7 +222,10 @@ public class UIControllerLM extends UIController {
                         adminID.clear();
                         DBController.closeConnection(conn);
                     }else{
-                        // Jon check if u is admin
+                        if(u.getPermissions() != User.ADMIN_PERMISSIONS) {
+                            this.popupMessage("Incorrect permissions", true);
+                            return;
+                        }
                        CurrentUser.user = u;
                        this.goToScene(UIController.ADMIN_MAIN_MENU_MAIN);
                     }
