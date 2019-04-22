@@ -48,7 +48,7 @@ public class UIControllerPFM extends UIController {
 
     @FXML
     private AnchorPane topAnchorPane;
-    @FXML private Path pathLL2, pathLL1, pathG, path1, path2, path3;
+    @FXML private Path pathLL2, pathLL1, pathG, path1, path2, path3, path4;
     @FXML private JFXTabPane mapTabPane;
     @FXML private Menu homeMenu;
 
@@ -67,6 +67,7 @@ public class UIControllerPFM extends UIController {
     @FXML private GesturePane firstFloorGesturePane;
     @FXML private GesturePane secondFloorGesturePane;
     @FXML private GesturePane thirdFloorGesturePane;
+    @FXML private GesturePane fourthFloorGesturePane;
 
     @FXML private AnchorPane lowerLevel2AnchorPane;
     @FXML private AnchorPane lowerLevel1AnchorPane;
@@ -74,6 +75,7 @@ public class UIControllerPFM extends UIController {
     @FXML private AnchorPane firstFloorAnchorPane;
     @FXML private AnchorPane secondFloorAnchorPane;
     @FXML private AnchorPane thirdFloorAnchorPane;
+    @FXML private AnchorPane fourthFloorAnchorPane;
 
     @FXML private JFXButton reservationButton;
     @FXML private JFXButton resolveRequestButton;
@@ -105,7 +107,7 @@ public class UIControllerPFM extends UIController {
                 (ov, t, t1) -> {
                     currentObjects.clearAnimation();
                     GesturePane oldPane = currentObjects.getCurrentGesturePane();
-                    currentObjects.setFloorIndex(Floors.getByName(t1.getText()).getIndex());
+                    currentObjects.setFloorIndex(Floors.getByID(t1.getId()).getIndex());
                     GesturePane pane = currentObjects.getCurrentGesturePane();
                     pane.centreOn(oldPane.targetPointAtViewportCentre());
                     gesturePaneHandler.changeTabs(pane, oldPane);
@@ -116,13 +118,14 @@ public class UIControllerPFM extends UIController {
                 }
         );
 
-        pathHandler = new PathHandler(pathLL2, pathLL1, pathG, path1, path2, path3, primaryStage);
+        pathHandler = new PathHandler(pathLL2, pathLL1, pathG, path1, path2, path3, path4, primaryStage);
 
         gesturePaneHandler = new GesturePaneHandler(lowerLevel2GesturePane, lowerLevel1GesturePane,
-                groundFloorGesturePane, firstFloorGesturePane, secondFloorGesturePane, thirdFloorGesturePane);
+                groundFloorGesturePane, firstFloorGesturePane, secondFloorGesturePane, thirdFloorGesturePane,
+                fourthFloorGesturePane);
 
         anchorPaneHandler = new AnchorPaneHandler(lowerLevel2AnchorPane, lowerLevel1AnchorPane,
-                groundFloorAnchorPane, firstFloorAnchorPane, secondFloorAnchorPane, thirdFloorAnchorPane,
+                groundFloorAnchorPane, firstFloorAnchorPane, secondFloorAnchorPane, thirdFloorAnchorPane, fourthFloorAnchorPane,
                 topAnchorPane, this);
 
         currentObjects = new CurrentObjects(0, null, null, null, null,
@@ -132,6 +135,8 @@ public class UIControllerPFM extends UIController {
         gesturePaneHandler.setCurrentObjects(currentObjects);
 
         directionsRequest.setDisable(true);
+
+        mapTabPane.getSelectionModel().select(4); // sets default to ground floor
     }
 
     /**
@@ -152,6 +157,7 @@ public class UIControllerPFM extends UIController {
         roomsAtEachFloor.add(DBControllerNE.generateListOfNodes(conn, DBControllerNE.ALL_ROOMS_FLOOR_1));
         roomsAtEachFloor.add(DBControllerNE.generateListOfNodes(conn, DBControllerNE.ALL_ROOMS_FLOOR_2));
         roomsAtEachFloor.add(DBControllerNE.generateListOfNodes(conn, DBControllerNE.ALL_ROOMS_FLOOR_3));
+        roomsAtEachFloor.add(DBControllerNE.generateListOfNodes(conn, DBControllerNE.ALL_ROOMS_FLOOR_4));
 
         DBController.closeConnection(conn);
 

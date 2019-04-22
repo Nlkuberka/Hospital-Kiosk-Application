@@ -91,6 +91,16 @@
                                 </AnchorPane>
                             </GesturePane>
                         </Tab>
+                        <Tab id="4" text="Fourth Floor">
+                            <GesturePane fx:id="fourthFloorGesturePane">
+                                <AnchorPane fx:id="fourthFloorAnchorPane">
+                                    <ImageView fx:id="fourthFloorImageView" onMouseClicked="#addNodeOnClick"
+                                               pickOnBounds="true" preserveRatio="true">
+                                        <Image url="@../maps/04_theforthfloor.png"/>
+                                    </ImageView>
+                                </AnchorPane>
+                            </GesturePane>
+                        </Tab>
                     </JFXTabPane>
                     <AnchorPane translateX="10" translateY="35" maxHeight="-Infinity" maxWidth="-Infinity"
                                 minHeight="-Infinity" minWidth="-Infinity" prefHeight="150.0" prefWidth="50.0"
