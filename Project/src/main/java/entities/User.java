@@ -16,6 +16,7 @@ public class User {
     private String username;
     private String password;
     private int permissions;
+    private String wpiid;
 
     public User() {
     }
@@ -31,6 +32,13 @@ public class User {
         this.userID = userID;
         this.username = username;
         this.permissions = permissions;
+    }
+
+    public User(String userID, String username, int permissions,String wpiid) {
+        this.userID = userID;
+        this.username = username;
+        this.permissions = permissions;
+        this.wpiid = wpiid;
     }
 
     public String getUserID() {

@@ -60,10 +60,10 @@ public class DBController {
                 "  PERMISSION SMALLINT,\n" +
                 "  USERNAME VARCHAR(15),\n" +
                 "  PASSWORD VARCHAR(15),\n" +
-                "  WPIID VARCHAR(9)\n" +
+                "  WPIID VARCHAR(11),\n" +
                 "  CONSTRAINT USER_PK PRIMARY KEY(USERID),\n" +
                 "  CONSTRAINT UN_UN UNIQUE (USERNAME),\n" +
-                "  CONSTRAINT WPI_UN UNIQUE (WPIID)" +
+                "  CONSTRAINT WPI_UN UNIQUE (WPIID)\n" +
                 ")\n";
         String servicerequest = "CREATE TABLE SERVICEREQUEST(\n" +
                 "  SERVICEID INTEGER GENERATED ALWAYS AS IDENTITY, \n" +
@@ -93,7 +93,7 @@ public class DBController {
                 ")\n";
 
 
-
+        System.out.println(user);
         createTable(nodes,conn);
         createTable(edges,conn);
         createTable(user,conn);
@@ -118,6 +118,17 @@ public class DBController {
 
 
         DBControllerU.loadTeam(conn);
+
+        DBControllerU.teamID("TM0001","11349566301",conn);//jon
+        DBControllerU.teamID("TM0002","78200284901",conn);//joe
+        DBControllerU.teamID("TM0003","11595001701",conn);//ryan
+//        DBControllerU.teamID("TM0004","67296274501",conn);//shiyi
+//        DBControllerU.teamID("TM0005","67296274501",conn);//nicole
+//        DBControllerU.teamID("TM0006","67296274501",conn);//dimitri
+//        DBControllerU.teamID("TM0007","67296274501",conn);//Rakesh
+        DBControllerU.teamID("TM0008","40179988401",conn);//henry
+//        DBControllerU.teamID("TM0009","67296274501",conn);//panos
+        DBControllerU.teamID("TM0010","67296274501",conn);//isabel
     }
 
     /**

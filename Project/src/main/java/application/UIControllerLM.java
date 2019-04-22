@@ -109,8 +109,7 @@ public class UIControllerLM extends UIController {
      */
     @FXML
     public void initialize() {
-        userID.setVisible(false);
-        adminID.setVisible(false);
+
 
 
         tabs.getSelectionModel().selectedItemProperty().addListener(param -> {
@@ -122,15 +121,6 @@ public class UIControllerLM extends UIController {
         tabs.setPrefWidth(primaryStage.getWidth());
         tabs.setPrefHeight(primaryStage.getHeight());
 
-        userUsernameTextField.setOnKeyPressed(new EventHandler<KeyEvent>() {
-
-            @Override
-            public void handle(KeyEvent event) {
-                if(event.getCode().equals(KeyCode.ENTER)) {
-                    System.out.println(userUsernameTextField.getText());
-                }
-            }
-        });
     }
 
     /**
@@ -145,6 +135,9 @@ public class UIControllerLM extends UIController {
         adminUsernameTextField.setText("");
         adminPasswordTextField.setText("");
     }
+
+
+
 
 
     /**
@@ -188,6 +181,37 @@ public class UIControllerLM extends UIController {
                 userID.requestFocus();
             }
         });
+        userID.setOnKeyPressed(event -> {
+            if(event.getCode() == KeyCode.ENTER){
+                System.out.println(userID.getText());
+                if (userID.getText().length()>25) {
+                    String ID = userID.getText().substring(1,12);
+                    Connection conn = DBController.dbConnect();
+                    User u = DBControllerU.loginWithID(ID, conn);
+                    if (u == null){
+                        this.popupMessage("Card not recognized",true);
+                        userID.clear();
+                        DBController.closeConnection(conn);
+                    }else{
+                        // Jon check if u is user
+                        CurrentUser.user = u;
+                        this.goToScene(UIController.ADMIN_MAIN_MENU_MAIN);
+                    }
+
+                }
+            }
+        });
+    }
+
+
+    @FXML
+    private void setToUserID() {
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                userID.requestFocus();
+            }
+        });
     }
 
     @FXML
@@ -198,7 +222,38 @@ public class UIControllerLM extends UIController {
                 adminID.requestFocus();
             }
         });
+        adminID.setOnKeyPressed(event -> {
+            if(event.getCode() == KeyCode.ENTER) {
+                System.out.println(adminID.getText());
+                if (adminID.getText().length()>25) {
+                    String ID = adminID.getText().substring(1,12);
+                    Connection conn = DBController.dbConnect();
+                    User u = DBControllerU.loginWithID(ID, conn);
+                    if (u == null){
+                        this.popupMessage("Card not recognized",true);
+                        adminID.clear();
+                        DBController.closeConnection(conn);
+                    }else{
+                        // Jon check if u is admin
+                       CurrentUser.user = u;
+                       this.goToScene(UIController.ADMIN_MAIN_MENU_MAIN);
+                    }
+
+                }
+            }
+        });
     }
+
+    @FXML
+    private void setToAdminID() {
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                adminID.requestFocus();
+            }
+        });
+    }
+
 
 
     @FXML

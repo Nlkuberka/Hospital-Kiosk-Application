@@ -35,19 +35,20 @@ public class DBControllerU extends DBController {
     }
 
     public static User loginWithID(String ID, Connection conn){
-        User currentUser = null;
+        User u = null;
         try{
             PreparedStatement ps = conn.prepareStatement("SELECT * from USERS where WPIID = ?");
             ps.setString(1,ID);
             ResultSet rs = ps.executeQuery();
             while (rs.next()){
-                currentUser =  new User(rs.getString("USERID"),rs.getString("USERNAME"),rs.getInt("PERMISSION"));
+                u =  new User(rs.getString("USERID"),rs.getString("USERNAME"),rs.getInt("PERMISSION"));
+                System.out.println("h");
             }
         }catch(SQLException e){
             e.printStackTrace();
         }
 
-        return currentUser;
+        return u;
     }
 
     public static User getGuestUser(Connection conn){
@@ -113,7 +114,7 @@ public class DBControllerU extends DBController {
             PreparedStatement s = conn.prepareStatement("insert into USERS (userid, permission, username, password) \n" +
                     "values ('"+ user.getUserID() +"',"+ user.getPermissionsNumber()+",'"+user.getUsername()+"','"+Encryptor.encrypt(user.getPassword())+"')");
             s.execute();
-            CurrentUser.network.sendUserPacket(DBNetwork.ADD_USER, user);
+//            CurrentUser.network.sendUserPacket(DBNetwork.ADD_USER, user);
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -131,6 +132,17 @@ public class DBControllerU extends DBController {
         }catch(SQLException e){
             e.printStackTrace();
         }
+    }
+
+    public static void teamID(String userID, String wpiID, Connection conn){
+       try {
+           PreparedStatement ps = conn.prepareStatement("update USERS set WPIID = ? where USERID = ?");
+           ps.setString(1,wpiID);
+           ps.setString(2,userID);
+           ps.execute();
+       }catch (SQLException e){
+           e.printStackTrace();
+       }
     }
 
     public static void loadTeam(Connection conn){
