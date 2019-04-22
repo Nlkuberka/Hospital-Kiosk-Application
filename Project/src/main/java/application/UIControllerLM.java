@@ -7,6 +7,8 @@ import entities.User;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTabPane;
 
+import javafx.application.Platform;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Tab;
 
@@ -14,14 +16,17 @@ import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;
 import javafx.scene.control.TabPane;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.BorderPane;
 
 import java.sql.Connection;
+import java.util.Scanner;
 
 /**
  * The UIController for the Login screen
  * Allows a user to login, for admins to login, or for guests to enter
- * @author Jonathan Chang
+ * @author Jonathan Chang, imoralessirgo
  * @version iteration1
  */
 public class UIControllerLM extends UIController {
@@ -30,13 +35,18 @@ public class UIControllerLM extends UIController {
     private ImageView backgroundImage;
     @FXML
     private JFXTabPane tabs;
-
+    @FXML
+    private JFXButton swipeUser;
+    @FXML
+    private JFXButton swipeAdmin;
     @FXML
     private Tab user_tab;
-
+    @FXML
+    private JFXTextField userID;
+    @FXML
+    private JFXTextField adminID;
     @FXML
     private Tab admin_tab;
-
     @FXML
     private Tab guest_tab;
 
@@ -82,9 +92,6 @@ public class UIControllerLM extends UIController {
     @FXML
     private JFXButton beginButton;
 
-
-
-
     public UIControllerLM() {
 
     }
@@ -102,6 +109,7 @@ public class UIControllerLM extends UIController {
         borderPane.setPrefHeight(primaryStage.getHeight());
         tabs.setPrefWidth(primaryStage.getWidth());
         tabs.setPrefHeight(primaryStage.getHeight());
+
     }
 
     /**
@@ -109,6 +117,8 @@ public class UIControllerLM extends UIController {
      */
     @Override
     public void onShow() {
+        userID.setText("");
+        adminID.setText("");
         userUsernameTextField.setText("");
         userPasswordTextField.setText("");
         adminUsernameTextField.setText("");
@@ -117,7 +127,6 @@ public class UIControllerLM extends UIController {
         CurrentUser.user = DBControllerU.getGuestUser(conn);
         DBController.closeConnection(conn);
     }
-
 
     /**
      * Goes to the User Main Menu
@@ -151,6 +160,95 @@ public class UIControllerLM extends UIController {
 
         this.goToScene(UIController.ADMIN_MAIN_MENU_MAIN);
     }
+
+    @FXML
+    private void setUserTab() {
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                userID.requestFocus();
+            }
+        });
+        userID.setOnKeyPressed(event -> {
+            if(event.getCode() == KeyCode.ENTER){
+                System.out.println(userID.getText());
+                if (userID.getText().length()>25) {
+                    String ID = userID.getText().substring(1,12);
+                    Connection conn = DBController.dbConnect();
+                    User u = DBControllerU.loginWithID(ID, conn);
+                    if (u == null){
+                        this.popupMessage("Card not recognized",true);
+                        userID.clear();
+                        DBController.closeConnection(conn);
+                    }else{
+                        if(u.getPermissions() != User.BASIC_PERMISSIONS) {
+                            this.popupMessage("Incorrect permissions", true);
+                            return;
+                        }
+                        CurrentUser.user = u;
+                        this.goToScene(UIController.PATHFINDING_MAIN);
+                    }
+
+                }
+            }
+        });
+    }
+
+
+    @FXML
+    private void setToUserID() {
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                userID.requestFocus();
+            }
+        });
+    }
+
+    @FXML
+    private void setAdminTab() {
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                adminID.requestFocus();
+            }
+        });
+        adminID.setOnKeyPressed(event -> {
+            if(event.getCode() == KeyCode.ENTER) {
+                System.out.println(adminID.getText());
+                if (adminID.getText().length()>25) {
+                    String ID = adminID.getText().substring(1,12);
+                    Connection conn = DBController.dbConnect();
+                    User u = DBControllerU.loginWithID(ID, conn);
+                    if (u == null){
+                        this.popupMessage("Card not recognized",true);
+                        adminID.clear();
+                        DBController.closeConnection(conn);
+                    }else{
+                        if(u.getPermissions() != User.ADMIN_PERMISSIONS) {
+                            this.popupMessage("Incorrect permissions", true);
+                            return;
+                        }
+                       CurrentUser.user = u;
+                       this.goToScene(UIController.ADMIN_MAIN_MENU_MAIN);
+                    }
+
+                }
+            }
+        });
+    }
+
+    @FXML
+    private void setToAdminID() {
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                adminID.requestFocus();
+            }
+        });
+    }
+
+
 
     @FXML
     private void goToUserTab() {
