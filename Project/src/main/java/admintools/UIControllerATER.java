@@ -86,7 +86,7 @@ public class UIControllerATER extends UIController {
             ResultSet rs = conn.createStatement().executeQuery("Select * from RESERVATIONS WHERE 1=1");
             while (rs.next()) {
                 rsvData.add(new Reservation(rs.getString(2), rs.getString(3), rs.getString(4),
-                        rs.getString(5), rs.getString(6), rs.getInt(1)));
+                        rs.getString(5), rs.getString(6), rs.getString(1)));
             }
         } catch (SQLException e) {
             e.printStackTrace();

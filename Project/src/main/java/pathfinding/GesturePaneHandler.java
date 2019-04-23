@@ -4,12 +4,7 @@ import javafx.animation.Interpolator;
 import javafx.animation.PathTransition;
 import javafx.geometry.Dimension2D;
 import javafx.geometry.Point2D;
-import javafx.scene.control.Tab;
 import javafx.scene.input.MouseButton;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Path;
-import javafx.scene.shape.Rectangle;
 import javafx.util.Duration;
 import net.kurobako.gesturefx.GesturePane;
 
@@ -18,11 +13,11 @@ import java.util.List;
 
 public class GesturePaneHandler {
     private List<GesturePane> gesturePanes;
-    static final Duration DURATION = Duration.millis(300);
+    static final Duration DURATION = Duration.millis(400);
     private CurrentObjects currentObjects;
 
     public GesturePaneHandler(GesturePane p1, GesturePane p2, GesturePane p3, GesturePane p4,
-            GesturePane p5, GesturePane p6) {
+            GesturePane p5, GesturePane p6, GesturePane p7) {
         this.gesturePanes = new LinkedList<>();
         gesturePanes.add(p1);
         gesturePanes.add(p2);
@@ -30,6 +25,7 @@ public class GesturePaneHandler {
         gesturePanes.add(p4);
         gesturePanes.add(p5);
         gesturePanes.add(p6);
+        gesturePanes.add(p7);
 
         setupGesturePanes();
     }
@@ -52,7 +48,7 @@ public class GesturePaneHandler {
         for(int i = 0; i < this.gesturePanes.size(); i++) {
             GesturePane pane = this.gesturePanes.get(i);
             pane.setMaxScale(1.5);
-            pane.setMinScale(0.1);
+            pane.setMinScale(0.01);
             pane.setScrollBarEnabled(true);
             pane.setHBarEnabled(true);
         }
@@ -114,11 +110,11 @@ public class GesturePaneHandler {
         PathTransition pathTransition = new PathTransition();
 
         //Setting the duration of the path transition
-        pathTransition.setDuration(Duration.seconds(3));
+        pathTransition.setDuration(Duration.seconds(5));
 
         //Setting the node for the transition
-        currentObjects.setAnt(new Rectangle(55, 20));
-        currentObjects.getAnt().setFill(Color.LIGHTGREEN);
+        currentObjects.setAnt();
+        //currentObjects.getAnt().setFill(Color.LIGHTGREEN);
         currentObjects.getCurrentAnchorPane().getChildren().add(currentObjects.getAnt());
         pathTransition.setNode(currentObjects.getAnt());
 
@@ -126,7 +122,7 @@ public class GesturePaneHandler {
         pathTransition.setPath(currentObjects.getCurrentPath());
 
         //Setting the orientation of the path
-        pathTransition.setOrientation(PathTransition.OrientationType.ORTHOGONAL_TO_TANGENT);
+        pathTransition.setOrientation(PathTransition.OrientationType.NONE);
 
         //Setting auto reverse value to false
         pathTransition.setAutoReverse(false);
@@ -144,38 +140,37 @@ public class GesturePaneHandler {
         currentObjects.setAnimation(pathTransition);
     }
 
-    void centerOnInitialNode(PathHandler pathHandler, GesturePane pane) {
+    void centerOnInitialNode(PathHandler pathHandler, GesturePane pane, int floor) {
         // center on initial node
-        List<Point2D> extremaMinMax = pathHandler.getPathExtremaOnInitFloor(); // get extrema
+        List<Point2D> extremaMinMax = pathHandler.getPathExtremaOnFloor(floor); // get extrema
         double centerX = (extremaMinMax.get(0).getX() + extremaMinMax.get(1).getX()) / 2; // find average
         double centerY = (extremaMinMax.get(0).getY() + extremaMinMax.get(1).getY()) / 2;
 
         double ySpan = extremaMinMax.get(1).getY() - extremaMinMax.get(0).getY();
-        ySpan = map(ySpan, 0, 3400, pane.getMaxScale(), pane.getMinScale());
+        double xSpan = extremaMinMax.get(1).getX() - extremaMinMax.get(0).getX();
+
+        double buffer = pane.getViewportWidth() * 0.2;
+
+        double ySf = calcScaleFactor(pane.getViewportHeight(), ySpan, buffer);
+        double xSf = calcScaleFactor(pane.getViewportWidth(), xSpan, buffer);
+
+        double sf = ySf < xSf ? ySf : xSf; // get min sf so it fits
 
         Point2D center = new Point2D(centerX, centerY); // animate to that point
-//        pane.animate(DURATION)
-//                .interpolateWith(Interpolator.EASE_BOTH)
-//                .zoomTo(ySpan / 2.0,  center);
-
-//        pane.centreOn(center);
 
         pane.animate(DURATION)
                 .interpolateWith(Interpolator.EASE_BOTH)
+                .afterFinished(() -> pane.animate(DURATION)
+                        .interpolateWith(Interpolator.EASE_BOTH)
+                        .zoomTo(sf, center))
                 .centreOn(center);
+
+
+
     }
 
-    /**
-     * Linearly map a variable from one range to another
-     * @param x
-     * @param in_min
-     * @param in_max
-     * @param out_min
-     * @param out_max
-     * @return
-     */
-    private double map(double x, double in_min, double in_max, double out_min, double out_max) {
-        return (x - in_min) * (out_max - out_min) / (in_max - in_min) + out_min;
+    private double calcScaleFactor(double viewPort, double yield, double buffer) {
+        return viewPort / (yield + buffer);
     }
 
     public void setPaning(boolean value) {

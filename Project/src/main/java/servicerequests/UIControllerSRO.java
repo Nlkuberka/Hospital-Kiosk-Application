@@ -18,6 +18,7 @@ import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Menu;
 import javafx.scene.control.TextFormatter;
 import javafx.scene.image.ImageView;
+import javafx.stage.Stage;
 import org.controlsfx.control.textfield.TextFields;
 
 import java.io.BufferedReader;
@@ -31,9 +32,6 @@ import java.util.*;
  * @version iteration2
  */
 public class UIControllerSRO extends UIController {
-    @FXML
-    private ImageView backgroundImage;
-
     private RoomCategoryFilterHelper filterHelper;
 
     @FXML
@@ -56,8 +54,6 @@ public class UIControllerSRO extends UIController {
      */
     @FXML
     public void initialize() {
-        backgroundImage.fitWidthProperty().bind(primaryStage.widthProperty());
-
         serviceMessage.setTextFormatter(new TextFormatter<String>(e ->
                 e.getControlNewText().length() <= 50 ? e : null
         ));
@@ -85,10 +81,12 @@ public class UIControllerSRO extends UIController {
         String message = nameTextField.getText() + " requests " +serviceTypeTextField.getText() + " at " + filterHelper.getLongName() + " : " + serviceMessage.getText();
 
         ServiceRequest sr = new ServiceRequest(nodeID, "Other", message, CurrentUser.user.getUserID(), false, null);
+        sr.setServiceID(sr.getTimeStamp());
+
         Connection conn = DBControllerSR.dbConnect();
         DBControllerSR.addServiceRequest(sr,conn);
         DBControllerSR.closeConnection(conn);
-        this.goToScene(UIController.PATHFINDING_MAIN);
+        setCancelButton();
     }
 
     /**
@@ -96,6 +94,7 @@ public class UIControllerSRO extends UIController {
      */
     @FXML
     private void setCancelButton() {
-        this.goToScene(UIController.PATHFINDING_MAIN);
+        Stage stage = (Stage) roomSelect.getScene().getWindow();
+        stage.close();
     }
 }

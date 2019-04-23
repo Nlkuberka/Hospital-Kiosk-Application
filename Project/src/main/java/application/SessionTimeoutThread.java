@@ -5,7 +5,7 @@ import javafx.application.Platform;
 import java.time.Clock;
 
 public class SessionTimeoutThread extends Thread{
-    public long timeout = 30 * 1000;    // the time, in milliseconds, the application will wait for the user to do some action before logging them out
+    public static long timeout = 30 * 1000;
     public String currentSceneString;
     public UIController currentUIController;
 

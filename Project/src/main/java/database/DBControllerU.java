@@ -34,6 +34,22 @@ public class DBControllerU extends DBController {
         }
     }
 
+    public static User loginWithID(String ID, Connection conn){
+        User u = null;
+        try{
+            PreparedStatement ps = conn.prepareStatement("SELECT * from USERS where WPIID = ?");
+            ps.setString(1,ID);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()){
+                u =  new User(rs.getString("USERID"),rs.getString("USERNAME"),rs.getInt("PERMISSION"));
+            }
+        }catch(SQLException e){
+            e.printStackTrace();
+        }
+
+        return u;
+    }
+
     public static User getGuestUser(Connection conn){
         User guestUser;
         try {
@@ -117,6 +133,17 @@ public class DBControllerU extends DBController {
         }catch(SQLException e){
             e.printStackTrace();
         }
+    }
+
+    public static void teamID(String userID, String wpiID, Connection conn){
+       try {
+           PreparedStatement ps = conn.prepareStatement("update USERS set WPIID = ? where USERID = ?");
+           ps.setString(1,wpiID);
+           ps.setString(2,userID);
+           ps.execute();
+       }catch (SQLException e){
+           e.printStackTrace();
+       }
     }
 
     public static void loadTeam(Connection conn){

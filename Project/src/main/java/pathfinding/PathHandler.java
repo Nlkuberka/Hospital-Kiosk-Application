@@ -16,13 +16,14 @@ public class PathHandler {
     private Node latestStartingNode;
     private Stage primaryStage;
 
-    public PathHandler(Path p1, Path p2, Path p3, Path p4, Path p5, Path p6, Stage stage) {
+    public PathHandler(Path p1, Path p2, Path p3, Path p4, Path p5, Path p6, Path p7, Stage stage) {
         this.pathList.add(p1);
         this.pathList.add(p2);
         this.pathList.add(p3);
         this.pathList.add(p4);
         this.pathList.add(p5);
         this.pathList.add(p6);
+        this.pathList.add(p7);
         this.primaryStage = stage;
 
         // set stroke width
@@ -126,10 +127,9 @@ public class PathHandler {
         return new Point2D(latestStartingNode.getXcoord(), latestStartingNode.getYcoord());
     }
 
-    List<Point2D> getPathExtremaOnInitFloor() {
+    List<Point2D> getPathExtremaOnFloor(int floorIndex) {
         double minX = 6000, maxX = 0, minY = 6000, maxY = 0;
-        int currentFloorIndex = Floors.getByID(this.latestStartingNode.getFloor()).getIndex();
-        List<List<Node>> list = this.latestPath.get(currentFloorIndex);
+        List<List<Node>> list = this.latestPath.get(floorIndex);
         for (List<Node> nodeList : list) {
             for (Node node : nodeList) {
                 double nodeX = node.getXcoord();

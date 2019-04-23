@@ -60,11 +60,12 @@ public class UIController {
     public static final String ADMIN_TOOLS_APPLICATION_SETTING = "ATAS";
 
 //    public static final String SERVICE_REQUEST_BASE = "SRB";
-    public static final String SERVICE_REQUEST_PRESCRIPTION_SERVICES_MAIN = "SRPSM";
+    public static final String SERVICE_REQUEST_OTHER_MAIN = "SRO";
     public static final String SERVICE_REQUEST_BABYSITTING = "SRB";
     public static final String SERVICE_REQUEST_FLOWER_DELIVERY = "SRFD";
     public static final String SERVICE_REQUEST_RELIGIOUS_SERVICES = "SRRS";
     public static final String SERVICE_REQUEST_AV_EQUIPMENT = "SRAVE";
+    public static final String SPLASHSCREEN = "SS";
 
     // The starting width and height of the window
     public static final int WIDTH = 1280;
@@ -175,8 +176,8 @@ public class UIController {
         sceneFiles.put(UIController.SERVICE_REQUEST_BABYSITTING, "/servicerequests/service_request_babysitting.fxml");
         sceneTitles.put(UIController.SERVICE_REQUEST_BABYSITTING, "Service Request - Babysitting");
 
-        sceneFiles.put(UIController.SERVICE_REQUEST_PRESCRIPTION_SERVICES_MAIN, "/servicerequests/service_request_other_main.fxml");
-        sceneTitles.put(UIController.SERVICE_REQUEST_PRESCRIPTION_SERVICES_MAIN, "Service Request - Prescription Services");
+        sceneFiles.put(UIController.SERVICE_REQUEST_OTHER_MAIN, "/servicerequests/service_request_other_main.fxml");
+        sceneTitles.put(UIController.SERVICE_REQUEST_OTHER_MAIN, "Service Request - Prescription Services");
 
         sceneFiles.put(UIController.SERVICE_REQUEST_FLOWER_DELIVERY, "/servicerequests/service_request_flower_delivery.fxml");
         sceneTitles.put(UIController.SERVICE_REQUEST_FLOWER_DELIVERY, "Service Request - Flower Delivery");
@@ -205,6 +206,10 @@ public class UIController {
         // Popups
         sceneFiles.put(UIController.POPUP_DIRECTIONS, "/direction_popup.fxml");
         sceneTitles.put(UIController.POPUP_DIRECTIONS, "Popup Window For Directions");
+
+        // SplashScreen
+        sceneFiles.put(SPLASHSCREEN, "/splashScreen.fxml");
+        sceneTitles.put(SPLASHSCREEN, "SplashScreen");
     }
 
     /**

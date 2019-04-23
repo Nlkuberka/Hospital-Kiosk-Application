@@ -9,6 +9,7 @@ import network.DBNetwork;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.sql.*;
 import java.util.LinkedList;
 import java.util.List;
@@ -25,6 +26,7 @@ public class DBControllerNE extends DBController{
     public static final String ALL_NODES_FLOOR_1 = "SELECT * FROM NODES WHERE FLOOR = '1'";
     public static final String ALL_NODES_FLOOR_2 = "SELECT * FROM NODES WHERE FLOOR = '2'";
     public static final String ALL_NODES_FLOOR_3 = "SELECT * FROM NODES WHERE FLOOR = '3'";
+    public static final String ALL_NODES_FLOOR_4 = "SELECT * FROM NODES WHERE FLOOR = '4'";
 
     public static final String ALL_ROOMS = "SELECT * FROM NODES WHERE NODETYPE != 'HALL' and NODETYPE != 'STAI' and NODETYPE != 'ELEV'";
     public static final String ALL_ROOMS_FLOOR_L2 = "SELECT * FROM NODES WHERE FLOOR = 'L2' AND NODETYPE != 'HALL' and NODETYPE != 'STAI' and NODETYPE != 'ELEV'";
@@ -33,6 +35,8 @@ public class DBControllerNE extends DBController{
     public static final String ALL_ROOMS_FLOOR_1 = "SELECT * FROM NODES WHERE FLOOR = '1' AND NODETYPE != 'HALL' and NODETYPE != 'STAI' and NODETYPE != 'ELEV'";
     public static final String ALL_ROOMS_FLOOR_2 = "SELECT * FROM NODES WHERE FLOOR = '2' AND NODETYPE != 'HALL' and NODETYPE != 'STAI' and NODETYPE != 'ELEV'";
     public static final String ALL_ROOMS_FLOOR_3 = "SELECT * FROM NODES WHERE FLOOR = '3' AND NODETYPE != 'HALL' and NODETYPE != 'STAI' and NODETYPE != 'ELEV'";
+    public static final String ALL_ROOMS_FLOOR_4 = "SELECT * FROM NODES WHERE FLOOR = '4' AND NODETYPE != 'HALL' and NODETYPE != 'STAI' and NODETYPE != 'ELEV'";
+
 
     public static final String ALL_BUT_ROOMS_L2 = "SELECT * FROM NODES WHERE FLOOR = 'L2' AND (NODETYPE = 'STAI' OR NODETYPE = 'ELEV')";
     public static final String ALL_BUT_ROOMS_L1 = "SELECT * FROM NODES WHERE FLOOR = 'L1' AND (NODETYPE = 'STAI' OR NODETYPE = 'ELEV')";
@@ -399,7 +403,83 @@ public class DBControllerNE extends DBController{
         return true;
     }
 
+    /**
+     * exportNodes
+     *
+     * selects all content held in Nodes table and prints it to a file
+     * @param filename name of output file
+     */
+    public static void exportNodes(String filename) {
+        Connection connection = null;
+        Statement stmt;
+        String query = "Select * from nodes";
+        try {
+            connection = DriverManager.getConnection("jdbc:derby:myDB");
+            stmt = connection.createStatement();
+            ResultSet rs = stmt.executeQuery(query);
+            File file = new File(filename);
+            FileWriter fw = new FileWriter(filename);
+            fw.write("nodeID, xcoord, ycoord, floor, building, nodeType, longName, shortName \r\n");
+            while(rs.next()) {
+                fw.append(rs.getString(1));
+                fw.append(',');
+                fw.append(rs.getString(2));
+                fw.append(',');
+                fw.append(rs.getString(3));
+                fw.append(',');
+                fw.append(rs.getString(4));
+                fw.append(',');
+                fw.append(rs.getString(5));
+                fw.append(',');
+                fw.append(rs.getString(6));
+                fw.append(',');
+                fw.append(rs.getString(7));
+                fw.append(',');
+                fw.append(rs.getString(8));
+                fw.write("\r\n");
+            }
+            fw.flush();
+            fw.close();
+            connection.close();
+        } catch(Exception e) {
+            e.printStackTrace();
+            stmt = null;
+        }
+    }
 
+    /**
+     * exportEdges
+     *
+     * selects all content held in Edges table and prints it to a file
+     * @param filename name of output file
+     */
+    public static void exportEdges(String filename) {
+        Connection connection = null;
+        Statement stmt;
+        String query = "Select * from EDGES";
+        try {
+            connection = DriverManager.getConnection("jdbc:derby:myDB");
+            stmt = connection.createStatement();
+            ResultSet rs = stmt.executeQuery(query);
+            File file = new File(filename);
+            FileWriter fw = new FileWriter(filename);
+            fw.write("edgeID, startNode, endNode \r\n");
+            while(rs.next()) {
+                fw.append(rs.getString(1));
+                fw.append(',');
+                fw.append(rs.getString(2));
+                fw.append(',');
+                fw.append(rs.getString(3));
+                fw.write("\r\n");
+            }
+            fw.flush();
+            fw.close();
+            connection.close();
+        } catch(Exception e) {
+            e.printStackTrace();
+            stmt = null;
+        }
+    }
 
 }
 
