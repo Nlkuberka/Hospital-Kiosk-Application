@@ -52,7 +52,7 @@
             <RowConstraints minHeight="10.0" percentHeight="7.0" prefHeight="30.0" vgrow="SOMETIMES" />
             <RowConstraints minHeight="10.0" percentHeight="5.0" prefHeight="30.0" vgrow="SOMETIMES" />
             <RowConstraints minHeight="10.0" percentHeight="7.0" vgrow="SOMETIMES" />
-            <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" percentHeight="39.0" vgrow="SOMETIMES" />
             <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
          </rowConstraints>
          <children>
@@ -74,7 +74,7 @@
                   <Font name="System Bold" size="14.0" />
                </font>
                <GridPane.margin>
-                  <Insets bottom="15.0" left="20.0" />
+                  <Insets bottom="10.0" left="20.0" />
                </GridPane.margin>
             </Text>
             <JFXComboBox fx:id="roomSelect" maxWidth="185.0" prefWidth="185.0" style="-fx-background-color: #ffffff;" GridPane.rowIndex="5">
@@ -103,7 +103,7 @@
                   <Font name="System Bold" size="15.0" />
                </font>
             </Label>
-            <JFXTextArea fx:id="serviceMessage1" accessibleRole="TEXT_AREA" maxWidth="185.0" prefHeight="200.0" prefWidth="185.0" style="-fx-background-color: #ffffff;" GridPane.rowIndex="9">
+            <JFXTextArea fx:id="serviceMessage1" accessibleRole="TEXT_AREA" maxHeight="220.0" maxWidth="185.0" prefHeight="180.0" prefWidth="185.0" style="-fx-background-color: #ffffff;" GridPane.rowIndex="9">
                <GridPane.margin>
                   <Insets left="30.0" />
                </GridPane.margin>
