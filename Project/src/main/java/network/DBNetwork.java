@@ -31,7 +31,7 @@ public class DBNetwork {
      */
     public DBNetwork(int socketNum) {
         setupServer(socketNum);
-        DBNetwork.ipAddresses.remove(getOwnIP());
+        //DBNetwork.ipAddresses.remove(getOwnIP());
         this.dbClients = new LinkedList<DBClient>();
         this.mapper = new ObjectMapper();
         this.socketNum = socketNum;

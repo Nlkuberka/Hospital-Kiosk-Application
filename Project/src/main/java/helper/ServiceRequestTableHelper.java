@@ -160,7 +160,6 @@ public class ServiceRequestTableHelper extends UIController {
         });
 
         // Initialize cell factories of the remove service request column
-        TableColumn<ServiceRequest, ServiceRequest> removeColumn = (TableColumn<ServiceRequest, ServiceRequest>) tableColumns.get(tableColumns.size() - 1);
         if(CurrentUser.user.getPermissions() != 3){
             removeColumn.setVisible(false);
         } else {

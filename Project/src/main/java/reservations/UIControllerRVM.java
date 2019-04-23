@@ -583,7 +583,7 @@ public class UIControllerRVM extends UIController {
         System.out.println(reservations);
         Reservation r = new Reservation(workplaceIDs.get(workplaceSelect.getValue()),
                 CurrentUser.user.getUserID(), dateString, startString, endString);
-
+        r.setRsvID(r.getTimeStamp());
 //        if (!r.isValid(reservations)) {
         if (!DBControllerRW.isRoomAvailableString(r.getWkplaceID(), r.getDate(), r.getStartTime(), r.getEndTime(), conn)) {
             popupMessage("This reservation conflicts with another.", true);
