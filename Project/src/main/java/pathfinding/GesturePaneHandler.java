@@ -1,5 +1,6 @@
 package pathfinding;
 
+import javafx.animation.Animation;
 import javafx.animation.Interpolator;
 import javafx.animation.PathTransition;
 import javafx.geometry.Dimension2D;
@@ -111,6 +112,7 @@ public class GesturePaneHandler {
 
         //Setting the duration of the path transition
         pathTransition.setDuration(Duration.seconds(5));
+        pathTransition.setRate(0.5);
 
         //Setting the node for the transition
         currentObjects.setAnt();
@@ -127,7 +129,7 @@ public class GesturePaneHandler {
         //Setting auto reverse value to false
         pathTransition.setAutoReverse(false);
 
-        pathTransition.setCycleCount(99);
+        pathTransition.setCycleCount(Animation.INDEFINITE);
 
         pathTransition.setOnFinished(e -> {
             currentObjects.clearAnimation();

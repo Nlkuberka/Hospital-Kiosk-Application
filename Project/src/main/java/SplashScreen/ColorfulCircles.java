@@ -1,6 +1,7 @@
 package SplashScreen;
 
 import application.UIController;
+import javafx.animation.Interpolator;
 import javafx.animation.PathTransition;
 import javafx.scene.Group;
 import javafx.scene.Node;
@@ -77,6 +78,7 @@ public class ColorfulCircles extends UIController {
             pathTransition.setOrientation(PathTransition.OrientationType.ORTHOGONAL_TO_TANGENT);
             pathTransition.setCycleCount(1);
             pathTransition.setAutoReverse(false);
+            pathTransition.setInterpolator(Interpolator.LINEAR);
 
             continuousTransition(path, pathTransition, getPointInBounds());
         }
