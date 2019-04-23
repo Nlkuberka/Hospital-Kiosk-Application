@@ -67,17 +67,17 @@ public class DBControllerRW extends DBController {
                     "DAY = '" + reservation.getDate() + "'," +
                     "STARTTIME = '" + reservation.getStartTime() + "'," +
                     "ENDTIME = '" + reservation.getEndTime() + "'" +
-                    " where RSVID = " + reservation.getRsvID());
+                    " where RSVID = '" + reservation.getRsvID()+"'");
             CurrentUser.network.sendReservationPacket(DBNetwork.UPDATE_RESERVATION, reservation);
         }catch(SQLException e) {
             e.printStackTrace();
         }
     }
 
-    public static void deleteReservation(int reservationID,Connection connection){
+    public static void deleteReservation(String reservationID,Connection connection){
         try {
             Statement s = connection.createStatement();
-            s.execute("delete from RESERVATIONS where RSVID = "+ reservationID +"");
+            s.execute("delete from RESERVATIONS where RSVID = '"+ reservationID +"'");
             Reservation reservation = new Reservation();
             reservation.setRsvID(reservationID);
             CurrentUser.network.sendReservationPacket(DBNetwork.DELETE_RESERVATION, reservation);
@@ -101,12 +101,12 @@ public class DBControllerRW extends DBController {
 
             if(isRoomAvailableString(reservation.getWkplaceID(), reservation.getDate(), reservation.getStartTime(), reservation.getEndTime(), connection)) {
                 //connection = DriverManager.getConnection("jdbc:derby:myDB");
-                PreparedStatement s = connection.prepareStatement("INSERT into RESERVATIONS (WKPLACEID, USERID, DAY, STARTTIME, ENDTIME) values ('" + reservation.getWkplaceID() +"','" + reservation.getUserID() +
+                PreparedStatement s = connection.prepareStatement("INSERT into RESERVATIONS (RSVID, WKPLACEID, USERID, DAY, STARTTIME, ENDTIME) values ('" + reservation.getRsvID() +"','" + reservation.getWkplaceID() +"','" + reservation.getUserID() +
                         "','"+ reservation.getDate() +"','"+ reservation.getStartTime() + "','" + reservation.getEndTime() + "')",Statement.RETURN_GENERATED_KEYS);
                 s.execute();
                 ResultSet rs = s.getGeneratedKeys();
                 rs.next();
-//                CurrentUser.network.sendReservationPacket(DBNetwork.ADD_RESERVATION, reservation);
+                CurrentUser.network.sendReservationPacket(DBNetwork.ADD_RESERVATION, reservation);
                 return rs.getInt(1);
             }
             else {
@@ -134,7 +134,7 @@ public class DBControllerRW extends DBController {
             LinkedList<Reservation> listOfReservations = new LinkedList<Reservation>();
             while(rs.next()){
                 Reservation r = new Reservation(rs.getString(2),rs.getString(3), rs.getString(4),
-                        rs.getString(5),rs.getString(6),rs.getInt(1));
+                        rs.getString(5),rs.getString(6),rs.getString(1));
                 listOfReservations.add(r);
             }
             return listOfReservations;
