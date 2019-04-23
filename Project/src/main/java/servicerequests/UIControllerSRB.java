@@ -108,6 +108,7 @@ public class UIControllerSRB extends UIController {
         }
         ServiceRequest sr = new ServiceRequest(nodeID, serviceType, message, CurrentUser.user.getUserID(), false, null);
         sr.setServiceID(sr.getTimeStamp());
+        System.out.println(sr.getServiceID());
         Connection conn = DBControllerSR.dbConnect();
         DBControllerSR.addServiceRequest(sr,conn);
         DBControllerSR.closeConnection(conn);
