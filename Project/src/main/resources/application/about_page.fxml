@@ -11,6 +11,7 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.FlowPane?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.StackPane?>
@@ -359,7 +360,7 @@
                               <RowConstraints minHeight="10.0" percentHeight="20.0" prefHeight="30.0" vgrow="SOMETIMES" />
                               <RowConstraints minHeight="10.0" percentHeight="5.0" prefHeight="30.0" vgrow="SOMETIMES" />
                               <RowConstraints minHeight="10.0" percentHeight="5.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="CENTER" vgrow="SOMETIMES" />
                               <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                            </rowConstraints>
                            <children>
@@ -379,30 +380,50 @@
                                     <Insets left="80.0" />
                                  </GridPane.margin>
                               </Text>
-                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Team:" GridPane.rowIndex="2" GridPane.valignment="TOP">
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Team:             E" GridPane.columnIndex="1" GridPane.rowIndex="2" GridPane.valignment="TOP">
                                  <font>
                                     <Font size="24.0" />
                                  </font>
                                  <GridPane.margin>
-                                    <Insets left="120.0" />
+                                    <Insets />
                                  </GridPane.margin>
                               </Text>
-                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="API:" GridPane.rowIndex="3" GridPane.valignment="TOP">
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="API:                Patient Registration" GridPane.columnIndex="1" GridPane.rowIndex="3" GridPane.valignment="TOP">
                                  <font>
                                     <Font size="24.0" />
                                  </font>
                                  <GridPane.margin>
-                                    <Insets left="120.0" />
+                                    <Insets />
                                  </GridPane.margin>
                               </Text>
-                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="External API:" GridPane.rowIndex="4" GridPane.valignment="TOP">
-                                 <font>
-                                    <Font size="24.0" />
-                                 </font>
+                              <FlowPane GridPane.columnIndex="1" GridPane.rowIndex="4" GridPane.valignment="CENTER">
                                  <GridPane.margin>
-                                    <Insets left="120.0" />
+                                    <Insets top="20.0" />
                                  </GridPane.margin>
-                              </Text>
+                                 <children>
+                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="External API:  GestureFX">
+                                       <font>
+                                          <Font size="24.0" />
+                                       </font>
+                                    </Text>
+                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text=" CalendarFX">
+                                       <font>
+                                          <Font size="24.0" />
+                                       </font>
+                                       <FlowPane.margin>
+                                          <Insets left="140.0" />
+                                       </FlowPane.margin>
+                                    </Text>
+                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text=" JFoenix">
+                                       <font>
+                                          <Font size="24.0" />
+                                       </font>
+                                       <FlowPane.margin>
+                                          <Insets left="140.0" />
+                                       </FlowPane.margin>
+                                    </Text>
+                                 </children>
+                              </FlowPane>
                            </children>
                            <padding>
                               <Insets left="20.0" />
