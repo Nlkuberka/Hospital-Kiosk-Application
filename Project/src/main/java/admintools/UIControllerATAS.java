@@ -1,5 +1,6 @@
 package admintools;
 
+import application.SessionTimeoutThread;
 import application.UIController;
 import com.jfoenix.controls.JFXButton;
 import javafx.fxml.FXML;
@@ -24,5 +25,23 @@ public class UIControllerATAS extends UIController {
     @FXML
     private MenuItem backMenuItem;
 
+    @FXML
+    public void initialize() {
 
+    }
+
+    @FXML
+    public void onShow() {
+
+    }
+
+    @FXML
+    public void setBackMenuItem() {
+
+    }
+
+    @FXML
+    public void setConfirmButton() {
+        
+    }
 }

@@ -5,7 +5,7 @@ import javafx.application.Platform;
 import java.time.Clock;
 
 public class SessionTimeoutThread extends Thread{
-    public long timeout = 30 * 1000;
+    public static long timeout = 30 * 1000;
     public String currentSceneString;
     public UIController currentUIController;
 

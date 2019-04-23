@@ -2,6 +2,7 @@ package reservations;
 
 import application.CurrentUser;
 import com.calendarfx.view.DayView;
+import com.jfoenix.controls.JFXToggleButton;
 import database.DBController;
 import application.UIController;
 import database.DBControllerRW;
@@ -13,12 +14,10 @@ import com.jfoenix.controls.JFXTimePicker;
 import javafx.collections.FXCollections;
 import javafx.event.Event;
 import javafx.fxml.FXML;
-import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.Menu;
-import javafx.scene.control.MenuItem;
+import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.paint.Color;
 import javafx.scene.shape.Shape;
 import utilities.Tooltip;
 
@@ -44,6 +43,8 @@ public class UIControllerRVM extends UIController {
     private ArrayList<Shape> workZones= new ArrayList<>();
     private Boolean colorShift = true;
     private Boolean roomBooking = true; //When true, user is booking rooms. When false, user will be booking work zones
+    private ArrayList<Shape> fixshapes = new ArrayList<>();
+    private boolean isCBlind = false;
 
     /**
      * < Holds the reference of the short names to nodeIDs
@@ -131,10 +132,19 @@ public class UIControllerRVM extends UIController {
 
 
     @FXML
-    private MenuItem backButton; /**< The Back Button */
+    private MenuItem backButton;
+    /**
+     * < The Back Button
+     */
 
     @FXML
-    private Menu homeButton; /**< The Home Button */
+    private Menu homeButton;
+    /**
+     * < The Home Button
+     */
+
+    @FXML
+    private JFXToggleButton colorBlindnessButton;
 
 
     /**
@@ -310,51 +320,71 @@ public class UIControllerRVM extends UIController {
 
     @FXML
     private void updateColorView() {
+
+        boolean isColorBlind = this.isCBlind;
         Connection connection = DBController.dbConnect();
 
-//        if(colorShift) {
-//            colorShapeGreen(workzone3_r3); colorShapeGreen(workzone5_d4); colorShapeGreen(workzone1_d5);
-//            colorShapeRed(workzone2_d2); colorShapeRed(workzone3_d2); colorShapeRed(workzone5_d7);
-//        } else {
-//            colorShapeRed(workzone3_r3); colorShapeRed(workzone5_d4); colorShapeRed(workzone1_d5);
-//            colorShapeGreen(workzone2_d2); colorShapeGreen(workzone3_d2); colorShapeGreen(workzone5_d7);
-//        }
-//        colorShift = !colorShift;
+        /*if(colorShift) {
+            colorShapeGreen(workzone3_r3); colorShapeGreen(workzone5_d4); colorShapeGreen(workzone1_d5);
+            colorShapeRed(workzone2_d2); colorShapeRed(workzone3_d2); colorShapeRed(workzone5_d7);
+        } else {
+            colorShapeRed(workzone3_r3); colorShapeRed(workzone5_d4); colorShapeRed(workzone1_d5);
+            colorShapeGreen(workzone2_d2); colorShapeGreen(workzone3_d2); colorShapeGreen(workzone5_d7);
+        }
+        colorShift = !colorShift;*/
 
         if (!checkValidReservation(datePicker, startTimePicker, endTimePicker, roomBooking)) {
             return;
         }
-        colorAllGreen();
 
-                if (checkValidReservation(datePicker, startTimePicker, endTimePicker, roomBooking)) {
-                    for (int i = 0; i < rooms.size(); i++) {
-//                        if (workplaceIDs.get(workplaceSelect.getValue()).equals(roomToShape.get(rooms.get(i)))) {
-                        if (!DBControllerRW.isRoomAvailableString(wkIDs.get(i), getDateString(datePicker),
-                                getTimeString(startTimePicker), getTimeString(endTimePicker), connection)) {
-                            System.out.println(workplaceSelect.getItems().get(i) + "is reserved at this time");
-                            colorShapeRed(rooms.get(i));
 
-                        } else {
-                            rooms.get(i).setFill(javafx.scene.paint.Color.GREEN);
-                            colorShapeGreen(rooms.get(i));
-                        }
-//                        }
+        if (isColorBlind) {
+            fixColorAllBlue();
+        } else {
+           fixColorAllGreen();
+        }
+
+
+        if (checkValidReservation(datePicker, startTimePicker, endTimePicker, roomBooking)) {
+            for (int i = 0; i < rooms.size(); i++) {
+//                        if (workplaceIDs.get(workplaceSelect.getValue()).equals(roomToShape.get(shapes.get(i)))) {
+                if (!DBControllerRW.isRoomAvailableString(wkIDs.get(i), getDateString(datePicker),
+                        getTimeString(startTimePicker), getTimeString(endTimePicker), connection)) {
+                    System.out.println(workplaceSelect.getItems().get(i) + "is reserved at this time");
+                    if (isColorBlind) {
+                        colorShapeYellow(rooms.get(i));
+                    } else {
+                        colorShapeRed(rooms.get(i));
                     }
+
+                } else {
+                    if (isColorBlind) {
+                        colorShapeBlue(rooms.get(i));
+                    } else {
+                        colorShapeGreen(rooms.get(i));                    }
+
                 }
-                    for (int i = 0; i < workZones.size(); i++) {
-                        if (!DBControllerRW.isRoomAvailableString(zIDs.get(i), getDateString(datePicker),
-                                getTimeString(startTimePicker), getTimeString(endTimePicker), connection)) {
-                            System.out.println(workplaceSelect.getItems().get(i) + " is reserved at this time");
-                            colorShapeRed(workZones.get(i));
+            }
+        }
+        for (int i = 0; i < workZones.size(); i++) {
+            if (!DBControllerRW.isRoomAvailableString(zIDs.get(i), getDateString(datePicker),
+                    getTimeString(startTimePicker), getTimeString(endTimePicker), connection)) {
+                System.out.println(workplaceSelect.getItems().get(i) + " is reserved at this time");
+               if(isColorBlind) {
+                   colorShapeYellow(workZones.get(i));
+               } else {
+                   colorShapeRed(workZones.get(i));
+               }
 
-                        } else {
-                            workZones.get(i).setFill(javafx.scene.paint.Color.GREEN);
-                            colorShapeGreen(workZones.get(i));
-                        }
-                    }
-
-
-
+            } else {
+                if (isColorBlind) {
+                    colorShapeBlue(workZones.get(i));
+                } else {
+                    colorShapeGreen(workZones.get(i));
+                }
+            }
+        }
+        DBController.closeConnection(connection);
     }
 
     /**
@@ -427,7 +457,6 @@ public class UIControllerRVM extends UIController {
         if (endTime.compareTo(startTime) <= 0) {
             return false;
         }
-
         return true;
     }
 
@@ -467,6 +496,21 @@ public class UIControllerRVM extends UIController {
         for (int x = 0; x < rooms.size(); x++) {
             rooms.get(x).setFill(javafx.scene.paint.Color.GREEN);
         }
+        for (int x = 0; x < workZones.size(); x++) {
+            workZones.get(x).setFill(javafx.scene.paint.Color.GREEN);
+        }
+    }
+
+    private void fixColorAllGreen() {
+        for (int x = 0; x < workZones.size(); x++) {
+            workZones.get(x).setFill(javafx.scene.paint.Color.GREEN);
+        }
+    }
+
+    private void fixColorAllBlue() {
+        for (int x = 0; x < workZones.size(); x++) {
+            workZones.get(x).setFill(javafx.scene.paint.Color.BLUE);
+        }
     }
 
     private void colorShapeRed(Shape shape) {
@@ -475,6 +519,32 @@ public class UIControllerRVM extends UIController {
 
     private void colorShapeGreen(Shape shape) {
         shape.setFill(javafx.scene.paint.Color.GREEN);
+    }
+
+    private void colorShapeYellow(Shape shape) {
+        shape.setFill(javafx.scene.paint.Color.YELLOW);
+    }
+
+    private void colorShapeBlue(Shape shape) {
+        shape.setFill(javafx.scene.paint.Color.BLUE);
+    }
+
+    /**
+     * Color blindness color setting
+     */
+
+    /**
+     * Color blindness color setting
+     */
+
+    @FXML
+    private void setColorBlindnessButton() {
+        if (colorBlindnessButton.isSelected()) {
+            isCBlind = true;
+            updateColorView();
+        } else
+            isCBlind = false;
+            updateColorView();
     }
 
     /**

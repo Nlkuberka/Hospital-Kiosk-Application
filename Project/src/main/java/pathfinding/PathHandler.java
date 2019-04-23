@@ -127,10 +127,9 @@ public class PathHandler {
         return new Point2D(latestStartingNode.getXcoord(), latestStartingNode.getYcoord());
     }
 
-    List<Point2D> getPathExtremaOnInitFloor() {
+    List<Point2D> getPathExtremaOnFloor(int floorIndex) {
         double minX = 6000, maxX = 0, minY = 6000, maxY = 0;
-        int currentFloorIndex = Floors.getByID(this.latestStartingNode.getFloor()).getIndex();
-        List<List<Node>> list = this.latestPath.get(currentFloorIndex);
+        List<List<Node>> list = this.latestPath.get(floorIndex);
         for (List<Node> nodeList : list) {
             for (Node node : nodeList) {
                 double nodeX = node.getXcoord();
