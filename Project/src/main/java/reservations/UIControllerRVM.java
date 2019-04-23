@@ -340,6 +340,6 @@ public class UIControllerRVM extends UIController {
      */
     @FXML
     private void setBackButton() {
-        this.goToScene(UIController.RESERVATIONS_MAIN_MENU,new DayView());
+        this.goToScene(UIController.RESERVATIONS_MAIN_MENU);
     }
 }

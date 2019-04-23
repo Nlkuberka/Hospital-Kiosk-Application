@@ -32,7 +32,7 @@ public class Main extends Application {
         System.out.println("Collaborator is " + "X");
 
         try {
-            InputStream inputStream = getClass().getResourceAsStream("/ipAddresses.txt");
+            InputStream inputStream = getClass().getResourceAsStream("/textfiles/ipAddresses.txt");
             BufferedReader br = new BufferedReader(new InputStreamReader(inputStream, "UTF-8"));
             String line;
             while((line = br.readLine()) != null) {
@@ -99,7 +99,7 @@ public class Main extends Application {
 
 
     public static void main(String[] args) throws IOException {
-        socketNum = 4590;
+        socketNum = 5670;
         if(args.length > 0) {
             for(int i = 0; i < args.length - 1; i++) {
                 DBNetwork.ipAddresses.add(args[i]);

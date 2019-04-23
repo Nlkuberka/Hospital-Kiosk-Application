@@ -395,7 +395,7 @@ public class UIControllerPFM extends UIController {
                 this.goToScene(UIController.LOGIN_MAIN);
                 break;
             case 3:
-                this.goToScene(UIController.ADMIN_MAIN_MENU_MAIN);
+                this.goToScene(UIController.ADMIN_TOOLS_MAIN);
                 break;
             default:
                 this.goToScene(UIController.LOGIN_MAIN);
