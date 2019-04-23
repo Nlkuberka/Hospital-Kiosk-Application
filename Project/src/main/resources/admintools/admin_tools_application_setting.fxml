@@ -93,10 +93,10 @@
                                           <Insets left="200.0" />
                                        </GridPane.margin>
                                     </Text>
-                                    <JFXButton fx:id="confirmButton" onAction="#changeAlgorithm" styleClass="jfx-button-login" stylesheets="@../css/background.css" text="Confirm" GridPane.halignment="CENTER" GridPane.rowIndex="6" GridPane.valignment="TOP" />
+                                    <JFXButton fx:id="confirmButton" onAction="#setConfirmButton" styleClass="jfx-button-login" stylesheets="@../css/background.css" text="Confirm" GridPane.halignment="CENTER" GridPane.rowIndex="6" GridPane.valignment="TOP" />
                                     <FlowPane maxWidth="530.0" prefHeight="200.0" prefWidth="200.0" GridPane.halignment="CENTER" GridPane.rowIndex="5" GridPane.valignment="CENTER">
                                        <children>
-                                          <Text fill="#015080" strokeType="OUTSIDE" strokeWidth="0.0" text="Minuts：">
+                                          <Text fill="#015080" strokeType="OUTSIDE" strokeWidth="0.0" text="Minutes：">
                                              <font>
                                                 <Font name="System Bold" size="18.0" />
                                              </font>
@@ -126,7 +126,7 @@
                                     </FlowPane>
                                     <FlowPane maxWidth="530.0" prefHeight="200.0" prefWidth="200.0" prefWrapLength="410.0" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="CENTER">
                                        <children>
-                                          <Text fill="#015080" strokeType="OUTSIDE" strokeWidth="0.0" text="Minuts：">
+                                          <Text fill="#015080" strokeType="OUTSIDE" strokeWidth="0.0" text="Minutes：">
                                              <font>
                                                 <Font name="System Bold" size="18.0" />
                                              </font>
