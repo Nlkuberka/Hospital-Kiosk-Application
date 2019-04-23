@@ -3,6 +3,7 @@
 <?import com.jfoenix.controls.JFXButton?>
 <?import com.jfoenix.controls.JFXTimePicker?>
 <?import javafx.geometry.Insets?>
+<?import com.jfoenix.controls.JFXToggleButton?>
 <?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Menu?>
@@ -122,6 +123,10 @@
                               <Insets left="50.0" />
                            </GridPane.margin>
                         </Text>
+                        <JFXToggleButton fx:id="rsvToggle" onAction="#toggleMode" prefHeight="58.0" prefWidth="57.0" text=" " textFill="WHITE" GridPane.halignment="CENTER" GridPane.rowIndex="7" GridPane.valignment="BOTTOM" />
+                        <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" GridPane.rowIndex="7" GridPane.valignment="BOTTOM" />
+                        <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Reservation Type" GridPane.halignment="CENTER" GridPane.rowIndex="7" />
+                        <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" GridPane.halignment="RIGHT" GridPane.rowIndex="7" GridPane.valignment="BOTTOM" />
                      </children>
                   </GridPane>
                   <Pane GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.valignment="BOTTOM">
@@ -131,7 +136,7 @@
                               <Image url="@../images/OBC-4-Concept-Plan-Overview.jpg" />
                            </image>
                         </ImageView>
-                  
+
                                                                   <Rectangle fx:id="classroom8" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="82.0" layoutX="425.0" layoutY="34.0" opacity="0.53" stroke="BLACK" strokeType="INSIDE" width="77.0" />
                         <Rectangle fx:id="classroom6" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="79.0" layoutX="507.0" layoutY="34.0" opacity="0.53" stroke="BLACK" strokeType="INSIDE" width="72.0" />
                         <Rectangle fx:id="classroom7" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="78.0" layoutX="485.0" layoutY="170.0" opacity="0.53" stroke="BLACK" strokeType="INSIDE" width="58.0" />
