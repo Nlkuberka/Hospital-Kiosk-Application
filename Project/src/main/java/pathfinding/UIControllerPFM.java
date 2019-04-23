@@ -192,6 +192,9 @@ public class UIControllerPFM extends UIController {
             userToolsTitledPane.collapsibleProperty().setValue(true);
         }
         menu.setExpandedPane(pathfindingTitledPane);
+
+        initialLocationCombo.getSelectionModel().select(CurrentUser.startingLocation);
+
     }
 
     void setInitialLocation(String longName) {
