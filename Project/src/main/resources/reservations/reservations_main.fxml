@@ -2,6 +2,7 @@
 
 <?import com.jfoenix.controls.JFXButton?>
 <?import com.jfoenix.controls.JFXTimePicker?>
+<?import com.jfoenix.controls.JFXToggleButton?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.DatePicker?>
@@ -49,8 +50,9 @@
                         <RowConstraints minHeight="10.0" percentHeight="10.0" vgrow="SOMETIMES" />
                         <RowConstraints minHeight="10.0" percentHeight="5.0" vgrow="SOMETIMES" />
                         <RowConstraints minHeight="10.0" percentHeight="10.0" vgrow="SOMETIMES" />
-                        <RowConstraints minHeight="10.0" percentHeight="20.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" percentHeight="15.0" vgrow="SOMETIMES" />
                         <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                      </rowConstraints>
                      <children>
                             <ChoiceBox fx:id="workplaceSelect" onMouseClicked="#updateColorView" prefWidth="250.0" style="-fx-background-color: #ffffff;" GridPane.rowIndex="8" GridPane.valignment="TOP">
@@ -122,11 +124,16 @@
                               <Insets left="50.0" />
                            </GridPane.margin>
                         </Text>
+                        <JFXToggleButton fx:id="colorBlindnessButton" onAction="#setColorBlindnessButton" text="Color Blindness Mode" textFill="WHITE" GridPane.halignment="CENTER" GridPane.rowIndex="10" GridPane.valignment="CENTER">
+                           <font>
+                              <Font name="System Bold" size="14.0" />
+                           </font>
+                        </JFXToggleButton>
                      </children>
                   </GridPane>
                   <Pane GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.valignment="BOTTOM">
                      <children>
-                        <ImageView fitHeight="931.0" fitWidth="878.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fitHeight="931.0" fitWidth="878.0" onMouseClicked="#updateColorView" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@../images/OBC-4-Concept-Plan-Overview.jpg" />
                            </image>
