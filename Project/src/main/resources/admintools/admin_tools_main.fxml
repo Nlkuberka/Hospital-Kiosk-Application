@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXButton?>
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
@@ -28,7 +29,7 @@
          <top>
             <MenuBar blendMode="ADD" prefWidth="900.0" style="-fx-background-color: white;" stylesheets="@../css/background.css" BorderPane.alignment="CENTER">
                <menus>
-                  <Menu mnemonicParsing="false" text="Back">
+                  <Menu fx:id="backMenuItem" mnemonicParsing="false" onAction="#setBackMenuItem" text="Back">
                      <items>
                         <MenuItem mnemonicParsing="false" onAction="#setBackMenuItem" text="Go back to previous page" />
                      </items>
@@ -59,14 +60,29 @@
                   <RowConstraints minHeight="10.0" vgrow="ALWAYS" />
                </rowConstraints>
                <children>
-                  <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Administrator Tools" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="0" GridPane.valignment="BOTTOM">
+                  <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Administrator Home" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="0" GridPane.valignment="BOTTOM">
                      <font>
                         <Font name="System Bold" size="40.0" />
                      </font>
                   </Text>
-                  <FlowPane alignment="BOTTOM_CENTER" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="3">
+                  <FlowPane alignment="BOTTOM_CENTER" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="TOP">
                      <children>
-                        <JFXButton fx:id="viewEdgesButton1" alignment="BOTTOM_CENTER" buttonType="RAISED" contentDisplay="TOP" graphicTextGap="27.0" onAction="#setViewNodesButton" prefHeight="40.0" prefWidth="350.0" styleClass="jfx-button-admin-tools-main" stylesheets="@../css/background.css" text="Edit Nodes" textAlignment="CENTER" textFill="WHITE" wrapText="true">
+                        <JFXButton fx:id="findPathButton" alignment="BOTTOM_CENTER" buttonType="RAISED" contentDisplay="TOP" graphicTextGap="15.0" onAction="#setFindPathButton" prefHeight="40.0" prefWidth="350.0" styleClass="jfx-button-admin-tools-main" stylesheets="@../css/background.css" text="Find Path" textAlignment="CENTER" textFill="WHITE" wrapText="true">
+                           <font>
+                              <Font name="System Bold" size="28.0" />
+                           </font>
+                           <graphic>
+                              <ImageView fitHeight="110.0" fitWidth="110.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../images/road-map.png" />
+                                 </image>
+                                 <effect>
+                                    <ColorAdjust brightness="0.25" />
+                                 </effect>
+                              </ImageView>
+                           </graphic>
+                        </JFXButton>
+                        <JFXButton fx:id="viewNodesButton" alignment="BOTTOM_CENTER" buttonType="RAISED" contentDisplay="TOP" graphicTextGap="27.0" onAction="#setViewNodesButton" prefHeight="40.0" prefWidth="350.0" styleClass="jfx-button-admin-tools-main" stylesheets="@../css/background.css" text="Edit Nodes" textAlignment="CENTER" textFill="WHITE" wrapText="true">
                            <font>
                               <Font name="System Bold" size="28.0" />
                            </font>
@@ -74,6 +90,18 @@
                               <ImageView fitHeight="110.0" fitWidth="110.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
                                     <Image url="@../images/logotypes.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                        </JFXButton>
+                        <JFXButton fx:id="viewEdgesButton" alignment="BOTTOM_CENTER" buttonType="RAISED" contentDisplay="TOP" graphicTextGap="10.0" onAction="#setViewEdgesButton" prefHeight="40.0" prefWidth="350.0" styleClass="jfx-button-admin-tools-main" stylesheets="@../css/background.css" text="Edit Edges" textAlignment="CENTER" textFill="WHITE" wrapText="true">
+                           <font>
+                              <Font name="System Bold" size="28.0" />
+                           </font>
+                           <graphic>
+                              <ImageView fitHeight="140.0" fitWidth="140.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../images/seo-and-web.png" />
                                  </image>
                               </ImageView>
                            </graphic>
@@ -105,21 +133,12 @@
                               </ImageView>
                            </graphic>
                         </JFXButton>
-                        <JFXButton fx:id="viewEdgesButton" alignment="BOTTOM_CENTER" buttonType="RAISED" contentDisplay="TOP" graphicTextGap="10.0" onAction="#setViewEdgesButton" prefHeight="40.0" prefWidth="350.0" styleClass="jfx-button-admin-tools-main" stylesheets="@../css/background.css" text="Edit Edges" textAlignment="CENTER" textFill="WHITE" wrapText="true">
-                           <font>
-                              <Font name="System Bold" size="28.0" />
-                           </font>
-                           <graphic>
-                              <ImageView fitHeight="140.0" fitWidth="140.0" pickOnBounds="true" preserveRatio="true">
-                                 <image>
-                                    <Image url="@../images/seo-and-web.png" />
-                                 </image>
-                              </ImageView>
-                           </graphic>
-                        </JFXButton>
                      </children>
+                     <GridPane.margin>
+                        <Insets />
+                     </GridPane.margin>
                   </FlowPane>
-                  <FlowPane alignment="TOP_CENTER" GridPane.columnIndex="1" GridPane.rowIndex="2" GridPane.valignment="BOTTOM">
+                  <FlowPane alignment="TOP_CENTER" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="BOTTOM">
                      <children>
                         <JFXButton fx:id="viewServiceRequestsButton" alignment="BOTTOM_CENTER" buttonType="RAISED" contentDisplay="TOP" graphicTextGap="2.0" onAction="#setViewServiceRequestsButton" prefHeight="40.0" prefWidth="350.0" styleClass="jfx-button-admin-tools-main-horizontal" stylesheets="@../css/background.css" text="View Service Requests" textAlignment="CENTER" textFill="WHITE" wrapText="true">
                            <font>
@@ -133,7 +152,7 @@
                               </ImageView>
                            </graphic>
                         </JFXButton>
-                        <JFXButton fx:id="editReservationsButton" alignment="BOTTOM_CENTER" buttonType="RAISED" contentDisplay="TOP" graphicTextGap="2.0" onAction="#setEditReservationsButton" prefHeight="40.0" prefWidth="350.0" styleClass="jfx-button-admin-tools-main-horizontal" stylesheets="@../css/background.css" text="Edit Reservations" textAlignment="CENTER" textFill="WHITE" wrapText="true">
+                        <JFXButton fx:id="ReservationsButton" alignment="BOTTOM_CENTER" buttonType="RAISED" contentDisplay="TOP" graphicTextGap="2.0" onAction="#setReservationsButton" prefHeight="40.0" prefWidth="350.0" styleClass="jfx-button-admin-tools-main-horizontal" stylesheets="@../css/background.css" text=" Reservation" textAlignment="CENTER" textFill="WHITE" wrapText="true">
                            <font>
                               <Font name="System Bold" size="28.0" />
                            </font>
@@ -160,7 +179,25 @@
                               </ImageView>
                            </graphic>
                         </JFXButton>
+                        <JFXButton fx:id="applicationSettingButton" alignment="BOTTOM_CENTER" buttonType="RAISED" contentDisplay="TOP" graphicTextGap="2.0" onAction="#setApplicationSettingButton" prefHeight="40.0" prefWidth="350.0" styleClass="jfx-button-admin-tools-main-horizontal" stylesheets="@../css/background.css" text="Application Setting" textAlignment="CENTER" textFill="WHITE" wrapText="true">
+                           <font>
+                              <Font name="System Bold" size="28.0" />
+                           </font>
+                           <graphic>
+                              <ImageView fitHeight="110.0" fitWidth="110.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../images/alarm-clock.png" />
+                                 </image>
+                                 <effect>
+                                    <ColorAdjust brightness="0.14" hue="-0.1" saturation="-0.22" />
+                                 </effect>
+                              </ImageView>
+                           </graphic>
+                        </JFXButton>
                      </children>
+                     <GridPane.margin>
+                        <Insets />
+                     </GridPane.margin>
                   </FlowPane>
                </children>
             </GridPane>
