@@ -101,7 +101,29 @@ public class UIControllerRVCV extends UIController {
      */
     @Override
     public void onShow() {
+        Thread updateTimeThread = new Thread("Calendar: Update Time Thread") {
+            @Override
+            public void run() {
+                while (true) {
+                    Platform.runLater(() -> {
+                        cv.setToday(LocalDate.now());
+                        cv.setTime(LocalTime.now());
+                    });
 
+                    try {
+                        // update every 10 seconds
+                        sleep(10000);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+
+                }
+            };
+        };
+
+        updateTimeThread.setPriority(Thread.MIN_PRIORITY);
+        updateTimeThread.setDaemon(true);
+        updateTimeThread.start();
     }
 
 
