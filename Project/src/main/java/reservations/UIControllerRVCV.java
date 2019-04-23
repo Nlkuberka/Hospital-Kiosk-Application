@@ -73,9 +73,23 @@ public class UIControllerRVCV extends UIController {
         for(Entry e : DBControllerRW.getEntriesforRoom("MHCR001",conn)) { MHCR.addEntry(e); }
         for(Entry e : DBControllerRW.getEntriesforRoom("PNTRY",conn)) { PNTRY.addEntry(e); }
 
-        //Entry e = new Entry<>("Hello",new Interval(LocalDate.of(2019,04,19),LocalTime.of(11,00,00),LocalDate.of(2019,04,19),LocalTime.of(18,00,00)));
-        //CL002.addEntry(e);
-        
+        cv.setShowPrintButton(false);
+        cv.setShowAddCalendarButton(false);
+        CL001.setReadOnly(true);
+        CL002.setReadOnly(true);
+        CL003.setReadOnly(true);
+        CL004.setReadOnly(true);
+        CL005.setReadOnly(true);
+        CL006.setReadOnly(true);
+        CL007.setReadOnly(true);
+        CL008.setReadOnly(true);
+        CL009.setReadOnly(true);
+        MHA.setReadOnly(true);
+        MHCR.setReadOnly(true);
+        PNTRY.setReadOnly(true);
+
+
+
         workplaceCal.getCalendars().addAll(CL001,CL002,CL003,CL004,CL005,CL006,CL007,CL008,CL009,MHA,MHCR,PNTRY);
 
         cv.getCalendarSources().set(0, workplaceCal);
