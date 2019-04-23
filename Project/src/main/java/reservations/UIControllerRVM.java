@@ -12,10 +12,7 @@ import com.jfoenix.controls.JFXTimePicker;
 
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
-import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.Menu;
-import javafx.scene.control.MenuItem;
+import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 import javafx.scene.shape.Shape;
 
@@ -136,6 +133,9 @@ public class UIControllerRVM extends UIController {
 
     @FXML
     private Menu homeButton; /**< The Home Button */
+
+    @FXML
+    private ToggleButton colorBlindnessButton;
 
 
     /**
@@ -340,6 +340,23 @@ public class UIControllerRVM extends UIController {
 
     private void colorShapeGreen(Shape shape) {
         shape.setFill(javafx.scene.paint.Color.GREEN);
+    }
+
+    /**
+     * Color blindness color setting
+     */
+    private void colorAllBlue() {
+        for (int x = 0; x < shapes.size(); x++) {
+            shapes.get(x).setFill(javafx.scene.paint.Color.rgb(86, 180,233));
+        }
+    }
+
+    private void colorShapeOrange(Shape shape) {
+        shape.setFill(javafx.scene.paint.Color.rgb(230,159,0));
+    }
+
+    private void colorShapeBlue(Shape shape) {
+        shape.setFill(javafx.scene.paint.Color.rgb(86, 180,233));
     }
 
     /**

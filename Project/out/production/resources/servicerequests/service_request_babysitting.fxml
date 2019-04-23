@@ -24,7 +24,7 @@
           <top>
               <MenuBar nodeOrientation="RIGHT_TO_LEFT" prefWidth="600.0" style="-fx-background-color: #ffc41e;" stylesheets="@../css/background.css" BorderPane.alignment="CENTER">
                   <menus>
-                      <Menu mnemonicParsing="false" onAction="#setCancelButton" onShowing="#setHomeButton" text="Close">
+                      <Menu mnemonicParsing="false" onAction="#setCancelButton" onShowing="#setCancelButton" text="Close">
                <items>
                   <MenuItem mnemonicParsing="false" text="HOME" />
                </items>
@@ -76,44 +76,6 @@
                               <Image url="@../images/Babysitting/diaper.png" />
                            </image>
                         </ImageView>
-<<<<<<< HEAD
-                     </graphic>
-                  </JFXButton>
-                  <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="BabySitting" GridPane.columnIndex="1" GridPane.halignment="LEFT">
-                     <font>
-                        <Font name="System Bold Italic" size="36.0" />
-                     </font>
-                  </Text>
-                  <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Shiyi Liu" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="1" GridPane.valignment="TOP">
-                     <font>
-                        <Font name="System Bold" size="18.0" />
-                     </font>
-                     <GridPane.margin>
-                        <Insets left="20.0" />
-                     </GridPane.margin>
-                  </Text>
-                  <JFXTextField fx:id="serviceMessage" alignment="TOP_LEFT" prefHeight="254.0" prefWidth="150.0" style="-fx-background-color: #ffffff;" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="5">
-                     <GridPane.margin>
-                        <Insets left="20.0" />
-                     </GridPane.margin></JFXTextField>
-                  <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Additional Messages" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="4" GridPane.valignment="BOTTOM">
-                     <font>
-                        <Font name="System Bold" size="18.0" />
-                     </font>
-                     <GridPane.margin>
-                        <Insets left="20.0" />
-                     </GridPane.margin>
-                  </Text>
-                  <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Room Selection" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="2" GridPane.valignment="TOP">
-                     <font>
-                        <Font name="System Bold" size="18.0" />
-                     </font>
-                     <GridPane.margin>
-                        <Insets left="20.0" />
-                     </GridPane.margin>
-                  </Text>
-                  <JFXComboBox fx:id="roomSelect" prefWidth="150.0" style="-fx-background-color: #ffffff;" GridPane.columnIndex="1" GridPane.rowIndex="3" GridPane.valignment="TOP" />
-=======
                         <CheckBox fx:id="diaper" layoutX="47.0" layoutY="161.0" mnemonicParsing="false" text="Diapers" textFill="#015080" />
                      </children>
                   </Pane>
@@ -127,7 +89,6 @@
                         <CheckBox fx:id="bath" layoutX="58.0" layoutY="161.0" mnemonicParsing="false" text="Bath" textFill="#015080" />
                      </children>
                   </Pane>
->>>>>>> iteration4
                </children>
             </FlowPane>
             <FlowPane alignment="CENTER" hgap="40.0" vgap="20.0" GridPane.rowIndex="2">
