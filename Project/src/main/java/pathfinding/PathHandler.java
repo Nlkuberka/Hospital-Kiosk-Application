@@ -7,7 +7,6 @@ import javafx.scene.shape.Circle;
 import javafx.scene.shape.LineTo;
 import javafx.scene.shape.MoveTo;
 import javafx.scene.shape.Path;
-import javafx.stage.Stage;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -16,7 +15,7 @@ public class PathHandler {
     private LinkedList<Path> pathList = new LinkedList<>();
     private List<List<List<Node>>> latestPath;
     private Node latestStartingNode;
-    private LinkedList<EdgeNode> edgeNodes;
+    private LinkedList<EdgeNodePair> edgeNodes;
 
     public PathHandler(Path p1, Path p2, Path p3, Path p4, Path p5, Path p6, Path p7) {
         this.pathList.add(p1);
@@ -27,7 +26,6 @@ public class PathHandler {
         this.pathList.add(p6);
         this.pathList.add(p7);
 
-        this.edgeNodes = new LinkedList<>();
 
         // set stroke width
         for (int i = 0; i < this.pathList.size(); i++) {
@@ -36,20 +34,24 @@ public class PathHandler {
 
     }
 
-    public LinkedList<EdgeNode> getEdgeNodes() {
-        return edgeNodes;
-    }
-
-    public void drawFloorLinks(AnchorPaneHandler anchorPaneHandler, JFXTabPane mapTabs) {
-        for (int i = 0; i < this.edgeNodes.size(); i++) { // for every edge node
-            EdgeNode edgeNode = this.edgeNodes.get(i);
-            Circle circle = anchorPaneHandler.getCircleFromName(edgeNode.node.getLongName()); // get corresponding circle
-            int nextFloor = Floors.getByID(edgeNode.next.getFloor()).getTabIndex(); // get next floor to link to
-            circle.setOnMouseClicked(e -> mapTabs.getSelectionModel().select(nextFloor)); // link to it
+    public void drawFloorLinks(LinkedList<EdgeNodePair> edgeNodes, AnchorPaneHandler anchorPaneHandler) {
+        this.edgeNodes = edgeNodes;
+        for (int i = 0; i < this.edgeNodes.size(); i++) { // for every edge first
+            EdgeNodePair edgeNode = this.edgeNodes.get(i);
+            anchorPaneHandler.addCircleToView(edgeNode.firstCircle, edgeNode.getFirstFloor().getIndex());
+            anchorPaneHandler.addCircleToView(edgeNode.nextCircle, edgeNode.getNextFloor().getIndex());
         }
     }
 
-    private Node addToPath(Path path, List<Node> nodes) throws Exception {
+    public void removeFloorLinks(AnchorPaneHandler anchorPaneHandler) {
+        for (int i = 0; i < this.edgeNodes.size(); i++) { // for every edge first
+            EdgeNodePair edgeNode = this.edgeNodes.get(i);
+            anchorPaneHandler.removeCircleFromView(edgeNode.firstCircle, edgeNode.getFirstFloor().getIndex());
+            anchorPaneHandler.removeCircleFromView(edgeNode.nextCircle, edgeNode.getNextFloor().getIndex());
+        }
+    }
+
+    private void addToPath(Path path, List<Node> nodes) {
 
         float x = (float) nodes.get(0).getXcoord();
         float y = (float) nodes.get(0).getYcoord();
@@ -57,23 +59,17 @@ public class PathHandler {
         path.getElements().add(new MoveTo(x, y)); // move path to initLocation
 
         // get all XY pairs and turn them into lines
-        Node node = null;
         for (int i = 1; i < nodes.size(); i++) {
-            node = nodes.get(i);
+            Node node = nodes.get(i);
 
             x = (float) node.getXcoord();
             y = (float) node.getYcoord();
 
-            //System.out.println(node);
+            //System.out.println(first);
             //System.out.println("NodeX: " + x + "  NodeY: " + y);
 
             path.getElements().add(new LineTo(x, y));
         }
-
-        if (node == null)
-            throw new Exception("addToPath: no nodes present!");
-
-        return node;
     }
 
     private void clearLatestPath() {
@@ -101,20 +97,14 @@ public class PathHandler {
 
     private void updatePaths(List<List<List<Node>>> list) {
         if (list.size() != Floors.values().length)
-            System.out.println("WARNING: Did not receive a node list for each floor");
+            System.out.println("WARNING: Did not receive a first list for each floor");
 
         clearAndHideAllPaths();
 
         this.edgeNodes = new LinkedList<>();
         for (int floor = 0; floor < list.size(); floor++) { // get floor
             for (int pathNum = 0; pathNum < list.get(floor).size(); pathNum++) { // get specific path on that floor
-                try { // will fail if a path has no nodes
-                    Node lastNode = addToPath(this.pathList.get(floor), list.get(floor).get(pathNum));
-                    Node firstNode = list.get(floor).get(pathNum).get(0);
-                    this.edgeNodes.add(new EdgeNode(firstNode, lastNode));
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
+                addToPath(this.pathList.get(floor), list.get(floor).get(pathNum));
             }
         }
     }

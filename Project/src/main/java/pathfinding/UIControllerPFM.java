@@ -143,7 +143,7 @@ public class UIControllerPFM extends UIController {
     }
 
     /**
-     * Initialize choice boxes and setup circles as node indicators
+     * Initialize choice boxes and setup circles as first indicators
      */
     @Override
     public void onShow() {
@@ -220,7 +220,7 @@ public class UIControllerPFM extends UIController {
     }
     /**
      * Allows for a default starting location
-     * @param longName Name of starting node
+     * @param longName Name of starting first
      */
     private void setUpDefaultStartingLocation(String longName){
         setInitialLocation(CurrentUser.startingLocation);
@@ -228,11 +228,12 @@ public class UIControllerPFM extends UIController {
 
 
     /**
-     * Callback for cancel. Clears path, animation, node selection and drop down menus
+     * Callback for cancel. Clears path, animation, first selection and drop down menus
      */
     @FXML
     private void cancel(ActionEvent actionEvent) {
         pathHandler.cancel();
+        pathHandler.removeFloorLinks(anchorPaneHandler);
         clearTabColors();
 
         currentObjects.clearContextMenu();
@@ -261,6 +262,7 @@ public class UIControllerPFM extends UIController {
         assert connection != null;
         Node initialNode = DBControllerNE.fetchNode(currentObjects.getInitialID(), connection);
         Node destNode = DBControllerNE.fetchNode(currentObjects.getDestID(), connection);
+
         DBController.closeConnection(connection);
 
         currentObjects.clearAnimation(); // reset stuff
@@ -271,14 +273,30 @@ public class UIControllerPFM extends UIController {
             popupMessage("There is no path between these two nodes.", true);
         }
         else {
-            // change tab based on initial node -- order here is important! Do not move below.
+            // change tab based on initial first -- order here is important! Do not move below.
             int index = Floors.getByID(initialNode.getFloor()).getTabIndex();
             mapTabPane.getSelectionModel().select(index);
 
             // update paths -- order here is important! Do not move above change tab.
             pathHandler.displayNewPath(Graph.getGraph().separatePathByFloor(pathIDs), initialNode);
 
-            pathHandler.drawFloorLinks(anchorPaneHandler, mapTabPane);
+            connection = DBController.dbConnect();
+            assert connection != null;
+
+            LinkedList<EdgeNodePair> edgeNodes = new LinkedList<>();
+
+            Node previousNode = DBControllerNE.fetchNode(pathIDs.get(0), connection);
+            for (int i = 1; i < pathIDs.size(); i++) {
+                Node node = DBControllerNE.fetchNode(pathIDs.get(i), connection);
+                if ((previousNode.getNodeType().equals("STAI") || previousNode.getNodeType().equals("ELEV"))
+                        && (node.getNodeType().equals("STAI") || node.getNodeType().equals("ELEV"))) {
+                    edgeNodes.add(new EdgeNodePair(previousNode, node, mapTabPane));
+                }
+                previousNode = node;
+            }
+            DBController.closeConnection(connection);
+
+            pathHandler.drawFloorLinks(edgeNodes, anchorPaneHandler);
 
             gesturePaneHandler.centerOnInitialNode(pathHandler, currentObjects.getCurrentGesturePane(),
                     currentObjects.getFloorIndex());
