@@ -196,7 +196,7 @@
                   <Insets left="30.0" />
                </GridPane.margin>
             </Text>
-            <JFXTextField maxWidth="185.0" prefWidth="185.0" style="-fx-background-color: #ffffff;" GridPane.rowIndex="7" GridPane.valignment="TOP" />
+            <JFXTextField fx:id="phoneNumber" maxWidth="185.0" prefWidth="185.0" style="-fx-background-color: #ffffff;" GridPane.rowIndex="7" GridPane.valignment="TOP" />
          </children>
       </GridPane>
    </left>
