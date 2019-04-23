@@ -2,8 +2,12 @@ package pathfinding;
 
 import application.UIController;
 import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXComboBox;
+import com.jfoenix.controls.JFXToggleButton;
 import com.twilio.Twilio;
 import com.twilio.rest.api.v2010.account.Message;
+import entities.Direction;
+import entities.Graph;
 import entities.emailDirection;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -12,12 +16,18 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
+import java.util.LinkedList;
+import java.util.List;
 import java.util.regex.Pattern;
 
 public class UIControllerPUD extends UIController {
 
     public static final String ACCOUNT_SID = "AC176f9cd821ffa8dcad559ceecad9ecf1";
     public static final String AUTH_TOKEN = "ab7f1a58335f47c98bac61b471920dfe";
+    String returnText;
+    List<List<List<Direction>>> path = new LinkedList<>();
+    List<String> addedPath = new LinkedList<>();
+    String sceneString = "POPUP_DIRECTIONS";
     @FXML
     private TextArea directions; //the actual directions
     @FXML
@@ -34,10 +44,65 @@ public class UIControllerPUD extends UIController {
     private TextField email; //the prompt box for an email
     @FXML
     private JFXButton okButton; //ok button to exit confirmation window
+    @FXML
+    private JFXComboBox<String> floorSelect; //drop down to select which floor's directions to display
+
+    /**
+     * Populates the object's linked list
+     * @param message the input path
+     */
+    void populateDirections(List<List<List<Direction>>> message){
+        this.path = message;
+        floorSelect.getItems().addAll("All", "4", "3", "2", "1", "G", "L1", "L2");
+        addedPath = Graph.getGraph().allTextDirections(this.path);
+        System.out.println("Floor Value" + floorSelect.getValue());
+        convertMessage(floorSelect.getValue());
+        setDirections();
+    }
+
+    /**
+     * converts the input path to a single string
+     * @param selectedFloor the selected floor to view directions
+     */
+    void convertMessage(String selectedFloor){
+        this.returnText = "";
+
+        if(selectedFloor == null || selectedFloor.equals("All")) {
+            //if the selected floor is All, print all directions
+            for (int l = 0; l < this.addedPath.size() - 1; l++) {
+                this.returnText += this.addedPath.get(l);
+            }
+        }
+
+        for(int i = 0; i < this.path.size(); i++){
+            for(int j = 0; j < this.path.get(i).size(); j++){
+                for(int k = 0; k < this.path.get(i).get(j).size(); k++) {
+                    //System.out.println("Selected Floor: " + "_" + selectedFloor + "_");
+                    //System.out.println("Actual Floor: " + this.path.get(i).get(j).get(k).getFloor());
+                    if (this.path.get(i).get(j).get(k).getFloor().equals(selectedFloor)) {
+                        //if the selected floor equals the floor of the given direction
+                        this.returnText += this.path.get(i).get(j).get(k).getDirection();
+                    }
+                }
+            }
+        }
+
+        if(this.returnText.equals("")){
+            this.returnText = "There are no paths on this floor";
+        }
+
+    }
 
     @FXML
-    public void setDirections(String message) {
-        directions.setText(message); //  sets the text received from the pathfinding
+    public void setDirections(){
+        directions.setText(this.returnText); //  sets the text received from the pathfinding
+    }
+
+    @FXML
+    public void selectFloor(){ //changes the displayed directions based on floor
+        String selectedFloor = floorSelect.getValue();
+        convertMessage(selectedFloor);
+        setDirections();
     }
 
     @FXML
