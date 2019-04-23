@@ -22,7 +22,7 @@ public class GesturePaneHandler {
     private CurrentObjects currentObjects;
 
     public GesturePaneHandler(GesturePane p1, GesturePane p2, GesturePane p3, GesturePane p4,
-            GesturePane p5, GesturePane p6) {
+            GesturePane p5, GesturePane p6, GesturePane p7) {
         this.gesturePanes = new LinkedList<>();
         gesturePanes.add(p1);
         gesturePanes.add(p2);
@@ -30,6 +30,7 @@ public class GesturePaneHandler {
         gesturePanes.add(p4);
         gesturePanes.add(p5);
         gesturePanes.add(p6);
+        gesturePanes.add(p7);
 
         setupGesturePanes();
     }
