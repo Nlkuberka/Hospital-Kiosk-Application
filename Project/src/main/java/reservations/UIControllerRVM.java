@@ -11,6 +11,7 @@ import entities.Reservation;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTimePicker;
 
+import entities.User;
 import javafx.collections.FXCollections;
 import javafx.event.Event;
 import javafx.fxml.FXML;
@@ -552,7 +553,7 @@ public class UIControllerRVM extends UIController {
      */
     @FXML
     private void setBackButton() {
-        this.goToScene(UIController.RESERVATIONS_MAIN_MENU);
+        UIController controller = CurrentUser.user.getPermissions() == User.ADMIN_PERMISSIONS ? this.goToScene(UIController.ADMIN_RESERVATION_MAIN) : this.goToScene(UIController.RESERVATIONS_MAIN_MENU);
     }
 
     @FXML
