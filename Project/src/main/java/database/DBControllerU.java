@@ -115,7 +115,7 @@ public class DBControllerU extends DBController {
             PreparedStatement s = conn.prepareStatement("insert into USERS (userid, permission, username, password) \n" +
                     "values ('"+ user.getUserID() +"',"+ user.getPermissionsNumber()+",'"+user.getUsername()+"','"+Encryptor.encrypt(user.getPassword())+"')");
             s.execute();
-//            CurrentUser.network.sendUserPacket(DBNetwork.ADD_USER, user);
+            CurrentUser.network.sendUserPacket(DBNetwork.ADD_USER, user);
         } catch (SQLException e) {
             e.printStackTrace();
         }

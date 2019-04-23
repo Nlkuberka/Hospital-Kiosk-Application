@@ -103,12 +103,13 @@ public class UIControllerSRB extends UIController {
         setServiceType("Babysitting");
         checkEvent();
         String message = "Help with: "+ BabysittingServices + " Room: "+ roomShortName + serviceMessage.getText();
-        if(message.length() >= 151){
+        if(message.length() >= 150){
             message = message.substring(0,149);
         }
         ServiceRequest sr = new ServiceRequest(nodeID, serviceType, message, CurrentUser.user.getUserID(), false, null);
         sr.setServiceID(sr.getTimeStamp());
         System.out.println(sr.getServiceID());
+
         Connection conn = DBControllerSR.dbConnect();
         DBControllerSR.addServiceRequest(sr,conn);
         DBControllerSR.closeConnection(conn);

@@ -69,7 +69,7 @@ public class DBController {
                 "  SERVICEID CHAR(23), \n" +
                 "  NODEID VARCHAR(10) REFERENCES NODES(NODEID),\n" +
                 "  SERVICETYPE VARCHAR(20),\n" +
-                "  MESSAGE VARCHAR(100),\n" +
+                "  MESSAGE VARCHAR(150),\n" +
                 "  USERID VARCHAR(10) REFERENCES USERS(USERID),\n" +
                 "  RESOLVED BOOLEAN,\n" +
                 "  RESOLVERID VARCHAR(10) REFERENCES USERS(USERID), \n" +
@@ -110,11 +110,11 @@ public class DBController {
         DBControllerU.addUser(new User("ADMIN00001","admin","admin",4032),conn);
         DBControllerU.addUser(new User("WWONG2","staff","staff",4032),conn);
 
-        DBControllerRW.addReservation(new Reservation("CL001","WWONG2","2019-04-18","10:00:00","12:00:00"),conn);
+        /*DBControllerRW.addReservation(new Reservation("CL001","WWONG2","2019-04-18","10:00:00","12:00:00"),conn);
         DBControllerRW.addReservation(new Reservation("CL002","WWONG2","2019-04-18","11:00:00","13:00:00"),conn);
         DBControllerRW.addReservation(new Reservation("CL003","WWONG2","2019-04-19","08:00:00","13:00:00"),conn);
         DBControllerRW.addReservation(new Reservation("CL001","WWONG2","2019-04-18","14:00:00","17:00:00"),conn);
-        DBControllerRW.addReservation(new Reservation("CL005","WWONG2","2019-04-19","11:00:00","13:00:00"),conn);
+        DBControllerRW.addReservation(new Reservation("CL005","WWONG2","2019-04-19","11:00:00","13:00:00"),conn);*/
 
 
         DBControllerU.loadTeam(conn);
