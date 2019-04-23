@@ -220,7 +220,7 @@ public class UIControllerPFM extends UIController {
      * @param longName Name of starting node
      */
     private void setUpDefaultStartingLocation(String longName){
-//        initialLocationSelect.setValue(longName);
+        setInitialLocation(CurrentUser.startingLocation);
     }
 
 
