@@ -418,7 +418,7 @@ public class UIControllerPFM extends UIController {
 
     @FXML
     private void setOtherButton() {
-        this.popupScene(UIController.SERVICE_REQUEST_PRESCRIPTION_SERVICES_MAIN, 900, 600, false);
+
     }
 }
 
