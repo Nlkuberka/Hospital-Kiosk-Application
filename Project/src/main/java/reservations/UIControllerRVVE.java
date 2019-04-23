@@ -73,27 +73,14 @@ public class UIControllerRVVE extends UIController {
         //DB get Nodes
         Connection conn = DBController.dbConnect();
         ObservableList<Reservation> rsvData = FXCollections.observableArrayList();
-        if(CurrentUser.user.getPermissions() == User.BASIC_PERMISSIONS) {
-            try {
-                ResultSet rs = conn.createStatement().executeQuery("Select * from RESERVATIONS WHERE USERID = '" + CurrentUser.user.getUserID() + "'");
-                while (rs.next()) {
-                    rsvData.add(new Reservation(rs.getString(2), rs.getString(3), rs.getString(4),
-                            rs.getString(5), rs.getString(6), rs.getInt(1)));
-                }
-            } catch (SQLException e) {
-                e.printStackTrace();
+        try {
+            ResultSet rs = conn.createStatement().executeQuery("Select * from RESERVATIONS WHERE USERID = '" + CurrentUser.user.getUserID() + "'");
+            while (rs.next()) {
+                rsvData.add(new Reservation(rs.getString(2), rs.getString(3), rs.getString(4),
+                        rs.getString(5), rs.getString(6), rs.getString(1)));
             }
-        }
-        else if (CurrentUser.user.getPermissions() == User.ADMIN_PERMISSIONS) {
-            try {
-                ResultSet rs = conn.createStatement().executeQuery("Select * from RESERVATIONS");
-                while (rs.next()) {
-                    rsvData.add(new Reservation(rs.getString(2), rs.getString(3), rs.getString(4),
-                            rs.getString(5), rs.getString(6), rs.getInt(1)));
-                }
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
         reservationTable.setItems(rsvData);
     }
