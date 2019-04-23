@@ -1,6 +1,7 @@
 package SplashScreen;
 
 import application.UIController;
+import javafx.animation.Interpolator;
 import javafx.animation.PathTransition;
 import javafx.scene.Group;
 import javafx.scene.Node;
@@ -50,6 +51,7 @@ public class ColorfulCircles extends UIController {
             circle.setStrokeWidth(4);
             circles.getChildren().add(circle);
         }
+
         Rectangle colors = new Rectangle(primaryStage.getWidth(), primaryStage.getHeight(),
                 new LinearGradient(0f, 1f, 1f, 0f, true, CycleMethod.NO_CYCLE, new Stop(0, Color.web("#f8bd55")),
                         new Stop(0.14, Color.web("#c0fe56")),
@@ -76,6 +78,7 @@ public class ColorfulCircles extends UIController {
             pathTransition.setOrientation(PathTransition.OrientationType.ORTHOGONAL_TO_TANGENT);
             pathTransition.setCycleCount(1);
             pathTransition.setAutoReverse(false);
+            pathTransition.setInterpolator(Interpolator.LINEAR);
 
             continuousTransition(path, pathTransition, getPointInBounds());
         }
@@ -95,9 +98,6 @@ public class ColorfulCircles extends UIController {
         if (!isShowing) {
             pathTransition.stop();
         }
-
-        //System.out.println("START");
-        //System.out.println(path.getElements());
 
         pathTransition.setOnFinished(event -> continuousTransition(path, pathTransition, finalPoint));
     }
