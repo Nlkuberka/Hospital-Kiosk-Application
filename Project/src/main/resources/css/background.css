@@ -362,6 +362,12 @@
 
 }
 
+.tooltip{
+    -fx-background-color: #015080;
+    -fx-background-radius: 0;
+    -fx-border-radius: 0;
+}
+
 .cell-renderer{
     -fx-background-insets:  2 3 2 2;
 }
