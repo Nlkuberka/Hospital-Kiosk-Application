@@ -109,7 +109,6 @@ public class ServiceRequestTableHelper extends UIController {
                                 new com.twilio.type.PhoneNumber("+17472290044"),
                                 "Flowers have been Delivered")
                                 .create();
-                        System.out.println("It did shit");
                     }
                     DBController.closeConnection(conn);
                 });
