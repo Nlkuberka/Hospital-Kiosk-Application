@@ -331,12 +331,76 @@
                                     <Insets left="32.0" />
                                  </GridPane.margin>
                               </Text>
-                              <Text fill="#013655" strokeType="OUTSIDE" strokeWidth="0.0" text="Prof. Wilson Wong" GridPane.columnIndex="2" GridPane.rowIndex="14" GridPane.valignment="TOP">
+                              <Text fill="#013655" strokeType="OUTSIDE" strokeWidth="0.0" text="Prof. Wilson Wong" GridPane.columnIndex="5" GridPane.rowIndex="1" GridPane.valignment="TOP">
                                  <font>
                                     <Font name="System Bold" size="24.0" />
                                  </font>
                                  <GridPane.margin>
                                     <Insets left="105.0" />
+                                 </GridPane.margin>
+                              </Text>
+                           </children>
+                           <padding>
+                              <Insets left="20.0" />
+                           </padding>
+                        </GridPane>
+                     </content>
+                  </Tab>
+                  <Tab style="-fx-background-color: #015080;" text="Credits ">
+                     <content>
+                        <GridPane>
+                           <columnConstraints>
+                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                           </columnConstraints>
+                           <rowConstraints>
+                              <RowConstraints minHeight="10.0" percentHeight="25.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="10.0" percentHeight="20.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="10.0" percentHeight="5.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="10.0" percentHeight="5.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                           </rowConstraints>
+                           <children>
+                              <ImageView fitHeight="150.0" fitWidth="250.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../images/wpi_logo.png" />
+                                 </image>
+                                 <GridPane.margin>
+                                    <Insets left="10.0" />
+                                 </GridPane.margin>
+                              </ImageView>
+                              <Text fill="#015080" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-weight: Bold Italic; -fx-font-size: 48;" text="Credits" GridPane.rowIndex="1">
+                                 <font>
+                                    <Font size="36.0" />
+                                 </font>
+                                 <GridPane.margin>
+                                    <Insets left="80.0" />
+                                 </GridPane.margin>
+                              </Text>
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Team:" GridPane.rowIndex="2" GridPane.valignment="TOP">
+                                 <font>
+                                    <Font size="24.0" />
+                                 </font>
+                                 <GridPane.margin>
+                                    <Insets left="120.0" />
+                                 </GridPane.margin>
+                              </Text>
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="API:" GridPane.rowIndex="3" GridPane.valignment="TOP">
+                                 <font>
+                                    <Font size="24.0" />
+                                 </font>
+                                 <GridPane.margin>
+                                    <Insets left="120.0" />
+                                 </GridPane.margin>
+                              </Text>
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="External API:" GridPane.rowIndex="4" GridPane.valignment="TOP">
+                                 <font>
+                                    <Font size="24.0" />
+                                 </font>
+                                 <GridPane.margin>
+                                    <Insets left="120.0" />
                                  </GridPane.margin>
                               </Text>
                            </children>
