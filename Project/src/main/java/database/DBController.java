@@ -66,7 +66,7 @@ public class DBController {
                 "  CONSTRAINT WPI_UN UNIQUE (WPIID)\n" +
                 ")\n";
         String servicerequest = "CREATE TABLE SERVICEREQUEST(\n" +
-                "  SERVICEID INTEGER GENERATED ALWAYS AS IDENTITY, \n" +
+                "  SERVICEID CHAR(23), \n" +
                 "  NODEID VARCHAR(10) REFERENCES NODES(NODEID),\n" +
                 "  SERVICETYPE VARCHAR(20),\n" +
                 "  MESSAGE VARCHAR(100),\n" +
@@ -83,7 +83,7 @@ public class DBController {
                 " CONSTRAINT WK_PK PRIMARY KEY(WKPLACEID) " +
                 ")\n";
         String reservations = "CREATE TABLE RESERVATIONS(\n" +
-                "  RSVID INTEGER GENERATED ALWAYS AS IDENTITY,\n" +
+                "  RSVID CHAR(23),\n" +
                 "  WKPLACEID VARCHAR(10) REFERENCES WORKPLACES(WKPLACEID),\n" +
                 "  USERID VARCHAR(10) REFERENCES USERS(USERID),\n" +
                 "  DAY DATE,\n" +
