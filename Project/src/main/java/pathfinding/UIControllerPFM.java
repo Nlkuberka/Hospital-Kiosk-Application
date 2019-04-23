@@ -47,19 +47,13 @@ import java.util.logging.Logger;
 
 public class UIControllerPFM extends UIController {
 
-    @FXML
-    private AnchorPane topAnchorPane;
-    @FXML
-    private Path pathLL2, pathLL1, pathG, path1, path2, path3, path4;
-    @FXML
-    private JFXTabPane mapTabPane;
-    @FXML
-    private Menu homeMenu;
+    @FXML private AnchorPane topAnchorPane;
+    @FXML private Path pathLL2, pathLL1, pathG, path1, path2, path3, path4;
+    @FXML private JFXTabPane mapTabPane;
+    @FXML private Menu homeMenu;
 
-    @FXML
-    public JFXComboBox<String> initialLocationCombo;
-    @FXML
-    public JFXComboBox<String> destinationCombo;
+    @FXML public JFXComboBox<String> initialLocationCombo;
+    @FXML public JFXComboBox<String> destinationCombo;
     private RoomCategoryFilterHelper initialFilterHelper;
     private RoomCategoryFilterHelper destinationFilterHelper;
 
@@ -67,52 +61,31 @@ public class UIControllerPFM extends UIController {
     private ImageView backgroundImage;
 
 
-    @FXML
-    private GesturePane lowerLevel2GesturePane;
-    @FXML
-    private GesturePane lowerLevel1GesturePane;
-    @FXML
-    private GesturePane groundFloorGesturePane;
-    @FXML
-    private GesturePane firstFloorGesturePane;
-    @FXML
-    private GesturePane secondFloorGesturePane;
-    @FXML
-    private GesturePane thirdFloorGesturePane;
-    @FXML
-    private GesturePane fourthFloorGesturePane;
+    @FXML private GesturePane lowerLevel2GesturePane;
+    @FXML private GesturePane lowerLevel1GesturePane;
+    @FXML private GesturePane groundFloorGesturePane;
+    @FXML private GesturePane firstFloorGesturePane;
+    @FXML private GesturePane secondFloorGesturePane;
+    @FXML private GesturePane thirdFloorGesturePane;
+    @FXML private GesturePane fourthFloorGesturePane;
 
-    @FXML
-    private AnchorPane lowerLevel2AnchorPane;
-    @FXML
-    private AnchorPane lowerLevel1AnchorPane;
-    @FXML
-    private AnchorPane groundFloorAnchorPane;
-    @FXML
-    private AnchorPane firstFloorAnchorPane;
-    @FXML
-    private AnchorPane secondFloorAnchorPane;
-    @FXML
-    private AnchorPane thirdFloorAnchorPane;
-    @FXML
-    private AnchorPane fourthFloorAnchorPane;
+    @FXML private AnchorPane lowerLevel2AnchorPane;
+    @FXML private AnchorPane lowerLevel1AnchorPane;
+    @FXML private AnchorPane groundFloorAnchorPane;
+    @FXML private AnchorPane firstFloorAnchorPane;
+    @FXML private AnchorPane secondFloorAnchorPane;
+    @FXML private AnchorPane thirdFloorAnchorPane;
+    @FXML private AnchorPane fourthFloorAnchorPane;
 
-    @FXML
-    private JFXButton reservationButton;
-    @FXML
-    private JFXButton resolveRequestButton;
-    @FXML
-    private Accordion menu;
-    @FXML
-    private TitledPane userToolsTitledPane;
-    @FXML
-    private TitledPane pathfindingTitledPane;
+    @FXML private JFXButton reservationButton;
+    @FXML private JFXButton resolveRequestButton;
+    @FXML private Accordion menu;
+    @FXML private TitledPane userToolsTitledPane;
+    @FXML private TitledPane pathfindingTitledPane;
 
     // The multiplication factor at which the map changes size
-    @FXML
-    private JFXButton directionsRequest;
-    @FXML
-    JFXToggleButton noStairsButton;
+    @FXML private JFXButton directionsRequest;
+    @FXML JFXToggleButton noStairsButton;
 
     private PathHandler pathHandler;
 
