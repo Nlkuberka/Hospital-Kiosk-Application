@@ -101,8 +101,8 @@ public class DBController {
         createTable(workplaces, conn);
         createTable(reservations,conn);
 
-        DBControllerNE.loadNodeData(new File("nodesv5.csv"),conn);
-        DBControllerNE.loadEdgeData(new File("edgesv5.csv"),conn);
+        DBControllerNE.loadNodeData(new File("nodesWithFloor4.csv"),conn);
+        DBControllerNE.loadEdgeData(new File("edgesWithFloor4.csv"),conn);
         DBControllerRW.loadWorkplaceData(new File( "workplaces.csv"),conn);
 
         DBControllerU.addUser(new User("USER0001","user","user",2816),conn);
