@@ -24,11 +24,13 @@ public class EdgeNodePair {
         nextCircle.setCenterX(next.getXcoord());
         nextCircle.setCenterY(next.getYcoord());
 
-        firstCircle.setRadius(45);
+        firstCircle.setRadius(30);
         firstCircle.setFill(Color.web("FFC41E"));
+        firstCircle.toFront();
 
-        nextCircle.setRadius(45);
+        nextCircle.setRadius(30);
         nextCircle.setFill(Color.web("FFC41E"));
+        nextCircle.toFront();
 
         new Tooltip(firstCircle, "Go to " + getNextFloor().getName());
         new Tooltip(nextCircle, "Go to " + getFirstFloor().getName());
