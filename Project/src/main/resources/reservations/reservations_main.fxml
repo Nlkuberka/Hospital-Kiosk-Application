@@ -124,6 +124,20 @@
                               <Insets left="50.0" />
                            </GridPane.margin>
                         </Text>
+                        <JFXToggleButton fx:id="rsvToggle" ellipsisString="" onAction="#toggleMode" prefHeight="58.0" prefWidth="62.0" GridPane.halignment="CENTER" GridPane.rowIndex="8" GridPane.valignment="BOTTOM" />
+                        <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Change Reservation Type" GridPane.halignment="CENTER" GridPane.rowIndex="8">
+                           <font>
+                              <Font name="System Bold" size="20.0" />
+                           </font>
+                        </Text>
+                        <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Work Zones" translateX="-30.0" translateY="-18.0" GridPane.halignment="RIGHT" GridPane.rowIndex="8" GridPane.valignment="BOTTOM">
+                           <font>
+                              <Font name="System Bold" size="16.0" />
+                           </font></Text>
+                        <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Rooms" translateX="40.0" translateY="-18.0" GridPane.rowIndex="8" GridPane.valignment="BOTTOM">
+                           <font>
+                              <Font name="System Bold" size="16.0" />
+                           </font></Text>
                         <JFXToggleButton fx:id="colorBlindnessButton" onAction="#setColorBlindnessButton" text="Color Blindness Mode" textFill="WHITE" GridPane.halignment="CENTER" GridPane.rowIndex="10" GridPane.valignment="CENTER">
                            <font>
                               <Font name="System Bold" size="14.0" />

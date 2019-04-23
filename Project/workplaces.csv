@@ -20,6 +20,8 @@ WZ3R01,Work Zone 3 Room 1,2,0
 WZ3R02,Work Zone 3 Room 2,2,0
 WZ3R03,Work Zone 3 Room 3,2,0
 WZ3R04,Work Zone 3 Room 4,2,0
+WZ3R05,Work Zone 3 Room 5,2,0
+WZ3R06,Work Zone 3 Room 6,2,0
 WZ3D01,Work Zone 3 Desk 1,1,0
 WZ3D02,Work Zone 3 Desk 2,1,0
 WZ3D03,Work Zone 3 Desk 3,1,0
@@ -56,6 +58,12 @@ WZ1D13,Work Zone 1 Desk 13,1,0
 WZ1D14,Work Zone 1 Desk 14,1,0
 WZ1D15,Work Zone 1 Desk 15,1,0
 WZ1D16,Work Zone 1 Desk 16,1,0
+WZ1D17,Work Zone 1 Desk 17,1,0
+WZ1D18,Work Zone 1 Desk 18,1,0
+WZ1D19,Work Zone 1 Desk 19,1,0
+WZ1D20,Work Zone 1 Desk 20,1,0
+WZ1D21,Work Zone 1 Desk 21,1,0
+WZ1D22,Work Zone 1 Desk 22,1,0
 WZ2D01,Work Zone 2 Desk 1,1,0
 WZ2D02,Work Zone 2 Desk 2,1,0
 WZ2D03,Work Zone 2 Desk 3,1,0
