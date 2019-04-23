@@ -206,12 +206,12 @@ public class UIControllerPFM extends UIController {
      */
     @FXML
     private void setTitledPane(){
-        if (pathfindingTitledPane.isExpanded() == false){
-            final Color color = Color.TRANSPARENT;
-            pathfindingTitledPane.setBackground(new Background(new BackgroundFill(color, null, null)));
-        }else{
+        if (pathfindingTitledPane.isExpanded()){
             final Color color2 = Color.web("#ffc41e");
             pathfindingTitledPane.setBackground(new Background(new BackgroundFill(color2, null, null)));
+        }else{
+            final Color color = Color.TRANSPARENT;
+            pathfindingTitledPane.setBackground(new Background(new BackgroundFill(color, null, null)));
         }
 
     }
@@ -269,7 +269,8 @@ public class UIControllerPFM extends UIController {
         }
         else {
             // change tab based on initial node -- order here is important! Do not move below.
-            mapTabPane.getSelectionModel().select(Floors.getByID(initialNode.getFloor()).getIndex());
+            int index = Floors.getByID(initialNode.getFloor()).getTabIndex();
+            mapTabPane.getSelectionModel().select(index);
 
             // update paths -- order here is important! Do not move above change tab.
             pathHandler.displayNewPath(Graph.getGraph().separatePathByFloor(pathIDs), initialNode);
@@ -279,6 +280,7 @@ public class UIControllerPFM extends UIController {
             List<Integer> floorsUsed = pathHandler.getFloorsUsed();
             clearTabColors();
             for (Integer floor : floorsUsed) {
+                floor = Floors.getByIndex(floor).getTabIndex();
                 mapTabPane.getTabs().get(floor).setStyle("-fx-background-color: #efffff");
             }
         }
@@ -361,8 +363,6 @@ public class UIControllerPFM extends UIController {
         goToScene(UIController.LOGIN_MAIN);
     }
 
-
-
     @FXML
     private void setAboutButton() {
         goToScene(UIController.ABOUT_PAGE);
@@ -403,6 +403,25 @@ public class UIControllerPFM extends UIController {
         }
     }
 
+    @FXML
+    private void setFlowerButton() {
+        this.popupScene(UIController.SERVICE_REQUEST_FLOWER_DELIVERY, 900, 600, false);
+    }
+
+    @FXML
+    private void setBabyButton() {
+        this.popupScene(UIController.SERVICE_REQUEST_BABYSITTING, 900, 600, false);
+    }
+
+    @FXML
+    private void setReligiousButton() {
+        this.popupScene(UIController.SERVICE_REQUEST_RELIGIOUS_SERVICES, 900, 600, false);
+    }
+
+    @FXML
+    private void setOtherButton() {
+
+    }
 }
 
 
