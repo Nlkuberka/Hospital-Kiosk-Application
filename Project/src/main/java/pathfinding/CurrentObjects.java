@@ -94,11 +94,11 @@ public class CurrentObjects {
      */
     void clearNodeStyle() {
         if (initCircle != null) {
-            initCircle.setFill(Color.BLACK);
+            initCircle.setFill(Color.web("015080"));
             initCircle.setRadius(AnchorPaneHandler.nodeSizeIdle);
         }
         if (destCircle != null) {
-            destCircle.setFill(Color.BLACK);
+            destCircle.setFill(Color.web("015080"));
             destCircle.setRadius(AnchorPaneHandler.nodeSizeIdle);
         }
     }
@@ -164,7 +164,7 @@ public class CurrentObjects {
 
     public void setInitCircle(Circle initCircle) {
         if (this.initCircle != null) {
-            this.initCircle.setFill(Color.BLACK);
+            this.initCircle.setFill(Color.web("015080"));
             this.initCircle.setRadius(AnchorPaneHandler.nodeSizeIdle);
         }
         if (initCircle != null) {
@@ -184,7 +184,7 @@ public class CurrentObjects {
 
     public void setDestCircle(Circle destCircle) {
         if (this.destCircle != null) {
-            this.destCircle.setFill(Color.BLACK);
+            this.destCircle.setFill(Color.web("015080"));
             this.destCircle.setRadius(AnchorPaneHandler.nodeSizeIdle);
         }
         if (destCircle != null) {
