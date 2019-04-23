@@ -454,7 +454,7 @@ public class UIControllerATMV extends UIController {
     }
 
     void setKiosk(Node node) {
-        if (node.getNodeType().equals("HALL") || node.getNodeType().equals("REST") || node.getNodeType().equals("ELEV")) {
+        if (node.getNodeType().equals("HALL") || node.getNodeType().equals("REST") || node.getNodeType().equals("ELEV") || node.getNodeType().equals("STAI") || node.getNodeType().equals("OUTD")) {
             popupMessage("Invalid Kiosk Location", true);
         } else {
             CurrentUser.startingLocation = node.getLongName();
