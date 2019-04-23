@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXComboBox?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
@@ -19,7 +20,7 @@
                   <Image url="@images/MainMenu.png" />
                </image>
             </ImageView>
-            <ScrollPane fx:id="directionsBox" layoutX="14.0" layoutY="14.0" prefHeight="377.0" prefWidth="277.0">
+            <ScrollPane fx:id="directionsBox" layoutX="14.0" layoutY="14.0" prefHeight="377.0" prefWidth="277.0" styleClass="jfx-button-OK" stylesheets="@css/background.css">
               <content>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="375.0" prefWidth="274.0">
                      <children>
@@ -28,18 +29,19 @@
                   </AnchorPane>
               </content>
             </ScrollPane>
-            <TextField fx:id="phoneNumber" alignment="CENTER" layoutX="322.0" layoutY="111.0" prefHeight="25.0" prefWidth="263.0" promptText="Enter your phone number" />
-            <TextField fx:id="email" alignment="CENTER" layoutX="322.0" layoutY="259.0" prefHeight="25.0" prefWidth="263.0" promptText="Enter your email" />
-            <JFXButton fx:id="textDirections" layoutX="322.0" layoutY="14.0" onAction="#sendText" prefHeight="87.0" prefWidth="263.0" styleClass="jfx-button-OK" stylesheets="@css/background.css" text="Text Me The Directions">
+            <TextField fx:id="phoneNumber" alignment="CENTER" layoutX="322.0" layoutY="213.0" prefHeight="25.0" prefWidth="263.0" promptText="Enter your phone number" />
+            <TextField fx:id="email" alignment="CENTER" layoutX="322.0" layoutY="361.0" prefHeight="25.0" prefWidth="263.0" promptText="Enter your email" />
+            <JFXButton fx:id="textDirections" layoutX="322.0" layoutY="116.0" onAction="#sendText" prefHeight="87.0" prefWidth="263.0" styleClass="jfx-button-OK" stylesheets="@css/background.css" text="Text Me The Directions">
                <font>
                   <Font size="20.0" />
                </font>
             </JFXButton>
-            <JFXButton fx:id="emailDirections" layoutX="322.0" layoutY="157.0" onAction="#sendEmail" prefHeight="87.0" prefWidth="263.0" styleClass="jfx-button-OK" stylesheets="@css/background.css" text="Email Me The Directions">
+            <JFXButton fx:id="emailDirections" layoutX="322.0" layoutY="259.0" onAction="#sendEmail" prefHeight="87.0" prefWidth="263.0" styleClass="jfx-button-OK" stylesheets="@css/background.css" text="Email Me The Directions">
                <font>
                   <Font size="20.0" />
                </font>
             </JFXButton>
+            <JFXComboBox fx:id="floorSelect" focusColor="WHITE" layoutX="322.0" layoutY="24.0" onAction="#selectFloor" prefHeight="64.0" prefWidth="263.0" promptText="What floor would you like to view?" style="-fx-background-color: #ffffff" />
       </children>
     </AnchorPane>
   </children>

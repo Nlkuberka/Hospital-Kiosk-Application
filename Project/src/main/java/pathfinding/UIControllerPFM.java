@@ -8,6 +8,7 @@ import com.jfoenix.controls.JFXTabPane;
 import com.jfoenix.controls.JFXToggleButton;
 import database.DBController;
 import database.DBControllerNE;
+import entities.Direction;
 import entities.Graph;
 import entities.Node;
 import entities.User;
@@ -46,8 +47,7 @@ import java.util.logging.Logger;
 
 public class UIControllerPFM extends UIController {
 
-    @FXML
-    private AnchorPane topAnchorPane;
+    @FXML private AnchorPane topAnchorPane;
     @FXML private Path pathLL2, pathLL1, pathG, path1, path2, path3, path4;
     @FXML private JFXTabPane mapTabPane;
     @FXML private Menu homeMenu;
@@ -84,8 +84,7 @@ public class UIControllerPFM extends UIController {
     @FXML private TitledPane pathfindingTitledPane;
 
     // The multiplication factor at which the map changes size
-    @FXML
-    private JFXButton directionsRequest;
+    @FXML private JFXButton directionsRequest;
     @FXML JFXToggleButton noStairsButton;
 
     private PathHandler pathHandler;
@@ -99,7 +98,7 @@ public class UIControllerPFM extends UIController {
      */
     @FXML
     public void initialize() {
-       // titledPane.prefHeightProperty().bind(primaryStage.heightProperty());
+        // titledPane.prefHeightProperty().bind(primaryStage.heightProperty());
         backgroundImage.fitWidthProperty().bind(primaryStage.widthProperty());
 
         // ensures new tab has same x,y on the map and path animation changes between floors
@@ -188,7 +187,7 @@ public class UIControllerPFM extends UIController {
         anchorPaneHandler.initCircles(roomsAtEachFloor, initialLocationCombo, destinationCombo);
 
         userToolsTitledPane.collapsibleProperty().setValue(false);
-        if(CurrentUser.user.getPermissions() == User.BASIC_PERMISSIONS) {
+        if (CurrentUser.user.getPermissions() == User.BASIC_PERMISSIONS) {
             userToolsTitledPane.collapsibleProperty().setValue(true);
         }
         menu.setExpandedPane(pathfindingTitledPane);
@@ -211,18 +210,20 @@ public class UIControllerPFM extends UIController {
      *
      */
     @FXML
-    private void setTitledPane(){
-        if (pathfindingTitledPane.isExpanded()){
+    private void setTitledPane() {
+        if (pathfindingTitledPane.isExpanded()) {
             final Color color2 = Color.web("#ffc41e");
             pathfindingTitledPane.setBackground(new Background(new BackgroundFill(color2, null, null)));
-        }else{
+        } else {
             final Color color = Color.TRANSPARENT;
             pathfindingTitledPane.setBackground(new Background(new BackgroundFill(color, null, null)));
         }
 
     }
+
     /**
      * Allows for a default starting location
+     *
      * @param longName Name of starting node
      */
     private void setUpDefaultStartingLocation(String longName){
@@ -254,7 +255,7 @@ public class UIControllerPFM extends UIController {
      */
     private void getPath() {
 
-        if(currentObjects.anyNullEndNodes())
+        if (currentObjects.anyNullEndNodes())
             return;
 
         List<String> pathIDs;
@@ -269,11 +270,10 @@ public class UIControllerPFM extends UIController {
         currentObjects.clearAnimation(); // reset stuff
         pathHandler.cancel(); // reset stuff
 
-        if(pathIDs == null) {
+        if (pathIDs == null) {
             clearTabColors();
             popupMessage("There is no path between these two nodes.", true);
-        }
-        else {
+        } else {
             // change tab based on initial node -- order here is important! Do not move below.
             int index = Floors.getByID(initialNode.getFloor()).getTabIndex();
             mapTabPane.getSelectionModel().select(index);
@@ -328,6 +328,7 @@ public class UIControllerPFM extends UIController {
 
     /**
      * Allows the map to increase in size, up to scroll_AnchorPane.getMaxWidth
+     *
      * @param actionEvent Triggered when zoom_button is pressed
      */
     @FXML
@@ -347,31 +348,14 @@ public class UIControllerPFM extends UIController {
 
     @FXML
     private void directionSelection() {
-        String direction = Graph.getGraph().textDirections(Graph.getGraph().shortestPath(currentObjects.getInitialID(),
-                currentObjects.getDestID()));
-        try {
-            FXMLLoader fxmlLoader = new FXMLLoader();
-            fxmlLoader.setLocation(getClass().getResource("/directions_popup.fxml"));
 
-            Scene popupScene = new Scene(fxmlLoader.load(), 600, 400);
-            Stage popupStage = new Stage();
+        List<String> shortPath = Graph.getGraph().shortestPath(currentObjects.getInitialID(), currentObjects.getDestID());
+        List<List<List<Direction>>> direction = Graph.getGraph().textDirections(Graph.getGraph().separatePathByFloor(shortPath));
 
-            popupStage.getIcons().add(new Image(getClass().getResourceAsStream("/icon/directions.png")));
+        UIControllerPUD controller = (UIControllerPUD) popupScene(POPUP_DIRECTIONS, 600, 400, true);
 
-            popupStage.initModality(Modality.WINDOW_MODAL);
-            popupStage.initOwner(primaryStage);
-
-            UIControllerPUD controller = fxmlLoader.getController();
-            controller.setDirections(direction);
-
-            popupStage.setTitle("Directions");
-            popupStage.setScene(popupScene);
-            popupStage.show();
-        } catch (IOException e) {
-            Logger logger = Logger.getLogger((getClass().getName()));
-            logger.log(Level.SEVERE, "Failed to create new window.", e);
-
-        }
+        controller.populateDirections(direction);
+        controller.setDirections();
     }
 
     @FXML
@@ -391,19 +375,19 @@ public class UIControllerPFM extends UIController {
     }
 
     @FXML
-    private void setReservationButton(){
+    private void setReservationButton() {
         goToScene(UIController.RESERVATIONS_MAIN_MENU);
     }
 
     @FXML
-    private void setResolveRequestButton(){
+    private void setResolveRequestButton() {
         goToScene(UIController.USER_RESOLVE_SERVICE_REQUESTS);
     }
 
     @FXML
     private void setHomeMenuPF() {
         int permission = CurrentUser.user.getPermissions();
-        switch (permission){
+        switch (permission) {
             case 1:
                 this.goToScene(UIController.LOGIN_MAIN);
                 break;
