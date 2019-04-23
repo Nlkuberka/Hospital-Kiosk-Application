@@ -131,7 +131,7 @@ public class UIControllerATMV extends UIController {
         tabs.getSelectionModel().selectedItemProperty().addListener(
                 (ov, t, t1) -> {
                     GesturePane oldPane = gesturePaneHandler.getGesturePanes().get(currentFloor);
-                    currentFloor = Floors.getByName(t1.getText()).getIndex();
+                    currentFloor = Floors.getByID(t1.getId()).getIndex();
                     GesturePane pane = gesturePaneHandler.getGesturePanes().get(currentFloor);
                     pane.centreOn(oldPane.targetPointAtViewportCentre());
                     gesturePaneHandler.changeTabs(pane, oldPane);
@@ -454,7 +454,7 @@ public class UIControllerATMV extends UIController {
     }
 
     void setKiosk(Node node) {
-        if (node.getNodeType().equals("HALL") || node.getNodeType().equals("REST") || node.getNodeType().equals("ELEV")) {
+        if (node.getNodeType().equals("HALL") || node.getNodeType().equals("REST") || node.getNodeType().equals("ELEV") || node.getNodeType().equals("STAI") || node.getNodeType().equals("OUTD")) {
             popupMessage("Invalid Kiosk Location", true);
         } else {
             CurrentUser.startingLocation = node.getLongName();

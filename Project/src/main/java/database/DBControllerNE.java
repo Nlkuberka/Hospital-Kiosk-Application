@@ -9,6 +9,7 @@ import network.DBNetwork;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.sql.*;
 import java.util.LinkedList;
 import java.util.List;
@@ -402,7 +403,83 @@ public class DBControllerNE extends DBController{
         return true;
     }
 
+    /**
+     * exportNodes
+     *
+     * selects all content held in Nodes table and prints it to a file
+     * @param filename name of output file
+     */
+    public static void exportNodes(String filename) {
+        Connection connection = null;
+        Statement stmt;
+        String query = "Select * from nodes";
+        try {
+            connection = DriverManager.getConnection("jdbc:derby:myDB");
+            stmt = connection.createStatement();
+            ResultSet rs = stmt.executeQuery(query);
+            File file = new File(filename);
+            FileWriter fw = new FileWriter(filename);
+            fw.write("nodeID, xcoord, ycoord, floor, building, nodeType, longName, shortName \r\n");
+            while(rs.next()) {
+                fw.append(rs.getString(1));
+                fw.append(',');
+                fw.append(rs.getString(2));
+                fw.append(',');
+                fw.append(rs.getString(3));
+                fw.append(',');
+                fw.append(rs.getString(4));
+                fw.append(',');
+                fw.append(rs.getString(5));
+                fw.append(',');
+                fw.append(rs.getString(6));
+                fw.append(',');
+                fw.append(rs.getString(7));
+                fw.append(',');
+                fw.append(rs.getString(8));
+                fw.write("\r\n");
+            }
+            fw.flush();
+            fw.close();
+            connection.close();
+        } catch(Exception e) {
+            e.printStackTrace();
+            stmt = null;
+        }
+    }
 
+    /**
+     * exportEdges
+     *
+     * selects all content held in Edges table and prints it to a file
+     * @param filename name of output file
+     */
+    public static void exportEdges(String filename) {
+        Connection connection = null;
+        Statement stmt;
+        String query = "Select * from EDGES";
+        try {
+            connection = DriverManager.getConnection("jdbc:derby:myDB");
+            stmt = connection.createStatement();
+            ResultSet rs = stmt.executeQuery(query);
+            File file = new File(filename);
+            FileWriter fw = new FileWriter(filename);
+            fw.write("edgeID, startNode, endNode \r\n");
+            while(rs.next()) {
+                fw.append(rs.getString(1));
+                fw.append(',');
+                fw.append(rs.getString(2));
+                fw.append(',');
+                fw.append(rs.getString(3));
+                fw.write("\r\n");
+            }
+            fw.flush();
+            fw.close();
+            connection.close();
+        } catch(Exception e) {
+            e.printStackTrace();
+            stmt = null;
+        }
+    }
 
 }
 

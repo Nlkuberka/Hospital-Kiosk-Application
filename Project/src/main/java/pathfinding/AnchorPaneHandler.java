@@ -72,9 +72,9 @@ public class AnchorPaneHandler {
             node.setPickOnBounds(true);
             node.setMouseTransparent(false);
 
-            SubScene contextMenu = new SubScene(node, 600, 400);
-            contextMenu.setLayoutX(circle.getCenterX() - 300);
-            contextMenu.setLayoutY(circle.getCenterY() - 450);
+            SubScene contextMenu = new SubScene(node, 750, 500);
+            contextMenu.setLayoutX(circle.getCenterX() - 400);
+            contextMenu.setLayoutY(circle.getCenterY() - 550);
 //            contextMenu.setLayoutX(100);
 //            contextMenu.setLayoutY(100);
             contextMenu.setVisible(true);

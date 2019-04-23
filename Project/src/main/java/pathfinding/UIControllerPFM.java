@@ -192,6 +192,9 @@ public class UIControllerPFM extends UIController {
             userToolsTitledPane.collapsibleProperty().setValue(true);
         }
         menu.setExpandedPane(pathfindingTitledPane);
+
+        initialLocationCombo.getSelectionModel().select(CurrentUser.startingLocation);
+
     }
 
     void setInitialLocation(String longName) {
@@ -453,7 +456,7 @@ public class UIControllerPFM extends UIController {
 
     @FXML
     private void setOtherButton() {
-
+        this.popupScene(UIController.SERVICE_REQUEST_OTHER_MAIN, 900, 600, false);
     }
 }
 
