@@ -15,6 +15,9 @@ public class Tooltip {
     public Tooltip(Node node, String text) {
         tooltip = new javafx.scene.control.Tooltip(text);
         tooltip.setTextAlignment(TextAlignment.CENTER);
+        tooltip.setStyle("-fx-background-color: #015080;" +
+                "    -fx-background-radius: 0;" +
+                "    -fx-border-radius: 0;");
         hackTooltipStartTiming(tooltip);
         javafx.scene.control.Tooltip.install(node, tooltip);
     }
