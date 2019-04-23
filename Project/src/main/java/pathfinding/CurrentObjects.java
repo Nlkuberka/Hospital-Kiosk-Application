@@ -3,14 +3,14 @@ package pathfinding;
 import entities.Node;
 import javafx.animation.PathTransition;
 import javafx.scene.SubScene;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Path;
-import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
-import javafx.scene.text.TextAlignment;
 import net.kurobako.gesturefx.GesturePane;
 
 public class CurrentObjects {
@@ -18,7 +18,7 @@ public class CurrentObjects {
     private Circle initCircle;
     private Circle destCircle;
     private PathTransition animation = null;
-    private Rectangle ant = null;
+    private ImageView ant = null;
     private PathHandler pathHandler;
     private AnchorPaneHandler anchorPaneHandler;
     private GesturePaneHandler gesturePaneHandler;
@@ -28,7 +28,7 @@ public class CurrentObjects {
     private Text initNodeLabel;
     private Text destNodeLabel;
 
-    public CurrentObjects(int floorIndex, Circle initCircle, Circle destCircle, PathTransition animation, Rectangle currentAnt,
+    public CurrentObjects(int floorIndex, Circle initCircle, Circle destCircle, PathTransition animation, ImageView currentAnt,
                           PathHandler pathHandler, AnchorPaneHandler anchorPaneHandler, GesturePaneHandler gesturePaneHandler) {
         this.floorIndex = floorIndex;
         this.initCircle = initCircle;
@@ -94,11 +94,11 @@ public class CurrentObjects {
      */
     void clearNodeStyle() {
         if (initCircle != null) {
-            initCircle.setFill(Color.BLACK);
+            initCircle.setFill(Color.web("015080"));
             initCircle.setRadius(AnchorPaneHandler.nodeSizeIdle);
         }
         if (destCircle != null) {
-            destCircle.setFill(Color.BLACK);
+            destCircle.setFill(Color.web("015080"));
             destCircle.setRadius(AnchorPaneHandler.nodeSizeIdle);
         }
     }
@@ -164,7 +164,7 @@ public class CurrentObjects {
 
     public void setInitCircle(Circle initCircle) {
         if (this.initCircle != null) {
-            this.initCircle.setFill(Color.BLACK);
+            this.initCircle.setFill(Color.web("015080"));
             this.initCircle.setRadius(AnchorPaneHandler.nodeSizeIdle);
         }
         if (initCircle != null) {
@@ -184,7 +184,7 @@ public class CurrentObjects {
 
     public void setDestCircle(Circle destCircle) {
         if (this.destCircle != null) {
-            this.destCircle.setFill(Color.BLACK);
+            this.destCircle.setFill(Color.web("015080"));
             this.destCircle.setRadius(AnchorPaneHandler.nodeSizeIdle);
         }
         if (destCircle != null) {
@@ -206,12 +206,13 @@ public class CurrentObjects {
         this.animation = animation;
     }
 
-    public Rectangle getAnt() {
+    public ImageView getAnt() {
         return ant;
     }
 
-    public void setAnt(Rectangle ant) {
-        this.ant = ant;
+    public void setAnt() {
+        ant = new ImageView();
+        ant.setImage(new Image(getClass().getResourceAsStream("/images/StickGif.gif")));
     }
 
     private Text labelFactory(Node node) {
