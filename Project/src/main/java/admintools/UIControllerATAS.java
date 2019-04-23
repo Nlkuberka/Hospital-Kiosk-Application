@@ -1,5 +1,6 @@
 package admintools;
 
+import application.SessionTimeoutThread;
 import application.UIController;
 import com.jfoenix.controls.JFXButton;
 import javafx.fxml.FXML;
@@ -12,17 +13,40 @@ public class UIControllerATAS extends UIController {
     @FXML
     private JFXButton confirmButton;
     @FXML
-    private ChoiceBox minutCB;
+    private ChoiceBox<Integer> minuteCB;
     @FXML
-    private ChoiceBox secondCB;
-    @FXML
-    private Label minutLabel;
-    @FXML
-    private Label secondLabel;
+    private ChoiceBox<Integer> secondCB;
     @FXML
     private Menu homeMenu;
     @FXML
     private MenuItem backMenuItem;
 
+    @FXML
+    private void initialize() {
+        // Add choices to the choice boxes.
+        // Allow the admin to select an integer number of minutes and an integer number of seconds, up to an hour.
+        for(int i = 0; i < 60; i++) {
+            minuteCB.getItems().add(i);
+            secondCB.getItems().add(i);
+        }
+        // Preset the choice boxes to the current timeout.
+        int timeout = (int) (UIController.SESSION_TIMEOUT_THREAD.timeout / 1000);   // the time, in seconds, the application will wait for the user to do some action before logging them out
+        minuteCB.setValue(timeout / 60);
+        secondCB.setValue(timeout % 60);
+    }
 
+    @FXML
+    private void  setConfirmButton() {
+        // Change the internal timeout value to the time entered by the admin.
+        long timeout = minuteCB.getValue() * 60 + secondCB.getValue();
+        if(timeout >= 5) {
+            UIController.SESSION_TIMEOUT_THREAD.timeout = timeout * 1000;
+        }
+        popupMessage("Timeout changed.", false);
+    }
+
+    @FXML
+    private void setBackMenuItem() {
+        this.goToScene(UIController.ADMIN_TOOLS_MAIN);
+    }
 }
