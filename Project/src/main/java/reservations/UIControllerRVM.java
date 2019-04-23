@@ -31,7 +31,7 @@ import java.util.concurrent.TimeUnit;
 /**
  * The UIController that handles the creation and sending of reservations
  *
- * @author Jonathan Chang, imoralessirgo, Ryan O'Brien
+ * @author Jonathan Chang, imoralessirgo, Ryan O'Brien,Shiyi Liu
  * @version iteration1
  */
 public class UIControllerRVM extends UIController {
