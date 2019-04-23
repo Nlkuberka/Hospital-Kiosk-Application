@@ -19,7 +19,6 @@ import javafx.stage.Stage;
 import javafx.scene.image.ImageView;
 import utilities.Tooltip;
 
-import java.awt.*;
 import java.sql.Connection;
 
 public class UIControllerSRFD extends UIController {
