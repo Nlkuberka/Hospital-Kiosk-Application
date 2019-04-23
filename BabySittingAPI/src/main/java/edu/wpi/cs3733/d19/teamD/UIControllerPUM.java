@@ -8,7 +8,7 @@ import javafx.stage.Stage;
 /**
  * Handles the simple controller for the popup warning window
  * @author Jonathan Chang
- * @version iteration2
+ * @version API
  */
 public class UIControllerPUM extends UIController {
 

@@ -49,7 +49,7 @@ public class User {
     }
 
     public String toString() {
-        String returnValue = "edu.wpi.cs3733.d19.teamD.User(";
+        String returnValue = "User(";
         returnValue += userID + ", ";
         returnValue += username + ", ";
         returnValue += password + ", ";

@@ -2,7 +2,8 @@ package edu.wpi.cs3733.d19.teamD;
 
 /**
  * The Objecct that holds data about a particular service request
- * @version iteration2
+ * @version API
+ * @author imoralessirgo
  */
 public class ServiceRequest {
     private String nodeID;
@@ -88,7 +89,7 @@ public class ServiceRequest {
     public void setServiceID(int serviceID) { this.serviceID = serviceID; }
 
     public String toString() {
-        String returnValue = "edu.wpi.cs3733.d19.teamD.Node(";
+        String returnValue = "Node(";
         returnValue += getNodeID() + ", ";
         returnValue += getServiceType() + ", ";
         returnValue += getMessage() + ", ";

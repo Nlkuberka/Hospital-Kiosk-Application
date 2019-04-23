@@ -95,7 +95,7 @@ public class Node {
 
     @Override
     public String toString() {
-        return "edu.wpi.cs3733.d19.teamD.Node{" +
+        return "Node {" +
                 "nodeID='" + nodeID + '\'' +
                 ", xcoord=" + xcoord +
                 ", ycoord=" + ycoord +

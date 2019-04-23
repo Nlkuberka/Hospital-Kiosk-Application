@@ -22,7 +22,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * The edu.wpi.cs3733.d19.teamD.UIController Superclass
+ * The UIController Superclass
  * This controller handles all of the other UIControllers as well as
  * storing the EditableTableCell which is used in adminTools
  * @author Isabel Morales
@@ -30,7 +30,7 @@ import java.util.Map;
  */
 public class UIController {
 
-    // The various scenes that this edu.wpi.cs3733.d19.teamD.UIController handles
+    // The various scenes that this UIController handles
     public static final String POPUP_DIRECTIONS = "PUD";
 
     public static final String SERVICE_REQUEST_MAIN = "SRM";
@@ -98,10 +98,10 @@ public class UIController {
         sceneParents = new HashMap<String, Parent>();
 
         sceneFiles.put(UIController.SERVICE_REQUEST_BABYSITTING, "/service_request_babysitting.fxml");
-        sceneTitles.put(UIController.SERVICE_REQUEST_BABYSITTING, "Service Request - edu.wpi.cs3733.d19.teamD.Babysitting");
+        sceneTitles.put(UIController.SERVICE_REQUEST_BABYSITTING, "Service Request - Babysitting");
 
         sceneFiles.put(UIController.USER_ADD, "/add_user");
-        sceneTitles.put(UIController.USER_ADD, "Add edu.wpi.cs3733.d19.teamD.User");
+        sceneTitles.put(UIController.USER_ADD, "Add User");
 
         sceneFiles.put(UIController.USERS_VIEW, "/view_users");
         sceneTitles.put(UIController.USERS_VIEW, "View Users");
@@ -111,14 +111,14 @@ public class UIController {
         sceneTitles.put(UIController.POPUP_DIRECTIONS, "Popup Window For Directions");
 
         sceneFiles.put(UIController.SERVICE_REQUEST_MAIN, "/overall.fxml");
-        sceneTitles.put(UIController.SERVICE_REQUEST_MAIN, "Service Request - edu.wpi.cs3733.d19.teamD.Babysitting");
+        sceneTitles.put(UIController.SERVICE_REQUEST_MAIN, "Service Request - Babysitting");
     }
 
     /**
      * Switches the primary stage to the given scene
      * If the scene has not yet been created, creates that scene
      * @param sceneString String representation of the scene to swtich to
-     * @return The edu.wpi.cs3733.d19.teamD.UIController for that particular new scene
+     * @return The UIController for that particular new scene
      */
     @FXML
     protected UIController goToScene(String sceneString, String cssPath) {

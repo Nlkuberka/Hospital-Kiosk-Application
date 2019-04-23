@@ -137,7 +137,7 @@ public class DBControllerAPI {
      * generateListofNodes
      *
      * creates and returns a list of node objects
-     * @return LinkedList<edu.wpi.cs3733.d19.teamD.Node>
+     * @return LinkedList<Node>
      */
     public static LinkedList<Node> generateListOfNodes(Connection connection, String query){
         try{
@@ -169,7 +169,7 @@ public class DBControllerAPI {
     /**
      * addServiceRequest
      *
-     * Enters edu.wpi.cs3733.d19.teamD.ServiceRequest object to database
+     * Enters ServiceRequest object to database
      *
      * @param serviceRequest
      * @param connection
@@ -212,7 +212,7 @@ public class DBControllerAPI {
     /**
      * updateServiceRequest
      *
-     * saves changes msde to a edu.wpi.cs3733.d19.teamD.ServiceRequest object
+     * saves changes msde to a ServiceRequest object
      *
      * UP TO DATE
      * @param serviceRequest

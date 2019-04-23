@@ -21,10 +21,10 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 /**
- * The edu.wpi.cs3733.d19.teamD.UIController for the viewing, editing, adding, and removing service requests
+ * The UIController for the viewing, editing, adding, and removing service requests
  * Allows the admin to manage service Requests
  * @author Jonathan Chang, imoralessirgo
- * @version iteration1
+ * @version API
  */
 public class UIControllerATVSR extends UIController {
     private static final String[] serviceRequestSetters  = {"", "", "", "setResolved", "setResolverID", ""};
