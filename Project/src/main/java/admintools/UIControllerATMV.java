@@ -131,7 +131,7 @@ public class UIControllerATMV extends UIController {
         tabs.getSelectionModel().selectedItemProperty().addListener(
                 (ov, t, t1) -> {
                     GesturePane oldPane = gesturePaneHandler.getGesturePanes().get(currentFloor);
-                    currentFloor = Floors.getByName(t1.getText()).getIndex();
+                    currentFloor = Floors.getByID(t1.getId()).getIndex();
                     GesturePane pane = gesturePaneHandler.getGesturePanes().get(currentFloor);
                     pane.centreOn(oldPane.targetPointAtViewportCentre());
                     gesturePaneHandler.changeTabs(pane, oldPane);
