@@ -82,6 +82,7 @@ public class UIControllerSRRS extends UIController {
                 e.getControlNewText().length() <= 150 ? e : null
         ));
 
+        serviceType = "Religious Services";
         finalMessage = "";
 
         denomCheckBoxes = new LinkedList<>();
@@ -140,10 +141,6 @@ public class UIControllerSRRS extends UIController {
         OtherServiceField.setText("");
         additionalCommentField.setText("");
         serviceMessage.setText("");
-    }
-
-    public void setServiceType(String serviceType) {
-        this.serviceType = serviceType;
     }
 
     @FXML
