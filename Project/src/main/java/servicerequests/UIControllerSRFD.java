@@ -17,7 +17,7 @@ import javafx.stage.Stage;
 import java.sql.Connection;
 
 public class UIControllerSRFD extends UIController {
-    String flowerDelivery;
+    private String flowerDelivery;
     private RoomCategoryFilterHelper filterHelper;
 
     @FXML private JFXComboBox<String> roomSelect;
@@ -37,7 +37,7 @@ public class UIControllerSRFD extends UIController {
     @FXML
     public void initialize() {
         //backgroundImage.fitWidthProperty().bind(primaryStage.widthProperty());
-
+        this.flowerDelivery = "Flower Delivery";
         serviceMessage1.setTextFormatter(new TextFormatter<String>(e ->
                 e.getControlNewText().length() <= 100 ? e : null
         ));
@@ -49,10 +49,6 @@ public class UIControllerSRFD extends UIController {
         phoneNum.setText("");
         filterHelper = new RoomCategoryFilterHelper(roomSelect, null, true);
         serviceMessage1.setText("");
-    }
-
-    public void setServiceType(String serviceType) {
-        this.flowerDelivery = serviceType;
     }
 
     @FXML
