@@ -62,6 +62,7 @@ public class UIControllerSRFD extends UIController {
         String phoneNumber = phoneNum.getText();
 
         ServiceRequest sr = new ServiceRequest(nodeID, flowerDelivery, phoneNumber + message + costLabel.getText(), CurrentUser.user.getUserID(), false, null);
+        sr.setServiceID(sr.getTimeStamp());
 
         Connection conn = DBControllerSR.dbConnect();
         DBControllerSR.addServiceRequest(sr,conn);

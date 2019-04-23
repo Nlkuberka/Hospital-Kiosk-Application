@@ -1,6 +1,8 @@
 package entities;
 
+import java.text.SimpleDateFormat;
 import java.time.LocalTime;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -13,7 +15,7 @@ public class Reservation {
     private String date;
     private String startTime;
     private String endTime;
-    private int rsvID;
+    private String rsvID;
 
     public Reservation() {
     }
@@ -25,7 +27,7 @@ public class Reservation {
         this.startTime = startTime;
         this.endTime = endTime;
     }
-    public Reservation(String wkplaceID, String userID, String date, String startTime, String endTime, int rsvID) {
+    public Reservation(String wkplaceID, String userID, String date, String startTime, String endTime, String rsvID) {
         this.wkplaceID = wkplaceID;
         this.userID = userID;
         this.date = date;
@@ -74,9 +76,9 @@ public class Reservation {
         this.endTime = endTime;
     }
 
-    public int getRsvID() { return rsvID; }
+    public String getRsvID() { return rsvID; }
 
-    public void setRsvID(int rsvID) { this.rsvID = rsvID; }
+    public void setRsvID(String rsvID) { this.rsvID = rsvID; }
 
     public String toString() {
         String returnValue = "Wkplace(";
@@ -105,5 +107,15 @@ public class Reservation {
             }
         }
         return true;
+    }
+
+    /**
+     * Gets the timestamp of the current reservation
+     * @return The String representation of the timstamp
+     */
+    public String getTimeStamp() {
+        Date date = new Date();
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
+        return format.format(date);
     }
 }

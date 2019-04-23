@@ -81,6 +81,8 @@ public class UIControllerSRO extends UIController {
         String message = nameTextField.getText() + " requests " +serviceTypeTextField.getText() + " at " + filterHelper.getLongName() + " : " + serviceMessage.getText();
 
         ServiceRequest sr = new ServiceRequest(nodeID, "Other", message, CurrentUser.user.getUserID(), false, null);
+        sr.setServiceID(sr.getTimeStamp());
+
         Connection conn = DBControllerSR.dbConnect();
         DBControllerSR.addServiceRequest(sr,conn);
         DBControllerSR.closeConnection(conn);
