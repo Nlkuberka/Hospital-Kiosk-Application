@@ -32,15 +32,12 @@ public class UIControllerATAS extends UIController {
 
     @FXML
     public void onShow() {
-        long timeout = SessionTimeoutThread.timeout;
-        long seconds = timeout / 1000;
-        minutLabel.setText(seconds / 60 + "min");
-        secondLabel.setText(seconds % 60 + "s");
+
     }
 
     @FXML
     public void setBackMenuItem() {
-        this.goToScene(UIController.ADMIN_TOOLS_MAIN);
+
     }
 
     @FXML
