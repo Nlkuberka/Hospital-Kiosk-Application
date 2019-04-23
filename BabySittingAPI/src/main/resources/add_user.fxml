@@ -30,7 +30,7 @@
                   <Font size="36.0" />
                </font>
             </JFXButton>
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="edu.wpi.cs3733.d19.teamD.User ID">
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="User ID">
                <font>
                   <Font size="36.0" />
                </font>

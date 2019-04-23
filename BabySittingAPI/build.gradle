@@ -5,7 +5,7 @@ apply plugin: 'java'
 apply plugin: 'idea'
 apply plugin: 'application'
 
-mainClassName = "Babysitting" // replace with your main class
+mainClassName = "edu.wpi.cs3733.d19.teamD.Babysitting" // replace with your main class
 
 sourceCompatibility = 1.8
 targetCompatibility = 1.8

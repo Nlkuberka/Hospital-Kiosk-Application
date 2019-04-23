@@ -22,7 +22,7 @@ public class Babysitting extends Application {
         DBControllerAPI.initializeAppDB(conn);
         DBControllerAPI.closeConnection(conn);
 
-        run(0,0,600,600,"/css/background.css");
+        run(50,0,600,600,"/css/background.css");
 
     }
 
