@@ -110,7 +110,7 @@ public class GesturePaneHandler {
         PathTransition pathTransition = new PathTransition();
 
         //Setting the duration of the path transition
-        pathTransition.setDuration(Duration.seconds(3));
+        pathTransition.setDuration(Duration.seconds(5));
 
         //Setting the node for the transition
         currentObjects.setAnt();
