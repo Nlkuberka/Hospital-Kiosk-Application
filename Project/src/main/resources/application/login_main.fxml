@@ -75,12 +75,12 @@
                                     <Insets bottom="5.0" />
                                  </opaqueInsets>
                               </FlowPane>
-                              <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Welcome to Brigham and Women's Hospital!!" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="5" GridPane.valignment="CENTER">
+                              <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Welcome to Brigham and Women's Hospital!!" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="6" GridPane.valignment="CENTER">
                                  <font>
                                     <Font name="System Bold Italic" size="48.0" />
                                  </font>
                               </Text>
-                              <JFXButton fx:id="beginButton" onAction="#setBeginButton" styleClass="jfx-button-guest-login" stylesheets="@../css/background.css" text="Begin" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="7" />
+                              <JFXButton fx:id="beginButton" onAction="#setBeginButton" styleClass="jfx-button-guest-login" stylesheets="@../css/background.css" text="Begin" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="8" />
                            </children>
                         </GridPane>
                      </content>
