@@ -49,7 +49,7 @@ public class UIControllerPFM extends UIController {
     @FXML
     private AnchorPane topAnchorPane;
     @FXML private Path pathLL2, pathLL1, pathG, path1, path2, path3, path4;
-    @FXML private JFXTabPane mapTabPane;
+    @FXML public JFXTabPane mapTabPane;
     @FXML private Menu homeMenu;
 
     @FXML public JFXComboBox<String> initialLocationCombo;
@@ -105,18 +105,20 @@ public class UIControllerPFM extends UIController {
         // ensures new tab has same x,y on the map and path animation changes between floors
         mapTabPane.getSelectionModel().selectedItemProperty().addListener(
                 (ov, t, t1) -> {
-                    currentObjects.clearAnimation();
-                    GesturePane oldPane = currentObjects.getCurrentGesturePane();
-                    currentObjects.setFloorIndex(Floors.getByID(t1.getId()).getIndex());
+                    currentObjects.clearAnimation(); // clear animation on current floor
+                    GesturePane oldPane = currentObjects.getCurrentGesturePane(); // save old index
+                    currentObjects.setFloorIndex(Floors.getByID(t1.getId()).getIndex()); // change floor
                     GesturePane pane = currentObjects.getCurrentGesturePane();
                     pane.centreOn(oldPane.targetPointAtViewportCentre());
                     gesturePaneHandler.changeTabs(pane, oldPane);
+                    currentObjects.clearContextMenu();
                     if (pathHandler.isActive()) {
                         gesturePaneHandler.newAnimation(currentObjects);
+                        gesturePaneHandler.centerOnInitialNode(pathHandler, currentObjects.getCurrentGesturePane());
                     }
-                    currentObjects.clearContextMenu();
                 }
         );
+
 
         pathHandler = new PathHandler(pathLL2, pathLL1, pathG, path1, path2, path3, path4, primaryStage);
 
@@ -279,9 +281,15 @@ public class UIControllerPFM extends UIController {
 
             List<Integer> floorsUsed = pathHandler.getFloorsUsed();
             clearTabColors();
-            for (Integer floor : floorsUsed) {
-                floor = Floors.getByIndex(floor).getTabIndex();
-                mapTabPane.getTabs().get(floor).setStyle("-fx-background-color: #efffff");
+            for (int i = 0; i < Floors.values().length; i++) {
+                int floor = Floors.getByIndex(i).getTabIndex();
+                if (floorsUsed.contains(i)) {
+                    mapTabPane.getTabs().get(floor).setStyle("-fx-background-color: #efffff");
+                    mapTabPane.getTabs().get(floor).setDisable(false);
+                } else {
+                    mapTabPane.getTabs().get(floor).setStyle("-fx-background-color: #003454");
+                    mapTabPane.getTabs().get(floor).setDisable(true);
+                }
             }
         }
 
@@ -294,6 +302,8 @@ public class UIControllerPFM extends UIController {
 
         directionsRequest.setDisable(false);
 
+        menu.getExpandedPane().setExpanded(false);
+
     }
 
     /**
@@ -302,6 +312,7 @@ public class UIControllerPFM extends UIController {
     private void clearTabColors() {
         for (Tab tab : mapTabPane.getTabs()) {
             tab.setStyle("-fx-background-color: #015080");
+            tab.setDisable(false);
         }
     }
 
