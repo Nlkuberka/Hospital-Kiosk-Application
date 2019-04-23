@@ -25,6 +25,13 @@
     -fx-font-weight: bold;
     -fx-text-fill:#090a0f;
 }
+.jfx-button-login2{
+    -jfx-button-type: FLAT;
+    -fx-background-color: #ffdd54;
+    -fx-font-size: 20;
+    -fx-font-weight: bold;
+    -fx-text-fill:#090a0f;
+}
 .jfx-button-guest-login{
     -jfx-button-type: FLAT;
     -fx-background-color:#FFC41E;

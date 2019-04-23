@@ -106,7 +106,7 @@ public class DBControllerRW extends DBController {
                 s.execute();
                 ResultSet rs = s.getGeneratedKeys();
                 rs.next();
-                CurrentUser.network.sendReservationPacket(DBNetwork.ADD_RESERVATION, reservation);
+//                CurrentUser.network.sendReservationPacket(DBNetwork.ADD_RESERVATION, reservation);
                 return rs.getInt(1);
             }
             else {

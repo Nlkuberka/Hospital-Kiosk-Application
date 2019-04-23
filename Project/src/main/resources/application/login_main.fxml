@@ -21,6 +21,16 @@
 
 <StackPane minHeight="720.0" minWidth="1280.0" style="-fx-background-color: #ffffff;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.UIControllerLM">
    <children>
+      <JFXTextField fx:id="adminID">
+         <StackPane.margin>
+            <Insets top="200.0" />
+         </StackPane.margin>
+      </JFXTextField>
+      <JFXTextField fx:id="userID">
+         <StackPane.margin>
+            <Insets top="200.0" />
+         </StackPane.margin>
+      </JFXTextField>
       <ImageView fx:id="backgroundImage" pickOnBounds="true" preserveRatio="true" StackPane.alignment="BOTTOM_CENTER">
          <image>
             <Image url="@../images/MainMenu.png" />
@@ -75,7 +85,7 @@
                         </GridPane>
                      </content>
                   </Tab>
-                  <Tab fx:id="user_tab" style="-fx-font-size: 22;" text="edu.wpi.cs3733.d19.teamD.User">
+                  <Tab fx:id="user_tab" onSelectionChanged="#setUserTab" style="-fx-font-size: 22;" text="User">
                      <content>
                         <GridPane alignment="CENTER" prefHeight="690.0" prefWidth="1280.0">
                           <columnConstraints>
@@ -124,11 +134,23 @@
                               </Text>
                               <FlowPane alignment="CENTER" orientation="VERTICAL" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="9" GridPane.valignment="CENTER">
                                  <children>
-                                    <JFXButton fx:id="loginAsUserButton" contentDisplay="CENTER" onAction="#setLoginAsUserButton" styleClass="jfx-button-login" stylesheets="@../css/background.css" text="Login" textAlignment="CENTER" textFill="WHITE">
-                                       <font>
-                                          <Font name="System Bold" size="15.0" />
-                                       </font>
-                                    </JFXButton>
+                                    <FlowPane prefWidth="250.0">
+                                       <children>
+                                          <JFXButton fx:id="loginAsUserButton" contentDisplay="CENTER" onMouseClicked="#setLoginAsUserButton" styleClass="jfx-button-login" stylesheets="@../css/background.css" text="Login" textAlignment="CENTER" textFill="WHITE">
+                                             <font>
+                                                <Font name="System Bold" size="15.0" />
+                                             </font>
+                                          </JFXButton>
+                                          <JFXButton fx:id="swipeUser" alignment="CENTER" contentDisplay="CENTER" onAction="#setToUserID" prefHeight="10.0" prefWidth="109.0" styleClass="jfx-button-login2" stylesheets="@../css/background.css" text="Swipe In" textAlignment="CENTER" textFill="WHITE">
+                                             <font>
+                                                <Font name="System Bold" size="15.0" />
+                                             </font>
+                                             <FlowPane.margin>
+                                                <Insets left="30.0" />
+                                             </FlowPane.margin>
+                                          </JFXButton>
+                                       </children>
+                                    </FlowPane>
                                  </children>
                                  <opaqueInsets>
                                     <Insets bottom="5.0" />
@@ -138,7 +160,7 @@
                         </GridPane>
                      </content>
                   </Tab>
-                  <Tab fx:id="admin_tab" style="-fx-font-size: 22;" text="Administrator">
+                  <Tab fx:id="admin_tab" onSelectionChanged="#setAdminTab" style="-fx-font-size: 22;" text="Administrator">
                      <content>
                         <GridPane alignment="CENTER">
                            <columnConstraints>
@@ -185,11 +207,23 @@
                                     <Font size="25.0" />
                                  </font>
                               </Text>
-                              <JFXButton fx:id="loginAsAdminButton" onAction="#setLoginAsAdminButton" styleClass="jfx-button-login" stylesheets="@../css/background.css" text="Login" textAlignment="CENTER" textFill="WHITE" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="9" GridPane.valignment="CENTER">
-                                 <font>
-                                    <Font name="System Bold" size="15.0" />
-                                 </font>
-                              </JFXButton>
+                              <FlowPane GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="9" GridPane.valignment="CENTER">
+                                 <children>
+                                    <JFXButton fx:id="loginAsAdminButton" onMouseClicked="#setLoginAsAdminButton" styleClass="jfx-button-login" stylesheets="@../css/background.css" text="Login" textAlignment="CENTER" textFill="WHITE">
+                                       <font>
+                                          <Font name="System Bold" size="15.0" />
+                                       </font>
+                                    </JFXButton>
+                                    <JFXButton fx:id="swipeAdmin" alignment="CENTER" contentDisplay="CENTER" onAction="#setToAdminID" prefHeight="10.0" prefWidth="109.0" styleClass="jfx-button-login2" stylesheets="@../css/background.css" text="Swipe In" textAlignment="CENTER" textFill="WHITE">
+                                       <font>
+                                          <Font name="System Bold" size="15.0" />
+                                       </font>
+                                       <FlowPane.margin>
+                                          <Insets left="40.0" />
+                                       </FlowPane.margin>
+                                    </JFXButton>
+                                 </children>
+                              </FlowPane>
                            </children>
                         </GridPane>
                      </content>
