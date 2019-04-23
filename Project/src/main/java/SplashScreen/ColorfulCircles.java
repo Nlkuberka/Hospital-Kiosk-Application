@@ -97,9 +97,6 @@ public class ColorfulCircles extends UIController {
             pathTransition.stop();
         }
 
-        //System.out.println("START");
-        //System.out.println(path.getElements());
-
         pathTransition.setOnFinished(event -> continuousTransition(path, pathTransition, finalPoint));
     }
 
