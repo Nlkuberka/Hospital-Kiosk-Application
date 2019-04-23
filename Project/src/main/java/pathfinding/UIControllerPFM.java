@@ -278,6 +278,8 @@ public class UIControllerPFM extends UIController {
             // update paths -- order here is important! Do not move above change tab.
             pathHandler.displayNewPath(Graph.getGraph().separatePathByFloor(pathIDs), initialNode);
 
+            pathHandler.drawFloorLinks(anchorPaneHandler, mapTabPane);
+
             gesturePaneHandler.centerOnInitialNode(pathHandler, currentObjects.getCurrentGesturePane(),
                     currentObjects.getFloorIndex());
 
