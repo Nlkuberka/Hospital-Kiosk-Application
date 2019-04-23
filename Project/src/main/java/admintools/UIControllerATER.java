@@ -99,7 +99,7 @@ public class UIControllerATER extends UIController {
      */
     @FXML
     private void setBackButton() {
-        this.goToScene(UIController.ADMIN_TOOLS_MAIN);
+        this.goToScene(UIController.ADMIN_RESERVATION_MAIN);
     }
 
 

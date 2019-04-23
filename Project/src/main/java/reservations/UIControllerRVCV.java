@@ -1,5 +1,6 @@
 package reservations;
 
+import application.CurrentUser;
 import application.UIController;
 import com.calendarfx.model.*;
 import com.calendarfx.view.CalendarView;
@@ -7,6 +8,7 @@ import com.calendarfx.view.DayView;
 import com.calendarfx.view.page.DayPage;
 import database.DBController;
 import database.DBControllerRW;
+import entities.User;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
@@ -128,5 +130,6 @@ public class UIControllerRVCV extends UIController {
 
 
     public void setBackMenuItem(ActionEvent actionEvent) {
+        UIController controller = CurrentUser.user.getPermissions() == User.ADMIN_PERMISSIONS ? this.goToScene(UIController.ADMIN_RESERVATION_MAIN) : this.goToScene(UIController.RESERVATIONS_MAIN_MENU);
     }
 }
