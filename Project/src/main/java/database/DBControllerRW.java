@@ -101,7 +101,7 @@ public class DBControllerRW extends DBController {
 
             if(isRoomAvailableString(reservation.getWkplaceID(), reservation.getDate(), reservation.getStartTime(), reservation.getEndTime(), connection)) {
                 //connection = DriverManager.getConnection("jdbc:derby:myDB");
-                PreparedStatement s = connection.prepareStatement("INSERT into RESERVATIONS (WKPLACEID, USERID, DAY, STARTTIME, ENDTIME) values ('" + reservation.getWkplaceID() +"','" + reservation.getUserID() +
+                PreparedStatement s = connection.prepareStatement("INSERT into RESERVATIONS (RSVID, WKPLACEID, USERID, DAY, STARTTIME, ENDTIME) values ('" + reservation.getRsvID() +"','" + reservation.getWkplaceID() +"','" + reservation.getUserID() +
                         "','"+ reservation.getDate() +"','"+ reservation.getStartTime() + "','" + reservation.getEndTime() + "')",Statement.RETURN_GENERATED_KEYS);
                 s.execute();
                 ResultSet rs = s.getGeneratedKeys();
