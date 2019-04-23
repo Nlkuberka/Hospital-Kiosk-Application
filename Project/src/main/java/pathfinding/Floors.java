@@ -28,6 +28,10 @@ public enum Floors {
         return this.index;
     }
 
+    public int getTabIndex() {
+        return Floors.values().length - getIndex() - 1;
+    }
+
     public static Floors getByID(String ID) {
         if(ID.equals(FIRST.ID)) {
             return FIRST;
