@@ -339,8 +339,7 @@ public class UIController {
         stage.toFront();
 
         // Run the onShow function and return the controller
-        UIController sceneController = sceneControllers.get(sceneString);
-        sceneController.onShow();
+        sceneControllers.get(sceneString).onShow();
         return sceneControllers.get(sceneString);
     }
 
@@ -393,9 +392,7 @@ public class UIController {
             });
             sceneParents.put(sceneString, root);
             sceneControllers.put(sceneString, fxmlLoader.getController());
-            Scene test = new Scene(root, width, height);
-            System.out.println(test);
-            scenes.put(sceneString, test);
+            scenes.put(sceneString, new Scene(root, width, height));
         } catch(Exception e) {
             e.printStackTrace();
         }
