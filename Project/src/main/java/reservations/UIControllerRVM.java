@@ -124,9 +124,6 @@ public class UIControllerRVM extends UIController {
     @FXML private Shape workzone5_d11; @FXML private Shape workzone5_d7; @FXML private Shape workzone5_d16;
     @FXML private Shape workzone5_d12; @FXML private Shape workzone5_d4; @FXML private Shape workzone5_d8;
     @FXML private Shape workzone5_d3; @FXML private Shape workzone5_t2; @FXML private Shape workzone5_t3;
-
-    @FXML
-    private ImageView backgroundImage;
   
     @FXML
     private List<String> IDs = new LinkedList<String>();
@@ -143,17 +140,13 @@ public class UIControllerRVM extends UIController {
      */
     @FXML
     public void initialize() {
-
         shapes.add(classroom1); shapes.add(classroom2); shapes.add(classroom3); shapes.add(classroom4); shapes.add(classroom5);
         shapes.add(classroom6); shapes.add(classroom7); shapes.add(classroom8); shapes.add(classroom9);
         shapes.add(MHA); shapes.add(MHCR); shapes.add(pantry);
 
-        backgroundImage.fitWidthProperty().bind(primaryStage.widthProperty());
-
         colorShapeRed(workzone1_d5); colorShapeRed(workzone1_d16); colorShapeRed(workzone3_d8);
         colorShapeRed(workzone3_r3); colorShapeRed(workzone2_d7); colorShapeRed(workzone4_t2);
         colorShapeRed(workzone5_r2); colorShapeRed(workzone5_d4); colorShapeRed(workzone5_t2);
-
     }
 
     /**
@@ -258,7 +251,7 @@ public class UIControllerRVM extends UIController {
         System.out.println(reservations);
         Reservation r = new Reservation(workplaceIDs.get(workplaceSelect.getValue()),
                 CurrentUser.user.getUserID(), dateString, startString, endString);
-
+        r.setRsvID(r.getTimeStamp());
 //        if (!r.isValid(reservations)) {
         if(!DBControllerRW.isRoomAvailableString(r.getWkplaceID(), r.getDate(), r.getStartTime(), r.getEndTime(), conn)) {
             popupMessage("This reservation conflicts with another.", true);
