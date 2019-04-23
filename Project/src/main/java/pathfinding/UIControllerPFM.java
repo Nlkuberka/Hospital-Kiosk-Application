@@ -363,8 +363,6 @@ public class UIControllerPFM extends UIController {
         goToScene(UIController.LOGIN_MAIN);
     }
 
-
-
     @FXML
     private void setAboutButton() {
         goToScene(UIController.ABOUT_PAGE);
@@ -405,6 +403,25 @@ public class UIControllerPFM extends UIController {
         }
     }
 
+    @FXML
+    private void setFlowerButton() {
+        this.popupScene(UIController.SERVICE_REQUEST_FLOWER_DELIVERY, 900, 600, false);
+    }
+
+    @FXML
+    private void setBabyButton() {
+        this.popupScene(UIController.SERVICE_REQUEST_BABYSITTING, 900, 600, false);
+    }
+
+    @FXML
+    private void setReligiousButton() {
+        this.popupScene(UIController.SERVICE_REQUEST_RELIGIOUS_SERVICES, 900, 600, false);
+    }
+
+    @FXML
+    private void setOtherButton() {
+
+    }
 }
 
 

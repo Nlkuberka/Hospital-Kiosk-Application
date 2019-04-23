@@ -17,7 +17,6 @@ import javafx.scene.Scene;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextFormatter;
-import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.StackPane;
@@ -58,8 +57,7 @@ public class UIControllerSRRS extends UIController {
     public JFXTextField OtherServiceField;
     public TextArea additionalCommentField;
     public StackPane parentPane;
-    @FXML
-    private ImageView backgroundImage;
+
     private String serviceType;
     private String finalMessage;
     private RoomCategoryFilterHelper filterHelper;
@@ -80,8 +78,6 @@ public class UIControllerSRRS extends UIController {
 
     @FXML
     public void initialize() {
-        backgroundImage.fitWidthProperty().bind(primaryStage.widthProperty());
-
         serviceMessage.setTextFormatter(new TextFormatter<String>(e ->
                 e.getControlNewText().length() <= 150 ? e : null
         ));
@@ -170,12 +166,13 @@ public class UIControllerSRRS extends UIController {
         Connection conn = DBControllerSR.dbConnect();
         DBControllerSR.addServiceRequest(sr, conn);
         DBControllerSR.closeConnection(conn);
-        this.goToScene(UIController.PATHFINDING_MAIN);
+        setCancelButton();
     }
 
     @FXML
     private void setCancelButton() {
-        this.goToScene(UIController.PATHFINDING_MAIN);
+        Stage stage = (Stage) roomSelect.getScene().getWindow();
+        stage.close();
     }
 
     private void setDenomination(LinkedList<CheckBox> denomCheckBoxes) {
@@ -237,11 +234,6 @@ public class UIControllerSRRS extends UIController {
         for (CheckBox serviceCheckBox : serviceCheckBoxes) {
             serviceCheckBox.setSelected(false);
         }
-    }
-
-    @FXML
-    public void setCancelButton(ActionEvent actionEvent) {
-        goToScene(UIController.PATHFINDING_MAIN);
     }
 
     private boolean enablePolicy() throws IOException {
