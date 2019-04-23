@@ -174,19 +174,6 @@ public class GesturePaneHandler {
 
     }
 
-    /**
-     * Linearly map a variable from one range to another
-     * @param x
-     * @param in_min
-     * @param in_max
-     * @param out_min
-     * @param out_max
-     * @return
-     */
-    private double map(double x, double in_min, double in_max, double out_min, double out_max) {
-        return (x - in_min) * (out_max - out_min) / (in_max - in_min) + out_min;
-    }
-
     private double calcScaleFactor(double viewPort, double yield, double buffer) {
         return viewPort / (yield + buffer);
     }

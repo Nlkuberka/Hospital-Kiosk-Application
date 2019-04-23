@@ -49,7 +49,7 @@ public class UIControllerPFM extends UIController {
     @FXML
     private AnchorPane topAnchorPane;
     @FXML private Path pathLL2, pathLL1, pathG, path1, path2, path3, path4;
-    @FXML public JFXTabPane mapTabPane;
+    @FXML private JFXTabPane mapTabPane;
     @FXML private Menu homeMenu;
 
     @FXML public JFXComboBox<String> initialLocationCombo;
