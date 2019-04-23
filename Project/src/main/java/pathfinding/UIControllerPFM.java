@@ -8,6 +8,8 @@ import com.jfoenix.controls.JFXTabPane;
 import com.jfoenix.controls.JFXToggleButton;
 import database.DBController;
 import database.DBControllerNE;
+import edu.wpi.cs3733.d19.teamMService.controllers.LanguageRequestForm;
+import edu.wpi.cs3733.d19.teamE.api.Main_Registration;
 import entities.Graph;
 import entities.Node;
 import entities.User;
@@ -419,8 +421,13 @@ public class UIControllerPFM extends UIController {
     }
 
     @FXML
-    private void setOtherButton() {
+    private void setPatientButton(){
+        Main_Registration.main(null);
+    }
 
+
+    @FXML
+    private void setOtherButton() {
     }
 }
 
