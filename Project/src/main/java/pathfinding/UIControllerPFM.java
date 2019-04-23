@@ -121,7 +121,7 @@ public class UIControllerPFM extends UIController {
         );
 
 
-        pathHandler = new PathHandler(pathLL2, pathLL1, pathG, path1, path2, path3, path4, primaryStage);
+        pathHandler = new PathHandler(pathLL2, pathLL1, pathG, path1, path2, path3, path4);
 
         gesturePaneHandler = new GesturePaneHandler(lowerLevel2GesturePane, lowerLevel1GesturePane,
                 groundFloorGesturePane, firstFloorGesturePane, secondFloorGesturePane, thirdFloorGesturePane,

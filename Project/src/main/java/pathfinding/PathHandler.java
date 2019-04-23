@@ -14,9 +14,8 @@ public class PathHandler {
     private LinkedList<Path> pathList = new LinkedList<>();
     private List<List<List<Node>>> latestPath;
     private Node latestStartingNode;
-    private Stage primaryStage;
 
-    public PathHandler(Path p1, Path p2, Path p3, Path p4, Path p5, Path p6, Path p7, Stage stage) {
+    public PathHandler(Path p1, Path p2, Path p3, Path p4, Path p5, Path p6, Path p7) {
         this.pathList.add(p1);
         this.pathList.add(p2);
         this.pathList.add(p3);
@@ -24,7 +23,6 @@ public class PathHandler {
         this.pathList.add(p5);
         this.pathList.add(p6);
         this.pathList.add(p7);
-        this.primaryStage = stage;
 
         // set stroke width
         for (int i = 0; i < this.pathList.size(); i++) {
