@@ -44,6 +44,7 @@ public class DBServer extends NetworkThread implements Runnable {
      * The running state of the server
      */
     public void run() {
+        log("Server Started");
         while(true) {
             // If end, then exit
             if(end) {

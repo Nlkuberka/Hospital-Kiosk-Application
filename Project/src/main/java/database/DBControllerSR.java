@@ -18,8 +18,13 @@ public class DBControllerSR extends DBController {
     public static LinkedList<ServiceRequest> getServiceRequests(String type, Connection conn){
         LinkedList<ServiceRequest> list = new LinkedList<ServiceRequest>();
         try{
-           PreparedStatement ps = conn.prepareStatement("SELECT * from USERS where servicetype = ?");
-           ps.setString(1,type);
+            PreparedStatement ps;
+            if(type == "*"){
+               ps = conn.prepareStatement("SELECT * from SERVICEREQUEST");
+            }else {
+                ps = conn.prepareStatement("SELECT * from SERVICEREQUEST where servicetype = ?");
+                ps.setString(1, type);
+            }
            ResultSet rs = ps.executeQuery();
            while(rs.next()){
                list.add(new ServiceRequest(rs.getString("NODEID"),rs.getString("SERVICETYPE"),
@@ -44,13 +49,13 @@ public class DBControllerSR extends DBController {
         try{
             PreparedStatement s;
             if (serviceRequest.getNodeID() == null){
-                s = connection.prepareStatement("INSERT into SERVICEREQUEST (NODEID, SERVICETYPE, MESSAGE, USERID, RESOLVED, RESOLVERID)" +
-                        " values (" + serviceRequest.getNodeID() +
+                s = connection.prepareStatement("INSERT into SERVICEREQUEST (SERVICEID, NODEID, SERVICETYPE, MESSAGE, USERID, RESOLVED, RESOLVERID)" +
+                        " values ( '"+serviceRequest.getServiceID() +"'," + serviceRequest.getNodeID() +
                         ",'"+ serviceRequest.getServiceType() +"','"+ serviceRequest.getMessage() + "','"+
                         serviceRequest.getUserID()+"',"+serviceRequest.isResolved()+","+ serviceRequest.getResolverID()+")");
             }else{
-                s = connection.prepareStatement("INSERT into SERVICEREQUEST (NODEID, SERVICETYPE, MESSAGE, USERID, RESOLVED, RESOLVERID)" +
-                        " values ('" + serviceRequest.getNodeID() +
+                s = connection.prepareStatement("INSERT into SERVICEREQUEST (SERVICEID, NODEID, SERVICETYPE, MESSAGE, USERID, RESOLVED, RESOLVERID)" +
+                        " values ('"+serviceRequest.getServiceID() +"','"+ serviceRequest.getNodeID() +
                         "','"+ serviceRequest.getServiceType() +"','"+ serviceRequest.getMessage() + "','"+
                         serviceRequest.getUserID()+"',"+serviceRequest.isResolved()+","+ serviceRequest.getResolverID()+")");
 
@@ -81,7 +86,7 @@ public class DBControllerSR extends DBController {
                     "MESSAGE = '"+ serviceRequest.getMessage() + "'," +
                     "RESOLVED = '" + serviceRequest.isResolved() + "'," +
                     "RESOLVERID = '"+serviceRequest.getResolverID()+"' " +
-                    "where  SERVICEID = " + serviceRequest.getServiceID());
+                    "where  SERVICEID = '" + serviceRequest.getServiceID()+"'");
             CurrentUser.network.sendServiceRequestPacket(DBNetwork.UPDATE_SERVICE_REQUEST, serviceRequest);
         }catch(SQLException e){
             e.printStackTrace();
@@ -94,10 +99,10 @@ public class DBControllerSR extends DBController {
      *
      * @param connection
      */
-    public static void deleteServiceRequest(int ID, Connection connection){
+    public static void deleteServiceRequest(String ID, Connection connection){
         try {
             PreparedStatement ps = connection.prepareStatement("DELETE * FROM SERVICEREQUEST WHERE SERVICEID = ?");
-            ps.setInt(1,ID);
+            ps.setString(1,ID);
             ps.execute();
             ServiceRequest serviceRequest = new ServiceRequest();
             serviceRequest.setServiceID(ID);

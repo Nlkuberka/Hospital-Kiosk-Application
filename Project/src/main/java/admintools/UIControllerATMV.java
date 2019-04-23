@@ -20,7 +20,6 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
-import javafx.scene.paint.Paint;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
 import javafx.scene.shape.Path;
@@ -455,7 +454,7 @@ public class UIControllerATMV extends UIController {
     }
 
     void setKiosk(Node node) {
-        if (node.getNodeType().equals("HALL") || node.getNodeType().equals("REST") || node.getNodeType().equals("ELEV")) {
+        if (node.getNodeType().equals("HALL") || node.getNodeType().equals("REST") || node.getNodeType().equals("ELEV") || node.getNodeType().equals("STAI") || node.getNodeType().equals("OUTD")) {
             popupMessage("Invalid Kiosk Location", true);
         } else {
             CurrentUser.startingLocation = node.getLongName();

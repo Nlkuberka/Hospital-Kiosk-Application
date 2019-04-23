@@ -1,21 +1,19 @@
 package pathfinding;
 
-import application.UIController;
+import entities.Node;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Group;
 import javafx.scene.Parent;
 import javafx.scene.SubScene;
-import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
+import utilities.Tooltip;
 
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
-import entities.Node;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Circle;
-import utilities.Tooltip;
 
 
 public class AnchorPaneHandler {
@@ -74,9 +72,9 @@ public class AnchorPaneHandler {
             node.setPickOnBounds(true);
             node.setMouseTransparent(false);
 
-            SubScene contextMenu = new SubScene(node, 600, 400);
-            contextMenu.setLayoutX(circle.getCenterX() - 300);
-            contextMenu.setLayoutY(circle.getCenterY() - 450);
+            SubScene contextMenu = new SubScene(node, 750, 500);
+            contextMenu.setLayoutX(circle.getCenterX() - 400);
+            contextMenu.setLayoutY(circle.getCenterY() - 550);
 //            contextMenu.setLayoutX(100);
 //            contextMenu.setLayoutY(100);
             contextMenu.setVisible(true);
@@ -117,9 +115,7 @@ public class AnchorPaneHandler {
 
                 this.circleFromName.put(node.getLongName(), circle); // setup hashmap
 
-                circle.setOnMouseClicked(e -> {
-                    newContextMenuAtLocation(circle, node.getShortName(), node.getLongName());
-                });
+                circle.setOnMouseClicked(e -> newContextMenuAtLocation(circle, node.getShortName(), node.getLongName()));
                 group.getChildren().add(circle);
             }
             group.setVisible(true);

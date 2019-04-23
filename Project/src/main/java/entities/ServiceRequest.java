@@ -1,5 +1,8 @@
 package entities;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 /**
  * The Objecct that holds data about a particular service request
  * @version iteration2
@@ -11,7 +14,7 @@ public class ServiceRequest {
     private String userID;
     private boolean resolved;
     private String resolverID;
-    private int serviceID;
+    private String serviceID;
 
     public ServiceRequest() {
     }
@@ -25,7 +28,7 @@ public class ServiceRequest {
         this.resolverID = resolverID;
     }
 
-    public ServiceRequest(String nodeID, String serviceType, String message, String userID, boolean resolved, String resolverID, int serviceID) {
+    public ServiceRequest(String nodeID, String serviceType, String message, String userID, boolean resolved, String resolverID, String serviceID) {
         this.nodeID = nodeID;
         this.serviceType = serviceType;
         this.message = message;
@@ -83,9 +86,9 @@ public class ServiceRequest {
         this.resolverID = resolverID;
     }
 
-    public int getServiceID() { return serviceID; }
+    public String getServiceID() { return serviceID; }
 
-    public void setServiceID(int serviceID) { this.serviceID = serviceID; }
+    public void setServiceID(String serviceID) { this.serviceID = serviceID; }
 
     public String toString() {
         String returnValue = "Node(";
@@ -96,5 +99,15 @@ public class ServiceRequest {
         returnValue += isResolved()+ ", ";
         returnValue += getResolverID() + ")";
         return  returnValue;
+    }
+
+    /**
+     * Gets the timestamp of the current reservation
+     * @return The String representation of the timstamp
+     */
+    public String getTimeStamp() {
+        Date date = new Date();
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
+        return format.format(date);
     }
 }
