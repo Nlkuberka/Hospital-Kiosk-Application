@@ -67,32 +67,36 @@ public class UIControllerPUD extends UIController {
     /**
      * converts the input path to a single string
      */
-    void convertMessage(){
+    void convertMessage(String selectedFloor){
         this.returnText = "";
         //this is a fallback un case the dropdown doesnt work
+//        for(int i = 0; i < this.path.size(); i++){
+//            for (int j = 0; j < this.path.get(i).size(); j++) {
+//                for (int k = 0; k < this.path.get(i).get(j).size(); k++) {
+//                    this.returnText += this.path.get(i).get(j).get(k).getDirection();
+//                }
+//            }
+//        }
+
         for(int i = 0; i < this.path.size(); i++){
-            for (int j = 0; j < this.path.get(i).size(); j++) {
-                for (int k = 0; k < this.path.get(i).get(j).size(); k++) {
-                    this.returnText += this.path.get(i).get(j).get(k).getDirection();
-                }
-            }
-        }
-        /*for(int i = 0; i < this.path.size(); i++){
             for(int j = 0; j < this.path.get(i).size(); j++){
-                this.returnText = "";
                 for(int k = 0; k < this.path.get(i).get(j).size(); k++) {
-                    System.out.println("Selected Floor: " + "_" + selectedFloor + "_");
-                    System.out.println("Actual Floor: " + this.path.get(i).get(j).get(k).getFloor());
+                    //System.out.println("Selected Floor: " + "_" + selectedFloor + "_");
+                    //System.out.println("Actual Floor: " + this.path.get(i).get(j).get(k).getFloor());
                     if (this.path.get(i).get(j).get(k).getFloor().equals(selectedFloor)) {
+                        //if the selected floor equals the floor of the given direction
                         this.returnText += this.path.get(i).get(j).get(k).getDirection();
-                    }else if(selectedFloor.equals("All")){
+                    }
+                    else if(selectedFloor.equals("All")){
+                        //if the selected floor is All, print all directions
                         this.returnText += this.path.get(i).get(j).get(k).getDirection();
-                    }else{
-                        this.returnText = "There are no paths on this floor";
                     }
                 }
             }
-        }*/
+        }
+        if(this.returnText.equals("")){
+            this.returnText = "There are no paths on this floor";
+        }
     }
 
     @FXML
@@ -103,7 +107,7 @@ public class UIControllerPUD extends UIController {
     @FXML
     public void selectFloor(){
         String selectedFloor = floorSelect.getValue();
-        convertMessage();
+        convertMessage(selectedFloor);
         setDirections();
     }
 
