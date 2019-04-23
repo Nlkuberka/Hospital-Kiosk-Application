@@ -48,6 +48,7 @@ public class UIController {
     public static final String RESERVATIONS_CALENDAR_VIEW = "RVCV";
 
     public static final String ADMIN_TOOLS_MAIN = "ATM";
+    public static final String ADMIN_RESERVATION_MAIN="ARM";
     public static final String ADMIN_TOOLS_VIEW_NODES = "ATVN";
     public static final String ADMIN_TOOLS_VIEW_EDGES = "ATVE";
     public static final String ADMIN_TOOLS_VIEW_SERVICE_REQUESTS = "ATVSR";
@@ -56,6 +57,7 @@ public class UIController {
     public static final String ADMIN_TOOLS_CHANGE_ALGORITHM = "ATCA";
     public static final String ADMIN_TOOLS_MAP_VIEW = "ATMV";
     public static final String ADMIN_TOOLS_EDIT_RESERVATIONS = "ATER";
+    public static final String ADMIN_TOOLS_APPLICATION_SETTING = "ATAS";
 
 //    public static final String SERVICE_REQUEST_BASE = "SRB";
     public static final String SERVICE_REQUEST_PRESCRIPTION_SERVICES_MAIN = "SRPSM";
@@ -130,14 +132,14 @@ public class UIController {
         sceneTitles.put(UIController.ABOUT_PAGE, "About Page");
 
 
-        // Main Menus
-        sceneFiles.put(UIController.ADMIN_MAIN_MENU_MAIN, "/admintools/admin_main_menu_main.fxml");
-        sceneTitles.put(UIController.ADMIN_MAIN_MENU_MAIN, "Main Menu");
 
 
         // Admin Tools
         sceneFiles.put(UIController.ADMIN_TOOLS_MAIN, "/admintools/admin_tools_main.fxml");
         sceneTitles.put(UIController.ADMIN_TOOLS_MAIN, "Admin Tools - Main");
+
+        sceneFiles.put(UIController.ADMIN_RESERVATION_MAIN, "/admintools/admin_reservation_main.fxml");
+        sceneTitles.put(UIController.ADMIN_RESERVATION_MAIN, "Admin Tools - Main");
 
         sceneFiles.put(UIController.ADMIN_TOOLS_VIEW_EDGES, "/admintools/admin_tools_view_edges.fxml");
         sceneTitles.put(UIController.ADMIN_TOOLS_VIEW_EDGES, "Admin Tools - View Edges");
@@ -158,6 +160,9 @@ public class UIController {
 
         sceneFiles.put(UIController.ADMIN_TOOLS_EDIT_RESERVATIONS, "/admintools/admin_tools_edit_reservations.fxml");
         sceneTitles.put(UIController.ADMIN_TOOLS_EDIT_RESERVATIONS, "Admin Tools - Edit Reservation");
+
+        sceneFiles.put(UIController.ADMIN_TOOLS_APPLICATION_SETTING, "/admintools/admin_tools_application_setting.fxml");
+        sceneTitles.put(UIController.ADMIN_TOOLS_APPLICATION_SETTING, "Admin Tools - Application Setting");
 
 
         // Service Request
@@ -403,10 +408,10 @@ public class UIController {
                 this.goToScene(UIController.PATHFINDING_MAIN);
                 break;
             case 3:
-                this.goToScene(UIController.ADMIN_MAIN_MENU_MAIN);
+                this.goToScene(UIController.ADMIN_TOOLS_MAIN);
                 break;
             default:
-                this.goToScene(UIController.WELCOME_MAIN);
+                this.goToScene(UIController.LOGIN_MAIN);
                 break;
         }
     }

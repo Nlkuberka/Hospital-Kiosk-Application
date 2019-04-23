@@ -24,7 +24,7 @@
           <top>
               <MenuBar nodeOrientation="RIGHT_TO_LEFT" prefWidth="600.0" style="-fx-background-color: #ffc41e;" stylesheets="@../css/background.css" BorderPane.alignment="CENTER">
                   <menus>
-                      <Menu mnemonicParsing="false" onAction="#setCancelButton" onShowing="#setHomeButton" text="Close">
+                      <Menu mnemonicParsing="false" onAction="#setCancelButton" onShowing="#setCancelButton" text="Close">
                <items>
                   <MenuItem mnemonicParsing="false" text="HOME" />
                </items>
