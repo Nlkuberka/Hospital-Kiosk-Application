@@ -149,7 +149,7 @@
                                     </ImageView>
                                 </graphic>
                             </Tab>
-                            <Tab fx:id="LL1">
+                            <Tab fx:id="L1">
                                 <GesturePane fx:id="lowerLevel1GesturePane" fitHeight="false" fitWidth="false" prefWidth="1920.0">
                                     <AnchorPane fx:id="lowerLevel1AnchorPane">
                                         <children>
@@ -170,7 +170,7 @@
                                     </ImageView>
                                 </graphic>
                             </Tab>
-                            <Tab fx:id="LL2">
+                            <Tab fx:id="L2">
                                 <GesturePane fx:id="lowerLevel2GesturePane" fitHeight="false" fitWidth="false" prefWidth="1920.0">
                                     <AnchorPane fx:id="lowerLevel2AnchorPane">
                                         <children>
