@@ -185,7 +185,7 @@ public class UIControllerRVM extends UIController {
         workZones.add(workzone5_d13); workZones.add(workzone5_d14); workZones.add(workzone5_d15);
         workZones.add(workzone5_d16);
 
-        backgroundImage.fitWidthProperty().bind(primaryStage.widthProperty());
+//        backgroundImage.fitWidthProperty().bind(primaryStage.widthProperty());
 
         //Classroom Tooltips
         int num;

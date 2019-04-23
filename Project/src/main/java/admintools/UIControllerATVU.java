@@ -69,17 +69,23 @@ public class UIControllerATVU extends UIController {
 
                     textField.setOnAction(et -> {
                         // Check Length
-                        Connection conn = DBController.dbConnect();
                         if(textField.getText().length() > lengthRequirements[index]) {
+                            popupMessage("Field must be less than " + lengthRequirements[index] + " characters.", true);
                             setGraphic(label);
                             textField.setText(label.getText());
                             return;
                         }
                         runSetter(user, userSetters[index],String.class, textField.getText());
+
+                        Connection conn = DBController.dbConnect();
                         if(index == 0) {
                             DBController.createTable("Delete From USERS WHERE USERID = '"+label.getText()+"'",conn);
+                            DBControllerU.addUser(user, conn);
+                        } else {
+                            DBControllerU.updateUser(user.getUserID(), user, conn);
                         }
-                        DBControllerU.updateUser(label.getText(),user,conn);
+
+                        DBController.closeConnection(conn);
 
                         setGraphic(label);
                         label.setText(textField.getText());
@@ -110,12 +116,17 @@ public class UIControllerATVU extends UIController {
 
                 textField.setOnAction(et -> {
                     if(textField.getText().length() > lengthRequirements[2]) {
+                        popupMessage("Field must be less than " + lengthRequirements[2] + " characters.", true);
+
                         setGraphic(label);
                         textField.setText(label.getText());
                         return;
                     }
 
                     runSetter(user, userSetters[2],String.class, textField.getText());
+                    Connection conn = DBController.dbConnect();
+                    DBControllerU.updateUser(user.getUserID(), user, conn);
+                    DBController.closeConnection(conn);
                     setGraphic(label);
                 });
 
@@ -163,8 +174,7 @@ public class UIControllerATVU extends UIController {
                     }
                     int permission = userPermissions.get(userPermissionNames.indexOf(permissionName));
                     runSetter(user, userSetters[3], int.class, permission);
-                    System.out.println(user);
-                    System.out.println(user.getUserID());
+
                     Connection conn = DBController.dbConnect();
                     DBControllerU.updateUser(user.getUserID(),user,conn);
                     DBController.closeConnection(conn);
@@ -300,9 +310,6 @@ public class UIControllerATVU extends UIController {
         Connection conn = DBController.dbConnect();
         List<User> userList = DBControllerU.getUser(conn);
         DBController.closeConnection(conn);
-        for(int i = 0; i < userList.size(); i++) {
-            System.out.println(userList.get(i));
-        }
         userTableView.setItems(FXCollections.observableList(userList));
     }
 

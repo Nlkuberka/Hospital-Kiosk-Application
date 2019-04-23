@@ -134,6 +134,14 @@
                                     <Insets bottom="5.0" />
                                  </opaqueInsets>
                               </FlowPane>
+<<<<<<< HEAD
+                              <JFXButton fx:id="cancelButton" alignment="BASELINE_RIGHT" cancelButton="true" contentDisplay="CENTER" onAction="#setCancelButton" styleClass="jfx-button-OK" stylesheets="@../css/background.css" text="Go Back to Path Finding" textAlignment="CENTER" textFill="WHITE" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="10" GridPane.valignment="CENTER">
+                                 <font>
+                                    <Font name="System Bold" size="12.0" />
+                                 </font>
+                              </JFXButton>
+=======
+>>>>>>> iteration4
                            </children>
                         </GridPane>
                      </content>
@@ -190,6 +198,7 @@
                                     <Font name="System Bold" size="15.0" />
                                  </font>
                               </JFXButton>
+                              <JFXButton fx:id="cancelButton1" cancelButton="true" contentDisplay="CENTER" onAction="#setCancelButton" style="-fx-font-weight: bold;" styleClass="jfx-button-OK" stylesheets="@../css/background.css" text="Go Back to Path Finding" textFill="WHITE" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="10" GridPane.valignment="CENTER" />
                            </children>
                         </GridPane>
                      </content>

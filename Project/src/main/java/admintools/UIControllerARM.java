@@ -1,4 +1,4 @@
-package reservations;
+package admintools;
 
 import application.CurrentUser;
 import application.UIController;
@@ -8,14 +8,7 @@ import javafx.scene.control.Menu;
 import javafx.scene.control.MenuItem;
 import javafx.scene.image.ImageView;
 
-/**
- * The UIController for the Reservations Main Menu
- * Allows the user to select the various admin tools as well as go back to the Admin
- * Main Menu
- * @author Ryan O'Brien
- * @version iteration2
- */
-public class UIControllerRVMM extends UIController {
+public class UIControllerARM extends UIController {
 
     @FXML
     private Menu homeButton; /**< The Home Button*/
@@ -27,14 +20,24 @@ public class UIControllerRVMM extends UIController {
     private JFXButton makeReservation; /**< The Make Reservation Button*/
 
     @FXML
-    private JFXButton viewReservations; /**< The View/Edit Reservations Button*/
+    private JFXButton viewReservations; /**< The View/Edit MY Reservations Button*/
+
+    @FXML
+    private JFXButton editReservation;
+
+    @FXML
+    private JFXButton calendarView;
+
+
+
+
 
     @FXML
     private ImageView backgroundImage;
 
 
 
-    public UIControllerRVMM() {
+    public UIControllerARM() {
 
     }
 
@@ -70,23 +73,17 @@ public class UIControllerRVMM extends UIController {
      */
     @FXML
     private void setBackMenuItem() {
-        int permission = CurrentUser.user.getPermissions();
-        switch (permission){
-            case 1:
-                this.goToScene(UIController.LOGIN_MAIN);
-                break;
-            case 2:
-                this.goToScene(UIController.PATHFINDING_MAIN);
-                break;
-            case 3:
-                this.goToScene(UIController.ADMIN_MAIN_MENU_MAIN);
-                break;
-            default:
-                this.goToScene(UIController.LOGIN_MAIN);
-                break;
-        }
+        this.goToScene(UIController.ADMIN_TOOLS_MAIN);
     }
 
     @FXML
-    private void setCalendarView() { this.goToScene(UIController.RESERVATIONS_CALENDAR_VIEW); }
+    private void setCalendarView() {
+        this.goToScene(UIController.RESERVATIONS_CALENDAR_VIEW);
+    }
+
+    @FXML
+    private void setEditReservation(){
+        this.goToScene(UIController.ADMIN_TOOLS_EDIT_RESERVATIONS);
+    }
 }
+

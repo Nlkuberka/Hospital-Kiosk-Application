@@ -2,34 +2,21 @@ package servicerequests;
 
 import application.CurrentUser;
 import com.jfoenix.controls.JFXTextField;
-import database.DBController;
 import application.UIController;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextArea;
-import database.DBControllerNE;
 import database.DBControllerSR;
-import entities.Node;
 import entities.ServiceRequest;
 import helper.RoomCategoryFilterHelper;
-import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
-import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextFormatter;
-import javafx.scene.image.ImageView;
+import javafx.stage.Stage;
 
 import java.sql.Connection;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-
 
 public class UIControllerSRFD extends UIController {
-    @FXML
-    private ImageView backgroundImage;
     String flowerDelivery;
     private RoomCategoryFilterHelper filterHelper;
 
@@ -47,11 +34,9 @@ public class UIControllerSRFD extends UIController {
     @FXML
     private Label costLabel;
 
-
-
     @FXML
     public void initialize() {
-        backgroundImage.fitWidthProperty().bind(primaryStage.widthProperty());
+        //backgroundImage.fitWidthProperty().bind(primaryStage.widthProperty());
 
         serviceMessage1.setTextFormatter(new TextFormatter<String>(e ->
                 e.getControlNewText().length() <= 100 ? e : null
@@ -72,22 +57,22 @@ public class UIControllerSRFD extends UIController {
 
     @FXML
     private void setConfirmButton() {
-        String roomShortName = (String) roomSelect.getValue();
         String nodeID = filterHelper.getNodeID();
         String message = serviceMessage1.getText();
         String phoneNumber = phoneNum.getText();
 
         ServiceRequest sr = new ServiceRequest(nodeID, flowerDelivery, phoneNumber + message + costLabel.getText(), CurrentUser.user.getUserID(), false, null);
-        System.out.println(sr.toString());
+
         Connection conn = DBControllerSR.dbConnect();
         DBControllerSR.addServiceRequest(sr,conn);
         DBControllerSR.closeConnection(conn);
-        this.goToScene(UIController.PATHFINDING_MAIN);
+        setCancelButton();
     }
 
     @FXML
     private void setCancelButton() {
-        this.goToScene(UIController.PATHFINDING_MAIN);
+        Stage stage = (Stage) phoneNum.getScene().getWindow();
+        stage.close();
     }
 
     @FXML

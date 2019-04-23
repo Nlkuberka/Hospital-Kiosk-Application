@@ -4,7 +4,11 @@ import entities.*;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.net.InetAddress;
 import java.net.ServerSocket;
+import java.net.URL;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -13,9 +17,7 @@ import java.util.List;
  * @author Jonathan Chang
  */
 public class DBNetwork {
-    public static final List<String> ipAddresses = new LinkedList<String>(){{
-
-    }};
+    public static List<String> ipAddresses = new LinkedList<String>(){};
 
     private DBServer dbServer;
     private List<DBClient> dbClients;
@@ -29,6 +31,7 @@ public class DBNetwork {
      */
     public DBNetwork(int socketNum) {
         setupServer(socketNum);
+        DBNetwork.ipAddresses.remove(getOwnIP());
         this.dbClients = new LinkedList<DBClient>();
         this.mapper = new ObjectMapper();
         this.socketNum = socketNum;
@@ -124,7 +127,8 @@ public class DBNetwork {
         } catch(Exception e) {
             e.printStackTrace();
         }
-        outputString(command);
+        return;
+        //outputString(command);
     }
 
     /*===== Service Request Functions ======*/
@@ -165,6 +169,26 @@ public class DBNetwork {
         dbServer.end();
     }
 
+    /**
+     * Quires a bot to get the public IP address of the self
+     */
+    private String getOwnIP() {
+        String ownIP = "";
+        try {
+            InetAddress localhost = InetAddress.getLocalHost();
+            URL url_name = new URL("http://bot.whatismyipaddress.com");
+
+            BufferedReader sc = new BufferedReader(new InputStreamReader(url_name.openStream()));
+
+            ownIP = sc.readLine().trim();
+        } catch (Exception e) {
+            e.printStackTrace();
+            ownIP = "Cannot Execute Properly";
+        }
+        System.out.println(ownIP);
+        return ownIP;
+    }
+
     public void mute() {
         this.mute = true;
     }
@@ -180,4 +204,5 @@ public class DBNetwork {
     public void unhold() {
         this.dbServer.unhold();
     }
+
 }

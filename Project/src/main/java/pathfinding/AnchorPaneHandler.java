@@ -31,7 +31,7 @@ public class AnchorPaneHandler {
     /**
      * Setup anchor panes such that they are in a list and have groups for the node circles
      */
-    AnchorPaneHandler(AnchorPane p1, AnchorPane p2, AnchorPane p3, AnchorPane p4, AnchorPane p5, AnchorPane p6,
+    AnchorPaneHandler(AnchorPane p1, AnchorPane p2, AnchorPane p3, AnchorPane p4, AnchorPane p5, AnchorPane p6, AnchorPane p7,
                       AnchorPane topAnchorPane, UIControllerPFM controller) {
         this.anchorPanes = new LinkedList<AnchorPane>();
         anchorPanes.add(p1);
@@ -40,6 +40,7 @@ public class AnchorPaneHandler {
         anchorPanes.add(p4);
         anchorPanes.add(p5);
         anchorPanes.add(p6);
+        anchorPanes.add(p7);
 
         this.controller = controller;
 
@@ -109,6 +110,7 @@ public class AnchorPaneHandler {
                 float y = (float) node.getYcoord();
 
                 Circle circle = new Circle(x, y, nodeSizeIdle);
+                circle.setFill(Color.web("015080"));
                 circle.setId(node.getNodeID());
 
                 new Tooltip(circle, node.getShortName());
