@@ -204,7 +204,7 @@ public class UIController {
         sceneTitles.put(UIController.PATHFINDING_MAIN, "Path Finding Main");
 
         // Popups
-        sceneFiles.put(UIController.POPUP_DIRECTIONS, "/direction_popup.fxml");
+        sceneFiles.put(UIController.POPUP_DIRECTIONS, "/directions_popup.fxml");
         sceneTitles.put(UIController.POPUP_DIRECTIONS, "Popup Window For Directions");
 
         // SplashScreen
@@ -339,7 +339,8 @@ public class UIController {
         stage.toFront();
 
         // Run the onShow function and return the controller
-        sceneControllers.get(sceneString).onShow();
+        UIController sceneController = sceneControllers.get(sceneString);
+        sceneController.onShow();
         return sceneControllers.get(sceneString);
     }
 
@@ -371,7 +372,7 @@ public class UIController {
      * @param width The width to setup to
      * @param height The height to setup to
      */
-    private void loadScene(String sceneString, int width, int height) {
+    protected void loadScene(String sceneString, int width, int height) {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(sceneFiles.get(sceneString)));
             Parent root = fxmlLoader.load();
@@ -392,7 +393,9 @@ public class UIController {
             });
             sceneParents.put(sceneString, root);
             sceneControllers.put(sceneString, fxmlLoader.getController());
-            scenes.put(sceneString, new Scene(root, width, height));
+            Scene test = new Scene(root, width, height);
+            System.out.println(test);
+            scenes.put(sceneString, test);
         } catch(Exception e) {
             e.printStackTrace();
         }

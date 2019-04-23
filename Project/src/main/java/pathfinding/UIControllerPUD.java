@@ -26,6 +26,8 @@ public class UIControllerPUD extends UIController {
     public static final String AUTH_TOKEN = "ab7f1a58335f47c98bac61b471920dfe";
     String returnText;
     List<List<List<Direction>>> path = new LinkedList<>();
+    List<String> addedPath = new LinkedList<>();
+    String sceneString = "POPUP_DIRECTIONS";
     @FXML
     private TextArea directions; //the actual directions
     @FXML
@@ -45,38 +47,32 @@ public class UIControllerPUD extends UIController {
     @FXML
     private JFXComboBox<String> floorSelect; //drop down to select which floor's directions to display
 
-    @FXML
-    public void onShow(){
-        floorSelect.getItems().addAll("All", "L2", "L1", "G", "1", "2", "3", "4");
-    }
-
-    /*void getFloorSelection(String floor){
-        floorSelect.getSelectionModel().select(floor);
-    }*/
-
     /**
      * Populates the object's linked list
      * @param message the input path
      */
-    void populateLinkedList(List<List<List<Direction>>> message){
-        //floorSelect.getItems().addAll("All Floors", "Lower Level 2", "Lower Level 1", "Ground Floor", "First Floor ", "Second Floor", "Third Floor ", "Fourth Floor");//populates dropdown with floors
+    void populateDirections(List<List<List<Direction>>> message){
         this.path = message;
-        floorSelect.getItems().addAll("All", "L2", "L1", "G", "1", "2", "3", "4");
+        floorSelect.getItems().addAll("All", "4", "3", "2", "1", "G", "L1", "L2");
+        addedPath = Graph.getGraph().allTextDirections(this.path);
+        System.out.println("Floor Value" + floorSelect.getValue());
+        convertMessage(floorSelect.getValue());
+        setDirections();
     }
 
     /**
      * converts the input path to a single string
+     * @param selectedFloor the selected floor to view directions
      */
     void convertMessage(String selectedFloor){
         this.returnText = "";
-        //this is a fallback un case the dropdown doesnt work
-//        for(int i = 0; i < this.path.size(); i++){
-//            for (int j = 0; j < this.path.get(i).size(); j++) {
-//                for (int k = 0; k < this.path.get(i).get(j).size(); k++) {
-//                    this.returnText += this.path.get(i).get(j).get(k).getDirection();
-//                }
-//            }
-//        }
+
+        if(selectedFloor == null || selectedFloor.equals("All")) {
+            //if the selected floor is All, print all directions
+            for (int l = 0; l < this.addedPath.size() - 1; l++) {
+                this.returnText += this.addedPath.get(l);
+            }
+        }
 
         for(int i = 0; i < this.path.size(); i++){
             for(int j = 0; j < this.path.get(i).size(); j++){
@@ -87,16 +83,14 @@ public class UIControllerPUD extends UIController {
                         //if the selected floor equals the floor of the given direction
                         this.returnText += this.path.get(i).get(j).get(k).getDirection();
                     }
-                    else if(selectedFloor.equals("All")){
-                        //if the selected floor is All, print all directions
-                        this.returnText += this.path.get(i).get(j).get(k).getDirection();
-                    }
                 }
             }
         }
+
         if(this.returnText.equals("")){
             this.returnText = "There are no paths on this floor";
         }
+
     }
 
     @FXML
@@ -105,7 +99,7 @@ public class UIControllerPUD extends UIController {
     }
 
     @FXML
-    public void selectFloor(){
+    public void selectFloor(){ //changes the displayed directions based on floor
         String selectedFloor = floorSelect.getValue();
         convertMessage(selectedFloor);
         setDirections();

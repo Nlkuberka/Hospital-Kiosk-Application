@@ -629,34 +629,18 @@ public abstract class Graph {
                 }
             }
         }
-
-        //used when the parameter was just a list of strings
-        /*for(int i = 0; i < NodeIDS.size()-1; i++){
-            String pastDirection = returnAngle(NodeIDS.get(i), NodeIDS.get(i+1));
-            if(i <= NodeIDS.size() - 3){
-                currentDirection = returnAngle(NodeIDS.get(i+1), NodeIDS.get(i+2));
-            } else {
-                currentDirection = pastDirection;
-            }
-
-            if(i == NodeIDS.size()-2) {
-                commaOrPeriod = ".";
-            }
-            else{
-                commaOrPeriod = ", ";
-            }
-            int currentNodeIndex = mapNodeIDToIndex(NodeIDS.get(i));
-            int nextNodeIndex = mapNodeIDToIndex(NodeIDS.get(i+1));
-            //System.out.println(returnAngle(NodeIDS.get(i), NodeIDS.get(i+1), directions));
-                    directions += returnDirection(currentDirection, pastDirection)
-                    + " "
-                    + Math.round(adjWeights.get(currentNodeIndex).getFirst() / 4.666)
-                    + " feet to "
-                    + mapIndexToNode((nextNodeIndex)).getLongName()
-                    + commaOrPeriod
-                    + "\n\n";
-        }*/
-        //System.out.println(sortedDirections);
         return sortedDirections;
+    }
+    public List<String> allTextDirections(List<List<List<Direction>>> inputPath){
+        List<String> returnPath = new LinkedList<>();
+        for(int i = 0; i < inputPath.size(); i++) {
+            for (int j = 0; j < inputPath.get(i).size(); j++) {
+                for (int k = 0; k < inputPath.get(i).get(j).size(); k++) {
+
+                    returnPath.add(inputPath.get(i).get(j).get(k).getDirection());
+                }
+            }
+        }
+        return returnPath;
     }
 }
