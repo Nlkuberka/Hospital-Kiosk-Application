@@ -140,9 +140,9 @@ public class GesturePaneHandler {
         currentObjects.setAnimation(pathTransition);
     }
 
-    void centerOnInitialNode(PathHandler pathHandler, GesturePane pane) {
+    void centerOnInitialNode(PathHandler pathHandler, GesturePane pane, int floor) {
         // center on initial node
-        List<Point2D> extremaMinMax = pathHandler.getPathExtremaOnInitFloor(); // get extrema
+        List<Point2D> extremaMinMax = pathHandler.getPathExtremaOnFloor(floor); // get extrema
         double centerX = (extremaMinMax.get(0).getX() + extremaMinMax.get(1).getX()) / 2; // find average
         double centerY = (extremaMinMax.get(0).getY() + extremaMinMax.get(1).getY()) / 2;
 

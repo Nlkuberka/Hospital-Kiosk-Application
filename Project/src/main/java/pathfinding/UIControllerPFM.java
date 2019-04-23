@@ -114,7 +114,8 @@ public class UIControllerPFM extends UIController {
                     currentObjects.clearContextMenu();
                     if (pathHandler.isActive()) {
                         gesturePaneHandler.newAnimation(currentObjects);
-                        gesturePaneHandler.centerOnInitialNode(pathHandler, currentObjects.getCurrentGesturePane());
+                        gesturePaneHandler.centerOnInitialNode(pathHandler, currentObjects.getCurrentGesturePane(),
+                                currentObjects.getFloorIndex());
                     }
                 }
         );
@@ -277,7 +278,8 @@ public class UIControllerPFM extends UIController {
             // update paths -- order here is important! Do not move above change tab.
             pathHandler.displayNewPath(Graph.getGraph().separatePathByFloor(pathIDs), initialNode);
 
-            gesturePaneHandler.centerOnInitialNode(pathHandler, currentObjects.getCurrentGesturePane());
+            gesturePaneHandler.centerOnInitialNode(pathHandler, currentObjects.getCurrentGesturePane(),
+                    currentObjects.getFloorIndex());
 
             List<Integer> floorsUsed = pathHandler.getFloorsUsed();
             clearTabColors();
