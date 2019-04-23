@@ -4,12 +4,7 @@ import javafx.animation.Interpolator;
 import javafx.animation.PathTransition;
 import javafx.geometry.Dimension2D;
 import javafx.geometry.Point2D;
-import javafx.scene.control.Tab;
 import javafx.scene.input.MouseButton;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Path;
-import javafx.scene.shape.Rectangle;
 import javafx.util.Duration;
 import net.kurobako.gesturefx.GesturePane;
 
@@ -118,8 +113,8 @@ public class GesturePaneHandler {
         pathTransition.setDuration(Duration.seconds(3));
 
         //Setting the node for the transition
-        currentObjects.setAnt(new Rectangle(55, 20));
-        currentObjects.getAnt().setFill(Color.LIGHTGREEN);
+        currentObjects.setAnt();
+        //currentObjects.getAnt().setFill(Color.LIGHTGREEN);
         currentObjects.getCurrentAnchorPane().getChildren().add(currentObjects.getAnt());
         pathTransition.setNode(currentObjects.getAnt());
 
@@ -127,7 +122,7 @@ public class GesturePaneHandler {
         pathTransition.setPath(currentObjects.getCurrentPath());
 
         //Setting the orientation of the path
-        pathTransition.setOrientation(PathTransition.OrientationType.ORTHOGONAL_TO_TANGENT);
+        pathTransition.setOrientation(PathTransition.OrientationType.NONE);
 
         //Setting auto reverse value to false
         pathTransition.setAutoReverse(false);
