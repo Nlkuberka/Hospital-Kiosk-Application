@@ -129,7 +129,9 @@ public class UIControllerRVM extends UIController {
     private ImageView backgroundImage;
   
     @FXML
-    private List<String> IDs = new LinkedList<String>();
+    private List<String> wkIDs = new LinkedList<String>();
+    private List<String> zIDs = new LinkedList<String>();
+
 
     @FXML
     private MenuItem backButton; /**< The Back Button */
@@ -150,18 +152,18 @@ public class UIControllerRVM extends UIController {
 
         workZones.add(workzone1_r1);  workZones.add(workzone1_r2);  workZones.add(workzone1_r3);
         workZones.add(workzone1_r4);
-        workZones.add(workzone1_d1); workZones.add(workzone1_d2); workZones.add(workzone1_d3);
-        workZones.add(workzone1_d4); workZones.add(workzone1_d5); workZones.add(workzone1_d6);
-        workZones.add(workzone1_d7); workZones.add(workzone1_d8); workZones.add(workzone1_d9);
+        workZones.add(workzone1_d1);  workZones.add(workzone1_d2);  workZones.add(workzone1_d3);
+        workZones.add(workzone1_d4);  workZones.add(workzone1_d5);  workZones.add(workzone1_d6);
+        workZones.add(workzone1_d7);  workZones.add(workzone1_d8);  workZones.add(workzone1_d9);
         workZones.add(workzone1_d10); workZones.add(workzone1_d11); workZones.add(workzone1_d12);
-        workZones.add(workzone1_d13);  workZones.add(workzone1_d14);  workZones.add(workzone1_d15);
-        workZones.add(workzone1_d16);  workZones.add(workzone1_d17);  workZones.add(workzone1_d18);
-        workZones.add(workzone1_d19);  workZones.add(workzone1_d20);  workZones.add(workzone1_d21);
+        workZones.add(workzone1_d13); workZones.add(workzone1_d14); workZones.add(workzone1_d15);
+        workZones.add(workzone1_d16); workZones.add(workzone1_d17); workZones.add(workzone1_d18);
+        workZones.add(workzone1_d19); workZones.add(workzone1_d20); workZones.add(workzone1_d21);
         workZones.add(workzone1_d22);
 
-        workZones.add(workzone2_d1); workZones.add(workzone2_d2); workZones.add(workzone2_d3);
-        workZones.add(workzone2_d4); workZones.add(workzone2_d5); workZones.add(workzone2_d6);
-        workZones.add(workzone2_d7); workZones.add(workzone2_d8); workZones.add(workzone2_d9);
+        workZones.add(workzone2_d1);  workZones.add(workzone2_d2);  workZones.add(workzone2_d3);
+        workZones.add(workzone2_d4);  workZones.add(workzone2_d5);  workZones.add(workzone2_d6);
+        workZones.add(workzone2_d7);  workZones.add(workzone2_d8);  workZones.add(workzone2_d9);
 
         workZones.add(workzone3_t1);  workZones.add(workzone3_t2);  workZones.add(workzone3_t3);
         workZones.add(workzone3_r1);  workZones.add(workzone3_r2);  workZones.add(workzone3_r3);
@@ -173,7 +175,7 @@ public class UIControllerRVM extends UIController {
         workZones.add(workzone3_d13); workZones.add(workzone3_d14); workZones.add(workzone3_d15);
         workZones.add(workzone3_d16);
 
-        workZones.add(workzone4_t1); workZones.add(workzone4_t2);
+        workZones.add(workzone4_t1);  workZones.add(workzone4_t2);
 
         workZones.add(workzone5_t1);  workZones.add(workzone5_t2);  workZones.add(workzone5_t3);
         workZones.add(workzone5_r1);  workZones.add(workzone5_r2);  workZones.add(workzone5_r3);
@@ -275,7 +277,17 @@ public class UIControllerRVM extends UIController {
             while (rs.next()) {
                 workplaceIDs.put(rs.getString("ROOMNAME"), rs.getString("WKPLACEID"));
                 workplaces.add(rs.getString("ROOMNAME"));
-                IDs.add(rs.getString("WKPLACEID"));
+                wkIDs.add(rs.getString("WKPLACEID"));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            Connection conn = DBController.dbConnect();
+            ResultSet ms = conn.createStatement().executeQuery("Select * From WORKPLACES WHERE OUTLINE = '0'");
+            while (ms.next()) {
+                zIDs.add(ms.getString("WKPLACEID"));
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -312,46 +324,40 @@ public class UIControllerRVM extends UIController {
 //        }
 //        colorShift = !colorShift;
 
-        if (!checkValidReservation(datePicker, startTimePicker, endTimePicker)) {
+        if (!checkValidReservation(datePicker, startTimePicker, endTimePicker, roomBooking)) {
             return;
         }
         colorAllGreen();
 
-                if (checkValidReservation(datePicker, startTimePicker, endTimePicker)) {
+                if (checkValidReservation(datePicker, startTimePicker, endTimePicker, roomBooking)) {
                     for (int i = 0; i < rooms.size(); i++) {
 //                        if (workplaceIDs.get(workplaceSelect.getValue()).equals(roomToShape.get(rooms.get(i)))) {
-                        if (!DBControllerRW.isRoomAvailableString(IDs.get(i), getDateString(datePicker),
+                        if (!DBControllerRW.isRoomAvailableString(wkIDs.get(i), getDateString(datePicker),
                                 getTimeString(startTimePicker), getTimeString(endTimePicker), connection)) {
                             System.out.println(workplaceSelect.getItems().get(i) + "is reserved at this time");
-//                                rooms.get(i).setFill(javafx.scene.paint.Color.RED);
                             colorShapeRed(rooms.get(i));
-//                                rooms.get(i).setStroke(javafx.scene.paint.Color.BLUE);
 
                         } else {
-//                    classroom6.setFill(javafx.scene.paint.Color.RED);
                             rooms.get(i).setFill(javafx.scene.paint.Color.GREEN);
                             colorShapeGreen(rooms.get(i));
                         }
 //                        }
                     }
+                }
                     for (int i = 0; i < workZones.size(); i++) {
-//                        if (workplaceIDs.get(workplaceSelect.getValue()).equals(roomToShape.get(rooms.get(i)))) {
-                        if (!DBControllerRW.isRoomAvailableString(IDs.get(i), getDateString(datePicker),
+                        if (!DBControllerRW.isRoomAvailableString(zIDs.get(i), getDateString(datePicker),
                                 getTimeString(startTimePicker), getTimeString(endTimePicker), connection)) {
-                            System.out.println(workplaceSelect.getItems().get(i) + "is reserved at this time");
-//                                rooms.get(i).setFill(javafx.scene.paint.Color.RED);
+                            System.out.println(workplaceSelect.getItems().get(i) + " is reserved at this time");
                             colorShapeRed(workZones.get(i));
-//                                rooms.get(i).setStroke(javafx.scene.paint.Color.BLUE);
 
                         } else {
-//                    classroom6.setFill(javafx.scene.paint.Color.RED);
-                            rooms.get(i).setFill(javafx.scene.paint.Color.GREEN);
+                            workZones.get(i).setFill(javafx.scene.paint.Color.GREEN);
                             colorShapeGreen(workZones.get(i));
                         }
-//                        }
                     }
 
-        }
+
+
     }
 
     /**
@@ -359,14 +365,17 @@ public class UIControllerRVM extends UIController {
      */
     @FXML
     private void setConfirmButton() {
-        if (!checkValidReservation(datePicker, startTimePicker, endTimePicker)) {
-            popupMessage("Invalid Reservation", true);
-            return;
-        }
 
         if(roomBooking == false) {
-            if(startTimePicker.getValue().compareTo(LocalTime.now()) > 15) {
+            if(startTimePicker.getValue().compareTo(LocalTime.now().plusMinutes(15)) >= 0) {
+                System.out.println(startTimePicker.getValue().compareTo(LocalTime.now()));
                 popupMessage("Work Zone reservations can only be made up to 15 minutes in advance", true);
+                return;
+            }
+        }else {
+            if (!checkValidReservation(datePicker, startTimePicker, endTimePicker, roomBooking)) {
+                popupMessage("Invalid Reservation", true);
+                return;
             }
         }
 
@@ -403,15 +412,17 @@ public class UIControllerRVM extends UIController {
      *
      * @return Whether the reservation input is valid
      */
-    public static boolean checkValidReservation(DatePicker picker, JFXTimePicker startPicker, JFXTimePicker endPicker) {
+    public static boolean checkValidReservation(DatePicker picker, JFXTimePicker startPicker, JFXTimePicker endPicker, Boolean roomBooking) {
         LocalDate ld = picker.getValue();
         Instant instant = Instant.from(ld.atStartOfDay(ZoneId.systemDefault()));
         Date date = Date.from(instant);
 
         // If date selected is before today
-        Date today = new Date();
-        if (date.compareTo(today) <= 0) {
-            return false;
+        if(roomBooking) {
+            Date today = new Date();
+            if (date.compareTo(today) <= 0) {
+                return false;
+            }
         }
 
         LocalTime startTime = startPicker.getValue();
@@ -492,7 +503,7 @@ public class UIControllerRVM extends UIController {
                 while (rs.next()) {
                     workplaceIDs.put(rs.getString("ROOMNAME"), rs.getString("WKPLACEID"));
                     workplaces.add(rs.getString("ROOMNAME"));
-                    IDs.add(rs.getString("WKPLACEID"));
+//                    IDs.add(rs.getString("WKPLACEID"));
                 }
             } catch (SQLException e) {
                 e.printStackTrace();
@@ -516,7 +527,7 @@ public class UIControllerRVM extends UIController {
                 while (rs.next()) {
                     workplaceIDs.put(rs.getString("ROOMNAME"), rs.getString("WKPLACEID"));
                     workplaces.add(rs.getString("ROOMNAME"));
-                    IDs.add(rs.getString("WKPLACEID"));
+//                    IDs.add(rs.getString("WKPLACEID"));
                 }
             } catch (SQLException e) {
                 e.printStackTrace();
