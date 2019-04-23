@@ -6,6 +6,7 @@ import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXToggleButton;
 import com.twilio.Twilio;
 import com.twilio.rest.api.v2010.account.Message;
+import entities.Direction;
 import entities.Graph;
 import entities.emailDirection;
 import javafx.event.ActionEvent;
@@ -24,6 +25,7 @@ public class UIControllerPUD extends UIController {
     public static final String ACCOUNT_SID = "AC176f9cd821ffa8dcad559ceecad9ecf1";
     public static final String AUTH_TOKEN = "ab7f1a58335f47c98bac61b471920dfe";
     String returnText;
+    List<List<List<Direction>>> path = new LinkedList<>();
     @FXML
     private TextArea directions; //the actual directions
     @FXML
@@ -52,38 +54,56 @@ public class UIControllerPUD extends UIController {
         floorSelect.getSelectionModel().select(floor);
     }*/
 
-    void convertMessage(List<List<List<String>>> message){
-        for(int i = 0; i < message.size(); i++){
-            for (int j = 0; j < message.get(i).size(); j++) {
-                for (int k = 0; k < message.get(i).get(j).size(); k++) {
-                    this.returnText += message.get(i).get(j).get(k);
+    /**
+     * Populates the object's linked list
+     * @param message the input path
+     */
+    void populateLinkedList(List<List<List<Direction>>> message){
+        //floorSelect.getItems().addAll("All Floors", "Lower Level 2", "Lower Level 1", "Ground Floor", "First Floor ", "Second Floor", "Third Floor ", "Fourth Floor");//populates dropdown with floors
+        this.path = message;
+        floorSelect.getItems().addAll("All", "L2", "L1", "G", "1", "2", "3", "4");
+    }
+
+    /**
+     * converts the input path to a single string
+     */
+    void convertMessage(){
+        this.returnText = "";
+        //this is a fallback un case the dropdown doesnt work
+        for(int i = 0; i < this.path.size(); i++){
+            for (int j = 0; j < this.path.get(i).size(); j++) {
+                for (int k = 0; k < this.path.get(i).get(j).size(); k++) {
+                    this.returnText += this.path.get(i).get(j).get(k).getDirection();
                 }
             }
         }
+        /*for(int i = 0; i < this.path.size(); i++){
+            for(int j = 0; j < this.path.get(i).size(); j++){
+                this.returnText = "";
+                for(int k = 0; k < this.path.get(i).get(j).size(); k++) {
+                    System.out.println("Selected Floor: " + "_" + selectedFloor + "_");
+                    System.out.println("Actual Floor: " + this.path.get(i).get(j).get(k).getFloor());
+                    if (this.path.get(i).get(j).get(k).getFloor().equals(selectedFloor)) {
+                        this.returnText += this.path.get(i).get(j).get(k).getDirection();
+                    }else if(selectedFloor.equals("All")){
+                        this.returnText += this.path.get(i).get(j).get(k).getDirection();
+                    }else{
+                        this.returnText = "There are no paths on this floor";
+                    }
+                }
+            }
+        }*/
     }
+
     @FXML
     public void setDirections(){
-        directions.setText(returnText); //  sets the text received from the pathfinding
+        directions.setText(this.returnText); //  sets the text received from the pathfinding
     }
 
     @FXML
-    public void selectFloor(ActionEvent e){
-        String returnText = "";
+    public void selectFloor(){
         String selectedFloor = floorSelect.getValue();
-        List<List<List<String>>> message = new LinkedList<>();
-
-        for(int i = 0; i < message.size(); i++){
-            for (int j = 0; j < message.get(i).size(); j++) {
-                for (int k = 0; k < message.get(i).get(j).size(); k++) {
-                    if(message.get(i).get(j).get(k).equals(selectedFloor)) {
-                        this.returnText += message.get(i).get(j).get(k);
-                    }
-                    else if(selectedFloor.equals("All")){
-                        this.returnText += message.get(i).get(j).get(k);
-                    }
-                }
-            }
-        }
+        convertMessage();
         setDirections();
     }
 

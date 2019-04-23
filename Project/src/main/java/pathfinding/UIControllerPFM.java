@@ -8,6 +8,7 @@ import com.jfoenix.controls.JFXTabPane;
 import com.jfoenix.controls.JFXToggleButton;
 import database.DBController;
 import database.DBControllerNE;
+import entities.Direction;
 import entities.Graph;
 import entities.Node;
 import entities.User;
@@ -331,7 +332,7 @@ public class UIControllerPFM extends UIController {
 
     @FXML
     private void directionSelection() {
-            List<List<List<String>>> direction = Graph.getGraph().textDirections(Graph.getGraph().separatePathByFloor(Graph.getGraph().shortestPath(currentObjects.getInitialID(),
+            List<List<List<Direction>>> direction = Graph.getGraph().textDirections(Graph.getGraph().separatePathByFloor(Graph.getGraph().shortestPath(currentObjects.getInitialID(),
                 currentObjects.getDestID())));
         try {
             FXMLLoader fxmlLoader = new FXMLLoader();
@@ -346,8 +347,11 @@ public class UIControllerPFM extends UIController {
             popupStage.initOwner(primaryStage);
 
             UIControllerPUD controller = fxmlLoader.getController();
-            controller.convertMessage(direction);
+            controller.populateLinkedList(direction);
+            //controller.convertMessage();
             controller.setDirections();
+            //controller.selectFloor();
+
 
             popupStage.setTitle("Directions");
             popupStage.setScene(popupScene);

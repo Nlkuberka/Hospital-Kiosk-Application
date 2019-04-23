@@ -579,11 +579,12 @@ public abstract class Graph {
      * @return text based directions directing a reader from one point to another
      */
     @SuppressWarnings("Duplicates")
-    public List<List<List<String>>> textDirections(List<List<List<Node>>> Nodes){
-        List<List<List<String>>> sortedDirections = new LinkedList<>();
+    public List<List<List<Direction>>> textDirections(List<List<List<Node>>> Nodes){
+        List<List<List<Direction>>> sortedDirections = new LinkedList<>();
         String commaOrPeriod;
         String currentDirection;
         String pastDirection;
+        String floorName;
         //refactor for usage of list of list of list
         for(int i = 0; i < Nodes.size(); i++){
             //add a new floor to the sortedDirections
@@ -598,6 +599,11 @@ public abstract class Graph {
                     currentDirection = returnAngle(Nodes.get(i).get(j).get(k).getNodeID(), Nodes.get(i).get(j).get(k+1).getNodeID());
 
 
+                    if(k == 1){
+                        floorName = "On Floor " + Nodes.get(i).get(j).get(k-1).getFloor() + " : \n";
+                    }else{
+                        floorName = "";
+                    }
                     if(k == Nodes.get(i).get(j).size()-2) {
                         commaOrPeriod = ".";
                     }
@@ -608,14 +614,17 @@ public abstract class Graph {
                     int nextNodeIndex = mapNodeIDToIndex(Nodes.get(i).get(j).get(k+1).getNodeID());
                     Node nextNode = mapIndexToNode(nextNodeIndex);
                     //System.out.println(returnAngle(NodeIDS.get(i), NodeIDS.get(i+1), directions)); //here for testing
-                    List<List<String>> floor = sortedDirections.get(i);
-                    floor.get(j).add((returnDirection(currentDirection, pastDirection)
+                    Direction nextDirection = new Direction(floorName
+                            + returnDirection(currentDirection, pastDirection)
                             + " "
                             + Math.round(adjWeights.get(currentNodeIndex).get(adj.get(currentNodeIndex).indexOf(nextNodeIndex)) / 4.666)
                             + " feet"
                             + ((nextNode.getNodeType().equals("HALL")) ? "" : " to " + nextNode.getLongName())
                             + commaOrPeriod
-                            + "\n\n"));
+                            + "\n\n", Nodes.get(i).get(j).get(k).getFloor());
+
+                    List<List<Direction>> floor = sortedDirections.get(i);
+                    floor.get(j).add(nextDirection);
 
                 }
             }
@@ -647,7 +656,7 @@ public abstract class Graph {
                     + commaOrPeriod
                     + "\n\n";
         }*/
-        System.out.println(sortedDirections);
+        //System.out.println(sortedDirections);
         return sortedDirections;
     }
 }
