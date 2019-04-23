@@ -6,6 +6,7 @@ import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXToggleButton;
 import com.twilio.Twilio;
 import com.twilio.rest.api.v2010.account.Message;
+import entities.Graph;
 import entities.emailDirection;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -14,6 +15,7 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
+import java.util.LinkedList;
 import java.util.List;
 import java.util.regex.Pattern;
 
@@ -21,6 +23,7 @@ public class UIControllerPUD extends UIController {
 
     public static final String ACCOUNT_SID = "AC176f9cd821ffa8dcad559ceecad9ecf1";
     public static final String AUTH_TOKEN = "ab7f1a58335f47c98bac61b471920dfe";
+    String returnText;
     @FXML
     private TextArea directions; //the actual directions
     @FXML
@@ -45,28 +48,43 @@ public class UIControllerPUD extends UIController {
         floorSelect.getItems().addAll("All", "L2", "L1", "G", "1", "2", "3", "4");
     }
 
-    void getFloorSelection(String floor){
+    /*void getFloorSelection(String floor){
         floorSelect.getSelectionModel().select(floor);
+    }*/
+
+    void convertMessage(List<List<List<String>>> message){
+        for(int i = 0; i < message.size(); i++){
+            for (int j = 0; j < message.get(i).size(); j++) {
+                for (int k = 0; k < message.get(i).get(j).size(); k++) {
+                    this.returnText += message.get(i).get(j).get(k);
+                }
+            }
+        }
     }
     @FXML
-    public void setDirections(List<List<List<String>>> message) {
+    public void setDirections(){
+        directions.setText(returnText); //  sets the text received from the pathfinding
+    }
+
+    @FXML
+    public void selectFloor(ActionEvent e){
         String returnText = "";
-        String selectedFloor = "";
+        String selectedFloor = floorSelect.getValue();
+        List<List<List<String>>> message = new LinkedList<>();
 
         for(int i = 0; i < message.size(); i++){
             for (int j = 0; j < message.get(i).size(); j++) {
                 for (int k = 0; k < message.get(i).get(j).size(); k++) {
                     if(message.get(i).get(j).get(k).equals(selectedFloor)) {
-                        returnText += message.get(i).get(j).get(k);
+                        this.returnText += message.get(i).get(j).get(k);
                     }
                     else if(selectedFloor.equals("All")){
-                        returnText += message.get(i).get(j).get(k);
+                        this.returnText += message.get(i).get(j).get(k);
                     }
                 }
             }
         }
-        directions.setText(returnText); //  sets the text received from the pathfinding
-
+        setDirections();
     }
 
     @FXML
