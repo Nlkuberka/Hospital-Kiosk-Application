@@ -36,8 +36,8 @@ public class UIControllerATAS extends UIController {
     public void onShow() {
         long timeout = SessionTimeoutThread.timeout;
         long seconds = timeout / 1000;
-        minutLabel.setText(seconds / 60 + "min");
-        secondLabel.setText(seconds % 60 + "s");
+        minutLabel.setText(seconds / 60 + " min");
+        secondLabel.setText(seconds % 60 + " sec");
     }
 
     /**
