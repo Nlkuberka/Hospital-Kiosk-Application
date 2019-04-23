@@ -34,7 +34,7 @@ public class ColorfulCircles extends UIController {
         text.setY(primaryStage.getHeight() / 4);
 
         root.setOnMouseClicked(event -> {
-            goToScene(UIController.PATHFINDING_MAIN);
+            goToScene(UIController.LOGIN_MAIN);
             circles.getChildren().clear();
             isShowing = false;
         });
@@ -96,8 +96,8 @@ public class ColorfulCircles extends UIController {
             pathTransition.stop();
         }
 
-        System.out.println("START");
-        System.out.println(path.getElements());
+        //System.out.println("START");
+        //System.out.println(path.getElements());
 
         pathTransition.setOnFinished(event -> continuousTransition(path, pathTransition, finalPoint));
     }

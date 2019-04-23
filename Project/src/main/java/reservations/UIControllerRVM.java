@@ -124,9 +124,6 @@ public class UIControllerRVM extends UIController {
     @FXML private Shape workzone5_d11; @FXML private Shape workzone5_d7; @FXML private Shape workzone5_d16;
     @FXML private Shape workzone5_d12; @FXML private Shape workzone5_d4; @FXML private Shape workzone5_d8;
     @FXML private Shape workzone5_d3; @FXML private Shape workzone5_t2; @FXML private Shape workzone5_t3;
-
-    @FXML
-    private ImageView backgroundImage;
   
     @FXML
     private List<String> wkIDs = new LinkedList<String>();
@@ -393,7 +390,7 @@ public class UIControllerRVM extends UIController {
         System.out.println(reservations);
         Reservation r = new Reservation(workplaceIDs.get(workplaceSelect.getValue()),
                 CurrentUser.user.getUserID(), dateString, startString, endString);
-
+        r.setRsvID(r.getTimeStamp());
 //        if (!r.isValid(reservations)) {
         if(!DBControllerRW.isRoomAvailableString(r.getWkplaceID(), r.getDate(), r.getStartTime(), r.getEndTime(), conn)) {
             popupMessage("This reservation conflicts with another.", true);
@@ -485,7 +482,7 @@ public class UIControllerRVM extends UIController {
      */
     @FXML
     private void setBackButton() {
-        this.goToScene(UIController.RESERVATIONS_MAIN_MENU,new DayView());
+        this.goToScene(UIController.RESERVATIONS_MAIN_MENU);
     }
 
     @FXML
