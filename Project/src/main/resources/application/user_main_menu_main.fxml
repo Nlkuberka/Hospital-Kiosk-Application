@@ -40,7 +40,7 @@
             <RowConstraints minHeight="10.0" vgrow="ALWAYS" />
          </rowConstraints>
          <children>
-            <JFXButton fx:id="serviceRequestButton" alignment="TOP_CENTER" onAction="#setServiceRequestButton" styleClass="jfx-button-main-menu" stylesheets="@../css/background.css" text="Service Request" GridPane.columnIndex="3" GridPane.halignment="LEFT" GridPane.rowIndex="3">
+            <JFXButton fx:id="serviceRequestButton" alignment="TOP_CENTER"  styleClass="jfx-button-main-menu" stylesheets="@../css/background.css" text="Service Request" GridPane.columnIndex="3" GridPane.halignment="LEFT" GridPane.rowIndex="3">
                <font>
                   <Font name="System Bold" size="25.0" />
                </font>

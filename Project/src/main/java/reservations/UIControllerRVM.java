@@ -148,25 +148,26 @@ public class UIControllerRVM extends UIController {
         rooms.add(classroom6); rooms.add(classroom7); rooms.add(classroom8); rooms.add(classroom9);
         rooms.add(MHA); rooms.add(MHCR); rooms.add(pantry);
 
-        workZones.add(workzone1_d17); workZones.add(workzone1_d18); workZones.add(workzone1_d19);
-        workZones.add(workzone1_d11); workZones.add(workzone1_d12); workZones.add(workzone1_d13);
-        workZones.add(workzone1_d20); workZones.add(workzone1_d21); workZones.add(workzone1_d22);
-        workZones.add(workzone1_d14); workZones.add(workzone1_d15); workZones.add(workzone1_d16);
-        workZones.add(workzone1_d1);  workZones.add(workzone1_d3);  workZones.add(workzone1_d5);
-        workZones.add(workzone1_d7);  workZones.add(workzone1_d9);  workZones.add(workzone1_d10);
-        workZones.add(workzone1_d8);  workZones.add(workzone1_d6);  workZones.add(workzone1_d4);
-        workZones.add(workzone1_d2);  workZones.add(workzone1_r3);  workZones.add(workzone1_r2);
-        workZones.add(workzone1_r1);  workZones.add(workzone1_r4);
+        workZones.add(workzone1_r1);  workZones.add(workzone1_r2);  workZones.add(workzone1_r3);
+        workZones.add(workzone1_r4);
+        workZones.add(workzone1_d1); workZones.add(workzone1_d2); workZones.add(workzone1_d3);
+        workZones.add(workzone1_d4); workZones.add(workzone1_d5); workZones.add(workzone1_d6);
+        workZones.add(workzone1_d7); workZones.add(workzone1_d8); workZones.add(workzone1_d9);
+        workZones.add(workzone1_d10); workZones.add(workzone1_d11); workZones.add(workzone1_d12);
+        workZones.add(workzone1_d13);  workZones.add(workzone1_d14);  workZones.add(workzone1_d15);
+        workZones.add(workzone1_d16);  workZones.add(workzone1_d17);  workZones.add(workzone1_d18);
+        workZones.add(workzone1_d19);  workZones.add(workzone1_d20);  workZones.add(workzone1_d21);
+        workZones.add(workzone1_d22);
 
-        workZones.add(workzone2_d9); workZones.add(workzone2_d7); workZones.add(workzone2_d5);
-        workZones.add(workzone2_d3); workZones.add(workzone2_d1); workZones.add(workzone2_d8);
-        workZones.add(workzone2_d6); workZones.add(workzone2_d4); workZones.add(workzone2_d2);
+        workZones.add(workzone2_d1); workZones.add(workzone2_d2); workZones.add(workzone2_d3);
+        workZones.add(workzone2_d4); workZones.add(workzone2_d5); workZones.add(workzone2_d6);
+        workZones.add(workzone2_d7); workZones.add(workzone2_d8); workZones.add(workzone2_d9);
 
         workZones.add(workzone3_t1);  workZones.add(workzone3_t2);  workZones.add(workzone3_t3);
-        workZones.add(workzone3_d4);  workZones.add(workzone3_r1);  workZones.add(workzone3_r2);
-        workZones.add(workzone3_r4);  workZones.add(workzone3_r3);  workZones.add(workzone3_r5);
-        workZones.add(workzone3_r6);  workZones.add(workzone3_d3);  workZones.add(workzone3_d2);
-        workZones.add(workzone3_d1);  workZones.add(workzone3_d5);  workZones.add(workzone3_d6);
+        workZones.add(workzone3_r1);  workZones.add(workzone3_r2);  workZones.add(workzone3_r3);
+        workZones.add(workzone3_r4);  workZones.add(workzone3_r5);  workZones.add(workzone3_r6);
+        workZones.add(workzone3_d1);  workZones.add(workzone3_d2);  workZones.add(workzone3_d3);
+        workZones.add(workzone3_d4);  workZones.add(workzone3_d5);  workZones.add(workzone3_d6);
         workZones.add(workzone3_d7);  workZones.add(workzone3_d8);  workZones.add(workzone3_d9);
         workZones.add(workzone3_d10); workZones.add(workzone3_d11); workZones.add(workzone3_d12);
         workZones.add(workzone3_d13); workZones.add(workzone3_d14); workZones.add(workzone3_d15);
@@ -174,24 +175,87 @@ public class UIControllerRVM extends UIController {
 
         workZones.add(workzone4_t1); workZones.add(workzone4_t2);
 
-        workZones.add(workzone5_d13); workZones.add(workzone5_d9);  workZones.add(workzone5_d5);
-        workZones.add(workzone5_d1); workZones.add(workzone5_r1);  workZones.add(workzone5_t1);
-        workZones.add(workzone5_r5); workZones.add(workzone5_r4);  workZones.add(workzone5_r3);
-        workZones.add(workzone5_r2); workZones.add(workzone5_d14); workZones.add(workzone5_d10);
-        workZones.add(workzone5_d6); workZones.add(workzone5_d2);  workZones.add(workzone5_d15);
-        workZones.add(workzone5_d11); workZones.add(workzone5_d7);  workZones.add(workzone5_d16);
-        workZones.add(workzone5_d12); workZones.add(workzone5_d4);  workZones.add(workzone5_d8);
-        workZones.add(workzone5_d3); workZones.add(workzone5_t2);  workZones.add(workzone5_t3);
+        workZones.add(workzone5_t1);  workZones.add(workzone5_t2);  workZones.add(workzone5_t3);
+        workZones.add(workzone5_r1);  workZones.add(workzone5_r2);  workZones.add(workzone5_r3);
+        workZones.add(workzone5_r4);  workZones.add(workzone5_r5);
+        workZones.add(workzone5_d1);  workZones.add(workzone5_d2);  workZones.add(workzone5_d3);
+        workZones.add(workzone5_d4);  workZones.add(workzone5_d5);  workZones.add(workzone5_d6);
+        workZones.add(workzone5_d7);  workZones.add(workzone5_d8);  workZones.add(workzone5_d9);
+        workZones.add(workzone5_d10); workZones.add(workzone5_d11); workZones.add(workzone5_d12);
+        workZones.add(workzone5_d13); workZones.add(workzone5_d14); workZones.add(workzone5_d15);
+        workZones.add(workzone5_d16);
 
         backgroundImage.fitWidthProperty().bind(primaryStage.widthProperty());
 
-        for (int i = 0; i < rooms.size(); i++) {
-            new Tooltip(rooms.get(i), "Tooltip");
+        //Classroom Tooltips
+        int num;
+        for (int i = 0; i < 9; i++) {
+            num = i+1;
+            new Tooltip(rooms.get(i), "Classroom " +num);
         }
-        for (int i = 0; i < workZones.size(); i++) {
-            new Tooltip(workZones.get(i), "Tooltip");
+        new Tooltip(rooms.get(9), "MHA");
+        new Tooltip(rooms.get(10), "MHCR");
+        new Tooltip(rooms.get(11), "Pantry");
+
+        //Work Zone 1 Tooltips
+        for (int i = 0; i < 4; i++) {
+            num = i+1;
+            new Tooltip(workZones.get(i), "Work Zone 1 Room " + num);
+        }
+        num = 0;
+        for (int i = 4; i < 26; i++) {
+            num++;
+            new Tooltip(workZones.get(i), "Work Zone 1 Desk " + num);
         }
 
+        //Work Zone 2 Tooltips
+        num = 0;
+        for (int i = 26; i < 35; i++) {
+            num++;
+            new Tooltip(workZones.get(i), "Work Zone 2 Desk " + num);
+        }
+
+
+        //Work Zone 3 Tooltips
+        num = 0;
+        for (int i = 35; i < 38; i++) {
+            num ++;
+            new Tooltip(workZones.get(i), "Work Zone 3 Table " + num);
+        }
+        num = 0;
+        for (int i = 38; i < 44; i++) {
+            num++;
+            new Tooltip(workZones.get(i), "Work Zone 3 Room " + num);
+        }
+        num = 0;
+        for (int i = 44; i < 60; i++) {
+            num++;
+            new Tooltip(workZones.get(i), "Work Zone 3 Desk " + num);
+        }
+
+        //Work Zone 4 Tooltips
+        num = 0;
+        for (int i = 60; i < 62; i++) {
+            num ++;
+            new Tooltip(workZones.get(i), "Work Zone 4 Table " + num);
+        }
+
+        //Work Zone 5 Tooltips
+        num = 0;
+        for (int i = 62; i < 65; i++) {
+            num ++;
+            new Tooltip(workZones.get(i), "Work Zone 5 Table " + num);
+        }
+        num = 0;
+        for (int i = 65; i < 70; i++) {
+            num++;
+            new Tooltip(workZones.get(i), "Work Zone 5 Room " + num);
+        }
+        num = 0;
+        for (int i = 70; i < 86; i++) {
+            num++;
+            new Tooltip(workZones.get(i), "Work Zone 5 Desk " + num);
+        }
     }
 
     /**
