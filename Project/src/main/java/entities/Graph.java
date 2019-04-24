@@ -667,7 +667,12 @@ public abstract class Graph {
             Node nextNode = mapIndexToNode(nextNodeIndex);
 
             if(!pastNode.getFloor().equals(currentNode.getFloor())){
-                floorName = "On Floor " + currentNode.getFloor() + " : \n";
+                if(currentNode.getNodeType().equals("STAI")){
+                    floorName = "On Floor " + currentNode.getFloor() + " : \n" + "Leave stairwell, ";
+                }else{
+                    floorName = "On Floor " + currentNode.getFloor() + " : \n";
+                }
+
             }else if(k == 1){
                 floorName = "On Floor " + currentNode.getFloor() + " : \n";
             }else{

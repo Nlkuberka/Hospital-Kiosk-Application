@@ -110,6 +110,7 @@ public class AnchorPaneHandler {
         // setup circles for nodes
         for (int i = 0; i < this.groupsForNodes.size(); i++) {
             Group group = this.groupsForNodes.get(i);
+            group.getChildren().clear();
 
             for (Node node : roomsAtEachFloor.get(i)) {
                 float x = (float) node.getXcoord();

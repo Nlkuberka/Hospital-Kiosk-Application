@@ -152,48 +152,45 @@ public class UIControllerPFM extends UIController {
     @Override
     public void onShow() {
 
-        if (initialLocationCombo.getItems().size() == 0) {
-
-            // ~~~~~ init choice boxes
-            Connection conn = DBController.dbConnect();
+        // ~~~~~ init choice boxes
+        Connection conn = DBController.dbConnect();
 
 
-            LinkedList<LinkedList<Node>> roomsAtEachFloor = new LinkedList<>();
+        LinkedList<LinkedList<Node>> roomsAtEachFloor = new LinkedList<>();
 
-            assert conn != null;
-            roomsAtEachFloor.add(DBControllerNE.generateListOfNodes(conn, DBControllerNE.ALL_ROOMS_FLOOR_L2));
-            roomsAtEachFloor.add(DBControllerNE.generateListOfNodes(conn, DBControllerNE.ALL_ROOMS_FLOOR_L1));
-            roomsAtEachFloor.add(DBControllerNE.generateListOfNodes(conn, DBControllerNE.ALL_ROOMS_FLOOR_G));
-            roomsAtEachFloor.add(DBControllerNE.generateListOfNodes(conn, DBControllerNE.ALL_ROOMS_FLOOR_1));
-            roomsAtEachFloor.add(DBControllerNE.generateListOfNodes(conn, DBControllerNE.ALL_ROOMS_FLOOR_2));
-            roomsAtEachFloor.add(DBControllerNE.generateListOfNodes(conn, DBControllerNE.ALL_ROOMS_FLOOR_3));
-            roomsAtEachFloor.add(DBControllerNE.generateListOfNodes(conn, DBControllerNE.ALL_ROOMS_FLOOR_4));
+        assert conn != null;
+        roomsAtEachFloor.add(DBControllerNE.generateListOfNodes(conn, DBControllerNE.ALL_ROOMS_FLOOR_L2));
+        roomsAtEachFloor.add(DBControllerNE.generateListOfNodes(conn, DBControllerNE.ALL_ROOMS_FLOOR_L1));
+        roomsAtEachFloor.add(DBControllerNE.generateListOfNodes(conn, DBControllerNE.ALL_ROOMS_FLOOR_G));
+        roomsAtEachFloor.add(DBControllerNE.generateListOfNodes(conn, DBControllerNE.ALL_ROOMS_FLOOR_1));
+        roomsAtEachFloor.add(DBControllerNE.generateListOfNodes(conn, DBControllerNE.ALL_ROOMS_FLOOR_2));
+        roomsAtEachFloor.add(DBControllerNE.generateListOfNodes(conn, DBControllerNE.ALL_ROOMS_FLOOR_3));
+        roomsAtEachFloor.add(DBControllerNE.generateListOfNodes(conn, DBControllerNE.ALL_ROOMS_FLOOR_4));
 
-            DBController.closeConnection(conn);
+        DBController.closeConnection(conn);
 
-            initialFilterHelper = new RoomCategoryFilterHelper(initialLocationCombo, param -> {
-                if (initialFilterHelper.getLongName() == null)
-                    return;
+        initialFilterHelper = new RoomCategoryFilterHelper(initialLocationCombo, param -> {
+            if (initialFilterHelper.getLongName() == null)
+                return;
 
-                currentObjects.setInitialID(initialFilterHelper.getNodeID());
+            currentObjects.setInitialID(initialFilterHelper.getNodeID());
 
-                currentObjects.setInitCircle(initialFilterHelper.getLongName());
+            currentObjects.setInitCircle(initialFilterHelper.getLongName());
 
-                getPath();
-            }, true);
-            destinationFilterHelper = new RoomCategoryFilterHelper(destinationCombo, param -> {
-                if (destinationFilterHelper.getLongName() == null)
-                    return;
+            getPath();
+        }, true);
+        destinationFilterHelper = new RoomCategoryFilterHelper(destinationCombo, param -> {
+            if (destinationFilterHelper.getLongName() == null)
+                return;
 
-                currentObjects.setDestID(destinationFilterHelper.getNodeID());
+            currentObjects.setDestID(destinationFilterHelper.getNodeID());
 
-                currentObjects.setDestCircle(destinationFilterHelper.getLongName());
+            currentObjects.setDestCircle(destinationFilterHelper.getLongName());
 
-                getPath();
-            }, true);
+            getPath();
+        }, true);
 
-            anchorPaneHandler.initCircles(roomsAtEachFloor, initialLocationCombo, destinationCombo);
-        }
+        anchorPaneHandler.initCircles(roomsAtEachFloor, initialLocationCombo, destinationCombo);
 
         userToolsTitledPane.collapsibleProperty().setValue(false);
         userToolsTitledPane.setMouseTransparent(true);
