@@ -101,9 +101,10 @@ public class UIControllerATVE extends UIController {
                                 DBControllerNE.deleteEdge(edge.getNode1ID(), edge.getNode2ID(), conn);
                             }
                             DBControllerNE.addEdge(edge,conn);
-                            DBController.closeConnection(conn);
-                        Graph.getGraph().addBiEdge(edge.getNode1ID(), edge.getNode2ID());
-
+                            if(DBControllerNE.fetchNode(edge.getNode1ID(), conn) != null && DBControllerNE.fetchNode(edge.getNode2ID(), conn) != null) {
+                                Graph.getGraph().addBiEdge(edge.getNode1ID(), edge.getNode2ID());
+                            }
+                        DBController.closeConnection(conn);
                         setGraphic(label);
                         label.setText(textField.getText());
                     });

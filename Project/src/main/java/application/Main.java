@@ -71,7 +71,8 @@ public class Main extends Application {
             } catch (IllegalArgumentException e) {
             }
         }
-
+        DBController.closeConnection(conn);
+        conn = DBController.dbConnect();
         CurrentUser.user = DBControllerU.getGuestUser(conn);
         DBController.closeConnection(conn);
 

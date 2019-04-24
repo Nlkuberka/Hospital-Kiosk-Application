@@ -285,7 +285,9 @@ public abstract class Graph {
         Node node1 = mapIndexToNode(node1Index);
         Node node2 = mapIndexToNode(node2Index);
         //calculate weight
-        double xWeight = abs(node1.getXcoord() - node2.getXcoord());
+        double xWeight = abs(
+                node1.getXcoord() -
+                        node2.getXcoord());
         double yWeight = abs(node1.getYcoord() - node2.getYcoord());
 
         double weight = sqrt((xWeight*xWeight) + (yWeight*yWeight));
@@ -352,6 +354,9 @@ public abstract class Graph {
 
     public List<String> getNeighbors(String nodeID) {
         int nodeIndex = mapNodeIDToIndex(nodeID);
+        if(nodeIndex == -1) {
+            return new LinkedList<>();
+        }
         List<Integer> neighborIndices = adj.get(nodeIndex);
         List<String> neighborIDs = new LinkedList<>();
         for(int index : neighborIndices) {

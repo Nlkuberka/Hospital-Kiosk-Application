@@ -17,6 +17,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.MenuItem;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
@@ -469,6 +470,21 @@ public class UIControllerATMV extends UIController {
     private void enableAddAndEditPopup(Node node, String action) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/admintools/ATMV_addNode_popup.fxml"));
         Parent root = loader.load();
+        root.addEventFilter(MouseEvent.MOUSE_RELEASED, e -> {
+            SESSION_TIMEOUT_THREAD.interrupt();
+        });
+        root.addEventFilter(MouseEvent.MOUSE_MOVED, e -> {
+            SESSION_TIMEOUT_THREAD.interrupt();
+        });
+        root.addEventFilter(MouseEvent.MOUSE_PRESSED, e -> {
+            SESSION_TIMEOUT_THREAD.interrupt();
+        });
+        root.addEventFilter(KeyEvent.KEY_PRESSED, e -> {
+            SESSION_TIMEOUT_THREAD.interrupt();
+        });
+        root.addEventFilter(KeyEvent.KEY_RELEASED, e -> {
+            SESSION_TIMEOUT_THREAD.interrupt();
+        });
         UIControllerPUMVAN atmvAddNodePopupController = loader.getController();
         atmvAddNodePopupController.setProperties(node, action, this);
 
