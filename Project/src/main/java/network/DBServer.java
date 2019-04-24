@@ -20,12 +20,13 @@ import java.sql.Connection;
  * @vserion iteration4
  */
 public class DBServer extends NetworkThread implements Runnable {
-    private ServerSocket serverSocket;
+    public ServerSocket serverSocket;
     private boolean end;
     private BufferedReader input;
     private DataOutputStream output;
     private ObjectMapper mapper;
 
+    private DBNetwork network;
     private String inputString;
     private boolean hold;
 
@@ -33,7 +34,8 @@ public class DBServer extends NetworkThread implements Runnable {
      * Constructor
      * @param socket The serverSocket to use
      */
-    DBServer(ServerSocket socket) {
+    DBServer(ServerSocket socket, DBNetwork network) {
+        this.network = network;
         this.serverSocket = socket;
         mapper = new ObjectMapper();
         end = false;
@@ -74,6 +76,7 @@ public class DBServer extends NetworkThread implements Runnable {
                 e.printStackTrace();
             }
             System.out.println("-");
+            network.restart();
         }
         closeServerSocket(serverSocket);
     }
