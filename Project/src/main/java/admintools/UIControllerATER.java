@@ -102,8 +102,4 @@ public class UIControllerATER extends UIController {
         this.goToScene(UIController.ADMIN_RESERVATION_MAIN);
     }
 
-
-    @FXML
-    private void setHomeButton() { this.goToScene(UIController.ADMIN_MAIN_MENU_MAIN); }
-
 }
