@@ -1,12 +1,16 @@
 package admintools;
 
+import application.CurrentUser;
 import application.UIController;
 import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXToggleButton;
 import javafx.fxml.FXML;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Menu;
 
 public class UIControllerATAS extends UIController {
+    @FXML
+    private JFXToggleButton wongToggle;
     @FXML
     private JFXButton confirmButton;
     @FXML
@@ -24,6 +28,8 @@ public class UIControllerATAS extends UIController {
             minuteCB.getItems().add(i);
             secondCB.getItems().add(i);
         }
+
+        wongToggle.selectedProperty().addListener((observable, oldValue, newValue) -> CurrentUser.isWongFinding = newValue);
     }
 
     @FXML

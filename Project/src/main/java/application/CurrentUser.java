@@ -19,6 +19,7 @@ public class CurrentUser {
     public static String startingLocationID = "FSERV00101";
     public static DBNetwork network;
     public static boolean testing = false;
+    public static boolean isWongFinding;
 
     public static String getStartingLocation() {
         return startingLocation;
