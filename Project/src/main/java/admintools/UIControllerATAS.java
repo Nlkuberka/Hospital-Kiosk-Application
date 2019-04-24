@@ -23,7 +23,7 @@ public class UIControllerATAS extends UIController {
     private void initialize() {
         // Add choices to the choice boxes.
         // Allow the admin to select an integer number of minutes and an integer number of seconds, up to an hour.
-        for(int i = 0; i < 60; i++) {
+        for(int i = 0; i < 60; i += 10) {
             minuteCB.getItems().add(i);
             secondCB.getItems().add(i);
         }
