@@ -23,18 +23,21 @@ public class DBNetwork {
     private List<DBClient> dbClients;
     private ObjectMapper mapper;
     private boolean mute;
-    private int socketNum;
+    private int serverSocketNum;
+    private int clientSocketNum;
 
     /**
      * Constructor
-     * @param socketNum The socket num to use
+     * @param serverSocketNum The socket num to use
+     * @param clientSocketNum The socket num to look for
      */
-    public DBNetwork(int socketNum) {
-        setupServer(socketNum);
-        //DBNetwork.ipAddresses.remove(getOwnIP());
+    public DBNetwork(int serverSocketNum, int clientSocketNum) {
+        setupServer(serverSocketNum);
+        DBNetwork.ipAddresses.remove(getOwnIP());
         this.dbClients = new LinkedList<DBClient>();
         this.mapper = new ObjectMapper();
-        this.socketNum = socketNum;
+        this.serverSocketNum = serverSocketNum;
+        this.clientSocketNum = clientSocketNum;
     }
 
     /**
@@ -85,7 +88,7 @@ public class DBNetwork {
         if(mute) {
             return;
         }
-        setupClients(this.socketNum, string);
+        setupClients(this.clientSocketNum, string);
     }
     
     /*===== Node Functions ======*/
@@ -185,7 +188,6 @@ public class DBNetwork {
             e.printStackTrace();
             ownIP = "Cannot Execute Properly";
         }
-        System.out.println(ownIP);
         return ownIP;
     }
 
