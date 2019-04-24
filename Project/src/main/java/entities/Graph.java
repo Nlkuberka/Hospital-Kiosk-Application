@@ -285,7 +285,9 @@ public abstract class Graph {
         Node node1 = mapIndexToNode(node1Index);
         Node node2 = mapIndexToNode(node2Index);
         //calculate weight
-        double xWeight = abs(node1.getXcoord() - node2.getXcoord());
+        double xWeight = abs(
+                node1.getXcoord() -
+                        node2.getXcoord());
         double yWeight = abs(node1.getYcoord() - node2.getYcoord());
 
         double weight = sqrt((xWeight*xWeight) + (yWeight*yWeight));
@@ -350,6 +352,18 @@ public abstract class Graph {
         return adj.get(n).size();
     }
 
+    public List<String> getNeighbors(String nodeID) {
+        int nodeIndex = mapNodeIDToIndex(nodeID);
+        if(nodeIndex == -1) {
+            return new LinkedList<>();
+        }
+        List<Integer> neighborIndices = adj.get(nodeIndex);
+        List<String> neighborIDs = new LinkedList<>();
+        for(int index : neighborIndices) {
+            neighborIDs.add(nodeIDs.get(index));
+        }
+        return neighborIDs;
+    }
 
     /**
      * Deterines the angle of any edge and how to proceed through the path
@@ -658,7 +672,12 @@ public abstract class Graph {
             Node nextNode = mapIndexToNode(nextNodeIndex);
 
             if(!pastNode.getFloor().equals(currentNode.getFloor())){
-                floorName = "On Floor " + currentNode.getFloor() + " : \n";
+                if(currentNode.getNodeType().equals("STAI")){
+                    floorName = "On Floor " + currentNode.getFloor() + " : \n" + "Leave stairwell, ";
+                }else{
+                    floorName = "On Floor " + currentNode.getFloor() + " : \n";
+                }
+
             }else if(k == 1){
                 floorName = "On Floor " + currentNode.getFloor() + " : \n";
             }else{

@@ -78,7 +78,7 @@ public class UIControllerPUD extends UIController {
         System.out.println(selectedFloor);
         if(selectedFloor == null || selectedFloor.equals("All")) {
             //if the selected floor is All, print all directions
-            for (int l = 0; l < this.addedPath.size() - 1; l++) {
+            for (int l = 0; l < this.addedPath.size(); l++) {
                 this.returnText += this.addedPath.get(l);
             }
         }

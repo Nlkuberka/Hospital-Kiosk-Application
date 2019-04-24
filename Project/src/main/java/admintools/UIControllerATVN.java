@@ -3,6 +3,7 @@ package admintools;
 import database.DBController;
 import application.UIController;
 import database.DBControllerNE;
+import entities.Graph;
 import entities.Node;
 
 import com.jfoenix.controls.JFXButton;
@@ -110,6 +111,12 @@ public class UIControllerATVN extends  UIController {
                                 DBControllerNE.addNode(node,conn);
                             } else {
                                 DBControllerNE.updateNode(node, conn);
+                                List<String> neighbors = Graph.getGraph().getNeighbors(node.getNodeID());
+                                Graph.getGraph().removeNode(node.getNodeID());
+                                Graph.getGraph().addNode(node);
+                                for(String neighbor : neighbors) {
+                                    Graph.getGraph().addBiEdge(node.getNodeID(), neighbor);
+                                }
                             }
                             DBControllerNE.closeConnection(conn);
                         setGraphic(label);
@@ -135,6 +142,7 @@ public class UIControllerATVN extends  UIController {
                             DBControllerNE.deleteNode(node.getNodeID(), conn);
                             DBControllerNE.closeConnection(conn);
                           getTableView().getItems().remove(node);
+                          Graph.getGraph().removeNode(node.getNodeID());
                         }
                 );
             }
@@ -164,6 +172,7 @@ public class UIControllerATVN extends  UIController {
     private void setAddButton() {
         Node node = new Node("", 0, 0, "", "", "", "" ,"");
         nodeTable.getItems().add(node);
+        Graph.getGraph().addNode(node);
     }
 
 }
