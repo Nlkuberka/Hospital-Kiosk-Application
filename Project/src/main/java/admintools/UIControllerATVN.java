@@ -37,9 +37,6 @@ public class UIControllerATVN extends  UIController {
     /**< The Various Node Columns used for cell factories */
 
     @FXML
-    private MenuItem backButton; /**< The Back Button */
-
-    @FXML
     private Menu homeButton; /**< The Home Button */
 
     @FXML
@@ -169,11 +166,4 @@ public class UIControllerATVN extends  UIController {
         nodeTable.getItems().add(node);
     }
 
-    /**
-     * Goes back to the admin tools application menu
-     */
-    @FXML
-    private void setBackButton() {
-        this.goToScene(UIController.ADMIN_TOOLS_MAIN);
-    }
 }
