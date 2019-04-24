@@ -165,13 +165,12 @@ public class UIControllerATVU extends UIController {
                 choiceBox.getSelectionModel().select(userPermissionNames.get(userPermissions.indexOf(user.getPermissions())));
 
                 choiceBox.setOnAction(et -> {
-                    System.out.println("Changed");
-                    String permissionName = choiceBox.getValue();
+                    String permissionName = choiceBox.getSelectionModel().getSelectedItem();
                     if(permissionName == null) {
                         return;
                     }
                     int permission = userPermissions.get(userPermissionNames.indexOf(permissionName));
-                    runSetter(user, userSetters[3], int.class, permission);
+                    //user.setPermissions(permission);
 
                     Connection conn = DBController.dbConnect();
                     DBControllerU.updateUser(user.getUserID(),user,conn);
