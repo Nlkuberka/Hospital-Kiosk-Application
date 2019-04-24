@@ -57,10 +57,17 @@ public class UIControllerPUD extends UIController {
      */
     void populateDirections(List<List<List<Direction>>> message){
         this.path = message;
-        addedPath = Graph.getGraph().allTextDirections(this.path);
         System.out.println("Floor Value" + floorSelect.getValue());
         convertMessage(floorSelect.getValue());
         setDirections();
+    }
+
+    public List<String> getAddedPath() {
+        return addedPath;
+    }
+
+    public void setAddedPath(List<String> addedPath) {
+        this.addedPath = Graph.getGraph().allTextDirections(addedPath);
     }
 
     /**
@@ -71,6 +78,7 @@ public class UIControllerPUD extends UIController {
         this.returnText = "";
 
         if(selectedFloor == null || selectedFloor.equals("All")) {
+
             //if the selected floor is All, print all directions
             for (int l = 0; l < this.addedPath.size() - 1; l++) {
                 this.returnText += this.addedPath.get(l);

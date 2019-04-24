@@ -1,5 +1,6 @@
 package pathfinding;
 
+import application.CurrentUser;
 import entities.Node;
 import javafx.animation.PathTransition;
 import javafx.scene.SubScene;
@@ -74,20 +75,20 @@ public class CurrentObjects {
         this.initialID = null;
     }
 
-    void setInitialID(String initialID) {
-        this.initialID = initialID;
-    }
-
-    void setDestID(String destID) {
-        this.destID = destID;
-    }
-
     String getInitialID() {
         return initialID;
     }
 
+    void setInitialID(String initialID) {
+        this.initialID = initialID;
+    }
+
     String getDestID() {
         return destID;
+    }
+
+    void setDestID(String destID) {
+        this.destID = destID;
     }
 
     boolean anyNullEndNodes() {
@@ -221,14 +222,18 @@ public class CurrentObjects {
 
     public void setAnt() {
         ant = new ImageView();
-        ant.setImage(new Image(getClass().getResourceAsStream("/images/StickGif2.gif")));
+        if (CurrentUser.isWongFinding) {
+            ant.setImage(new Image(getClass().getResourceAsStream("/images/StickGif2.gif")));
+        } else {
+            ant.setImage(new Image(getClass().getResourceAsStream("/images/StickGif.gif")));
+        }
     }
 
     private Text labelFactory(Node node) {
         Text text = new Text();
         text.setText(node.getLongName());
         text.setFont(Font.font(60));
-        text.setLayoutX(node.getXcoord() - text.getLayoutBounds().getWidth()/2);
+        text.setLayoutX(node.getXcoord() - text.getLayoutBounds().getWidth() / 2);
         text.setLayoutY(node.getYcoord() - 60);
         //text.setStyle("-fx-background-color: #ffffff;"); // does not work
         return text;

@@ -631,16 +631,52 @@ public abstract class Graph {
         }
         return sortedDirections;
     }
-    public List<String> allTextDirections(List<List<List<Direction>>> inputPath){
-        List<String> returnPath = new LinkedList<>();
-        for(int i = 0; i < inputPath.size(); i++) {
-            for (int j = 0; j < inputPath.get(i).size(); j++) {
-                for (int k = 0; k < inputPath.get(i).get(j).size(); k++) {
 
-                    returnPath.add(inputPath.get(i).get(j).get(k).getDirection());
-                }
+    public List<String> allTextDirections(List<String> Nodes){
+        List<String> sortedDirections = new LinkedList<>();
+        String commaOrPeriod;
+        String currentDirection;
+        String pastDirection;
+        String floorName = "";
+        String currentFloor = null;
+
+        for (int k = 1; k < Nodes.size() - 1; k++) {
+
+            pastDirection = returnAngle(Nodes.get(k - 1), Nodes.get(k));
+            currentDirection = returnAngle(Nodes.get(k), Nodes.get(k + 1));
+
+            if (k == Nodes.size() - 2) {
+                commaOrPeriod = ".";
+            } else {
+                commaOrPeriod = ", ";
             }
+            int pastNodeIndex = mapNodeIDToIndex(Nodes.get(k-1));
+            int currentNodeIndex = mapNodeIDToIndex(Nodes.get(k));
+            int nextNodeIndex = mapNodeIDToIndex(Nodes.get(k + 1));
+
+            Node pastNode = mapIndexToNode(pastNodeIndex);
+            Node currentNode = mapIndexToNode(currentNodeIndex);
+            Node nextNode = mapIndexToNode(nextNodeIndex);
+
+            if(!pastNode.getFloor().equals(currentNode.getFloor())){
+                floorName = "On Floor " + currentNode.getFloor() + " : \n";
+            }else if(k == 1){
+                floorName = "On Floor " + currentNode.getFloor() + " : \n";
+            }else{
+                floorName = "";
+            }
+
+            sortedDirections.add(floorName
+                    + returnDirection(currentDirection, pastDirection)
+                    + " "
+                    + Math.round(adjWeights.get(currentNodeIndex).get(adj.get(currentNodeIndex).indexOf(nextNodeIndex)) / 4.666)
+                    + " feet"
+                    + ((nextNode.getNodeType().equals("HALL")) ? "" : " to " + nextNode.getLongName())
+                    + commaOrPeriod
+                    + "\n\n");
+
+
         }
-        return returnPath;
+        return sortedDirections;
     }
 }
