@@ -196,19 +196,20 @@ public class UIControllerPFM extends UIController {
         }
         menu.setExpandedPane(pathfindingTitledPane);
 
-        initialLocationCombo.getSelectionModel().select(CurrentUser.startingLocation);
-        currentObjects.setInitialID(CurrentUser.startingLocationID);
-        currentObjects.setInitCircle(anchorPaneHandler.getCircleFromName(CurrentUser.startingLocation));
-        System.out.println(currentObjects.getInitialID());
-
         menu.getPanes().get(0).setExpanded(true);
 
         gesturePaneHandler.resetZoom();
 
         cancel();
 
-        currentObjects.setFloorIndex(Floors.GROUND.getIndex());
-        mapTabPane.getSelectionModel().select(Floors.GROUND.getTabIndex());
+        // set init location -- do not put this before cancel()
+        initialLocationCombo.getSelectionModel().select(CurrentUser.startingLocation);
+        currentObjects.setInitialID(CurrentUser.startingLocationID);
+        currentObjects.setInitCircle(anchorPaneHandler.getCircleFromName(CurrentUser.startingLocation));
+        System.out.println(currentObjects.getInitialID());
+
+        currentObjects.setFloorIndex(Floors.FIRST.getIndex());
+        mapTabPane.getSelectionModel().select(Floors.FIRST.getTabIndex());
 
     }
 
