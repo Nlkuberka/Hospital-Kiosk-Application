@@ -2,7 +2,6 @@
 
 <?import com.jfoenix.controls.JFXButton?>
 <?import com.jfoenix.controls.JFXComboBox?>
-<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
@@ -22,15 +21,11 @@
             </ImageView>
             <AnchorPane layoutX="291.0" layoutY="-4.0" prefHeight="400.0" prefWidth="321.0" style="-fx-background-color: WHITE;">
                <children>
-                  <ScrollPane fx:id="directionsBox" layoutX="17.0" layoutY="50.0" prefHeight="350.0" prefWidth="290.0" style="-fx-border-color: #ffc41e;" stylesheets="@css/background.css">
-                    <content>
-                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="350.0" prefWidth="290.0">
-                           <children>
-                              <TextArea fx:id="directions" layoutX="-3.0" layoutY="-2.0" prefHeight="350.0" prefWidth="290.0" wrapText="true" />
-                           </children>
-                        </AnchorPane>
-                    </content>
-                  </ScrollPane>
+                <AnchorPane layoutX="20.0" layoutY="41.0" minHeight="0.0" minWidth="0.0" prefHeight="350.0" prefWidth="290.0">
+                     <children>
+                        <TextArea fx:id="directions" layoutX="-3.0" layoutY="-2.0" prefHeight="350.0" prefWidth="290.0" wrapText="true" />
+                     </children>
+                  </AnchorPane>
                </children>
             </AnchorPane>
             <TextField fx:id="phoneNumber" alignment="CENTER" layoutX="21.0" layoutY="200.0" prefHeight="25.0" prefWidth="250.0" promptText="Enter your phone number" />
