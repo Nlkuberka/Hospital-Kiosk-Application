@@ -29,7 +29,7 @@
          <top>
             <MenuBar blendMode="ADD" prefWidth="900.0" style="-fx-background-color: white;" stylesheets="@../css/background.css" BorderPane.alignment="CENTER">
                <menus>
-                  <Menu fx:id="backMenuItem" mnemonicParsing="false" onAction="#setBackMenuItem" text="Back">
+                  <Menu fx:id="backMenuItem" mnemonicParsing="false" onAction="#setBackMenuItem" onShowing="#setBackMenuItem" text="Back">
                      <items>
                         <MenuItem mnemonicParsing="false" onAction="#setBackMenuItem" text="Go back to previous page" />
                      </items>
