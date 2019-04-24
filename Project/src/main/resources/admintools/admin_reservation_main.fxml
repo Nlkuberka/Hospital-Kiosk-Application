@@ -26,7 +26,7 @@
       </ImageView>
       <BorderPane prefHeight="720.0" prefWidth="1280.0">
          <top>
-            <MenuBar blendMode="ADD" prefWidth="900.0" style="-fx-background-color: white;" stylesheets="@../css/background.css" BorderPane.alignment="CENTER">
+            <MenuBar prefWidth="900.0" style="-fx-background-color: white;" stylesheets="@../css/background.css" BorderPane.alignment="CENTER">
               <menus>
                 <Menu fx:id="homeButton" mnemonicParsing="false" onShowing="#setHomeButton" text="Home">
                   <items>
