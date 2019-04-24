@@ -45,8 +45,6 @@ public class UIControllerATVSR extends UIController {
     @FXML
     private ImageView backgroundImage;
     /**< The Various servicerequests Columns used for cell factories */
-    @FXML
-    private MenuItem backButton; /**< The Back Button */
 
     @FXML
     private Menu homeButton; /**< The Home Button */
@@ -85,11 +83,4 @@ public class UIControllerATVSR extends UIController {
         serviceRequestTable.setItems(FXCollections.observableList(serviceRequests));
     }
 
-    /**
-     * Goes back to the admin tools application menu
-     */
-    @FXML
-    private void setBackButton() {
-        this.goToScene(UIController.ADMIN_TOOLS_MAIN);
-    }
 }

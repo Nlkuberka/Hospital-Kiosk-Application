@@ -14,7 +14,7 @@ import static java.lang.Math.sqrt;
 
 
 public abstract class Graph {
-    
+
     protected LinkedList<LinkedList<Integer>> adj; // adjacency list
     protected LinkedList<LinkedList<Double>> adjWeights; //weights of the edges
     protected LinkedList<String> nodeIDs; //nodes that have been stored
@@ -317,7 +317,6 @@ public abstract class Graph {
         }
         int edgeIndex = adj.get(nodeIndex1).indexOf(nodeIndex2);
         if(edgeIndex >= 0) {
-            //edgeNum--;  TODO: Fix error I do not know what this does or where it comes from
             adj.get(mapNodeIDToIndex(nodeID1)).remove(edgeIndex);
             adjWeights.get(mapNodeIDToIndex(nodeID1)).remove(edgeIndex);
         }
@@ -576,39 +575,72 @@ public abstract class Graph {
 
     /**
      * Prints directions to every node in a path
-     * @param NodeIDS the path generated from shortestPath
+     * @param Nodes the path generated from shortestPath
      * @return text based directions directing a reader from one point to another
      */
-    public String textDirections(List<String> NodeIDS){
-        String directions = "";
+    @SuppressWarnings("Duplicates")
+    public List<List<List<Direction>>> textDirections(List<List<List<Node>>> Nodes){
+        List<List<List<Direction>>> sortedDirections = new LinkedList<>();
         String commaOrPeriod;
         String currentDirection;
+        String pastDirection;
+        String floorName;
+        //refactor for usage of list of list of list
+        for(int i = 0; i < Nodes.size(); i++){
+            //add a new floor to the sortedDirections
+            sortedDirections.add(new LinkedList<>());
+            for (int j = 0; j < Nodes.get(i).size(); j++){
+                //add a new list for a section per floor
+                sortedDirections.get(i).add(new LinkedList<>());
 
-        for(int i = 0; i < NodeIDS.size()-1; i++){
-            String pastDirection = returnAngle(NodeIDS.get(i), NodeIDS.get(i+1));
-            if(i <= NodeIDS.size() - 3){
-                currentDirection = returnAngle(NodeIDS.get(i+1), NodeIDS.get(i+2));
-            } else {
-                currentDirection = pastDirection;
-            }
+                for (int k = 1; k < Nodes.get(i).get(j).size()-1; k++){
 
-            if(i == NodeIDS.size()-2) {
-                commaOrPeriod = ".";
+                    pastDirection = returnAngle(Nodes.get(i).get(j).get(k-1).getNodeID(), Nodes.get(i).get(j).get(k).getNodeID());
+                    currentDirection = returnAngle(Nodes.get(i).get(j).get(k).getNodeID(), Nodes.get(i).get(j).get(k+1).getNodeID());
+
+
+                    if(k == 1){
+                        floorName = "On Floor " + Nodes.get(i).get(j).get(k-1).getFloor() + " : \n";
+                    }else{
+                        floorName = "";
+                    }
+                    if(k == Nodes.get(i).get(j).size()-2) {
+                        commaOrPeriod = ".";
+                    }
+                    else{
+                        commaOrPeriod = ", ";
+                    }
+                    int currentNodeIndex = mapNodeIDToIndex(Nodes.get(i).get(j).get(k).getNodeID());
+                    int nextNodeIndex = mapNodeIDToIndex(Nodes.get(i).get(j).get(k+1).getNodeID());
+                    Node nextNode = mapIndexToNode(nextNodeIndex);
+                    //System.out.println(returnAngle(NodeIDS.get(i), NodeIDS.get(i+1), directions)); //here for testing
+                    Direction nextDirection = new Direction(floorName
+                            + returnDirection(currentDirection, pastDirection)
+                            + " "
+                            + Math.round(adjWeights.get(currentNodeIndex).get(adj.get(currentNodeIndex).indexOf(nextNodeIndex)) / 4.666)
+                            + " feet"
+                            + ((nextNode.getNodeType().equals("HALL")) ? "" : " to " + nextNode.getLongName())
+                            + commaOrPeriod
+                            + "\n\n", Nodes.get(i).get(j).get(k).getFloor());
+
+                    List<List<Direction>> floor = sortedDirections.get(i);
+                    floor.get(j).add(nextDirection);
+
+                }
             }
-            else{
-                commaOrPeriod = ", ";
-            }
-            int currentNodeIndex = mapNodeIDToIndex(NodeIDS.get(i));
-            int nextNodeIndex = mapNodeIDToIndex(NodeIDS.get(i+1));
-            //System.out.println(returnAngle(NodeIDS.get(i), NodeIDS.get(i+1), directions));
-                    directions += returnDirection(currentDirection, pastDirection)
-                    + " "
-                    + Math.round(adjWeights.get(currentNodeIndex).getFirst() / 4.666)
-                    + " feet to "
-                    + mapIndexToNode((nextNodeIndex)).getLongName()
-                    + commaOrPeriod
-                    + "\n\n";
         }
-        return directions;
+        return sortedDirections;
+    }
+    public List<String> allTextDirections(List<List<List<Direction>>> inputPath){
+        List<String> returnPath = new LinkedList<>();
+        for(int i = 0; i < inputPath.size(); i++) {
+            for (int j = 0; j < inputPath.get(i).size(); j++) {
+                for (int k = 0; k < inputPath.get(i).get(j).size(); k++) {
+
+                    returnPath.add(inputPath.get(i).get(j).get(k).getDirection());
+                }
+            }
+        }
+        return returnPath;
     }
 }

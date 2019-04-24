@@ -4,7 +4,6 @@
 <?import com.jfoenix.controls.JFXTabPane?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.ChoiceBox?>
-<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
@@ -31,11 +30,6 @@
          <top>
             <MenuBar blendMode="ADD" style="-fx-background-color: white;" stylesheets="@../css/background.css" BorderPane.alignment="CENTER">
               <menus>
-                <Menu mnemonicParsing="false" text="Back">
-                  <items>
-                    <MenuItem fx:id="backMenuItem" mnemonicParsing="false" onAction="#setBackMenuItem" text="Go back to previous page" />
-                  </items>
-                </Menu>
                   <Menu fx:id="homeMenu" mnemonicParsing="false" onShowing="#setHomeButton" text="Home">
                      <items>
                         <MenuItem mnemonicParsing="false" text="HOME" />
@@ -93,15 +87,15 @@
                                           <Insets left="200.0" />
                                        </GridPane.margin>
                                     </Text>
-                                    <JFXButton fx:id="confirmButton" onAction="#changeAlgorithm" styleClass="jfx-button-login" stylesheets="@../css/background.css" text="Confirm" GridPane.halignment="CENTER" GridPane.rowIndex="6" GridPane.valignment="TOP" />
+                                    <JFXButton fx:id="confirmButton" onAction="#setConfirmButton" styleClass="jfx-button-login" stylesheets="@../css/background.css" text="Confirm" GridPane.halignment="CENTER" GridPane.rowIndex="6" GridPane.valignment="TOP" />
                                     <FlowPane maxWidth="530.0" prefHeight="200.0" prefWidth="200.0" GridPane.halignment="CENTER" GridPane.rowIndex="5" GridPane.valignment="CENTER">
                                        <children>
-                                          <Text fill="#015080" strokeType="OUTSIDE" strokeWidth="0.0" text="Minuts：">
+                                          <Text fill="#015080" strokeType="OUTSIDE" strokeWidth="0.0" text="Minutes：">
                                              <font>
                                                 <Font name="System Bold" size="18.0" />
                                              </font>
                                           </Text>
-                                          <ChoiceBox fx:id="minutCB" prefWidth="150.0" style="-fx-background-color: #efeae6;">
+                                          <ChoiceBox fx:id="minuteCB" prefWidth="150.0" style="-fx-background-color: #efeae6;">
                                              <FlowPane.margin>
                                                 <Insets left="20.0" />
                                              </FlowPane.margin>
@@ -124,56 +118,6 @@
                                           <Insets left="30.0" />
                                        </GridPane.margin>
                                     </FlowPane>
-                                    <FlowPane maxWidth="530.0" prefHeight="200.0" prefWidth="200.0" prefWrapLength="410.0" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="CENTER">
-                                       <children>
-                                          <Text fill="#015080" strokeType="OUTSIDE" strokeWidth="0.0" text="Minuts：">
-                                             <font>
-                                                <Font name="System Bold" size="18.0" />
-                                             </font>
-                                          </Text>
-                                          <Label fx:id="minutLabel" prefWidth="150.0" text="Label">
-                                             <padding>
-                                                <Insets left="20.0" />
-                                             </padding>
-                                             <FlowPane.margin>
-                                                <Insets left="20.0" />
-                                             </FlowPane.margin></Label>
-                                          <Text fill="#015080" strokeType="OUTSIDE" strokeWidth="0.0" text="Seconds：">
-                                             <font>
-                                                <Font name="System Bold" size="18.0" />
-                                             </font>
-                                             <FlowPane.margin>
-                                                <Insets left="20.0" />
-                                             </FlowPane.margin>
-                                          </Text>
-                                          <Label fx:id="secondLabel" prefWidth="150.0" text="Label">
-                                             <padding>
-                                                <Insets left="20.0" />
-                                             </padding>
-                                             <FlowPane.margin>
-                                                <Insets left="20.0" />
-                                             </FlowPane.margin></Label>
-                                       </children>
-                                       <GridPane.margin>
-                                          <Insets left="30.0" />
-                                       </GridPane.margin>
-                                    </FlowPane>
-                                    <Text fill="#015080" strokeType="OUTSIDE" strokeWidth="0.0" text="Current Setting" GridPane.rowIndex="2" GridPane.valignment="TOP">
-                                       <font>
-                                          <Font name="System Bold" size="24.0" />
-                                       </font>
-                                       <GridPane.margin>
-                                          <Insets left="400.0" />
-                                       </GridPane.margin>
-                                    </Text>
-                                    <Text fill="#015080" strokeType="OUTSIDE" strokeWidth="0.0" text="Modified Setting" GridPane.rowIndex="4" GridPane.valignment="TOP">
-                                       <font>
-                                          <Font name="System Bold" size="24.0" />
-                                       </font>
-                                       <GridPane.margin>
-                                          <Insets left="400.0" />
-                                       </GridPane.margin>
-                                    </Text>
                                  </children>
                               </GridPane>
                           </content>

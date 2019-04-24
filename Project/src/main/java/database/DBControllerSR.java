@@ -28,7 +28,7 @@ public class DBControllerSR extends DBController {
            ResultSet rs = ps.executeQuery();
            while(rs.next()){
                list.add(new ServiceRequest(rs.getString("NODEID"),rs.getString("SERVICETYPE"),
-                       rs.getString("MESSAGE"),rs.getString("USERID"),rs.getBoolean("RESOLVED"),rs.getString("RESOLVERID")));
+                       rs.getString("MESSAGE"),rs.getString("USERID"),rs.getBoolean("RESOLVED"),rs.getString("RESOLVERID"),rs.getString("SERVICEID")));
            }
         }catch(SQLException e){
             e.printStackTrace();
@@ -73,7 +73,7 @@ public class DBControllerSR extends DBController {
     /**
      * updateServiceRequest
      *
-     * saves changes msde to a ServiceRequest object
+     * saves changes made to a ServiceRequest object
      *
      * UP TO DATE
      * @param serviceRequest
@@ -81,12 +81,20 @@ public class DBControllerSR extends DBController {
      */
     public static void updateServiceRequest(ServiceRequest serviceRequest, Connection connection){
         try{
-            Statement s = connection.createStatement();
-            s.execute("UPDATE SERVICEREQUEST SET  SERVICETYPE ='"+ serviceRequest.getServiceType() +"',"+
-                    "MESSAGE = '"+ serviceRequest.getMessage() + "'," +
-                    "RESOLVED = '" + serviceRequest.isResolved() + "'," +
-                    "RESOLVERID = '"+serviceRequest.getResolverID()+"' " +
-                    "where  SERVICEID = '" + serviceRequest.getServiceID()+"'");
+            System.out.println(serviceRequest);
+            PreparedStatement ps = connection.prepareStatement("UPDATE SERVICEREQUEST SET SERVICETYPE = ?, MESSAGE = ?, RESOLVERID = ?, RESOLVED = ? WHERE SERVICEID = ?");
+            ps.setString(1,serviceRequest.getServiceType());
+            ps.setString(2,serviceRequest.getMessage());
+            ps.setString(3,serviceRequest.getResolverID());
+            ps.setBoolean(4,serviceRequest.isResolved());
+            ps.setString(5,serviceRequest.getServiceID());
+//            Statement s = connection.createStatement();
+//            s.execute("UPDATE SERVICEREQUEST SET SERVICETYPE ='"+ serviceRequest.getServiceType() +"',"+
+//                    "MESSAGE = '"+ serviceRequest.getMessage() + "'," +
+//                    "RESOLVED = " + serviceRequest.isResolved() + "," +
+//                    "RESOLVERID = '"+serviceRequest.getResolverID()+"' " +
+//                    "where  SERVICEID = '" + serviceRequest.getServiceID()+"'");
+            ps.execute();
             CurrentUser.network.sendServiceRequestPacket(DBNetwork.UPDATE_SERVICE_REQUEST, serviceRequest);
         }catch(SQLException e){
             e.printStackTrace();

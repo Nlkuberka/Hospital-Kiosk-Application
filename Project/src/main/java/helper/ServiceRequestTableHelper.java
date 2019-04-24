@@ -109,7 +109,22 @@ public class ServiceRequestTableHelper extends UIController {
                                 new com.twilio.type.PhoneNumber("+17472290044"),
                                 "Flowers have been Delivered")
                                 .create();
-                        System.out.println("It did shit");
+                    } else if (serviceRequest.getServiceType().equals("Babysitting")) {
+                        String phoneNum = serviceRequest.getMessage().substring(0, 10);
+                        Twilio.init(UIControllerPUD.ACCOUNT_SID, UIControllerPUD.AUTH_TOKEN);
+                        Message message = Message.creator(
+                                new com.twilio.type.PhoneNumber("+1" + phoneNum),
+                                new com.twilio.type.PhoneNumber("+17472290044"),
+                                "Your babysitting service is coming.")
+                                .create();
+                    } else if (serviceRequest.getServiceType().equals("Religious Services")) {
+                        String phoneNum = serviceRequest.getMessage().substring(0, 10);
+                        Twilio.init(UIControllerPUD.ACCOUNT_SID, UIControllerPUD.AUTH_TOKEN);
+                        Message message = Message.creator(
+                                new com.twilio.type.PhoneNumber("+1" + phoneNum),
+                                new com.twilio.type.PhoneNumber("+17472290044"),
+                                "Your religious service is coming.")
+                                .create();
                     }
                     DBController.closeConnection(conn);
                 });

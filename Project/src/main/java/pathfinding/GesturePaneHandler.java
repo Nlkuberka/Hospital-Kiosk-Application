@@ -1,5 +1,6 @@
 package pathfinding;
 
+import javafx.animation.Animation;
 import javafx.animation.Interpolator;
 import javafx.animation.PathTransition;
 import javafx.geometry.Dimension2D;
@@ -111,8 +112,9 @@ public class GesturePaneHandler {
 
         //Setting the duration of the path transition
         pathTransition.setDuration(Duration.seconds(5));
+        pathTransition.setRate(0.5);
 
-        //Setting the node for the transition
+        //Setting the first for the transition
         currentObjects.setAnt();
         //currentObjects.getAnt().setFill(Color.LIGHTGREEN);
         currentObjects.getCurrentAnchorPane().getChildren().add(currentObjects.getAnt());
@@ -127,7 +129,7 @@ public class GesturePaneHandler {
         //Setting auto reverse value to false
         pathTransition.setAutoReverse(false);
 
-        pathTransition.setCycleCount(99);
+        pathTransition.setCycleCount(Animation.INDEFINITE);
 
         pathTransition.setOnFinished(e -> {
             currentObjects.clearAnimation();
@@ -141,7 +143,7 @@ public class GesturePaneHandler {
     }
 
     void centerOnInitialNode(PathHandler pathHandler, GesturePane pane, int floor) {
-        // center on initial node
+        // center on initial first
         List<Point2D> extremaMinMax = pathHandler.getPathExtremaOnFloor(floor); // get extrema
         double centerX = (extremaMinMax.get(0).getX() + extremaMinMax.get(1).getX()) / 2; // find average
         double centerY = (extremaMinMax.get(0).getY() + extremaMinMax.get(1).getY()) / 2;

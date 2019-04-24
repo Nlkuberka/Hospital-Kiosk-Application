@@ -82,6 +82,7 @@ public class UIControllerSRRS extends UIController {
                 e.getControlNewText().length() <= 150 ? e : null
         ));
 
+        serviceType = "Religious Services";
         finalMessage = "";
 
         denomCheckBoxes = new LinkedList<>();
@@ -127,6 +128,9 @@ public class UIControllerSRRS extends UIController {
     }
 
     @FXML
+    private JFXTextField phoneNum;
+
+    @FXML
     public void onShow() {
         for(int i = 0; i < serviceCheckBoxes.size(); i++) {
             serviceCheckBoxes.get(i).setSelected(false);
@@ -142,10 +146,6 @@ public class UIControllerSRRS extends UIController {
         serviceMessage.setText("");
     }
 
-    public void setServiceType(String serviceType) {
-        this.serviceType = serviceType;
-    }
-
     @FXML
     private void setConfirmButton() throws IOException {
         if(!enablePolicy())
@@ -155,13 +155,14 @@ public class UIControllerSRRS extends UIController {
 
         String roomShortName = (String) roomSelect.getValue();
         String nodeID = filterHelper.getNodeID();
+        String phoneNumber = phoneNum.getText();
         String message = finalMessage + "\n" + additionalCommentField.getText();
 
         if (message.length() > 149) {
             message = message.substring(0, 149);
         }
 
-        ServiceRequest sr = new ServiceRequest(nodeID, serviceType, message, CurrentUser.user.getUserID(), false, null);
+        ServiceRequest sr = new ServiceRequest(nodeID, serviceType, phoneNumber + " " + message, CurrentUser.user.getUserID(), false, null);
         sr.setServiceID(sr.getTimeStamp());
 
         Connection conn = DBControllerSR.dbConnect();

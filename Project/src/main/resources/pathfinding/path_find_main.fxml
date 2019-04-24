@@ -242,7 +242,7 @@
                                     <graphic>
                                         <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
                                             <image>
-                                                <Image url="@../images/headset.png" />
+                                                <Image url="@../images/settings.png" />
                                             </image>
                                         </ImageView>
                                     </graphic>

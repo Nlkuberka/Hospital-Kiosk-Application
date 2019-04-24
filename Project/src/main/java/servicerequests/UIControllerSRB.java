@@ -36,6 +36,9 @@ public class UIControllerSRB extends UIController {
     private JFXComboBox<String> roomSelect; /**< The room choice box*/
 
     @FXML
+    private JFXTextField phoneNumber;
+
+    @FXML
     private JFXTextField serviceMessage; /**< The additional message field*/
 
     @FXML
@@ -100,13 +103,14 @@ public class UIControllerSRB extends UIController {
     private void setConfirmButton() {
         String roomShortName = (String) roomSelect.getValue();
         String nodeID = filterHelper.getNodeID();
+        String phoneNum = phoneNumber.getText();
         setServiceType("Babysitting");
         checkEvent();
         String message = "Help with: "+ BabysittingServices + " Room: "+ roomShortName + serviceMessage.getText();
         if(message.length() >= 151){
             message = message.substring(0,149);
         }
-        ServiceRequest sr = new ServiceRequest(nodeID, serviceType, message, CurrentUser.user.getUserID(), false, null);
+        ServiceRequest sr = new ServiceRequest(nodeID, serviceType, phoneNum + " " + message, CurrentUser.user.getUserID(), false, null);
         sr.setServiceID(sr.getTimeStamp());
 
         Connection conn = DBControllerSR.dbConnect();
