@@ -53,7 +53,7 @@
                   </Text>
                   <JFXTabPane fx:id="tabs" style="-fx-text-fill: #015080;" stylesheets="@../css/background.css" GridPane.rowIndex="1">
                      <tabs>
-                        <Tab text="A* Algorithm">
+                        <Tab style="-fx-background-color: #015080;" text="A* Algorithm">
                           <content>
                               <GridPane style="-fx-background-color: #ffffff;">
                                  <columnConstraints>
@@ -86,7 +86,7 @@
                               </GridPane>
                           </content>
                         </Tab>
-                        <Tab text="Depth First Algorithm">
+                        <Tab style="-fx-background-color: #015080;" text="Depth First Algorithm">
                           <content>
                               <GridPane style="-fx-background-color: #ffffff;">
                                  <columnConstraints>
@@ -119,7 +119,7 @@
                               </GridPane>
                           </content>
                         </Tab>
-                        <Tab text="Breath First Algorithm">
+                        <Tab style="-fx-background-color: #015080;" text="Breath First Algorithm">
                           <content>
                               <GridPane style="-fx-background-color: #ffffff;">
                                  <columnConstraints>
@@ -152,7 +152,7 @@
                               </GridPane>
                           </content>
                         </Tab>
-                        <Tab text="Bellman-Ford Algorithm">
+                        <Tab style="-fx-background-color: #015080;" text="Bellman-Ford Algorithm">
                            <content>
                               <GridPane style="-fx-background-color: #ffffff;">
                                  <columnConstraints>
@@ -185,7 +185,7 @@
                               </GridPane>
                            </content>
                         </Tab>
-                        <Tab text="Dijkstra's Algorithm">
+                        <Tab style="-fx-background-color: #015080;" text="Dijkstra's Algorithm">
                            <content>
                               <GridPane style="-fx-background-color: #ffffff;">
                                  <columnConstraints>
