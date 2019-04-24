@@ -44,8 +44,8 @@ public class Main extends Application {
         }
 
         CurrentUser.network = new DBNetwork(serverSocketNum, clientSocketNum);
-        //CurrentUser.network.hold();
-        //CurrentUser.network.mute();
+        CurrentUser.network.hold();
+        CurrentUser.network.mute();
 
         System.out.println(DBNetwork.ipAddresses);
 
@@ -101,7 +101,7 @@ public class Main extends Application {
 
     public static void main(String[] args) throws IOException {
         serverSocketNum = 5748;
-        clientSocketNum = 6789;
+        clientSocketNum = 5748;
         if(args.length > 0) {
             for(int i = 0; i < args.length - 2; i++) {
                 DBNetwork.ipAddresses.add(args[i]);

@@ -76,7 +76,7 @@ public class DBServer extends NetworkThread implements Runnable {
                 e.printStackTrace();
             }
             System.out.println("-");
-            network.restart();
+            //network.restart();
         }
         closeServerSocket(serverSocket);
     }
