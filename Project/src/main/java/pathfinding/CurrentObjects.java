@@ -9,6 +9,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Path;
+import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import net.kurobako.gesturefx.GesturePane;
@@ -27,6 +28,8 @@ public class CurrentObjects {
     private SubScene contextMenu;
     private Text initNodeLabel;
     private Text destNodeLabel;
+    private Rectangle textBackingDest;
+    private Rectangle textBackingInit;
 
     public CurrentObjects(int floorIndex, Circle initCircle, Circle destCircle, PathTransition animation, ImageView currentAnt,
                           PathHandler pathHandler, AnchorPaneHandler anchorPaneHandler, GesturePaneHandler gesturePaneHandler) {
@@ -127,9 +130,13 @@ public class CurrentObjects {
         for (int i = 0; i < Floors.values().length; i++) {
             anchorPaneHandler.getAnchorPaneAtFloor(i).getChildren().remove(this.initNodeLabel);
             anchorPaneHandler.getAnchorPaneAtFloor(i).getChildren().remove(this.destNodeLabel);
+            anchorPaneHandler.getAnchorPaneAtFloor(i).getChildren().remove(textBackingDest);
+            anchorPaneHandler.getAnchorPaneAtFloor(i).getChildren().remove(textBackingInit);
         }
         initNodeLabel = null;
         destNodeLabel = null;
+        textBackingDest = null;
+        textBackingInit = null;
     }
 
     public Text getInitNodeLabel() {
@@ -230,12 +237,26 @@ public class CurrentObjects {
     void newDestLabel(Node node) {
         Text text = labelFactory(node);
         this.destNodeLabel = text;
+        textBackingDest = new Rectangle(text.getLayoutBounds().getWidth() + 10, text.getLayoutBounds().getHeight());
+        textBackingDest.setFill(Color.RED);
+        textBackingDest.setLayoutX(text.getLayoutX() - 5);
+        textBackingDest.setLayoutY(text.getLayoutY() - 60);
+        textBackingDest.setArcHeight(30);
+        textBackingDest.setArcWidth(30);
+        anchorPaneHandler.getAnchorPaneAtFloor(Floors.getByID(node.getFloor()).getIndex()).getChildren().add(textBackingDest);
         anchorPaneHandler.getAnchorPaneAtFloor(Floors.getByID(node.getFloor()).getIndex()).getChildren().add(text);
     }
 
     void newInitLabel(Node node) {
         Text text = labelFactory(node);
         this.initNodeLabel = text;
+        textBackingInit = new Rectangle(text.getLayoutBounds().getWidth() + 10, text.getLayoutBounds().getHeight());
+        textBackingInit.setFill(Color.GREEN);
+        textBackingInit.setLayoutX(text.getLayoutX() - 5);
+        textBackingInit.setLayoutY(text.getLayoutY() - 60);
+        textBackingInit.setArcHeight(30);
+        textBackingInit.setArcWidth(30);
+        anchorPaneHandler.getAnchorPaneAtFloor(Floors.getByID(node.getFloor()).getIndex()).getChildren().add(textBackingInit);
         anchorPaneHandler.getAnchorPaneAtFloor(Floors.getByID(node.getFloor()).getIndex()).getChildren().add(text);
     }
 }
