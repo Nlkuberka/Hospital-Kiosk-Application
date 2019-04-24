@@ -224,8 +224,10 @@ public class CurrentObjects {
         ant = new ImageView();
         if (CurrentUser.isWongFinding) {
             ant.setImage(new Image(getClass().getResourceAsStream("/images/StickGif2.gif")));
-        } else {
+        } else if (initCircle.getCenterX() < destCircle.getCenterX()){
             ant.setImage(new Image(getClass().getResourceAsStream("/images/StickGif.gif")));
+        } else {
+            ant.setImage(new Image(getClass().getResourceAsStream("/images/StickGif1.gif")));
         }
     }
 

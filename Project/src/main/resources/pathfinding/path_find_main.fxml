@@ -272,7 +272,7 @@
                                 <Insets bottom="50.0" />
                             </padding>
                         </AnchorPane>
-                        <Accordion fx:id="menu" maxWidth="300.0" prefWidth="300.0" StackPane.alignment="TOP_LEFT">
+                        <Accordion fx:id="menu" maxWidth="300.0" prefWidth="300.0" StackPane.alignment="TOP_LEFT" pickOnBounds="false">
                             <panes>
                                 <TitledPane fx:id="pathfindingTitledPane" alignment="TOP_LEFT" maxWidth="300.0" onContextMenuRequested="#setTitledPane" onMouseClicked="#setTitledPane" prefWidth="300.0" style="-fx-border-color: #ffc41e; -fx-border-width: 1;" stylesheets="@../css/pathfinding_tab.css" text="Find Path">
                                     <content>
