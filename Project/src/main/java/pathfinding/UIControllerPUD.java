@@ -47,13 +47,16 @@ public class UIControllerPUD extends UIController {
     @FXML
     private JFXComboBox<String> floorSelect; //drop down to select which floor's directions to display
 
+    @FXML
+    public void initialize(){
+        floorSelect.getItems().addAll("All", "4", "3", "2", "1", "G", "L1", "L2");
+    }
     /**
      * Populates the object's linked list
      * @param message the input path
      */
     void populateDirections(List<List<List<Direction>>> message){
         this.path = message;
-        floorSelect.getItems().addAll("All", "4", "3", "2", "1", "G", "L1", "L2");
         addedPath = Graph.getGraph().allTextDirections(this.path);
         System.out.println("Floor Value" + floorSelect.getValue());
         convertMessage(floorSelect.getValue());
