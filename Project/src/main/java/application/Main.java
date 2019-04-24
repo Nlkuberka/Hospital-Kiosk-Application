@@ -44,8 +44,8 @@ public class Main extends Application {
         }
 
         CurrentUser.network = new DBNetwork(serverSocketNum, clientSocketNum);
-        CurrentUser.network.hold();
-        CurrentUser.network.mute();
+        //CurrentUser.network.hold();
+//        CurrentUser.network.mute();
 
         System.out.println(DBNetwork.ipAddresses);
 
