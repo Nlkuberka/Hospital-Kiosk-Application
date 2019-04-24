@@ -61,8 +61,4 @@ public class UIControllerATCA extends UIController {
         popupMessage("Algorithm changed to " + algorithm, false);
     }
 
-    @FXML
-    private void setBackMenuItem() {
-        this.goToScene(UIController.ADMIN_TOOLS_MAIN);
-    }
 }

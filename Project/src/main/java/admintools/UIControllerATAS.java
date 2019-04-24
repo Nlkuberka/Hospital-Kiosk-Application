@@ -18,8 +18,6 @@ public class UIControllerATAS extends UIController {
     private ChoiceBox<Integer> secondCB;
     @FXML
     private Menu homeMenu;
-    @FXML
-    private MenuItem backMenuItem;
 
     @FXML
     private void initialize() {
@@ -45,8 +43,4 @@ public class UIControllerATAS extends UIController {
         popupMessage("Timeout changed.", false);
     }
 
-    @FXML
-    private void setBackMenuItem() {
-        this.goToScene(UIController.ADMIN_TOOLS_MAIN);
-    }
 }

@@ -33,9 +33,6 @@ public class UIControllerATVE extends UIController {
     /**< The Various Edge Columns used for cell factories */
 
     @FXML
-    private MenuItem backButton; /**< The Back Button */
-
-    @FXML
     private Menu homeButton; /**< The Home Button */
 
     @FXML
@@ -164,14 +161,6 @@ public class UIControllerATVE extends UIController {
     private void setAddButton() {
         Edge edge  = new Edge("", "", "");
         edgeTable.getItems().add(edge);
-    }
-
-    /**
-     * Goes back to the admin tools application menu
-     */
-    @FXML
-    private void setBackButton() {
-        this.goToScene(UIController.ADMIN_TOOLS_MAIN);
     }
 
 }
