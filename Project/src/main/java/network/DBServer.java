@@ -146,10 +146,12 @@ public class DBServer extends NetworkThread implements Runnable {
         Connection conn = DBController.dbConnect();
         if(command.contains("ADD")) {
             DBControllerNE.addNode(node, conn);
+            Graph.getGraph().addNode(node);
         } else if(command.contains("UPDATE")) {
             DBControllerNE.updateNode(node, conn);
         } else if(command.contains("DELETE")) {
             DBControllerNE.deleteNode(node.getNodeID(), conn);
+            Graph.getGraph().removeNode(node.getNodeID());
         }
         DBController.closeConnection(conn);
         outputSuccess();
@@ -164,10 +166,12 @@ public class DBServer extends NetworkThread implements Runnable {
         Connection conn = DBController.dbConnect();
         if(command.contains("ADD")) {
             DBControllerNE.addEdge(edge, conn);
+            Graph.getGraph().addBiEdge(edge.getNode1ID(), edge.getNode2ID());
         } else if(command.contains("UPDATE")) {
             DBControllerNE.updateEdge(edge, conn);
         } else if(command.contains("DELETE")) {
             DBControllerNE.deleteEdge(edge.getNode1ID(), edge.getNode2ID(), conn);
+            Graph.getGraph().removeBiEdge(edge.getNode1ID(), edge.getNode2ID());
         }
         DBController.closeConnection(conn);
         outputSuccess();
