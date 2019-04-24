@@ -79,9 +79,13 @@ public class GesturePaneHandler {
             });
         }
 
+        resetZoom();
+    }
+
+    public void resetZoom() {
         // zoom so that it looks good
         GesturePane pane = gesturePanes.get(0);
-        pane.zoomTo(0.3, pane.viewportCentre());
+        pane.zoomTo(0.3, new Point2D(0, 0));
         pane.translateBy(new Dimension2D(500.0, 400.0));
     }
 
