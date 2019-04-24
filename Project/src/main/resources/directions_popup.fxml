@@ -22,11 +22,11 @@
             </ImageView>
             <AnchorPane layoutX="291.0" layoutY="-4.0" prefHeight="400.0" prefWidth="321.0" style="-fx-background-color: WHITE;">
                <children>
-                  <ScrollPane fx:id="directionsBox" layoutX="14.0" layoutY="25.0" prefHeight="350.0" prefWidth="293.0" style="-fx-border-color: #ffc41e;" stylesheets="@css/background.css">
+                  <ScrollPane fx:id="directionsBox" layoutX="17.0" layoutY="50.0" prefHeight="350.0" prefWidth="290.0" style="-fx-border-color: #ffc41e;" stylesheets="@css/background.css">
                     <content>
-                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="350.0" prefWidth="274.0">
+                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="350.0" prefWidth="290.0">
                            <children>
-                              <TextArea fx:id="directions" layoutX="-3.0" layoutY="-2.0" prefHeight="350.0" prefWidth="277.0" wrapText="true" />
+                              <TextArea fx:id="directions" layoutX="-3.0" layoutY="-2.0" prefHeight="350.0" prefWidth="290.0" wrapText="true" />
                            </children>
                         </AnchorPane>
                     </content>
@@ -37,16 +37,16 @@
             <TextField fx:id="email" alignment="CENTER" layoutX="21.0" layoutY="330.0" prefHeight="25.0" prefWidth="250.0" promptText="Enter your email" />
             <JFXButton fx:id="textDirections" layoutX="21.0" layoutY="137.0" onAction="#sendText" prefHeight="50.0" prefWidth="250.0" style="-fx-background-color: #ffc41e;" stylesheets="@css/background.css" text="Text Me The Directions">
                <font>
-                  <Font size="20.0" />
+                  <Font name="System Bold" size="18.0" />
                </font>
             </JFXButton>
             <JFXButton fx:id="emailDirections" layoutX="21.0" layoutY="269.0" onAction="#sendEmail" prefHeight="50.0" prefWidth="250.0" style="-fx-background-color: #ffc41e;" stylesheets="@css/background.css" text="Email Me The Directions">
                <font>
-                  <Font size="20.0" />
+                  <Font name="System Bold" size="18.0" />
                </font>
             </JFXButton>
-            <JFXComboBox fx:id="floorSelect" focusColor="WHITE" layoutX="21.0" layoutY="56.0" onAction="#selectFloor" prefHeight="30.0" prefWidth="250.0" promptText="What floor would you like to view?" style="-fx-background-color: #ffffff" />
-            <AnchorPane prefHeight="25.0" prefWidth="291.0" style="-fx-background-color: #ffc41e;" />
+            <JFXComboBox fx:id="floorSelect" focusColor="WHITE" layoutX="21.0" layoutY="70.0" onAction="#selectFloor" prefHeight="30.0" prefWidth="250.0" promptText="What floor would you like to view?" style="-fx-background-color: #ffffff" />
+            <AnchorPane prefHeight="25.0" prefWidth="612.0" style="-fx-background-color: #ffc41e;" />
       </children>
     </AnchorPane>
   </children>
