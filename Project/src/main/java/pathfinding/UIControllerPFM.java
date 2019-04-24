@@ -270,6 +270,7 @@ public class UIControllerPFM extends UIController {
 
         currentObjects.clearAnimation(); // reset stuff
         pathHandler.cancel(); // reset stuff
+        pathHandler.removeFloorLinks(anchorPaneHandler);
 
         if (pathIDs == null) {
             clearTabColors();

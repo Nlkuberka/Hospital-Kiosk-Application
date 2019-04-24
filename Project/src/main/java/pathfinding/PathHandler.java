@@ -26,6 +26,7 @@ public class PathHandler {
         this.pathList.add(p6);
         this.pathList.add(p7);
 
+        this.edgeNodes = new LinkedList<>();
 
         // set stroke width
         for (int i = 0; i < this.pathList.size(); i++) {
