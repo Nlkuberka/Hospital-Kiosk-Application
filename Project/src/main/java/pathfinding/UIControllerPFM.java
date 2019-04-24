@@ -212,8 +212,15 @@ public class UIControllerPFM extends UIController {
         currentObjects.setInitCircle(anchorPaneHandler.getCircleFromName(CurrentUser.startingLocation));
         System.out.println(currentObjects.getInitialID());
 
-        currentObjects.setFloorIndex(Floors.FIRST.getIndex());
-        mapTabPane.getSelectionModel().select(Floors.FIRST.getTabIndex());
+
+        Connection connection = DBController.dbConnect();
+        assert connection != null;
+        Node node = DBControllerNE.fetchNode(CurrentUser.getStartingLocationID(), connection);
+        DBController.closeConnection(connection);
+
+        Floors floor = Floors.getByID(node.getFloor());
+        currentObjects.setFloorIndex(floor.getIndex());
+        mapTabPane.getSelectionModel().select(floor.getTabIndex());
 
     }
 
