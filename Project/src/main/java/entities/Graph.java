@@ -372,7 +372,6 @@ public abstract class Graph {
 
         //converts angle to degrees
         double angle = Math.atan2(yWeight, xWeight) * 180;
-        //System.out.println(angle);
 
         //splits cartesian plane into 8 sections
         if (angle <= 15 || angle >= 345) {
@@ -613,7 +612,7 @@ public abstract class Graph {
                     int currentNodeIndex = mapNodeIDToIndex(Nodes.get(i).get(j).get(k).getNodeID());
                     int nextNodeIndex = mapNodeIDToIndex(Nodes.get(i).get(j).get(k+1).getNodeID());
                     Node nextNode = mapIndexToNode(nextNodeIndex);
-                    //System.out.println(returnAngle(NodeIDS.get(i), NodeIDS.get(i+1), directions)); //here for testing
+
                     Direction nextDirection = new Direction(floorName
                             + returnDirection(currentDirection, pastDirection)
                             + " "

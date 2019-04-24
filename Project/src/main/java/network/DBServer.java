@@ -125,7 +125,7 @@ public class DBServer extends NetworkThread implements Runnable {
                 return;
             }
             handleServiceRequest(command, serviceRequest);
-        } else if(command.contains("RESERVATIONS")) {
+        } else if(command.contains("RESERVATION")) {
             Reservation reservation;
             try{
                 reservation = mapper.readValue(object, Reservation.class);

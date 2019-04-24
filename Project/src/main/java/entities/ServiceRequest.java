@@ -1,5 +1,7 @@
 package entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -7,6 +9,7 @@ import java.util.Date;
  * The Objecct that holds data about a particular service request
  * @version iteration2
  */
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class ServiceRequest {
     private String nodeID;
     private String serviceType;
