@@ -16,7 +16,7 @@ import java.util.List;
  * Class that handles the DBNetwork
  * @author Jonathan Chang
  */
-public class DBNetwork {
+public class DBNetwork extends NetworkThread {
     public static List<String> ipAddresses = new LinkedList<String>(){};
 
     private DBServer dbServer;
@@ -48,7 +48,7 @@ public class DBNetwork {
     public boolean setupServer(int socketNum) {
         try {
             ServerSocket serverSocket = new ServerSocket(socketNum);
-            dbServer = new DBServer(serverSocket);
+            dbServer = new DBServer(serverSocket, this);
             Thread serverThread = new Thread(dbServer);
             serverThread.start();
         } catch(Exception e) {
@@ -67,7 +67,7 @@ public class DBNetwork {
         dbClients = new LinkedList<DBClient>();
         try {
             for(String ip : ipAddresses) {
-                DBClient dbClient = new DBClient(ip, socketNum);
+                DBClient dbClient = new DBClient(ip, socketNum, this);
                 dbClient.outputString(outputString);
                 dbClients.add(dbClient);
                 Thread clientThread = new Thread(dbClient);
@@ -207,4 +207,8 @@ public class DBNetwork {
         this.dbServer.unhold();
     }
 
+    protected void restart() {
+        closeServerSocket(dbServer.serverSocket);
+        setupServer(serverSocketNum);
+    }
 }
