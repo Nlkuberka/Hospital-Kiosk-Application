@@ -420,8 +420,8 @@ public class UIControllerPFM extends UIController {
 
         UIControllerPUD controller = (UIControllerPUD) popupScene(POPUP_DIRECTIONS, 600, 400, true);
 
-        controller.populateDirections(direction);
         controller.setAddedPath(shortPath);
+        controller.populateDirections(direction);
         controller.setDirections();
     }
 
