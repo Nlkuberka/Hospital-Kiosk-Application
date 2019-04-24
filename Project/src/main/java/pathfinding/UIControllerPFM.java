@@ -8,6 +8,7 @@ import com.jfoenix.controls.JFXTabPane;
 import com.jfoenix.controls.JFXToggleButton;
 import database.DBController;
 import database.DBControllerNE;
+import edu.wpi.cs3733.d19.teamE.api.Main_Registration;
 import entities.Direction;
 import entities.Graph;
 import entities.Node;
@@ -312,8 +313,19 @@ public class UIControllerPFM extends UIController {
             for (int i = 0; i < Floors.values().length; i++) {
                 int floor = Floors.getByIndex(i).getTabIndex();
                 if (floorsUsed.contains(i)) {
-                    mapTabPane.getTabs().get(floor).setStyle("-fx-background-color: #efffff");
-                    mapTabPane.getTabs().get(floor).setDisable(false);
+                    if(Floors.getByID(destNode.getFloor()).getTabIndex() == floor){
+                        mapTabPane.getTabs().get(floor).setStyle("-fx-background-color: #ff0000");
+                        mapTabPane.getTabs().get(floor).setDisable(false);
+                    }
+                    else if(Floors.getByID(initialNode.getFloor()).getTabIndex() == floor)
+                    {
+                        mapTabPane.getTabs().get(floor).setStyle("-fx-background-color: #008000");
+                        mapTabPane.getTabs().get(floor).setDisable(false);
+                    }
+                    else {
+                        mapTabPane.getTabs().get(floor).setStyle("-fx-background-color: #efffff");
+                        mapTabPane.getTabs().get(floor).setDisable(false);
+                    }
                 } else {
                     mapTabPane.getTabs().get(floor).setStyle("-fx-background-color: #003454");
                     mapTabPane.getTabs().get(floor).setDisable(true);
@@ -440,6 +452,12 @@ public class UIControllerPFM extends UIController {
     private void setReligiousButton() {
         this.popupScene(UIController.SERVICE_REQUEST_RELIGIOUS_SERVICES, 900, 600, false);
     }
+
+    @FXML
+    private void setPatientButton(){
+        Main_Registration.main(null);
+    }
+
 
     @FXML
     private void setOtherButton() {
