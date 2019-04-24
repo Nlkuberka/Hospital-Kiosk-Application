@@ -156,6 +156,12 @@ public class UIControllerSRRS extends UIController {
         String roomShortName = (String) roomSelect.getValue();
         String nodeID = filterHelper.getNodeID();
         String phoneNumber = phoneNum.getText();
+
+        if (!phoneNumber.matches("\\d{10}") && !phoneNumber.isEmpty()) {
+            popupMessage("Please Enter A Valid Phone Number", true);
+            return;
+        }
+
         String message = finalMessage + "\n" + additionalCommentField.getText();
 
         if (message.length() > 149) {

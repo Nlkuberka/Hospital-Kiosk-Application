@@ -7,9 +7,9 @@ package servicerequests;
  */
 
 import application.CurrentUser;
-import com.jfoenix.controls.JFXComboBox;
 import application.UIController;
 import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextField;
 import database.DBControllerSR;
 import entities.ServiceRequest;
@@ -104,6 +104,10 @@ public class UIControllerSRB extends UIController {
         String roomShortName = (String) roomSelect.getValue();
         String nodeID = filterHelper.getNodeID();
         String phoneNum = phoneNumber.getText();
+        if (!phoneNum.matches("\\d{10}") && !phoneNum.isEmpty()) {
+            popupMessage("Please Enter A Valid Phone Number", true);
+            return;
+        }
         setServiceType("Babysitting");
         checkEvent();
         String message = "Help with: "+ BabysittingServices + " Room: "+ roomShortName + serviceMessage.getText();
