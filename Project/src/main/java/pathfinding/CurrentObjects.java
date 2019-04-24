@@ -3,7 +3,6 @@ package pathfinding;
 import entities.Node;
 import javafx.animation.PathTransition;
 import javafx.scene.SubScene;
-import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
@@ -27,7 +26,7 @@ public class CurrentObjects {
     private String destID;
     private SubScene contextMenu;
     private Text initNodeLabel;
-    private javafx.scene.control.Label destNodeLabel;
+    private Text destNodeLabel;
 
     public CurrentObjects(int floorIndex, Circle initCircle, Circle destCircle, PathTransition animation, ImageView currentAnt,
                           PathHandler pathHandler, AnchorPaneHandler anchorPaneHandler, GesturePaneHandler gesturePaneHandler) {
@@ -135,7 +134,7 @@ public class CurrentObjects {
         return initNodeLabel;
     }
 
-    public Label getDestNodeLabel() {
+    public Text getDestNodeLabel() {
         return destNodeLabel;
     }
 
@@ -227,11 +226,9 @@ public class CurrentObjects {
     }
 
     void newDestLabel(Node node) {
-        destNodeLabel.setText(node.getLongName());
-        destNodeLabel.setFont(Font.font(60));
-        destNodeLabel.setLayoutX(node.getXcoord() - destNodeLabel.getLayoutBounds().getWidth()/2);
-        destNodeLabel.setLayoutY(node.getYcoord() - 60);
-        anchorPaneHandler.getAnchorPaneAtFloor(Floors.getByID(node.getFloor()).getIndex()).getChildren().add(destNodeLabel);
+        Text text = labelFactory(node);
+        this.destNodeLabel = text;
+        anchorPaneHandler.getAnchorPaneAtFloor(Floors.getByID(node.getFloor()).getIndex()).getChildren().add(text);
     }
 
     void newInitLabel(Node node) {
