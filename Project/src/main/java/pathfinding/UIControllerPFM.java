@@ -17,6 +17,7 @@ import helper.RoomCategoryFilterHelper;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Point2D;
 import javafx.scene.Scene;
 import javafx.scene.control.Accordion;
 import javafx.scene.control.Menu;
@@ -204,15 +205,12 @@ public class UIControllerPFM extends UIController {
 
         menu.getPanes().get(0).setExpanded(true);
 
-        gesturePaneHandler.resetZoom();
-
         cancel();
 
         // set init location -- do not put this before cancel()
         initialLocationCombo.getSelectionModel().select(CurrentUser.startingLocation);
         currentObjects.setInitialID(CurrentUser.startingLocationID);
         currentObjects.setInitCircle(anchorPaneHandler.getCircleFromName(CurrentUser.startingLocation));
-
 
         Connection connection = DBController.dbConnect();
         assert connection != null;
@@ -222,6 +220,8 @@ public class UIControllerPFM extends UIController {
         Floors floor = Floors.getByID(node.getFloor());
         currentObjects.setFloorIndex(floor.getIndex());
         mapTabPane.getSelectionModel().select(floor.getTabIndex());
+
+        gesturePaneHandler.resetZoomTo(new Point2D(node.getXcoord(), node.getYcoord()));
 
     }
 
