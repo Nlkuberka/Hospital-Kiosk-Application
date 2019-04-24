@@ -350,6 +350,15 @@ public abstract class Graph {
         return adj.get(n).size();
     }
 
+    public List<String> getNeighbors(String nodeID) {
+        int nodeIndex = mapNodeIDToIndex(nodeID);
+        List<Integer> neighborIndices = adj.get(nodeIndex);
+        List<String> neighborIDs = new LinkedList<>();
+        for(int index : neighborIndices) {
+            neighborIDs.add(nodeIDs.get(index));
+        }
+        return neighborIDs;
+    }
 
     /**
      * Deterines the angle of any edge and how to proceed through the path

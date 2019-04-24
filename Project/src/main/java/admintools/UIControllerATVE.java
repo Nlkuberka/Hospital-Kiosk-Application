@@ -7,6 +7,7 @@ import entities.Edge;
 
 import com.jfoenix.controls.JFXButton;
 
+import entities.Graph;
 import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -101,6 +102,7 @@ public class UIControllerATVE extends UIController {
                             }
                             DBControllerNE.addEdge(edge,conn);
                             DBController.closeConnection(conn);
+                        Graph.getGraph().addBiEdge(edge.getNode1ID(), edge.getNode2ID());
 
                         setGraphic(label);
                         label.setText(textField.getText());

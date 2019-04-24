@@ -6,6 +6,7 @@ import com.jfoenix.controls.JFXTabPane;
 import database.DBController;
 import database.DBControllerNE;
 import entities.Edge;
+import entities.Graph;
 import entities.Node;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -435,6 +436,7 @@ public class UIControllerATMV extends UIController {
         assert conn != null;
         DBControllerNE.deleteNode(node.getNodeID(), conn);
         DBController.closeConnection(conn);
+        Graph.getGraph().removeNode(node.getNodeID());
         set();
     }
 
@@ -444,6 +446,7 @@ public class UIControllerATMV extends UIController {
         assert conn != null;
         DBControllerNE.addEdge(newEdge, conn);
         DBController.closeConnection(conn);
+        Graph.getGraph().addBiEdge(node1ID, node2ID);
     }
 
     private void deleteEdge(String nodeID1, String nodeID2) {
@@ -451,7 +454,7 @@ public class UIControllerATMV extends UIController {
         assert conn != null;
         DBControllerNE.deleteEdge(nodeID1, nodeID2, conn);
         DBController.closeConnection(conn);
-
+        Graph.getGraph().removeBiEdge(nodeID1, nodeID2);
     }
 
     void setKiosk(Node node) {
