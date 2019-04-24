@@ -27,7 +27,7 @@
          <top>
             <MenuBar blendMode="LIGHTEN" nodeOrientation="LEFT_TO_RIGHT" prefWidth="900.0" style="-fx-background-color: #ffffff;" stylesheets="@../css/background.css" BorderPane.alignment="CENTER">
               <menus>
-                <Menu mnemonicParsing="false" text="Back">
+                <Menu mnemonicParsing="false" onShowing="#setBackButton" text="Back">
                   <items>
                     <MenuItem fx:id="backButton" mnemonicParsing="false" onAction="#setBackButton" text="Go back to previous page" />
                   </items>
@@ -44,7 +44,7 @@
             </MenuBar>
          </top>
          <center>
-            <TableView fx:id="reservationTable" BorderPane.alignment="CENTER">
+            <TableView fx:id="reservationTable" maxWidth="1100" BorderPane.alignment="CENTER">
               <columns>
                 <TableColumn prefWidth="98.66668701171875" text="RSV ID" />
                 <TableColumn prefWidth="137.33331298828125" text="Node ID" />

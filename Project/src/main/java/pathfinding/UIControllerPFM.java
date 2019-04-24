@@ -94,11 +94,14 @@ public class UIControllerPFM extends UIController {
     private CurrentObjects currentObjects;
     private GesturePaneHandler gesturePaneHandler;
 
+    private Boolean open = true;
+
     /**
      * Initialize various componets, especially panes, tabs and pathHandler
      */
     @FXML
     public void initialize() {
+       // pathfindingTitledPane.setExpanded(true);
         // titledPane.prefHeightProperty().bind(primaryStage.heightProperty());
         backgroundImage.fitWidthProperty().bind(primaryStage.widthProperty());
 
@@ -152,6 +155,7 @@ public class UIControllerPFM extends UIController {
 
             // ~~~~~ init choice boxes
             Connection conn = DBController.dbConnect();
+
 
             LinkedList<LinkedList<Node>> roomsAtEachFloor = new LinkedList<>();
 
@@ -228,7 +232,8 @@ public class UIControllerPFM extends UIController {
      */
     @FXML
     private void setTitledPane() {
-        if (pathfindingTitledPane.isExpanded()) {
+     //   pathfindingTitledPane.setExpanded(true);
+        if (pathfindingTitledPane.isExpanded()==true) {
             final Color color2 = Color.web("#ffc41e");
             pathfindingTitledPane.setBackground(new Background(new BackgroundFill(color2, null, null)));
         } else {

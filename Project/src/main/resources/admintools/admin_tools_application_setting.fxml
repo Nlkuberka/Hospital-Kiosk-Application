@@ -55,7 +55,7 @@
                   </Text>
                   <JFXTabPane fx:id="tabs" style="-fx-text-fill: #015080;" stylesheets="@../css/background.css" GridPane.rowIndex="1">
                      <tabs>
-                        <Tab text="Time Out Setting">
+                        <Tab style="-fx-background-color: #015080;" text="Time Out Setting">
                           <content>
                               <GridPane style="-fx-background-color: #ffffff;">
                                  <columnConstraints>
