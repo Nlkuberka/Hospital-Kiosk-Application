@@ -497,7 +497,7 @@ public class UIControllerATMV extends UIController {
             if (nodes.getId().equals(node.getNodeID())) {
                 ((Circle) nodes).setRadius(AnchorPaneHandler.getNodeSizeHighlited);
                 ((Circle) nodes).setFill(Color.GREEN);
-                ((Circle) nodes).setStroke(Color.BLACK);
+                ((Circle) nodes).setStroke(Color.web("015080"));
                 ((Circle) nodes).setStrokeWidth(2);
             }
         }
