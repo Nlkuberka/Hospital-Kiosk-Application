@@ -155,7 +155,7 @@ public class GesturePaneHandler {
         double ySpan = extremaMinMax.get(1).getY() - extremaMinMax.get(0).getY();
         double xSpan = extremaMinMax.get(1).getX() - extremaMinMax.get(0).getX();
 
-        double buffer = pane.getViewportWidth() * 0.2;
+        double buffer = pane.getViewportWidth() * 0.7;
 
         double ySf = calcScaleFactor(pane.getViewportHeight(), ySpan, buffer);
         double xSf = calcScaleFactor(pane.getViewportWidth(), xSpan, buffer);

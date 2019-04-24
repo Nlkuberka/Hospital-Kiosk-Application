@@ -88,12 +88,13 @@ public class DBControllerU extends DBController {
      */
     public static void updateUser(String ID, User user, Connection conn){
         try {
-
+            //System.out.println(user);
             if(!(ID == null  || ID == "")){
                 PreparedStatement ps = conn.prepareStatement("UPDATE USERS " +
                         "SET USERID ='"+user.getUserID()+"'," +
                         " PERMISSION = "+ user.getPermissionsNumber() +"," +
-                        " USERNAME = '"+ user.getUsername() +"' where USERID = '"+ID +"'");
+                        " USERNAME = '"+ user.getUsername() +"', PASSWORD = " +
+                        "'"+Encryptor.encrypt(user.getPassword())+"' where USERID = '"+ID +"'");
                 ps.execute();
                 CurrentUser.network.sendUserPacket(DBNetwork.UPDATE_USER, user);
             } else {
@@ -112,6 +113,7 @@ public class DBControllerU extends DBController {
      */
     public static void addUser(User user,Connection conn){
         try {
+            //System.out.println(user);
             PreparedStatement s = conn.prepareStatement("insert into USERS (userid, permission, username, password) \n" +
                     "values ('"+ user.getUserID() +"',"+ user.getPermissionsNumber()+",'"+user.getUsername()+"','"+Encryptor.encrypt(user.getPassword())+"')");
             s.execute();
