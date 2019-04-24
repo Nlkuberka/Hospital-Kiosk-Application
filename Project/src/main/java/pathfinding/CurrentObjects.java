@@ -221,7 +221,7 @@ public class CurrentObjects {
 
     public void setAnt() {
         ant = new ImageView();
-        ant.setImage(new Image(getClass().getResourceAsStream("/images/StickGif.gif")));
+        ant.setImage(new Image(getClass().getResourceAsStream("/images/StickGif2.gif")));
     }
 
     private Text labelFactory(Node node) {
