@@ -1,11 +1,11 @@
 package servicerequests;
 
 import application.CurrentUser;
-import com.jfoenix.controls.JFXTextField;
 import application.UIController;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextArea;
+import com.jfoenix.controls.JFXTextField;
 import database.DBControllerSR;
 import entities.ServiceRequest;
 import helper.RoomCategoryFilterHelper;
@@ -13,10 +13,9 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextFormatter;
 import javafx.scene.effect.DropShadow;
+import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
-
-import javafx.scene.image.ImageView;
 import utilities.Tooltip;
 
 import java.sql.Connection;
@@ -81,6 +80,11 @@ public class UIControllerSRFD extends UIController {
         String nodeID = filterHelper.getNodeID();
         String message = serviceMessage1.getText();
         String phoneNumber = phoneNum.getText();
+
+        if (!phoneNumber.matches("\\d{10}") && !phoneNumber.isEmpty()) {
+            popupMessage("Please Enter A Valid Phone Number", true);
+            return;
+        }
 
         ServiceRequest sr = new ServiceRequest(nodeID, flowerDelivery, phoneNumber + message + costLabel.getText(), CurrentUser.user.getUserID(), false, null);
         sr.setServiceID(sr.getTimeStamp());
