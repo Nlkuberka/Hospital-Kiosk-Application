@@ -10,6 +10,7 @@
 <?import javafx.scene.layout.StackPane?>
 
 <?import com.calendarfx.view.CalendarView?>
+<?import javafx.scene.effect.DropShadow?>
 <StackPane xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="reservations.UIControllerRVCV">
     <children>
         <ImageView fx:id="backgroundImage" onDragDetected="#initialize" pickOnBounds="true" preserveRatio="true">
@@ -19,14 +20,22 @@
         </ImageView>
         <BorderPane >
             <top>
-                <MenuBar blendMode="ADD" prefWidth="900.0" style="-fx-background-color: white;" stylesheets="@../css/background.css" BorderPane.alignment="CENTER">
+                <MenuBar blendMode="LIGHTEN" nodeOrientation="LEFT_TO_RIGHT" prefWidth="900.0" style="-fx-background-color: #ffffff;" stylesheets="@../css/background.css" BorderPane.alignment="CENTER">
                     <menus>
-                        <Menu fx:id="homeButton" mnemonicParsing="false" onShowing="#setHomeButton" text="Home">
+                        <Menu mnemonicParsing="false" onShowing="#setBackMenuItem" text="Back">
                             <items>
-                                <MenuItem fx:id="backMenuItem" mnemonicParsing="false" onAction="#setBackMenuItem" text="HOME" />
+                                <MenuItem fx:id="backButton" mnemonicParsing="false" onAction="#setBackMenuItem" text="Go back to previous page" />
+                            </items>
+                        </Menu>
+                        <Menu fx:id="homeButton" mnemonicParsing="false" onAction="#setHomeButton" onShowing="#setHomeButton" text="Home">
+                            <items>
+                                <MenuItem mnemonicParsing="false" text="HOME" />
                             </items>
                         </Menu>
                     </menus>
+                    <effect>
+                        <DropShadow />
+                    </effect>
                 </MenuBar>
             </top>
          <center>
