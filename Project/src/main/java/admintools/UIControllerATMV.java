@@ -484,6 +484,7 @@ public class UIControllerATMV extends UIController {
         stage.centerOnScreen();
         stage.toFront();
         stage.show();
+        SESSION_TIMEOUT_THREAD.addPopup(stage);
     }
 
     private void enableChoicePopup(Node node) throws IOException {

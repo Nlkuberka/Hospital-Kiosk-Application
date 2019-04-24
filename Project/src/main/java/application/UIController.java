@@ -56,6 +56,7 @@ public class UIController {
     public static final String ADMIN_TOOLS_VIEW_USERS = "ATVU";
     public static final String ADMIN_TOOLS_CHANGE_ALGORITHM = "ATCA";
     public static final String ADMIN_TOOLS_MAP_VIEW = "ATMV";
+    public static final String ADMIN_TOOLS_ADD_NODE_POPUP = "PUMVAN";
     public static final String ADMIN_TOOLS_EDIT_RESERVATIONS = "ATER";
     public static final String ADMIN_TOOLS_APPLICATION_SETTING = "ATAS";
 
@@ -158,6 +159,9 @@ public class UIController {
         sceneTitles.put(UIController.ADMIN_TOOLS_CHANGE_ALGORITHM, "Admin Tools - Change Algorithm");
         sceneFiles.put((UIController.ADMIN_TOOLS_MAP_VIEW), "/admintools/admin_tools_map_view.fxml");
         sceneTitles.put((UIController.ADMIN_TOOLS_MAP_VIEW), "Admin Tools ; Map View");
+
+        sceneFiles.put(UIController.ADMIN_TOOLS_ADD_NODE_POPUP, "/admintools/ATMV_addNode_popup.fxml");
+        sceneTitles.put(UIController.ADMIN_TOOLS_ADD_NODE_POPUP, "Admin Tools ; Add or Edit Node");
 
         sceneFiles.put(UIController.ADMIN_TOOLS_EDIT_RESERVATIONS, "/admintools/admin_tools_edit_reservations.fxml");
         sceneTitles.put(UIController.ADMIN_TOOLS_EDIT_RESERVATIONS, "Admin Tools - Edit Reservation");
@@ -309,6 +313,7 @@ public class UIController {
         stage.setScene(scene);
         stage.show();
         stage.setAlwaysOnTop(true);
+        SESSION_TIMEOUT_THREAD.addPopup(stage);
     }
 
     /**
@@ -337,6 +342,7 @@ public class UIController {
         stage.setScene(scenes.get(sceneString));
         stage.show();
         stage.toFront();
+        SESSION_TIMEOUT_THREAD.addPopup(stage);
 
         // Run the onShow function and return the controller
         sceneControllers.get(sceneString).onShow();
