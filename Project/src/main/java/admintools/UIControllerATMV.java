@@ -27,6 +27,7 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import net.kurobako.gesturefx.GesturePane;
+import org.omg.CORBA.Current;
 import pathfinding.AnchorPaneHandler;
 import pathfinding.Floors;
 import pathfinding.GesturePaneHandler;
@@ -457,7 +458,8 @@ public class UIControllerATMV extends UIController {
         if (node.getNodeType().equals("HALL") || node.getNodeType().equals("REST") || node.getNodeType().equals("ELEV") || node.getNodeType().equals("STAI") || node.getNodeType().equals("OUTD")) {
             popupMessage("Invalid Kiosk Location", true);
         } else {
-            CurrentUser.startingLocation = node.getLongName();
+            CurrentUser.setStartingLocation(node.getLongName());
+            CurrentUser.setStartingLocationID(node.getNodeID());
         }
     }
 
@@ -497,7 +499,7 @@ public class UIControllerATMV extends UIController {
             if (nodes.getId().equals(node.getNodeID())) {
                 ((Circle) nodes).setRadius(AnchorPaneHandler.getNodeSizeHighlited);
                 ((Circle) nodes).setFill(Color.GREEN);
-                ((Circle) nodes).setStroke(Color.BLACK);
+                ((Circle) nodes).setStroke(Color.web("015080"));
                 ((Circle) nodes).setStrokeWidth(2);
             }
         }
