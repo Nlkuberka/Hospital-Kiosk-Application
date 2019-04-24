@@ -1,13 +1,10 @@
 package admintools;
 
-import application.SessionTimeoutThread;
 import application.UIController;
 import com.jfoenix.controls.JFXButton;
 import javafx.fxml.FXML;
 import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.Label;
 import javafx.scene.control.Menu;
-import javafx.scene.control.MenuItem;
 
 public class UIControllerATAS extends UIController {
     @FXML
@@ -41,10 +38,13 @@ public class UIControllerATAS extends UIController {
     private void  setConfirmButton() {
         // Change the internal timeout value to the time entered by the admin.
         long timeout = minuteCB.getValue() * 60 + secondCB.getValue();
-        if(timeout >= 5) {
+        if(timeout != 0) {
             UIController.SESSION_TIMEOUT_THREAD.timeout = timeout * 1000;
+            popupMessage("Timeout changed.", false);
         }
-        popupMessage("Timeout changed.", false);
+        else {
+            popupMessage("Invalid timeout.", true);
+        }
     }
 
 }
