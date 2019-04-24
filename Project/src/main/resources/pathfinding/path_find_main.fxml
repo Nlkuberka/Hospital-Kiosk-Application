@@ -178,7 +178,7 @@
                         </JFXTabPane>
                         <JFXNodesList alignment="BOTTOM_RIGHT" focusTraversable="true" spacing="10.0" StackPane.alignment="TOP_RIGHT">
                             <children>
-                                <JFXButton buttonType="RAISED" contentDisplay="CENTER" graphicTextGap="0.0" styleClass="jfx-button-node-list" stylesheets="@../css/pathfinding_tab.css" text=" ">
+                                <JFXButton fx:id="serviceRequestButton" buttonType="RAISED" contentDisplay="CENTER" graphicTextGap="0.0" styleClass="jfx-button-node-list" stylesheets="@../css/pathfinding_tab.css" text=" ">
                                     <graphic>
                                         <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
                                             <image>
@@ -186,7 +186,7 @@
                                             </image>
                                         </ImageView>
                                     </graphic></JFXButton>
-                                <JFXButton contentDisplay="CENTER" graphicTextGap="0.0" onAction="#setFlowerButton" prefHeight="0.0" prefWidth="0.0" styleClass="jfx-button-node-list" stylesheets="@../css/pathfinding_tab.css" text=" ">
+                                <JFXButton fx:id="flowerButton" contentDisplay="CENTER" graphicTextGap="0.0" onAction="#setFlowerButton" prefHeight="0.0" prefWidth="0.0" styleClass="jfx-button-node-list" stylesheets="@../css/pathfinding_tab.css" text=" ">
                                     <graphic>
                                         <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
                                             <image>
@@ -197,7 +197,7 @@
                                     <opaqueInsets>
                                         <Insets top="20.0" />
                                     </opaqueInsets></JFXButton>
-                                <JFXButton contentDisplay="CENTER" graphicTextGap="0.0" onAction="#setBabyButton" styleClass="jfx-button-node-list" stylesheets="@../css/pathfinding_tab.css" text=" ">
+                                <JFXButton fx:id="babyButton" contentDisplay="CENTER" graphicTextGap="0.0" onAction="#setBabyButton" styleClass="jfx-button-node-list" stylesheets="@../css/pathfinding_tab.css" text=" ">
                                     <graphic>
                                         <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
                                             <image>
@@ -209,7 +209,7 @@
                                         <Insets top="20.0" />
                                     </opaqueInsets>
                                 </JFXButton>
-                                <JFXButton contentDisplay="CENTER" graphicTextGap="0.0" onAction="#setReligiousButton" styleClass="jfx-button-node-list" stylesheets="@../css/pathfinding_tab.css" text=" ">
+                                <JFXButton fx:id="religiousButton" contentDisplay="CENTER" graphicTextGap="0.0" onAction="#setReligiousButton" styleClass="jfx-button-node-list" stylesheets="@../css/pathfinding_tab.css" text=" ">
                                     <graphic>
                                         <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
                                             <image>
@@ -221,7 +221,7 @@
                                         <Insets top="20.0" />
                                     </opaqueInsets>
                                 </JFXButton>
-                                <JFXButton contentDisplay="CENTER" graphicTextGap="0.0" onAction="#setOtherButton" styleClass="jfx-button-node-list" stylesheets="@../css/pathfinding_tab.css" text=" ">
+                                <JFXButton fx:id="otherButton" contentDisplay="CENTER" graphicTextGap="0.0" onAction="#setOtherButton" styleClass="jfx-button-node-list" stylesheets="@../css/pathfinding_tab.css" text=" ">
                                     <graphic>
                                         <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
                                             <image>
@@ -230,7 +230,7 @@
                                         </ImageView>
                                     </graphic>
                                 </JFXButton>
-                        <JFXButton contentDisplay="CENTER" graphicTextGap="0.0" onAction="#setPatientButton" styleClass="jfx-button-node-list" stylesheets="@../css/pathfinding_tab.css" text=" ">
+                        <JFXButton fx:id="patientButton" contentDisplay="CENTER" graphicTextGap="0.0" onAction="#setPatientButton" styleClass="jfx-button-node-list" stylesheets="@../css/pathfinding_tab.css" text=" ">
                            <graphic>
                               <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
@@ -272,7 +272,7 @@
                                 <Insets bottom="50.0" />
                             </padding>
                         </AnchorPane>
-                        <Accordion fx:id="menu" maxWidth="300.0" prefWidth="300.0" StackPane.alignment="TOP_LEFT" pickOnBounds="false">
+                        <Accordion fx:id="menu" maxWidth="300.0" pickOnBounds="false" prefWidth="300.0" StackPane.alignment="TOP_LEFT">
                             <panes>
                                 <TitledPane fx:id="pathfindingTitledPane" alignment="TOP_LEFT" maxWidth="300.0" onContextMenuRequested="#setTitledPane" onMouseClicked="#setTitledPane" prefWidth="300.0" style="-fx-border-color: #ffc41e; -fx-border-width: 1;" stylesheets="@../css/pathfinding_tab.css" text="Find Path">
                                     <content>
