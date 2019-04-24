@@ -127,7 +127,7 @@ public class GesturePaneHandler {
         pathTransition.setPath(currentObjects.getCurrentPath());
 
         //Setting the orientation of the path
-        pathTransition.setOrientation(PathTransition.OrientationType.NONE);
+        pathTransition.setOrientation(PathTransition.OrientationType.ORTHOGONAL_TO_TANGENT);
 
         //Setting auto reverse value to false
         pathTransition.setAutoReverse(false);
