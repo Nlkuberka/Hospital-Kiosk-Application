@@ -17,6 +17,7 @@ import helper.RoomCategoryFilterHelper;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Point2D;
 import javafx.scene.Scene;
 import javafx.scene.control.Accordion;
 import javafx.scene.control.Menu;
@@ -195,14 +196,14 @@ public class UIControllerPFM extends UIController {
         }
 
         userToolsTitledPane.collapsibleProperty().setValue(false);
-        if (CurrentUser.user.getPermissions() == User.BASIC_PERMISSIONS) {
+        userToolsTitledPane.setMouseTransparent(true);
+        if(CurrentUser.user.getPermissions() == User.BASIC_PERMISSIONS) {
             userToolsTitledPane.collapsibleProperty().setValue(true);
+            userToolsTitledPane.setMouseTransparent(false);
         }
         menu.setExpandedPane(pathfindingTitledPane);
 
         menu.getPanes().get(0).setExpanded(true);
-
-        gesturePaneHandler.resetZoom();
 
         cancel();
 
@@ -210,7 +211,6 @@ public class UIControllerPFM extends UIController {
         initialLocationCombo.getSelectionModel().select(CurrentUser.startingLocation);
         currentObjects.setInitialID(CurrentUser.startingLocationID);
         currentObjects.setInitCircle(anchorPaneHandler.getCircleFromName(CurrentUser.startingLocation));
-
 
         Connection connection = DBController.dbConnect();
         assert connection != null;
@@ -220,6 +220,8 @@ public class UIControllerPFM extends UIController {
         Floors floor = Floors.getByID(node.getFloor());
         currentObjects.setFloorIndex(floor.getIndex());
         mapTabPane.getSelectionModel().select(floor.getTabIndex());
+
+        gesturePaneHandler.resetZoomTo(new Point2D(node.getXcoord(), node.getYcoord()));
 
     }
 
@@ -418,6 +420,7 @@ public class UIControllerPFM extends UIController {
 
         UIControllerPUD controller = (UIControllerPUD) popupScene(POPUP_DIRECTIONS, 600, 400, true);
 
+        controller.setAddedPath(shortPath);
         controller.populateDirections(direction);
         controller.setDirections();
     }

@@ -1,5 +1,6 @@
 package pathfinding;
 
+import application.CurrentUser;
 import entities.Node;
 import javafx.animation.PathTransition;
 import javafx.scene.SubScene;
@@ -74,20 +75,20 @@ public class CurrentObjects {
         this.initialID = null;
     }
 
-    void setInitialID(String initialID) {
-        this.initialID = initialID;
-    }
-
-    void setDestID(String destID) {
-        this.destID = destID;
-    }
-
     String getInitialID() {
         return initialID;
     }
 
+    void setInitialID(String initialID) {
+        this.initialID = initialID;
+    }
+
     String getDestID() {
         return destID;
+    }
+
+    void setDestID(String destID) {
+        this.destID = destID;
     }
 
     boolean anyNullEndNodes() {
@@ -221,17 +222,25 @@ public class CurrentObjects {
 
     public void setAnt() {
         ant = new ImageView();
-        ant.setImage(new Image(getClass().getResourceAsStream("/images/StickGif2.gif")));
+        if (CurrentUser.isWongFinding) {
+            ant.setImage(new Image(getClass().getResourceAsStream("/images/StickGif2.gif")));
+        } else {
+            ant.setImage(new Image(getClass().getResourceAsStream("/images/StickGif.gif")));
+        }
     }
 
     private Text labelFactory(Node node) {
         Text text = new Text();
         text.setText(node.getLongName());
         text.setFont(Font.font(60));
-        text.setLayoutX(node.getXcoord() - text.getLayoutBounds().getWidth()/2);
-        text.setLayoutY(node.getYcoord() - 60);
+        text.setLayoutX(node.getXcoord() - text.getLayoutBounds().getWidth() / 2);
         //text.setStyle("-fx-background-color: #ffffff;"); // does not work
         return text;
+    }
+
+    private boolean initIsAbove()
+    {
+        return !(initCircle.getCenterY() > destCircle.getCenterY());
     }
 
     void newDestLabel(Node node) {
@@ -240,9 +249,19 @@ public class CurrentObjects {
         textBackingDest = new Rectangle(text.getLayoutBounds().getWidth() + 10, text.getLayoutBounds().getHeight());
         textBackingDest.setFill(Color.RED);
         textBackingDest.setLayoutX(text.getLayoutX() - 5);
-        textBackingDest.setLayoutY(text.getLayoutY() - 60);
+
+        if(initIsAbove())
+        {
+            text.setLayoutY(node.getYcoord() + 105);
+            textBackingDest.setLayoutY(text.getLayoutY() - 60);
+        } else {
+            text.setLayoutY(node.getYcoord() - 60);
+            textBackingDest.setLayoutY(text.getLayoutY() - 60);
+        }
+
         textBackingDest.setArcHeight(30);
         textBackingDest.setArcWidth(30);
+        textBackingDest.setOpacity(0.7);
         anchorPaneHandler.getAnchorPaneAtFloor(Floors.getByID(node.getFloor()).getIndex()).getChildren().add(textBackingDest);
         anchorPaneHandler.getAnchorPaneAtFloor(Floors.getByID(node.getFloor()).getIndex()).getChildren().add(text);
     }
@@ -253,9 +272,19 @@ public class CurrentObjects {
         textBackingInit = new Rectangle(text.getLayoutBounds().getWidth() + 10, text.getLayoutBounds().getHeight());
         textBackingInit.setFill(Color.GREEN);
         textBackingInit.setLayoutX(text.getLayoutX() - 5);
-        textBackingInit.setLayoutY(text.getLayoutY() - 60);
+
+        if(initIsAbove())
+        {
+            text.setLayoutY(node.getYcoord() - 60);
+            textBackingInit.setLayoutY(text.getLayoutY() - 60);
+        } else {
+            text.setLayoutY(node.getYcoord() + 105);
+            textBackingInit.setLayoutY(text.getLayoutY() - 60);
+        }
+
         textBackingInit.setArcHeight(30);
         textBackingInit.setArcWidth(30);
+        textBackingInit.setOpacity(0.7);
         anchorPaneHandler.getAnchorPaneAtFloor(Floors.getByID(node.getFloor()).getIndex()).getChildren().add(textBackingInit);
         anchorPaneHandler.getAnchorPaneAtFloor(Floors.getByID(node.getFloor()).getIndex()).getChildren().add(text);
     }
