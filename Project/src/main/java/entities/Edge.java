@@ -1,9 +1,12 @@
 package entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 /**
  * The Object that stores information about a particular edge
  * @version iteration1
  */
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class Edge {
     private String edgeID;
     private String node1ID;

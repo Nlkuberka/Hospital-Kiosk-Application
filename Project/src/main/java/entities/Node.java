@@ -1,10 +1,13 @@
 package entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 /**
  * The object that holds data about a particular node
  * @author ryano647
  * @version iteration1
  */
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class Node {
     private String nodeID;
     private int xcoord;

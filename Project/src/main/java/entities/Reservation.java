@@ -1,5 +1,7 @@
 package entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import java.text.SimpleDateFormat;
 import java.time.LocalTime;
 import java.util.Date;
@@ -9,6 +11,7 @@ import java.util.List;
  * The Object that holds data about a particular reservation
  * @version iteration1
  */
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class Reservation {
     private String wkplaceID;
     private String userID;
