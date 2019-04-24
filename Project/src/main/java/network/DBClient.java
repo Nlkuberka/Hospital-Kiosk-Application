@@ -20,15 +20,17 @@ public class DBClient extends NetworkThread implements Runnable {
     private DataOutputStream output;
 
     private String outputString;
+    private DBNetwork network;
 
     /**
      * Constructor
      * @param ip The ip address to connect to
      * @param socketNum The socketNum to connect to
      */
-    DBClient(String ip, int socketNum) {
+    DBClient(String ip, int socketNum, DBNetwork network) {
         this.ip = ip;
         this.socketNum = socketNum;
+        this.network = network;
         end = false;
     }
 
@@ -58,6 +60,7 @@ public class DBClient extends NetworkThread implements Runnable {
             attempts++;
         }
         System.out.println("-");
+        //network.restart();
     }
 
     /**

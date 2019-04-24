@@ -230,7 +230,7 @@ public class UIControllerLM extends UIController {
                             return;
                         }
                        CurrentUser.user = u;
-                       this.goToScene(UIController.ADMIN_MAIN_MENU_MAIN);
+                       this.goToScene(UIController.ADMIN_TOOLS_MAIN);
                     }
 
                 }
