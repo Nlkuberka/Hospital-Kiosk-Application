@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXTextField?>
 <?import com.jfoenix.controls.JFXTimePicker?>
 <?import com.jfoenix.controls.JFXToggleButton?>
 <?import javafx.geometry.Insets?>
@@ -143,6 +144,7 @@
                               <Font name="System Bold" size="14.0" />
                            </font>
                         </JFXToggleButton>
+                        <JFXTextField fx:id="swipeCard" onKeyPressed="#cardSwipeDetected" visible="false" GridPane.rowIndex="5" />
                      </children>
                   </GridPane>
                   <Pane GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.valignment="BOTTOM">

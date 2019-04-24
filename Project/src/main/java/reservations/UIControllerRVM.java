@@ -2,21 +2,25 @@ package reservations;
 
 import application.CurrentUser;
 import com.calendarfx.view.DayView;
+import com.jfoenix.controls.JFXTextField;
 import com.jfoenix.controls.JFXToggleButton;
 import database.DBController;
 import application.UIController;
 import database.DBControllerRW;
+import database.DBControllerU;
 import entities.Reservation;
 
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTimePicker;
 
 import entities.User;
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Shape;
@@ -46,6 +50,8 @@ public class UIControllerRVM extends UIController {
     private Boolean roomBooking = true; //When true, user is booking rooms. When false, user will be booking work zones
     private ArrayList<Shape> fixshapes = new ArrayList<>();
     private boolean isCBlind = false;
+    private String userID;
+    private boolean inUse = false;
 
     /**
      * < Holds the reference of the short names to nodeIDs
@@ -147,12 +153,25 @@ public class UIControllerRVM extends UIController {
     @FXML
     private JFXToggleButton colorBlindnessButton;
 
+    @FXML
+    private JFXTextField swipeCard;
 
     /**
      * Run when the scene is first loaded
      */
     @FXML
     public void initialize() {
+
+
+
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                swipeCard.requestFocus();
+            }
+        });
+
+        swipeCard.requestFocus();
 
         rooms.add(classroom1); rooms.add(classroom2); rooms.add(classroom3); rooms.add(classroom4); rooms.add(classroom5);
         rooms.add(classroom6); rooms.add(classroom7); rooms.add(classroom8); rooms.add(classroom9);
@@ -308,6 +327,7 @@ public class UIControllerRVM extends UIController {
         startTimePicker.setValue(LocalTime.now());
         endTimePicker.setValue(LocalTime.now());
         workplaceSelect.getSelectionModel().selectFirst();
+        swipeCard.setText("");
 
     }
 
@@ -558,6 +578,8 @@ public class UIControllerRVM extends UIController {
 
     @FXML
     private void toggleMode() {
+        swipeCard.requestFocus();
+
 
         roomBooking = !roomBooking;
 
@@ -604,9 +626,9 @@ public class UIControllerRVM extends UIController {
             workplaceSelect.setItems(FXCollections.observableList(workplaces));
 
             // Set initial Startup values
-            datePicker.setValue(LocalDate.now());
-            startTimePicker.setValue(LocalTime.now());
-            endTimePicker.setValue(LocalTime.now());
+            datePicker.hide();
+            startTimePicker.hide();
+            endTimePicker.hide();
             workplaceSelect.getSelectionModel().selectFirst();
         }
     }
@@ -615,4 +637,47 @@ public class UIControllerRVM extends UIController {
     private void shapeSelect() {
 
     }
+
+    @FXML
+    private void cardSwipeDetected(){
+
+
+        System.out.println("yo");
+        //Check for userID from card swipe
+        //Store userID in local variable, and reserve the workstation selected
+        //Next time card swipe detected, check if same as local userID
+        //If not, workstation does not change color
+        //Otherwise, unreserve the workstation
+        //Use workzone1_r4 to simulate this function
+
+        swipeCard.setOnKeyPressed(event -> {
+            if (event.getCode() == KeyCode.ENTER) {
+                if (swipeCard.getText().length() > 25) {
+                    String tempUserID = swipeCard.getText().substring(1, 12);
+                    if (!inUse) {
+                        userID = tempUserID;
+                        inUse = true;
+                        //Make workstation unavailable in UI
+                        if(!isCBlind) {
+                            colorShapeRed(workzone1_r4);
+                        } else {
+                            colorShapeYellow(workzone1_r4);
+                        }
+                    } else if (tempUserID.equals(userID)) {
+                        userID = null;
+                        inUse = false;
+                        //Make workstation available in UI
+                        if(!isCBlind) {
+                            colorShapeGreen(workzone1_r4);
+                        } else {
+                            colorShapeBlue(workzone1_r4);
+                        }
+                    } else {
+                        this.popupMessage("Workstation is being used", true);
+                    }
+                }
+            }
+        });
+    }
+
 }
