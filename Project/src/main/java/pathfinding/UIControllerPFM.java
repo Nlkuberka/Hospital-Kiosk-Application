@@ -310,8 +310,19 @@ public class UIControllerPFM extends UIController {
             for (int i = 0; i < Floors.values().length; i++) {
                 int floor = Floors.getByIndex(i).getTabIndex();
                 if (floorsUsed.contains(i)) {
-                    mapTabPane.getTabs().get(floor).setStyle("-fx-background-color: #efffff");
-                    mapTabPane.getTabs().get(floor).setDisable(false);
+                    if(Floors.getByID(destNode.getFloor()).getTabIndex() == floor){
+                        mapTabPane.getTabs().get(floor).setStyle("-fx-background-color: #ff0000");
+                        mapTabPane.getTabs().get(floor).setDisable(false);
+                    }
+                    else if(Floors.getByID(initialNode.getFloor()).getTabIndex() == floor)
+                    {
+                        mapTabPane.getTabs().get(floor).setStyle("-fx-background-color: #008000");
+                        mapTabPane.getTabs().get(floor).setDisable(false);
+                    }
+                    else {
+                        mapTabPane.getTabs().get(floor).setStyle("-fx-background-color: #efffff");
+                        mapTabPane.getTabs().get(floor).setDisable(false);
+                    }
                 } else {
                     mapTabPane.getTabs().get(floor).setStyle("-fx-background-color: #003454");
                     mapTabPane.getTabs().get(floor).setDisable(true);
