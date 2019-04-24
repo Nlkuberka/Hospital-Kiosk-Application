@@ -195,8 +195,10 @@ public class UIControllerPFM extends UIController {
         }
 
         userToolsTitledPane.collapsibleProperty().setValue(false);
-        if (CurrentUser.user.getPermissions() == User.BASIC_PERMISSIONS) {
+        userToolsTitledPane.setMouseTransparent(true);
+        if(CurrentUser.user.getPermissions() == User.BASIC_PERMISSIONS) {
             userToolsTitledPane.collapsibleProperty().setValue(true);
+            userToolsTitledPane.setMouseTransparent(false);
         }
         menu.setExpandedPane(pathfindingTitledPane);
 

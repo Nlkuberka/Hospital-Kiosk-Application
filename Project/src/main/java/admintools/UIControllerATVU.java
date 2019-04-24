@@ -154,7 +154,6 @@ public class UIControllerATVU extends UIController {
         permissionsColumn.setCellValueFactory(param -> new ReadOnlyObjectWrapper<>(param.getValue()));
         permissionsColumn.setCellFactory(param -> new TableCell<User, User>() {
             private ChoiceBox<String> choiceBox = new ChoiceBox<>();
-            private boolean first = true;
 
             @Override
             protected void updateItem(User user, boolean empty) {
@@ -162,12 +161,11 @@ public class UIControllerATVU extends UIController {
                 if(user == null) {
                     return;
                 }
-                if(first) {
-                    choiceBox.setItems(FXCollections.observableList(userPermissionNames));
-                    choiceBox.getSelectionModel().select(userPermissionNames.get(userPermissions.indexOf(user.getPermissions())));
-                    first = false;
-                }
+                choiceBox.setItems(FXCollections.observableList(userPermissionNames));
+                choiceBox.getSelectionModel().select(userPermissionNames.get(userPermissions.indexOf(user.getPermissions())));
+
                 choiceBox.setOnAction(et -> {
+                    System.out.println("Changed");
                     String permissionName = choiceBox.getValue();
                     if(permissionName == null) {
                         return;
