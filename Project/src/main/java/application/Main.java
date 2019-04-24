@@ -100,8 +100,8 @@ public class Main extends Application {
 
 
     public static void main(String[] args) throws IOException {
-        serverSocketNum = 6789;
-        clientSocketNum = 5748;
+        serverSocketNum = 5748;
+        clientSocketNum = 6789;
         if(args.length > 0) {
             for(int i = 0; i < args.length - 2; i++) {
                 DBNetwork.ipAddresses.add(args[i]);
