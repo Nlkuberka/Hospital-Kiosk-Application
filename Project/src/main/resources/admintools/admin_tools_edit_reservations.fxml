@@ -44,7 +44,7 @@
             </MenuBar>
          </top>
          <center>
-            <TableView fx:id="reservationTable" BorderPane.alignment="CENTER">
+            <TableView fx:id="reservationTable" maxWidth="1100" BorderPane.alignment="CENTER">
               <columns>
                 <TableColumn prefWidth="98.66668701171875" text="RSV ID" />
                 <TableColumn prefWidth="137.33331298828125" text="Node ID" />

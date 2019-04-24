@@ -129,7 +129,8 @@ public class UIControllerRVCV extends UIController {
     }
 
 
-    public void setBackMenuItem(ActionEvent actionEvent) {
+    @FXML
+    private void setBackButton() {
         UIController controller = CurrentUser.user.getPermissions() == User.ADMIN_PERMISSIONS ? this.goToScene(UIController.ADMIN_RESERVATION_MAIN) : this.goToScene(UIController.RESERVATIONS_MAIN_MENU);
     }
 }
