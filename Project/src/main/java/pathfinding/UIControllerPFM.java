@@ -188,13 +188,13 @@ public class UIControllerPFM extends UIController {
             }, true);
 
             anchorPaneHandler.initCircles(roomsAtEachFloor, initialLocationCombo, destinationCombo);
-
-            userToolsTitledPane.collapsibleProperty().setValue(false);
-            if (CurrentUser.user.getPermissions() == User.BASIC_PERMISSIONS) {
-                userToolsTitledPane.collapsibleProperty().setValue(true);
-            }
-            menu.setExpandedPane(pathfindingTitledPane);
         }
+
+        userToolsTitledPane.collapsibleProperty().setValue(false);
+        if (CurrentUser.user.getPermissions() == User.BASIC_PERMISSIONS) {
+            userToolsTitledPane.collapsibleProperty().setValue(true);
+        }
+        menu.setExpandedPane(pathfindingTitledPane);
 
         initialLocationCombo.getSelectionModel().select(CurrentUser.startingLocation);
         currentObjects.setInitialID(CurrentUser.startingLocationID);
