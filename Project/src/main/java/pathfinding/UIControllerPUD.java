@@ -57,7 +57,6 @@ public class UIControllerPUD extends UIController {
      */
     void populateDirections(List<List<List<Direction>>> message){
         this.path = message;
-        System.out.println("Floor Value" + floorSelect.getValue());
         convertMessage(floorSelect.getValue());
         setDirections();
     }
@@ -66,7 +65,7 @@ public class UIControllerPUD extends UIController {
         return addedPath;
     }
 
-    public void setAddedPath(List<String> addedPath) {
+    void setAddedPath(List<String> addedPath) {
         this.addedPath = Graph.getGraph().allTextDirections(addedPath);
     }
 
@@ -76,9 +75,8 @@ public class UIControllerPUD extends UIController {
      */
     void convertMessage(String selectedFloor){
         this.returnText = "";
-
+        System.out.println(selectedFloor);
         if(selectedFloor == null || selectedFloor.equals("All")) {
-
             //if the selected floor is All, print all directions
             for (int l = 0; l < this.addedPath.size() - 1; l++) {
                 this.returnText += this.addedPath.get(l);
@@ -88,8 +86,6 @@ public class UIControllerPUD extends UIController {
         for(int i = 0; i < this.path.size(); i++){
             for(int j = 0; j < this.path.get(i).size(); j++){
                 for(int k = 0; k < this.path.get(i).get(j).size(); k++) {
-                    //System.out.println("Selected Floor: " + "_" + selectedFloor + "_");
-                    //System.out.println("Actual Floor: " + this.path.get(i).get(j).get(k).getFloor());
                     if (this.path.get(i).get(j).get(k).getFloor().equals(selectedFloor)) {
                         //if the selected floor equals the floor of the given direction
                         this.returnText += this.path.get(i).get(j).get(k).getDirection();
