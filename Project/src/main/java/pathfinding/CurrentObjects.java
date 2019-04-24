@@ -46,8 +46,10 @@ public class CurrentObjects {
 
     void cancel() {
         this.clearNodeStyle();
-        this.clearInitDestIDs();
         this.clearAnimation();
+        this.clearContextMenu();
+        this.clearLabels();
+        this.clearInitDestIDs();
     }
 
     void clearContextMenu() {
