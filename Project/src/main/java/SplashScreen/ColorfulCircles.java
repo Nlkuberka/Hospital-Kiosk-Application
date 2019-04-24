@@ -29,6 +29,9 @@ public class ColorfulCircles extends UIController {
 
     @Override
     public void onShow() {
+        if(circles != null){
+            return;
+        }
         circles = new Group();
         isShowing = true;
         text.setX(primaryStage.getWidth() / 4);
@@ -36,8 +39,6 @@ public class ColorfulCircles extends UIController {
 
         root.setOnMouseClicked(event -> {
             goToScene(UIController.LOGIN_MAIN);
-            circles.getChildren().clear();
-            isShowing = false;
         });
 
         primaryStage.heightProperty().addListener((observable, oldValue, newValue) -> text.setY((double) newValue / 4));
@@ -72,7 +73,7 @@ public class ColorfulCircles extends UIController {
         for (Node circle : circles.getChildren()) {
             Path path = new Path();
             PathTransition pathTransition = new PathTransition();
-            pathTransition.setDuration(Duration.seconds(30));
+            pathTransition.setDuration(Duration.seconds(5));
             pathTransition.setNode(circle);
             pathTransition.setPath(path);
             pathTransition.setOrientation(PathTransition.OrientationType.ORTHOGONAL_TO_TANGENT);

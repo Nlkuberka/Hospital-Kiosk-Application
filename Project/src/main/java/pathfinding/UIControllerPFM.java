@@ -8,6 +8,7 @@ import com.jfoenix.controls.JFXTabPane;
 import com.jfoenix.controls.JFXToggleButton;
 import database.DBController;
 import database.DBControllerNE;
+import edu.wpi.cs3733.d19.teamE.api.Main_Registration;
 import entities.Direction;
 import entities.Graph;
 import entities.Node;
@@ -123,7 +124,7 @@ public class UIControllerPFM extends UIController {
         );
 
 
-        pathHandler = new PathHandler(pathLL2, pathLL1, pathG, path1, path2, path3, path4, primaryStage);
+        pathHandler = new PathHandler(pathLL2, pathLL1, pathG, path1, path2, path3, path4);
 
         gesturePaneHandler = new GesturePaneHandler(lowerLevel2GesturePane, lowerLevel1GesturePane,
                 groundFloorGesturePane, firstFloorGesturePane, secondFloorGesturePane, thirdFloorGesturePane,
@@ -145,7 +146,7 @@ public class UIControllerPFM extends UIController {
     }
 
     /**
-     * Initialize choice boxes and setup circles as node indicators
+     * Initialize choice boxes and setup circles as first indicators
      */
     @Override
     public void onShow() {
@@ -229,8 +230,7 @@ public class UIControllerPFM extends UIController {
 
     /**
      * Allows for a default starting location
-     *
-     * @param longName Name of starting node
+     * @param longName Name of starting first
      */
     private void setUpDefaultStartingLocation(String longName){
         setInitialLocation(CurrentUser.startingLocation);
@@ -238,11 +238,12 @@ public class UIControllerPFM extends UIController {
 
 
     /**
-     * Callback for cancel. Clears path, animation, node selection and drop down menus
+     * Callback for cancel. Clears path, animation, first selection and drop down menus
      */
     @FXML
     private void cancel(ActionEvent actionEvent) {
         pathHandler.cancel();
+        pathHandler.removeFloorLinks(anchorPaneHandler);
         clearTabColors();
 
         currentObjects.clearContextMenu();
@@ -271,10 +272,12 @@ public class UIControllerPFM extends UIController {
         assert connection != null;
         Node initialNode = DBControllerNE.fetchNode(currentObjects.getInitialID(), connection);
         Node destNode = DBControllerNE.fetchNode(currentObjects.getDestID(), connection);
+
         DBController.closeConnection(connection);
 
         currentObjects.clearAnimation(); // reset stuff
         pathHandler.cancel(); // reset stuff
+        pathHandler.removeFloorLinks(anchorPaneHandler);
 
         if (pathIDs == null) {
             clearTabColors();
@@ -287,6 +290,24 @@ public class UIControllerPFM extends UIController {
             // update paths -- order here is important! Do not move above change tab.
             pathHandler.displayNewPath(Graph.getGraph().separatePathByFloor(pathIDs), initialNode);
 
+            connection = DBController.dbConnect();
+            assert connection != null;
+
+            LinkedList<EdgeNodePair> edgeNodes = new LinkedList<>();
+
+            Node previousNode = DBControllerNE.fetchNode(pathIDs.get(0), connection);
+            for (int i = 1; i < pathIDs.size(); i++) {
+                Node node = DBControllerNE.fetchNode(pathIDs.get(i), connection);
+                if ((previousNode.getNodeType().equals("STAI") || previousNode.getNodeType().equals("ELEV"))
+                        && (node.getNodeType().equals("STAI") || node.getNodeType().equals("ELEV"))) {
+                    edgeNodes.add(new EdgeNodePair(previousNode, node, mapTabPane));
+                }
+                previousNode = node;
+            }
+            DBController.closeConnection(connection);
+
+            pathHandler.drawFloorLinks(edgeNodes, anchorPaneHandler);
+
             gesturePaneHandler.centerOnInitialNode(pathHandler, currentObjects.getCurrentGesturePane(),
                     currentObjects.getFloorIndex());
 
@@ -295,8 +316,19 @@ public class UIControllerPFM extends UIController {
             for (int i = 0; i < Floors.values().length; i++) {
                 int floor = Floors.getByIndex(i).getTabIndex();
                 if (floorsUsed.contains(i)) {
-                    mapTabPane.getTabs().get(floor).setStyle("-fx-background-color: #efffff");
-                    mapTabPane.getTabs().get(floor).setDisable(false);
+                    if(Floors.getByID(destNode.getFloor()).getTabIndex() == floor){
+                        mapTabPane.getTabs().get(floor).setStyle("-fx-background-color: #ff0000");
+                        mapTabPane.getTabs().get(floor).setDisable(false);
+                    }
+                    else if(Floors.getByID(initialNode.getFloor()).getTabIndex() == floor)
+                    {
+                        mapTabPane.getTabs().get(floor).setStyle("-fx-background-color: #008000");
+                        mapTabPane.getTabs().get(floor).setDisable(false);
+                    }
+                    else {
+                        mapTabPane.getTabs().get(floor).setStyle("-fx-background-color: #efffff");
+                        mapTabPane.getTabs().get(floor).setDisable(false);
+                    }
                 } else {
                     mapTabPane.getTabs().get(floor).setStyle("-fx-background-color: #003454");
                     mapTabPane.getTabs().get(floor).setDisable(true);
@@ -423,6 +455,12 @@ public class UIControllerPFM extends UIController {
     private void setReligiousButton() {
         this.popupScene(UIController.SERVICE_REQUEST_RELIGIOUS_SERVICES, 900, 600, false);
     }
+
+    @FXML
+    private void setPatientButton(){
+        Main_Registration.main(null);
+    }
+
 
     @FXML
     private void setOtherButton() {

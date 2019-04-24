@@ -23,7 +23,8 @@ import java.sql.ResultSet;
 import java.util.List;
 
 public class Main extends Application {
-    private static int socketNum;
+    private static int serverSocketNum;
+    private static int clientSocketNum;
 
     @Override
     public void start(Stage primaryStage) throws Exception {
@@ -42,9 +43,9 @@ public class Main extends Application {
             e.printStackTrace();
         }
 
-        CurrentUser.network = new DBNetwork(socketNum);
-        CurrentUser.network.hold();
-        CurrentUser.network.mute();
+        CurrentUser.network = new DBNetwork(serverSocketNum, clientSocketNum);
+        //CurrentUser.network.hold();
+        //CurrentUser.network.mute();
 
         System.out.println(DBNetwork.ipAddresses);
 
@@ -99,12 +100,14 @@ public class Main extends Application {
 
 
     public static void main(String[] args) throws IOException {
-        socketNum = 5670;
+        serverSocketNum = 6789;
+        clientSocketNum = 5748;
         if(args.length > 0) {
-            for(int i = 0; i < args.length - 1; i++) {
+            for(int i = 0; i < args.length - 2; i++) {
                 DBNetwork.ipAddresses.add(args[i]);
             }
-            socketNum = Integer.parseInt(args[args.length - 1]);
+            serverSocketNum = Integer.parseInt(args[args.length - 2]);
+            clientSocketNum = Integer.parseInt(args[args.length - 1]);
         }
 
         launch(args);

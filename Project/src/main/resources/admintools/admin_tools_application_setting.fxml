@@ -30,11 +30,6 @@
          <top>
             <MenuBar blendMode="ADD" style="-fx-background-color: white;" stylesheets="@../css/background.css" BorderPane.alignment="CENTER">
               <menus>
-                <Menu mnemonicParsing="false" onShowing="#setBackMenuItem" text="Back">
-                  <items>
-                    <MenuItem fx:id="backMenuItem" mnemonicParsing="false" onAction="#setBackMenuItem" text="Go back to previous page" />
-                  </items>
-                </Menu>
                   <Menu fx:id="homeMenu" mnemonicParsing="false" onShowing="#setHomeButton" text="Home">
                      <items>
                         <MenuItem mnemonicParsing="false" text="HOME" />

@@ -27,7 +27,7 @@ public class AnchorPaneHandler {
     UIControllerPFM controller;
 
     /**
-     * Setup anchor panes such that they are in a list and have groups for the node circles
+     * Setup anchor panes such that they are in a list and have groups for the first circles
      */
     AnchorPaneHandler(AnchorPane p1, AnchorPane p2, AnchorPane p3, AnchorPane p4, AnchorPane p5, AnchorPane p6, AnchorPane p7,
                       AnchorPane topAnchorPane, UIControllerPFM controller) {
@@ -91,6 +91,14 @@ public class AnchorPaneHandler {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    void addCircleToView(Circle circle, int floorIndex) {
+        this.groupsForNodes.get(floorIndex).getChildren().add(circle);
+    }
+
+    void removeCircleFromView(Circle circle, int floorIndex) {
+        this.groupsForNodes.get(floorIndex).getChildren().remove(circle);
     }
 
     void initCircles(LinkedList<LinkedList<Node>> roomsAtEachFloor, ComboBox initialLocationSelect,
