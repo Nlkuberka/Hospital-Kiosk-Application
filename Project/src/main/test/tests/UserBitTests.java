@@ -35,7 +35,7 @@ public class UserBitTests {
         // Test User Permissions and some service Requests
         user.setPermissionsNumber(2820);
         bits = user.getBitArray(user.getPermissionsNumber());
-        Assert.assertArrayEquals(bits, bits2820);
+        Assert.assertArrayEquals(bits2820, bits);
         Assert.assertEquals(user.BASIC_PERMISSIONS, user.getPermissions());
 
         // Test Guest Permissions with no service Requests
@@ -44,6 +44,8 @@ public class UserBitTests {
         Assert.assertArrayEquals(bits1024, bits);
         Assert.assertEquals(user.GUEST_PERMISSIONS, user.getPermissions());
 
+        user.setPermissions(User.ADMIN_PERMISSIONS);
+        Assert.assertEquals(user.getPermissionsNumber(), 3072);
     }
 
     @Test

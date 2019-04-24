@@ -33,7 +33,7 @@ public class DBNetwork extends NetworkThread {
      */
     public DBNetwork(int serverSocketNum, int clientSocketNum) {
         setupServer(serverSocketNum);
-        //DBNetwork.ipAddresses.remove(getOwnIP());
+        DBNetwork.ipAddresses.remove(getOwnIP());
         this.dbClients = new LinkedList<DBClient>();
         this.mapper = new ObjectMapper();
         this.serverSocketNum = serverSocketNum;

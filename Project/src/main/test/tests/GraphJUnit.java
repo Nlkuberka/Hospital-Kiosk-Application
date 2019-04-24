@@ -25,7 +25,7 @@ import java.util.List;
 public class GraphJUnit extends TestCase {
     @Test
     public void testShortestPath() {
-        CurrentUser.network = new DBNetwork(5000);
+        CurrentUser.network = new DBNetwork(5000, 5000);
         CurrentUser.network.mute();
         CurrentUser.network.hold();
         CurrentUser.testing = true;
@@ -128,7 +128,7 @@ public class GraphJUnit extends TestCase {
 
     @Test
     public void testRealNodes() {
-        CurrentUser.network = new DBNetwork(5000);
+        CurrentUser.network = new DBNetwork(5000, 5000);
         CurrentUser.network.mute();
         CurrentUser.network.hold();
         CurrentUser.testing = true;
@@ -202,7 +202,7 @@ public class GraphJUnit extends TestCase {
 
     @Test
     public void testDistanceReplacement() {
-        CurrentUser.network = new DBNetwork(5000);
+        CurrentUser.network = new DBNetwork(5000, 5000);
         CurrentUser.network.mute();
         CurrentUser.network.hold();
         CurrentUser.testing = true;
@@ -291,7 +291,7 @@ public class GraphJUnit extends TestCase {
 
     @Test
     public void testDisconnectedGraph() {
-        CurrentUser.network = new DBNetwork(5000);
+        CurrentUser.network = new DBNetwork(5000, 5000);
         CurrentUser.network.mute();
         CurrentUser.network.hold();
         CurrentUser.testing = true;
@@ -388,7 +388,7 @@ public class GraphJUnit extends TestCase {
 
     @Test
     public void testSeparatePathByFloor() {
-        CurrentUser.network = new DBNetwork(5000);
+        CurrentUser.network = new DBNetwork(5000, 5000);
         CurrentUser.network.mute();
         CurrentUser.network.hold();
         CurrentUser.testing = true;
@@ -495,7 +495,7 @@ public class GraphJUnit extends TestCase {
 
     @Test
     public void testNoStairsMode() {
-        CurrentUser.network = new DBNetwork(5000);
+        CurrentUser.network = new DBNetwork(5000, 5000);
         CurrentUser.network.mute();
         CurrentUser.network.hold();
         CurrentUser.testing = true;
