@@ -8,6 +8,7 @@ import com.jfoenix.controls.JFXTabPane;
 import com.jfoenix.controls.JFXToggleButton;
 import database.DBController;
 import database.DBControllerNE;
+import edu.wpi.cs3733.d19.teamE.api.Main_Registration;
 import entities.Direction;
 import entities.Graph;
 import entities.Node;
@@ -437,6 +438,12 @@ public class UIControllerPFM extends UIController {
     private void setReligiousButton() {
         this.popupScene(UIController.SERVICE_REQUEST_RELIGIOUS_SERVICES, 900, 600, false);
     }
+
+    @FXML
+    private void setPatientButton(){
+        Main_Registration.main(null);
+    }
+
 
     @FXML
     private void setOtherButton() {

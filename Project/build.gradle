@@ -20,6 +20,9 @@ repositories {
     jcenter {
         url 'https://jcenter.bintray.com/'
     }
+    maven {
+        url 'https://ravana.dyn.wpi.edu/maven'
+    }
 }
 
 
@@ -63,7 +66,8 @@ dependencies {
             [group: 'net.kurobako', name: 'gesturefx', version: '0.3.0'],
             [group: 'com.sun.mail', name: 'javax.mail', version: '1.6.2'],
             [group: 'com.twilio.sdk', name: 'twilio', version: '7.37.2'],
-            [group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.0.1']
+            [group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.0.1'],
+            [group: 'edu.wpi.cs3733.d19.teamM', name: 'LanguageRequest', version:'1.0.1']
     )
     compile(
             [group: 'junit', name: 'junit', version: '4.12'],
@@ -78,7 +82,9 @@ dependencies {
             [group: 'de.jensd', name: 'fontawesomefx-fontawesome', version: '4.7.0-1'],
             [group: 'com.calendarfx', name:'view', version: '8.4.2'],
             [group: 'com.calendarfx', name: 'recurrence', version: '8.4.2'],
-            [group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.0.1']
+            [group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.0.1'],
+            [group: 'edu.wpi.cs3733.d19.teamM', name: 'LanguageRequest', version:'1.0.1'],
+            [group: 'edu.wpi.cs3733.d19.teamE', name: 'TeamEPatientRegistrationRequest', version:'1.0.2']
     )
     runtime(
             [group: 'de.jensd', name: 'fontawesomefx-commons', version: '8.13']
