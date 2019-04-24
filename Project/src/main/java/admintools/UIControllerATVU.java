@@ -315,7 +315,8 @@ public class UIControllerATVU extends UIController {
 
     @FXML
     private void setAddButton() {
-        User user = new User("", "", "", 1024);
+        User user = new User("", "", "", 0);
+        user.setPermissions(User.GUEST_PERMISSIONS);
         userTableView.getItems().add(user);
     }
 
