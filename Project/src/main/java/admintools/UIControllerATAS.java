@@ -41,10 +41,13 @@ public class UIControllerATAS extends UIController {
     private void  setConfirmButton() {
         // Change the internal timeout value to the time entered by the admin.
         long timeout = minuteCB.getValue() * 60 + secondCB.getValue();
-        if(timeout >= 5) {
+        if(timeout != 0) {
             UIController.SESSION_TIMEOUT_THREAD.timeout = timeout * 1000;
+            popupMessage("Timeout changed.", false);
         }
-        popupMessage("Timeout changed.", false);
+        else {
+            popupMessage("Invalid timeout.", true);
+        }
     }
 
 }
