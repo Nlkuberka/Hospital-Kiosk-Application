@@ -16,30 +16,23 @@ import entities.User;
 import helper.RoomCategoryFilterHelper;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.geometry.Point2D;
-import javafx.scene.Scene;
 import javafx.scene.control.Accordion;
 import javafx.scene.control.Menu;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TitledPane;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Path;
-import javafx.stage.Modality;
-import javafx.stage.Stage;
 import net.kurobako.gesturefx.GesturePane;
+import utilities.Tooltip;
 
-import java.io.IOException;
 import java.sql.Connection;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  * Controller for the path_find_main.fxml file
@@ -49,6 +42,12 @@ import java.util.logging.Logger;
 
 public class UIControllerPFM extends UIController {
 
+    public JFXButton serviceRequestButton;
+    public JFXButton flowerButton;
+    public JFXButton babyButton;
+    public JFXButton religiousButton;
+    public JFXButton otherButton;
+    public JFXButton patientButton;
     @FXML private AnchorPane topAnchorPane;
     @FXML private Path pathLL2, pathLL1, pathG, path1, path2, path3, path4;
     @FXML private JFXTabPane mapTabPane;
@@ -102,6 +101,12 @@ public class UIControllerPFM extends UIController {
      */
     @FXML
     public void initialize() {
+        new Tooltip(serviceRequestButton, "Service Requests");
+        new Tooltip(religiousButton, "Religious Services");
+        new Tooltip(flowerButton, "Flower Delivery");
+        new Tooltip(babyButton, "Babysitting Services");
+        new Tooltip(otherButton, "Other Services");
+        new Tooltip(patientButton, "Patient Services");
        // pathfindingTitledPane.setExpanded(true);
         // titledPane.prefHeightProperty().bind(primaryStage.heightProperty());
         backgroundImage.fitWidthProperty().bind(primaryStage.widthProperty());
