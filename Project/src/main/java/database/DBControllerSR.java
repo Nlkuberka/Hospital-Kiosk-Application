@@ -18,8 +18,13 @@ public class DBControllerSR extends DBController {
     public static LinkedList<ServiceRequest> getServiceRequests(String type, Connection conn){
         LinkedList<ServiceRequest> list = new LinkedList<ServiceRequest>();
         try{
-           PreparedStatement ps = conn.prepareStatement("SELECT * from USERS where servicetype = ?");
-           ps.setString(1,type);
+            PreparedStatement ps;
+            if(type == "*"){
+               ps = conn.prepareStatement("SELECT * from SERVICEREQUEST");
+            }else {
+                ps = conn.prepareStatement("SELECT * from SERVICEREQUEST where servicetype = ?");
+                ps.setString(1, type);
+            }
            ResultSet rs = ps.executeQuery();
            while(rs.next()){
                list.add(new ServiceRequest(rs.getString("NODEID"),rs.getString("SERVICETYPE"),

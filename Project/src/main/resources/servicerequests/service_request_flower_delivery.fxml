@@ -153,47 +153,47 @@
             <RowConstraints />
         </rowConstraints>
          <children>
-            <ImageView fitHeight="150.0" fitWidth="200.0" onMouseClicked="#costPic2" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.halignment="CENTER">
+            <ImageView fx:id="Pic2" fitHeight="150.0" fitWidth="200.0" onMouseClicked="#costPic2" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.halignment="CENTER">
                <image>
                   <Image url="@../pictures/pic2.jpg" />
                </image>
             </ImageView>
-            <ImageView fitHeight="150.0" fitWidth="200.0" onMouseClicked="#costPic3" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.halignment="CENTER">
+            <ImageView fx:id="Pic3" fitHeight="150.0" fitWidth="200.0" onMouseClicked="#costPic3" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.halignment="CENTER">
                <image>
                   <Image url="@../pictures/pic5.jpg" />
                </image>
             </ImageView>
-            <ImageView fitHeight="150.0" fitWidth="200.0" onMouseClicked="#costPic4" pickOnBounds="true" preserveRatio="true" GridPane.halignment="CENTER" GridPane.rowIndex="1">
+            <ImageView fx:id="Pic4" fitHeight="150.0" fitWidth="200.0" onMouseClicked="#costPic4" pickOnBounds="true" preserveRatio="true" GridPane.halignment="CENTER" GridPane.rowIndex="1">
                <image>
                   <Image url="@../pictures/pic6.jpg" />
                </image>
             </ImageView>
-            <ImageView fitHeight="150.0" fitWidth="200.0" onMouseClicked="#costPic5" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1">
+            <ImageView fx:id="Pic5" fitHeight="150.0" fitWidth="200.0" onMouseClicked="#costPic5" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1">
                <image>
                   <Image url="@../pictures/pic4.jpg" />
                </image>
             </ImageView>
-            <ImageView fitHeight="180.0" fitWidth="250.0" onMouseClicked="#costPic7" pickOnBounds="true" preserveRatio="true" GridPane.halignment="CENTER" GridPane.rowIndex="2">
+            <ImageView fx:id="Pic7" fitHeight="180.0" fitWidth="250.0" onMouseClicked="#costPic7" pickOnBounds="true" preserveRatio="true" GridPane.halignment="CENTER" GridPane.rowIndex="2">
                <image>
                   <Image url="@../pictures/pic3.jpg" />
                </image>
             </ImageView>
-            <ImageView fitHeight="150.0" fitWidth="200.0" onMouseClicked="#costPic6" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="1">
+            <ImageView fx:id="Pic6" fitHeight="150.0" fitWidth="200.0" onMouseClicked="#costPic6" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="1">
                <image>
                   <Image url="@../pictures/pic7.jpg" />
                </image>
             </ImageView>
-            <ImageView fitHeight="180.0" fitWidth="230.0" onMouseClicked="#costPic8" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2">
+            <ImageView fx:id="Pic8" fitHeight="180.0" fitWidth="230.0" onMouseClicked="#costPic8" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2">
                <image>
                   <Image url="@../pictures/pic8.jpg" />
                </image>
             </ImageView>
-            <ImageView fitHeight="150.0" fitWidth="200.0" onMouseClicked="#costPic9" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="2">
+            <ImageView fx:id="Pic9" fitHeight="150.0" fitWidth="200.0" onMouseClicked="#costPic9" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="2">
                <image>
                   <Image url="@../pictures/pic9.jpg" />
                </image>
             </ImageView>
-            <ImageView fitHeight="150.0" fitWidth="200.0" onMouseClicked="#costPic1" pickOnBounds="true" preserveRatio="true" GridPane.halignment="CENTER">
+            <ImageView fx:id="Pic1" fitHeight="150.0" fitWidth="200.0" onMouseClicked="#costPic1" pickOnBounds="true" preserveRatio="true" GridPane.halignment="CENTER">
                <image>
                   <Image url="@../pictures/pic1.jpg" />
                </image>

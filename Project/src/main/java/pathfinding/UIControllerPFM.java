@@ -107,18 +107,21 @@ public class UIControllerPFM extends UIController {
         // ensures new tab has same x,y on the map and path animation changes between floors
         mapTabPane.getSelectionModel().selectedItemProperty().addListener(
                 (ov, t, t1) -> {
-                    currentObjects.clearAnimation();
-                    GesturePane oldPane = currentObjects.getCurrentGesturePane();
-                    currentObjects.setFloorIndex(Floors.getByID(t1.getId()).getIndex());
+                    currentObjects.clearAnimation(); // clear animation on current floor
+                    GesturePane oldPane = currentObjects.getCurrentGesturePane(); // save old index
+                    currentObjects.setFloorIndex(Floors.getByID(t1.getId()).getIndex()); // change floor
                     GesturePane pane = currentObjects.getCurrentGesturePane();
                     pane.centreOn(oldPane.targetPointAtViewportCentre());
                     gesturePaneHandler.changeTabs(pane, oldPane);
+                    currentObjects.clearContextMenu();
                     if (pathHandler.isActive()) {
                         gesturePaneHandler.newAnimation(currentObjects);
+                        gesturePaneHandler.centerOnInitialNode(pathHandler, currentObjects.getCurrentGesturePane(),
+                                currentObjects.getFloorIndex());
                     }
-                    currentObjects.clearContextMenu();
                 }
         );
+
 
         pathHandler = new PathHandler(pathLL2, pathLL1, pathG, path1, path2, path3, path4, primaryStage);
 
@@ -277,13 +280,20 @@ public class UIControllerPFM extends UIController {
             // update paths -- order here is important! Do not move above change tab.
             pathHandler.displayNewPath(Graph.getGraph().separatePathByFloor(pathIDs), initialNode);
 
-            gesturePaneHandler.centerOnInitialNode(pathHandler, currentObjects.getCurrentGesturePane());
+            gesturePaneHandler.centerOnInitialNode(pathHandler, currentObjects.getCurrentGesturePane(),
+                    currentObjects.getFloorIndex());
 
             List<Integer> floorsUsed = pathHandler.getFloorsUsed();
             clearTabColors();
-            for (Integer floor : floorsUsed) {
-                floor = Floors.getByIndex(floor).getTabIndex();
-                mapTabPane.getTabs().get(floor).setStyle("-fx-background-color: #efffff");
+            for (int i = 0; i < Floors.values().length; i++) {
+                int floor = Floors.getByIndex(i).getTabIndex();
+                if (floorsUsed.contains(i)) {
+                    mapTabPane.getTabs().get(floor).setStyle("-fx-background-color: #efffff");
+                    mapTabPane.getTabs().get(floor).setDisable(false);
+                } else {
+                    mapTabPane.getTabs().get(floor).setStyle("-fx-background-color: #003454");
+                    mapTabPane.getTabs().get(floor).setDisable(true);
+                }
             }
         }
 
@@ -296,6 +306,8 @@ public class UIControllerPFM extends UIController {
 
         directionsRequest.setDisable(false);
 
+        menu.getExpandedPane().setExpanded(false);
+
     }
 
     /**
@@ -304,6 +316,7 @@ public class UIControllerPFM extends UIController {
     private void clearTabColors() {
         for (Tab tab : mapTabPane.getTabs()) {
             tab.setStyle("-fx-background-color: #015080");
+            tab.setDisable(false);
         }
     }
 
@@ -397,7 +410,7 @@ public class UIControllerPFM extends UIController {
                 this.goToScene(UIController.LOGIN_MAIN);
                 break;
             case 3:
-                this.goToScene(UIController.ADMIN_MAIN_MENU_MAIN);
+                this.goToScene(UIController.ADMIN_TOOLS_MAIN);
                 break;
             default:
                 this.goToScene(UIController.LOGIN_MAIN);
@@ -428,8 +441,7 @@ public class UIControllerPFM extends UIController {
 
     @FXML
     private void setOtherButton() {
-        this.popupScene(UIController.SERVICE_REQUEST_PRESCRIPTION_SERVICES_MAIN, 900, 600, false);
-
+        this.popupScene(UIController.SERVICE_REQUEST_OTHER_MAIN, 900, 600, false);
     }
 }
 
