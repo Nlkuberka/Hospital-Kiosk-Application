@@ -6,6 +6,7 @@ import com.jfoenix.controls.JFXTabPane;
 import database.DBController;
 import database.DBControllerNE;
 import entities.Edge;
+import entities.Graph;
 import entities.Node;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -16,6 +17,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.MenuItem;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
@@ -435,6 +437,7 @@ public class UIControllerATMV extends UIController {
         assert conn != null;
         DBControllerNE.deleteNode(node.getNodeID(), conn);
         DBController.closeConnection(conn);
+        Graph.getGraph().removeNode(node.getNodeID());
         set();
     }
 
@@ -444,6 +447,7 @@ public class UIControllerATMV extends UIController {
         assert conn != null;
         DBControllerNE.addEdge(newEdge, conn);
         DBController.closeConnection(conn);
+        Graph.getGraph().addBiEdge(node1ID, node2ID);
     }
 
     private void deleteEdge(String nodeID1, String nodeID2) {
@@ -451,7 +455,7 @@ public class UIControllerATMV extends UIController {
         assert conn != null;
         DBControllerNE.deleteEdge(nodeID1, nodeID2, conn);
         DBController.closeConnection(conn);
-
+        Graph.getGraph().removeBiEdge(nodeID1, nodeID2);
     }
 
     void setKiosk(Node node) {
@@ -466,6 +470,21 @@ public class UIControllerATMV extends UIController {
     private void enableAddAndEditPopup(Node node, String action) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/admintools/ATMV_addNode_popup.fxml"));
         Parent root = loader.load();
+        root.addEventFilter(MouseEvent.MOUSE_RELEASED, e -> {
+            SESSION_TIMEOUT_THREAD.interrupt();
+        });
+        root.addEventFilter(MouseEvent.MOUSE_MOVED, e -> {
+            SESSION_TIMEOUT_THREAD.interrupt();
+        });
+        root.addEventFilter(MouseEvent.MOUSE_PRESSED, e -> {
+            SESSION_TIMEOUT_THREAD.interrupt();
+        });
+        root.addEventFilter(KeyEvent.KEY_PRESSED, e -> {
+            SESSION_TIMEOUT_THREAD.interrupt();
+        });
+        root.addEventFilter(KeyEvent.KEY_RELEASED, e -> {
+            SESSION_TIMEOUT_THREAD.interrupt();
+        });
         UIControllerPUMVAN atmvAddNodePopupController = loader.getController();
         atmvAddNodePopupController.setProperties(node, action, this);
 
