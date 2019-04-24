@@ -242,12 +242,12 @@
                                     <graphic>
                                         <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
                                             <image>
-                                                <Image url="@../images/headset.png" />
+                                                <Image url="@../images/settings.png" />
                                             </image>
                                         </ImageView>
                                     </graphic>
                                 </JFXButton>
-                        <JFXButton contentDisplay="CENTER" graphicTextGap="0.0" onAction="#setOtherButton" styleClass="jfx-button-node-list" stylesheets="@../css/pathfinding_tab.css" text=" ">
+                        <JFXButton contentDisplay="CENTER" graphicTextGap="0.0" onAction="#setPatientButton" styleClass="jfx-button-node-list" stylesheets="@../css/pathfinding_tab.css" text=" ">
                            <graphic>
                               <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
                                  <image>

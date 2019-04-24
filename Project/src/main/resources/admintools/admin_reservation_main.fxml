@@ -39,9 +39,7 @@
          <center>
             <GridPane prefHeight="720.0" prefWidth="1280.0" BorderPane.alignment="CENTER">
               <columnConstraints>
-                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="20.0" prefWidth="100.0" />
                   <ColumnConstraints hgrow="SOMETIMES" minWidth="5.0" percentWidth="100.0" />
-                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="20.0" prefWidth="100.0" />
               </columnConstraints>
               <rowConstraints>
                   <RowConstraints minHeight="10.0" percentHeight="40.0" prefHeight="30.0" vgrow="SOMETIMES" />
@@ -51,12 +49,12 @@
                 <RowConstraints minHeight="10.0" percentHeight="0.0" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
-                  <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Reservation Home" textAlignment="CENTER" wrappingWidth="514.0441284179688" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+                  <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Reservation Home" textAlignment="CENTER" wrappingWidth="514.0441284179688" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
                      <font>
                         <Font name="System Bold Italic" size="45.0" />
                      </font>
                   </Text>
-                  <FlowPane maxWidth="1000.0" prefWidth="1000.0" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+                  <FlowPane maxHeight="250.0" maxWidth="1000.0" prefWidth="1000.0" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
                      <children>
                         <JFXButton fx:id="makeReservation" alignment="BOTTOM_CENTER" buttonType="RAISED" contentDisplay="TOP" graphicTextGap="15.0" maxHeight="240.0" onAction="#setMakeReservation" prefHeight="245.0" prefWidth="400.0" styleClass="jfx-button-guest-main-menu" stylesheets="@../css/background.css" text="Make Reservation" textFill="WHITE">
                            <font>

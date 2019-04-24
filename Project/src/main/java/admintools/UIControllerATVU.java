@@ -319,11 +319,4 @@ public class UIControllerATVU extends UIController {
         userTableView.getItems().add(user);
     }
 
-    /**
-     * Goes back to the admin tools application menu
-     */
-    @FXML
-    private void setBackButton() {
-        this.goToScene(UIController.ADMIN_TOOLS_MAIN);
-    }
 }
