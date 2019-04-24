@@ -19,4 +19,20 @@ public class CurrentUser {
     public static String startingLocationID = "FSERV00101";
     public static DBNetwork network;
     public static boolean testing = false;
+
+    public static String getStartingLocation() {
+        return startingLocation;
+    }
+
+    public static void setStartingLocation(String startingLocation) {
+        CurrentUser.startingLocation = startingLocation;
+    }
+
+    public static String getStartingLocationID() {
+        return startingLocationID;
+    }
+
+    public static void setStartingLocationID(String startingLocationID) {
+        CurrentUser.startingLocationID = startingLocationID;
+    }
 }
