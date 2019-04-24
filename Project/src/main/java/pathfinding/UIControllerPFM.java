@@ -197,6 +197,9 @@ public class UIControllerPFM extends UIController {
         }
 
         initialLocationCombo.getSelectionModel().select(CurrentUser.startingLocation);
+        currentObjects.setInitialID(CurrentUser.startingLocationID);
+        currentObjects.setInitCircle(anchorPaneHandler.getCircleFromName(CurrentUser.startingLocation));
+        System.out.println(currentObjects.getInitialID());
 
         menu.getPanes().get(0).setExpanded(true);
 
