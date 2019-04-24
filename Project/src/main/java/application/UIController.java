@@ -536,4 +536,8 @@ public class UIController {
 
         }
     }
+
+    public UIController getUIController(String sceneString) {
+        return sceneControllers.get(sceneString);
+    }
 }

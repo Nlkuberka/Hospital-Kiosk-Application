@@ -1,6 +1,8 @@
 package application;
 
 import javafx.application.Platform;
+import javafx.event.ActionEvent;
+import pathfinding.UIControllerPFM;
 
 import java.time.Clock;
 
@@ -29,6 +31,7 @@ public class SessionTimeoutThread extends Thread{
         Platform.runLater(new Runnable() {
             @Override
             public void run() {
+                ((UIControllerPFM) currentUIController.getUIController(UIController.PATHFINDING_MAIN)).cancel();
                 currentUIController.goToScene(memo);
             }
         });

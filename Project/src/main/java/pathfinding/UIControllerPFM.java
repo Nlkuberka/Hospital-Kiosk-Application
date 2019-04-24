@@ -147,52 +147,64 @@ public class UIControllerPFM extends UIController {
     @Override
     public void onShow() {
 
-        // ~~~~~ init choice boxes
-        Connection conn = DBController.dbConnect();
+        if (initialLocationCombo.getItems().size() == 0) {
 
-        LinkedList<LinkedList<Node>> roomsAtEachFloor = new LinkedList<>();
+            // ~~~~~ init choice boxes
+            Connection conn = DBController.dbConnect();
 
-        assert conn != null;
-        roomsAtEachFloor.add(DBControllerNE.generateListOfNodes(conn, DBControllerNE.ALL_ROOMS_FLOOR_L2));
-        roomsAtEachFloor.add(DBControllerNE.generateListOfNodes(conn, DBControllerNE.ALL_ROOMS_FLOOR_L1));
-        roomsAtEachFloor.add(DBControllerNE.generateListOfNodes(conn, DBControllerNE.ALL_ROOMS_FLOOR_G));
-        roomsAtEachFloor.add(DBControllerNE.generateListOfNodes(conn, DBControllerNE.ALL_ROOMS_FLOOR_1));
-        roomsAtEachFloor.add(DBControllerNE.generateListOfNodes(conn, DBControllerNE.ALL_ROOMS_FLOOR_2));
-        roomsAtEachFloor.add(DBControllerNE.generateListOfNodes(conn, DBControllerNE.ALL_ROOMS_FLOOR_3));
-        roomsAtEachFloor.add(DBControllerNE.generateListOfNodes(conn, DBControllerNE.ALL_ROOMS_FLOOR_4));
+            LinkedList<LinkedList<Node>> roomsAtEachFloor = new LinkedList<>();
 
-        DBController.closeConnection(conn);
+            assert conn != null;
+            roomsAtEachFloor.add(DBControllerNE.generateListOfNodes(conn, DBControllerNE.ALL_ROOMS_FLOOR_L2));
+            roomsAtEachFloor.add(DBControllerNE.generateListOfNodes(conn, DBControllerNE.ALL_ROOMS_FLOOR_L1));
+            roomsAtEachFloor.add(DBControllerNE.generateListOfNodes(conn, DBControllerNE.ALL_ROOMS_FLOOR_G));
+            roomsAtEachFloor.add(DBControllerNE.generateListOfNodes(conn, DBControllerNE.ALL_ROOMS_FLOOR_1));
+            roomsAtEachFloor.add(DBControllerNE.generateListOfNodes(conn, DBControllerNE.ALL_ROOMS_FLOOR_2));
+            roomsAtEachFloor.add(DBControllerNE.generateListOfNodes(conn, DBControllerNE.ALL_ROOMS_FLOOR_3));
+            roomsAtEachFloor.add(DBControllerNE.generateListOfNodes(conn, DBControllerNE.ALL_ROOMS_FLOOR_4));
 
-        initialFilterHelper = new RoomCategoryFilterHelper(initialLocationCombo, param -> {
-            if (initialFilterHelper.getLongName() == null)
-                return;
+            DBController.closeConnection(conn);
 
-            currentObjects.setInitialID(initialFilterHelper.getNodeID());
+            initialFilterHelper = new RoomCategoryFilterHelper(initialLocationCombo, param -> {
+                if (initialFilterHelper.getLongName() == null)
+                    return;
 
-            currentObjects.setInitCircle(initialFilterHelper.getLongName());
+                currentObjects.setInitialID(initialFilterHelper.getNodeID());
 
-            getPath();
-        }, true);
-        destinationFilterHelper = new RoomCategoryFilterHelper(destinationCombo, param -> {
-            if (destinationFilterHelper.getLongName() == null)
-                return;
+                currentObjects.setInitCircle(initialFilterHelper.getLongName());
 
-            currentObjects.setDestID(destinationFilterHelper.getNodeID());
+                getPath();
+            }, true);
+            destinationFilterHelper = new RoomCategoryFilterHelper(destinationCombo, param -> {
+                if (destinationFilterHelper.getLongName() == null)
+                    return;
 
-            currentObjects.setDestCircle(destinationFilterHelper.getLongName());
+                currentObjects.setDestID(destinationFilterHelper.getNodeID());
 
-            getPath();
-        }, true);
+                currentObjects.setDestCircle(destinationFilterHelper.getLongName());
 
-        anchorPaneHandler.initCircles(roomsAtEachFloor, initialLocationCombo, destinationCombo);
+                getPath();
+            }, true);
 
-        userToolsTitledPane.collapsibleProperty().setValue(false);
-        if (CurrentUser.user.getPermissions() == User.BASIC_PERMISSIONS) {
-            userToolsTitledPane.collapsibleProperty().setValue(true);
+            anchorPaneHandler.initCircles(roomsAtEachFloor, initialLocationCombo, destinationCombo);
+
+            userToolsTitledPane.collapsibleProperty().setValue(false);
+            if (CurrentUser.user.getPermissions() == User.BASIC_PERMISSIONS) {
+                userToolsTitledPane.collapsibleProperty().setValue(true);
+            }
+            menu.setExpandedPane(pathfindingTitledPane);
         }
-        menu.setExpandedPane(pathfindingTitledPane);
 
         initialLocationCombo.getSelectionModel().select(CurrentUser.startingLocation);
+
+        menu.getPanes().get(0).setExpanded(true);
+
+        gesturePaneHandler.resetZoom();
+
+        cancel();
+
+        currentObjects.setFloorIndex(Floors.GROUND.getIndex());
+        mapTabPane.getSelectionModel().select(Floors.GROUND.getTabIndex());
 
     }
 
@@ -235,13 +247,15 @@ public class UIControllerPFM extends UIController {
      */
     @FXML
     private void cancel(ActionEvent actionEvent) {
+        cancel();
+    }
+
+    public void cancel() {
         pathHandler.cancel();
         pathHandler.removeFloorLinks(anchorPaneHandler);
         clearTabColors();
 
-        currentObjects.clearContextMenu();
         currentObjects.cancel();
-        currentObjects.clearLabels();
 
         directionsRequest.setDisable(true);
 
@@ -292,7 +306,8 @@ public class UIControllerPFM extends UIController {
             for (int i = 1; i < pathIDs.size(); i++) {
                 Node node = DBControllerNE.fetchNode(pathIDs.get(i), connection);
                 if ((previousNode.getNodeType().equals("STAI") || previousNode.getNodeType().equals("ELEV"))
-                        && (node.getNodeType().equals("STAI") || node.getNodeType().equals("ELEV"))) {
+                        && (node.getNodeType().equals("STAI") || node.getNodeType().equals("ELEV"))
+                        && !node.getFloor().equals(previousNode.getFloor())) {
                     edgeNodes.add(new EdgeNodePair(previousNode, node, mapTabPane));
                 }
                 previousNode = node;
@@ -327,7 +342,9 @@ public class UIControllerPFM extends UIController {
 
         directionsRequest.setDisable(false);
 
-        menu.getExpandedPane().setExpanded(false);
+        if (menu.getExpandedPane() != null) {
+            menu.getExpandedPane().setExpanded(false);
+        }
 
     }
 
