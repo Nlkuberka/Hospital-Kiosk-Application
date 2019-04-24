@@ -262,14 +262,14 @@
          <top>
                     <MenuBar style="-fx-background-color: #ffc41e;" stylesheets="@../css/background.css" BorderPane.alignment="CENTER">
                         <menus>
-                  <Menu fx:id="backButton" mnemonicParsing="false" onShowing="#setBackButton" text="Back">
+                  <Menu fx:id="backButton" mnemonicParsing="false" text="Back">
                     <items>
                       <MenuItem mnemonicParsing="false" onAction="#setBackButton" text="Go back to previous page" />
                     </items>
                   </Menu>
                             <Menu fx:id="homeButton" mnemonicParsing="false" onShowing="#setHomeButton" text="Home">
                      <items>
-                        <MenuItem mnemonicParsing="false" text="HOME" />
+                        <MenuItem text="HOME" />
                      </items>
                   </Menu>
                         </menus>
