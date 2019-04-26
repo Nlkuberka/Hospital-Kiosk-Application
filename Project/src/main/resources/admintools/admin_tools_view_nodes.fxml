@@ -62,7 +62,7 @@
             </TableView>
          </center>
          <bottom>
-            <JFXButton fx:id="addButton" buttonType="RAISED" onAction="#setAddButton" styleClass="jfx-button-add" stylesheets="@../css/background.css" text="Add edu.wpi.cs3733.d19.teamD.Node" textFill="WHITE" BorderPane.alignment="CENTER_RIGHT">
+            <JFXButton fx:id="addButton" buttonType="RAISED" onAction="#setAddButton" styleClass="jfx-button-add" stylesheets="@../css/background.css" text="Add Node" textFill="WHITE" BorderPane.alignment="CENTER_RIGHT">
                <font>
                   <Font name="System Bold" size="14.0" />
                </font>
