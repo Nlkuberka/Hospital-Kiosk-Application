@@ -59,9 +59,9 @@
                <font>
                   <Font size="16.0" />
                </font></Label>
-            <TextField fx:id="nodeIDTextfield" disable="true" onKeyTyped="#validateEdits" promptText="The edu.wpi.cs3733.d19.teamD.Node ID (10 characters)" GridPane.columnIndex="1" />
-            <TextField onKeyTyped="#validateEdits" promptText="The Xcoord of the edu.wpi.cs3733.d19.teamD.Node" GridPane.columnIndex="1" GridPane.rowIndex="1" fx:id="xcoordTextfield" />
-            <TextField fx:id="ycoordTextfield" onKeyTyped="#validateEdits" promptText="The Ycoord of the edu.wpi.cs3733.d19.teamD.Node" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <TextField fx:id="nodeIDTextfield" disable="true" onKeyTyped="#validateEdits" promptText="The Node ID (10 characters)" GridPane.columnIndex="1" />
+            <TextField onKeyTyped="#validateEdits" promptText="The Xcoord of the Node" GridPane.columnIndex="1" GridPane.rowIndex="1" fx:id="xcoordTextfield" />
+            <TextField fx:id="ycoordTextfield" onKeyTyped="#validateEdits" promptText="The Ycoord of the Node" GridPane.columnIndex="1" GridPane.rowIndex="2" />
             <TextField fx:id="floorTextfield" onKeyTyped="#validateEdits" promptText="The floor of the node" GridPane.columnIndex="1" GridPane.rowIndex="3" />
             <TextField fx:id="buildingTextfield" onKeyTyped="#validateEdits" promptText="The building of the node (15 charcters)" GridPane.columnIndex="1" GridPane.rowIndex="4" />
             <TextField fx:id="nodeTypeTextfield" onKeyTyped="#validateEdits" promptText="The node type (4 characters)" GridPane.columnIndex="1" GridPane.rowIndex="5" />
@@ -69,7 +69,7 @@
             <TextField fx:id="shortNameTextfield" onKeyTyped="#validateEdits" promptText="A short name for the node (25 characters)" GridPane.columnIndex="1" GridPane.rowIndex="7" />
          </children>
       </GridPane>
-      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="385.0" layoutY="26.0" text="Edit edu.wpi.cs3733.d19.teamD.Node" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="385.0" layoutY="26.0" text="Edit Node" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
          <font>
             <Font size="36.0" />
          </font>
