@@ -48,7 +48,7 @@
                      </image>
                   </ImageView>
                </graphic></JFXButton>
-            <JFXButton fx:id="button_editNode" alignment="CENTER" contentDisplay="TOP" graphicTextGap="0.0" onMouseClicked="#editNode" scaleX="1.5" scaleY="1.5" styleClass="jfx-button-add" stylesheets="@../css/background.css" text="Edit edu.wpi.cs3733.d19.teamD.Node" textAlignment="CENTER" GridPane.rowIndex="1">
+            <JFXButton fx:id="button_editNode" alignment="CENTER" contentDisplay="TOP" graphicTextGap="0.0" onMouseClicked="#editNode" scaleX="1.5" scaleY="1.5" styleClass="jfx-button-add" stylesheets="@../css/background.css" text="Edit Node" textAlignment="CENTER" GridPane.rowIndex="1">
                <graphic>
                   <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -72,7 +72,7 @@
                      </image>
                   </ImageView>
                </graphic></JFXButton>
-            <JFXButton fx:id="button_deleteNode" alignment="CENTER" contentDisplay="TOP" graphicTextGap="0.0" onMouseClicked="#deleteNode" scaleX="1.5" scaleY="1.5" styleClass="jfx-button-add" stylesheets="@../css/background.css" text="Delete edu.wpi.cs3733.d19.teamD.Node" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.rowIndex="1">
+            <JFXButton fx:id="button_deleteNode" alignment="CENTER" contentDisplay="TOP" graphicTextGap="0.0" onMouseClicked="#deleteNode" scaleX="1.5" scaleY="1.5" styleClass="jfx-button-add" stylesheets="@../css/background.css" text="Delete Node" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.rowIndex="1">
                <graphic>
                   <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
                      <image>
