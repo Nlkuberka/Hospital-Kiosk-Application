@@ -62,7 +62,7 @@
          <GridPane.margin>
             <Insets left="30.0" />
          </GridPane.margin></Text>
-        <Text strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-fill: White; -fx-font-weight: Bold; -fx-font-size: 18;" text="edu.wpi.cs3733.d19.teamD.Node Type" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="1" GridPane.valignment="BOTTOM">
+        <Text strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-fill: White; -fx-font-weight: Bold; -fx-font-size: 18;" text="Node Type" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="1" GridPane.valignment="BOTTOM">
          <GridPane.margin>
             <Insets left="30.0" />
          </GridPane.margin></Text>
@@ -152,7 +152,7 @@
       <AnchorPane prefHeight="200.0" prefWidth="600.0" style="-fx-background-color: #ffc41e;" />
       <AnchorPane prefHeight="200.0" prefWidth="600.0" style="-fx-background-color: #ffc41e;" GridPane.columnIndex="1" />
     </GridPane>
-   <Text fx:id="titleText" fill="#081644" strokeType="OUTSIDE" strokeWidth="0.0" text="Add/Edit edu.wpi.cs3733.d19.teamD.Node" StackPane.alignment="TOP_CENTER">
+   <Text fx:id="titleText" fill="#081644" strokeType="OUTSIDE" strokeWidth="0.0" text="Add/Edit Node" StackPane.alignment="TOP_CENTER">
       <font>
          <Font name="System Bold Italic" size="17.0" />
       </font>
