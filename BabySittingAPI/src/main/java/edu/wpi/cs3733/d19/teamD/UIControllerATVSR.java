@@ -1,3 +1,5 @@
+package edu.wpi.cs3733.d19.teamD;
+
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXCheckBox;
 
@@ -13,7 +15,6 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.image.ImageView;
 
-import javax.xml.ws.Service;
 import java.lang.reflect.Method;
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -23,7 +24,7 @@ import java.sql.SQLException;
  * The UIController for the viewing, editing, adding, and removing service requests
  * Allows the admin to manage service Requests
  * @author Jonathan Chang, imoralessirgo
- * @version iteration1
+ * @version API
  */
 public class UIControllerATVSR extends UIController {
     private static final String[] serviceRequestSetters  = {"", "", "", "setResolved", "setResolverID", ""};

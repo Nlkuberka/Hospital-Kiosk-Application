@@ -1,3 +1,5 @@
+package edu.wpi.cs3733.d19.teamD;
+
 import com.jfoenix.controls.JFXButton;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
@@ -6,7 +8,7 @@ import javafx.stage.Stage;
 /**
  * Handles the simple controller for the popup warning window
  * @author Jonathan Chang
- * @version iteration2
+ * @version API
  */
 public class UIControllerPUM extends UIController {
 

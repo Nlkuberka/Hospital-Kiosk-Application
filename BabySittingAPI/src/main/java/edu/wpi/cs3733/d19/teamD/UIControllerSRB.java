@@ -1,5 +1,5 @@
-/**
- * The UIController for the babysitting service request
+package edu.wpi.cs3733.d19.teamD; /**
+ * The edu.wpi.cs3733.d19.teamD.UIController for the babysitting service request
  * @author Shiyi Liu, imoralessirgo
  * @version iteration2
  */
