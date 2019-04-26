@@ -20,9 +20,6 @@ repositories {
     jcenter {
         url 'https://jcenter.bintray.com/'
     }
-    maven {
-        url 'https://ravana.dyn.wpi.edu/maven'
-    }
 }
 
 
@@ -81,9 +78,7 @@ dependencies {
             [group: 'de.jensd', name: 'fontawesomefx-fontawesome', version: '4.7.0-1'],
             [group: 'com.calendarfx', name:'view', version: '8.4.2'],
             [group: 'com.calendarfx', name: 'recurrence', version: '8.4.2'],
-            [group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.0.1'],
-            [group: 'edu.wpi.cs3733.d19.teamM', name: 'LanguageRequest', version:'1.0.0'],
-                    [group: 'edu.wpi.cs3733.d19.teamD', name: 'BabySitting', version:'1.0.3']
+            [group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.0.1']
     )
     runtime(
             [group: 'de.jensd', name: 'fontawesomefx-commons', version: '8.13']
