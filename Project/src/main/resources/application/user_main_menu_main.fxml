@@ -52,7 +52,7 @@
                   </ImageView>
                </graphic>
             </JFXButton>
-            <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="edu.wpi.cs3733.d19.teamD.User's Home" GridPane.columnIndex="1" GridPane.columnSpan="3" GridPane.halignment="CENTER" GridPane.rowIndex="1">
+            <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="User's Home" GridPane.columnIndex="1" GridPane.columnSpan="3" GridPane.halignment="CENTER" GridPane.rowIndex="1">
                <font>
                   <Font name="System Bold" size="45.0" />
                </font>
