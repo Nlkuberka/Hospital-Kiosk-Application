@@ -3,7 +3,8 @@ package pathfinding;
 public enum Floors {
     LL2("Lower Level 2", "L2", 0), LL1("Lower Level 1", "L1", 1),
     GROUND("Ground Floor", "G", 2), FIRST("First Floor", "1", 3),
-    SECOND("Second Floor", "2", 4), THIRD("Third Floor", "3", 5);
+    SECOND("Second Floor", "2", 4), THIRD("Third Floor", "3", 5),
+    FOURTH("Fourth Floor", "4", 6);
 
     private final String name;
     private final String ID;
@@ -27,21 +28,28 @@ public enum Floors {
         return this.index;
     }
 
+    public int getTabIndex() {
+        return Floors.values().length - getIndex() - 1;
+    }
+
     public static Floors getByID(String ID) {
-        if(ID.equals("1")) {
+        if(ID.equals(FIRST.ID)) {
             return FIRST;
         }
-        if(ID.equals("2")) {
+        if(ID.equals(SECOND.ID)) {
             return SECOND;
         }
-        if(ID.equals("3")) {
+        if(ID.equals(THIRD.ID)) {
             return THIRD;
         }
-        if(ID.equals("G")) {
+        if(ID.equals(GROUND.ID)) {
             return GROUND;
         }
-        if(ID.equals("L1")) {
+        if(ID.equals(LL1.ID)) {
             return LL1;
+        }
+        if(ID.equals(FOURTH.ID)) {
+            return FOURTH;
         }
         return LL2;
     }
@@ -62,6 +70,9 @@ public enum Floors {
         if(ID.equals(LL1.name)) {
             return LL1;
         }
+        if(ID.equals(FOURTH.name)) {
+            return FOURTH;
+        }
         return LL2;
     }
 
@@ -79,7 +90,9 @@ public enum Floors {
                 return SECOND;
             }case (5): {
                 return THIRD;
-            } default:
+            }case (6): {
+                return FOURTH;
+            }default:
                 return SECOND;
         }
     }

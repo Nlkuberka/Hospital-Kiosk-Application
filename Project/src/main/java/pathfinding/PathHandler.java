@@ -1,11 +1,12 @@
 package pathfinding;
 
+import com.jfoenix.controls.JFXTabPane;
 import entities.Node;
 import javafx.geometry.Point2D;
+import javafx.scene.shape.Circle;
 import javafx.scene.shape.LineTo;
 import javafx.scene.shape.MoveTo;
 import javafx.scene.shape.Path;
-import javafx.stage.Stage;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -14,22 +15,41 @@ public class PathHandler {
     private LinkedList<Path> pathList = new LinkedList<>();
     private List<List<List<Node>>> latestPath;
     private Node latestStartingNode;
-    private Stage primaryStage;
+    private LinkedList<EdgeNodePair> edgeNodes;
 
-    public PathHandler(Path p1, Path p2, Path p3, Path p4, Path p5, Path p6, Stage stage) {
+    public PathHandler(Path p1, Path p2, Path p3, Path p4, Path p5, Path p6, Path p7) {
         this.pathList.add(p1);
         this.pathList.add(p2);
         this.pathList.add(p3);
         this.pathList.add(p4);
         this.pathList.add(p5);
         this.pathList.add(p6);
-        this.primaryStage = stage;
+        this.pathList.add(p7);
+
+        this.edgeNodes = new LinkedList<>();
 
         // set stroke width
         for (int i = 0; i < this.pathList.size(); i++) {
             this.pathList.get(i).setStrokeWidth(10);
         }
 
+    }
+
+    public void drawFloorLinks(LinkedList<EdgeNodePair> edgeNodes, AnchorPaneHandler anchorPaneHandler) {
+        this.edgeNodes = edgeNodes;
+        for (int i = 0; i < this.edgeNodes.size(); i++) { // for every edge first
+            EdgeNodePair edgeNode = this.edgeNodes.get(i);
+            anchorPaneHandler.addCircleToView(edgeNode.firstCircle, edgeNode.getFirstFloor().getIndex());
+            anchorPaneHandler.addCircleToView(edgeNode.nextCircle, edgeNode.getNextFloor().getIndex());
+        }
+    }
+
+    public void removeFloorLinks(AnchorPaneHandler anchorPaneHandler) {
+        for (int i = 0; i < this.edgeNodes.size(); i++) { // for every edge first
+            EdgeNodePair edgeNode = this.edgeNodes.get(i);
+            anchorPaneHandler.removeCircleFromView(edgeNode.firstCircle, edgeNode.getFirstFloor().getIndex());
+            anchorPaneHandler.removeCircleFromView(edgeNode.nextCircle, edgeNode.getNextFloor().getIndex());
+        }
     }
 
     private void addToPath(Path path, List<Node> nodes) {
@@ -46,7 +66,7 @@ public class PathHandler {
             x = (float) node.getXcoord();
             y = (float) node.getYcoord();
 
-            //System.out.println(node);
+            //System.out.println(first);
             //System.out.println("NodeX: " + x + "  NodeY: " + y);
 
             path.getElements().add(new LineTo(x, y));
@@ -78,10 +98,11 @@ public class PathHandler {
 
     private void updatePaths(List<List<List<Node>>> list) {
         if (list.size() != Floors.values().length)
-            System.out.println("WARNING: Did not receive a node list for each floor");
+            System.out.println("WARNING: Did not receive a first list for each floor");
 
         clearAndHideAllPaths();
 
+        this.edgeNodes = new LinkedList<>();
         for (int floor = 0; floor < list.size(); floor++) { // get floor
             for (int pathNum = 0; pathNum < list.get(floor).size(); pathNum++) { // get specific path on that floor
                 addToPath(this.pathList.get(floor), list.get(floor).get(pathNum));
@@ -126,10 +147,9 @@ public class PathHandler {
         return new Point2D(latestStartingNode.getXcoord(), latestStartingNode.getYcoord());
     }
 
-    List<Point2D> getPathExtremaOnInitFloor() {
+    List<Point2D> getPathExtremaOnFloor(int floorIndex) {
         double minX = 6000, maxX = 0, minY = 6000, maxY = 0;
-        int currentFloorIndex = Floors.getByID(this.latestStartingNode.getFloor()).getIndex();
-        List<List<Node>> list = this.latestPath.get(currentFloorIndex);
+        List<List<Node>> list = this.latestPath.get(floorIndex);
         for (List<Node> nodeList : list) {
             for (Node node : nodeList) {
                 double nodeX = node.getXcoord();

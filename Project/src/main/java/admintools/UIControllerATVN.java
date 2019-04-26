@@ -3,6 +3,7 @@ package admintools;
 import database.DBController;
 import application.UIController;
 import database.DBControllerNE;
+import entities.Graph;
 import entities.Node;
 
 import com.jfoenix.controls.JFXButton;
@@ -35,9 +36,6 @@ public class UIControllerATVN extends  UIController {
     @FXML
     private ImageView backgroundImage;
     /**< The Various Node Columns used for cell factories */
-
-    @FXML
-    private MenuItem backButton; /**< The Back Button */
 
     @FXML
     private Menu homeButton; /**< The Home Button */
@@ -113,6 +111,12 @@ public class UIControllerATVN extends  UIController {
                                 DBControllerNE.addNode(node,conn);
                             } else {
                                 DBControllerNE.updateNode(node, conn);
+                                List<String> neighbors = Graph.getGraph().getNeighbors(node.getNodeID());
+                                Graph.getGraph().removeNode(node.getNodeID());
+                                Graph.getGraph().addNode(node);
+                                for(String neighbor : neighbors) {
+                                    Graph.getGraph().addBiEdge(node.getNodeID(), neighbor);
+                                }
                             }
                             DBControllerNE.closeConnection(conn);
                         setGraphic(label);
@@ -138,6 +142,7 @@ public class UIControllerATVN extends  UIController {
                             DBControllerNE.deleteNode(node.getNodeID(), conn);
                             DBControllerNE.closeConnection(conn);
                           getTableView().getItems().remove(node);
+                          Graph.getGraph().removeNode(node.getNodeID());
                         }
                 );
             }
@@ -167,13 +172,7 @@ public class UIControllerATVN extends  UIController {
     private void setAddButton() {
         Node node = new Node("", 0, 0, "", "", "", "" ,"");
         nodeTable.getItems().add(node);
+        Graph.getGraph().addNode(node);
     }
 
-    /**
-     * Goes back to the admin tools application menu
-     */
-    @FXML
-    private void setBackButton() {
-        this.goToScene(UIController.ADMIN_TOOLS_MAIN);
-    }
 }

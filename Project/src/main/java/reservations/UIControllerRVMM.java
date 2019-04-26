@@ -1,5 +1,6 @@
 package reservations;
 
+import application.CurrentUser;
 import application.UIController;
 import com.jfoenix.controls.JFXButton;
 import javafx.fxml.FXML;
@@ -69,7 +70,21 @@ public class UIControllerRVMM extends UIController {
      */
     @FXML
     private void setBackMenuItem() {
-        this.goToScene(UIController.USER_MAIN_MENU_MAIN);
+        int permission = CurrentUser.user.getPermissions();
+        switch (permission){
+            case 1:
+                this.goToScene(UIController.LOGIN_MAIN);
+                break;
+            case 2:
+                this.goToScene(UIController.PATHFINDING_MAIN);
+                break;
+            case 3:
+                this.goToScene(UIController.ADMIN_MAIN_MENU_MAIN);
+                break;
+            default:
+                this.goToScene(UIController.LOGIN_MAIN);
+                break;
+        }
     }
 
     @FXML

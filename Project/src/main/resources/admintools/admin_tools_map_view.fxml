@@ -2,126 +2,174 @@
 
 <?import com.jfoenix.controls.JFXButton?>
 <?import com.jfoenix.controls.JFXTabPane?>
-<?import javafx.scene.control.*?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.Tab?>
 <?import javafx.scene.effect.ColorAdjust?>
-<?import javafx.scene.image.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.text.Font?>
-<?import net.kurobako.gesturefx.*?>
-<StackPane fx:id="parentPane" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1"
-           fx:controller="admintools.UIControllerATMV">
+<?import net.kurobako.gesturefx.GesturePane?>
+
+<StackPane fx:id="parentPane" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="admintools.UIControllerATMV">
     <ImageView fx:id="backgroundImage" pickOnBounds="true">
-        <Image url="@../images/Hospitalbackground.png"/>
+        <Image url="@../images/Hospitalbackground.png" />
         <effect>
-            <ColorAdjust brightness="0.41"/>
+            <ColorAdjust brightness="0.41" />
         </effect>
     </ImageView>
     <BorderPane prefHeight="200.0" prefWidth="200.0">
         <top>
-            <MenuBar blendMode="ADD" style="-fx-background-color: white;" stylesheets="@../css/background.css"
-                     BorderPane.alignment="CENTER">
+            <MenuBar style="-fx-background-color: #ffc41e;" stylesheets="@../css/background.css" BorderPane.alignment="CENTER">
                 <Menu mnemonicParsing="false" onShowing="#setHomeButton" text="Home">
-                    <MenuItem fx:id="backButton" mnemonicParsing="false" onAction="#goBack"
-                              text="Go back to previous page"/>
+                    <MenuItem fx:id="backButton" mnemonicParsing="false" onAction="#goBack" text="Go back to previous page" />
                 </Menu>
             </MenuBar>
         </top>
         <center>
             <StackPane>
                 <children>
-                    <JFXTabPane fx:id="tabs" stylesheets="/css/background.css" tabClosingPolicy="UNAVAILABLE"
-                                BorderPane.alignment="CENTER">
-                        <Tab id="L2" text="Lower Level 2">
-                            <GesturePane fx:id="lowerLevel2GesturePane">
-                                <AnchorPane fx:id="lowerLevel2AnchorPane">
-                                    <ImageView fx:id="lowerLevel2ImageView" pickOnBounds="true" preserveRatio="true"
-                                               onMouseClicked="#addNodeOnClick">
-                                        <Image url="@../maps/00_thelowerlevel2.png"/>
+                    <JFXTabPane fx:id="tabs" side="RIGHT" stylesheets="@../css/pathfinding_tab.css" tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER">
+                        <Tab id="4">
+                            <graphic>
+                                <ImageView fitHeight="70.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true">
+                                    <image>
+                                        <Image url="@../images/Floor_Icon/4F.png" />
+                                    </image>
+                                </ImageView>
+                            </graphic>
+                            <GesturePane fx:id="fourthFloorGesturePane">
+                                <AnchorPane fx:id="fourthFloorAnchorPane">
+                                    <ImageView fx:id="fourthFloorImageView" onMouseClicked="#addNodeOnClick" pickOnBounds="true" preserveRatio="true">
+                                        <Image url="@../maps/04_theforthfloor.png" />
                                     </ImageView>
                                 </AnchorPane>
                             </GesturePane>
                         </Tab>
-                        <Tab id="L1" text="Lower Level 1">
-                            <GesturePane fx:id="lowerLevel1GesturePane">
-                                <AnchorPane fx:id="lowerLevel1AnchorPane">
-                                    <ImageView fx:id="lowerLevel1ImageView" pickOnBounds="true" preserveRatio="true"
-                                               onMouseClicked="#addNodeOnClick">
-                                        <Image url="@../maps/00_thelowerlevel1.png"/>
-                                    </ImageView>
-                                </AnchorPane>
-                            </GesturePane>
-                        </Tab>
-                        <Tab id="G" text="Ground Floor">
-                            <GesturePane fx:id="groundFloorGesturePane">
-                                <AnchorPane fx:id="groundFloorAnchorPane">
-                                    <ImageView fx:id="groundFloorImageView" onMouseClicked="#addNodeOnClick"
-                                               pickOnBounds="true" preserveRatio="true">
-                                        <Image url="@../maps/00_thegroundfloor.png"/>
-                                    </ImageView>
-                                </AnchorPane>
-                            </GesturePane>
-                        </Tab>
-                        <Tab id="1" text="First Floor">
-                            <GesturePane fx:id="firstFloorGesturePane">
-                                <AnchorPane fx:id="firstFloorAnchorPane">
-                                    <ImageView fx:id="firstFloorImageView" onMouseClicked="#addNodeOnClick"
-                                               pickOnBounds="true" preserveRatio="true">
-                                        <Image url="@../maps/01_thefirstfloor.png"/>
-                                    </ImageView>
-                                </AnchorPane>
-                            </GesturePane>
-                        </Tab>
-                        <Tab id="2" text="Second Floor">
-                            <GesturePane fx:id="secondFloorGesturePane">
-                                <AnchorPane fx:id="secondFloorAnchorPane">
-                                    <ImageView fx:id="secondFloorImageView" onMouseClicked="#addNodeOnClick"
-                                               pickOnBounds="true" preserveRatio="true">
-                                        <Image url="@../maps/02_thesecondfloor.png"/>
-                                    </ImageView>
-                                </AnchorPane>
-                            </GesturePane>
-                        </Tab>
-                        <Tab id="3" text="Third Floor">
+                        <Tab id="3" text=" ">
                             <GesturePane fx:id="thirdFloorGesturePane">
                                 <AnchorPane fx:id="thirdFloorAnchorPane">
-                                    <ImageView fx:id="thirdFloorImageView" onMouseClicked="#addNodeOnClick"
-                                               pickOnBounds="true" preserveRatio="true">
-                                        <Image url="@../maps/03_thethirdfloor.png"/>
+                                    <ImageView fx:id="thirdFloorImageView" onMouseClicked="#addNodeOnClick" pickOnBounds="true" preserveRatio="true">
+                                        <Image url="@../maps/03_thethirdfloor.png" />
                                     </ImageView>
                                 </AnchorPane>
                             </GesturePane>
+                            <graphic>
+                                <ImageView fitHeight="70.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true">
+                                    <image>
+                                        <Image url="@../images/Floor_Icon/3F.png" />
+                                    </image>
+                                </ImageView>
+                            </graphic>
+                        </Tab>
+                        <Tab id="2">
+                            <GesturePane fx:id="secondFloorGesturePane">
+                                <AnchorPane fx:id="secondFloorAnchorPane">
+                                    <ImageView fx:id="secondFloorImageView" onMouseClicked="#addNodeOnClick" pickOnBounds="true" preserveRatio="true">
+                                        <Image url="@../maps/02_thesecondfloor.png" />
+                                    </ImageView>
+                                </AnchorPane>
+                            </GesturePane>
+                            <graphic>
+                                <ImageView fitHeight="70.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true">
+                                    <image>
+                                        <Image url="@../images/Floor_Icon/2F.png" />
+                                    </image>
+                                </ImageView>
+                            </graphic>
+                        </Tab>
+                        <Tab id="1" text=" ">
+                            <GesturePane fx:id="firstFloorGesturePane">
+                                <AnchorPane fx:id="firstFloorAnchorPane">
+                                    <ImageView fx:id="firstFloorImageView" onMouseClicked="#addNodeOnClick" pickOnBounds="true" preserveRatio="true">
+                                        <Image url="@../maps/01_thefirstfloor.png" />
+                                    </ImageView>
+                                </AnchorPane>
+                            </GesturePane>
+                            <graphic>
+                                <ImageView fitHeight="70.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true">
+                                    <image>
+                                        <Image url="@../images/Floor_Icon/1F.png" />
+                                    </image>
+                                </ImageView>
+                            </graphic>
+                        </Tab>
+                        <Tab id="G">
+                            <GesturePane fx:id="groundFloorGesturePane">
+                                <AnchorPane fx:id="groundFloorAnchorPane">
+                                    <ImageView fx:id="groundFloorImageView" onMouseClicked="#addNodeOnClick" pickOnBounds="true" preserveRatio="true">
+                                        <Image url="@../maps/00_thegroundfloor.png" />
+                                    </ImageView>
+                                </AnchorPane>
+                            </GesturePane>
+                            <graphic>
+                                <ImageView fitHeight="70.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true">
+                                    <image>
+                                        <Image url="@../images/Floor_Icon/0F.png" />
+                                    </image>
+                                </ImageView>
+                            </graphic>
+                        </Tab>
+                        <Tab id="L1">
+                            <GesturePane fx:id="lowerLevel1GesturePane">
+                                <AnchorPane fx:id="lowerLevel1AnchorPane">
+                                    <ImageView fx:id="lowerLevel1ImageView" onMouseClicked="#addNodeOnClick" pickOnBounds="true" preserveRatio="true">
+                                        <Image url="@../maps/00_thelowerlevel1.png" />
+                                    </ImageView>
+                                </AnchorPane>
+                            </GesturePane>
+                            <graphic>
+                                <ImageView fitHeight="70.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true">
+                                    <image>
+                                        <Image url="@../images/Floor_Icon/1B.png" />
+                                    </image>
+                                </ImageView>
+                            </graphic>
+                        </Tab>
+                        <Tab id="L2">
+                            <GesturePane fx:id="lowerLevel2GesturePane">
+                                <AnchorPane fx:id="lowerLevel2AnchorPane">
+                                    <ImageView fx:id="lowerLevel2ImageView" onMouseClicked="#addNodeOnClick" pickOnBounds="true" preserveRatio="true">
+                                        <Image url="@../maps/00_thelowerlevel2.png" />
+                                    </ImageView>
+                                </AnchorPane>
+                            </GesturePane>
+                            <graphic>
+                                <ImageView fitHeight="70.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true">
+                                    <image>
+                                        <Image url="@../images/Floor_Icon/2B.png" />
+                                    </image>
+                                </ImageView>
+                            </graphic>
                         </Tab>
                     </JFXTabPane>
-                    <AnchorPane translateX="10" translateY="35" maxHeight="-Infinity" maxWidth="-Infinity"
-                                minHeight="-Infinity" minWidth="-Infinity" prefHeight="150.0" prefWidth="50.0"
-                                StackPane.alignment="TOP_LEFT">
-                        <JFXButton contentDisplay="CENTER" layoutX="4.0" layoutY="14.0" mnemonicParsing="false"
-                                   onAction="#zoom" prefWidth="100.0" styleClass="jfx-button-zoom"
-                                   stylesheets="@../css/background.css" text=" " textFill="WHITE">
+                    <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="150.0" prefWidth="50.0" translateX="10" translateY="35" StackPane.alignment="TOP_LEFT">
+                        <JFXButton contentDisplay="CENTER" layoutX="4.0" layoutY="14.0" mnemonicParsing="false" onAction="#zoom" prefWidth="100.0" styleClass="jfx-button-zoom" stylesheets="@../css/background.css" text=" " textFill="WHITE">
                             <font>
-                                <Font name="System Bold" size="14.0"/>
+                                <Font name="System Bold" size="14.0" />
                             </font>
                             <graphic>
                                 <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
-                                    <Image url="@../icon/zoom-in.png"/>
+                                    <Image url="@../images/zoom_in.png" />
                                 </ImageView>
                             </graphic>
                         </JFXButton>
-                        <JFXButton contentDisplay="CENTER" layoutX="4.0" layoutY="79.0" mnemonicParsing="false"
-                                   onAction="#unZoom" prefWidth="100.0" styleClass="jfx-button-zoom"
-                                   stylesheets="@../css/background.css" text=" " textFill="WHITE">
+                        <JFXButton contentDisplay="CENTER" layoutX="4.0" layoutY="79.0" mnemonicParsing="false" onAction="#unZoom" prefWidth="100.0" styleClass="jfx-button-zoom" stylesheets="@../css/background.css" text=" " textFill="WHITE">
                             <font>
-                                <Font name="System Bold" size="14.0"/>
+                                <Font name="System Bold" size="14.0" />
                             </font>
                             <graphic>
                                 <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
-                                    <Image url="@../icon/zoom-out.png"/>
+                                    <Image url="@../images/zoom_out.png" />
                                 </ImageView>
                             </graphic>
                         </JFXButton>
-                        <ImageView fx:id="questionMark" fitHeight="50.0" fitWidth="50.0" layoutX="15.0" layoutY="154.0"
-                                   pickOnBounds="true" preserveRatio="true">
-                            <Image url="@../icon/questionMark.png"/>
+                        <ImageView fx:id="questionMark" fitHeight="50.0" fitWidth="50.0" layoutX="15.0" layoutY="154.0" pickOnBounds="true" preserveRatio="true">
+                            <Image url="@../icon/questionMark.png" />
                         </ImageView>
                     </AnchorPane>
                 </children>

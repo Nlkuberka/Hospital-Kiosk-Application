@@ -1,8 +1,11 @@
 package pathfinding;
 
+import application.CurrentUser;
 import entities.Node;
 import javafx.animation.PathTransition;
 import javafx.scene.SubScene;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
@@ -10,7 +13,6 @@ import javafx.scene.shape.Path;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
-import javafx.scene.text.TextAlignment;
 import net.kurobako.gesturefx.GesturePane;
 
 public class CurrentObjects {
@@ -18,7 +20,7 @@ public class CurrentObjects {
     private Circle initCircle;
     private Circle destCircle;
     private PathTransition animation = null;
-    private Rectangle ant = null;
+    private ImageView ant = null;
     private PathHandler pathHandler;
     private AnchorPaneHandler anchorPaneHandler;
     private GesturePaneHandler gesturePaneHandler;
@@ -27,8 +29,10 @@ public class CurrentObjects {
     private SubScene contextMenu;
     private Text initNodeLabel;
     private Text destNodeLabel;
+    private Rectangle textBackingDest;
+    private Rectangle textBackingInit;
 
-    public CurrentObjects(int floorIndex, Circle initCircle, Circle destCircle, PathTransition animation, Rectangle currentAnt,
+    public CurrentObjects(int floorIndex, Circle initCircle, Circle destCircle, PathTransition animation, ImageView currentAnt,
                           PathHandler pathHandler, AnchorPaneHandler anchorPaneHandler, GesturePaneHandler gesturePaneHandler) {
         this.floorIndex = floorIndex;
         this.initCircle = initCircle;
@@ -46,8 +50,10 @@ public class CurrentObjects {
 
     void cancel() {
         this.clearNodeStyle();
-        this.clearInitDestIDs();
         this.clearAnimation();
+        this.clearContextMenu();
+        this.clearLabels();
+        this.clearInitDestIDs();
     }
 
     void clearContextMenu() {
@@ -69,20 +75,20 @@ public class CurrentObjects {
         this.initialID = null;
     }
 
-    void setInitialID(String initialID) {
-        this.initialID = initialID;
-    }
-
-    void setDestID(String destID) {
-        this.destID = destID;
-    }
-
     String getInitialID() {
         return initialID;
     }
 
+    void setInitialID(String initialID) {
+        this.initialID = initialID;
+    }
+
     String getDestID() {
         return destID;
+    }
+
+    void setDestID(String destID) {
+        this.destID = destID;
     }
 
     boolean anyNullEndNodes() {
@@ -94,11 +100,11 @@ public class CurrentObjects {
      */
     void clearNodeStyle() {
         if (initCircle != null) {
-            initCircle.setFill(Color.BLACK);
+            initCircle.setFill(Color.web("015080"));
             initCircle.setRadius(AnchorPaneHandler.nodeSizeIdle);
         }
         if (destCircle != null) {
-            destCircle.setFill(Color.BLACK);
+            destCircle.setFill(Color.web("015080"));
             destCircle.setRadius(AnchorPaneHandler.nodeSizeIdle);
         }
     }
@@ -125,9 +131,13 @@ public class CurrentObjects {
         for (int i = 0; i < Floors.values().length; i++) {
             anchorPaneHandler.getAnchorPaneAtFloor(i).getChildren().remove(this.initNodeLabel);
             anchorPaneHandler.getAnchorPaneAtFloor(i).getChildren().remove(this.destNodeLabel);
+            anchorPaneHandler.getAnchorPaneAtFloor(i).getChildren().remove(textBackingDest);
+            anchorPaneHandler.getAnchorPaneAtFloor(i).getChildren().remove(textBackingInit);
         }
         initNodeLabel = null;
         destNodeLabel = null;
+        textBackingDest = null;
+        textBackingInit = null;
     }
 
     public Text getInitNodeLabel() {
@@ -164,7 +174,7 @@ public class CurrentObjects {
 
     public void setInitCircle(Circle initCircle) {
         if (this.initCircle != null) {
-            this.initCircle.setFill(Color.BLACK);
+            this.initCircle.setFill(Color.web("015080"));
             this.initCircle.setRadius(AnchorPaneHandler.nodeSizeIdle);
         }
         if (initCircle != null) {
@@ -184,7 +194,7 @@ public class CurrentObjects {
 
     public void setDestCircle(Circle destCircle) {
         if (this.destCircle != null) {
-            this.destCircle.setFill(Color.BLACK);
+            this.destCircle.setFill(Color.web("015080"));
             this.destCircle.setRadius(AnchorPaneHandler.nodeSizeIdle);
         }
         if (destCircle != null) {
@@ -206,33 +216,78 @@ public class CurrentObjects {
         this.animation = animation;
     }
 
-    public Rectangle getAnt() {
+    public ImageView getAnt() {
         return ant;
     }
 
-    public void setAnt(Rectangle ant) {
-        this.ant = ant;
+    public void setAnt() {
+        ant = new ImageView();
+        if (CurrentUser.isWongFinding) {
+            ant.setImage(new Image(getClass().getResourceAsStream("/images/StickGif2.gif")));
+        } else if (initCircle.getCenterX() < destCircle.getCenterX()){
+            ant.setImage(new Image(getClass().getResourceAsStream("/images/StickGif.gif")));
+        } else {
+            ant.setImage(new Image(getClass().getResourceAsStream("/images/StickGif1.gif")));
+        }
     }
 
     private Text labelFactory(Node node) {
         Text text = new Text();
         text.setText(node.getLongName());
         text.setFont(Font.font(60));
-        text.setLayoutX(node.getXcoord() - text.getLayoutBounds().getWidth()/2);
-        text.setLayoutY(node.getYcoord() - 60);
+        text.setLayoutX(node.getXcoord() - text.getLayoutBounds().getWidth() / 2);
         //text.setStyle("-fx-background-color: #ffffff;"); // does not work
         return text;
+    }
+
+    private boolean initIsAbove()
+    {
+        return !(initCircle.getCenterY() > destCircle.getCenterY());
     }
 
     void newDestLabel(Node node) {
         Text text = labelFactory(node);
         this.destNodeLabel = text;
+        textBackingDest = new Rectangle(text.getLayoutBounds().getWidth() + 10, text.getLayoutBounds().getHeight());
+        textBackingDest.setFill(Color.RED);
+        textBackingDest.setLayoutX(text.getLayoutX() - 5);
+
+        if(initIsAbove())
+        {
+            text.setLayoutY(node.getYcoord() + 105);
+            textBackingDest.setLayoutY(text.getLayoutY() - 60);
+        } else {
+            text.setLayoutY(node.getYcoord() - 60);
+            textBackingDest.setLayoutY(text.getLayoutY() - 60);
+        }
+
+        textBackingDest.setArcHeight(30);
+        textBackingDest.setArcWidth(30);
+        textBackingDest.setOpacity(0.7);
+        anchorPaneHandler.getAnchorPaneAtFloor(Floors.getByID(node.getFloor()).getIndex()).getChildren().add(textBackingDest);
         anchorPaneHandler.getAnchorPaneAtFloor(Floors.getByID(node.getFloor()).getIndex()).getChildren().add(text);
     }
 
     void newInitLabel(Node node) {
         Text text = labelFactory(node);
         this.initNodeLabel = text;
+        textBackingInit = new Rectangle(text.getLayoutBounds().getWidth() + 10, text.getLayoutBounds().getHeight());
+        textBackingInit.setFill(Color.GREEN);
+        textBackingInit.setLayoutX(text.getLayoutX() - 5);
+
+        if(initIsAbove())
+        {
+            text.setLayoutY(node.getYcoord() - 60);
+            textBackingInit.setLayoutY(text.getLayoutY() - 60);
+        } else {
+            text.setLayoutY(node.getYcoord() + 105);
+            textBackingInit.setLayoutY(text.getLayoutY() - 60);
+        }
+
+        textBackingInit.setArcHeight(30);
+        textBackingInit.setArcWidth(30);
+        textBackingInit.setOpacity(0.7);
+        anchorPaneHandler.getAnchorPaneAtFloor(Floors.getByID(node.getFloor()).getIndex()).getChildren().add(textBackingInit);
         anchorPaneHandler.getAnchorPaneAtFloor(Floors.getByID(node.getFloor()).getIndex()).getChildren().add(text);
     }
 }

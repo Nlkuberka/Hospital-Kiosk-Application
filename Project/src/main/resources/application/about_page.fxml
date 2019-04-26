@@ -11,6 +11,7 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.FlowPane?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.StackPane?>
@@ -26,7 +27,7 @@
          <top>
             <MenuBar style="-fx-background-color: #ffffff;" stylesheets="@../css/background.css" BorderPane.alignment="CENTER">
               <menus>
-                <Menu fx:id="back" mnemonicParsing="false" onAction="#setBack" onShowing="#setBack" text="Back">
+                <Menu fx:id="back" mnemonicParsing="false" onAction="#setBack" onShowing="#setBack" text="Home">
                   <items>
                     <MenuItem fx:id="backMenuItem" mnemonicParsing="false" text="Go back to previous page" />
                   </items>
@@ -94,6 +95,14 @@
                                  <GridPane.margin>
                                     <Insets left="50.0" />
                                  </GridPane.margin>
+                              </Text>
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="The Brigham &amp; Women’s Hospital maps and data used in this application are copyrighted and provided for the sole use of educational purposes." GridPane.rowIndex="4">
+                                 <GridPane.margin>
+                                    <Insets left="50.0" top="70.0" />
+                                 </GridPane.margin>
+                                 <font>
+                                    <Font size="14.0" />
+                                 </font>
                               </Text>
                            </children>
                            <padding>
@@ -323,7 +332,7 @@
                                     <Insets left="32.0" />
                                  </GridPane.margin>
                               </Text>
-                              <Text fill="#013655" strokeType="OUTSIDE" strokeWidth="0.0" text="Prof. Wilson Wong" GridPane.columnIndex="2" GridPane.rowIndex="14" GridPane.valignment="TOP">
+                              <Text fill="#013655" strokeType="OUTSIDE" strokeWidth="0.0" text="Prof. Wilson Wong" GridPane.columnIndex="5" GridPane.rowIndex="1" GridPane.valignment="TOP">
                                  <font>
                                     <Font name="System Bold" size="24.0" />
                                  </font>
@@ -331,6 +340,90 @@
                                     <Insets left="105.0" />
                                  </GridPane.margin>
                               </Text>
+                           </children>
+                           <padding>
+                              <Insets left="20.0" />
+                           </padding>
+                        </GridPane>
+                     </content>
+                  </Tab>
+                  <Tab style="-fx-background-color: #015080;" text="Credits ">
+                     <content>
+                        <GridPane>
+                           <columnConstraints>
+                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                           </columnConstraints>
+                           <rowConstraints>
+                              <RowConstraints minHeight="10.0" percentHeight="25.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="10.0" percentHeight="20.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="10.0" percentHeight="5.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="10.0" percentHeight="5.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="CENTER" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                           </rowConstraints>
+                           <children>
+                              <ImageView fitHeight="150.0" fitWidth="250.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../images/wpi_logo.png" />
+                                 </image>
+                                 <GridPane.margin>
+                                    <Insets left="10.0" />
+                                 </GridPane.margin>
+                              </ImageView>
+                              <Text fill="#015080" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-weight: Bold Italic; -fx-font-size: 48;" text="Credits" GridPane.rowIndex="1">
+                                 <font>
+                                    <Font size="36.0" />
+                                 </font>
+                                 <GridPane.margin>
+                                    <Insets left="80.0" />
+                                 </GridPane.margin>
+                              </Text>
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Team:             E" GridPane.columnIndex="1" GridPane.rowIndex="2" GridPane.valignment="TOP">
+                                 <font>
+                                    <Font size="24.0" />
+                                 </font>
+                                 <GridPane.margin>
+                                    <Insets />
+                                 </GridPane.margin>
+                              </Text>
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="API:                Patient Registration" GridPane.columnIndex="1" GridPane.rowIndex="3" GridPane.valignment="TOP">
+                                 <font>
+                                    <Font size="24.0" />
+                                 </font>
+                                 <GridPane.margin>
+                                    <Insets />
+                                 </GridPane.margin>
+                              </Text>
+                              <FlowPane GridPane.columnIndex="1" GridPane.rowIndex="4" GridPane.valignment="CENTER">
+                                 <GridPane.margin>
+                                    <Insets top="20.0" />
+                                 </GridPane.margin>
+                                 <children>
+                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="External API:  GestureFX">
+                                       <font>
+                                          <Font size="24.0" />
+                                       </font>
+                                    </Text>
+                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text=" CalendarFX">
+                                       <font>
+                                          <Font size="24.0" />
+                                       </font>
+                                       <FlowPane.margin>
+                                          <Insets left="140.0" />
+                                       </FlowPane.margin>
+                                    </Text>
+                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text=" JFoenix">
+                                       <font>
+                                          <Font size="24.0" />
+                                       </font>
+                                       <FlowPane.margin>
+                                          <Insets left="140.0" />
+                                       </FlowPane.margin>
+                                    </Text>
+                                 </children>
+                              </FlowPane>
                            </children>
                            <padding>
                               <Insets left="20.0" />

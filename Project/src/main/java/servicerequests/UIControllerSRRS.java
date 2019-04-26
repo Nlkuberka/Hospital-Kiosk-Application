@@ -17,7 +17,6 @@ import javafx.scene.Scene;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextFormatter;
-import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.StackPane;
@@ -58,8 +57,7 @@ public class UIControllerSRRS extends UIController {
     public JFXTextField OtherServiceField;
     public TextArea additionalCommentField;
     public StackPane parentPane;
-    @FXML
-    private ImageView backgroundImage;
+
     private String serviceType;
     private String finalMessage;
     private RoomCategoryFilterHelper filterHelper;
@@ -80,12 +78,11 @@ public class UIControllerSRRS extends UIController {
 
     @FXML
     public void initialize() {
-        backgroundImage.fitWidthProperty().bind(primaryStage.widthProperty());
-
         serviceMessage.setTextFormatter(new TextFormatter<String>(e ->
                 e.getControlNewText().length() <= 150 ? e : null
         ));
 
+        serviceType = "Religious Services";
         finalMessage = "";
 
         denomCheckBoxes = new LinkedList<>();
@@ -131,6 +128,9 @@ public class UIControllerSRRS extends UIController {
     }
 
     @FXML
+    private JFXTextField phoneNum;
+
+    @FXML
     public void onShow() {
         for(int i = 0; i < serviceCheckBoxes.size(); i++) {
             serviceCheckBoxes.get(i).setSelected(false);
@@ -146,10 +146,6 @@ public class UIControllerSRRS extends UIController {
         serviceMessage.setText("");
     }
 
-    public void setServiceType(String serviceType) {
-        this.serviceType = serviceType;
-    }
-
     @FXML
     private void setConfirmButton() throws IOException {
         if(!enablePolicy())
@@ -159,23 +155,32 @@ public class UIControllerSRRS extends UIController {
 
         String roomShortName = (String) roomSelect.getValue();
         String nodeID = filterHelper.getNodeID();
+        String phoneNumber = phoneNum.getText();
+
+        if (!phoneNumber.matches("\\d{10}") && !phoneNumber.isEmpty()) {
+            popupMessage("Please Enter A Valid Phone Number", true);
+            return;
+        }
+
         String message = finalMessage + "\n" + additionalCommentField.getText();
 
         if (message.length() > 149) {
             message = message.substring(0, 149);
         }
 
+        ServiceRequest sr = new ServiceRequest(nodeID, serviceType, phoneNumber + " " + message, CurrentUser.user.getUserID(), false, null);
+        sr.setServiceID(sr.getTimeStamp());
 
-        ServiceRequest sr = new ServiceRequest(nodeID, serviceType, message, CurrentUser.user.getUserID(), false, null);
         Connection conn = DBControllerSR.dbConnect();
         DBControllerSR.addServiceRequest(sr, conn);
         DBControllerSR.closeConnection(conn);
-        this.goToScene(UIController.SERVICE_REQUEST_MAIN);
+        setCancelButton();
     }
 
     @FXML
     private void setCancelButton() {
-        this.goToScene(UIController.SERVICE_REQUEST_MAIN);
+        Stage stage = (Stage) roomSelect.getScene().getWindow();
+        stage.close();
     }
 
     private void setDenomination(LinkedList<CheckBox> denomCheckBoxes) {
@@ -237,11 +242,6 @@ public class UIControllerSRRS extends UIController {
         for (CheckBox serviceCheckBox : serviceCheckBoxes) {
             serviceCheckBox.setSelected(false);
         }
-    }
-
-    @FXML
-    public void setCancelButton(ActionEvent actionEvent) {
-        goToScene(UIController.SERVICE_REQUEST_MAIN);
     }
 
     private boolean enablePolicy() throws IOException {

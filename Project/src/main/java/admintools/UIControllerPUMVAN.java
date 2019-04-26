@@ -5,6 +5,7 @@ import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextField;
 import database.DBController;
 import database.DBControllerNE;
+import entities.Graph;
 import entities.Node;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
@@ -145,6 +146,9 @@ public class UIControllerPUMVAN extends UIController {
                 if (!DBControllerNE.addNode(node, conn)) {
                     TextField_NodeID.clear();
                     return;
+                }
+                else {
+                    Graph.getGraph().addNode(node);
                 }
             } else if (action.equals("EDIT")) {
                 DBControllerNE.updateNode(node, conn);

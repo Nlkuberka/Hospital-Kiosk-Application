@@ -26,14 +26,14 @@
          <top>
             <MenuBar blendMode="LIGHTEN" nodeOrientation="LEFT_TO_RIGHT" prefWidth="900.0" style="-fx-background-color: #ffffff;" stylesheets="@../css/background.css" BorderPane.alignment="CENTER">
               <menus>
-                <Menu mnemonicParsing="false" text="Back">
+                <Menu mnemonicParsing="false" onShowing="#setBackButton" text="Back">
                   <items>
                     <MenuItem fx:id="backButton" mnemonicParsing="false" onAction="#setBackButton" text="Go back to previous page" />
                   </items>
                 </Menu>
-                <Menu fx:id="homeButton" mnemonicParsing="false" onAction="#setHomeButton" onShowing="#setHomeButton" text="Home">
+                <Menu fx:id="homeButton" mnemonicParsing="false" onShowing="#setHomeButton" text="Home">
                      <items>
-                        <MenuItem mnemonicParsing="false" text="HOME" />
+                        <MenuItem text="HOME" />
                      </items>
                   </Menu>
               </menus>

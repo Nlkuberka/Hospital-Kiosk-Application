@@ -2,13 +2,13 @@
 
 <?import com.jfoenix.controls.JFXButton?>
 <?import com.jfoenix.controls.JFXTabPane?>
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
@@ -28,11 +28,6 @@
          <top>
             <MenuBar blendMode="ADD" style="-fx-background-color: white;" stylesheets="@../css/background.css" BorderPane.alignment="CENTER">
               <menus>
-                <Menu mnemonicParsing="false" text="Back">
-                  <items>
-                    <MenuItem fx:id="backMenuItem" mnemonicParsing="false" onAction="#setBackMenuItem" text="Go back to previous page" />
-                  </items>
-                </Menu>
                   <Menu fx:id="homeButton" mnemonicParsing="false" onShowing="#setHomeButton" text="Home">
                      <items>
                         <MenuItem mnemonicParsing="false" text="HOME" />
@@ -56,101 +51,171 @@
                         <Font name="System Bold" size="40.0" />
                      </font>
                   </Text>
-                  <JFXTabPane fx:id="tabs" stylesheets="@../css/background.css" GridPane.rowIndex="1">
+                  <JFXTabPane fx:id="tabs" style="-fx-text-fill: #015080;" stylesheets="@../css/background.css" GridPane.rowIndex="1">
                      <tabs>
-                        <Tab text="A* Algorithm">
+                        <Tab style="-fx-background-color: #015080;" text="A* Algorithm">
                           <content>
-                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="413.0" prefWidth="900.0" style="-fx-background-color: #ffffff;">
+                              <GridPane style="-fx-background-color: #ffffff;">
+                                 <columnConstraints>
+                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
+                                 </columnConstraints>
+                                 <rowConstraints>
+                                    <RowConstraints minHeight="10.0" percentHeight="25.0" vgrow="SOMETIMES" />
+                                    <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                                    <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                                 </rowConstraints>
                                  <children>
-                                    <Text fill="#015080" layoutX="132.0" layoutY="82.0" strokeType="OUTSIDE" strokeWidth="0.0" text="A* Algorithm" AnchorPane.leftAnchor="110.0" AnchorPane.topAnchor="40.0">
+                                    <Text fill="#015080" strokeType="OUTSIDE" strokeWidth="0.0" text="A* Algorithm">
                                        <font>
                                           <Font name="System Bold" size="30.0" />
                                        </font>
+                                       <GridPane.margin>
+                                          <Insets left="200.0" />
+                                       </GridPane.margin>
                                     </Text>
-                                    <Text fill="#015080" layoutX="110.0" layoutY="124.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Introduction: Prioritizes nodes to search base on their estimated distance to the destination node." AnchorPane.leftAnchor="110.0" AnchorPane.topAnchor="105.0">
+                                    <Text fill="#015080" strokeType="OUTSIDE" strokeWidth="0.0" text="Introduction: Prioritizes nodes to search base on their estimated distance to the destination node." GridPane.rowIndex="1" GridPane.valignment="TOP">
                                        <font>
                                           <Font size="18.0" />
                                        </font>
+                                       <GridPane.margin>
+                                          <Insets left="200.0" />
+                                       </GridPane.margin>
                                     </Text>
-                                    <JFXButton layoutX="356.0" layoutY="322.0" onAction="#changeAlgorithm" styleClass="jfx-button-login" stylesheets="@../css/background.css" text="Set A* Algorithm" AnchorPane.leftAnchor="356.0" AnchorPane.topAnchor="322.0" />
+                                    <JFXButton onAction="#changeAlgorithm" styleClass="jfx-button-login" stylesheets="@../css/background.css" text="Set A* Algorithm" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
                                  </children>
-                              </AnchorPane>
+                              </GridPane>
                           </content>
                         </Tab>
-                        <Tab text="Depth First Algorithm">
+                        <Tab style="-fx-background-color: #015080;" text="Depth First Algorithm">
                           <content>
-                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="413.0" prefWidth="900.0" style="-fx-background-color: #ffffff;" stylesheets="@../css/background.css">
+                              <GridPane style="-fx-background-color: #ffffff;">
+                                 <columnConstraints>
+                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
+                                 </columnConstraints>
+                                 <rowConstraints>
+                                    <RowConstraints minHeight="10.0" percentHeight="25.0" vgrow="SOMETIMES" />
+                                    <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                                    <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                                 </rowConstraints>
                                  <children>
-                                    <Text fill="#015080" layoutX="106.0" layoutY="68.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Depth First Algorithm" AnchorPane.leftAnchor="110.0" AnchorPane.topAnchor="40.0">
+                                    <Text fill="#015080" strokeType="OUTSIDE" strokeWidth="0.0" text="Depth First Algorithm">
                                        <font>
                                           <Font name="System Bold" size="30.0" />
                                        </font>
+                                       <GridPane.margin>
+                                          <Insets left="200.0" />
+                                       </GridPane.margin>
                                     </Text>
-                                    <Text fill="#015080" layoutX="110.0" layoutY="124.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Introduction: Fully explores each branch of the graph before moving on to the next." AnchorPane.leftAnchor="110.0" AnchorPane.topAnchor="105.0">
+                                    <Text fill="#015080" strokeType="OUTSIDE" strokeWidth="0.0" text="Introduction: Fully explores each branch of the graph before moving on to the next." GridPane.rowIndex="1" GridPane.valignment="TOP">
                                        <font>
                                           <Font size="18.0" />
                                        </font>
+                                       <GridPane.margin>
+                                          <Insets left="200.0" />
+                                       </GridPane.margin>
                                     </Text>
-                                    <JFXButton layoutX="278.0" layoutY="324.0" onAction="#changeAlgorithm" styleClass="jfx-button-login" stylesheets="@../css/background.css" text="Set Breadth For Search Algorithm" AnchorPane.leftAnchor="278.0" AnchorPane.topAnchor="324.0" />
+                                    <JFXButton onAction="#changeAlgorithm" styleClass="jfx-button-login" stylesheets="@../css/background.css" text="Set Breadth For Search Algorithm" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
                                  </children>
-                              </AnchorPane>
+                              </GridPane>
                           </content>
                         </Tab>
-                        <Tab text="Breath First Algorithm">
+                        <Tab style="-fx-background-color: #015080;" text="Breath First Algorithm">
                           <content>
-                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="413.0" prefWidth="900.0" style="-fx-background-color: #ffffff;">
+                              <GridPane style="-fx-background-color: #ffffff;">
+                                 <columnConstraints>
+                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
+                                 </columnConstraints>
+                                 <rowConstraints>
+                                    <RowConstraints minHeight="10.0" percentHeight="25.0" vgrow="SOMETIMES" />
+                                    <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                                    <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                                 </rowConstraints>
                                  <children>
-                                    <Text fill="#015080" strokeType="OUTSIDE" strokeWidth="0.0" text="Breath First Algorithm" AnchorPane.leftAnchor="110.0" AnchorPane.topAnchor="40.0">
+                                    <Text fill="#015080" strokeType="OUTSIDE" strokeWidth="0.0" text="Breath First Algorithm">
                                        <font>
                                           <Font name="System Bold" size="30.0" />
                                        </font>
+                                       <GridPane.margin>
+                                          <Insets left="200.0" />
+                                       </GridPane.margin>
                                     </Text>
-                                    <Text fill="#015080" strokeType="OUTSIDE" strokeWidth="0.0" text="Introduction: Searches close to the start node, slowly moving outward." AnchorPane.leftAnchor="110.0" AnchorPane.topAnchor="105.0">
+                                    <Text fill="#015080" strokeType="OUTSIDE" strokeWidth="0.0" text="Introduction: Searches close to the start node, slowly moving outward." GridPane.rowIndex="1" GridPane.valignment="TOP">
                                        <font>
                                           <Font size="18.0" />
                                        </font>
+                                       <GridPane.margin>
+                                          <Insets left="200.0" />
+                                       </GridPane.margin>
                                     </Text>
-                                    <JFXButton layoutX="278.0" layoutY="319.0" onAction="#changeAlgorithm" styleClass="jfx-button-login" stylesheets="@../css/background.css" text="Set Breadth For Search Algorithm" AnchorPane.topAnchor="322.0" />
+                                    <JFXButton onAction="#changeAlgorithm" styleClass="jfx-button-login" stylesheets="@../css/background.css" text="Set Breadth For Search Algorithm" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
                                  </children>
-                              </AnchorPane>
+                              </GridPane>
                           </content>
                         </Tab>
-                        <Tab text="Bellman-Ford Algorithm">
+                        <Tab style="-fx-background-color: #015080;" text="Bellman-Ford Algorithm">
                            <content>
-                              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="413.0" prefWidth="900.0" style="-fx-background-color: #ffffff;">
+                              <GridPane style="-fx-background-color: #ffffff;">
+                                 <columnConstraints>
+                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
+                                 </columnConstraints>
+                                 <rowConstraints>
+                                    <RowConstraints minHeight="10.0" percentHeight="25.0" vgrow="SOMETIMES" />
+                                    <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                                    <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                                 </rowConstraints>
                                  <children>
-                                    <Text fill="#015080" layoutX="132.0" layoutY="82.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Bellman-Ford Algorithm" AnchorPane.leftAnchor="110.0" AnchorPane.topAnchor="40.0">
+                                    <Text fill="#015080" strokeType="OUTSIDE" strokeWidth="0.0" text="Bellman-Ford Algorithm">
                                        <font>
                                           <Font name="System Bold" size="30.0" />
                                        </font>
+                                       <GridPane.margin>
+                                          <Insets left="200.0" />
+                                       </GridPane.margin>
                                     </Text>
-                                    <Text fill="#015080" layoutX="110.0" layoutY="124.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Introduction: Iterates over all edges until the shortest path is found." AnchorPane.leftAnchor="110.0" AnchorPane.topAnchor="105.0">
+                                    <Text fill="#015080" strokeType="OUTSIDE" strokeWidth="0.0" text="Introduction: Iterates over all edges until the shortest path is found." GridPane.rowIndex="1" GridPane.valignment="TOP">
                                        <font>
                                           <Font size="18.0" />
                                        </font>
+                                       <GridPane.margin>
+                                          <Insets left="200.0" />
+                                       </GridPane.margin>
                                     </Text>
-                                    <JFXButton layoutX="356.0" layoutY="322.0" onAction="#changeAlgorithm" styleClass="jfx-button-login" stylesheets="@../css/background.css" text="Set Bellman-Ford Algorithm" AnchorPane.leftAnchor="356.0" AnchorPane.topAnchor="322.0" />
+                                    <JFXButton onAction="#changeAlgorithm" styleClass="jfx-button-login" stylesheets="@../css/background.css" text="Set Bellman-Ford Algorithm" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
                                  </children>
-                              </AnchorPane>
+                              </GridPane>
                            </content>
                         </Tab>
-                        <Tab text="Dijkstra's Algorithm">
+                        <Tab style="-fx-background-color: #015080;" text="Dijkstra's Algorithm">
                            <content>
-                              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="413.0" prefWidth="900.0" style="-fx-background-color: #ffffff;">
+                              <GridPane style="-fx-background-color: #ffffff;">
+                                 <columnConstraints>
+                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
+                                 </columnConstraints>
+                                 <rowConstraints>
+                                    <RowConstraints minHeight="10.0" percentHeight="25.0" vgrow="SOMETIMES" />
+                                    <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                                    <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                                 </rowConstraints>
                                  <children>
-                                    <Text fill="#015080" layoutX="132.0" layoutY="82.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Dijkstra's Algorithm" AnchorPane.leftAnchor="110.0" AnchorPane.topAnchor="40.0">
+                                    <Text fill="#015080" strokeType="OUTSIDE" strokeWidth="0.0" text="Dijkstra's Algorithm">
                                        <font>
                                           <Font name="System Bold" size="30.0" />
                                        </font>
+                                       <GridPane.margin>
+                                          <Insets left="200.0" />
+                                       </GridPane.margin>
                                     </Text>
-                                    <Text fill="#015080" layoutX="110.0" layoutY="124.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Introduction: Prioritizes nodes to search base on their distance from the start node." AnchorPane.leftAnchor="110.0" AnchorPane.topAnchor="105.0">
+                                    <Text fill="#015080" strokeType="OUTSIDE" strokeWidth="0.0" text="Introduction: Prioritizes nodes to search base on their distance from the start node." GridPane.rowIndex="1" GridPane.valignment="TOP">
                                        <font>
                                           <Font size="18.0" />
                                        </font>
+                                       <GridPane.margin>
+                                          <Insets left="200.0" />
+                                       </GridPane.margin>
                                     </Text>
-                                    <JFXButton layoutX="356.0" layoutY="322.0" onAction="#changeAlgorithm" styleClass="jfx-button-login" stylesheets="@../css/background.css" text="Set Dijkstra's Algorithm" AnchorPane.leftAnchor="356.0" AnchorPane.topAnchor="322.0" />
+                                    <JFXButton onAction="#changeAlgorithm" styleClass="jfx-button-login" stylesheets="@../css/background.css" text="Set Dijkstra's Algorithm" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
                                  </children>
-                              </AnchorPane>
+                              </GridPane>
                            </content>
                         </Tab>
                      </tabs>

@@ -13,9 +13,12 @@ import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
+import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 import java.lang.reflect.Method;
 import java.util.HashMap;
@@ -33,10 +36,9 @@ public class UIController {
     // The various scenes that this UIController handles
     public static final String LOGIN_MAIN = "LM";
     public static final String WELCOME_MAIN = "WM";
-    public static final String GUEST_MAIN_MENU_MAIN = "GMMM";
-    public static final String USER_MAIN_MENU_MAIN = "UMMM";
     public static final String ADMIN_MAIN_MENU_MAIN = "AMMM";
     public static final String ABOUT_PAGE= "AP";
+    public static final String USER_RESOLVE_SERVICE_REQUESTS="URS";
 
     public static final String PATHFINDING_MAIN = "PFM";
 
@@ -46,6 +48,7 @@ public class UIController {
     public static final String RESERVATIONS_CALENDAR_VIEW = "RVCV";
 
     public static final String ADMIN_TOOLS_MAIN = "ATM";
+    public static final String ADMIN_RESERVATION_MAIN="ARM";
     public static final String ADMIN_TOOLS_VIEW_NODES = "ATVN";
     public static final String ADMIN_TOOLS_VIEW_EDGES = "ATVE";
     public static final String ADMIN_TOOLS_VIEW_SERVICE_REQUESTS = "ATVSR";
@@ -53,28 +56,21 @@ public class UIController {
     public static final String ADMIN_TOOLS_VIEW_USERS = "ATVU";
     public static final String ADMIN_TOOLS_CHANGE_ALGORITHM = "ATCA";
     public static final String ADMIN_TOOLS_MAP_VIEW = "ATMV";
+    public static final String ADMIN_TOOLS_ADD_NODE_POPUP = "PUMVAN";
     public static final String ADMIN_TOOLS_EDIT_RESERVATIONS = "ATER";
+    public static final String ADMIN_TOOLS_APPLICATION_SETTING = "ATAS";
 
-    public static final String SERVICE_REQUEST_MAIN = "SRM";
 //    public static final String SERVICE_REQUEST_BASE = "SRB";
-    public static final String SERVICE_REQUEST_SANITATION = "SRSA";
-    public static final String SERVICE_REQUEST_INTERPRETER = "SRIN";
-
-
-    public static final String SERVICE_REQUEST_PRESCRIPTION_SERVICES_MAIN = "SRPSM";
-    public static final String SERVICE_REQUEST_IT = "SRIT";
+    public static final String SERVICE_REQUEST_OTHER_MAIN = "SRO";
     public static final String SERVICE_REQUEST_BABYSITTING = "SRB";
     public static final String SERVICE_REQUEST_FLOWER_DELIVERY = "SRFD";
-    public static final String SERVICE_REQUEST_SECURITY = "SRS";
-    public static final String SERVICE_REQUEST_TRANSPORT = "SRET";
-
     public static final String SERVICE_REQUEST_RELIGIOUS_SERVICES = "SRRS";
-
     public static final String SERVICE_REQUEST_AV_EQUIPMENT = "SRAVE";
+    public static final String SPLASHSCREEN = "SS";
 
     // The starting width and height of the window
-    private static final int WIDTH = 1280;
-    private static final int HEIGHT = 720;
+    public static final int WIDTH = 1280;
+    public static final int HEIGHT = 720;
     private static final int MIN_WIDTH = 1280;
     private static final int MIN_HEIGHT = 720;
 
@@ -90,6 +86,7 @@ public class UIController {
     private static Map<String, String> sceneFiles;
     private static Map<String, String> sceneTitles;
     private static Map<String, Parent> sceneParents;
+    public static final SessionTimeoutThread SESSION_TIMEOUT_THREAD = new SessionTimeoutThread();
 
     /**
      * Constructor
@@ -133,24 +130,18 @@ public class UIController {
         sceneFiles.put(UIController.LOGIN_MAIN, "/application/login_main.fxml");
         sceneTitles.put(UIController.LOGIN_MAIN, "Login Screen");
 
-        sceneFiles.put(UIController.WELCOME_MAIN, "/application/welcome_main.fxml");
-        sceneTitles.put(UIController.WELCOME_MAIN, "Welcome Screen");
-
         sceneFiles.put(UIController.ABOUT_PAGE, "/application/about_page.fxml");
         sceneTitles.put(UIController.ABOUT_PAGE, "About Page");
-        // Main Menus
-        sceneFiles.put(UIController.GUEST_MAIN_MENU_MAIN, "/guest_main_menu_main.fxml");
-        sceneTitles.put(UIController.GUEST_MAIN_MENU_MAIN, "Main Menu");
 
-        sceneFiles.put(UIController.USER_MAIN_MENU_MAIN, "/application/user_main_menu_main.fxml");
-        sceneTitles.put(UIController.USER_MAIN_MENU_MAIN, "Main Menu");
 
-        sceneFiles.put(UIController.ADMIN_MAIN_MENU_MAIN, "/admintools/admin_main_menu_main.fxml");
-        sceneTitles.put(UIController.ADMIN_MAIN_MENU_MAIN, "Main Menu");
+
 
         // Admin Tools
         sceneFiles.put(UIController.ADMIN_TOOLS_MAIN, "/admintools/admin_tools_main.fxml");
         sceneTitles.put(UIController.ADMIN_TOOLS_MAIN, "Admin Tools - Main");
+
+        sceneFiles.put(UIController.ADMIN_RESERVATION_MAIN, "/admintools/admin_reservation_main.fxml");
+        sceneTitles.put(UIController.ADMIN_RESERVATION_MAIN, "Admin Tools - Main");
 
         sceneFiles.put(UIController.ADMIN_TOOLS_VIEW_EDGES, "/admintools/admin_tools_view_edges.fxml");
         sceneTitles.put(UIController.ADMIN_TOOLS_VIEW_EDGES, "Admin Tools - View Edges");
@@ -169,15 +160,19 @@ public class UIController {
         sceneFiles.put((UIController.ADMIN_TOOLS_MAP_VIEW), "/admintools/admin_tools_map_view.fxml");
         sceneTitles.put((UIController.ADMIN_TOOLS_MAP_VIEW), "Admin Tools ; Map View");
 
+        sceneFiles.put(UIController.ADMIN_TOOLS_ADD_NODE_POPUP, "/admintools/ATMV_addNode_popup.fxml");
+        sceneTitles.put(UIController.ADMIN_TOOLS_ADD_NODE_POPUP, "Admin Tools ; Add or Edit Node");
+
         sceneFiles.put(UIController.ADMIN_TOOLS_EDIT_RESERVATIONS, "/admintools/admin_tools_edit_reservations.fxml");
         sceneTitles.put(UIController.ADMIN_TOOLS_EDIT_RESERVATIONS, "Admin Tools - Edit Reservation");
 
-
+        sceneFiles.put(UIController.ADMIN_TOOLS_APPLICATION_SETTING, "/admintools/admin_tools_application_setting.fxml");
+        sceneTitles.put(UIController.ADMIN_TOOLS_APPLICATION_SETTING, "Admin Tools - Application Setting");
 
 
         // Service Request
-        sceneFiles.put(UIController.SERVICE_REQUEST_MAIN, "/servicerequests/service_request_main.fxml");
-        sceneTitles.put(UIController.SERVICE_REQUEST_MAIN, "Service Request - Main");
+        sceneFiles.put(UIController.USER_RESOLVE_SERVICE_REQUESTS, "/servicerequests/user_resolve_service_requests.fxml");
+        sceneTitles.put(UIController.USER_RESOLVE_SERVICE_REQUESTS, "User Resolve Service Request Page");
 
         sceneFiles.put(UIController.SERVICE_REQUEST_AV_EQUIPMENT, "/servicerequests/service_request_audio_visual.fxml");
         sceneTitles.put(UIController.SERVICE_REQUEST_AV_EQUIPMENT, "Service Request - Audio Visual");
@@ -185,30 +180,15 @@ public class UIController {
         sceneFiles.put(UIController.SERVICE_REQUEST_BABYSITTING, "/servicerequests/service_request_babysitting.fxml");
         sceneTitles.put(UIController.SERVICE_REQUEST_BABYSITTING, "Service Request - Babysitting");
 
-        sceneFiles.put(UIController.SERVICE_REQUEST_IT, "/servicerequests/service_request_It.fxml");
-        sceneTitles.put(UIController.SERVICE_REQUEST_IT, "Service Request - IT");
-
-        sceneFiles.put(UIController.SERVICE_REQUEST_PRESCRIPTION_SERVICES_MAIN, "/servicerequests/service_request_prescription_services_main.fxml");
-        sceneTitles.put(UIController.SERVICE_REQUEST_PRESCRIPTION_SERVICES_MAIN, "Service Request - Prescription Services");
+        sceneFiles.put(UIController.SERVICE_REQUEST_OTHER_MAIN, "/servicerequests/service_request_other_main.fxml");
+        sceneTitles.put(UIController.SERVICE_REQUEST_OTHER_MAIN, "Service Request - Prescription Services");
 
         sceneFiles.put(UIController.SERVICE_REQUEST_FLOWER_DELIVERY, "/servicerequests/service_request_flower_delivery.fxml");
         sceneTitles.put(UIController.SERVICE_REQUEST_FLOWER_DELIVERY, "Service Request - Flower Delivery");
 
-
-        sceneFiles.put(UIController.SERVICE_REQUEST_SANITATION, "/servicerequests/service_request_sanitation.fxml");
-        sceneTitles.put(UIController.SERVICE_REQUEST_SANITATION, "Service Request - Sanitation");
-
-        sceneFiles.put(UIController.SERVICE_REQUEST_SECURITY, "/servicerequests/service_request_security.fxml");
-        sceneTitles.put(UIController.SERVICE_REQUEST_SECURITY, "Service Request - Security");
-
         sceneFiles.put(UIController.SERVICE_REQUEST_RELIGIOUS_SERVICES, "/servicerequests/service_request_religious_services.fxml");
         sceneTitles.put(UIController.SERVICE_REQUEST_RELIGIOUS_SERVICES, "Service Request - Religious Services");
 
-        sceneFiles.put(UIController.SERVICE_REQUEST_INTERPRETER, "/servicerequests/service_request_interpreter.fxml");
-        sceneTitles.put(UIController.SERVICE_REQUEST_INTERPRETER, "Service Request - Interpreter");
-
-        sceneFiles.put(UIController.SERVICE_REQUEST_TRANSPORT, "/servicerequests/service_request_transport.fxml");
-        sceneTitles.put(UIController.SERVICE_REQUEST_TRANSPORT, "Service Request - Transport");
 
         // Reservations
         sceneFiles.put(UIController.RESERVATIONS_MAIN, "/reservations/reservations_main.fxml");
@@ -228,8 +208,12 @@ public class UIController {
         sceneTitles.put(UIController.PATHFINDING_MAIN, "Path Finding Main");
 
         // Popups
-        sceneFiles.put(UIController.POPUP_DIRECTIONS, "/direction_popup.fxml");
+        sceneFiles.put(UIController.POPUP_DIRECTIONS, "/directions_popup.fxml");
         sceneTitles.put(UIController.POPUP_DIRECTIONS, "Popup Window For Directions");
+
+        // SplashScreen
+        sceneFiles.put(SPLASHSCREEN, "/splashScreen.fxml");
+        sceneTitles.put(SPLASHSCREEN, "SplashScreen");
     }
 
     /**
@@ -242,11 +226,9 @@ public class UIController {
     protected UIController goToScene(String sceneString, DayView dayCal) {
         Scene scene = scenes.get(sceneString);
 
-
         // If the scene has not yet been created
         if(scene == null) {
             try {
-                //FXMLLoader fxmlLoader = new FXMLLoader(new File(System.getProperty("user.dir") + "/resources" + sceneFiles.get(sceneString)).toURI().toURL());
                 FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(sceneFiles.get(sceneString)));
                 fxmlLoader.setRoot(dayCal);
                 Parent root = fxmlLoader.load();
@@ -263,8 +245,11 @@ public class UIController {
         rootPane.setCenter(sceneParents.get(sceneString));
 
         // Run the onShow function and return the controller
-        sceneControllers.get(sceneString).onShow();
-        return sceneControllers.get(sceneString);
+        UIController sceneController = sceneControllers.get(sceneString);
+        sceneController.onShow();
+        SESSION_TIMEOUT_THREAD.currentSceneString = sceneString;
+        SESSION_TIMEOUT_THREAD.currentUIController = sceneController;
+        return sceneController;
     }
 
 
@@ -278,19 +263,9 @@ public class UIController {
     protected UIController goToScene(String sceneString) {
         Scene scene = scenes.get(sceneString);
 
-
         // If the scene has not yet been created
         if(scene == null) {
-            try {
-                //FXMLLoader fxmlLoader = new FXMLLoader(new File(System.getProperty("user.dir") + "/resources" + sceneFiles.get(sceneString)).toURI().toURL());
-                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(sceneFiles.get(sceneString)));
-                Parent root = fxmlLoader.load();
-                sceneParents.put(sceneString, root);
-                sceneControllers.put(sceneString, fxmlLoader.getController());
-                scenes.put(sceneString, new Scene(root, WIDTH, HEIGHT));
-            } catch(Exception e) {
-                e.printStackTrace();
-            }
+            loadScene(sceneString, WIDTH, HEIGHT);
         }
 
         // Show the scene
@@ -298,8 +273,11 @@ public class UIController {
         rootPane.setCenter(sceneParents.get(sceneString));
 
         // Run the onShow function and return the controller
-        sceneControllers.get(sceneString).onShow();
-        return sceneControllers.get(sceneString);
+        UIController sceneController = sceneControllers.get(sceneString);
+        sceneController.onShow();
+        SESSION_TIMEOUT_THREAD.currentSceneString = sceneString;
+        SESSION_TIMEOUT_THREAD.currentUIController = sceneController;
+        return sceneController;
     }
 
     /**
@@ -308,6 +286,9 @@ public class UIController {
      */
     @FXML
     public void popupMessage(String message, boolean isWarning) {
+        if(CurrentUser.testing) {
+            return;
+        }
         Stage stage = new Stage();
 
         stage.getIcons().add(new Image(getClass().getResourceAsStream("/icon/warningWindowIcon.png")));
@@ -332,8 +313,95 @@ public class UIController {
         stage.setScene(scene);
         stage.show();
         stage.setAlwaysOnTop(true);
+        SESSION_TIMEOUT_THREAD.addPopup(stage);
+    }
 
+    /**
+     * Popups a scene of the given the scenestring with the given width and height
+     * @param sceneString The scene to popup
+     * @param width The width of the popup
+     * @param height The height of the popup
+     * @return The UIController for that scene
+     */
+    @FXML
+    public UIController popupScene(String sceneString, int width, int height, boolean isDecorated) {
+        Stage stage = new Stage();
 
+        // If the scene has not yet been created
+        if(scenes.get(sceneString) == null) {
+            loadScene(sceneString, width, height);
+        }
+
+        stage.initOwner(primaryStage);
+        stage.initModality(Modality.APPLICATION_MODAL);
+        if(!isDecorated) {
+            stage.initStyle(StageStyle.UNDECORATED);
+        }
+
+        stage.setTitle(sceneTitles.get(sceneString));
+        stage.setScene(scenes.get(sceneString));
+        stage.show();
+        stage.toFront();
+        SESSION_TIMEOUT_THREAD.addPopup(stage);
+
+        // Run the onShow function and return the controller
+        sceneControllers.get(sceneString).onShow();
+        return sceneControllers.get(sceneString);
+    }
+
+    /**
+     * Switchs the given stage to the given scenestring
+     * @param sceneString The scene to switch to
+     * @param stage The stage to switch
+     * @return The UIController
+     */
+    @FXML
+    public UIController changeScene(String sceneString, Stage stage) {
+        // If the scene has not yet been created
+        if(scenes.get(sceneString) == null) {
+            loadScene(sceneString, (int) Math.round(stage.getWidth()), (int) Math.round(stage.getHeight()));
+        }
+
+        // Show the scene
+        stage.setTitle(sceneTitles.get(sceneString));
+        stage.setScene(scenes.get(sceneString));
+
+        // Run the onShow function and return the controller
+        sceneControllers.get(sceneString).onShow();
+        return sceneControllers.get(sceneString);
+    }
+
+    /**
+     * Sets up the scene with the given width and height
+     * @param sceneString The scene to setup
+     * @param width The width to setup to
+     * @param height The height to setup to
+     */
+    protected void loadScene(String sceneString, int width, int height) {
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(sceneFiles.get(sceneString)));
+            Parent root = fxmlLoader.load();
+            root.addEventFilter(MouseEvent.MOUSE_RELEASED, e -> {
+                SESSION_TIMEOUT_THREAD.interrupt();
+            });
+            root.addEventFilter(MouseEvent.MOUSE_MOVED, e -> {
+                SESSION_TIMEOUT_THREAD.interrupt();
+            });
+            root.addEventFilter(MouseEvent.MOUSE_PRESSED, e -> {
+                SESSION_TIMEOUT_THREAD.interrupt();
+            });
+            root.addEventFilter(KeyEvent.KEY_PRESSED, e -> {
+                SESSION_TIMEOUT_THREAD.interrupt();
+            });
+            root.addEventFilter(KeyEvent.KEY_RELEASED, e -> {
+                SESSION_TIMEOUT_THREAD.interrupt();
+            });
+            sceneParents.put(sceneString, root);
+            sceneControllers.put(sceneString, fxmlLoader.getController());
+            scenes.put(sceneString, new Scene(root, width, height));
+        } catch(Exception e) {
+            e.printStackTrace();
+        }
     }
 
     /**
@@ -345,16 +413,16 @@ public class UIController {
         int permission = CurrentUser.user.getPermissions();
         switch (permission){
             case 1:
-                this.goToScene(UIController.SERVICE_REQUEST_MAIN);
+                this.goToScene(UIController.PATHFINDING_MAIN);
                 break;
             case 2:
-                this.goToScene(UIController.USER_MAIN_MENU_MAIN);
+                this.goToScene(UIController.PATHFINDING_MAIN);
                 break;
             case 3:
-                this.goToScene(UIController.ADMIN_MAIN_MENU_MAIN);
+                this.goToScene(UIController.ADMIN_TOOLS_MAIN);
                 break;
             default:
-                this.goToScene(UIController.WELCOME_MAIN);
+                this.goToScene(UIController.LOGIN_MAIN);
                 break;
         }
     }
@@ -473,5 +541,9 @@ public class UIController {
             });
 
         }
+    }
+
+    public UIController getUIController(String sceneString) {
+        return sceneControllers.get(sceneString);
     }
 }

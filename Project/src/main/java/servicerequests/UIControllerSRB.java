@@ -7,32 +7,21 @@ package servicerequests;
  */
 
 import application.CurrentUser;
-import com.jfoenix.controls.JFXComboBox;
-import database.DBController;
 import application.UIController;
 import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextField;
-import database.DBControllerNE;
 import database.DBControllerSR;
-import entities.Node;
 import entities.ServiceRequest;
 import helper.RoomCategoryFilterHelper;
-import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.control.CheckBox;
-import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextFormatter;
-import javafx.scene.image.ImageView;
+import javafx.stage.Stage;
 
 import java.sql.Connection;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 public class UIControllerSRB extends UIController {
-    @FXML
-    private ImageView backgroundImage;
     String serviceType;
     private RoomCategoryFilterHelper filterHelper;
     @FXML private CheckBox feeder;
@@ -47,6 +36,9 @@ public class UIControllerSRB extends UIController {
     private JFXComboBox<String> roomSelect; /**< The room choice box*/
 
     @FXML
+    private JFXTextField phoneNumber;
+
+    @FXML
     private JFXTextField serviceMessage; /**< The additional message field*/
 
     @FXML
@@ -57,8 +49,6 @@ public class UIControllerSRB extends UIController {
 
     @FXML
     public void initialize() {
-        backgroundImage.fitWidthProperty().bind(primaryStage.widthProperty());
-
         serviceMessage.setTextFormatter(new TextFormatter<String>(e ->
                 e.getControlNewText().length() <= 100 ? e : null
         ));
@@ -113,21 +103,29 @@ public class UIControllerSRB extends UIController {
     private void setConfirmButton() {
         String roomShortName = (String) roomSelect.getValue();
         String nodeID = filterHelper.getNodeID();
+        String phoneNum = phoneNumber.getText();
+        if (!phoneNum.matches("\\d{10}") && !phoneNum.isEmpty()) {
+            popupMessage("Please Enter A Valid Phone Number", true);
+            return;
+        }
         setServiceType("Babysitting");
         checkEvent();
         String message = "Help with: "+ BabysittingServices + " Room: "+ roomShortName + serviceMessage.getText();
         if(message.length() >= 151){
             message = message.substring(0,149);
         }
-        ServiceRequest sr = new ServiceRequest(nodeID, serviceType, message, CurrentUser.user.getUserID(), false, null);
+        ServiceRequest sr = new ServiceRequest(nodeID, serviceType, phoneNum + " " + message, CurrentUser.user.getUserID(), false, null);
+        sr.setServiceID(sr.getTimeStamp());
+
         Connection conn = DBControllerSR.dbConnect();
         DBControllerSR.addServiceRequest(sr,conn);
         DBControllerSR.closeConnection(conn);
-        this.goToScene(UIController.SERVICE_REQUEST_MAIN);
+        setCancelButton();
     }
 
     @FXML
     private void setCancelButton() {
-        this.goToScene(UIController.SERVICE_REQUEST_MAIN);
+        Stage stage = (Stage) roomSelect.getScene().getWindow();
+        stage.close();
     }
 }

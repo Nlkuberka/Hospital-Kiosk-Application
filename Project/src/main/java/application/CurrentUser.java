@@ -1,6 +1,8 @@
 package application;
 
 import entities.User;
+import network.DBNetwork;
+
 /**
  * An class with static variables to store information about the current user
  * @version iteration1
@@ -14,4 +16,24 @@ public class CurrentUser {
 
     public static User user;
     public static String startingLocation = "Shattuck Street Lobby ATM";
+    public static String startingLocationID = "FSERV00101";
+    public static DBNetwork network;
+    public static boolean testing = false;
+    public static boolean isWongFinding;
+
+    public static String getStartingLocation() {
+        return startingLocation;
+    }
+
+    public static void setStartingLocation(String startingLocation) {
+        CurrentUser.startingLocation = startingLocation;
+    }
+
+    public static String getStartingLocationID() {
+        return startingLocationID;
+    }
+
+    public static void setStartingLocationID(String startingLocationID) {
+        CurrentUser.startingLocationID = startingLocationID;
+    }
 }

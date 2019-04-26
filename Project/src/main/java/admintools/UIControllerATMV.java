@@ -6,6 +6,7 @@ import com.jfoenix.controls.JFXTabPane;
 import database.DBController;
 import database.DBControllerNE;
 import entities.Edge;
+import entities.Graph;
 import entities.Node;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -16,6 +17,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.MenuItem;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
@@ -27,6 +29,7 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import net.kurobako.gesturefx.GesturePane;
+import org.omg.CORBA.Current;
 import pathfinding.AnchorPaneHandler;
 import pathfinding.Floors;
 import pathfinding.GesturePaneHandler;
@@ -73,6 +76,8 @@ public class UIControllerATMV extends UIController {
     private GesturePane secondFloorGesturePane;
     @FXML
     private GesturePane thirdFloorGesturePane;
+    @FXML
+    private GesturePane fourthFloorGesturePane;
 
     @FXML
     private AnchorPane lowerLevel2AnchorPane;
@@ -86,6 +91,8 @@ public class UIControllerATMV extends UIController {
     private AnchorPane secondFloorAnchorPane;
     @FXML
     private AnchorPane thirdFloorAnchorPane;
+    @FXML
+    private AnchorPane fourthFloorAnchorPane;
     private List<AnchorPane> anchorPanes;
 
     @FXML
@@ -100,6 +107,8 @@ public class UIControllerATMV extends UIController {
     private ImageView secondFloorImageView;
     @FXML
     private ImageView thirdFloorImageView;
+    @FXML
+    private ImageView fourthFloorImageView;
     private List<ImageView> imageViews;
 
     private double mouseX;
@@ -120,12 +129,12 @@ public class UIControllerATMV extends UIController {
         new utilities.Tooltip(questionMark, helper);
 
         gesturePaneHandler = new GesturePaneHandler(lowerLevel2GesturePane, lowerLevel1GesturePane, groundFloorGesturePane,
-                firstFloorGesturePane, secondFloorGesturePane, thirdFloorGesturePane);
+                firstFloorGesturePane, secondFloorGesturePane, thirdFloorGesturePane, fourthFloorGesturePane);
 
         tabs.getSelectionModel().selectedItemProperty().addListener(
                 (ov, t, t1) -> {
                     GesturePane oldPane = gesturePaneHandler.getGesturePanes().get(currentFloor);
-                    currentFloor = Floors.getByName(t1.getText()).getIndex();
+                    currentFloor = Floors.getByID(t1.getId()).getIndex();
                     GesturePane pane = gesturePaneHandler.getGesturePanes().get(currentFloor);
                     pane.centreOn(oldPane.targetPointAtViewportCentre());
                     gesturePaneHandler.changeTabs(pane, oldPane);
@@ -181,6 +190,12 @@ public class UIControllerATMV extends UIController {
                 setCurrentAnchorPane(thirdFloorAnchorPane);
                 currentImageView = thirdFloorImageView;
                 break;
+            case "4":
+                assert conn != null;
+                currentFloorNodes = DBControllerNE.generateListOfNodes(conn, DBControllerNE.ALL_NODES_FLOOR_4);
+                setCurrentAnchorPane(fourthFloorAnchorPane);
+                currentImageView = fourthFloorImageView;
+                break;
         }
         allEdges = DBControllerNE.generateListofEdges(conn);
 
@@ -228,6 +243,7 @@ public class UIControllerATMV extends UIController {
             y = (float) tempNode.getYcoord();
 
             Circle circle = new Circle(x, y, AnchorPaneHandler.nodeSizeIdle);
+            circle.setFill(Color.web("015080"));
             circle.setId(tempNode.getNodeID());
             new Tooltip(circle, tempNode.getShortName());
 
@@ -400,6 +416,9 @@ public class UIControllerATMV extends UIController {
 
     @FXML
     public void addNodeOnClick(MouseEvent mouseEvent) throws IOException {
+        if(mouseEvent.getClickCount() != 2) {
+            return;
+        }
         Node tempNode = new Node();
         tempNode.setXcoord((int) (mouseEvent.getX()));
         tempNode.setYcoord((int) (mouseEvent.getY()));
@@ -418,6 +437,7 @@ public class UIControllerATMV extends UIController {
         assert conn != null;
         DBControllerNE.deleteNode(node.getNodeID(), conn);
         DBController.closeConnection(conn);
+        Graph.getGraph().removeNode(node.getNodeID());
         set();
     }
 
@@ -427,6 +447,7 @@ public class UIControllerATMV extends UIController {
         assert conn != null;
         DBControllerNE.addEdge(newEdge, conn);
         DBController.closeConnection(conn);
+        Graph.getGraph().addBiEdge(node1ID, node2ID);
     }
 
     private void deleteEdge(String nodeID1, String nodeID2) {
@@ -434,20 +455,36 @@ public class UIControllerATMV extends UIController {
         assert conn != null;
         DBControllerNE.deleteEdge(nodeID1, nodeID2, conn);
         DBController.closeConnection(conn);
-
+        Graph.getGraph().removeBiEdge(nodeID1, nodeID2);
     }
 
     void setKiosk(Node node) {
-        if (node.getNodeType().equals("HALL") || node.getNodeType().equals("REST") || node.getNodeType().equals("ELEV")) {
+        if (node.getNodeType().equals("HALL") || node.getNodeType().equals("REST") || node.getNodeType().equals("ELEV") || node.getNodeType().equals("STAI") || node.getNodeType().equals("OUTD")) {
             popupMessage("Invalid Kiosk Location", true);
         } else {
-            CurrentUser.startingLocation = node.getLongName();
+            CurrentUser.setStartingLocation(node.getLongName());
+            CurrentUser.setStartingLocationID(node.getNodeID());
         }
     }
 
     private void enableAddAndEditPopup(Node node, String action) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/admintools/ATMV_addNode_popup.fxml"));
         Parent root = loader.load();
+        root.addEventFilter(MouseEvent.MOUSE_RELEASED, e -> {
+            SESSION_TIMEOUT_THREAD.interrupt();
+        });
+        root.addEventFilter(MouseEvent.MOUSE_MOVED, e -> {
+            SESSION_TIMEOUT_THREAD.interrupt();
+        });
+        root.addEventFilter(MouseEvent.MOUSE_PRESSED, e -> {
+            SESSION_TIMEOUT_THREAD.interrupt();
+        });
+        root.addEventFilter(KeyEvent.KEY_PRESSED, e -> {
+            SESSION_TIMEOUT_THREAD.interrupt();
+        });
+        root.addEventFilter(KeyEvent.KEY_RELEASED, e -> {
+            SESSION_TIMEOUT_THREAD.interrupt();
+        });
         UIControllerPUMVAN atmvAddNodePopupController = loader.getController();
         atmvAddNodePopupController.setProperties(node, action, this);
 
@@ -466,6 +503,7 @@ public class UIControllerATMV extends UIController {
         stage.centerOnScreen();
         stage.toFront();
         stage.show();
+        SESSION_TIMEOUT_THREAD.addPopup(stage);
     }
 
     private void enableChoicePopup(Node node) throws IOException {
@@ -481,10 +519,9 @@ public class UIControllerATMV extends UIController {
             if (nodes.getId().equals(node.getNodeID())) {
                 ((Circle) nodes).setRadius(AnchorPaneHandler.getNodeSizeHighlited);
                 ((Circle) nodes).setFill(Color.GREEN);
-                ((Circle) nodes).setStroke(Color.BLACK);
+                ((Circle) nodes).setStroke(Color.web("015080"));
                 ((Circle) nodes).setStrokeWidth(2);
             }
         }
     }
 }
-

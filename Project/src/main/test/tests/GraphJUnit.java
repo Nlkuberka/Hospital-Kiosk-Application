@@ -1,11 +1,13 @@
 
 package tests;
 
+import application.CurrentUser;
 import database.DBControllerNE;
 import entities.AStarGraph;
 import entities.Graph;
 import entities.Node;
 import junit.framework.TestCase;
+import network.DBNetwork;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -21,9 +23,12 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class GraphJUnit extends TestCase {
-
     @Test
     public void testShortestPath() {
+        CurrentUser.network = new DBNetwork(5000, 5000);
+        CurrentUser.network.mute();
+        CurrentUser.network.hold();
+        CurrentUser.testing = true;
         Node n0 = new Node("N0", 0, 0, "", "", "", "", "");
         Node n1 = new Node("N1", 1, 1, "", "", "", "", "");
         Node n2 = new Node("N2", 2, 2, "", "", "", "", "");
@@ -118,10 +123,15 @@ public class GraphJUnit extends TestCase {
         DBControllerNE.deleteNode("N8", conn);
         DBControllerNE.deleteNode("N9", conn);
         DBControllerNE.closeConnection(conn);
+        CurrentUser.network.shutdown();
     }
 
     @Test
     public void testRealNodes() {
+        CurrentUser.network = new DBNetwork(5000, 5000);
+        CurrentUser.network.mute();
+        CurrentUser.network.hold();
+        CurrentUser.testing = true;
         Node n0 = new Node("N0", 1580, 2538, "", "", "", "", "");
         Node n1 = new Node("N1", 1395, 2674, "", "", "", "", "");
         Node n2 = new Node("N2", 1532, 2777, "", "", "", "", "");
@@ -187,10 +197,15 @@ public class GraphJUnit extends TestCase {
         DBControllerNE.deleteNode("N4", conn);
         DBControllerNE.deleteNode("N5", conn);
         DBControllerNE.closeConnection(conn);
+        CurrentUser.network.shutdown();
     }
 
     @Test
     public void testDistanceReplacement() {
+        CurrentUser.network = new DBNetwork(5000, 5000);
+        CurrentUser.network.mute();
+        CurrentUser.network.hold();
+        CurrentUser.testing = true;
         Node n0 = new Node("N0", 0, 0, "", "", "", "", "");
         Node n1 = new Node("N1", 1, 0, "", "", "", "", "");
         Node n2 = new Node("N2", 2, 0, "", "", "", "", "");
@@ -271,10 +286,15 @@ public class GraphJUnit extends TestCase {
         DBControllerNE.deleteNode("N6", conn);
         DBControllerNE.deleteNode("N7", conn);
         DBControllerNE.closeConnection(conn);
+        CurrentUser.network.shutdown();
     }
 
     @Test
     public void testDisconnectedGraph() {
+        CurrentUser.network = new DBNetwork(5000, 5000);
+        CurrentUser.network.mute();
+        CurrentUser.network.hold();
+        CurrentUser.testing = true;
         Node n0 = new Node("N0", 0, 0, "", "", "", "", "");
         Node n1 = new Node("N1", 0, 1, "", "", "", "", "");
         Node n2 = new Node("N2", 1, 0, "", "", "", "", "");
@@ -363,10 +383,15 @@ public class GraphJUnit extends TestCase {
         DBControllerNE.deleteNode("N5", conn);
         DBControllerNE.deleteNode("N6", conn);
         DBControllerNE.closeConnection(conn);
+        CurrentUser.network.shutdown();
     }
 
     @Test
     public void testSeparatePathByFloor() {
+        CurrentUser.network = new DBNetwork(5000, 5000);
+        CurrentUser.network.mute();
+        CurrentUser.network.hold();
+        CurrentUser.testing = true;
         Node n0 = new Node("N0", 0, 0, "1", "", "", "", "");
         Node n1 = new Node("N1", 1, 1, "1", "", "", "", "");
         Node n2 = new Node("N2", 2, 2, "G", "", "", "", "");
@@ -465,5 +490,133 @@ public class GraphJUnit extends TestCase {
         DBControllerNE.deleteNode("N8", conn);
         DBControllerNE.deleteNode("N9", conn);
         DBControllerNE.closeConnection(conn);
+        CurrentUser.network.shutdown();
+    }
+
+    @Test
+    public void testNoStairsMode() {
+        CurrentUser.network = new DBNetwork(5000, 5000);
+        CurrentUser.network.mute();
+        CurrentUser.network.hold();
+        CurrentUser.testing = true;
+        Node n0 = new Node("N0", 0, 0, "", "", "STAI", "", "");
+        Node n1 = new Node("N1", 1, 0, "", "", "", "", "");
+        Node n2 = new Node("N2", 2, 0, "", "", "STAI", "", "");
+        Node n3 = new Node("N3", 3, 0, "", "", "STAI", "", "");
+        Node n4 = new Node("N4", 3, 1, "", "", "", "", "");
+        Node n5 = new Node("N5", 4, 0, "", "", "STAI", "", "");
+        Connection conn = DBControllerNE.dbConnect();
+        DBControllerNE.addNode(n0, conn);
+        DBControllerNE.addNode(n1, conn);
+        DBControllerNE.addNode(n2, conn);
+        DBControllerNE.addNode(n3, conn);
+        DBControllerNE.addNode(n4, conn);
+        DBControllerNE.addNode(n5, conn);
+        DBControllerNE.closeConnection(conn);
+        Graph.getGraph().addNode(n0);
+        Graph.getGraph().addNode(n1);
+        Graph.getGraph().addNode(n2);
+        Graph.getGraph().addNode(n3);
+        Graph.getGraph().addNode(n4);
+        Graph.getGraph().addNode(n5);
+        Graph.getGraph().addBiEdge("N0", "N1");
+        Graph.getGraph().addBiEdge("N1", "N2");
+        Graph.getGraph().addBiEdge("N2", "N3");
+        Graph.getGraph().addBiEdge("N2", "N4");
+        Graph.getGraph().addBiEdge("N3", "N5");
+        Graph.getGraph().addBiEdge("N4", "N5");
+        List<String> expected = new LinkedList<>();
+        expected.add("N0");
+        expected.add("N1");
+        expected.add("N2");
+        expected.add("N4");
+        expected.add("N5");
+        Graph.noStairsIsOn = true;
+
+        Graph.toDijkstra();
+        List<String> actual = Graph.getGraph().shortestPath("N0", "N5");
+        assertEquals(expected, actual);
+
+        Graph.toBellmanFord();
+        actual = Graph.getGraph().shortestPath("N0", "N5");
+        assertEquals(expected, actual);
+
+        Graph.toDFS();
+        actual = Graph.getGraph().shortestPath("N0", "N5");
+        assertEquals(expected, actual);
+
+        Graph.toBFS();
+        actual = Graph.getGraph().shortestPath("N0", "N5");
+        assertEquals(expected, actual);
+
+        Graph.toAStar();
+        actual = Graph.getGraph().shortestPath("N0", "N5");
+        assertEquals(expected, actual);
+
+        expected = null;
+
+        Graph.toDijkstra();
+        actual = Graph.getGraph().shortestPath("N0", "N3");
+        assertEquals(expected, actual);
+
+        Graph.toBellmanFord();
+        actual = Graph.getGraph().shortestPath("N0", "N3");
+        assertEquals(expected, actual);
+
+        Graph.toDFS();
+        actual = Graph.getGraph().shortestPath("N0", "N3");
+        assertEquals(expected, actual);
+
+        Graph.toBFS();
+        actual = Graph.getGraph().shortestPath("N0", "N3");
+        assertEquals(expected, actual);
+
+        Graph.toAStar();
+        actual = Graph.getGraph().shortestPath("N0", "N3");
+        assertEquals(expected, actual);
+
+        Graph.noStairsIsOn = false;
+        expected = new LinkedList<>();
+        expected.add("N0");
+        expected.add("N1");
+        expected.add("N2");
+        expected.add("N3");
+        expected.add("N5");
+
+        Graph.toDijkstra();
+        actual = Graph.getGraph().shortestPath("N0", "N5");
+        assertEquals(expected, actual);
+
+        Graph.toBellmanFord();
+        actual = Graph.getGraph().shortestPath("N0", "N5");
+        assertEquals(expected, actual);
+
+        Graph.toDFS();
+        actual = Graph.getGraph().shortestPath("N0", "N5");
+        assertEquals(expected, actual);
+
+        Graph.toBFS();
+        actual = Graph.getGraph().shortestPath("N0", "N5");
+        assertEquals(expected, actual);
+
+        Graph.toAStar();
+        actual = Graph.getGraph().shortestPath("N0", "N5");
+        assertEquals(expected, actual);
+
+        Graph.getGraph().removeNode("N0");
+        Graph.getGraph().removeNode("N1");
+        Graph.getGraph().removeNode("N2");
+        Graph.getGraph().removeNode("N3");
+        Graph.getGraph().removeNode("N4");
+        Graph.getGraph().removeNode("N5");
+        conn = DBControllerNE.dbConnect();
+        DBControllerNE.deleteNode("N0", conn);
+        DBControllerNE.deleteNode("N1", conn);
+        DBControllerNE.deleteNode("N2", conn);
+        DBControllerNE.deleteNode("N3", conn);
+        DBControllerNE.deleteNode("N4", conn);
+        DBControllerNE.deleteNode("N5", conn);
+        DBControllerNE.closeConnection(conn);
+        CurrentUser.network.shutdown();
     }
 }

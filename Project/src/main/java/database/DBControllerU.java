@@ -1,7 +1,9 @@
 package database;
 
+import application.CurrentUser;
 import application.Encryptor;
 import entities.User;
+import network.DBNetwork;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -30,6 +32,22 @@ public class DBControllerU extends DBController {
             e.printStackTrace();
             return null;
         }
+    }
+
+    public static User loginWithID(String ID, Connection conn){
+        User u = null;
+        try{
+            PreparedStatement ps = conn.prepareStatement("SELECT * from USERS where WPIID = ?");
+            ps.setString(1,ID);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()){
+                u =  new User(rs.getString("USERID"),rs.getString("USERNAME"),rs.getInt("PERMISSION"));
+            }
+        }catch(SQLException e){
+            e.printStackTrace();
+        }
+
+        return u;
     }
 
     public static User getGuestUser(Connection conn){
@@ -70,15 +88,19 @@ public class DBControllerU extends DBController {
      */
     public static void updateUser(String ID, User user, Connection conn){
         try {
-
+            //System.out.println(user);
             if(!(ID == null  || ID == "")){
                 PreparedStatement ps = conn.prepareStatement("UPDATE USERS " +
                         "SET USERID ='"+user.getUserID()+"'," +
                         " PERMISSION = "+ user.getPermissionsNumber() +"," +
-                        " USERNAME = '"+ user.getUsername() +"' where USERID = '"+ID +"'");
-                ps.execute();}else{
+                        " USERNAME = '"+ user.getUsername() +"', PASSWORD = " +
+                        "'"+Encryptor.encrypt(user.getPassword())+"' where USERID = '"+ID +"'");
+                ps.execute();
+                CurrentUser.network.sendUserPacket(DBNetwork.UPDATE_USER, user);
+            } else {
                 addUser(user,conn);
             }
+
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -91,13 +113,39 @@ public class DBControllerU extends DBController {
      */
     public static void addUser(User user,Connection conn){
         try {
+            //System.out.println(user);
             PreparedStatement s = conn.prepareStatement("insert into USERS (userid, permission, username, password) \n" +
                     "values ('"+ user.getUserID() +"',"+ user.getPermissionsNumber()+",'"+user.getUsername()+"','"+Encryptor.encrypt(user.getPassword())+"')");
             s.execute();
+            CurrentUser.network.sendUserPacket(DBNetwork.ADD_USER, user);
         } catch (SQLException e) {
             e.printStackTrace();
         }
 
+    }
+
+
+
+    public static void deleteUser(User user, Connection conn){
+        try {
+            PreparedStatement ps = conn.prepareStatement("Delete from USERS where USERID = ?");
+            ps.setString(1, user.getUserID());
+            ps.execute();
+            CurrentUser.network.sendUserPacket(DBNetwork.DELETE_USER, user);
+        }catch(SQLException e){
+            e.printStackTrace();
+        }
+    }
+
+    public static void teamID(String userID, String wpiID, Connection conn){
+       try {
+           PreparedStatement ps = conn.prepareStatement("update USERS set WPIID = ? where USERID = ?");
+           ps.setString(1,wpiID);
+           ps.setString(2,userID);
+           ps.execute();
+       }catch (SQLException e){
+           e.printStackTrace();
+       }
     }
 
     public static void loadTeam(Connection conn){

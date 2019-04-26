@@ -7,6 +7,7 @@ import entities.Edge;
 
 import com.jfoenix.controls.JFXButton;
 
+import entities.Graph;
 import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -31,9 +32,6 @@ public class UIControllerATVE extends UIController {
     @FXML
     private ImageView backgroundImage;
     /**< The Various Edge Columns used for cell factories */
-
-    @FXML
-    private MenuItem backButton; /**< The Back Button */
 
     @FXML
     private Menu homeButton; /**< The Home Button */
@@ -103,8 +101,10 @@ public class UIControllerATVE extends UIController {
                                 DBControllerNE.deleteEdge(edge.getNode1ID(), edge.getNode2ID(), conn);
                             }
                             DBControllerNE.addEdge(edge,conn);
-                            DBController.closeConnection(conn);
-
+                            if(DBControllerNE.fetchNode(edge.getNode1ID(), conn) != null && DBControllerNE.fetchNode(edge.getNode2ID(), conn) != null) {
+                                Graph.getGraph().addBiEdge(edge.getNode1ID(), edge.getNode2ID());
+                            }
+                        DBController.closeConnection(conn);
                         setGraphic(label);
                         label.setText(textField.getText());
                     });
@@ -164,14 +164,6 @@ public class UIControllerATVE extends UIController {
     private void setAddButton() {
         Edge edge  = new Edge("", "", "");
         edgeTable.getItems().add(edge);
-    }
-
-    /**
-     * Goes back to the admin tools application menu
-     */
-    @FXML
-    private void setBackButton() {
-        this.goToScene(UIController.ADMIN_TOOLS_MAIN);
     }
 
 }

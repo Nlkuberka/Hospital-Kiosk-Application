@@ -28,18 +28,17 @@ public class BellmanFordGraph extends Graph {
             // Iterate over all edges. Relax the endpoints if necessary.
             int nodeIndex1 = 0; // the index of edges in adj
             for(List<Integer> edges : adj) {
-                if(!nodeIsStairs.get(nodeIndex1) || !noStairsIsOn) {
-                    int edgesIndex = 0; // the index of nodeIndex2 in edges
-                    for (int nodeIndex2 : edges) {
-                        if(!nodeIsStairs.get(nodeIndex2) || !noStairsIsOn) {
-                            double newDistance = distance[nodeIndex1] + adjWeights.get(nodeIndex1).get(edgesIndex);
-                            if (newDistance < distance[nodeIndex2]) {
-                                distance[nodeIndex2] = newDistance;
-                                done = false;
-                            }
+                boolean node1IsStairs = nodeIsStairs.get(nodeIndex1);
+                int edgesIndex = 0; // the index of nodeIndex2 in edges
+                for (int nodeIndex2 : edges) {
+                    if(!noStairsIsOn || !node1IsStairs || !nodeIsStairs.get(nodeIndex2)) {
+                        double newDistance = distance[nodeIndex1] + adjWeights.get(nodeIndex1).get(edgesIndex);
+                        if (newDistance < distance[nodeIndex2]) {
+                            distance[nodeIndex2] = newDistance;
+                            done = false;
                         }
-                        edgesIndex++;
                     }
+                    edgesIndex++;
                 }
                 nodeIndex1++;
             }
