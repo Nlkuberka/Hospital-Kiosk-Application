@@ -1,3 +1,4 @@
+package edu.wpi.cs3733.d19.teamD;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextField;
 import javafx.fxml.FXML;
@@ -16,7 +17,6 @@ public class UIControllerAU extends UIController {
     private JFXTextField passwordInput;
     @FXML
     private JFXTextField permissionsInput;
-
     @FXML
     private JFXButton addUserButton;
 

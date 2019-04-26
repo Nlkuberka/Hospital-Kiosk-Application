@@ -1,3 +1,5 @@
+package edu.wpi.cs3733.d19.teamD;
+
 public class User {
 
     public static final int BASIC_PERMISSIONS = 1;

@@ -1,6 +1,9 @@
+package edu.wpi.cs3733.d19.teamD;
+
 /**
  * The Objecct that holds data about a particular service request
- * @version iteration2
+ * @version API
+ * @author imoralessirgo
  */
 public class ServiceRequest {
     private String nodeID;
